@@ -3,6 +3,13 @@
   "editions": [
     {
       "date": "2026-07-07",
+      "edition": "evening",
+      "dateHuman": "Tuesday, July 7, 2026",
+      "file": "editions/2026-07-07-evening.html",
+      "lead": "Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street"
+    },
+    {
+      "date": "2026-07-07",
       "edition": "morning",
       "dateHuman": "Tuesday, July 7, 2026",
       "file": "editions/2026-07-07-morning.html",
