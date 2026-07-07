@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David's Daily Bread — Evening edition, Tuesday, July 7, 2026</title>
+<meta name="description" content="David's Daily Bread — a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<link rel="canonical" href="https://davidsdailybread.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="David's Daily Bread">
+<meta property="og:title" content="David's Daily Bread — Evening edition, Tuesday, July 7, 2026">
+<meta property="og:description" content="A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<meta property="og:url" content="https://davidsdailybread.com/">
+<meta property="og:image" content="https://davidsdailybread.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; --steel-soft:#456f9c; --marker:#b9772a; --sun1:#ecc163; --sun2:#9c5a1e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(130% 70% at 50% 0%, rgba(200,162,74,0.06), transparent 62%); }
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--steel)); z-index: 10; transition: width 0.08s linear; }
+  .paper { max-width: 900px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+  .masthead { text-align: center; }
+  .motif { color: var(--gold); display: block; margin: 0 auto 8px; }
+  .wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 55px; font-weight: 600; letter-spacing: 0.5px; line-height: 1; margin: 0; }
+  .wordmark .initial { position: relative; display: inline-block; color: #f4efe6; }
+  .wordmark .emblem { position: absolute; left: -0.98em; bottom: -0.06em; width: 1.4em; height: 1.6em; overflow: visible; pointer-events: none; }
+  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 10px; }
+  .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
+  .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .dateline .edition { color: var(--steel); font-weight: 600; }
+  .dateline .read { color: var(--gold); }
+  .glance { margin: 24px 0 4px; padding: 16px 22px 14px; background: rgba(200,162,74,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 12px; }
+  .glance-top { display: flex; align-items: center; justify-content: space-between; }
+  .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .glance-toggle { display: inline-flex; align-items: center; gap: 7px; background: rgba(200,162,74,0.10); color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 4px 11px 4px 12px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .glance-toggle:hover { background: rgba(200,162,74,0.20); }
+  .glance-toggle .chev { transition: transform 0.3s ease; }
+  .glance-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .glance-toggle .label-more { display: inline; }
+  .glance-toggle .label-less { display: none; }
+  .glance-toggle[aria-expanded="true"] .label-more { display: none; }
+  .glance-toggle[aria-expanded="true"] .label-less { display: inline; }
+  .glance ul { list-style: none; margin: 12px 0 0; padding: 0; }
+  .glance li { font-family: 'Newsreader', Georgia, serif; font-size: 15.5px; line-height: 1.5; padding: 4px 0; display: flex; gap: 14px; }
+  .glance .tag { flex: none; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--faint); min-width: 76px; padding-top: 4px; }
+  .glance-more { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+  .glance-more-inner { padding-top: 6px; margin-top: 12px; border-top: 1px dashed var(--line-strong); }
+  .glance-grp + .glance-grp { margin-top: 12px; }
+  .glance-grp-head { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--steel); margin: 6px 0 2px; padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+  .glance-more ul { margin-top: 4px; }
+  .glance-more li { align-items: baseline; }
+  .glance-more .rank { flex: none; min-width: 20px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; color: var(--gold-soft); font-variant-numeric: tabular-nums; padding-top: 2px; }
+  .glance-more li a { color: var(--ink); text-decoration: none; }
+  .glance-more li a:hover { color: var(--gold); }
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 26px 0 12px; }
+  .card { position: relative; background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border: 1px solid rgba(255,255,255,0.09); border-radius: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10); border-color: rgba(200,162,74,0.35); }
+  .card a.card-link { display: block; color: inherit; text-decoration: none; height: 100%; }
+  .lead-card { padding: 28px 30px; }
+  .lead-card h1 { font-family: 'Newsreader', Georgia, serif; font-size: 31px; line-height: 1.16; margin: 8px 0 12px; font-weight: 600; letter-spacing: -0.2px; }
+  .lead-card .standfirst { font-family: 'Newsreader', Georgia, serif; font-size: 19px; font-style: italic; line-height: 1.5; color: #cfc7b4; margin: 0 0 14px; }
+  .lead-card .lead-body { font-family: 'Newsreader', Georgia, serif; font-size: 16px; line-height: 1.7; margin: 0; color: var(--ink); }
+  .lead-card .badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); }
+  .lead-card:hover h1 { color: var(--gold); }
+  .section { margin-top: 30px; }
+  .col-head { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); text-decoration: none; padding-bottom: 8px; margin-bottom: 16px; border-bottom: 2px solid var(--gold-soft); }
+  .col-head:hover { color: var(--gold); }
+  .col-head .arrow { font-size: 15px; color: var(--gold); transition: transform 0.15s; }
+  .col-head:hover .arrow { transform: translateX(3px); }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .story-card { padding: 20px 22px; }
+  .story-card .num { font-size: 11px; font-weight: 700; color: var(--steel); font-variant-numeric: tabular-nums; letter-spacing: 1px; }
+  .story-card h3 { font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1.28; margin: 6px 0 8px; font-weight: 600; }
+  .story-card:hover h3 { color: var(--gold); }
+  .story-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0; }
+  .story-card p b { color: var(--ink); font-weight: 600; }
+  .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
+  .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+  .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  @media (max-width: 640px) {
+    .paper { padding: 30px 22px; margin: 12px; }
+    .wordmark { font-size: 38px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .glance .tag { min-width: 66px; }
+    .lead-card h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="paper">
+  <header class="masthead">
+    <svg class="motif" width="90" height="56" viewBox="0 0 90 56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g stroke-width="2.4"><path d="M45 52 L45 32"/><path d="M45 32 C 42 24, 37 16, 34 10"/><path d="M45 32 C 48 24, 53 16, 56 10"/></g><circle cx="34" cy="10" r="2" fill="currentColor" stroke="none"/><circle cx="56" cy="10" r="2" fill="currentColor" stroke="none"/><g stroke-width="1.3" stroke="#8f7538"><path d="M34 11 Q 38 20 45 25"/><path d="M56 11 Q 52 20 45 25"/><path d="M41 24 Q 45 30 49 24"/></g><circle cx="45" cy="24" r="3" fill="currentColor" stroke="none"/><g stroke-width="1" stroke="#8f7538" opacity="0.8"><path d="M42 46 L48 44"/><path d="M42 43 L48 41"/></g></svg>
+    <h1 class="wordmark"><span class="initial">D<svg class="emblem" viewBox="0 0 84 92" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 80 Q 44 84 72 80" stroke="#8f7538" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M22 80 C 20 64, 16 50, 14 36" stroke="#c8a24a" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M27 80 C 26 64, 24 50, 22 36" stroke="#c8a24a" stroke-width="1.3" fill="none" stroke-linecap="round"/><g stroke="#c8a24a" stroke-width="1.1" fill="none" stroke-linecap="round"><path d="M14 36 l-4 -2"/><path d="M14 36 l3 -3"/><path d="M13.4 32 l-4 -2"/><path d="M13.4 32 l3 -3"/><path d="M12.8 28 l-3.5 -2"/><path d="M12.8 28 l3 -3"/><path d="M12.2 24 l-2 -4"/><path d="M12.2 24 l0.5 -5"/><path d="M12.2 24 l2 -4"/><path d="M22 36 l-4 -2"/><path d="M22 36 l3 -3"/><path d="M21.4 32 l-4 -2"/><path d="M21.4 32 l3 -3"/><path d="M20.8 28 l-3.5 -2"/><path d="M20.8 28 l3 -3"/><path d="M20.4 24 l-2 -4"/><path d="M20.4 24 l0.5 -5"/><path d="M20.4 24 l2 -4"/></g><path d="M32 80 C 30 61, 40 55, 51 55 C 62 55, 72 61, 70 80 Z" fill="#c8a24a" opacity="0.10"/><path d="M32 80 C 30 61, 40 55, 51 55 C 62 55, 72 61, 70 80 Z" stroke="#c8a24a" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M35 74 Q 51 78 67 74" stroke="#8f7538" stroke-width="1" fill="none" opacity="0.7" stroke-linecap="round"/><g stroke="#8f7538" stroke-width="1.3" fill="none" stroke-linecap="round"><path d="M41 67 l7 -6"/><path d="M49 68 l7 -6"/><path d="M57 69 l6 -5"/></g></svg></span>avid's Daily Bread</h1>
+    <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
+    <div class="dateline">
+      <div class="dateline-row">
+        <span>Tuesday, July 7, 2026</span>
+        <span class="edition">Evening edition</span>
+        <span class="read">&asymp; 3 min read</span>
+      </div>
+    </div>
+  </header>
+
+  <aside class="glance">
+    <div class="glance-top">
+      <div class="glance-head">At a glance</div>
+      <button class="glance-toggle" id="glanceToggle" aria-expanded="false" aria-controls="glanceMore">
+        <span class="label-more">More</span><span class="label-less">Less</span>
+        <svg class="chev" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4 L6 8 L10 4"/></svg>
+      </button>
+    </div>
+    <ul>
+      <li><span class="tag">Tech &amp; AI</span><span>Anthropic passes OpenAI on revenue as Washington readies AI release rules.</span></li>
+      <li><span class="tag">Markets</span><span>Chip stocks slump on DeepSeek silicon news; oil jumps after a Hormuz attack.</span></li>
+      <li><span class="tag">Science</span><span>Longer-lived magnons hint at quantum computers the size of a penny.</span></li>
+    </ul>
+    <div class="glance-more" id="glanceMore">
+      <div class="glance-more-inner">
+        <div class="glance-grp">
+          <div class="glance-grp-head">Tech &amp; AI</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.trendingtopics.eu/anthropic-overtakes-openai-in-revenue-hitting-30-billion-run-rate/">Anthropic overtakes OpenAI on revenue</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.thenews.com.pk/latest/1407897-white-house-prepares-voluntary-standards-for-advanced-ai-releases">White House readies pre-release AI review rules</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.bloomberg.com/news/articles/2026-07-07/chinese-ai-startup-deepseek-developing-own-ai-chip-reuters-says">DeepSeek is designing its own inference chip</a></span></li>
+          </ul>
+        </div>
+        <div class="glance-grp">
+          <div class="glance-grp-head">Business &amp; Markets</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026">Chip rout drags Wall Street off record highs</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.cnbc.com/2026/07/07/oil-prices-iran-strait-hormuz.html">Oil jumps after Strait of Hormuz tanker attack</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.usnews.com/news/world/articles/2026-07-07/nato-picks-swedish-saab-early-warning-planes-over-us-rival">NATO picks Saab GlobalEye in $4.5B deal</a></span></li>
+          </ul>
+        </div>
+        <div class="glance-grp">
+          <div class="glance-grp-head">Science</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://phys.org/news/2026-05-magnon-lifetime-100x-paves-mini.html">Magnon lifetime extended nearly 100 times</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://phys.org/news/2026-06-ultra-faint-galaxy-andromeda-billion.html">Ultra-faint dwarf galaxy found near Andromeda</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.sciencedaily.com/releases/2026/06/260625014802.htm">Physicists reverse the quantum arrow of time</a></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="kicker">Lead story</div>
+  <article class="card lead-card">
+    <a class="card-link" href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026">
+      <span class="badge">Business &amp; markets</span>
+      <h1>Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street</h1>
+      <p class="standfirst">A report that China's DeepSeek is building its own AI chip, paired with underwhelming Samsung earnings, sent semiconductors tumbling and knocked the market off record highs.</p>
+      <p class="lead-body">The Nasdaq fell 1.16% and the S&amp;P 500 slipped 0.45% on Tuesday as investors dumped chip names after Reuters reported that DeepSeek has begun designing an inference chip to cut its reliance on Nvidia and Huawei. Micron closed down 4.7%, with Broadcom, AMD, Marvell and KLA all lower and the VanEck Semiconductor ETF sliding more than 3%. The pullback stalled the S&amp;P 500's march toward a fresh record, even as oil jumped on renewed tensions around the Strait of Hormuz.</p>
+    </a>
+  </article>
+
+  <section class="section">
+    <a class="col-head" href="/tech.html">Tech &amp; AI <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <article class="card story-card"><a class="card-link" href="https://www.trendingtopics.eu/anthropic-overtakes-openai-in-revenue-hitting-30-billion-run-rate/"><span class="num">01</span><h3>Anthropic overtakes OpenAI on revenue</h3><p><b>Claude's maker</b> has passed OpenAI in annualized revenue, reaching a run rate above $30 billion versus OpenAI's roughly $24-25 billion, driven by its enterprise focus.</p></a></article>
+      <article class="card story-card"><a class="card-link" href="https://www.thenews.com.pk/latest/1407897-white-house-prepares-voluntary-standards-for-advanced-ai-releases"><span class="num">02</span><h3>White House readies AI release standards</h3><p><b>The administration</b> is finalizing a voluntary framework with OpenAI, Google and Anthropic that would give agencies up to 30 days to review frontier models before public release.</p></a></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <a class="col-head" href="/markets.html">Business &amp; Markets <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <article class="card story-card"><a class="card-link" href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026"><span class="num">01</span><h3>Chip sell-off drags stocks off record highs</h3><p><b>Samsung's results</b> and DeepSeek's chip plans triggered a semiconductor rout, sending the Nasdaq down 1.16% and the S&amp;P 500 off its brush with a new record.</p></a></article>
+      <article class="card story-card"><a class="card-link" href="https://www.cnbc.com/2026/07/07/oil-prices-iran-strait-hormuz.html"><span class="num">02</span><h3>Oil jumps after Strait of Hormuz attack</h3><p><b>Crude surged</b> after an attack on a tanker near the Strait of Hormuz, with WTI climbing above $70 on fears of fresh disruption to global energy supplies.</p></a></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <a class="col-head" href="/science.html">Science <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <article class="card story-card"><a class="card-link" href="https://phys.org/news/2026-05-magnon-lifetime-100x-paves-mini.html"><span class="num">01</span><h3>Magnon lifetime extended nearly 100x</h3><p><b>Vienna-led physicists</b> stretched magnon lifetimes to 18 microseconds, turning the tiny magnetic waves into viable carriers of quantum information for penny-sized chips.</p></a></article>
+      <article class="card story-card"><a class="card-link" href="https://phys.org/news/2026-06-ultra-faint-galaxy-andromeda-billion.html"><span class="num">02</span><h3>Ultra-faint dwarf galaxy found near Andromeda</h3><p><b>Astronomers identified</b> And 35, a 12.5-billion-year-old dwarf galaxy so dim only 46 of its stars have been detected so far around Andromeda.</p></a></article>
+    </div>
+  </section>
+
+  <div class="colophon">David's Daily Bread &middot; compiled Jul 7, 2026 &middot; 7 PM ET &middot; <a href="/archive.html">Past editions</a></div>
+</div>
+<script>
+  (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
+  (function () {
+    var btn = document.getElementById('glanceToggle');
+    var panel = document.getElementById('glanceMore');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      if (open) { panel.style.maxHeight = '0px'; }
+      else { panel.style.maxHeight = panel.scrollHeight + 'px'; }
+    });
+    window.addEventListener('resize', function () {
+      if (btn.getAttribute('aria-expanded') === 'true') { panel.style.maxHeight = panel.scrollHeight + 'px'; }
+    });
+  })();
+</script>
+</body>
+</html>
