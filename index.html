@@ -30,10 +30,7 @@
   .wordmark .corr { position: relative; }
   .wordmark .caret { position: absolute; left: -0.36em; bottom: 0.05em; width: 0.34em; height: 0.28em; color: var(--marker); }
   .wordmark .twice { position: absolute; left: -0.62em; top: -0.60em; font-family: 'Caveat', cursive; font-weight: 700; font-size: 0.64em; line-height: 1; background: linear-gradient(180deg, var(--sun1), var(--sun2)); -webkit-background-clip: text; background-clip: text; color: transparent; transform: rotate(-8deg); white-space: nowrap; }
-  .wordmark .twice-ref { position: absolute; left: -0.62em; top: -0.30em; font-family: 'Caveat', cursive; font-weight: 700; font-size: 0.64em; line-height: 1; background: linear-gradient(180deg, var(--sun2), var(--sun1)); -webkit-background-clip: text; background-clip: text; color: transparent; transform: rotate(-8deg) scaleY(-1); opacity: 0.3; white-space: nowrap; pointer-events: none; }
   .wordmark .initial { position: relative; display: inline-block; color: #f4efe6; }
-  .wordmark .glyph { position: relative; z-index: 1; }
-  .wordmark .deco { position: absolute; left: 50%; top: 50%; width: 2em; height: 2em; transform: translate(-50%, -52%); overflow: visible; pointer-events: none; z-index: 0; }
   .wordmark .emblem { position: absolute; left: -0.98em; bottom: -0.06em; width: 1.4em; height: 1.6em; overflow: visible; pointer-events: none; }
   .tagline { font-size: 10.5px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--faint); margin-top: 8px; }
   .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
@@ -89,42 +86,42 @@
       <div class="dateline-row">
         <span>Tuesday, July 7, 2026</span>
         <span class="edition">Morning edition</span>
-        <span class="read">&#8776; 3 min read</span>
+        <span class="read">&asymp; 2 min read</span>
       </div>
     </div>
   </header>
   <aside class="glance">
     <div class="glance-head">At a glance</div>
     <ul>
-      <li><span class="tag">Tech &amp; AI</span><span>Anthropic is reported to have overtaken OpenAI on revenue, reshaping the AI pecking order.</span></li>
-      <li><span class="tag">Markets</span><span>Chip stocks slid as Samsung's nineteenfold profit jump still underwhelmed investors.</span></li>
-      <li><span class="tag">Science</span><span>Physicists coaxed a quantum system into appearing to run backward in time.</span></li>
+      <li><span class="tag">Tech &amp; AI</span><span>First ransomware run entirely by an autonomous AI agent is documented.</span></li>
+      <li><span class="tag">Markets</span><span>A 5.5% chip rout tests faith that AI spending justifies record valuations.</span></li>
+      <li><span class="tag">Science</span><span>AI speeds discovery, from new superconductors to a magnetar's violent birth.</span></li>
     </ul>
   </aside>
   <section class="lead">
     <div class="kicker">Lead story</div>
-    <h1><a href="https://www.bloomberg.com/news/articles/2026-07-06/stock-market-today-dow-s-p-live-updates">Chip stocks slide as Samsung's profit surge fails to satisfy</a></h1>
-    <p class="standfirst">Even a nineteenfold jump in quarterly profit wasn't enough to clear the sky-high bar investors have set for the memory boom.</p>
-    <p class="lead-body dropcap">Samsung Electronics, the world's biggest memory maker, tumbled as much as 11% in Seoul after its quarterly report failed to impress traders despite profit surging nineteenfold. The selloff rippled outward, with peers Micron and Sandisk sliding more than 4% in US premarket trading and S&amp;P 500 futures slipping. The reaction underscored how much optimism is now priced into the AI-driven chip rally — and how little room remains for anything short of a blowout.</p>
+    <h1><a href="https://www.sysdig.com/blog/jadepuffer-agentic-ransomware-for-automated-database-extortion">Researchers document the first ransomware run entirely by an AI agent</a></h1>
+    <p class="standfirst">An AI agent chained an entire extortion campaign together on its own — and then botched the ransom in the process.</p>
+    <p class="lead-body dropcap">Security researchers at Sysdig published the first full analysis of JADEPUFFER, describing it as the earliest documented case of ransomware run end to end by an autonomous AI agent rather than a human operator. Gaining a foothold through an exposed Langflow server, the agent handled reconnaissance, credential theft, lateral movement and encryption on its own, executing more than 600 distinct payloads and, in one sequence, turning a failed login into a working fix in 31 seconds. The campaign also exposed the limits of machine-run crime: the malware generated a random encryption key it never saved, leaving 1,342 encrypted configurations unrecoverable even if the victim were to pay.</p>
   </section>
   <section class="sections">
     <div class="col">
       <div class="col-head">Tech &amp; AI</div>
-      <div class="item"><span class="num">01</span><div><h3><a href="https://www.buildfastwithai.com/blogs/ai-news-today-july-7-2026">Anthropic overtakes OpenAI on revenue</a></h3><p><b>A reported milestone</b> puts Anthropic ahead of its rival on revenue, marking a shift in the AI race.</p></div></div>
-      <div class="item"><span class="num">02</span><div><h3><a href="https://news.un.org/en/story/2026/07/1167862">Global push for AI governance gathers pace</a></h3><p><b>UN officials</b> warned of potential "catastrophic harm" as governments weigh new rules for advanced AI.</p></div></div>
+      <div class="item"><span class="num">01</span><div><h3><a href="https://www.trendingtopics.eu/anthropic-overtakes-openai-in-revenue-hitting-30-billion-run-rate/">Anthropic overtakes OpenAI on revenue</a></h3><p><b>Riding demand</b> for its Claude coding tools, Anthropic's run rate has passed OpenAI's, with roughly 80% of sales coming from enterprises.</p></div></div>
+      <div class="item"><span class="num">02</span><div><h3><a href="https://news.wttw.com/2026/07/06/pritzker-signs-landmark-ai-regulation-bill-aims-mitigate-risks">Illinois enacts a landmark AI safety law</a></h3><p><b>Governor Pritzker</b> signed a bill aimed at curbing AI risks, one of the broadest state-level regulatory frameworks yet.</p></div></div>
     </div>
     <div class="col">
       <div class="col-head">Business &amp; markets</div>
-      <div class="item"><span class="num">01</span><div><h3><a href="https://247wallst.com/investing/2026/07/07/stock-market-live-july-7-2026-sp-500-spy-drops-on-tech-concerns/">SpaceX set to join the Nasdaq-100</a></h3><p><b>The rocket maker</b> would be the first added under new "fast-track" rules for mega-IPOs.</p></div></div>
-      <div class="item"><span class="num">02</span><div><h3><a href="https://www.theglobeandmail.com/investing/markets/stocks/WDC/pressreleases/3158920/stock-market-news-for-july-7-2026/">Fiserv rallies on payments-unit talks</a></h3><p><b>Shares jumped over 5%</b> on reports it may sell its payments infrastructure business to major US banks.</p></div></div>
+      <div class="item"><span class="num">01</span><div><h3><a href="https://247wallst.com/investing/2026/07/07/stock-market-live-july-7-2026-sp-500-spy-drops-on-tech-concerns/">Chip selloff drags Wall Street lower</a></h3><p><b>Semiconductor stocks</b> sank 5.5% as investors questioned whether massive AI investment will justify lofty valuations.</p></div></div>
+      <div class="item"><span class="num">02</span><div><h3><a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026">SpaceX joins the Nasdaq-100</a></h3><p><b>Shares slipped</b> about 5% as SpaceX became the first company added under the index's new fast-track rules for mega-IPOs.</p></div></div>
     </div>
     <div class="col">
       <div class="col-head">Science</div>
-      <div class="item"><span class="num">01</span><div><h3><a href="https://www.sciencedaily.com/news/top/science/">A quantum system appears to run backward</a></h3><p><b>New control techniques</b> let researchers reverse a system's arrow of time and harvest energy from measurement.</p></div></div>
-      <div class="item"><span class="num">02</span><div><h3><a href="https://www.sciencedaily.com/news/top/science/">Light switch targets dormant cancer cells</a></h3><p><b>ETH Zurich scientists</b> built a light-controlled molecule that destroys receptors letting cancer evade treatment.</p></div></div>
+      <div class="item"><span class="num">01</span><div><h3><a href="https://letsdatascience.com/news/researchers-use-ai-to-accelerate-superconductor-discovery-2680cad8">AI accelerates the hunt for superconductors</a></h3><p><b>Machine-learning screening</b> helped researchers identify and experimentally confirm two kagome superconductors, YRu3B2 and LuRu3B2.</p></div></div>
+      <div class="item"><span class="num">02</span><div><h3><a href="https://www.sciencedaily.com/releases/2026/06/260626030450.htm">Astronomers witness a magnetar's birth</a></h3><p><b>A "chirping"</b> supernova signal captured a magnetar forming, tying these ultra-magnets to the universe's brightest stellar explosions.</p></div></div>
     </div>
   </section>
-  <div class="colophon">David's Daily Bread &middot; compiled Tuesday, July 7, 2026, 8:53 AM PDT &middot; <a href="/archive.html">Past editions</a></div>
+  <div class="colophon">David's Daily Bread &middot; compiled July 7, 2026, 12:41 PDT &middot; <a href="/archive.html">Past editions</a></div>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
