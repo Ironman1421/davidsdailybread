@@ -23,52 +23,95 @@
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(130% 70% at 50% 0%, rgba(200,162,74,0.06), transparent 62%); }
   #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--steel)); z-index: 10; transition: width 0.08s linear; }
-  .paper { max-width: 860px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+  .paper { max-width: 900px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
   .masthead { text-align: center; }
   .motif { color: var(--gold); display: block; margin: 0 auto 8px; }
   .wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 55px; font-weight: 600; letter-spacing: 0.5px; line-height: 1; margin: 0; }
+  .wordmark .corr { position: relative; }
   .wordmark .initial { position: relative; display: inline-block; color: #f4efe6; }
-  .wordmark .crown { position: absolute; left: -0.16em; top: -0.34em; width: 0.72em; height: 0.55em; transform: rotate(-14deg); pointer-events: none; z-index: 1; }
-  .tagline { font-size: 10.5px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--faint); margin-top: 8px; }
+  .wordmark .emblem { position: absolute; left: -0.98em; bottom: -0.06em; width: 1.4em; height: 1.6em; overflow: visible; pointer-events: none; }
+  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 10px; }
+  .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  .tagline .sep { color: var(--line-strong); margin: 0 6px; }
   .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
   .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
   .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
   .dateline .edition { color: var(--steel); font-weight: 600; }
   .dateline .read { color: var(--gold); }
-  .glance { margin: 24px 0 4px; padding: 16px 22px; background: rgba(200,162,74,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 4px; }
-  .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
-  .glance ul { list-style: none; margin: 0; padding: 0; }
+
+  /* At a glance — expandable */
+  .glance { margin: 24px 0 4px; padding: 16px 22px 14px; background: rgba(200,162,74,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 12px; }
+  .glance-top { display: flex; align-items: center; justify-content: space-between; }
+  .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .glance-toggle { display: inline-flex; align-items: center; gap: 7px; background: rgba(200,162,74,0.10); color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 4px 11px 4px 12px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .glance-toggle:hover { background: rgba(200,162,74,0.20); }
+  .glance-toggle .chev { transition: transform 0.3s ease; }
+  .glance-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .glance-toggle .label-more { display: inline; }
+  .glance-toggle .label-less { display: none; }
+  .glance-toggle[aria-expanded="true"] .label-more { display: none; }
+  .glance-toggle[aria-expanded="true"] .label-less { display: inline; }
+  .glance ul { list-style: none; margin: 12px 0 0; padding: 0; }
   .glance li { font-family: 'Newsreader', Georgia, serif; font-size: 15.5px; line-height: 1.5; padding: 4px 0; display: flex; gap: 14px; }
   .glance .tag { flex: none; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--faint); min-width: 76px; padding-top: 4px; }
-  .lead { padding-top: 26px; }
-  .kicker { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-  .lead h1 { font-family: 'Newsreader', Georgia, serif; font-size: 33px; line-height: 1.16; margin: 0 0 10px; font-weight: 600; letter-spacing: -0.2px; }
-  .lead h1 a, .col h3 a { color: inherit; text-decoration: none; }
-  .lead h1 a:hover, .col h3 a:hover { color: var(--gold); }
-  .standfirst { font-family: 'Newsreader', Georgia, serif; font-size: 20px; font-style: italic; line-height: 1.5; color: #cfc7b4; margin: 0 0 16px; }
-  .lead-body { font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; line-height: 1.7; margin: 0; column-count: 2; column-gap: 32px; text-align: justify; column-rule: 1px solid var(--line); }
-  .dropcap::first-letter { float: left; font-family: 'Newsreader', serif; font-size: 60px; line-height: 0.78; font-weight: 600; padding: 8px 12px 0 0; color: var(--gold); }
-  .sections { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; border-top: 2px solid var(--line-strong); margin-top: 28px; padding-top: 20px; }
-  .col { padding-right: 24px; border-right: 1px solid var(--line); }
-  .col:last-child { border-right: none; padding-right: 0; }
-  .col-head { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); padding-bottom: 8px; margin-bottom: 14px; border-bottom: 1px solid var(--gold-soft); }
-  .item { display: grid; grid-template-columns: auto 1fr; gap: 12px; }
-  .item + .item { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 14px; }
-  .num { font-size: 12px; font-weight: 700; color: var(--steel); line-height: 1.6; font-variant-numeric: tabular-nums; }
-  .col h3 { font-family: 'Newsreader', Georgia, serif; font-size: 17px; line-height: 1.25; margin: 0 0 5px; font-weight: 600; }
-  .col p { font-size: 13px; line-height: 1.55; color: var(--muted); margin: 0; }
-  .col p b { color: var(--ink); font-weight: 600; }
-  .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
+  .glance-more { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+  .glance-more-inner { padding-top: 6px; margin-top: 12px; border-top: 1px dashed var(--line-strong); }
+  .glance-grp + .glance-grp { margin-top: 12px; }
+  .glance-grp-head { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--steel); margin: 6px 0 2px; padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+  .glance-more ul { margin-top: 4px; }
+  .glance-more li { align-items: baseline; }
+  .glance-more .rank { flex: none; min-width: 20px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; color: var(--gold-soft); font-variant-numeric: tabular-nums; padding-top: 2px; }
+  .glance-more li a { color: var(--ink); text-decoration: none; }
+  .glance-more li a:hover { color: var(--gold); }
+
+  /* Glass cards */
+  .lead-kicker, .col-block .kicker-row { }
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 26px 0 12px; }
+  .card { position: relative; background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border: 1px solid rgba(255,255,255,0.09); border-radius: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10); border-color: rgba(200,162,74,0.35); }
+  .card a.card-link { display: block; color: inherit; text-decoration: none; height: 100%; }
+
+  .lead-card { padding: 28px 30px; }
+  .lead-card h1 { font-family: 'Newsreader', Georgia, serif; font-size: 31px; line-height: 1.16; margin: 8px 0 12px; font-weight: 600; letter-spacing: -0.2px; }
+  .lead-card .standfirst { font-family: 'Newsreader', Georgia, serif; font-size: 19px; font-style: italic; line-height: 1.5; color: #cfc7b4; margin: 0 0 14px; }
+  .lead-card .lead-body { font-family: 'Newsreader', Georgia, serif; font-size: 16px; line-height: 1.7; margin: 0; color: var(--ink); }
+  .lead-card .badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); }
+  .lead-card:hover h1 { color: var(--gold); }
+
+  .section { margin-top: 30px; }
+  .col-head { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); text-decoration: none; padding-bottom: 8px; margin-bottom: 16px; border-bottom: 2px solid var(--gold-soft); }
+  .col-head:hover { color: var(--gold); }
+  .col-head .arrow { font-size: 15px; color: var(--gold); transition: transform 0.15s; }
+  .col-head:hover .arrow { transform: translateX(3px); }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .story-card { padding: 20px 22px; }
+  .story-card .num { font-size: 11px; font-weight: 700; color: var(--steel); font-variant-numeric: tabular-nums; letter-spacing: 1px; }
+  .story-card h3 { font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1.28; margin: 6px 0 8px; font-weight: 600; }
+  .story-card:hover h3 { color: var(--gold); }
+  .story-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0; }
+  .story-card p b { color: var(--ink); font-weight: 600; }
+
+  /* Bottom category nav */
+  .catnav { margin-top: 40px; border-top: 2px solid var(--line-strong); padding-top: 24px; }
+  .catnav-head { text-align: center; font-size: 10.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); margin-bottom: 16px; }
+  .catnav-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .catnav-card { padding: 20px 18px; text-align: center; }
+  .catnav-card .cn-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 600; color: var(--ink); }
+  .catnav-card .cn-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .catnav-card:hover .cn-title { color: var(--gold); }
+
+  .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+
   @media (max-width: 640px) {
     .paper { padding: 30px 22px; margin: 12px; }
     .wordmark { font-size: 38px; }
-    .lead-body { column-count: 1; column-rule: none; }
-    .sections { grid-template-columns: 1fr; }
-    .col { border-right: none; padding-right: 0; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
-    .col:last-child { border-bottom: none; }
+    .card-grid { grid-template-columns: 1fr; }
+    .catnav-grid { grid-template-columns: 1fr; }
     .glance .tag { min-width: 66px; }
+    .lead-card h1 { font-size: 26px; }
   }
 </style>
 </head>
@@ -76,9 +119,9 @@
 <div id="progress"></div>
 <div class="paper">
   <header class="masthead">
-    <svg class="motif" width="132" height="110" viewBox="0 0 132 110" fill="none" aria-hidden="true"><path d="M38 50 A 29 28 0 0 1 94 50" stroke="#c8a24a" stroke-width="5.5" fill="none"/><g><path d="M50 50 C 42 40, 43 22, 53 11 C 57 7, 63 9, 64 15 C 66 29, 62 42, 58 52 Z" fill="#c8a24a" stroke="#16151a" stroke-width="2.6" stroke-linejoin="round"/><g stroke="#16151a" stroke-width="2.2" stroke-linecap="round"><path d="M50 23 l8 4"/><path d="M52 32 l8 4"/><path d="M54 41 l7 4"/></g></g><g><path d="M63 52 C 60 39, 64 24, 74 15 C 78 11, 84 14, 84 20 C 84 33, 78 44, 72 53 Z" fill="#c8a24a" stroke="#16151a" stroke-width="2.6" stroke-linejoin="round"/><g stroke="#16151a" stroke-width="2.2" stroke-linecap="round"><path d="M67 27 l8 3"/><path d="M67 36 l8 3"/><path d="M68 45 l7 3"/></g></g><circle cx="88" cy="42" r="11" fill="#c8a24a" stroke="#16151a" stroke-width="2.6"/><path d="M88 31 L88 26" stroke="#16151a" stroke-width="2.2" stroke-linecap="round"/><path d="M88 28 C 91 23, 96 21, 101 23 C 99 28, 94 30, 88 28 Z" fill="#c8a24a" stroke="#16151a" stroke-width="1.8" stroke-linejoin="round"/><rect x="34" y="50" width="64" height="10" rx="5" fill="#c8a24a" stroke="#16151a" stroke-width="2.2"/><path d="M39 60 C 41 82, 49 94, 66 94 C 83 94, 91 82, 93 60 Z" fill="#c8a24a" stroke="#16151a" stroke-width="2.2"/><g stroke="#16151a" stroke-width="2.4" stroke-linecap="round"><path d="M50 61 C 51 75, 55 86, 60 92"/><path d="M66 61 L66 94"/><path d="M82 61 C 81 75, 77 86, 72 92"/></g></svg>
-    <h1 class="wordmark"><span class="initial"><svg class="crown" viewBox="0 0 40 32" aria-hidden="true"><path d="M7 26 L3 9 L14 16 L20 4 L26 16 L37 9 L33 26 Z" fill="#1a1920" stroke="#c8a24a" stroke-width="3" stroke-linejoin="round"/><path d="M8 26 H32" stroke="#c8a24a" stroke-width="3" stroke-linecap="round"/></svg>D</span>avid's Daily Bread</h1>
-    <div class="tagline">Technology &middot; Markets &middot; Science</div>
+    <svg class="motif" width="90" height="56" viewBox="0 0 90 56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g stroke-width="2.4"><path d="M45 52 L45 32"/><path d="M45 32 C 42 24, 37 16, 34 10"/><path d="M45 32 C 48 24, 53 16, 56 10"/></g><circle cx="34" cy="10" r="2" fill="currentColor" stroke="none"/><circle cx="56" cy="10" r="2" fill="currentColor" stroke="none"/><g stroke-width="1.3" stroke="#8f7538"><path d="M34 11 Q 38 20 45 25"/><path d="M56 11 Q 52 20 45 25"/><path d="M41 24 Q 45 30 49 24"/></g><circle cx="45" cy="24" r="3" fill="currentColor" stroke="none"/><g stroke-width="1" stroke="#8f7538" opacity="0.8"><path d="M42 46 L48 44"/><path d="M42 43 L48 41"/></g></svg>
+    <h1 class="wordmark"><span class="initial">D<svg class="emblem" viewBox="0 0 84 92" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 80 Q 44 84 72 80" stroke="#8f7538" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M22 80 C 20 64, 16 50, 14 36" stroke="#c8a24a" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M27 80 C 26 64, 24 50, 22 36" stroke="#c8a24a" stroke-width="1.3" fill="none" stroke-linecap="round"/><g stroke="#c8a24a" stroke-width="1.1" fill="none" stroke-linecap="round"><path d="M14 36 l-4 -2"/><path d="M14 36 l3 -3"/><path d="M13.4 32 l-4 -2"/><path d="M13.4 32 l3 -3"/><path d="M12.8 28 l-3.5 -2"/><path d="M12.8 28 l3 -3"/><path d="M12.2 24 l-2 -4"/><path d="M12.2 24 l0.5 -5"/><path d="M12.2 24 l2 -4"/><path d="M22 36 l-4 -2"/><path d="M22 36 l3 -3"/><path d="M21.4 32 l-4 -2"/><path d="M21.4 32 l3 -3"/><path d="M20.8 28 l-3.5 -2"/><path d="M20.8 28 l3 -3"/><path d="M20.4 24 l-2 -4"/><path d="M20.4 24 l0.5 -5"/><path d="M20.4 24 l2 -4"/></g><path d="M32 80 C 30 61, 40 55, 51 55 C 62 55, 72 61, 70 80 Z" fill="#c8a24a" opacity="0.10"/><path d="M32 80 C 30 61, 40 55, 51 55 C 62 55, 72 61, 70 80 Z" stroke="#c8a24a" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M35 74 Q 51 78 67 74" stroke="#8f7538" stroke-width="1" fill="none" opacity="0.7" stroke-linecap="round"/><g stroke="#8f7538" stroke-width="1.3" fill="none" stroke-linecap="round"><path d="M41 67 l7 -6"/><path d="M49 68 l7 -6"/><path d="M57 69 l6 -5"/></g></svg></span>avid's Daily Bread</h1>
+    <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
     <div class="dateline">
       <div class="dateline-row">
         <span>Tuesday, July 7, 2026</span>
@@ -87,41 +130,111 @@
       </div>
     </div>
   </header>
+
   <aside class="glance">
-    <div class="glance-head">At a glance</div>
+    <div class="glance-top">
+      <div class="glance-head">At a glance</div>
+      <button class="glance-toggle" id="glanceToggle" aria-expanded="false" aria-controls="glanceMore">
+        <span class="label-more">More</span><span class="label-less">Less</span>
+        <svg class="chev" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4 L6 8 L10 4"/></svg>
+      </button>
+    </div>
     <ul>
       <li><span class="tag">Tech &amp; AI</span><span>First ransomware run entirely by an autonomous AI agent is documented.</span></li>
       <li><span class="tag">Markets</span><span>A 5.5% chip rout tests faith that AI spending justifies record valuations.</span></li>
       <li><span class="tag">Science</span><span>AI speeds discovery, from new superconductors to a magnetar's violent birth.</span></li>
     </ul>
+    <div class="glance-more" id="glanceMore">
+      <div class="glance-more-inner">
+        <div class="glance-grp">
+          <div class="glance-grp-head">Tech &amp; AI</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.trendingtopics.eu/anthropic-overtakes-openai-in-revenue-hitting-30-billion-run-rate/">Anthropic overtakes OpenAI on revenue at a $30B run rate.</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://news.wttw.com/2026/07/06/pritzker-signs-landmark-ai-regulation-bill-aims-mitigate-risks">Illinois enacts one of the broadest state AI-safety laws yet.</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://thetechportal.com/2026/07/07/deepseek-begins-developing-its-own-ai-chips-to-reduce-reliance-on-nvidia-and-huawei-report/">DeepSeek is quietly designing its own inference chip.</a></span></li>
+          </ul>
+        </div>
+        <div class="glance-grp">
+          <div class="glance-grp-head">Business &amp; Markets</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026">Korea's Kospi sinks nearly 5% as Samsung earnings disappoint.</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026">SpaceX becomes the first mega-IPO fast-tracked into the Nasdaq-100.</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.cnbc.com/2026/07/06/stock-market-today-live-updates.html">Fiserv jumps 5% on talks to sell its card-payments unit.</a></span></li>
+          </ul>
+        </div>
+        <div class="glance-grp">
+          <div class="glance-grp-head">Science</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.sciencedaily.com/releases/2026/06/260626030431.htm">Longer-lived magnons could shrink quantum computers to coin size.</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.sciencedaily.com/releases/2026/06/260626030450.htm">Astronomers catch a magnetar being born in a "chirping" supernova.</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://letsdatascience.com/news/researchers-use-ai-to-accelerate-superconductor-discovery-2680cad8">AI screening confirms two new kagome superconductors.</a></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </aside>
-  <section class="lead">
-    <div class="kicker">Lead story</div>
-    <h1><a href="https://www.sysdig.com/blog/jadepuffer-agentic-ransomware-for-automated-database-extortion">Researchers document the first ransomware run entirely by an AI agent</a></h1>
-    <p class="standfirst">An AI agent chained an entire extortion campaign together on its own — and then botched the ransom in the process.</p>
-    <p class="lead-body dropcap">Security researchers at Sysdig published the first full analysis of JADEPUFFER, describing it as the earliest documented case of ransomware run end to end by an autonomous AI agent rather than a human operator. Gaining a foothold through an exposed Langflow server, the agent handled reconnaissance, credential theft, lateral movement and encryption on its own, executing more than 600 distinct payloads and, in one sequence, turning a failed login into a working fix in 31 seconds. The campaign also exposed the limits of machine-run crime: the malware generated a random encryption key it never saved, leaving 1,342 encrypted configurations unrecoverable even if the victim were to pay.</p>
-  </section>
-  <section class="sections">
-    <div class="col">
-      <div class="col-head">Tech &amp; AI</div>
-      <div class="item"><span class="num">01</span><div><h3><a href="https://www.trendingtopics.eu/anthropic-overtakes-openai-in-revenue-hitting-30-billion-run-rate/">Anthropic overtakes OpenAI on revenue</a></h3><p><b>Riding demand</b> for its Claude coding tools, Anthropic's run rate has passed OpenAI's, with roughly 80% of sales coming from enterprises.</p></div></div>
-      <div class="item"><span class="num">02</span><div><h3><a href="https://news.wttw.com/2026/07/06/pritzker-signs-landmark-ai-regulation-bill-aims-mitigate-risks">Illinois enacts a landmark AI safety law</a></h3><p><b>Governor Pritzker</b> signed a bill aimed at curbing AI risks, one of the broadest state-level regulatory frameworks yet.</p></div></div>
-    </div>
-    <div class="col">
-      <div class="col-head">Business &amp; markets</div>
-      <div class="item"><span class="num">01</span><div><h3><a href="https://247wallst.com/investing/2026/07/07/stock-market-live-july-7-2026-sp-500-spy-drops-on-tech-concerns/">Chip selloff drags Wall Street lower</a></h3><p><b>Semiconductor stocks</b> sank 5.5% as investors questioned whether massive AI investment will justify lofty valuations.</p></div></div>
-      <div class="item"><span class="num">02</span><div><h3><a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026">SpaceX joins the Nasdaq-100</a></h3><p><b>Shares slipped</b> about 5% as SpaceX became the first company added under the index's new fast-track rules for mega-IPOs.</p></div></div>
-    </div>
-    <div class="col">
-      <div class="col-head">Science</div>
-      <div class="item"><span class="num">01</span><div><h3><a href="https://letsdatascience.com/news/researchers-use-ai-to-accelerate-superconductor-discovery-2680cad8">AI accelerates the hunt for superconductors</a></h3><p><b>Machine-learning screening</b> helped researchers identify and experimentally confirm two kagome superconductors, YRu3B2 and LuRu3B2.</p></div></div>
-      <div class="item"><span class="num">02</span><div><h3><a href="https://www.sciencedaily.com/releases/2026/06/260626030450.htm">Astronomers witness a magnetar's birth</a></h3><p><b>A "chirping"</b> supernova signal captured a magnetar forming, tying these ultra-magnets to the universe's brightest stellar explosions.</p></div></div>
+
+  <div class="kicker">Lead story</div>
+  <article class="card lead-card">
+    <a class="card-link" href="https://www.sysdig.com/blog/jadepuffer-agentic-ransomware-for-automated-database-extortion">
+      <span class="badge">Tech &amp; AI</span>
+      <h1>Researchers document the first ransomware run entirely by an AI agent</h1>
+      <p class="standfirst">An AI agent chained an entire extortion campaign together on its own — and then botched the ransom in the process.</p>
+      <p class="lead-body">Security researchers at Sysdig published the first full analysis of JADEPUFFER, describing it as the earliest documented case of ransomware run end to end by an autonomous AI agent rather than a human operator. Gaining a foothold through an exposed Langflow server, the agent handled reconnaissance, credential theft, lateral movement and encryption on its own, executing more than 600 distinct payloads and, in one sequence, turning a failed login into a working fix in 31 seconds. The campaign also exposed the limits of machine-run crime: the malware generated a random encryption key it never saved, leaving 1,342 encrypted configurations unrecoverable even if the victim were to pay.</p>
+    </a>
+  </article>
+
+  <section class="section">
+    <a class="col-head" href="/tech.html">Tech &amp; AI <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <article class="card story-card"><a class="card-link" href="https://www.trendingtopics.eu/anthropic-overtakes-openai-in-revenue-hitting-30-billion-run-rate/"><span class="num">01</span><h3>Anthropic overtakes OpenAI on revenue</h3><p><b>Riding demand</b> for its Claude coding tools, Anthropic's run rate has passed OpenAI's, with roughly 80% of sales coming from enterprises.</p></a></article>
+      <article class="card story-card"><a class="card-link" href="https://news.wttw.com/2026/07/06/pritzker-signs-landmark-ai-regulation-bill-aims-mitigate-risks"><span class="num">02</span><h3>Illinois enacts a landmark AI safety law</h3><p><b>Governor Pritzker</b> signed a bill aimed at curbing AI risks, one of the broadest state-level regulatory frameworks yet.</p></a></article>
     </div>
   </section>
-  <div class="colophon">David's Daily Bread &middot; compiled July 7, 2026, 12:41 PDT &middot; <a href="archive.html">Past editions</a></div>
+
+  <section class="section">
+    <a class="col-head" href="/markets.html">Business &amp; Markets <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <article class="card story-card"><a class="card-link" href="https://247wallst.com/investing/2026/07/07/stock-market-live-july-7-2026-sp-500-spy-drops-on-tech-concerns/"><span class="num">01</span><h3>Chip selloff drags Wall Street lower</h3><p><b>Semiconductor stocks</b> sank 5.5% as investors questioned whether massive AI investment will justify lofty valuations.</p></a></article>
+      <article class="card story-card"><a class="card-link" href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026"><span class="num">02</span><h3>SpaceX joins the Nasdaq-100</h3><p><b>Shares slipped</b> about 5% as SpaceX became the first company added under the index's new fast-track rules for mega-IPOs.</p></a></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <a class="col-head" href="/science.html">Science <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <article class="card story-card"><a class="card-link" href="https://letsdatascience.com/news/researchers-use-ai-to-accelerate-superconductor-discovery-2680cad8"><span class="num">01</span><h3>AI accelerates the hunt for superconductors</h3><p><b>Machine-learning screening</b> helped researchers identify and experimentally confirm two kagome superconductors, YRu3B2 and LuRu3B2.</p></a></article>
+      <article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260626030450.htm"><span class="num">02</span><h3>Astronomers witness a magnetar's birth</h3><p><b>A "chirping"</b> supernova signal captured a magnetar forming, tying these ultra-magnets to the universe's brightest stellar explosions.</p></a></article>
+    </div>
+  </section>
+
+  <nav class="catnav">
+    <div class="catnav-head">Browse the full basket</div>
+    <div class="catnav-grid">
+      <a class="card catnav-card" href="/tech.html"><div class="cn-title">Technology</div><div class="cn-sub">AI, chips &amp; the machines</div></a>
+      <a class="card catnav-card" href="/markets.html"><div class="cn-title">Markets</div><div class="cn-sub">Stocks, deals &amp; the economy</div></a>
+      <a class="card catnav-card" href="/science.html"><div class="cn-title">Science</div><div class="cn-sub">Space, physics &amp; discovery</div></a>
+    </div>
+  </nav>
+
+  <div class="colophon">David's Daily Bread &middot; compiled July 7, 2026, 12:41 PDT &middot; <a href="/archive.html">Past editions</a></div>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
+  (function () {
+    var btn = document.getElementById('glanceToggle');
+    var panel = document.getElementById('glanceMore');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      if (open) { panel.style.maxHeight = '0px'; }
+      else { panel.style.maxHeight = panel.scrollHeight + 'px'; }
+    });
+    window.addEventListener('resize', function () {
+      if (btn.getAttribute('aria-expanded') === 'true') { panel.style.maxHeight = panel.scrollHeight + 'px'; }
+    });
+  })();
 </script>
 </body>
 </html>
