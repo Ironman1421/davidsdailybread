@@ -27,7 +27,6 @@
   .masthead { text-align: center; }
   .motif { color: var(--gold); display: block; margin: 0 auto 8px; }
   .wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 55px; font-weight: 600; letter-spacing: 0.5px; line-height: 1; margin: 0; }
-  .wordmark .corr { position: relative; }
   .wordmark .initial { position: relative; display: inline-block; color: #f4efe6; }
   .wordmark .emblem { position: absolute; left: -0.98em; bottom: -0.06em; width: 1.4em; height: 1.6em; overflow: visible; pointer-events: none; }
   .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 10px; }
@@ -39,8 +38,6 @@
   .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
   .dateline .edition { color: var(--steel); font-weight: 600; }
   .dateline .read { color: var(--gold); }
-
-  /* At a glance — expandable */
   .glance { margin: 24px 0 4px; padding: 16px 22px 14px; background: rgba(200,162,74,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 12px; }
   .glance-top { display: flex; align-items: center; justify-content: space-between; }
   .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
@@ -64,21 +61,16 @@
   .glance-more .rank { flex: none; min-width: 20px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; color: var(--gold-soft); font-variant-numeric: tabular-nums; padding-top: 2px; }
   .glance-more li a { color: var(--ink); text-decoration: none; }
   .glance-more li a:hover { color: var(--gold); }
-
-  /* Glass cards */
-  .lead-kicker, .col-block .kicker-row { }
   .kicker { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 26px 0 12px; }
   .card { position: relative; background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border: 1px solid rgba(255,255,255,0.09); border-radius: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
   .card:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10); border-color: rgba(200,162,74,0.35); }
   .card a.card-link { display: block; color: inherit; text-decoration: none; height: 100%; }
-
   .lead-card { padding: 28px 30px; }
   .lead-card h1 { font-family: 'Newsreader', Georgia, serif; font-size: 31px; line-height: 1.16; margin: 8px 0 12px; font-weight: 600; letter-spacing: -0.2px; }
   .lead-card .standfirst { font-family: 'Newsreader', Georgia, serif; font-size: 19px; font-style: italic; line-height: 1.5; color: #cfc7b4; margin: 0 0 14px; }
   .lead-card .lead-body { font-family: 'Newsreader', Georgia, serif; font-size: 16px; line-height: 1.7; margin: 0; color: var(--ink); }
   .lead-card .badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); }
   .lead-card:hover h1 { color: var(--gold); }
-
   .section { margin-top: 30px; }
   .col-head { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); text-decoration: none; padding-bottom: 8px; margin-bottom: 16px; border-bottom: 2px solid var(--gold-soft); }
   .col-head:hover { color: var(--gold); }
@@ -91,25 +83,13 @@
   .story-card:hover h3 { color: var(--gold); }
   .story-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0; }
   .story-card p b { color: var(--ink); font-weight: 600; }
-
-  /* Bottom category nav */
-  .catnav { margin-top: 40px; border-top: 2px solid var(--line-strong); padding-top: 24px; }
-  .catnav-head { text-align: center; font-size: 10.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); margin-bottom: 16px; }
-  .catnav-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-  .catnav-card { padding: 20px 18px; text-align: center; }
-  .catnav-card .cn-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 600; color: var(--ink); }
-  .catnav-card .cn-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
-  .catnav-card:hover .cn-title { color: var(--gold); }
-
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
-
   @media (max-width: 640px) {
     .paper { padding: 30px 22px; margin: 12px; }
     .wordmark { font-size: 38px; }
     .card-grid { grid-template-columns: 1fr; }
-    .catnav-grid { grid-template-columns: 1fr; }
     .glance .tag { min-width: 66px; }
     .lead-card h1 { font-size: 26px; }
   }
@@ -207,15 +187,6 @@
       <article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260626030450.htm"><span class="num">02</span><h3>Astronomers witness a magnetar's birth</h3><p><b>A "chirping"</b> supernova signal captured a magnetar forming, tying these ultra-magnets to the universe's brightest stellar explosions.</p></a></article>
     </div>
   </section>
-
-  <nav class="catnav">
-    <div class="catnav-head">Browse the full basket</div>
-    <div class="catnav-grid">
-      <a class="card catnav-card" href="/tech.html"><div class="cn-title">Technology</div><div class="cn-sub">AI, chips &amp; the machines</div></a>
-      <a class="card catnav-card" href="/markets.html"><div class="cn-title">Markets</div><div class="cn-sub">Stocks, deals &amp; the economy</div></a>
-      <a class="card catnav-card" href="/science.html"><div class="cn-title">Science</div><div class="cn-sub">Space, physics &amp; discovery</div></a>
-    </div>
-  </nav>
 
   <div class="colophon">David's Daily Bread &middot; compiled July 7, 2026, 12:41 PDT &middot; <a href="/archive.html">Past editions</a></div>
 </div>
