@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David's Daily Bread — Morning edition, Tuesday, July 7, 2026</title>
+<meta name="description" content="David's Daily Bread — a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<link rel="canonical" href="https://davidsdailybread.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="David's Daily Bread">
+<meta property="og:title" content="David's Daily Bread — Morning edition, Tuesday, July 7, 2026">
+<meta property="og:description" content="A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<meta property="og:url" content="https://davidsdailybread.com/">
+<meta property="og:image" content="https://davidsdailybread.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; --steel-soft:#456f9c; --marker:#b9772a; --sun1:#ecc163; --sun2:#9c5a1e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(130% 70% at 50% 0%, rgba(200,162,74,0.06), transparent 62%); }
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--steel)); z-index: 10; transition: width 0.08s linear; }
+  .paper { max-width: 860px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+  .masthead { text-align: center; }
+  .motif { color: var(--gold); display: block; margin: 0 auto 8px; }
+  .wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 55px; font-weight: 600; letter-spacing: 0.5px; line-height: 1; margin: 0; }
+  .wordmark .corr { position: relative; }
+  .wordmark .caret { position: absolute; left: -0.36em; bottom: 0.05em; width: 0.34em; height: 0.28em; color: var(--marker); }
+  .wordmark .twice { position: absolute; left: -0.62em; top: -0.60em; font-family: 'Caveat', cursive; font-weight: 700; font-size: 0.64em; line-height: 1; background: linear-gradient(180deg, var(--sun1), var(--sun2)); -webkit-background-clip: text; background-clip: text; color: transparent; transform: rotate(-8deg); white-space: nowrap; }
+  .wordmark .twice-ref { position: absolute; left: -0.62em; top: -0.30em; font-family: 'Caveat', cursive; font-weight: 700; font-size: 0.64em; line-height: 1; background: linear-gradient(180deg, var(--sun2), var(--sun1)); -webkit-background-clip: text; background-clip: text; color: transparent; transform: rotate(-8deg) scaleY(-1); opacity: 0.3; white-space: nowrap; pointer-events: none; }
+  .wordmark .initial { position: relative; display: inline-block; color: #f4efe6; }
+  .wordmark .glyph { position: relative; z-index: 1; }
+  .wordmark .deco { position: absolute; left: 50%; top: 50%; width: 2em; height: 2em; transform: translate(-50%, -52%); overflow: visible; pointer-events: none; z-index: 0; }
+  .wordmark .emblem { position: absolute; left: -0.98em; bottom: -0.06em; width: 1.4em; height: 1.6em; overflow: visible; pointer-events: none; }
+  .tagline { font-size: 10.5px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--faint); margin-top: 8px; }
+  .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
+  .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .dateline .edition { color: var(--steel); font-weight: 600; }
+  .dateline .read { color: var(--gold); }
+  .glance { margin: 24px 0 4px; padding: 16px 22px; background: rgba(200,162,74,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 4px; }
+  .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .glance ul { list-style: none; margin: 0; padding: 0; }
+  .glance li { font-family: 'Newsreader', Georgia, serif; font-size: 15.5px; line-height: 1.5; padding: 4px 0; display: flex; gap: 14px; }
+  .glance .tag { flex: none; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--faint); min-width: 76px; padding-top: 4px; }
+  .lead { padding-top: 26px; }
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lead h1 { font-family: 'Newsreader', Georgia, serif; font-size: 33px; line-height: 1.16; margin: 0 0 10px; font-weight: 600; letter-spacing: -0.2px; }
+  .lead h1 a, .col h3 a { color: inherit; text-decoration: none; }
+  .lead h1 a:hover, .col h3 a:hover { color: var(--gold); }
+  .standfirst { font-family: 'Newsreader', Georgia, serif; font-size: 20px; font-style: italic; line-height: 1.5; color: #cfc7b4; margin: 0 0 16px; }
+  .lead-body { font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; line-height: 1.7; margin: 0; column-count: 2; column-gap: 32px; text-align: justify; column-rule: 1px solid var(--line); }
+  .dropcap::first-letter { float: left; font-family: 'Newsreader', serif; font-size: 60px; line-height: 0.78; font-weight: 600; padding: 8px 12px 0 0; color: var(--gold); }
+  .sections { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; border-top: 2px solid var(--line-strong); margin-top: 28px; padding-top: 20px; }
+  .col { padding-right: 24px; border-right: 1px solid var(--line); }
+  .col:last-child { border-right: none; padding-right: 0; }
+  .col-head { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); padding-bottom: 8px; margin-bottom: 14px; border-bottom: 1px solid var(--gold-soft); }
+  .item { display: grid; grid-template-columns: auto 1fr; gap: 12px; }
+  .item + .item { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 14px; }
+  .num { font-size: 12px; font-weight: 700; color: var(--steel); line-height: 1.6; font-variant-numeric: tabular-nums; }
+  .col h3 { font-family: 'Newsreader', Georgia, serif; font-size: 17px; line-height: 1.25; margin: 0 0 5px; font-weight: 600; }
+  .col p { font-size: 13px; line-height: 1.55; color: var(--muted); margin: 0; }
+  .col p b { color: var(--ink); font-weight: 600; }
+  .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
+  .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+  .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  @media (max-width: 640px) {
+    .paper { padding: 30px 22px; margin: 12px; }
+    .wordmark { font-size: 38px; }
+    .lead-body { column-count: 1; column-rule: none; }
+    .sections { grid-template-columns: 1fr; }
+    .col { border-right: none; padding-right: 0; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+    .col:last-child { border-bottom: none; }
+    .glance .tag { min-width: 66px; }
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="paper">
+  <header class="masthead">
+    <svg class="motif" width="90" height="56" viewBox="0 0 90 56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g stroke-width="2.4"><path d="M45 52 L45 32"/><path d="M45 32 C 42 24, 37 16, 34 10"/><path d="M45 32 C 48 24, 53 16, 56 10"/></g><circle cx="34" cy="10" r="2" fill="currentColor" stroke="none"/><circle cx="56" cy="10" r="2" fill="currentColor" stroke="none"/><g stroke-width="1.3" stroke="#8f7538"><path d="M34 11 Q 38 20 45 25"/><path d="M56 11 Q 52 20 45 25"/><path d="M41 24 Q 45 30 49 24"/></g><circle cx="45" cy="24" r="3" fill="currentColor" stroke="none"/><g stroke-width="1" stroke="#8f7538" opacity="0.8"><path d="M42 46 L48 44"/><path d="M42 43 L48 41"/></g></svg>
+    <h1 class="wordmark"><span class="initial">D<svg class="emblem" viewBox="0 0 84 92" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 80 Q 44 84 72 80" stroke="#8f7538" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M22 80 C 20 64, 16 50, 14 36" stroke="#c8a24a" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M27 80 C 26 64, 24 50, 22 36" stroke="#c8a24a" stroke-width="1.3" fill="none" stroke-linecap="round"/><g stroke="#c8a24a" stroke-width="1.1" fill="none" stroke-linecap="round"><path d="M14 36 l-4 -2"/><path d="M14 36 l3 -3"/><path d="M13.4 32 l-4 -2"/><path d="M13.4 32 l3 -3"/><path d="M12.8 28 l-3.5 -2"/><path d="M12.8 28 l3 -3"/><path d="M12.2 24 l-2 -4"/><path d="M12.2 24 l0.5 -5"/><path d="M12.2 24 l2 -4"/><path d="M22 36 l-4 -2"/><path d="M22 36 l3 -3"/><path d="M21.4 32 l-4 -2"/><path d="M21.4 32 l3 -3"/><path d="M20.8 28 l-3.5 -2"/><path d="M20.8 28 l3 -3"/><path d="M20.4 24 l-2 -4"/><path d="M20.4 24 l0.5 -5"/><path d="M20.4 24 l2 -4"/></g><path d="M32 80 C 30 61, 40 55, 51 55 C 62 55, 72 61, 70 80 Z" fill="#c8a24a" opacity="0.10"/><path d="M32 80 C 30 61, 40 55, 51 55 C 62 55, 72 61, 70 80 Z" stroke="#c8a24a" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M35 74 Q 51 78 67 74" stroke="#8f7538" stroke-width="1" fill="none" opacity="0.7" stroke-linecap="round"/><g stroke="#8f7538" stroke-width="1.3" fill="none" stroke-linecap="round"><path d="M41 67 l7 -6"/><path d="M49 68 l7 -6"/><path d="M57 69 l6 -5"/></g></svg></span>avid's <span class="corr"><svg class="caret" viewBox="0 0 14 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 11 L7 2 L13 11"/></svg><span class="twice">twice</span>Daily</span> Bread</h1>
+    <div class="tagline">Technology &middot; Markets &middot; Science</div>
+    <div class="dateline">
+      <div class="dateline-row">
+        <span>Tuesday, July 7, 2026</span>
+        <span class="edition">Morning edition</span>
+        <span class="read">&#8776; 3 min read</span>
+      </div>
+    </div>
+  </header>
+  <aside class="glance">
+    <div class="glance-head">At a glance</div>
+    <ul>
+      <li><span class="tag">Tech &amp; AI</span><span>Anthropic is reported to have overtaken OpenAI on revenue, reshaping the AI pecking order.</span></li>
+      <li><span class="tag">Markets</span><span>Chip stocks slid as Samsung's nineteenfold profit jump still underwhelmed investors.</span></li>
+      <li><span class="tag">Science</span><span>Physicists coaxed a quantum system into appearing to run backward in time.</span></li>
+    </ul>
+  </aside>
+  <section class="lead">
+    <div class="kicker">Lead story</div>
+    <h1><a href="https://www.bloomberg.com/news/articles/2026-07-06/stock-market-today-dow-s-p-live-updates">Chip stocks slide as Samsung's profit surge fails to satisfy</a></h1>
+    <p class="standfirst">Even a nineteenfold jump in quarterly profit wasn't enough to clear the sky-high bar investors have set for the memory boom.</p>
+    <p class="lead-body dropcap">Samsung Electronics, the world's biggest memory maker, tumbled as much as 11% in Seoul after its quarterly report failed to impress traders despite profit surging nineteenfold. The selloff rippled outward, with peers Micron and Sandisk sliding more than 4% in US premarket trading and S&amp;P 500 futures slipping. The reaction underscored how much optimism is now priced into the AI-driven chip rally — and how little room remains for anything short of a blowout.</p>
+  </section>
+  <section class="sections">
+    <div class="col">
+      <div class="col-head">Tech &amp; AI</div>
+      <div class="item"><span class="num">01</span><div><h3><a href="https://www.buildfastwithai.com/blogs/ai-news-today-july-7-2026">Anthropic overtakes OpenAI on revenue</a></h3><p><b>A reported milestone</b> puts Anthropic ahead of its rival on revenue, marking a shift in the AI race.</p></div></div>
+      <div class="item"><span class="num">02</span><div><h3><a href="https://news.un.org/en/story/2026/07/1167862">Global push for AI governance gathers pace</a></h3><p><b>UN officials</b> warned of potential "catastrophic harm" as governments weigh new rules for advanced AI.</p></div></div>
+    </div>
+    <div class="col">
+      <div class="col-head">Business &amp; markets</div>
+      <div class="item"><span class="num">01</span><div><h3><a href="https://247wallst.com/investing/2026/07/07/stock-market-live-july-7-2026-sp-500-spy-drops-on-tech-concerns/">SpaceX set to join the Nasdaq-100</a></h3><p><b>The rocket maker</b> would be the first added under new "fast-track" rules for mega-IPOs.</p></div></div>
+      <div class="item"><span class="num">02</span><div><h3><a href="https://www.theglobeandmail.com/investing/markets/stocks/WDC/pressreleases/3158920/stock-market-news-for-july-7-2026/">Fiserv rallies on payments-unit talks</a></h3><p><b>Shares jumped over 5%</b> on reports it may sell its payments infrastructure business to major US banks.</p></div></div>
+    </div>
+    <div class="col">
+      <div class="col-head">Science</div>
+      <div class="item"><span class="num">01</span><div><h3><a href="https://www.sciencedaily.com/news/top/science/">A quantum system appears to run backward</a></h3><p><b>New control techniques</b> let researchers reverse a system's arrow of time and harvest energy from measurement.</p></div></div>
+      <div class="item"><span class="num">02</span><div><h3><a href="https://www.sciencedaily.com/news/top/science/">Light switch targets dormant cancer cells</a></h3><p><b>ETH Zurich scientists</b> built a light-controlled molecule that destroys receptors letting cancer evade treatment.</p></div></div>
+    </div>
+  </section>
+  <div class="colophon">David's Daily Bread &middot; compiled Tuesday, July 7, 2026, 8:53 AM PDT &middot; <a href="/archive.html">Past editions</a></div>
+</div>
+<script>
+  (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
+</script>
+</body>
+</html>

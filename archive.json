@@ -1,0 +1,12 @@
+{
+  "site": "https://davidsdailybread.com",
+  "editions": [
+    {
+      "date": "2026-07-07",
+      "edition": "morning",
+      "dateHuman": "Tuesday, July 7, 2026",
+      "file": "/editions/2026-07-07-morning.html",
+      "lead": "Chip stocks slide as Samsung's profit surge fails to satisfy"
+    }
+  ]
+}
