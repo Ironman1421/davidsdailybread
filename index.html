@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>David's Daily Bread — Evening edition, Wednesday, July 8, 2026</title>
+<title>David's Daily Bread — Morning edition, Wednesday, July 8, 2026</title>
 <meta name="description" content="David's Daily Bread — a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
 <link rel="canonical" href="https://davidsdailybread.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
-<meta property="og:title" content="David's Daily Bread — Evening edition, Wednesday, July 8, 2026">
+<meta property="og:title" content="David's Daily Bread — Morning edition, Wednesday, July 8, 2026">
 <meta property="og:description" content="A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
 <meta property="og:url" content="https://davidsdailybread.com/">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
@@ -91,6 +91,20 @@
   .notes .notes-close { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; width: 20px; height: 20px; padding: 0; font-size: 12px; line-height: 1; cursor: pointer; }
   .notes.open .notes-close { display: inline-flex; }
   .notes .notes-close:hover { color: var(--gold); border-color: var(--gold-soft); }
+  .notes { flex-wrap: wrap; }
+  .lead-card + .notes { width: calc(50% - 9px); }
+  .notes .notes-style { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; min-width: 20px; height: 20px; padding: 0 5px; font-size: 11px; line-height: 1; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .notes.open .notes-style { display: inline-flex; }
+  .notes .notes-style:hover, .notes .notes-style.on { color: var(--gold); border-color: var(--gold-soft); }
+  .notes .notes-tools { display: none; flex-basis: 100%; order: 10; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line-strong); flex-wrap: wrap; align-items: center; gap: 6px; }
+  .notes.tools-open .notes-tools { display: flex; }
+  .notes .notes-tools select { background: var(--panel); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 11px; padding: 2px 6px; cursor: pointer; }
+  .notes .notes-tools button { background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 8px; min-width: 24px; height: 22px; padding: 0 6px; font-size: 11.5px; line-height: 1; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .notes .notes-tools button:hover { color: var(--gold); border-color: var(--gold-soft); }
+  .notes .notes-tools button.on { color: var(--gold); border-color: var(--gold); background: rgba(200,162,74,0.12); }
+  .notes .notes-tools .swatch { width: 16px; height: 16px; min-width: 16px; padding: 0; border-radius: 999px; }
+  .notes .notes-tools .swatch.on { box-shadow: 0 0 0 2px var(--panel), 0 0 0 3px var(--gold); }
+  @media (max-width: 640px) { .lead-card + .notes { width: 100%; } }
   .page-notes { margin-top: 28px; }
   .page-notes .notes { margin-top: 0; }
   .page-notes .notes-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
@@ -118,8 +132,8 @@
     <div class="dateline">
       <div class="dateline-row">
         <span>Wednesday, July 8, 2026</span>
-        <span class="edition">Evening edition</span>
-        <span class="read">&asymp; 4 min read</span>
+        <span class="edition">Morning edition</span>
+        <span class="read">&#8776; 2 min read</span>
       </div>
     </div>
   </header>
@@ -133,34 +147,34 @@
       </button>
     </div>
     <ul>
-      <li><span class="tag">Tech &amp; AI</span><span>Governments urged to take AI stakes as Nvidia unveils its Rubin supercomputer.</span></li>
-      <li><span class="tag">Markets</span><span>Fresh US strikes on Iran lift oil and sink chips before the Fed minutes.</span></li>
-      <li><span class="tag">Science</span><span>AI designs a vaccine, entanglement goes macroscopic, and super-puff planets appear.</span></li>
+      <li><span class="tag">Tech &amp; AI</span><span>Washington weighs curbs as cheap Chinese AI models flood US enterprises.</span></li>
+      <li><span class="tag">Markets</span><span>Oil surges 6% and stocks slide as the Iran ceasefire collapses.</span></li>
+      <li><span class="tag">Science</span><span>Two spacecraft reach two asteroids in one week; black-hole catalog balloons.</span></li>
     </ul>
     <div class="glance-more" id="glanceMore">
       <div class="glance-more-inner">
         <div class="glance-grp">
           <div class="glance-grp-head">Tech &amp; AI</div>
           <ul>
-            <li><span class="rank">1</span><span><a href="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/">Altman pitches a new world order for AI</a></span></li>
-            <li><span class="rank">2</span><span><a href="https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer">Nvidia unveils its Rubin AI supercomputer</a></span></li>
-            <li><span class="rank">3</span><span><a href="https://techcrunch.com/2026/07/02/anthropic-is-discussing-a-new-custom-chip-with-samsung/">Anthropic weighs a custom chip with Samsung</a></span></li>
+            <li><span class="rank">1</span><span><a href="https://www.cnbc.com/2026/07/08/chinese-ai-models-probe-us-lawmakers.html">Lawmakers probe surging US corporate use of Chinese AI models</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.cnbc.com/2026/07/07/chinese-ai-models-costs-us-openai-anthropic.html">Chinese models undercut OpenAI and Anthropic by up to 90%</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://techcrunch.com/2026/07/02/anthropic-is-discussing-a-new-custom-chip-with-samsung/">Anthropic in talks with Samsung for first custom AI chip</a></span></li>
           </ul>
         </div>
         <div class="glance-grp">
           <div class="glance-grp-head">Business &amp; Markets</div>
           <ul>
-            <li><span class="rank">1</span><span><a href="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html">Oil jumps as US strikes Iran again</a></span></li>
-            <li><span class="rank">2</span><span><a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026">Chip rout drags Wall Street lower</a></span></li>
-            <li><span class="rank">3</span><span><a href="https://www.cnbc.com/2026/07/07/stock-market-today-live-updates.html">Markets brace for the Fed minutes</a></span></li>
+            <li><span class="rank">1</span><span><a href="https://www.nbcnews.com/business/business-news/oil-prices-surge-stocks-tumble-trump-iran-ceasefire-over-hormuz-rcna353446">Oil surges 6% as Trump declares Iran ceasefire over</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://finance.yahoo.com/markets/stocks/articles/samsung-q2-2026-earnings-record-112138779.html">Samsung posts record $58.4B profit; shares fall 7%</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.techtimes.com/articles/319827/20260707/fed-minutes-due-wednesday-nine-hawkish-dots-warshs-deliberate-silence.htm">Fed minutes due today; nine officials lean toward hikes</a></span></li>
           </ul>
         </div>
         <div class="glance-grp">
           <div class="glance-grp-head">Science</div>
           <ul>
-            <li><span class="rank">1</span><span><a href="https://www.sciencedaily.com/releases/2026/06/260605023357.htm">AI-designed universal vaccine clears first human trial</a></span></li>
-            <li><span class="rank">2</span><span><a href="https://www.sciencedaily.com/releases/2026/07/260701015242.htm">Quantum entanglement found in a crystal you can hold</a></span></li>
-            <li><span class="rank">3</span><span><a href="https://www.space.com/astronomy/exoplanets/two-super-puff-cotton-candy-exoplanets-are-the-lightest-gas-giants-ever-discovered">Astronomers find planets lighter than cotton candy</a></span></li>
+            <li><span class="rank">1</span><span><a href="https://spacenews.com/tianwen-2-arrives-at-asteroid-kamooalewa-first-image-revealed/">Tianwen-2 arrives at Earth's mini-moon Kamoʻoalewa</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://earthsky.org/space/2-asteroid-flybys-torifune-kamooalewa-images/">Hayabusa2 finds asteroid Torifune is a contact binary</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.sciencedaily.com/releases/2026/06/260625060203.htm">Gravitational-wave catalog adds 161 black hole mergers</a></span></li>
           </ul>
         </div>
       </div>
@@ -169,36 +183,36 @@
 
   <div class="kicker">Lead story</div>
   <article class="card lead-card">
-    <a class="card-link" href="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html">
+    <a class="card-link" href="https://www.nbcnews.com/business/business-news/oil-prices-surge-stocks-tumble-trump-iran-ceasefire-over-hormuz-rcna353446">
       <span class="badge">Business &amp; markets</span>
-      <h1>Oil surges and stocks slide as the US strikes Iran again</h1>
-      <p class="standfirst">A fresh round of US airstrikes reopened the market's biggest tail risk just as investors braced for the Fed.</p>
-      <p class="lead-body">Oil prices climbed after the United States launched new airstrikes on Iran in retaliation for attacks on commercial vessels in the Strait of Hormuz, with Brent rising roughly 2% toward $76 a barrel and the Treasury revoking a waiver that had let Tehran sell its oil. Equity futures slipped and semiconductors led losses, as investors rotated out of AI and technology names into healthcare and financials. The strikes landed hours before the release of the June Fed minutes, with markets now pricing better-than-even odds of a September rate hike.</p>
+      <h1>Oil surges 6% and stocks tumble as Trump declares Iran ceasefire 'over'</h1>
+      <p class="standfirst">The fragile Mideast truce collapsed overnight, sending crude sharply higher and equity futures skidding ahead of Wednesday's open.</p>
+      <p class="lead-body">President Trump said the tentative ceasefire with Iran is effectively over after the two countries exchanged fresh strikes, with Iran's Revolutionary Guard claiming hits on American military targets in Bahrain and Kuwait. The US launched retaliatory strikes and reimposed sanctions on Iranian oil sales following attacks on commercial ships near the Strait of Hormuz. Crude jumped roughly 6% and stocks fell as traders weighed the risk to the world's most important oil chokepoint &mdash; an uneasy backdrop for Fed minutes due later today.</p>
     </a>
   </article>
-  <div class="notes" data-note-key="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+  <div class="notes" data-note-key="https://www.nbcnews.com/business/business-news/oil-prices-surge-stocks-tumble-trump-iran-ceasefire-over-hormuz-rcna353446"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
 
   <section class="section">
     <a class="col-head" href="/tech.html">Tech &amp; AI <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <div class="stack"><article class="card story-card"><a class="card-link" href="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/"><span class="num">01</span><h3>Altman pitches a new world order for AI</h3><p><b>Losing ground</b> to Google and Anthropic, Sam Altman is floating a sweeping plan for governments to take equity stakes across the AI industry.</p></a></article><div class="notes" data-note-key="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-      <div class="stack"><article class="card story-card"><a class="card-link" href="https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer"><span class="num">02</span><h3>Nvidia unveils its Rubin AI supercomputer</h3><p><b>Six new chips</b> anchor Rubin, whose sixth-gen NVLink pushes 3.6TB/s per GPU and 260TB/s across a single rack.</p></a></article><div class="notes" data-note-key="https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.cnbc.com/2026/07/08/chinese-ai-models-probe-us-lawmakers.html"><span class="num">01</span><h3>US lawmakers move to curb corporate use of Chinese AI models</h3><p><b>Congress is weighing</b> ways to slow American companies' growing reliance on Chinese AI, after data showed 30&ndash;46% of US enterprise tokens on OpenRouter flowing to Chinese models each week since February.</p></a></article><div class="notes" data-note-key="https://www.cnbc.com/2026/07/08/chinese-ai-models-probe-us-lawmakers.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.cnbc.com/2026/07/07/chinese-ai-models-costs-us-openai-anthropic.html"><span class="num">02</span><h3>Cheap Chinese models are winning US workloads on price</h3><p><b>Open-source Chinese models</b> can run 60&ndash;90% cheaper than top OpenAI and Anthropic offerings &mdash; roughly 18 cents per million tokens versus a $4 American average.</p></a></article><div class="notes" data-note-key="https://www.cnbc.com/2026/07/07/chinese-ai-models-costs-us-openai-anthropic.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
   <section class="section">
     <a class="col-head" href="/markets.html">Business &amp; Markets <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html"><span class="num">01</span><h3>Oil jumps as US strikes Iran again</h3><p><b>Brent rose</b> about 2% toward $76 after fresh US airstrikes on Iran and a revoked oil-sale waiver rattled global markets.</p></a></article><div class="notes" data-note-key="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026"><span class="num">02</span><h3>Chip rout drags Wall Street lower</h3><p><b>Semiconductors led</b> declines as the Nasdaq fell 1.2%; Samsung's preliminary results failed to meet lofty expectations.</p></a></article><div class="notes" data-note-key="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://finance.yahoo.com/markets/stocks/articles/samsung-q2-2026-earnings-record-112138779.html"><span class="num">01</span><h3>Samsung posts record $58.4B quarterly profit &mdash; and its stock falls 7%</h3><p><b>Operating profit jumped</b> roughly 19-fold on AI memory demand, beating estimates, but shares slid as investors took profits and questioned how long the supercycle can run.</p></a></article><div class="notes" data-note-key="https://finance.yahoo.com/markets/stocks/articles/samsung-q2-2026-earnings-record-112138779.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.techtimes.com/articles/319827/20260707/fed-minutes-due-wednesday-nine-hawkish-dots-warshs-deliberate-silence.htm"><span class="num">02</span><h3>Fed minutes land today with nine officials leaning toward a hike</h3><p><b>Minutes from Kevin Warsh's</b> hawkish June meeting arrive Wednesday; nine of 18 officials penciled in at least one rate increase before year-end.</p></a></article><div class="notes" data-note-key="https://www.techtimes.com/articles/319827/20260707/fed-minutes-due-wednesday-nine-hawkish-dots-warshs-deliberate-silence.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
   <section class="section">
     <a class="col-head" href="/science.html">Science <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260605023357.htm"><span class="num">01</span><h3>AI-designed universal vaccine clears first human trial</h3><p><b>Cambridge researchers</b> report the first vaccine component designed entirely by AI passed a Phase I trial, targeting the whole Sarbecovirus family.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/06/260605023357.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260701015242.htm"><span class="num">02</span><h3>Quantum entanglement found in a crystal you can hold</h3><p><b>TU Wien physicists</b> measured deep entanglement across a centimeter-sized strange-metal crystal, pushing quantum effects into the macroscopic world.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/07/260701015242.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://spacenews.com/tianwen-2-arrives-at-asteroid-kamooalewa-first-image-revealed/"><span class="num">01</span><h3>China's Tianwen-2 reaches Earth's 'mini-moon' Kamoʻoalewa</h3><p><b>After 400 days</b> and a billion kilometers, the probe returned its first image of the small, elongated asteroid and began surveying ahead of a sample grab.</p></a></article><div class="notes" data-note-key="https://spacenews.com/tianwen-2-arrives-at-asteroid-kamooalewa-first-image-revealed/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://earthsky.org/space/2-asteroid-flybys-torifune-kamooalewa-images/"><span class="num">02</span><h3>Hayabusa2 finds asteroid Torifune is two rubble piles stuck together</h3><p><b>Japan's veteran probe</b> flew past the near-Earth asteroid on July 5, revealing a contact binary &mdash; humanity's second asteroid close-up in a single week.</p></a></article><div class="notes" data-note-key="https://earthsky.org/space/2-asteroid-flybys-torifune-kamooalewa-images/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
@@ -209,7 +223,7 @@
 
   <div class="secret-cta">Did you take notes? <a class="gf-btn" href="/secret-menu.html">gluten-free</a></div>
 
-  <div class="colophon">David's Daily Bread &middot; compiled July 8, 2026, 21:15 PDT &middot; <a href="/archive.html">Past editions</a></div>
+  <div class="colophon">David's Daily Bread &middot; compiled 8:20 AM ET, Wednesday, July 8, 2026 &middot; <a href="/archive.html">Past editions</a></div>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
@@ -228,19 +242,105 @@
     });
   })();
   (function () {
+    var FONTS = { hand: "'Caveat', cursive", serif: "'Newsreader', Georgia, serif", elegant: "'Cormorant Garamond', Georgia, serif", sans: "'Inter', -apple-system, system-ui, sans-serif", mono: "'Courier New', Courier, monospace" };
+    var COLORS = { ink: '#ece7db', gold: '#c8a24a', steel: '#6f9fce', copper: '#b9772a' };
+    var DEF = { font: 'hand', size: 17, bold: false, italic: false, color: 'ink' };
     var blocks = document.querySelectorAll('.notes');
     for (var i = 0; i < blocks.length; i++) (function (box) {
       var ta = box.querySelector('textarea');
       var btn = box.querySelector('.notes-close');
-      var key = 'ddb-note:' + box.getAttribute('data-note-key');
-      function grow() { ta.style.height = 'auto'; ta.style.height = Math.max(24, ta.scrollHeight) + 'px'; }
-      try { var saved = localStorage.getItem(key); if (saved) { ta.value = saved; } } catch (e) {}
+      var noteKey = box.getAttribute('data-note-key');
+      var key = 'ddb-note:' + noteKey;
+      var styleKey = 'ddb-note-style:' + noteKey;
+      var prev = box.previousElementSibling;
+      var isLead = !!(prev && prev.classList && prev.classList.contains('lead-card'));
+      var st = {}; for (var k in DEF) st[k] = DEF[k];
+      try { var savedSt = JSON.parse(localStorage.getItem(styleKey) || 'null'); if (savedSt) for (var k2 in savedSt) st[k2] = savedSt[k2]; } catch (e) {}
+      var styleBtn = document.createElement('button');
+      styleBtn.type = 'button'; styleBtn.className = 'notes-style'; styleBtn.title = 'Personalize text'; styleBtn.setAttribute('aria-label', 'Personalize note text'); styleBtn.textContent = 'Aa';
+      box.insertBefore(styleBtn, btn);
+      var tools = document.createElement('div');
+      tools.className = 'notes-tools';
+      tools.innerHTML = '<select aria-label="Note font"><option value="hand">Handwritten</option><option value="serif">Serif</option><option value="elegant">Elegant</option><option value="sans">Sans</option><option value="mono">Mono</option></select>' +
+        '<button type="button" data-act="smaller" title="Smaller text">A&minus;</button>' +
+        '<button type="button" data-act="larger" title="Larger text">A+</button>' +
+        '<button type="button" data-act="bold" title="Bold" style="font-weight:700">B</button>' +
+        '<button type="button" data-act="italic" title="Italic" style="font-style:italic">I</button>' +
+        '<button type="button" class="swatch" data-color="ink" title="Ink" style="background:#ece7db"></button>' +
+        '<button type="button" class="swatch" data-color="gold" title="Gold" style="background:#c8a24a"></button>' +
+        '<button type="button" class="swatch" data-color="steel" title="Steel" style="background:#6f9fce"></button>' +
+        '<button type="button" class="swatch" data-color="copper" title="Copper" style="background:#b9772a"></button>' +
+        '<button type="button" data-act="reset" title="Reset style">&#8634;</button>';
+      box.appendChild(tools);
+      var sel = tools.querySelector('select');
+      function lineH() { return Math.max(24, Math.ceil((parseFloat(st.size) || 17) * 1.35) + 2); }
+      function grow() {
+        if (isLead) {
+          box.style.width = '';
+          ta.style.height = 'auto';
+          var maxW = (prev && prev.offsetWidth) || box.parentNode.clientWidth;
+          var w = box.offsetWidth;
+          while (ta.scrollHeight > lineH() && w < maxW) {
+            w = Math.min(maxW, w + 60);
+            box.style.width = w + 'px';
+            ta.style.height = 'auto';
+          }
+          if (w >= maxW) { box.style.width = '100%'; }
+        }
+        ta.style.height = 'auto';
+        ta.style.height = Math.max(24, ta.scrollHeight) + 'px';
+      }
+      function applyStyle() {
+        ta.style.fontFamily = FONTS[st.font] || FONTS.hand;
+        ta.style.fontSize = st.size + 'px';
+        ta.style.fontWeight = st.bold ? '700' : '';
+        ta.style.fontStyle = st.italic ? 'italic' : '';
+        ta.style.color = COLORS[st.color] || '';
+        sel.value = FONTS[st.font] ? st.font : 'hand';
+        var bb = tools.querySelector('[data-act="bold"]');
+        var ib = tools.querySelector('[data-act="italic"]');
+        if (st.bold) { bb.classList.add('on'); } else { bb.classList.remove('on'); }
+        if (st.italic) { ib.classList.add('on'); } else { ib.classList.remove('on'); }
+        var sw = tools.querySelectorAll('.swatch');
+        for (var j = 0; j < sw.length; j++) {
+          if (sw[j].getAttribute('data-color') === st.color) { sw[j].classList.add('on'); } else { sw[j].classList.remove('on'); }
+        }
+        grow();
+      }
+      function saveStyle() {
+        try {
+          var isDef = true; for (var k3 in DEF) { if (st[k3] !== DEF[k3]) { isDef = false; } }
+          if (isDef) { localStorage.removeItem(styleKey); } else { localStorage.setItem(styleKey, JSON.stringify(st)); }
+        } catch (e) {}
+      }
+      try { var saved = localStorage.getItem(key); if (saved) { ta.value = saved; box.classList.add('open'); } } catch (e) {}
+      applyStyle();
       ta.addEventListener('focus', function () { box.classList.add('open'); grow(); });
       ta.addEventListener('input', function () {
         grow();
         try { if (ta.value) { localStorage.setItem(key, ta.value); } else { localStorage.removeItem(key); } } catch (e) {}
       });
-      btn.addEventListener('click', function () { box.classList.remove('open'); ta.style.height = '24px'; ta.blur(); });
+      btn.addEventListener('click', function () { box.classList.remove('open'); box.classList.remove('tools-open'); styleBtn.classList.remove('on'); box.style.width = ''; ta.style.height = '24px'; ta.blur(); });
+      styleBtn.addEventListener('click', function () {
+        box.classList.toggle('tools-open');
+        if (box.classList.contains('tools-open')) { styleBtn.classList.add('on'); } else { styleBtn.classList.remove('on'); }
+      });
+      sel.addEventListener('change', function () { st.font = sel.value; applyStyle(); saveStyle(); });
+      tools.addEventListener('click', function (ev) {
+        var t = ev.target;
+        while (t && t !== tools && (!t.tagName || t.tagName !== 'BUTTON')) { t = t.parentNode; }
+        if (!t || t === tools) { return; }
+        var act = t.getAttribute('data-act');
+        var col = t.getAttribute('data-color');
+        if (col) { st.color = col; }
+        else if (act === 'smaller') { st.size = Math.max(13, (parseFloat(st.size) || 17) - 2); }
+        else if (act === 'larger') { st.size = Math.min(27, (parseFloat(st.size) || 17) + 2); }
+        else if (act === 'bold') { st.bold = !st.bold; }
+        else if (act === 'italic') { st.italic = !st.italic; }
+        else if (act === 'reset') { for (var k4 in DEF) { st[k4] = DEF[k4]; } }
+        else { return; }
+        applyStyle(); saveStyle();
+      });
     })(blocks[i]);
   })();
 </script>

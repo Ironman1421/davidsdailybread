@@ -3,10 +3,10 @@
   "editions": [
     {
       "date": "2026-07-08",
-      "edition": "evening",
+      "edition": "morning",
       "dateHuman": "Wednesday, July 8, 2026",
-      "file": "editions/2026-07-08-evening.html",
-      "lead": "Oil surges and stocks slide as the US strikes Iran again"
+      "file": "editions/2026-07-08-morning.html",
+      "lead": "Oil surges 6% and stocks tumble as Trump declares Iran ceasefire 'over'"
     },
     {
       "date": "2026-07-07",
