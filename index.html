@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>David's Daily Bread — Evening edition, Tuesday, July 7, 2026</title>
+<title>David's Daily Bread — Evening edition, Wednesday, July 8, 2026</title>
 <meta name="description" content="David's Daily Bread — a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
 <link rel="canonical" href="https://davidsdailybread.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
-<meta property="og:title" content="David's Daily Bread — Evening edition, Tuesday, July 7, 2026">
+<meta property="og:title" content="David's Daily Bread — Evening edition, Wednesday, July 8, 2026">
 <meta property="og:description" content="A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
 <meta property="og:url" content="https://davidsdailybread.com/">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
@@ -81,6 +81,19 @@
   .story-card:hover h3 { color: var(--gold); }
   .story-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0; }
   .story-card p b { color: var(--ink); font-weight: 600; }
+  .stack { display: flex; flex-direction: column; }
+  .stack .card { flex: 1; }
+  .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
+  .notes:focus-within, .notes.open { border-style: solid; border-color: var(--gold-soft); background: rgba(200,162,74,0.05); }
+  .notes .pen { flex: none; color: var(--gold-soft); font-size: 13px; padding-top: 3px; }
+  .notes textarea { flex: 1; background: transparent; border: none; outline: none; resize: none; overflow: hidden; color: var(--ink); font-family: 'Caveat', cursive; font-size: 17px; line-height: 1.35; height: 24px; padding: 0; }
+  .notes textarea::placeholder { color: var(--faint); }
+  .notes .notes-close { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; width: 20px; height: 20px; padding: 0; font-size: 12px; line-height: 1; cursor: pointer; }
+  .notes.open .notes-close { display: inline-flex; }
+  .notes .notes-close:hover { color: var(--gold); border-color: var(--gold-soft); }
+  .page-notes { margin-top: 28px; }
+  .page-notes .notes { margin-top: 0; }
+  .page-notes .notes-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
@@ -101,9 +114,9 @@
     <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
     <div class="dateline">
       <div class="dateline-row">
-        <span>Tuesday, July 7, 2026</span>
+        <span>Wednesday, July 8, 2026</span>
         <span class="edition">Evening edition</span>
-        <span class="read">&approx; 2 min read</span>
+        <span class="read">&asymp; 4 min read</span>
       </div>
     </div>
   </header>
@@ -117,34 +130,34 @@
       </button>
     </div>
     <ul>
-      <li><span class="tag">Tech &amp; AI</span><span>DeepSeek's homegrown inference chip rattles Nvidia and the wider semiconductor complex.</span></li>
-      <li><span class="tag">Markets</span><span>A chip rout and a Hormuz oil shock knock stocks off record highs.</span></li>
-      <li><span class="tag">Science</span><span>Astronomers catch a magnetar being born; AI hunts new superconductors.</span></li>
+      <li><span class="tag">Tech &amp; AI</span><span>Governments urged to take AI stakes as Nvidia unveils its Rubin supercomputer.</span></li>
+      <li><span class="tag">Markets</span><span>Fresh US strikes on Iran lift oil and sink chips before the Fed minutes.</span></li>
+      <li><span class="tag">Science</span><span>AI designs a vaccine, entanglement goes macroscopic, and super-puff planets appear.</span></li>
     </ul>
     <div class="glance-more" id="glanceMore">
       <div class="glance-more-inner">
         <div class="glance-grp">
           <div class="glance-grp-head">Tech &amp; AI</div>
           <ul>
-            <li><span class="rank">1</span><span><a href="https://www.bloomberg.com/news/articles/2026-07-07/chinese-ai-startup-deepseek-developing-own-ai-chip-reuters-says">DeepSeek is designing its own AI inference chip</a></span></li>
-            <li><span class="rank">2</span><span><a href="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/">Anthropic overtakes OpenAI in revenue</a></span></li>
-            <li><span class="rank">3</span><span><a href="https://fortune.com/2026/07/07/microsoft-xbox-layoffs-20-percent-asha-sharma/">Xbox begins its biggest-ever restructure</a></span></li>
+            <li><span class="rank">1</span><span><a href="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/">Altman pitches a new world order for AI</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer">Nvidia unveils its Rubin AI supercomputer</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://techcrunch.com/2026/07/02/anthropic-is-discussing-a-new-custom-chip-with-samsung/">Anthropic weighs a custom chip with Samsung</a></span></li>
           </ul>
         </div>
         <div class="glance-grp">
           <div class="glance-grp-head">Business &amp; Markets</div>
           <ul>
-            <li><span class="rank">1</span><span><a href="https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-futures-slip-after-samsung-results-spark-chip-sell-off-223015294.html">Chip rout drags Nasdaq and S&amp;P off records</a></span></li>
-            <li><span class="rank">2</span><span><a href="https://www.cnbc.com/2026/07/07/oil-prices-iran-strait-hormuz.html">Oil surges after Strait of Hormuz tanker attacks</a></span></li>
-            <li><span class="rank">3</span><span><a href="https://en.sedaily.com/markets/2026/07/07/kospi-falls-to-7700-range-despite-samsungs-record-earnings">Samsung's record profit misses; Kospi hits circuit breaker</a></span></li>
+            <li><span class="rank">1</span><span><a href="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html">Oil jumps as US strikes Iran again</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026">Chip rout drags Wall Street lower</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.cnbc.com/2026/07/07/stock-market-today-live-updates.html">Markets brace for the Fed minutes</a></span></li>
           </ul>
         </div>
         <div class="glance-grp">
           <div class="glance-grp-head">Science</div>
           <ul>
-            <li><span class="rank">1</span><span><a href="https://www.sciencedaily.com/releases/2026/06/260626030450.htm">Astronomers witness the birth of a magnetar</a></span></li>
-            <li><span class="rank">2</span><span><a href="https://www.sciencedaily.com/releases/2026/07/260701205006.htm">Machine learning discovers two new superconductors</a></span></li>
-            <li><span class="rank">3</span><span><a href="https://www.sciencedaily.com/releases/2026/06/260626124701.htm">Overlooked pathway may drive Alzheimer's cell death</a></span></li>
+            <li><span class="rank">1</span><span><a href="https://www.sciencedaily.com/releases/2026/06/260605023357.htm">AI-designed universal vaccine clears first human trial</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.sciencedaily.com/releases/2026/07/260701015242.htm">Quantum entanglement found in a crystal you can hold</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.space.com/astronomy/exoplanets/two-super-puff-cotton-candy-exoplanets-are-the-lightest-gas-giants-ever-discovered">Astronomers find planets lighter than cotton candy</a></span></li>
           </ul>
         </div>
       </div>
@@ -153,39 +166,45 @@
 
   <div class="kicker">Lead story</div>
   <article class="card lead-card">
-    <a class="card-link" href="https://www.cnbc.com/2026/07/07/oil-prices-iran-strait-hormuz.html">
+    <a class="card-link" href="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html">
       <span class="badge">Business &amp; markets</span>
-      <h1>Oil jumps as tanker attacks reignite the Strait of Hormuz crisis</h1>
-      <p class="standfirst">Fresh strikes on two tankers and a revoked Iranian export license sent crude sharply higher, testing a fragile US&ndash;Iran truce.</p>
-      <p class="lead-body">Two vessels &mdash; the Qatari LNG carrier Al Rekayat and the Saudi-flagged supertanker Wedyan &mdash; were struck by projectiles in the Strait of Hormuz on Tuesday, one suffering an engine-room fire. Brent settled 3% higher at $74.16 and WTI rose 2.8% to $70.44, then extended gains after Washington revoked Iran's authorization to sell oil, pushing Brent up 5.6% in after-hours trade. The waterway carries roughly a fifth of the world's oil, and the attacks underscore how brittle the interim peace remains as the two sides negotiate a permanent settlement.</p>
+      <h1>Oil surges and stocks slide as the US strikes Iran again</h1>
+      <p class="standfirst">A fresh round of US airstrikes reopened the market's biggest tail risk just as investors braced for the Fed.</p>
+      <p class="lead-body">Oil prices climbed after the United States launched new airstrikes on Iran in retaliation for attacks on commercial vessels in the Strait of Hormuz, with Brent rising roughly 2% toward $76 a barrel and the Treasury revoking a waiver that had let Tehran sell its oil. Equity futures slipped and semiconductors led losses, as investors rotated out of AI and technology names into healthcare and financials. The strikes landed hours before the release of the June Fed minutes, with markets now pricing better-than-even odds of a September rate hike.</p>
     </a>
   </article>
+  <div class="notes" data-note-key="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
 
   <section class="section">
     <a class="col-head" href="/tech.html">Tech &amp; AI <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <article class="card story-card"><a class="card-link" href="https://www.bloomberg.com/news/articles/2026-07-07/chinese-ai-startup-deepseek-developing-own-ai-chip-reuters-says"><span class="num">01</span><h3>DeepSeek is developing its own AI inference chip</h3><p><b>China's DeepSeek</b> has begun work on a proprietary inference processor to cut its reliance on Nvidia and Huawei, Reuters reported, unsettling chip stocks worldwide.</p></a></article>
-      <article class="card story-card"><a class="card-link" href="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/"><span class="num">02</span><h3>Anthropic overtakes OpenAI in revenue</h3><p><b>Anthropic now</b> leads on self-reported revenue, tracking toward a $47B annualized run rate versus OpenAI's ~$25B, powered largely by enterprise and Claude Code.</p></a></article>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/"><span class="num">01</span><h3>Altman pitches a new world order for AI</h3><p><b>Losing ground</b> to Google and Anthropic, Sam Altman is floating a sweeping plan for governments to take equity stakes across the AI industry.</p></a></article><div class="notes" data-note-key="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer"><span class="num">02</span><h3>Nvidia unveils its Rubin AI supercomputer</h3><p><b>Six new chips</b> anchor Rubin, whose sixth-gen NVLink pushes 3.6TB/s per GPU and 260TB/s across a single rack.</p></a></article><div class="notes" data-note-key="https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
   <section class="section">
     <a class="col-head" href="/markets.html">Business &amp; Markets <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <article class="card story-card"><a class="card-link" href="https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-futures-slip-after-samsung-results-spark-chip-sell-off-223015294.html"><span class="num">01</span><h3>Chip selloff pulls stocks off record highs</h3><p><b>The Nasdaq</b> fell 1.16% and the S&amp;P 500 slid 0.45% as DeepSeek's chip plans and Samsung's results triggered a rotation out of AI names.</p></a></article>
-      <article class="card story-card"><a class="card-link" href="https://www.cnbc.com/2026/07/07/oil-prices-iran-strait-hormuz.html"><span class="num">02</span><h3>Oil surges after Strait of Hormuz tanker attacks</h3><p><b>Brent settled</b> 3% higher at $74.16 after two tankers were struck; prices jumped further as Washington revoked Iran's license to sell oil.</p></a></article>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html"><span class="num">01</span><h3>Oil jumps as US strikes Iran again</h3><p><b>Brent rose</b> about 2% toward $76 after fresh US airstrikes on Iran and a revoked oil-sale waiver rattled global markets.</p></a></article><div class="notes" data-note-key="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026"><span class="num">02</span><h3>Chip rout drags Wall Street lower</h3><p><b>Semiconductors led</b> declines as the Nasdaq fell 1.2%; Samsung's preliminary results failed to meet lofty expectations.</p></a></article><div class="notes" data-note-key="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
   <section class="section">
     <a class="col-head" href="/science.html">Science <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260626030450.htm"><span class="num">01</span><h3>Astronomers witness the birth of a magnetar</h3><p><b>A "chirping"</b> signal from supernova SN 2024afav revealed a newborn magnetar &mdash; the first time general relativity has been used to explain a supernova's mechanics.</p></a></article>
-      <article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260701205006.htm"><span class="num">02</span><h3>Machine learning discovers two new superconductors</h3><p><b>Researchers used</b> AI and quantum calculations to predict, then confirm, kagome-lattice superconductors YRu3B2 and LuRu3B2 &mdash; a rare theory-first find.</p></a></article>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260605023357.htm"><span class="num">01</span><h3>AI-designed universal vaccine clears first human trial</h3><p><b>Cambridge researchers</b> report the first vaccine component designed entirely by AI passed a Phase I trial, targeting the whole Sarbecovirus family.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/06/260605023357.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260701015242.htm"><span class="num">02</span><h3>Quantum entanglement found in a crystal you can hold</h3><p><b>TU Wien physicists</b> measured deep entanglement across a centimeter-sized strange-metal crystal, pushing quantum effects into the macroscopic world.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/07/260701015242.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
-  <div class="colophon">David's Daily Bread &middot; compiled July 7, 2026 &middot; 10:15 PM PT &middot; <a href="/archive.html">Past editions</a></div>
+  <div class="page-notes">
+    <div class="notes-label">Page notes</div>
+    <div class="notes" data-note-key="page:home"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Thoughts on this edition&hellip;" aria-label="Page notes"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+  </div>
+
+  <div class="colophon">David's Daily Bread &middot; compiled July 8, 2026, 21:15 PDT &middot; <a href="/archive.html">Past editions</a></div>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
@@ -202,6 +221,22 @@
     window.addEventListener('resize', function () {
       if (btn.getAttribute('aria-expanded') === 'true') { panel.style.maxHeight = panel.scrollHeight + 'px'; }
     });
+  })();
+  (function () {
+    var blocks = document.querySelectorAll('.notes');
+    for (var i = 0; i < blocks.length; i++) (function (box) {
+      var ta = box.querySelector('textarea');
+      var btn = box.querySelector('.notes-close');
+      var key = 'ddb-note:' + box.getAttribute('data-note-key');
+      function grow() { ta.style.height = 'auto'; ta.style.height = Math.max(24, ta.scrollHeight) + 'px'; }
+      try { var saved = localStorage.getItem(key); if (saved) { ta.value = saved; } } catch (e) {}
+      ta.addEventListener('focus', function () { box.classList.add('open'); grow(); });
+      ta.addEventListener('input', function () {
+        grow();
+        try { if (ta.value) { localStorage.setItem(key, ta.value); } else { localStorage.removeItem(key); } } catch (e) {}
+      });
+      btn.addEventListener('click', function () { box.classList.remove('open'); ta.style.height = '24px'; ta.blur(); });
+    })(blocks[i]);
   })();
 </script>
 </body>

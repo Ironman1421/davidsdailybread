@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Science — David's Daily Bread</title>
-<meta name="description" content="Space, physics, and the frontiers of discovery — the day's biggest science stories from David's Daily Bread.">
+<meta name="description" content="Space, physics, and the frontiers of discovery.">
 <link rel="canonical" href="https://davidsdailybread.com/science.html">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
 <meta property="og:title" content="Science — David's Daily Bread">
-<meta property="og:description" content="Space, physics, and the frontiers of discovery — the day's biggest science stories from David's Daily Bread.">
+<meta property="og:description" content="Space, physics, and the frontiers of discovery.">
 <meta property="og:url" content="https://davidsdailybread.com/science.html">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -46,6 +46,19 @@
   .story-card:hover h3 { color: var(--gold); }
   .story-card p { font-size: 13.5px; line-height: 1.58; color: var(--muted); margin: 0; }
   .story-card p b { color: var(--ink); font-weight: 600; }
+  .stack { display: flex; flex-direction: column; }
+  .stack .card { flex: 1; }
+  .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
+  .notes:focus-within, .notes.open { border-style: solid; border-color: var(--gold-soft); background: rgba(200,162,74,0.05); }
+  .notes .pen { flex: none; color: var(--gold-soft); font-size: 13px; padding-top: 3px; }
+  .notes textarea { flex: 1; background: transparent; border: none; outline: none; resize: none; overflow: hidden; color: var(--ink); font-family: 'Caveat', cursive; font-size: 17px; line-height: 1.35; height: 24px; padding: 0; }
+  .notes textarea::placeholder { color: var(--faint); }
+  .notes .notes-close { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; width: 20px; height: 20px; padding: 0; font-size: 12px; line-height: 1; cursor: pointer; }
+  .notes.open .notes-close { display: inline-flex; }
+  .notes .notes-close:hover { color: var(--gold); border-color: var(--gold-soft); }
+  .page-notes { margin-top: 28px; }
+  .page-notes .notes { margin-top: 0; }
+  .page-notes .notes-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
@@ -70,18 +83,39 @@
   </header>
 
   <div class="card-grid">
-    <article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260626030450.htm"><span class="num">01</span><h3>Astronomers witness the birth of a magnetar</h3><p><b>A "chirping"</b> signal from supernova SN 2024afav revealed a newborn magnetar &mdash; the first time general relativity has been used to explain a supernova's mechanics.</p></a></article>
-    <article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260701205006.htm"><span class="num">02</span><h3>Machine learning discovers two new superconductors</h3><p><b>Researchers used</b> AI and quantum calculations to predict, then confirm, kagome-lattice superconductors YRu3B2 and LuRu3B2 &mdash; a rare theory-first find.</p></a></article>
-    <article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260626124701.htm"><span class="num">03</span><h3>A new mechanism of brain-cell death in Alzheimer's</h3><p><b>Scientists identified</b> "karyoptosis," an overlooked pathway of neuron death that may drive Alzheimer's and frontotemporal dementia &mdash; a possible drug target.</p></a></article>
-    <article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260623083101.htm"><span class="num">04</span><h3>How honeybees really crown their queens</h3><p><b>Queens aren't</b> made by royal jelly alone: workers build custom wax "royal cribs" with warmer, controlled conditions to raise a future ruler.</p></a></article>
-    <article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260626125707.htm"><span class="num">05</span><h3>Streetlights trap woodlice in eerie "death spirals"</h3><p><b>In Israel,</b> researchers filmed thousands of woodlice swirling into mills of 5,000-plus under artificial light &mdash; a behavior never before seen in the wild.</p></a></article>
-    <article class="card story-card"><a class="card-link" href="https://www.nasa.gov/blogs/spacestation/"><span class="num">06</span><h3>ISS crew runs cartilage and blood-pressure studies</h3><p><b>Aboard the</b> station, Expedition 74 advanced cartilage-engineering and cardiovascular research while preparing three crew members for their return to Earth.</p></a></article>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260605023357.htm"><span class="num">01</span><h3>AI-designed universal vaccine clears first human trial</h3><p><b>Cambridge researchers</b> report the first vaccine component designed entirely by AI passed a Phase I trial, targeting the whole Sarbecovirus family.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/06/260605023357.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260701015242.htm"><span class="num">02</span><h3>Quantum entanglement found in a crystal you can hold</h3><p><b>TU Wien physicists</b> measured deep entanglement across a centimeter-sized strange-metal crystal, pushing quantum effects into the macroscopic world.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/07/260701015242.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.space.com/astronomy/exoplanets/two-super-puff-cotton-candy-exoplanets-are-the-lightest-gas-giants-ever-discovered"><span class="num">03</span><h3>Astronomers find planets lighter than cotton candy</h3><p><b>Two 'super-puff'</b> worlds around a star 1,110 light-years away are the least dense gas giants yet found, mostly hydrogen and helium.</p></a></article><div class="notes" data-note-key="https://www.space.com/astronomy/exoplanets/two-super-puff-cotton-candy-exoplanets-are-the-lightest-gas-giants-ever-discovered"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260707025046.htm"><span class="num">04</span><h3>New material makes heat programmable</h3><p><b>Breaking reciprocity,</b> a device can direct thermal radiation, switch on and off, and retain its heat state without power.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/07/260707025046.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.nasa.gov/blogs/spacestation/2026/06/30/astronauts-repair-canadarm2-robotic-arm-and-complete-spacewalk/"><span class="num">05</span><h3>Spacewalkers repair the station's Canadarm2</h3><p><b>A seven-hour</b> spacewalk replaced a failed wrist joint on the ISS robotic arm, restoring the 25-year-old system to full health.</p></a></article><div class="notes" data-note-key="https://www.nasa.gov/blogs/spacestation/2026/06/30/astronauts-repair-canadarm2-robotic-arm-and-complete-spacewalk/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.livescience.com/space/science-news-this-week-james-webb-telescope-finds-a-never-before-seen-substance-chinas-great-green-wall-grows-faster-than-natural-trees-and-a-medici-murder-mystery-is-solved"><span class="num">06</span><h3>Webb spots an unknown molecule on Pluto and Titan</h3><p><b>A mystery</b> absorption line in both worlds' spectra points to a never-before-seen substance shared across two very different places.</p></a></article><div class="notes" data-note-key="https://www.livescience.com/space/science-news-this-week-james-webb-telescope-finds-a-never-before-seen-substance-chinas-great-green-wall-grows-faster-than-natural-trees-and-a-medici-murder-mystery-is-solved"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+  </div>
+
+  <div class="page-notes">
+    <div class="notes-label">Page notes</div>
+    <div class="notes" data-note-key="page:science"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Thoughts on this page&hellip;" aria-label="Page notes"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
   </div>
 
   <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a></div>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
+  (function () {
+    var blocks = document.querySelectorAll('.notes');
+    for (var i = 0; i < blocks.length; i++) (function (box) {
+      var ta = box.querySelector('textarea');
+      var btn = box.querySelector('.notes-close');
+      var key = 'ddb-note:' + box.getAttribute('data-note-key');
+      function grow() { ta.style.height = 'auto'; ta.style.height = Math.max(24, ta.scrollHeight) + 'px'; }
+      try { var saved = localStorage.getItem(key); if (saved) { ta.value = saved; } } catch (e) {}
+      ta.addEventListener('focus', function () { box.classList.add('open'); grow(); });
+      ta.addEventListener('input', function () {
+        grow();
+        try { if (ta.value) { localStorage.setItem(key, ta.value); } else { localStorage.removeItem(key); } } catch (e) {}
+      });
+      btn.addEventListener('click', function () { box.classList.remove('open'); ta.style.height = '24px'; ta.blur(); });
+    })(blocks[i]);
+  })();
 </script>
 </body>
 </html>
