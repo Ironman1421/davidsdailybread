@@ -91,23 +91,12 @@
   .notes .notes-close { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; width: 20px; height: 20px; padding: 0; font-size: 12px; line-height: 1; cursor: pointer; }
   .notes.open .notes-close { display: inline-flex; }
   .notes .notes-close:hover { color: var(--gold); border-color: var(--gold-soft); }
-  .notes { flex-wrap: wrap; }
-  .lead-card + .notes { width: calc(50% - 9px); }
-  .notes .notes-style { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; min-width: 20px; height: 20px; padding: 0 5px; font-size: 11px; line-height: 1; cursor: pointer; font-family: 'Inter', sans-serif; }
-  .notes.open .notes-style { display: inline-flex; }
-  .notes .notes-style:hover, .notes .notes-style.on { color: var(--gold); border-color: var(--gold-soft); }
-  .notes .notes-tools { display: none; flex-basis: 100%; order: 10; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line-strong); flex-wrap: wrap; align-items: center; gap: 6px; }
-  .notes.tools-open .notes-tools { display: flex; }
-  .notes .notes-tools select { background: var(--panel); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 11px; padding: 2px 6px; cursor: pointer; }
-  .notes .notes-tools button { background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 8px; min-width: 24px; height: 22px; padding: 0 6px; font-size: 11.5px; line-height: 1; cursor: pointer; font-family: 'Inter', sans-serif; }
-  .notes .notes-tools button:hover { color: var(--gold); border-color: var(--gold-soft); }
-  .notes .notes-tools button.on { color: var(--gold); border-color: var(--gold); background: rgba(200,162,74,0.12); }
-  .notes .notes-tools .swatch { width: 16px; height: 16px; min-width: 16px; padding: 0; border-radius: 999px; }
-  .notes .notes-tools .swatch.on { box-shadow: 0 0 0 2px var(--panel), 0 0 0 3px var(--gold); }
-  @media (max-width: 640px) { .lead-card + .notes { width: 100%; } }
   .page-notes { margin-top: 28px; }
   .page-notes .notes { margin-top: 0; }
   .page-notes .notes-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
+  .secret-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 30px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); }
+  .gf-btn { font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 5px 14px; text-decoration: none; transition: background 0.15s, color 0.15s; }
+  .gf-btn:hover { background: rgba(200,162,74,0.22); }
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
@@ -218,6 +207,8 @@
     <div class="notes" data-note-key="page:home"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Thoughts on this edition&hellip;" aria-label="Page notes"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
   </div>
 
+  <div class="secret-cta">Did you take notes? <a class="gf-btn" href="/secret-menu.html">gluten-free</a></div>
+
   <div class="colophon">David's Daily Bread &middot; compiled July 8, 2026, 21:15 PDT &middot; <a href="/archive.html">Past editions</a></div>
 </div>
 <script>
@@ -237,105 +228,19 @@
     });
   })();
   (function () {
-    var FONTS = { hand: "'Caveat', cursive", serif: "'Newsreader', Georgia, serif", elegant: "'Cormorant Garamond', Georgia, serif", sans: "'Inter', -apple-system, system-ui, sans-serif", mono: "'Courier New', Courier, monospace" };
-    var COLORS = { ink: '#ece7db', gold: '#c8a24a', steel: '#6f9fce', copper: '#b9772a' };
-    var DEF = { font: 'hand', size: 17, bold: false, italic: false, color: 'ink' };
     var blocks = document.querySelectorAll('.notes');
     for (var i = 0; i < blocks.length; i++) (function (box) {
       var ta = box.querySelector('textarea');
       var btn = box.querySelector('.notes-close');
-      var noteKey = box.getAttribute('data-note-key');
-      var key = 'ddb-note:' + noteKey;
-      var styleKey = 'ddb-note-style:' + noteKey;
-      var prev = box.previousElementSibling;
-      var isLead = !!(prev && prev.classList && prev.classList.contains('lead-card'));
-      var st = {}; for (var k in DEF) st[k] = DEF[k];
-      try { var savedSt = JSON.parse(localStorage.getItem(styleKey) || 'null'); if (savedSt) for (var k2 in savedSt) st[k2] = savedSt[k2]; } catch (e) {}
-      var styleBtn = document.createElement('button');
-      styleBtn.type = 'button'; styleBtn.className = 'notes-style'; styleBtn.title = 'Personalize text'; styleBtn.setAttribute('aria-label', 'Personalize note text'); styleBtn.textContent = 'Aa';
-      box.insertBefore(styleBtn, btn);
-      var tools = document.createElement('div');
-      tools.className = 'notes-tools';
-      tools.innerHTML = '<select aria-label="Note font"><option value="hand">Handwritten</option><option value="serif">Serif</option><option value="elegant">Elegant</option><option value="sans">Sans</option><option value="mono">Mono</option></select>' +
-        '<button type="button" data-act="smaller" title="Smaller text">A&minus;</button>' +
-        '<button type="button" data-act="larger" title="Larger text">A+</button>' +
-        '<button type="button" data-act="bold" title="Bold" style="font-weight:700">B</button>' +
-        '<button type="button" data-act="italic" title="Italic" style="font-style:italic">I</button>' +
-        '<button type="button" class="swatch" data-color="ink" title="Ink" style="background:#ece7db"></button>' +
-        '<button type="button" class="swatch" data-color="gold" title="Gold" style="background:#c8a24a"></button>' +
-        '<button type="button" class="swatch" data-color="steel" title="Steel" style="background:#6f9fce"></button>' +
-        '<button type="button" class="swatch" data-color="copper" title="Copper" style="background:#b9772a"></button>' +
-        '<button type="button" data-act="reset" title="Reset style">&#8634;</button>';
-      box.appendChild(tools);
-      var sel = tools.querySelector('select');
-      function lineH() { return Math.max(24, Math.ceil((parseFloat(st.size) || 17) * 1.35) + 2); }
-      function grow() {
-        if (isLead) {
-          box.style.width = '';
-          ta.style.height = 'auto';
-          var maxW = (prev && prev.offsetWidth) || box.parentNode.clientWidth;
-          var w = box.offsetWidth;
-          while (ta.scrollHeight > lineH() && w < maxW) {
-            w = Math.min(maxW, w + 60);
-            box.style.width = w + 'px';
-            ta.style.height = 'auto';
-          }
-          if (w >= maxW) { box.style.width = '100%'; }
-        }
-        ta.style.height = 'auto';
-        ta.style.height = Math.max(24, ta.scrollHeight) + 'px';
-      }
-      function applyStyle() {
-        ta.style.fontFamily = FONTS[st.font] || FONTS.hand;
-        ta.style.fontSize = st.size + 'px';
-        ta.style.fontWeight = st.bold ? '700' : '';
-        ta.style.fontStyle = st.italic ? 'italic' : '';
-        ta.style.color = COLORS[st.color] || '';
-        sel.value = FONTS[st.font] ? st.font : 'hand';
-        var bb = tools.querySelector('[data-act="bold"]');
-        var ib = tools.querySelector('[data-act="italic"]');
-        if (st.bold) { bb.classList.add('on'); } else { bb.classList.remove('on'); }
-        if (st.italic) { ib.classList.add('on'); } else { ib.classList.remove('on'); }
-        var sw = tools.querySelectorAll('.swatch');
-        for (var j = 0; j < sw.length; j++) {
-          if (sw[j].getAttribute('data-color') === st.color) { sw[j].classList.add('on'); } else { sw[j].classList.remove('on'); }
-        }
-        grow();
-      }
-      function saveStyle() {
-        try {
-          var isDef = true; for (var k3 in DEF) { if (st[k3] !== DEF[k3]) { isDef = false; } }
-          if (isDef) { localStorage.removeItem(styleKey); } else { localStorage.setItem(styleKey, JSON.stringify(st)); }
-        } catch (e) {}
-      }
-      try { var saved = localStorage.getItem(key); if (saved) { ta.value = saved; box.classList.add('open'); } } catch (e) {}
-      applyStyle();
+      var key = 'ddb-note:' + box.getAttribute('data-note-key');
+      function grow() { ta.style.height = 'auto'; ta.style.height = Math.max(24, ta.scrollHeight) + 'px'; }
+      try { var saved = localStorage.getItem(key); if (saved) { ta.value = saved; } } catch (e) {}
       ta.addEventListener('focus', function () { box.classList.add('open'); grow(); });
       ta.addEventListener('input', function () {
         grow();
         try { if (ta.value) { localStorage.setItem(key, ta.value); } else { localStorage.removeItem(key); } } catch (e) {}
       });
-      btn.addEventListener('click', function () { box.classList.remove('open'); box.classList.remove('tools-open'); styleBtn.classList.remove('on'); box.style.width = ''; ta.style.height = '24px'; ta.blur(); });
-      styleBtn.addEventListener('click', function () {
-        box.classList.toggle('tools-open');
-        if (box.classList.contains('tools-open')) { styleBtn.classList.add('on'); } else { styleBtn.classList.remove('on'); }
-      });
-      sel.addEventListener('change', function () { st.font = sel.value; applyStyle(); saveStyle(); });
-      tools.addEventListener('click', function (ev) {
-        var t = ev.target;
-        while (t && t !== tools && (!t.tagName || t.tagName !== 'BUTTON')) { t = t.parentNode; }
-        if (!t || t === tools) { return; }
-        var act = t.getAttribute('data-act');
-        var col = t.getAttribute('data-color');
-        if (col) { st.color = col; }
-        else if (act === 'smaller') { st.size = Math.max(13, (parseFloat(st.size) || 17) - 2); }
-        else if (act === 'larger') { st.size = Math.min(27, (parseFloat(st.size) || 17) + 2); }
-        else if (act === 'bold') { st.bold = !st.bold; }
-        else if (act === 'italic') { st.italic = !st.italic; }
-        else if (act === 'reset') { for (var k4 in DEF) { st[k4] = DEF[k4]; } }
-        else { return; }
-        applyStyle(); saveStyle();
-      });
+      btn.addEventListener('click', function () { box.classList.remove('open'); ta.style.height = '24px'; ta.blur(); });
     })(blocks[i]);
   })();
 </script>
