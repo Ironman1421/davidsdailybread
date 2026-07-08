@@ -60,7 +60,14 @@
   .ask-baker { text-align: center; margin-top: 46px; }
   .ask-baker .rule { width: 180px; height: 1px; margin: 0 auto 18px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
   .ask-baker .lede { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); }
-  .oven-btn { position: relative; display: inline-block; margin-top: 16px; padding: 22px 40px 14px; color: var(--gold); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--gold-soft); border-bottom: 5px double var(--gold-soft); border-radius: 170px 170px 4px 4px; background: radial-gradient(130% 130% at 50% 112%, rgba(236,193,99,0.30), rgba(185,119,42,0.12) 46%, rgba(200,162,74,0.05) 74%); box-shadow: inset 0 -14px 30px -14px rgba(236,193,99,0.32), 0 10px 30px rgba(0,0,0,0.35); animation: ovenGlow 3.4s ease-in-out infinite; transition: color 0.15s; }
+  .bake-form { max-width: 560px; margin: 18px auto 0; text-align: left; display: flex; flex-direction: column; gap: 10px; }
+  .bake-form textarea, .bake-form input { width: 100%; background: rgba(200,162,74,0.05); border: 1px dashed var(--gold-soft); border-radius: 14px; padding: 10px 14px; color: var(--ink); outline: none; font-family: 'Caveat', cursive; }
+  .bake-form textarea { font-size: 19px; line-height: 1.4; min-height: 64px; resize: vertical; }
+  .bake-form input { font-size: 18px; }
+  .bake-form textarea:focus, .bake-form input:focus { border-style: solid; border-color: var(--gold); background: rgba(200,162,74,0.09); }
+  .bake-form textarea::placeholder, .bake-form input::placeholder { color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 14px; }
+  .sig-hint { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 12.5px; color: var(--faint); margin: -2px 2px 0; }
+  .oven-btn { position: relative; display: inline-block; margin-top: 16px; padding: 22px 40px 14px; color: var(--gold); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--gold-soft); border-bottom: 5px double var(--gold-soft); border-radius: 170px 170px 4px 4px; background: radial-gradient(130% 130% at 50% 112%, rgba(236,193,99,0.30), rgba(185,119,42,0.12) 46%, rgba(200,162,74,0.05) 74%); box-shadow: inset 0 -14px 30px -14px rgba(236,193,99,0.32), 0 10px 30px rgba(0,0,0,0.35); animation: ovenGlow 3.4s ease-in-out infinite; transition: color 0.15s; cursor: pointer; -webkit-appearance: none; }
   .oven-btn:hover { color: #ecc163; }
   .oven-btn .spark { display: block; font-size: 13px; line-height: 1; margin-bottom: 7px; color: var(--marker); }
   @keyframes ovenGlow {
@@ -68,6 +75,12 @@
     50% { box-shadow: inset 0 -18px 36px -12px rgba(236,193,99,0.55), 0 10px 30px rgba(0,0,0,0.35), 0 6px 26px -6px rgba(236,193,99,0.20); }
   }
   .ask-baker .sub { margin-top: 12px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13.5px; color: var(--faint); }
+  .crumb-board { text-align: center; margin-top: 46px; }
+  .crumb-board .rule { width: 180px; height: 1px; margin: 0 auto 18px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .crumb-board .board-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .crumb-board .lede { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); margin-top: 6px; }
+  .crumb-board .sub { margin-top: 12px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13.5px; color: var(--faint); }
+  .pin-btn { padding: 16px 32px 11px; border-radius: 26px 26px 4px 4px; }
   @media (prefers-reduced-motion: reduce) { .oven-btn { animation: none; } }
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
@@ -110,14 +123,47 @@
   <div class="ask-baker">
     <div class="rule"></div>
     <div class="lede">Selah &mdash; does the record leave a question unanswered?</div>
-    <a class="oven-btn" href="https://github.com/Ironman1421/davidsdailybread/issues/new?title=Q%3A+&amp;body=Set+your+question+down+after+the+%22Q%3A%22+in+the+title+above.+It+goes+into+the+oven+with+the+next+bake." target="_blank" rel="noopener"><span class="spark">&#10047;</span>Ask the Baker</a>
-    <div class="sub">Bring it before the Baker, and it shall be entered into the record &mdash; your question, and its answer, set down in the next edition.</div>
+    <div class="bake-form">
+      <textarea id="askText" placeholder="Set your question down here &mdash; the Baker reads everything left on this counter." aria-label="Your question for the Baker"></textarea>
+      <input id="askName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
+      <div class="sig-hint">Sign it, and your name is set beside the answer in the next edition. Leave the line blank and the Baker keeps your secret &mdash; the question bakes all the same.</div>
+    </div>
+    <button class="oven-btn" id="askBtn" type="button"><span class="spark">&#10047;</span>Ask the Baker</button>
+    <div class="sub">Each bake, the Baker draws five questions from the basket at random and sets them down &mdash; question and answer &mdash; in the next edition. The rest stay warm in the basket for a later pull.<br>(The counter runs on GitHub &mdash; when it opens, press &ldquo;Submit new issue&rdquo; to hand your slip across.)</div>
+  </div>
+
+  <div class="crumb-board">
+    <div class="rule"></div>
+    <div class="board-head">The Crumb Board</div>
+    <div class="lede">The corkboard by the ovens &mdash; pin what you please. A hello, a hot take, a happy birthday, a recipe of your own.</div>
+    <div class="bake-form">
+      <textarea id="pinText" placeholder="Pin a note to the board&hellip;" aria-label="Your note for the Crumb Board"></textarea>
+      <input id="pinName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
+      <div class="sig-hint">Same house rule: signed notes carry your name in print; unsigned notes hang on the board anonymous.</div>
+    </div>
+    <button class="oven-btn pin-btn" id="pinBtn" type="button"><span class="spark">&#9998;</span>Pin it to the board</button>
+    <div class="sub">Whatever&rsquo;s on the board when the ovens fire goes out with the next bake.<br>(Same counter, same drill &mdash; GitHub opens, you press &ldquo;Submit new issue&rdquo;, the Baker does the rest.)</div>
   </div>
 
   <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a></div>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
+  (function () {
+    var NEW_ISSUE = 'https://github.com/Ironman1421/davidsdailybread/issues/new';
+    function fire(prefix, textId, nameId) {
+      var textEl = document.getElementById(textId);
+      var text = textEl.value.trim();
+      if (!text) { textEl.focus(); return; }
+      var name = document.getElementById(nameId).value.trim();
+      var oneLine = text.replace(/\s+/g, ' ');
+      var title = prefix + ' ' + (oneLine.length > 160 ? oneLine.slice(0, 157) + '…' : oneLine);
+      var body = text + '\n\nFrom: ' + (name || 'Anonymous');
+      window.open(NEW_ISSUE + '?title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body), '_blank', 'noopener');
+    }
+    document.getElementById('askBtn').addEventListener('click', function () { fire('Q:', 'askText', 'askName'); });
+    document.getElementById('pinBtn').addEventListener('click', function () { fire('Pin:', 'pinText', 'pinName'); });
+  })();
   (function () {
     var PREFIX = 'ddb-note:';
     var PAGE_NAMES = { 'home': ['Page notes — Home', '/'], 'tech': ['Page notes — Technology', '/tech.html'], 'markets': ['Page notes — Markets', '/markets.html'], 'science': ['Page notes — Science', '/science.html'] };
