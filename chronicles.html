@@ -38,7 +38,7 @@
   .cat-hero p { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 16px; color: var(--muted); margin: 6px 0 0; }
   .menu-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
   .menu-count { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-  .menu-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .menu-actions { display: flex; gap: 10px; }
   .act-btn { display: inline-flex; align-items: center; gap: 7px; background: rgba(200,162,74,0.10); color: var(--gold); border: 1px solid var(--gold-soft); border-bottom: 3px double var(--gold-soft); border-radius: 999px 999px 3px 3px; padding: 8px 15px 5px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 0.15s; }
   .act-btn:hover { background: rgba(200,162,74,0.22); }
   .act-btn.ghost { background: none; color: var(--muted); border-color: var(--line-strong); border-bottom: 3px double var(--line-strong); }
@@ -57,6 +57,18 @@
   .empty .big { font-family: 'Caveat', cursive; font-size: 27px; color: var(--muted); }
   .empty p { color: var(--faint); font-size: 13.5px; margin: 8px 0 0; }
   .empty a { color: var(--gold); }
+  .ask-baker { text-align: center; margin-top: 46px; }
+  .ask-baker .rule { width: 180px; height: 1px; margin: 0 auto 18px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .ask-baker .lede { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); }
+  .oven-btn { position: relative; display: inline-block; margin-top: 16px; padding: 22px 40px 14px; color: var(--gold); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--gold-soft); border-bottom: 5px double var(--gold-soft); border-radius: 170px 170px 4px 4px; background: radial-gradient(130% 130% at 50% 112%, rgba(236,193,99,0.30), rgba(185,119,42,0.12) 46%, rgba(200,162,74,0.05) 74%); box-shadow: inset 0 -14px 30px -14px rgba(236,193,99,0.32), 0 10px 30px rgba(0,0,0,0.35); animation: ovenGlow 3.4s ease-in-out infinite; transition: color 0.15s; }
+  .oven-btn:hover { color: #ecc163; }
+  .oven-btn .spark { display: block; font-size: 13px; line-height: 1; margin-bottom: 7px; color: var(--marker); }
+  @keyframes ovenGlow {
+    0%, 100% { box-shadow: inset 0 -14px 30px -14px rgba(236,193,99,0.28), 0 10px 30px rgba(0,0,0,0.35); }
+    50% { box-shadow: inset 0 -18px 36px -12px rgba(236,193,99,0.55), 0 10px 30px rgba(0,0,0,0.35), 0 6px 26px -6px rgba(236,193,99,0.20); }
+  }
+  .ask-baker .sub { margin-top: 12px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13.5px; color: var(--faint); }
+  @media (prefers-reduced-motion: reduce) { .oven-btn { animation: none; } }
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
@@ -84,8 +96,6 @@
   <div class="menu-bar">
     <div class="menu-count" id="noteCount">Loading notes&hellip;</div>
     <div class="menu-actions">
-      <button class="act-btn" id="downloadBtn" type="button" style="display:none">&#10515; Download</button>
-      <button class="act-btn" id="pdfBtn" type="button" style="display:none">&#9113; PDF</button>
       <a class="act-btn" id="emailBtn" href="#" style="display:none">&#9993; Export via email</a>
       <button class="act-btn ghost" id="copyBtn" type="button" style="display:none">Copy export</button>
     </div>
@@ -95,6 +105,13 @@
   <div id="emptyState" class="empty" style="display:none">
     <div class="big">Nothing set down yet &mdash; the record awaits.</div>
     <p>Scribble something under any story on the <a href="/">latest edition</a> and it'll show up here.</p>
+  </div>
+
+  <div class="ask-baker">
+    <div class="rule"></div>
+    <div class="lede">Selah &mdash; does the record leave a question unanswered?</div>
+    <a class="oven-btn" href="https://github.com/Ironman1421/davidsdailybread/issues/new?title=Q%3A+&amp;body=Set+your+question+down+after+the+%22Q%3A%22+in+the+title+above.+It+goes+into+the+oven+with+the+next+bake." target="_blank" rel="noopener"><span class="spark">&#10047;</span>Ask the Baker</a>
+    <div class="sub">Bring it before the Baker, and it shall be entered into the record &mdash; your question, and its answer, set down in the next edition.</div>
   </div>
 
   <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a></div>
@@ -109,8 +126,6 @@
     var emptyEl = document.getElementById('emptyState');
     var emailBtn = document.getElementById('emailBtn');
     var copyBtn = document.getElementById('copyBtn');
-    var downloadBtn = document.getElementById('downloadBtn');
-    var pdfBtn = document.getElementById('pdfBtn');
 
     // 1. Collect notes from localStorage
     var notes = [];
@@ -242,31 +257,8 @@
       lines.push('Set down at https://davidsdailybread.com/chronicles.html');
       var body = lines.join('\n');
 
-      // Markdown version for file download
-      var md = [];
-      md.push("# David's Daily Bread — The Chronicles");
-      md.push('');
-      md.push('*Notes exported ' + today + '*');
-      md.push('');
-      for (var d = 0; d < notes.length; d++) {
-        var nd = notes[d];
-        md.push('## ' + (d + 1) + '. ' + displayTitle(nd));
-        md.push('');
-        var noteLines = nd.text.split('\n');
-        for (var q = 0; q < noteLines.length; q++) { md.push('> ' + noteLines[q]); }
-        md.push('');
-        md.push('[Read the story](' + linkFor(nd) + ') — <' + linkFor(nd) + '>');
-        md.push('');
-      }
-      md.push('---');
-      md.push('');
-      md.push('*Set down at [The Chronicles](https://davidsdailybread.com/chronicles.html)*');
-      var mdBody = md.join('\n');
-
       emailBtn.style.display = '';
       copyBtn.style.display = '';
-      downloadBtn.style.display = '';
-      pdfBtn.style.display = '';
       emailBtn.href = 'mailto:?subject=' + encodeURIComponent("The Chronicles — my Daily Bread notes") + '&body=' + encodeURIComponent(body);
       copyBtn.addEventListener('click', function () {
         var done = function () { copyBtn.textContent = 'Copied!'; setTimeout(function () { copyBtn.textContent = 'Copy export'; }, 1600); };
@@ -275,81 +267,6 @@
           var t = document.createElement('textarea'); t.value = body; document.body.appendChild(t); t.select();
           try { document.execCommand('copy'); done(); } catch (e) {}
           document.body.removeChild(t);
-        }
-      });
-      downloadBtn.addEventListener('click', function () {
-        var blob = new Blob([mdBody], { type: 'text/markdown;charset=utf-8' });
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'daily-bread-chronicles-' + new Date().toISOString().slice(0, 10) + '.md';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        var prev = downloadBtn.innerHTML;
-        downloadBtn.innerHTML = 'Saved!';
-        setTimeout(function () { downloadBtn.innerHTML = prev; URL.revokeObjectURL(a.href); }, 1600);
-      });
-      pdfBtn.addEventListener('click', function () {
-        var prev = pdfBtn.innerHTML;
-        pdfBtn.innerHTML = 'Baking&hellip;';
-        function fail() { pdfBtn.innerHTML = 'PDF failed'; setTimeout(function () { pdfBtn.innerHTML = prev; }, 2000); }
-        function make() {
-          try {
-            var JsPDF = window.jspdf.jsPDF;
-            var doc = new JsPDF({ unit: 'pt', format: 'letter' });
-            var W = doc.internal.pageSize.getWidth();
-            var H = doc.internal.pageSize.getHeight();
-            var M = 64, y = M;
-            var GOLD = [143, 117, 56], INKC = [30, 28, 24], MUT = [110, 105, 95];
-            function room(need) { if (y + need > H - M) { doc.addPage(); y = M; } }
-            doc.setFont('times', 'normal'); doc.setFontSize(10); doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
-            doc.text("D A V I D ' S   D A I L Y   B R E A D", W / 2, y, { align: 'center' });
-            y += 26;
-            doc.setFont('times', 'bold'); doc.setFontSize(26); doc.setTextColor(INKC[0], INKC[1], INKC[2]);
-            doc.text('The Chronicles', W / 2, y, { align: 'center' });
-            y += 18;
-            doc.setFont('times', 'italic'); doc.setFontSize(11); doc.setTextColor(MUT[0], MUT[1], MUT[2]);
-            doc.text('Notes exported ' + today, W / 2, y, { align: 'center' });
-            y += 14;
-            doc.setDrawColor(GOLD[0], GOLD[1], GOLD[2]); doc.setLineWidth(1);
-            doc.line(M, y, W - M, y);
-            y += 28;
-            for (var p = 0; p < notes.length; p++) {
-              var np = notes[p];
-              var url = linkFor(np);
-              doc.setFont('times', 'bold'); doc.setFontSize(14); doc.setTextColor(INKC[0], INKC[1], INKC[2]);
-              var tl = doc.splitTextToSize((p + 1) + '. ' + displayTitle(np), W - 2 * M);
-              room(tl.length * 17 + 50);
-              doc.text(tl, M, y); y += tl.length * 17 + 4;
-              doc.setFont('times', 'italic'); doc.setFontSize(12); doc.setTextColor(INKC[0], INKC[1], INKC[2]);
-              var nl = doc.splitTextToSize(np.text, W - 2 * M - 18);
-              for (var q2 = 0; q2 < nl.length; q2++) { room(16); doc.text(nl[q2], M + 18, y); y += 16; }
-              y += 4;
-              doc.setFont('times', 'normal'); doc.setFontSize(9); doc.setTextColor(MUT[0], MUT[1], MUT[2]);
-              var ul = doc.splitTextToSize(url, W - 2 * M - 18);
-              for (var q3 = 0; q3 < ul.length; q3++) {
-                room(12);
-                if (q3 === 0) { doc.textWithLink(ul[q3], M + 18, y, { url: url }); } else { doc.text(ul[q3], M + 18, y); }
-                y += 12;
-              }
-              y += 18;
-            }
-            room(44);
-            y += 4; doc.setDrawColor(GOLD[0], GOLD[1], GOLD[2]); doc.line(M, y, W - M, y); y += 18;
-            doc.setFont('times', 'italic'); doc.setFontSize(9); doc.setTextColor(MUT[0], MUT[1], MUT[2]);
-            var foot = 'Set down at davidsdailybread.com/chronicles.html';
-            doc.textWithLink(foot, (W - doc.getTextWidth(foot)) / 2, y, { url: 'https://davidsdailybread.com/chronicles.html' });
-            doc.save('daily-bread-chronicles-' + new Date().toISOString().slice(0, 10) + '.pdf');
-            pdfBtn.innerHTML = 'Saved!';
-            setTimeout(function () { pdfBtn.innerHTML = prev; }, 1600);
-          } catch (e) { fail(); }
-        }
-        if (window.jspdf && window.jspdf.jsPDF) { make(); }
-        else {
-          var s = document.createElement('script');
-          s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-          s.onload = make; s.onerror = fail;
-          document.head.appendChild(s);
         }
       });
     }
