@@ -67,6 +67,7 @@
   .bake-form textarea:focus, .bake-form input:focus { border-style: solid; border-color: var(--gold); background: rgba(200,162,74,0.09); }
   .bake-form textarea::placeholder, .bake-form input::placeholder { color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 14px; }
   .sig-hint { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 12.5px; color: var(--faint); margin: -2px 2px 0; }
+  .baked-note { display: none; margin-top: 12px; font-family: 'Caveat', cursive; font-size: 20px; color: var(--gold); }
   .oven-btn { position: relative; display: inline-block; margin-top: 16px; padding: 22px 40px 14px; color: var(--gold); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--gold-soft); border-bottom: 5px double var(--gold-soft); border-radius: 170px 170px 4px 4px; background: radial-gradient(130% 130% at 50% 112%, rgba(236,193,99,0.30), rgba(185,119,42,0.12) 46%, rgba(200,162,74,0.05) 74%); box-shadow: inset 0 -14px 30px -14px rgba(236,193,99,0.32), 0 10px 30px rgba(0,0,0,0.35); animation: ovenGlow 3.4s ease-in-out infinite; transition: color 0.15s; cursor: pointer; -webkit-appearance: none; }
   .oven-btn:hover { color: #ecc163; }
   .oven-btn .spark { display: block; font-size: 13px; line-height: 1; margin-bottom: 7px; color: var(--marker); }
@@ -128,8 +129,9 @@
       <input id="askName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
       <div class="sig-hint">Sign it, and your name is set beside the answer in the next edition. Leave the line blank and the Baker keeps your secret &mdash; the question bakes all the same.</div>
     </div>
-    <button class="oven-btn" id="askBtn" type="button"><span class="spark">&#10047;</span>Ask the Baker</button>
-    <div class="sub">Each bake, the Baker draws five questions from the basket at random and sets them down &mdash; question and answer &mdash; in the next edition. The rest stay warm in the basket for a later pull.<br>(The counter runs on GitHub &mdash; when it opens, press &ldquo;Submit new issue&rdquo; to hand your slip across.)</div>
+    <button class="oven-btn" id="askBtn" type="button"><span class="spark">&#10047;</span><span class="lbl">Ask the Baker</span></button>
+    <div class="baked-note" id="askDone">Your slip is in the basket. Watch the next edition.</div>
+    <div class="sub">Each bake, the Baker draws five questions from the basket at random and sets them down &mdash; question and answer &mdash; in the next edition. The rest stay warm in the basket for a later pull.</div>
   </div>
 
   <div class="crumb-board">
@@ -141,8 +143,9 @@
       <input id="pinName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
       <div class="sig-hint">Same house rule: signed notes carry your name in print; unsigned notes hang on the board anonymous.</div>
     </div>
-    <button class="oven-btn pin-btn" id="pinBtn" type="button"><span class="spark">&#9998;</span>Pin it to the board</button>
-    <div class="sub">Whatever&rsquo;s on the board when the ovens fire goes out with the next bake.<br>(Same counter, same drill &mdash; GitHub opens, you press &ldquo;Submit new issue&rdquo;, the Baker does the rest.)</div>
+    <button class="oven-btn pin-btn" id="pinBtn" type="button"><span class="spark">&#9998;</span><span class="lbl">Pin it to the board</span></button>
+    <div class="baked-note" id="pinDone">Pinned. It goes out with the next bake.</div>
+    <div class="sub">Whatever&rsquo;s on the board when the ovens fire goes out with the next bake.</div>
   </div>
 
   <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a></div>
@@ -150,19 +153,36 @@
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
   (function () {
-    var NEW_ISSUE = 'https://github.com/Ironman1421/davidsdailybread/issues/new';
-    function fire(prefix, textId, nameId) {
+    var FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSeF7V-bXKsHn48S2nM-eFqND9Sw8sLa4QJ5CEvZnPdTfj2ByA/formResponse';
+    var E_TYPE = 'entry.386221157', E_TEXT = 'entry.957805310', E_NAME = 'entry.891809667';
+    function fire(slipType, textId, nameId, btnId, doneId) {
       var textEl = document.getElementById(textId);
+      var nameEl = document.getElementById(nameId);
+      var btn = document.getElementById(btnId);
+      var doneEl = document.getElementById(doneId);
       var text = textEl.value.trim();
       if (!text) { textEl.focus(); return; }
-      var name = document.getElementById(nameId).value.trim();
-      var oneLine = text.replace(/\s+/g, ' ');
-      var title = prefix + ' ' + (oneLine.length > 160 ? oneLine.slice(0, 157) + '…' : oneLine);
-      var body = text + '\n\nFrom: ' + (name || 'Anonymous');
-      window.open(NEW_ISSUE + '?title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body), '_blank', 'noopener');
+      if (btn.disabled) { return; }
+      btn.disabled = true;
+      var body = E_TYPE + '=' + encodeURIComponent(slipType) +
+                 '&' + E_TEXT + '=' + encodeURIComponent(text) +
+                 '&' + E_NAME + '=' + encodeURIComponent(nameEl.value.trim() || 'Anonymous');
+      function done() {
+        textEl.value = ''; nameEl.value = '';
+        doneEl.style.display = 'block';
+        btn.disabled = false;
+        setTimeout(function () { doneEl.style.display = 'none'; }, 6000);
+      }
+      fetch(FORM, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
+        .then(done)
+        .catch(function () {
+          var img = new Image();
+          img.src = FORM + '?' + body;
+          done();
+        });
     }
-    document.getElementById('askBtn').addEventListener('click', function () { fire('Q:', 'askText', 'askName'); });
-    document.getElementById('pinBtn').addEventListener('click', function () { fire('Pin:', 'pinText', 'pinName'); });
+    document.getElementById('askBtn').addEventListener('click', function () { fire('Question for the Baker', 'askText', 'askName', 'askBtn', 'askDone'); });
+    document.getElementById('pinBtn').addEventListener('click', function () { fire('Pin for the Crumb Board', 'pinText', 'pinName', 'pinBtn', 'pinDone'); });
   })();
   (function () {
     var PREFIX = 'ddb-note:';

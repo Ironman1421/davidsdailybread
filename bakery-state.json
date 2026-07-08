@@ -1,0 +1,5 @@
+{
+  "note": "Bakery state for davidsdailybread.com — tracks which Counter slips (Google Form rows) have been used. Keys are 'Timestamp|first 40 chars of slip'.",
+  "answeredQuestions": [],
+  "postedPins": []
+}
