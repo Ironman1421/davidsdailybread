@@ -38,7 +38,7 @@
   .cat-hero p { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 16px; color: var(--muted); margin: 6px 0 0; }
   .menu-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
   .menu-count { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-  .menu-actions { display: flex; gap: 10px; }
+  .menu-actions { display: flex; gap: 10px; flex-wrap: wrap; }
   .act-btn { display: inline-flex; align-items: center; gap: 7px; background: rgba(200,162,74,0.10); color: var(--gold); border: 1px solid var(--gold-soft); border-bottom: 3px double var(--gold-soft); border-radius: 999px 999px 3px 3px; padding: 8px 15px 5px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 0.15s; }
   .act-btn:hover { background: rgba(200,162,74,0.22); }
   .act-btn.ghost { background: none; color: var(--muted); border-color: var(--line-strong); border-bottom: 3px double var(--line-strong); }
@@ -84,6 +84,7 @@
   <div class="menu-bar">
     <div class="menu-count" id="noteCount">Loading notes&hellip;</div>
     <div class="menu-actions">
+      <button class="act-btn" id="downloadBtn" type="button" style="display:none">&#10515; Download</button>
       <a class="act-btn" id="emailBtn" href="#" style="display:none">&#9993; Export via email</a>
       <button class="act-btn ghost" id="copyBtn" type="button" style="display:none">Copy export</button>
     </div>
@@ -107,6 +108,7 @@
     var emptyEl = document.getElementById('emptyState');
     var emailBtn = document.getElementById('emailBtn');
     var copyBtn = document.getElementById('copyBtn');
+    var downloadBtn = document.getElementById('downloadBtn');
 
     // 1. Collect notes from localStorage
     var notes = [];
@@ -238,8 +240,30 @@
       lines.push('Set down at https://davidsdailybread.com/chronicles.html');
       var body = lines.join('\n');
 
+      // Markdown version for file download
+      var md = [];
+      md.push("# David's Daily Bread — The Chronicles");
+      md.push('');
+      md.push('*Notes exported ' + today + '*');
+      md.push('');
+      for (var d = 0; d < notes.length; d++) {
+        var nd = notes[d];
+        md.push('## ' + (d + 1) + '. ' + displayTitle(nd));
+        md.push('');
+        var noteLines = nd.text.split('\n');
+        for (var q = 0; q < noteLines.length; q++) { md.push('> ' + noteLines[q]); }
+        md.push('');
+        md.push('[Read the story](' + linkFor(nd) + ') — <' + linkFor(nd) + '>');
+        md.push('');
+      }
+      md.push('---');
+      md.push('');
+      md.push('*Set down at [The Chronicles](https://davidsdailybread.com/chronicles.html)*');
+      var mdBody = md.join('\n');
+
       emailBtn.style.display = '';
       copyBtn.style.display = '';
+      downloadBtn.style.display = '';
       emailBtn.href = 'mailto:?subject=' + encodeURIComponent("The Chronicles — my Daily Bread notes") + '&body=' + encodeURIComponent(body);
       copyBtn.addEventListener('click', function () {
         var done = function () { copyBtn.textContent = 'Copied!'; setTimeout(function () { copyBtn.textContent = 'Copy export'; }, 1600); };
@@ -249,6 +273,18 @@
           try { document.execCommand('copy'); done(); } catch (e) {}
           document.body.removeChild(t);
         }
+      });
+      downloadBtn.addEventListener('click', function () {
+        var blob = new Blob([mdBody], { type: 'text/markdown;charset=utf-8' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'daily-bread-chronicles-' + new Date().toISOString().slice(0, 10) + '.md';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        var prev = downloadBtn.innerHTML;
+        downloadBtn.innerHTML = 'Saved!';
+        setTimeout(function () { downloadBtn.innerHTML = prev; URL.revokeObjectURL(a.href); }, 1600);
       });
     }
   })();
