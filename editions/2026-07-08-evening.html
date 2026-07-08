@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David's Daily Bread — Evening edition, Wednesday, July 8, 2026</title>
+<meta name="description" content="David's Daily Bread — a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<link rel="canonical" href="https://davidsdailybread.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="David's Daily Bread">
+<meta property="og:title" content="David's Daily Bread — Evening edition, Wednesday, July 8, 2026">
+<meta property="og:description" content="A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<meta property="og:url" content="https://davidsdailybread.com/">
+<meta property="og:image" content="https://davidsdailybread.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; --steel-soft:#456f9c; --marker:#b9772a; --sun1:#ecc163; --sun2:#9c5a1e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(130% 70% at 50% 0%, rgba(200,162,74,0.06), transparent 62%); }
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--steel)); z-index: 10; transition: width 0.08s linear; }
+  .paper { max-width: 900px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+  .masthead { text-align: center; }
+  .masthead-art-link { display: block; }
+  .masthead-art { display: block; width: 100%; max-width: 640px; margin: 0 auto; height: auto; }
+  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 10px; }
+  .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
+  .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .dateline .edition { color: var(--steel); font-weight: 600; }
+  .dateline .read { color: var(--gold); }
+  .glance { margin: 24px 0 4px; padding: 16px 22px 14px; background: rgba(200,162,74,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 12px; }
+  .glance-top { display: flex; align-items: center; justify-content: space-between; }
+  .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .glance-toggle { display: inline-flex; align-items: center; gap: 7px; background: rgba(200,162,74,0.10); color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 4px 11px 4px 12px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .glance-toggle:hover { background: rgba(200,162,74,0.20); }
+  .glance-toggle .chev { transition: transform 0.3s ease; }
+  .glance-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .glance-toggle .label-more { display: inline; }
+  .glance-toggle .label-less { display: none; }
+  .glance-toggle[aria-expanded="true"] .label-more { display: none; }
+  .glance-toggle[aria-expanded="true"] .label-less { display: inline; }
+  .glance ul { list-style: none; margin: 12px 0 0; padding: 0; }
+  .glance li { font-family: 'Newsreader', Georgia, serif; font-size: 15.5px; line-height: 1.5; padding: 4px 0; display: flex; gap: 14px; }
+  .glance .tag { flex: none; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--faint); min-width: 76px; padding-top: 4px; }
+  .glance-more { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+  .glance-more-inner { padding-top: 6px; margin-top: 12px; border-top: 1px dashed var(--line-strong); }
+  .glance-grp + .glance-grp { margin-top: 12px; }
+  .glance-grp-head { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--steel); margin: 6px 0 2px; padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+  .glance-more ul { margin-top: 4px; }
+  .glance-more li { align-items: baseline; }
+  .glance-more .rank { flex: none; min-width: 20px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; color: var(--gold-soft); font-variant-numeric: tabular-nums; padding-top: 2px; }
+  .glance-more li a { color: var(--ink); text-decoration: none; }
+  .glance-more li a:hover { color: var(--gold); }
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 26px 0 12px; }
+  .card { position: relative; background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border: 1px solid rgba(255,255,255,0.09); border-radius: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10); border-color: rgba(200,162,74,0.35); }
+  .card a.card-link { display: block; color: inherit; text-decoration: none; height: 100%; }
+  .lead-card { padding: 28px 30px; }
+  .lead-card h1 { font-family: 'Newsreader', Georgia, serif; font-size: 31px; line-height: 1.16; margin: 8px 0 12px; font-weight: 600; letter-spacing: -0.2px; }
+  .lead-card .standfirst { font-family: 'Newsreader', Georgia, serif; font-size: 19px; font-style: italic; line-height: 1.5; color: #cfc7b4; margin: 0 0 14px; }
+  .lead-card .lead-body { font-family: 'Newsreader', Georgia, serif; font-size: 16px; line-height: 1.7; margin: 0; color: var(--ink); }
+  .lead-card .badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); }
+  .lead-card:hover h1 { color: var(--gold); }
+  .section { margin-top: 30px; }
+  .col-head { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); text-decoration: none; padding-bottom: 8px; margin-bottom: 16px; border-bottom: 2px solid var(--gold-soft); }
+  .col-head:hover { color: var(--gold); }
+  .col-head .arrow { font-size: 15px; color: var(--gold); transition: transform 0.15s; }
+  .col-head:hover .arrow { transform: translateX(3px); }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .story-card { padding: 20px 22px; }
+  .story-card .num { font-size: 11px; font-weight: 700; color: var(--steel); font-variant-numeric: tabular-nums; letter-spacing: 1px; }
+  .story-card h3 { font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1.28; margin: 6px 0 8px; font-weight: 600; }
+  .story-card:hover h3 { color: var(--gold); }
+  .story-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0; }
+  .story-card p b { color: var(--ink); font-weight: 600; }
+  .stack { display: flex; flex-direction: column; }
+  .stack .card { flex: 1; }
+  .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
+  .notes:focus-within, .notes.open { border-style: solid; border-color: var(--gold-soft); background: rgba(200,162,74,0.05); }
+  .notes .pen { flex: none; color: var(--gold-soft); font-size: 13px; padding-top: 3px; }
+  .notes textarea { flex: 1; background: transparent; border: none; outline: none; resize: none; overflow: hidden; color: var(--ink); font-family: 'Caveat', cursive; font-size: 17px; line-height: 1.35; height: 24px; padding: 0; }
+  .notes textarea::placeholder { color: var(--faint); }
+  .notes .notes-close { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; width: 20px; height: 20px; padding: 0; font-size: 12px; line-height: 1; cursor: pointer; }
+  .notes.open .notes-close { display: inline-flex; }
+  .notes .notes-close:hover { color: var(--gold); border-color: var(--gold-soft); }
+  .page-notes { margin-top: 28px; }
+  .page-notes .notes { margin-top: 0; }
+  .page-notes .notes-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
+  .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
+  .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+  .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  @media (max-width: 640px) {
+    .paper { padding: 30px 22px; margin: 12px; }
+    .masthead-art { max-width: 100%; }
+    .card-grid { grid-template-columns: 1fr; }
+    .glance .tag { min-width: 66px; }
+    .lead-card h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="paper">
+  <header class="masthead">
+    <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+    <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
+    <div class="dateline">
+      <div class="dateline-row">
+        <span>Wednesday, July 8, 2026</span>
+        <span class="edition">Evening edition</span>
+        <span class="read">&asymp; 4 min read</span>
+      </div>
+    </div>
+  </header>
+
+  <aside class="glance">
+    <div class="glance-top">
+      <div class="glance-head">At a glance</div>
+      <button class="glance-toggle" id="glanceToggle" aria-expanded="false" aria-controls="glanceMore">
+        <span class="label-more">More</span><span class="label-less">Less</span>
+        <svg class="chev" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4 L6 8 L10 4"/></svg>
+      </button>
+    </div>
+    <ul>
+      <li><span class="tag">Tech &amp; AI</span><span>Governments urged to take AI stakes as Nvidia unveils its Rubin supercomputer.</span></li>
+      <li><span class="tag">Markets</span><span>Fresh US strikes on Iran lift oil and sink chips before the Fed minutes.</span></li>
+      <li><span class="tag">Science</span><span>AI designs a vaccine, entanglement goes macroscopic, and super-puff planets appear.</span></li>
+    </ul>
+    <div class="glance-more" id="glanceMore">
+      <div class="glance-more-inner">
+        <div class="glance-grp">
+          <div class="glance-grp-head">Tech &amp; AI</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/">Altman pitches a new world order for AI</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer">Nvidia unveils its Rubin AI supercomputer</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://techcrunch.com/2026/07/02/anthropic-is-discussing-a-new-custom-chip-with-samsung/">Anthropic weighs a custom chip with Samsung</a></span></li>
+          </ul>
+        </div>
+        <div class="glance-grp">
+          <div class="glance-grp-head">Business &amp; Markets</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html">Oil jumps as US strikes Iran again</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026">Chip rout drags Wall Street lower</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.cnbc.com/2026/07/07/stock-market-today-live-updates.html">Markets brace for the Fed minutes</a></span></li>
+          </ul>
+        </div>
+        <div class="glance-grp">
+          <div class="glance-grp-head">Science</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.sciencedaily.com/releases/2026/06/260605023357.htm">AI-designed universal vaccine clears first human trial</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.sciencedaily.com/releases/2026/07/260701015242.htm">Quantum entanglement found in a crystal you can hold</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.space.com/astronomy/exoplanets/two-super-puff-cotton-candy-exoplanets-are-the-lightest-gas-giants-ever-discovered">Astronomers find planets lighter than cotton candy</a></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="kicker">Lead story</div>
+  <article class="card lead-card">
+    <a class="card-link" href="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html">
+      <span class="badge">Business &amp; markets</span>
+      <h1>Oil surges and stocks slide as the US strikes Iran again</h1>
+      <p class="standfirst">A fresh round of US airstrikes reopened the market's biggest tail risk just as investors braced for the Fed.</p>
+      <p class="lead-body">Oil prices climbed after the United States launched new airstrikes on Iran in retaliation for attacks on commercial vessels in the Strait of Hormuz, with Brent rising roughly 2% toward $76 a barrel and the Treasury revoking a waiver that had let Tehran sell its oil. Equity futures slipped and semiconductors led losses, as investors rotated out of AI and technology names into healthcare and financials. The strikes landed hours before the release of the June Fed minutes, with markets now pricing better-than-even odds of a September rate hike.</p>
+    </a>
+  </article>
+  <div class="notes" data-note-key="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+
+  <section class="section">
+    <a class="col-head" href="/tech.html">Tech &amp; AI <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/"><span class="num">01</span><h3>Altman pitches a new world order for AI</h3><p><b>Losing ground</b> to Google and Anthropic, Sam Altman is floating a sweeping plan for governments to take equity stakes across the AI industry.</p></a></article><div class="notes" data-note-key="https://fortune.com/2026/07/02/sam-altman-new-world-order-ai-openai-google-anthropic/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer"><span class="num">02</span><h3>Nvidia unveils its Rubin AI supercomputer</h3><p><b>Six new chips</b> anchor Rubin, whose sixth-gen NVLink pushes 3.6TB/s per GPU and 260TB/s across a single rack.</p></a></article><div class="notes" data-note-key="https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <a class="col-head" href="/markets.html">Business &amp; Markets <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html"><span class="num">01</span><h3>Oil jumps as US strikes Iran again</h3><p><b>Brent rose</b> about 2% toward $76 after fresh US airstrikes on Iran and a revoked oil-sale waiver rattled global markets.</p></a></article><div class="notes" data-note-key="https://www.cnbc.com/2026/07/08/oil-prices-brent-wti-iran-us-hormuz.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026"><span class="num">02</span><h3>Chip rout drags Wall Street lower</h3><p><b>Semiconductors led</b> declines as the Nasdaq fell 1.2%; Samsung's preliminary results failed to meet lofty expectations.</p></a></article><div class="notes" data-note-key="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-7-2026"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <a class="col-head" href="/science.html">Science <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/06/260605023357.htm"><span class="num">01</span><h3>AI-designed universal vaccine clears first human trial</h3><p><b>Cambridge researchers</b> report the first vaccine component designed entirely by AI passed a Phase I trial, targeting the whole Sarbecovirus family.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/06/260605023357.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260701015242.htm"><span class="num">02</span><h3>Quantum entanglement found in a crystal you can hold</h3><p><b>TU Wien physicists</b> measured deep entanglement across a centimeter-sized strange-metal crystal, pushing quantum effects into the macroscopic world.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/07/260701015242.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    </div>
+  </section>
+
+  <div class="page-notes">
+    <div class="notes-label">Page notes</div>
+    <div class="notes" data-note-key="page:home"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Thoughts on this edition&hellip;" aria-label="Page notes"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+  </div>
+
+  <div class="colophon">David's Daily Bread &middot; compiled July 8, 2026, 21:15 PDT &middot; <a href="/archive.html">Past editions</a></div>
+</div>
+<script>
+  (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
+  (function () {
+    var btn = document.getElementById('glanceToggle');
+    var panel = document.getElementById('glanceMore');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      if (open) { panel.style.maxHeight = '0px'; }
+      else { panel.style.maxHeight = panel.scrollHeight + 'px'; }
+    });
+    window.addEventListener('resize', function () {
+      if (btn.getAttribute('aria-expanded') === 'true') { panel.style.maxHeight = panel.scrollHeight + 'px'; }
+    });
+  })();
+  (function () {
+    var blocks = document.querySelectorAll('.notes');
+    for (var i = 0; i < blocks.length; i++) (function (box) {
+      var ta = box.querySelector('textarea');
+      var btn = box.querySelector('.notes-close');
+      var key = 'ddb-note:' + box.getAttribute('data-note-key');
+      function grow() { ta.style.height = 'auto'; ta.style.height = Math.max(24, ta.scrollHeight) + 'px'; }
+      try { var saved = localStorage.getItem(key); if (saved) { ta.value = saved; } } catch (e) {}
+      ta.addEventListener('focus', function () { box.classList.add('open'); grow(); });
+      ta.addEventListener('input', function () {
+        grow();
+        try { if (ta.value) { localStorage.setItem(key, ta.value); } else { localStorage.removeItem(key); } } catch (e) {}
+      });
+      btn.addEventListener('click', function () { box.classList.remove('open'); ta.style.height = '24px'; ta.blur(); });
+    })(blocks[i]);
+  })();
+</script>
+</body>
+</html>
