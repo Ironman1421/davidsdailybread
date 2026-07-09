@@ -55,6 +55,24 @@ file (and `brand.css`) — nowhere else.
 - **Letters to the King**: the historical King David persona — poetic, warm,
   biblical register with a wink; factually sound beneath the poetry.
 
+## Permanent features (never remove)
+
+- **Subscribe button** (added 2026-07-09): every page ends with the `.sub-cta` line
+  ("Baked twice daily — get every edition by email") and the `.sub-btn` pill linking
+  to https://buttondown.com/davidsdailybread, directly above the colophon; every
+  colophon also carries the RSS and Subscribe text links.
+- **Chronicles exports** (2026-07-08): chronicles.html's four note-export buttons
+  (Download .md, PDF, email, copy) are hardwired. Never remove or rebuild them;
+  edit chronicles.html only from the current live/main version.
+- **Notes boxes:** every story card and every page carries localStorage notes with
+  the Aa personalization toolbar.
+- **Reader features:** Ask the Baker, Letters to the King, The Crumb Board —
+  submissions come from the chronicles page.
+- **RSS:** `/feed.xml`, prepended every bake; the RSS `<link rel="alternate">` tag
+  stays in every page head.
+- **Selah line:** the "Selah — anything to set down?" vault-door chronicles button
+  on the home page footer.
+
 ## Where the code lives
 
 - **Page templates:** `/templates/home.html` and `/templates/category.html` in this
