@@ -32,8 +32,27 @@ file (and `brand.css`) — nowhere else.
 - **Headlines & body prose:** `'Newsreader', Georgia, serif`
 - **UI, labels, navigation (tracked-out uppercase):** `'Inter', -apple-system, system-ui, sans-serif`
 - **Handwritten (reader notes, Crumb Board pins):** `'Caveat', cursive`
-- **The King's voice (Letters to the King):** `'Cormorant Garamond', Georgia, serif`
-- Google Fonts load: Caveat 600/700 · Cormorant Garamond 500/600/700 · Inter 400–700 · Newsreader 400–600 + italics
+- **The King's voice (Letters to the King, updated 2026-07-09 per David):** answer
+  text in `'IM Fell English', 'Cormorant Garamond', Georgia, serif` (antique, royal);
+  his signature line ("– David, King in Jerusalem") in `'Cinzel', 'Cormorant Garamond', Georgia, serif`
+  (Roman-capital, regal). The letter itself (the reader's words, the `summary`) stays Newsreader.
+- Google Fonts load: Caveat 600/700 · Cinzel 600 · Cormorant Garamond 500/600/700 · IM Fell English regular + italic · Inter 400–700 · Newsreader 400–600 + italics
+
+## House style (IMPERATIVE, per David 2026-07-09)
+
+- **NO EM DASHES, ever, in any published content.** Never use the em dash character
+  ("—" or `&mdash;`) in any edition: not in headlines, deks, lead bodies, glance lines,
+  Baker answers, King letters, Crumb Board handling, page titles, meta tags, the RSS
+  feed, or the newsletter email. Readers have come to associate em dashes with
+  AI-written text. Rewrite the sentence instead: use a comma, colon, semicolon,
+  period, or parentheses. Where a pure visual separator is genuinely needed
+  (title tags, attribution and signature lines, footer labels), use an en dash
+  ("–" / `&ndash;`) or a middot ("·" / `&middot;`). This applies to every current
+  and future surface. (This file is internal and exempt; everything readers see is not.)
+- **Light copyedit of reader slips:** quietly correct obvious spelling and typo
+  errors in printed reader questions, King letters, and Crumb Board pins
+  (e.g. "Everylasting" becomes "Everlasting"). Never change meaning, voice, or wording
+  beyond the correction; when in doubt, print as written.
 
 ## Art (standing rules — IMPERATIVE)
 
@@ -53,7 +72,10 @@ file (and `brand.css`) — nowhere else.
   substantive news — no bread metaphors inside the journalism.
 - **Ask the Baker** answers: factual, one bread/baking analogy per answer.
 - **Letters to the King**: the historical King David persona — poetic, warm,
-  biblical register with a wink; factually sound beneath the poetry.
+  biblical register with a wink; factually sound beneath the poetry. When no reader
+  letters are waiting, the bake answers ONE letter from the house satchel
+  (`/kings-satchel.json`), credited "From the Baker's own shelf" — never presented
+  as reader mail.
 
 ## Permanent features (never remove)
 
@@ -67,10 +89,13 @@ file (and `brand.css`) — nowhere else.
 - **Notes boxes:** every story card and every page carries localStorage notes with
   the Aa personalization toolbar.
 - **Reader features:** Ask the Baker, Letters to the King, The Crumb Board —
-  submissions come from the chronicles page.
+  submissions come from the chronicles page. Letters to the King is backstopped by
+  the house satchel (`/kings-satchel.json`), restocked weekly by the satchel-steward
+  scheduled task; used letters are tracked in `bakery-state.json` (`usedSatchelLetters`)
+  and never repeat.
 - **RSS:** `/feed.xml`, prepended every bake; the RSS `<link rel="alternate">` tag
   stays in every page head.
-- **Selah line:** the "Selah — anything to set down?" vault-door chronicles button
+- **Selah line:** the "Selah – anything to set down?" vault-door chronicles button
   on the home page footer.
 
 ## Where the code lives
@@ -80,6 +105,10 @@ file (and `brand.css`) — nowhere else.
   `https://raw.githubusercontent.com/Ironman1421/davidsdailybread/main/templates/…`
   and replaces ONLY the content tokens (EDITION, LEAD_*, CARD_*, CAT_*, etc.).
   Restyling happens by editing the templates here — never inside the bake prompt.
+- **Repo state the bake reads** (`bakery-state.json`, `archive.json`, `kings-satchel.json`,
+  `feed.xml`, templates): ALWAYS fetch from `raw.githubusercontent.com/.../main/...`,
+  never from the live davidsdailybread.com copy — the GitHub Pages CDN serves stale
+  files for hours (cause of the 2026-07-09 duplicate King letter incident).
 - **Design tokens:** `/brand.css` (reference stylesheet for new pages, e.g. Chronicles
   or one-off pages; the bake templates carry their full CSS inline for email-safe,
   self-contained archive editions).
@@ -96,3 +125,4 @@ file (and `brand.css`) — nowhere else.
 3. Fonts per Typography above.
 4. Links/accents in gold; secondary accents steel; badges copper.
 5. Baker's voice on public-facing chrome; straight news in content.
+6. No em dashes anywhere readers can see (House style above).
