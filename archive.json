@@ -3,6 +3,13 @@
   "editions": [
     {
       "date": "2026-07-08",
+      "edition": "evening",
+      "dateHuman": "Wednesday, July 8, 2026",
+      "file": "editions/2026-07-08-evening.html",
+      "lead": "U.S. strikes Iran again and Wall Street buckles: Dow sheds 577 as oil nears $80"
+    },
+    {
+      "date": "2026-07-08",
       "edition": "morning",
       "dateHuman": "Wednesday, July 8, 2026",
       "file": "editions/2026-07-08-morning.html",

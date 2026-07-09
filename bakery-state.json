@@ -1,6 +1,10 @@
 {
   "note": "Bakery state for davidsdailybread.com — tracks which Counter slips (Google Form rows) have been used. Keys are 'Timestamp|first 40 chars of slip'.",
   "answeredQuestions": [],
-  "postedPins": [],
-  "kingLetters": []
+  "postedPins": [
+    "7/8/2026 16:45:29|Test pin from the Baker’s own oven — if "
+  ],
+  "kingLetters": [
+    "7/8/2026 17:13:27|[For King David] What was it like to be "
+  ]
 }
