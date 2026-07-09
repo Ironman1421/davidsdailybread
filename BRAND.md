@@ -58,7 +58,7 @@ file (and `brand.css`) — nowhere else.
 ## Permanent features (never remove)
 
 - **Subscribe button** (added 2026-07-09): every page ends with the `.sub-cta` line
-  ("Baked twice daily — get every edition by email") and the `.sub-btn` pill linking
+  ("We Deliver") and the `.sub-btn` pill linking
   to https://buttondown.com/davidsdailybread, directly above the colophon; every
   colophon also carries the RSS and Subscribe text links.
 - **Chronicles exports** (2026-07-08): chronicles.html's four note-export buttons
