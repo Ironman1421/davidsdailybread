@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David's Daily Bread — Morning edition, Thursday, July 9, 2026</title>
+<meta name="description" content="David's Daily Bread — a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<link rel="canonical" href="https://davidsdailybread.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="David's Daily Bread">
+<meta property="og:title" content="David's Daily Bread — Morning edition, Thursday, July 9, 2026">
+<meta property="og:description" content="A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<meta property="og:url" content="https://davidsdailybread.com/">
+<meta property="og:image" content="https://davidsdailybread.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; --steel-soft:#456f9c; --marker:#b9772a; --sun1:#ecc163; --sun2:#9c5a1e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(130% 70% at 50% 0%, rgba(200,162,74,0.06), transparent 62%); }
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--steel)); z-index: 10; transition: width 0.08s linear; }
+  .paper { max-width: 900px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+  .masthead { text-align: center; }
+  .masthead-art-link { display: block; }
+  .masthead-art { display: block; width: 100%; max-width: 640px; margin: 0 auto; height: auto; }
+  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 10px; }
+  .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
+  .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .dateline .edition { color: var(--steel); font-weight: 600; }
+  .dateline .read { color: var(--gold); }
+  .glance { margin: 24px 0 4px; padding: 16px 22px 14px; background: rgba(200,162,74,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 12px; }
+  .glance-top { display: flex; align-items: center; justify-content: space-between; }
+  .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .glance-toggle { display: inline-flex; align-items: center; gap: 7px; background: rgba(200,162,74,0.10); color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 4px 11px 4px 12px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .glance-toggle:hover { background: rgba(200,162,74,0.20); }
+  .glance-toggle .chev { transition: transform 0.3s ease; }
+  .glance-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .glance-toggle .label-more { display: inline; }
+  .glance-toggle .label-less { display: none; }
+  .glance-toggle[aria-expanded="true"] .label-more { display: none; }
+  .glance-toggle[aria-expanded="true"] .label-less { display: inline; }
+  .glance ul { list-style: none; margin: 12px 0 0; padding: 0; }
+  .glance li { font-family: 'Newsreader', Georgia, serif; font-size: 15.5px; line-height: 1.5; padding: 4px 0; display: flex; gap: 14px; }
+  .glance .tag { flex: none; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--faint); min-width: 76px; padding-top: 4px; }
+  .glance-more { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+  .glance-more-inner { padding-top: 6px; margin-top: 12px; border-top: 1px dashed var(--line-strong); }
+  .glance-grp + .glance-grp { margin-top: 12px; }
+  .glance-grp-head { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--steel); margin: 6px 0 2px; padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+  .glance-more ul { margin-top: 4px; }
+  .glance-more li { align-items: baseline; }
+  .glance-more .rank { flex: none; min-width: 20px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; color: var(--gold-soft); font-variant-numeric: tabular-nums; padding-top: 2px; }
+  .glance-more li a { color: var(--ink); text-decoration: none; }
+  .glance-more li a:hover { color: var(--gold); }
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 26px 0 12px; }
+  .card { position: relative; background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border: 1px solid rgba(255,255,255,0.09); border-radius: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10); border-color: rgba(200,162,74,0.35); }
+  .card a.card-link { display: block; color: inherit; text-decoration: none; height: 100%; }
+  .lead-card { padding: 28px 30px; }
+  .lead-card h1 { font-family: 'Newsreader', Georgia, serif; font-size: 31px; line-height: 1.16; margin: 8px 0 12px; font-weight: 600; letter-spacing: -0.2px; }
+  .lead-card .standfirst { font-family: 'Newsreader', Georgia, serif; font-size: 19px; font-style: italic; line-height: 1.5; color: #cfc7b4; margin: 0 0 14px; }
+  .lead-card .lead-body { font-family: 'Newsreader', Georgia, serif; font-size: 16px; line-height: 1.7; margin: 0; color: var(--ink); }
+  .lead-card .badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); }
+  .lead-card:hover h1 { color: var(--gold); }
+  .section { margin-top: 30px; }
+  .col-head { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); text-decoration: none; padding-bottom: 8px; margin-bottom: 16px; border-bottom: 2px solid var(--gold-soft); }
+  .col-head:hover { color: var(--gold); }
+  .col-head .arrow { font-size: 15px; color: var(--gold); transition: transform 0.15s; }
+  .col-head:hover .arrow { transform: translateX(3px); }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .story-card { padding: 20px 22px; }
+  .story-card .num { font-size: 11px; font-weight: 700; color: var(--steel); font-variant-numeric: tabular-nums; letter-spacing: 1px; }
+  .story-card h3 { font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1.28; margin: 6px 0 8px; font-weight: 600; }
+  .story-card:hover h3 { color: var(--gold); }
+  .story-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0; }
+  .story-card p b { color: var(--ink); font-weight: 600; }
+  .stack { display: flex; flex-direction: column; }
+  .stack .card { flex: 1; }
+  .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
+  .notes:focus-within, .notes.open { border-style: solid; border-color: var(--gold-soft); background: rgba(200,162,74,0.05); }
+  .notes .pen { flex: none; color: var(--gold-soft); font-size: 13px; padding-top: 3px; }
+  .notes textarea { flex: 1; background: transparent; border: none; outline: none; resize: none; overflow: hidden; color: var(--ink); font-family: 'Caveat', cursive; font-size: 17px; line-height: 1.35; height: 24px; padding: 0; }
+  .notes textarea::placeholder { color: var(--faint); }
+  .notes .notes-close { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; width: 20px; height: 20px; padding: 0; font-size: 12px; line-height: 1; cursor: pointer; }
+  .notes.open .notes-close { display: inline-flex; }
+  .notes .notes-close:hover { color: var(--gold); border-color: var(--gold-soft); }
+  .notes { flex-wrap: wrap; }
+  .lead-card + .notes { width: calc(50% - 9px); }
+  .notes .notes-style { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; min-width: 20px; height: 20px; padding: 0 5px; font-size: 11px; line-height: 1; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .notes.open .notes-style { display: inline-flex; }
+  .notes .notes-style:hover, .notes .notes-style.on { color: var(--gold); border-color: var(--gold-soft); }
+  .notes .notes-tools { display: none; flex-basis: 100%; order: 10; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line-strong); flex-wrap: wrap; align-items: center; gap: 6px; }
+  .notes.tools-open .notes-tools { display: flex; }
+  .notes .notes-tools select { background: var(--panel); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 11px; padding: 2px 6px; cursor: pointer; }
+  .notes .notes-tools button { background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 8px; min-width: 24px; height: 22px; padding: 0 6px; font-size: 11.5px; line-height: 1; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .notes .notes-tools button:hover { color: var(--gold); border-color: var(--gold-soft); }
+  .notes .notes-tools button.on { color: var(--gold); border-color: var(--gold); background: rgba(200,162,74,0.12); }
+  .notes .notes-tools .swatch { width: 16px; height: 16px; min-width: 16px; padding: 0; border-radius: 999px; }
+  .notes .notes-tools .swatch.on { box-shadow: 0 0 0 2px var(--panel), 0 0 0 3px var(--gold); }
+  @media (max-width: 640px) { .lead-card + .notes { width: 100%; } }
+  .page-notes { margin-top: 28px; }
+  .page-notes .notes { margin-top: 0; }
+  .page-notes .notes-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
+  .qa-card { padding: 8px 26px; }
+  .qa { border-bottom: 1px dashed var(--line); }
+  .qa:last-of-type { border-bottom: none; }
+  .qa summary { cursor: pointer; list-style: none; position: relative; padding: 13px 30px 13px 0; font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; font-weight: 600; line-height: 1.4; }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::after { content: '+'; position: absolute; right: 4px; top: 11px; color: var(--gold); font-size: 18px; font-family: 'Inter', sans-serif; }
+  .qa[open] summary::after { content: '\2212'; }
+  .qa summary:hover { color: var(--gold); }
+  .qa p { font-family: 'Newsreader', Georgia, serif; font-size: 15px; line-height: 1.65; color: var(--muted); margin: 0 0 16px; }
+  .qa.king p { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16.5px; color: #cfc7b4; margin: 0 0 8px; }
+  .king-from { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); margin: 2px 0 8px; }
+  .king-sig { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; }
+  .king-foot { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13px; color: var(--faint); margin-top: 10px; }
+  .king-foot a { color: var(--muted); }
+  .king-foot a:hover { color: var(--gold); }
+  .board-card { padding: 10px 26px; }
+  .pin { padding: 13px 0; border-bottom: 1px dashed var(--line); }
+  .pin:last-of-type { border-bottom: none; }
+  .pin .pin-text { font-family: 'Caveat', cursive; font-size: 19px; line-height: 1.4; color: var(--ink); margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+  .pin .pin-sig { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); margin-top: 5px; }
+  .board-foot { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13px; color: var(--faint); margin-top: 10px; }
+  .board-foot a { color: var(--muted); }
+  .board-foot a:hover { color: var(--gold); }
+  .secret-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 30px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); }
+  .gf-btn { font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-bottom: 3px double var(--gold-soft); border-radius: 999px 999px 3px 3px; padding: 9px 15px 6px; text-decoration: none; transition: background 0.15s, color 0.15s; }
+  .gf-btn:hover { background: rgba(200,162,74,0.22); }
+  .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
+  .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+  .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  @media (max-width: 640px) {
+    .paper { padding: 30px 22px; margin: 12px; }
+    .masthead-art { max-width: 100%; }
+    .card-grid { grid-template-columns: 1fr; }
+    .glance .tag { min-width: 66px; }
+    .lead-card h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="paper">
+  <header class="masthead">
+    <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+    <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
+    <div class="dateline">
+      <div class="dateline-row">
+        <span>Thursday, July 9, 2026</span>
+        <span class="edition">Morning edition</span>
+        <span class="read">&asymp; 3 min read</span>
+      </div>
+    </div>
+  </header>
+
+  <aside class="glance">
+    <div class="glance-top">
+      <div class="glance-head">At a glance</div>
+      <button class="glance-toggle" id="glanceToggle" aria-expanded="false" aria-controls="glanceMore">
+        <span class="label-more">More</span><span class="label-less">Less</span>
+        <svg class="chev" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4 L6 8 L10 4"/></svg>
+      </button>
+    </div>
+    <ul>
+      <li><span class="tag">Tech &amp; AI</span><span>OpenAI opens GPT-5.6 to everyone, days after Grok 4.5 landed.</span></li>
+      <li><span class="tag">Markets</span><span>Dow fell 577 on Iran escalation; oil up, futures steady Thursday.</span></li>
+      <li><span class="tag">Science</span><span>Goblin shark filmed alive; a silicon chip that writes DNA.</span></li>
+    </ul>
+    <div class="glance-more" id="glanceMore">
+      <div class="glance-more-inner">
+        <div class="glance-grp">
+          <div class="glance-grp-head">Tech &amp; AI</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.neowin.net/news/openai-to-release-gpt-56-sol-terra-and-luna-on-july-9/">GPT-5.6 Sol, Terra and Luna go public today</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/">SpaceXAI ships Grok 4.5, claims Opus-class performance</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.macrumors.com/2026/07/08/apple-announces-30-billion-broadcom-deal/">Apple commits $30 billion to Broadcom for US chips</a></span></li>
+          </ul>
+        </div>
+        <div class="glance-grp">
+          <div class="glance-grp-head">Business &amp; Markets</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.cnbc.com/2026/07/07/stock-market-today-live-updates.html">Dow drops 577 points as Trump declares Iran ceasefire over</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.axios.com/2026/07/08/hynix-chip-stock-offering">SK Hynix courts $28 billion in record US listing</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.investing.com/news/economy-news/us-iran-exchange-strikes-in-gulf-fed-minutes-ahead--whats-moving-markets-4780781">Fed minutes show a committee split on rates</a></span></li>
+          </ul>
+        </div>
+        <div class="glance-grp">
+          <div class="glance-grp-head">Science</div>
+          <ul>
+            <li><span class="rank">1</span><span><a href="https://www.livescience.com/animals/sharks/i-never-thought-wed-see-one-alive-elusive-goblin-shark-captured-on-camera-for-the-first-time">Goblin shark filmed alive in its own deep water</a></span></li>
+            <li><span class="rank">2</span><span><a href="https://www.sciencedaily.com/releases/2026/07/260708022202.htm">Harvard chip writes 64 DNA sequences at once</a></span></li>
+            <li><span class="rank">3</span><span><a href="https://www.scientificamerican.com/article/head-to-head-trial-shows-eli-lillys-oral-glp-1-orforglipron-outperforms-oral/">Lilly's pill beats oral semaglutide head to head</a></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="kicker">Lead story</div>
+  <article class="card lead-card">
+    <a class="card-link" href="https://www.neowin.net/news/openai-to-release-gpt-56-sol-terra-and-luna-on-july-9/">
+      <span class="badge">Tech &amp; AI</span>
+      <h1>OpenAI throws GPT-5.6 open to everyone as the frontier reshuffles in a single week</h1>
+      <p class="standfirst">Sol, Terra and Luna reach all ChatGPT users and API developers today, a day after Musk's SpaceXAI claimed Opus-class work from Grok 4.5.</p>
+      <p class="lead-body">OpenAI's three new models go generally available Thursday after Commerce Department clearance: Sol as the flagship for hard reasoning and long agentic runs at $5 and $30 per million input and output tokens, Terra as the everyday workhorse at $2.50 and $15, and Luna as a budget tier at $1 and $6. The launch lands one day after SpaceXAI released Grok 4.5 — trained alongside its Cursor acquisition and priced at $2 and $6 — which Elon Musk described as Opus-class but faster and cheaper, though without a system card, benchmark table or context-window disclosure to check the claim against. Taken together, the week leaves every major frontier lab with a model in public hands for the first time since the Fable 5 export controls began on June 12, and it lands on an enterprise market where Chinese open models already absorb as much as 46% of US token usage on price alone.</p>
+    </a>
+  </article>
+  <div class="notes" data-note-key="https://www.neowin.net/news/openai-to-release-gpt-56-sol-terra-and-luna-on-july-9/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+
+  <section class="section">
+    <a class="col-head" href="/tech.html">Tech &amp; AI <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.neowin.net/news/openai-to-release-gpt-56-sol-terra-and-luna-on-july-9/"><span class="num">01</span><h3>GPT-5.6 Sol, Terra and Luna reach every ChatGPT user</h3><p><b>OpenAI opens</b> its three-model series to the public today after Commerce Department sign-off, spanning a $5-input flagship down to a $1-input budget tier.</p></a></article><div class="notes" data-note-key="https://www.neowin.net/news/openai-to-release-gpt-56-sol-terra-and-luna-on-july-9/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"><span class="num">02</span><h3>SpaceXAI ships Grok 4.5 and calls it Opus-class</h3><p><b>Musk's lab</b> released its first model since the Cursor acquisition, pitched at coding and agentic work at $2 per million input tokens — with no system card to verify the claim.</p></a></article><div class="notes" data-note-key="https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <a class="col-head" href="/markets.html">Business &amp; Markets <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.cnbc.com/2026/07/07/stock-market-today-live-updates.html"><span class="num">01</span><h3>Dow sheds 577 points as the Iran ceasefire collapses</h3><p><b>Trump told</b> the NATO summit the truce is "over," sending the Dow down 1.09% to 52,348 and Brent crude up 5.4% to $78.19. The Nasdaq eked out a 0.2% gain.</p></a></article><div class="notes" data-note-key="https://www.cnbc.com/2026/07/07/stock-market-today-live-updates.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.axios.com/2026/07/08/hynix-chip-stock-offering"><span class="num">02</span><h3>SK Hynix's US listing draws sevenfold demand</h3><p><b>Orders topped</b> $171 billion for 177.9 million ADRs, on track for roughly $24.5 billion raised — the second-largest US listing ever by a foreign company. Trading opens Friday.</p></a></article><div class="notes" data-note-key="https://www.axios.com/2026/07/08/hynix-chip-stock-offering"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <a class="col-head" href="/science.html">Science <span class="arrow">&rarr;</span></a>
+    <div class="card-grid">
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.livescience.com/animals/sharks/i-never-thought-wed-see-one-alive-elusive-goblin-shark-captured-on-camera-for-the-first-time"><span class="num">01</span><h3>Goblin shark filmed alive in the deep for the first time</h3><p><b>Hawai'i researchers</b> captured two of the elusive sharks in their own habitat, one at 1,997 metres in the Tonga Trench — 700 metres deeper than the species was known to live.</p></a></article><div class="notes" data-note-key="https://www.livescience.com/animals/sharks/i-never-thought-wed-see-one-alive-elusive-goblin-shark-captured-on-camera-for-the-first-time"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260708022202.htm"><span class="num">02</span><h3>A silicon chip that writes DNA in plain water</h3><p><b>Harvard engineers</b> built a semiconductor that synthesizes 64 DNA sequences at once using electrical currents and enzymes, replacing the solvent-heavy chemistry the industry has leaned on.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/07/260708022202.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    </div>
+  </section>
+
+  <!--KING_COURT_START-->
+  <section class="section">
+    <div class="kicker">Letters to the King</div>
+    <div class="card qa-card">
+      <details class="qa king" open><summary>What was it like to be anointed King by the Most High Everylasting God?</summary><div class="king-from">A letter, unsigned</div><p>You must understand, friend, that when Samuel came to Bethlehem no one thought to send for me. I was out with the sheep, as always, and my brothers stood in the house in their good cloaks, tall as cedars, and the old prophet went down the line of them and shook his head. Then they fetched me in smelling of the fold, and the oil ran down over my hair and into my beard, cold at first and then warm, and I remember only that it was quiet, and that no one clapped. It did not make me a king that day — it made me a shepherd who knew something, which is a heavier thing to carry, and I carried it for years while Saul hunted me through the caves of En-gedi. I have since learned that the anointing does not make a man good; ask Bathsheba, ask Uriah, ask my son Absalom in the wood. The oil is only oil. What it says is that the Most High looks past the cloak and the height and the birth order, and sees the thing you keep hidden even from your brothers — and that, unsigned friend, is either the best news in the world or the most terrifying, depending on the day.</p><div class="king-sig">&mdash; David, King in Jerusalem</div></details>
+    </div>
+    <div class="king-foot">Mail carried to the throne by the Baker &mdash; leave your own letter at <a href="/chronicles.html">the chronicles</a>.</div>
+  </section>
+  <!--KING_COURT_END-->
+
+  <!--CRUMB_BOARD_START-->
+  <section class="section">
+    <div class="kicker">The Crumb Board</div>
+    <div class="card board-card">
+      <div class="pin"><p class="pin-text">Test pin from the Baker&rsquo;s own oven &mdash; if you can read this in the next edition, the Crumb Board works.</p><div class="pin-sig">&mdash; The Baker</div></div>
+    </div>
+    <div class="board-foot">The corkboard by the ovens &mdash; pinned by readers at <a href="/chronicles.html">the chronicles</a>, cleared with every bake.</div>
+  </section>
+  <!--CRUMB_BOARD_END-->
+
+  <div class="page-notes">
+    <div class="notes-label">Page notes</div>
+    <div class="notes" data-note-key="page:home"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Thoughts on this edition&hellip;" aria-label="Page notes"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+  </div>
+
+  <div class="secret-cta">Selah &mdash; anything to set down? <a class="gf-btn" href="/chronicles.html">the chronicles</a></div>
+
+  <div class="colophon">David's Daily Bread &middot; compiled July 9, 2026 &middot; 5:15 AM PT &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a></div>
+</div>
+<script>
+  (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
+  (function () {
+    var btn = document.getElementById('glanceToggle');
+    var panel = document.getElementById('glanceMore');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      if (open) { panel.style.maxHeight = '0px'; }
+      else { panel.style.maxHeight = panel.scrollHeight + 'px'; }
+    });
+    window.addEventListener('resize', function () {
+      if (btn.getAttribute('aria-expanded') === 'true') { panel.style.maxHeight = panel.scrollHeight + 'px'; }
+    });
+  })();
+  (function () {
+    var FONTS = { hand: "'Caveat', cursive", serif: "'Newsreader', Georgia, serif", elegant: "'Cormorant Garamond', Georgia, serif", sans: "'Inter', -apple-system, system-ui, sans-serif", mono: "'Courier New', Courier, monospace" };
+    var COLORS = { ink: '#ece7db', gold: '#c8a24a', steel: '#6f9fce', copper: '#b9772a' };
+    var DEF = { font: 'hand', size: 17, bold: false, italic: false, color: 'ink' };
+    var blocks = document.querySelectorAll('.notes');
+    for (var i = 0; i < blocks.length; i++) (function (box) {
+      var ta = box.querySelector('textarea');
+      var btn = box.querySelector('.notes-close');
+      var noteKey = box.getAttribute('data-note-key');
+      var key = 'ddb-note:' + noteKey;
+      var styleKey = 'ddb-note-style:' + noteKey;
+      var prev = box.previousElementSibling;
+      var isLead = !!(prev && prev.classList && prev.classList.contains('lead-card'));
+      var st = {}; for (var k in DEF) st[k] = DEF[k];
+      try { var savedSt = JSON.parse(localStorage.getItem(styleKey) || 'null'); if (savedSt) for (var k2 in savedSt) st[k2] = savedSt[k2]; } catch (e) {}
+      var styleBtn = document.createElement('button');
+      styleBtn.type = 'button'; styleBtn.className = 'notes-style'; styleBtn.title = 'Personalize text'; styleBtn.setAttribute('aria-label', 'Personalize note text'); styleBtn.textContent = 'Aa';
+      box.insertBefore(styleBtn, btn);
+      var tools = document.createElement('div');
+      tools.className = 'notes-tools';
+      tools.innerHTML = '<select aria-label="Note font"><option value="hand">Handwritten</option><option value="serif">Serif</option><option value="elegant">Elegant</option><option value="sans">Sans</option><option value="mono">Mono</option></select>' +
+        '<button type="button" data-act="smaller" title="Smaller text">A&minus;</button>' +
+        '<button type="button" data-act="larger" title="Larger text">A+</button>' +
+        '<button type="button" data-act="bold" title="Bold" style="font-weight:700">B</button>' +
+        '<button type="button" data-act="italic" title="Italic" style="font-style:italic">I</button>' +
+        '<button type="button" class="swatch" data-color="ink" title="Ink" style="background:#ece7db"></button>' +
+        '<button type="button" class="swatch" data-color="gold" title="Gold" style="background:#c8a24a"></button>' +
+        '<button type="button" class="swatch" data-color="steel" title="Steel" style="background:#6f9fce"></button>' +
+        '<button type="button" class="swatch" data-color="copper" title="Copper" style="background:#b9772a"></button>' +
+        '<button type="button" data-act="reset" title="Reset style">&#8634;</button>';
+      box.appendChild(tools);
+      var sel = tools.querySelector('select');
+      function lineH() { return Math.max(24, Math.ceil((parseFloat(st.size) || 17) * 1.35) + 2); }
+      function grow() {
+        if (isLead) {
+          box.style.width = '';
+          ta.style.height = 'auto';
+          var maxW = (prev && prev.offsetWidth) || box.parentNode.clientWidth;
+          var w = box.offsetWidth;
+          while (ta.scrollHeight > lineH() && w < maxW) {
+            w = Math.min(maxW, w + 60);
+            box.style.width = w + 'px';
+            ta.style.height = 'auto';
+          }
+          if (w >= maxW) { box.style.width = '100%'; }
+        }
+        ta.style.height = 'auto';
+        ta.style.height = Math.max(24, ta.scrollHeight) + 'px';
+      }
+      function applyStyle() {
+        ta.style.fontFamily = FONTS[st.font] || FONTS.hand;
+        ta.style.fontSize = st.size + 'px';
+        ta.style.fontWeight = st.bold ? '700' : '';
+        ta.style.fontStyle = st.italic ? 'italic' : '';
+        ta.style.color = COLORS[st.color] || '';
+        sel.value = FONTS[st.font] ? st.font : 'hand';
+        var bb = tools.querySelector('[data-act="bold"]');
+        var ib = tools.querySelector('[data-act="italic"]');
+        if (st.bold) { bb.classList.add('on'); } else { bb.classList.remove('on'); }
+        if (st.italic) { ib.classList.add('on'); } else { ib.classList.remove('on'); }
+        var sw = tools.querySelectorAll('.swatch');
+        for (var j = 0; j < sw.length; j++) {
+          if (sw[j].getAttribute('data-color') === st.color) { sw[j].classList.add('on'); } else { sw[j].classList.remove('on'); }
+        }
+        grow();
+      }
+      function saveStyle() {
+        try {
+          var isDef = true; for (var k3 in DEF) { if (st[k3] !== DEF[k3]) { isDef = false; } }
+          if (isDef) { localStorage.removeItem(styleKey); } else { localStorage.setItem(styleKey, JSON.stringify(st)); }
+        } catch (e) {}
+      }
+      try { var saved = localStorage.getItem(key); if (saved) { ta.value = saved; box.classList.add('open'); } } catch (e) {}
+      applyStyle();
+      ta.addEventListener('focus', function () { box.classList.add('open'); grow(); });
+      ta.addEventListener('input', function () {
+        grow();
+        try { if (ta.value) { localStorage.setItem(key, ta.value); } else { localStorage.removeItem(key); } } catch (e) {}
+      });
+      btn.addEventListener('click', function () { box.classList.remove('open'); box.classList.remove('tools-open'); styleBtn.classList.remove('on'); box.style.width = ''; ta.style.height = '24px'; ta.blur(); });
+      styleBtn.addEventListener('click', function () {
+        box.classList.toggle('tools-open');
+        if (box.classList.contains('tools-open')) { styleBtn.classList.add('on'); } else { styleBtn.classList.remove('on'); }
+      });
+      sel.addEventListener('change', function () { st.font = sel.value; applyStyle(); saveStyle(); });
+      tools.addEventListener('click', function (ev) {
+        var t = ev.target;
+        while (t && t !== tools && (!t.tagName || t.tagName !== 'BUTTON')) { t = t.parentNode; }
+        if (!t || t === tools) { return; }
+        var act = t.getAttribute('data-act');
+        var col = t.getAttribute('data-color');
+        if (col) { st.color = col; }
+        else if (act === 'smaller') { st.size = Math.max(13, (parseFloat(st.size) || 17) - 2); }
+        else if (act === 'larger') { st.size = Math.min(27, (parseFloat(st.size) || 17) + 2); }
+        else if (act === 'bold') { st.bold = !st.bold; }
+        else if (act === 'italic') { st.italic = !st.italic; }
+        else if (act === 'reset') { for (var k4 in DEF) { st[k4] = DEF[k4]; } }
+        else { return; }
+        applyStyle(); saveStyle();
+      });
+    })(blocks[i]);
+  })();
+</script>
+</body>
+</html>
