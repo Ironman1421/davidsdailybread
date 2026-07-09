@@ -134,6 +134,20 @@
     <div class="sub">Each bake, the Baker draws five questions from the basket at random and sets them down &mdash; question and answer &mdash; in the next edition. The rest stay warm in the basket for a later pull.</div>
   </div>
 
+  <div class="crumb-board kings-post">
+    <div class="rule"></div>
+    <div class="board-head">Letters to the King</div>
+    <div class="lede">The Baker also carries mail to the throne &mdash; leave a letter, and King David himself writes back in the next edition.</div>
+    <div class="bake-form">
+      <textarea id="kingText" placeholder="Set your question down for the King &mdash; the Baker relays every letter to the throne." aria-label="Your letter for King David"></textarea>
+      <input id="kingName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
+      <div class="sig-hint">Signed letters are read into the record by name; unsigned letters reach the throne all the same.</div>
+    </div>
+    <button class="oven-btn pin-btn" id="kingBtn" type="button"><span class="spark">&#9818;</span><span class="lbl">Relay it to the King</span></button>
+    <div class="baked-note" id="kingDone">Sealed and handed to the Baker. The King writes back with the next bake.</div>
+    <div class="sub">Each bake, up to three letters are drawn from the satchel at random and answered from the throne; the rest wait for a later audience.</div>
+  </div>
+
   <div class="crumb-board">
     <div class="rule"></div>
     <div class="board-head">The Crumb Board</div>
@@ -155,7 +169,7 @@
   (function () {
     var FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSeF7V-bXKsHn48S2nM-eFqND9Sw8sLa4QJ5CEvZnPdTfj2ByA/formResponse';
     var E_TYPE = 'entry.386221157', E_TEXT = 'entry.957805310', E_NAME = 'entry.891809667';
-    function fire(slipType, textId, nameId, btnId, doneId) {
+    function fire(slipType, textId, nameId, btnId, doneId, prefix) {
       var textEl = document.getElementById(textId);
       var nameEl = document.getElementById(nameId);
       var btn = document.getElementById(btnId);
@@ -164,6 +178,7 @@
       if (!text) { textEl.focus(); return; }
       if (btn.disabled) { return; }
       btn.disabled = true;
+      if (prefix) { text = prefix + text; }
       var body = E_TYPE + '=' + encodeURIComponent(slipType) +
                  '&' + E_TEXT + '=' + encodeURIComponent(text) +
                  '&' + E_NAME + '=' + encodeURIComponent(nameEl.value.trim() || 'Anonymous');
@@ -183,6 +198,7 @@
     }
     document.getElementById('askBtn').addEventListener('click', function () { fire('Question for the Baker', 'askText', 'askName', 'askBtn', 'askDone'); });
     document.getElementById('pinBtn').addEventListener('click', function () { fire('Pin for the Crumb Board', 'pinText', 'pinName', 'pinBtn', 'pinDone'); });
+    document.getElementById('kingBtn').addEventListener('click', function () { fire('Question for the Baker', 'kingText', 'kingName', 'kingBtn', 'kingDone', '[For King David] '); });
   })();
   (function () {
     var PREFIX = 'ddb-note:';
