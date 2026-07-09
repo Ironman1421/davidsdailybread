@@ -74,6 +74,9 @@
   .page-notes { margin-top: 28px; }
   .page-notes .notes { margin-top: 0; }
   .page-notes .notes-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
+  .sub-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 26px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); }
+  .sub-btn { font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 8px 16px; text-decoration: none; transition: background 0.15s, color 0.15s; }
+  .sub-btn:hover { background: rgba(200,162,74,0.22); }
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
@@ -111,7 +114,9 @@
     <div class="notes" data-note-key="page:markets"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Thoughts on this page&hellip;" aria-label="Page notes"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
   </div>
 
-  <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a></div>
+  <div class="sub-cta">Baked twice daily &mdash; get every edition by email <a class="sub-btn" href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
+
+  <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
