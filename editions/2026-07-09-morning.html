@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>David's Daily Bread — Morning edition, Thursday, July 9, 2026</title>
-<meta name="description" content="David's Daily Bread — a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<title>David's Daily Bread – Morning edition, Thursday, July 9, 2026</title>
+<meta name="description" content="David's Daily Bread – a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
 <link rel="canonical" href="https://davidsdailybread.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
-<meta property="og:title" content="David's Daily Bread — Morning edition, Thursday, July 9, 2026">
+<meta property="og:title" content="David's Daily Bread – Morning edition, Thursday, July 9, 2026">
 <meta property="og:description" content="A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
 <meta property="og:url" content="https://davidsdailybread.com/">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600&family=Cormorant+Garamond:wght@500;600;700&family=IM+Fell+English:ital@0;1&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; --steel-soft:#456f9c; --marker:#b9772a; --sun1:#ecc163; --sun2:#9c5a1e; }
   * { box-sizing: border-box; }
@@ -118,9 +118,9 @@
   .qa[open] summary::after { content: '\2212'; }
   .qa summary:hover { color: var(--gold); }
   .qa p { font-family: 'Newsreader', Georgia, serif; font-size: 15px; line-height: 1.65; color: var(--muted); margin: 0 0 16px; }
-  .qa.king p { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16.5px; color: #cfc7b4; margin: 0 0 8px; }
+  .qa.king p { font-family: 'IM Fell English', 'Cormorant Garamond', Georgia, serif; font-size: 17px; line-height: 1.7; color: #cfc7b4; margin: 0 0 8px; }
   .king-from { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); margin: 2px 0 8px; }
-  .king-sig { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; }
+  .king-sig { font-family: 'Cinzel', 'Cormorant Garamond', Georgia, serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; }
   .king-foot { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13px; color: var(--faint); margin-top: 10px; }
   .king-foot a { color: var(--muted); }
   .king-foot a:hover { color: var(--gold); }
@@ -132,10 +132,20 @@
   .board-foot { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13px; color: var(--faint); margin-top: 10px; }
   .board-foot a { color: var(--muted); }
   .board-foot a:hover { color: var(--gold); }
-  .secret-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 30px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); }
-  .gf-btn { font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-bottom: 3px double var(--gold-soft); border-radius: 999px 999px 3px 3px; padding: 9px 15px 6px; text-decoration: none; transition: background 0.15s, color 0.15s; }
+  .site-foot { position: relative; border-top: 2px solid var(--line-strong); margin-top: 36px; }
+  .site-foot::before { content:""; position:absolute; left:0; right:0; top:3px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .foot-grid { display: grid; grid-template-columns: 1fr; }
+  .foot-cell { padding: 24px 20px 22px; text-align: center; }
+  .foot-head { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 7px; }
+  .foot-copy { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); margin: 0 0 14px; }
+  .gf-btn { display: inline-block; font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-bottom: 3px double var(--gold-soft); border-radius: 999px 999px 3px 3px; padding: 9px 15px 6px; text-decoration: none; transition: background 0.15s, color 0.15s; }
   .gf-btn:hover { background: rgba(200,162,74,0.22); }
-  .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
+  .sub-btn { display: inline-block; font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,.14); padding: 9px 16px; text-decoration: none; box-shadow: inset 0 0 0 1px var(--gold-soft); -webkit-mask: radial-gradient(circle 2.6px, transparent 2.5px, #000 2.7px) -5px -5px / 10px 10px, linear-gradient(#000,#000) 50% 50% / calc(100% - 10px) calc(100% - 10px) no-repeat; mask: radial-gradient(circle 2.6px, transparent 2.5px, #000 2.7px) -5px -5px / 10px 10px, linear-gradient(#000,#000) 50% 50% / calc(100% - 10px) calc(100% - 10px) no-repeat; transition: background .15s; }
+  .news-line { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; padding: 16px 20px; border-top: 1px solid var(--line); }
+  .news-line .foot-head, .news-line .foot-copy { margin: 0; }
+  .sub-btn:hover { background: rgba(200,162,74,0.22); }
+  @media (max-width: 640px) { .foot-grid { grid-template-columns: 1fr; } .foot-cell + .foot-cell { border-left: none; border-top: 1px solid var(--line); } }
+  .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 0; padding-top: 16px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   @media (max-width: 640px) {
@@ -211,7 +221,7 @@
       <span class="badge">Tech &amp; AI</span>
       <h1>OpenAI throws GPT-5.6 open to everyone as the frontier reshuffles in a single week</h1>
       <p class="standfirst">Sol, Terra and Luna reach all ChatGPT users and API developers today, a day after Musk's SpaceXAI claimed Opus-class work from Grok 4.5.</p>
-      <p class="lead-body">OpenAI's three new models go generally available Thursday after Commerce Department clearance: Sol as the flagship for hard reasoning and long agentic runs at $5 and $30 per million input and output tokens, Terra as the everyday workhorse at $2.50 and $15, and Luna as a budget tier at $1 and $6. The launch lands one day after SpaceXAI released Grok 4.5 — trained alongside its Cursor acquisition and priced at $2 and $6 — which Elon Musk described as Opus-class but faster and cheaper, though without a system card, benchmark table or context-window disclosure to check the claim against. Taken together, the week leaves every major frontier lab with a model in public hands for the first time since the Fable 5 export controls began on June 12, and it lands on an enterprise market where Chinese open models already absorb as much as 46% of US token usage on price alone.</p>
+      <p class="lead-body">OpenAI's three new models go generally available Thursday after Commerce Department clearance: Sol as the flagship for hard reasoning and long agentic runs at $5 and $30 per million input and output tokens, Terra as the everyday workhorse at $2.50 and $15, and Luna as a budget tier at $1 and $6. The launch lands one day after SpaceXAI released Grok 4.5 (trained alongside its Cursor acquisition and priced at $2 and $6), which Elon Musk described as Opus-class but faster and cheaper, though without a system card, benchmark table or context-window disclosure to check the claim against. Taken together, the week leaves every major frontier lab with a model in public hands for the first time since the Fable 5 export controls began on June 12, and it lands on an enterprise market where Chinese open models already absorb as much as 46% of US token usage on price alone.</p>
     </a>
   </article>
   <div class="notes" data-note-key="https://www.neowin.net/news/openai-to-release-gpt-56-sol-terra-and-luna-on-july-9/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
@@ -220,7 +230,7 @@
     <a class="col-head" href="/tech.html">Tech &amp; AI <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
       <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.neowin.net/news/openai-to-release-gpt-56-sol-terra-and-luna-on-july-9/"><span class="num">01</span><h3>GPT-5.6 Sol, Terra and Luna reach every ChatGPT user</h3><p><b>OpenAI opens</b> its three-model series to the public today after Commerce Department sign-off, spanning a $5-input flagship down to a $1-input budget tier.</p></a></article><div class="notes" data-note-key="https://www.neowin.net/news/openai-to-release-gpt-56-sol-terra-and-luna-on-july-9/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-      <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"><span class="num">02</span><h3>SpaceXAI ships Grok 4.5 and calls it Opus-class</h3><p><b>Musk's lab</b> released its first model since the Cursor acquisition, pitched at coding and agentic work at $2 per million input tokens — with no system card to verify the claim.</p></a></article><div class="notes" data-note-key="https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"><span class="num">02</span><h3>SpaceXAI ships Grok 4.5 and calls it Opus-class</h3><p><b>Musk's lab</b> released its first model since the Cursor acquisition, pitched at coding and agentic work at $2 per million input tokens, with no system card to verify the claim.</p></a></article><div class="notes" data-note-key="https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
@@ -228,14 +238,14 @@
     <a class="col-head" href="/markets.html">Business &amp; Markets <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
       <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.cnbc.com/2026/07/07/stock-market-today-live-updates.html"><span class="num">01</span><h3>Dow sheds 577 points as the Iran ceasefire collapses</h3><p><b>Trump told</b> the NATO summit the truce is "over," sending the Dow down 1.09% to 52,348 and Brent crude up 5.4% to $78.19. The Nasdaq eked out a 0.2% gain.</p></a></article><div class="notes" data-note-key="https://www.cnbc.com/2026/07/07/stock-market-today-live-updates.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.axios.com/2026/07/08/hynix-chip-stock-offering"><span class="num">02</span><h3>SK Hynix's US listing draws sevenfold demand</h3><p><b>Orders topped</b> $171 billion for 177.9 million ADRs, on track for roughly $24.5 billion raised — the second-largest US listing ever by a foreign company. Trading opens Friday.</p></a></article><div class="notes" data-note-key="https://www.axios.com/2026/07/08/hynix-chip-stock-offering"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.axios.com/2026/07/08/hynix-chip-stock-offering"><span class="num">02</span><h3>SK Hynix's US listing draws sevenfold demand</h3><p><b>Orders topped</b> $171 billion for 177.9 million ADRs, on track for roughly $24.5 billion raised, the second-largest US listing ever by a foreign company. Trading opens Friday.</p></a></article><div class="notes" data-note-key="https://www.axios.com/2026/07/08/hynix-chip-stock-offering"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
   <section class="section">
     <a class="col-head" href="/science.html">Science <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.livescience.com/animals/sharks/i-never-thought-wed-see-one-alive-elusive-goblin-shark-captured-on-camera-for-the-first-time"><span class="num">01</span><h3>Goblin shark filmed alive in the deep for the first time</h3><p><b>Hawai'i researchers</b> captured two of the elusive sharks in their own habitat, one at 1,997 metres in the Tonga Trench — 700 metres deeper than the species was known to live.</p></a></article><div class="notes" data-note-key="https://www.livescience.com/animals/sharks/i-never-thought-wed-see-one-alive-elusive-goblin-shark-captured-on-camera-for-the-first-time"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.livescience.com/animals/sharks/i-never-thought-wed-see-one-alive-elusive-goblin-shark-captured-on-camera-for-the-first-time"><span class="num">01</span><h3>Goblin shark filmed alive in the deep for the first time</h3><p><b>Hawai'i researchers</b> captured two of the elusive sharks in their own habitat, one at 1,997 metres in the Tonga Trench, 700 metres deeper than the species was known to live.</p></a></article><div class="notes" data-note-key="https://www.livescience.com/animals/sharks/i-never-thought-wed-see-one-alive-elusive-goblin-shark-captured-on-camera-for-the-first-time"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
       <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260708022202.htm"><span class="num">02</span><h3>A silicon chip that writes DNA in plain water</h3><p><b>Harvard engineers</b> built a semiconductor that synthesizes 64 DNA sequences at once using electrical currents and enzymes, replacing the solvent-heavy chemistry the industry has leaned on.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/07/260708022202.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
@@ -244,30 +254,32 @@
   <section class="section">
     <div class="kicker">Letters to the King</div>
     <div class="card qa-card">
-      <details class="qa king" open><summary>What was it like to be anointed King by the Most High Everylasting God?</summary><div class="king-from">A letter, unsigned</div><p>You must understand, friend, that when Samuel came to Bethlehem no one thought to send for me. I was out with the sheep, as always, and my brothers stood in the house in their good cloaks, tall as cedars, and the old prophet went down the line of them and shook his head. Then they fetched me in smelling of the fold, and the oil ran down over my hair and into my beard, cold at first and then warm, and I remember only that it was quiet, and that no one clapped. It did not make me a king that day — it made me a shepherd who knew something, which is a heavier thing to carry, and I carried it for years while Saul hunted me through the caves of En-gedi. I have since learned that the anointing does not make a man good; ask Bathsheba, ask Uriah, ask my son Absalom in the wood. The oil is only oil. What it says is that the Most High looks past the cloak and the height and the birth order, and sees the thing you keep hidden even from your brothers — and that, unsigned friend, is either the best news in the world or the most terrifying, depending on the day.</p><div class="king-sig">&mdash; David, King in Jerusalem</div></details>
+      <details class="qa king" open><summary>What was it like to be anointed King by the Most High Everlasting God?</summary><div class="king-from">A letter, unsigned</div><p>You must understand, friend, that when Samuel came to Bethlehem no one thought to send for me. I was out with the sheep, as always, and my brothers stood in the house in their good cloaks, tall as cedars, and the old prophet went down the line of them and shook his head. Then they fetched me in smelling of the fold, and the oil ran down over my hair and into my beard, cold at first and then warm, and I remember only that it was quiet, and that no one clapped. It did not make me a king that day; it made me a shepherd who knew something, which is a heavier thing to carry, and I carried it for years while Saul hunted me through the caves of En-gedi. I have since learned that the anointing does not make a man good; ask Bathsheba, ask Uriah, ask my son Absalom in the wood. The oil is only oil. What it says is that the Most High looks past the cloak and the height and the birth order, and sees the thing you keep hidden even from your brothers. And that, unsigned friend, is either the best news in the world or the most terrifying, depending on the day.</p><div class="king-sig">&ndash; David, King in Jerusalem</div></details>
     </div>
-    <div class="king-foot">Mail carried to the throne by the Baker &mdash; leave your own letter at <a href="/chronicles.html">the chronicles</a>.</div>
+    <div class="king-foot">Mail carried to the throne by the Baker &ndash; leave your own letter at <a href="/chronicles.html">the chronicles</a>.</div>
   </section>
   <!--KING_COURT_END-->
-
-  <!--CRUMB_BOARD_START-->
-  <section class="section">
-    <div class="kicker">The Crumb Board</div>
-    <div class="card board-card">
-      <div class="pin"><p class="pin-text">Test pin from the Baker&rsquo;s own oven &mdash; if you can read this in the next edition, the Crumb Board works.</p><div class="pin-sig">&mdash; The Baker</div></div>
-    </div>
-    <div class="board-foot">The corkboard by the ovens &mdash; pinned by readers at <a href="/chronicles.html">the chronicles</a>, cleared with every bake.</div>
-  </section>
-  <!--CRUMB_BOARD_END-->
 
   <div class="page-notes">
     <div class="notes-label">Page notes</div>
     <div class="notes" data-note-key="page:home"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Thoughts on this edition&hellip;" aria-label="Page notes"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
   </div>
 
-  <div class="secret-cta">Selah &mdash; anything to set down? <a class="gf-btn" href="/chronicles.html">the chronicles</a></div>
-
-  <div class="colophon">David's Daily Bread &middot; compiled July 9, 2026 &middot; 5:15 AM PT &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a></div>
+  <footer class="site-foot">
+    <div class="foot-grid">
+      <div class="foot-cell">
+        <div class="foot-head">Notes &amp; Letters</div>
+        <p class="foot-copy">Selah &ndash; anything to set down?</p>
+        <a class="gf-btn" href="/chronicles.html">the chronicles</a>
+      </div>
+      </div>
+    <div class="news-line">
+      <span class="foot-head">Newsletter</span>
+      <span class="foot-copy">We Deliver &ndash; every edition by email</span>
+      <a class="sub-btn" href="https://buttondown.com/davidsdailybread">Subscribe</a>
+    </div>
+    <div class="colophon">David's Daily Bread &middot; compiled July 9, 2026 &middot; 5:15 AM PT &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
+  </footer>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
