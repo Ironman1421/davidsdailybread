@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>David's Daily Bread</title>
+  <link>https://davidsdailybread.com/</link>
+  <description>A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.</description>
+  <language>en-us</language>
+  <atom:link href="https://davidsdailybread.com/feed.xml" rel="self" type="application/rss+xml"/>
+  <image>
+    <url>https://davidsdailybread.com/og-card.png</url>
+    <title>David's Daily Bread</title>
+    <link>https://davidsdailybread.com/</link>
+  </image>
+  <item>
+    <title>Evening edition — Tuesday, July 7, 2026: Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street</title>
+    <link>https://davidsdailybread.com/editions/2026-07-07-evening.html</link>
+    <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-07-evening.html</guid>
+    <pubDate>Tue, 07 Jul 2026 19:10:00 -0400</pubDate>
+    <description>Lead story: Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street. Plus the evening's top stories in technology, markets, and science.</description>
+  </item>
+  <item>
+    <title>Morning edition — Tuesday, July 7, 2026: Chip stocks slide as Samsung's profit surge fails to satisfy</title>
+    <link>https://davidsdailybread.com/editions/2026-07-07-morning.html</link>
+    <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-07-morning.html</guid>
+    <pubDate>Tue, 07 Jul 2026 05:10:00 -0400</pubDate>
+    <description>Lead story: Chip stocks slide as Samsung's profit surge fails to satisfy. Plus the morning's top stories in technology, markets, and science.</description>
+  </item>
+</channel>
+</rss>
