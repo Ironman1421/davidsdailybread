@@ -1,0 +1,21 @@
+{
+  "note": "The King's satchel — house letters for the Letters to the King section, drawn ONLY when no reader letters are waiting, at most ONE per bake, and always credited 'From the Baker's own shelf' (never presented as reader mail). Used ids are tracked in bakery-state.json under usedSatchelLetters and NEVER repeat. Restocked weekly by the satchel-steward scheduled task, which prunes used entries and tops the shelf back up to 16 unused letters. Ids run KS-### and are never reused, even after pruning.",
+  "letters": [
+    { "id": "KS-001", "added": "2026-07-09", "letter": "Were you afraid when you walked out to face Goliath, or did the fear only come later?" },
+    { "id": "KS-002", "added": "2026-07-09", "letter": "Many of your psalms begin in despair and end in praise. How did you climb from one to the other — and did it ever not work?" },
+    { "id": "KS-003", "added": "2026-07-09", "letter": "You and Jonathan stayed loyal to each other even when his own father wanted you dead. What makes a friendship strong enough for that?" },
+    { "id": "KS-004", "added": "2026-07-09", "letter": "You kept serving a king who threw spears at you. How do you keep doing good work for someone who treats you badly?" },
+    { "id": "KS-005", "added": "2026-07-09", "letter": "In the cave at En-gedi you could have killed Saul, and you only cut his robe. How did you hold back when everyone around you said the moment was given to you?" },
+    { "id": "KS-006", "added": "2026-07-09", "letter": "After everything with Bathsheba and Uriah, how did you face yourself? Can a person truly come back from the worst thing they have done?" },
+    { "id": "KS-007", "added": "2026-07-09", "letter": "You wept for Absalom even after he raised an army against you. How do you keep loving a child who has turned against you?" },
+    { "id": "KS-008", "added": "2026-07-09", "letter": "What did the years of keeping sheep teach you that the palace never could?" },
+    { "id": "KS-009", "added": "2026-07-09", "letter": "You danced before the ark with all your might, and you were despised for it in your own house. How do you stop caring what people think of your joy?" },
+    { "id": "KS-010", "added": "2026-07-09", "letter": "They sang that Saul had slain his thousands and David his ten thousands. What did fame do to you, and what would you warn us about it?" },
+    { "id": "KS-011", "added": "2026-07-09", "letter": "We carry every song ever written in our pockets, and yet we rarely sit still and listen to one. What would you, a harpist, make of that?" },
+    { "id": "KS-012", "added": "2026-07-09", "letter": "We have built machines that can write poems and answer letters. Would you let one write a psalm?" },
+    { "id": "KS-013", "added": "2026-07-09", "letter": "You were promised the throne as a boy and then ran for your life for years before it came. How do you keep faith in a promise that is taking too long?" },
+    { "id": "KS-014", "added": "2026-07-09", "letter": "Most of us will never face a giant — our battles are small, daily, and unseen. Where is courage in that?" },
+    { "id": "KS-015", "added": "2026-07-09", "letter": "You wrote that you had been young and now were old. What surprised you most about growing old?" },
+    { "id": "KS-016", "added": "2026-07-09", "letter": "Your psalm speaks of green pastures and still waters, but we fill every quiet moment with glowing screens. What would you tell a generation that has forgotten how to rest?" }
+  ]
+}
