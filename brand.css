@@ -1,0 +1,65 @@
+/* David's Daily Bread — brand tokens & base styles.
+   Canonical source: /BRAND.md in this repo. Use these tokens for any NEW page
+   (Chronicles, one-offs). The bake templates keep their CSS inline on purpose
+   (self-contained archive editions) but must match these values. */
+
+:root {
+  --bg: #0e0e12;
+  --panel: #16151a;
+  --ink: #ece7db;
+  --muted: #a7a08f;
+  --faint: #6f6a60;
+  --line: #28272e;
+  --line-strong: #3a3941;
+  --gold: #c8a24a;
+  --gold-soft: #8f7538;
+  --steel: #6f9fce;
+  --steel-soft: #456f9c;
+  --marker: #b9772a;
+
+  --font-ui: 'Inter', -apple-system, system-ui, sans-serif;
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-hand: 'Caveat', cursive;
+  --font-king: 'Cormorant Garamond', Georgia, serif;
+}
+
+body.ddb {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+  line-height: 1.6;
+  background-image: radial-gradient(130% 70% at 50% 0%, rgba(200, 162, 74, 0.06), transparent 62%);
+}
+
+.ddb .paper {
+  max-width: 900px;
+  margin: 30px auto;
+  background: var(--panel);
+  padding: 44px 52px 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+}
+
+.ddb .masthead-art {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  height: auto;
+}
+
+.ddb a { color: var(--gold); }
+.ddb h1, .ddb h2, .ddb h3 { font-family: var(--font-serif); font-weight: 600; }
+
+.ddb .label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}

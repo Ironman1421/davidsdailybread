@@ -1,0 +1,80 @@
+# David's Daily Bread — Brand (single source of truth)
+
+This file is the canonical brand definition for **all** David's Daily Bread surfaces:
+the website (davidsdailybread.com), the email newsletter (Buttondown), Chronicles,
+the subscribe page, and any future page or tool. If a color, font, or rule here
+disagrees with anything else, **this file wins**. Change the brand by editing this
+file (and `brand.css`) — nowhere else.
+
+## Palette (canonical)
+
+| Token | Hex | Use |
+|---|---|---|
+| `--bg` | `#0e0e12` | Page background |
+| `--panel` | `#16151a` | Paper/card panel background |
+| `--ink` | `#ece7db` | Body text |
+| `--muted` | `#a7a08f` | Secondary text |
+| `--faint` | `#6f6a60` | Tertiary text, labels |
+| `--line` | `#28272e` | Hairline borders |
+| `--line-strong` | `#3a3941` | Stronger borders |
+| `--gold` | `#c8a24a` | Accent: links, highlights, buttons |
+| `--gold-soft` | `#8f7538` | Accent borders, hover underlines |
+| `--steel` | `#6f9fce` | Secondary accent (editions, numbering) |
+| `--steel-soft` | `#456f9c` | Secondary accent, soft |
+| `--marker` | `#b9772a` | Copper: badges, signatures |
+
+> Note (2026-07-09): `#c8a24a` gold / `#0e0e12` bg is the canonical palette (the live
+> site's). The older `#d2a53f` / `#121116` / Georgia-serif palette from early drafts
+> and the og-card is deprecated for interfaces — the og-card image itself stays as-is.
+
+## Typography
+
+- **Headlines & body prose:** `'Newsreader', Georgia, serif`
+- **UI, labels, navigation (tracked-out uppercase):** `'Inter', -apple-system, system-ui, sans-serif`
+- **Handwritten (reader notes, Crumb Board pins):** `'Caveat', cursive`
+- **The King's voice (Letters to the King):** `'Cormorant Garamond', Georgia, serif`
+- Google Fonts load: Caveat 600/700 · Cormorant Garamond 500/600/700 · Inter 400–700 · Newsreader 400–600 + italics
+
+## Art (standing rules — IMPERATIVE)
+
+- **`/header-art.png`** (1124×418, bg `#16151a`) is the official masthead. It MUST
+  appear at the very top of EVERY web page (`<img class="masthead-art" src="/header-art.png">`).
+  No other art at the top of any page, ever, unless David explicitly says so.
+  Never regenerate, rename, or re-upload it — just reference it.
+- **`/og-card.png`** (1200×630) is the social/share card (`og:image`) and the email
+  header image in Buttondown. Web pages use header-art; social previews and email
+  headers use og-card. Never substitute other art.
+
+## Voice
+
+- **The public site** speaks in the baker's voice — bread metaphors welcome
+  ("baked fresh", "first out of the oven", "the full loaf").
+- **The news content itself** (articles, deks, email digest body) is real,
+  substantive news — no bread metaphors inside the journalism.
+- **Ask the Baker** answers: factual, one bread/baking analogy per answer.
+- **Letters to the King**: the historical King David persona — poetic, warm,
+  biblical register with a wink; factually sound beneath the poetry.
+
+## Where the code lives
+
+- **Page templates:** `/templates/home.html` and `/templates/category.html` in this
+  repo. The twice-daily bake fetches them from
+  `https://raw.githubusercontent.com/Ironman1421/davidsdailybread/main/templates/…`
+  and replaces ONLY the content tokens (EDITION, LEAD_*, CARD_*, CAT_*, etc.).
+  Restyling happens by editing the templates here — never inside the bake prompt.
+- **Design tokens:** `/brand.css` (reference stylesheet for new pages, e.g. Chronicles
+  or one-off pages; the bake templates carry their full CSS inline for email-safe,
+  self-contained archive editions).
+- **Email design:** configured in Buttondown (Settings → Design → Email): accent
+  `#c8a24a`, header image og-card, Modern template. No code in the email body —
+  each edition's email is a short Markdown digest.
+- **Standing pages** (`/chronicles.html`, `/archive.html`, `/subscribe` assets) are
+  NOT rebuilt by the bake. Edit them only from the current live/main version.
+
+## Checklist for any new surface
+
+1. Start from `brand.css` tokens (or copy a template's `:root` block).
+2. Masthead: header-art.png at top; og-card.png as `og:image`.
+3. Fonts per Typography above.
+4. Links/accents in gold; secondary accents steel; badges copper.
+5. Baker's voice on public-facing chrome; straight news in content.
