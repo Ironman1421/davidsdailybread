@@ -32,6 +32,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+import ddb_satchel
+
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
@@ -52,6 +54,10 @@ if SITE is None:
 TEMPLATES = SITE / "templates"
 EDITIONS = SITE / "editions"
 DRAFTS = DDB / "drafts"
+
+# Google Form response export (Ask the Baker / Letters to the King / Crumb
+# Board). Not yet delivered to the Spark — see ddb_satchel.py docstring.
+CSV_PATH = Path(os.environ.get("DDB_SATCHEL_CSV", str(DDB / "satchel-responses.csv")))
 
 # Domain for canonical URLs and og:image
 DOMAIN = "https://davidsdailybread.com"
@@ -302,7 +308,34 @@ def update_archive(path: Path, edition_date: str, edition_type: str, lead: dict,
 # Template rendering
 # ---------------------------------------------------------------------------
 
-def render_home(date_str: str, slot: str, data: dict[str, list[dict]]) -> str:
+def fill_or_strip_section(html: str, start_marker: str, end_marker: str,
+                           tokens: dict[str, str], keys: list[str]) -> str:
+    """Fill a reader-content section's tokens, or remove the whole block
+    (between the HTML comment markers) if the section had nothing to show."""
+    if all(tokens.get(k, "") == "" for k in keys):
+        pattern = re.compile(
+            re.escape(start_marker) + r".*?" + re.escape(end_marker) + r"\n?",
+            re.DOTALL,
+        )
+        return pattern.sub("", html)
+    for k in keys:
+        html = html.replace(k, tokens.get(k, ""))
+    return html
+
+
+def fill_reader_sections(html: str, csv_path: Path, dry_run: bool) -> str:
+    tokens = ddb_satchel.fill_reader_sections(SITE, csv_path, write_state=not dry_run)
+    html = fill_or_strip_section(html, "<!--READER_QA_START-->", "<!--READER_QA_END-->",
+                                  tokens, ["RQ1_Q", "RQ1_A"])
+    html = fill_or_strip_section(html, "<!--KING_COURT_START-->", "<!--KING_COURT_END-->",
+                                  tokens, ["KQ1_Q", "KQ1_FROM", "KQ1_A"])
+    html = fill_or_strip_section(html, "<!--CRUMB_BOARD_START-->", "<!--CRUMB_BOARD_END-->",
+                                  tokens, ["PIN1_TEXT", "PIN1_SIG"])
+    return html
+
+
+def render_home(date_str: str, slot: str, data: dict[str, list[dict]],
+                 csv_path: Path, dry_run: bool = False) -> str:
     """Read home.html template and fill in edition content."""
     template_path = TEMPLATES / "home.html"
     if not template_path.exists():
@@ -393,6 +426,8 @@ def render_home(date_str: str, slot: str, data: dict[str, list[dict]]) -> str:
     html = html.replace("{{FOOTER_EDITION}}", f"{label} edition, {hd}")
     html = html.replace("{{FOOTER_TOTAL}}", str(sum(len(v) for v in data.values())))
 
+    html = fill_reader_sections(html, csv_path, dry_run)
+
     return html
 
 
@@ -424,7 +459,7 @@ def main():
     date_human = human_date(args.date)
 
     # Render
-    html = render_home(args.date, args.slot, data)
+    html = render_home(args.date, args.slot, data, csv_path=CSV_PATH, dry_run=args.dry_run)
 
     output_filename = f"{args.date}-{edition_type}.html"
 
