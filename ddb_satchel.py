@@ -10,17 +10,17 @@ is NOT done here.
 Reads:
   - bakery-state.json   (used-item dedup keys, from the git working tree)
   - kings-satchel.json  (house letters, fallback when no reader letter waits)
-  - the Google Form response export (CSV) — see CSV_PATH / NOTE below
+  - the Counter response sheet, published to the web as CSV (COUNTER_CSV_URL).
+    No credential needed; it's a public "publish to web" export. Google
+    302-redirects it, so fetch with redirects followed (curl -L equivalent)
+    or a plain GET returns an empty body. The publish can lag a live
+    submission by a few minutes.
 
 Writes:
   - bakery-state.json   (appends the newly-used dedup key)
 
-Column assumption (UNVERIFIED — no real export seen yet): Timestamp, Type,
-Text, Name in that order, matching the three form fields wired in
-chronicles.html (entry.386221157=Type, entry.957805310=Text,
-entry.891809667=Name). Verify against the real export before the first live
-bake with real reader content; adjust the *_COL constants below if the
-header order differs.
+Columns (confirmed against the real export 2026-07-10): Timestamp, Slip type
+("Question for the Baker" | "Pin for the Crumb Board"), The slip, Signed.
 
 House style (BRAND.md, imperative): no em dashes anywhere in output. Ask the
 Baker answers: factual, one bread/baking analogy. Letters to the King: King
@@ -32,7 +32,9 @@ from __future__ import annotations
 import csv
 import json
 import os
+import random
 import subprocess
+import urllib.request
 from pathlib import Path
 
 TIMESTAMP_COL, TYPE_COL, TEXT_COL, NAME_COL = 0, 1, 2, 3
@@ -41,19 +43,45 @@ TYPE_QUESTION = "Question for the Baker"   # covers BOTH Ask the Baker and Lette
 TYPE_PIN = "Pin for the Crumb Board"
 KING_PREFIX = "[For King David] "
 
+COUNTER_CSV_URL = (
+    "https://docs.google.com/spreadsheets/d/e/"
+    "2PACX-1vSLZpQtsFE0aGPesDlZceSy-4nRa6GV0TvLM7jJPToJp43Ml0vtRomQpovm4Sbed6JKo9B4h7gh76TE"
+    "/pub?output=csv"
+)
+
 CLAUDE_BIN = os.environ.get("DDB_CLAUDE_BIN", "claude")
 MODEL_HAIKU = "claude-haiku-4-5-20251001"
 MODEL_OPUS = "claude-opus-4-8"
 
-EM_DASH_CHARS = ("—", "&mdash;", "---", "--")
+EM_DASH_CHARS = ("—", "&mdash;")
 
 
 def strip_em_dashes(text: str) -> str:
     """Mechanical safety net; copyedit/generation prompts are also told not to use them."""
     out = text
     for ch in EM_DASH_CHARS:
-        out = out.replace(ch, ", " if ch != "&mdash;" else ", ")
+        out = out.replace(ch, ", ")
     return out
+
+
+def fetch_csv(dest_path: Path, url: str = COUNTER_CSV_URL, timeout: int = 20) -> bool:
+    """Fetch the published Counter sheet to dest_path, following redirects
+    (a plain GET without redirect-follow returns an empty body). Returns
+    True if the fetch produced a real CSV (header + at least the header
+    row), False otherwise — caller should treat False as "no new data",
+    never as license to publish placeholders."""
+    req = urllib.request.Request(url, headers={"User-Agent": "ddb-bake/1.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            body = resp.read().decode("utf-8", errors="replace")
+    except Exception as e:
+        print(f"WARNING: Counter CSV fetch failed: {e}")
+        return False
+    if not body.strip() or "Timestamp" not in body.splitlines()[0]:
+        print(f"WARNING: Counter CSV fetch returned unexpected body (len={len(body)})")
+        return False
+    dest_path.write_text(body, encoding="utf-8")
+    return True
 
 
 # ---------------------------------------------------------------------------
@@ -118,10 +146,12 @@ def load_satchel(path: Path) -> list[dict]:
 
 
 def pick_satchel_letter(letters: list[dict], used_ids: set[str]) -> dict | None:
+    """Random draw among unused entries — matches the observed Mac behavior
+    (used ids KS-006 then KS-015: non-sequential, not lowest-id-first)."""
     unused = [l for l in letters if l["id"] not in used_ids]
     if not unused:
         return None
-    return sorted(unused, key=lambda l: l["id"])[0]
+    return random.choice(unused)
 
 
 # ---------------------------------------------------------------------------
@@ -190,6 +220,7 @@ def fill_reader_sections(site_dir: Path, csv_path: Path, write_state: bool = Tru
         "note": "", "answeredQuestions": [], "postedPins": [], "kingLetters": [], "usedSatchelLetters": []
     }
 
+    fetch_csv(csv_path)  # best-effort refresh; on failure we fall back to whatever csv_path already has (possibly nothing)
     rows = classify(load_csv_rows(csv_path))
     tokens: dict[str, str] = {}
 
