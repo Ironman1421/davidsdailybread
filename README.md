@@ -1,10 +1,10 @@
 # David's Daily Bread
 
-A twice-daily news briefing — technology, markets, and science — baked fresh every morning (~5 AM) and evening (~10 PM) and published at [davidsdailybread.com](https://davidsdailybread.com).
+A twice-daily news briefing — technology, markets, and science — baked fresh every morning (~2 AM) and evening (~5 PM PT) and published at [davidsdailybread.com](https://davidsdailybread.com).
 
 ## How it works
 
-- A scheduled Claude task gathers the news twice a day, fills a fixed newspaper-style template, and publishes here via GitHub Pages.
+- A bake pipeline (`ddb_bake.py`) aggregates news into a draft, then fills a fixed newspaper-style template from that draft and publishes here via GitHub Pages.
 - `index.html` — the latest edition.
 - `editions/` — every past edition, dated (e.g. `2026-07-07-morning.html`).
 - `archive.html` — the browsable "bread box" of past editions.
