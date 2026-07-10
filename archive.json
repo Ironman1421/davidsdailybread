@@ -3,6 +3,13 @@
   "editions": [
     {
       "date": "2026-07-09",
+      "edition": "evening",
+      "dateHuman": "Thursday, July 9, 2026",
+      "file": "editions/2026-07-09-evening.html",
+      "lead": "Meta starts charging for AI as three frontier labs ship on a single day"
+    },
+    {
+      "date": "2026-07-09",
       "edition": "morning",
       "dateHuman": "Thursday, July 9, 2026",
       "file": "editions/2026-07-09-morning.html",
