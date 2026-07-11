@@ -2,6 +2,13 @@
 "site": "https://davidsdailybread.com",
 "editions": [
 {
+"date": "2026-07-11",
+"edition": "morning",
+"dateHuman": "Saturday, July 11, 2026",
+"file": "editions/2026-07-11-morning.html",
+"lead": "China lands an orbital rocket for the first time, catching it in a net at sea"
+},
+{
 "date": "2026-07-10",
 "edition": "morning",
 "dateHuman": "Friday, July 10, 2026",
