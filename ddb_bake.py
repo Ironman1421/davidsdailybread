@@ -33,24 +33,26 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import ddb_satchel
+import ddb_synth
 
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
 
 DDB = Path.home() / "ddb"
-# Site repo can be either ~/ddb/site-mirror (if cloned) or ~/davidsdailybread
-_candidate_sites = [
-    Path.home() / "davidsdailybread",
-    Path.home() / "ddb" / "site-mirror",
-]
+# Site repo can be either ~/ddb/site-mirror (if cloned) or ~/davidsdailybread.
+# DDB_SITE_DIR overrides both — for testing against a scratch copy so a real
+# (non-dry-run) bake never touches the actual tracked working tree.
 SITE = None
-for _s in _candidate_sites:
-    if (_s / "templates" / "home.html").exists():
-        SITE = _s
-        break
-if SITE is None:
-    raise RuntimeError("No site repo found. Clone to ~/davidsdailybread or ~/ddb/site-mirror")
+if os.environ.get("DDB_SITE_DIR"):
+    SITE = Path(os.environ["DDB_SITE_DIR"])
+else:
+    for _s in (Path.home() / "davidsdailybread", Path.home() / "ddb" / "site-mirror"):
+        if (_s / "templates" / "home.html").exists():
+            SITE = _s
+            break
+if SITE is None or not (SITE / "templates" / "home.html").exists():
+    raise RuntimeError("No site repo found. Clone to ~/davidsdailybread or ~/ddb/site-mirror, or set DDB_SITE_DIR")
 TEMPLATES = SITE / "templates"
 EDITIONS = SITE / "editions"
 DRAFTS = DDB / "drafts"
@@ -66,11 +68,6 @@ HEADER_ART = f"{DOMAIN}/header-art.png"
 
 # Sections map: draft section name -> template section order
 SECTIONS = ["tech", "markets", "science"]
-SECTION_LABELS = {s: s.capitalize() for s in SECTIONS}
-
-# Maximum cards per section in the glance and story-grid
-GLANCE_COUNT = 3        # shown above "see more"
-GRID_COUNT = 10          # shown in the two-column grid per section
 
 
 def human_date(date_str: str) -> str:
@@ -149,115 +146,22 @@ def parse_draft(path: Path) -> dict[str, list[dict]]:
     return result
 
 
-def pick_lead(items: list[dict]) -> dict:
-    """Pick the lead story — first item in the Tech section (highest priority)."""
-    return items[0] if items else {"title": "No story available", "url": "#", "source": "", "raw": ""}
-
-
-def pick_cards(items: list[dict], count: int) -> list[dict]:
-    """Pick up to `count` cards from a section, skipping the lead."""
-    return items[1:count + 1]
-
-
-def truncate_url(url: str, max_len: int = 60) -> str:
-    """Truncate a URL for display."""
-    if len(url) <= max_len:
-        return url
-    # Try to cut at a path segment boundary
-    mid = url[:max_len - 3]
-    last_slash = mid.rfind("/")
-    if last_slash > 20:
-        return url[:last_slash + 1] + "…"
-    return url[:max_len - 3] + "…"
-
-
-# ---------------------------------------------------------------------------
-# HTML Generation
-# ---------------------------------------------------------------------------
-
-def generate_lead_html(lead: dict) -> str:
-    """Generate the lead card HTML block."""
-    return f"""
-      <div class="card lead-card">
-        <span class="badge">{lead['source']}</span>
-        <h1>{_esc(lead['title'])}</h1>
-        <p class="standfirst">A twice-daily briefing on technology, markets, and science.</p>
-        <p class="lead-body"><a href="{_esc(lead['url'])}" target="_blank" rel="noopener">{_esc(lead['title'])}</a></p>
-      </div>
-"""
-
-
-def generate_story_card(card: dict, index: int, section_label: str) -> str:
-    """Generate a story card HTML block."""
-    url_trunc = truncate_url(card['url'], 60)
-    return f"""
-      <div class="card story-card">
-        <span class="num">{index}</span>
-        <h3><a class="card-link" href="{_esc(card['url'])}" target="_blank" rel="noopener">{_esc(card['title'])}</a></h3>
-        <p>{_esc(card['source'])} · {_esc(card['raw'])}</p>
-      </div>
-"""
-
-
-def generate_section_html(title: str, slug: str, cards: list[dict]) -> str:
-    """Generate a section (Tech/Markets/Science) with cards."""
-    card_blocks = "\n".join(
-        generate_story_card(c, i + 1, title) for i, c in enumerate(cards)
-    )
-    return f"""
-    <div class="section">
-      <a href="{_esc(slug)}.html" class="col-head">
-        {title} <span class="arrow">\u2192</span>
-      </a>
-      <div class="card-grid">{card_blocks}</div>
-    </div>
-"""
-
-
-def generate_glance_html(data: dict[str, list[dict]]) -> str:
-    """Generate the glance section (top 3 per section)."""
-    groups = []
-    for s in SECTIONS:
-        cards = data.get(s, [])[:GLANCE_COUNT]
-        if not cards:
-            continue
-        all_cards = data[s]
-        extra_cards = all_cards[GLANCE_COUNT:]
-        items = "\n".join(
-            f'<li><span class="tag">{SECTION_LABELS.get(s, "")}</span> <a href="{_esc(c["url"])}" target="_blank" rel="noopener">{_esc(c["title"])}</a></li>'
-            for c in cards
-        )
-        extra_items = None
-        if extra_cards:
-            extra_items = "\n".join(
-                f'<li><span class="rank">{GLANCE_COUNT + i + 1}</span> <a href="{_esc(c["url"])}" target="_blank" rel="noopener">{_esc(c["title"])}</a></li>'
-                for i, c in enumerate(extra_cards)
-            )
-
-        group = f"""
-      <div class="glance-grp">
-        <div class="glance-grp-head">{SECTION_LABELS.get(s, s.title())}</div>
-        <ul>{items}</ul>"""
-        if extra_items:
-            group += f"""
-        <div class="glance-more">
-          <div class="glance-more-inner">
-            <ul>{extra_items}</ul>
-          </div>
-        </div>"""
-        group += "\n      </div>"
-        groups.append(group)
-
-    return "\n".join(groups)
 
 
 def _esc(text: str) -> str:
-    """HTML-escape a string."""
+    """HTML-escape a string for use inside a quoted attribute value."""
     return (text.replace("&", "&amp;")
               .replace("<", "&lt;")
               .replace(">", "&gt;")
               .replace('"', "&quot;")
               .replace("'", "&#39;"))
+
+
+def _esc_text(text: str) -> str:
+    """Escape for HTML/XML text-node content — quotes need no escaping
+    outside attribute values; matches the real site's existing output
+    (raw apostrophes in ledes/descriptions, not &#39;)."""
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 # ---------------------------------------------------------------------------
@@ -280,28 +184,182 @@ def write_archive_json(path: Path, data: dict) -> None:
         f.write("\n")
 
 
-def update_archive(path: Path, edition_date: str, edition_type: str, lead: dict, human_date: str) -> None:
-    """Add or update the edition entry in archive.json (idempotent)."""
+def update_archive(path: Path, edition_date: str, edition_type: str, lead_title: str,
+                    human_date: str, pub_date: str) -> None:
+    """Add or update the edition entry in archive.json (idempotent).
+
+    edition_type is "morning" or "evening" — matches the real archive.json
+    schema exactly (confirmed against the live file). The prior version
+    compared edition_type against "pm" (a value it never actually holds,
+    since callers already normalize to "morning"/"evening"), which silently
+    produced a bogus "evening-morning" slug/filename on every PM bake.
+
+    pub_date (RFC 2822, e.g. "Fri, 10 Jul 2026 05:15:00 -0400") is a new
+    field the Mac's archive.json never wrote — additive, ignored by any
+    consumer that doesn't know it. Backfills feed.xml's pubDate for entries
+    baked here instead of falling back to a nominal slot time.
+    """
     data = read_archive_json(path)
-    slug = f"{edition_type}-evening" if edition_type == "pm" else f"{edition_type}-morning"
-    edition_key = f"{edition_date}-{slug}"
-    file_name = f"editions/{edition_date}-{slug}.html"
+    file_name = f"editions/{edition_date}-{edition_type}.html"
 
     # Remove existing entry for same date+edition (idempotent)
     data["editions"] = [
         e for e in data["editions"]
-        if not (e["date"] == edition_date and e["edition"] == slug)
+        if not (e["date"] == edition_date and e["edition"] == edition_type)
     ]
 
     data["editions"].append({
         "date": edition_date,
-        "edition": slug,
+        "edition": edition_type,
         "dateHuman": human_date,
         "file": file_name,
-        "lead": lead["title"][:100] + ("…" if len(lead["title"]) > 100 else ""),
+        "lead": lead_title[:100] + ("…" if len(lead_title) > 100 else ""),
+        "pubDate": pub_date,
     })
 
     write_archive_json(path, data)
+
+
+# ---------------------------------------------------------------------------
+# archive.html / feed.xml regeneration (deterministic, from archive.json)
+# ---------------------------------------------------------------------------
+
+ARCHIVE_HTML_HEAD = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Past editions – David's Daily Bread</title>
+<meta name="description" content="Every past edition of David's Daily Bread – a twice-daily briefing on technology, markets, and science.">
+<link rel="canonical" href="https://davidsdailybread.com/archive.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="David's Daily Bread">
+<meta property="og:title" content="Past editions – David's Daily Bread">
+<meta property="og:description" content="Every past edition of David's Daily Bread, kept warm.">
+<meta property="og:url" content="https://davidsdailybread.com/archive.html">
+<meta property="og:image" content="https://davidsdailybread.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(130% 70% at 50% 0%, rgba(200,162,74,0.06), transparent 62%); }
+.paper { max-width: 860px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+.masthead { text-align: center; }
+.wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; font-weight: 600; letter-spacing: 0.5px; line-height: 1; margin: 0; }
+.wordmark a { color: inherit; text-decoration: none; }
+.wordmark a:hover { color: var(--gold); }
+.tagline { font-size: 10.5px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--faint); margin-top: 8px; }
+.dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
+.dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+.dateline-row { display: flex; justify-content: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+ol.editions { list-style: none; margin: 26px 0 0; padding: 0; }
+ol.editions li { display: flex; align-items: baseline; gap: 16px; padding: 12px 4px; border-bottom: 1px solid var(--line); }
+ol.editions .when { flex: none; min-width: 220px; font-family: 'Newsreader', Georgia, serif; font-size: 16px; }
+ol.editions .when a { color: var(--ink); text-decoration: none; }
+ol.editions .when a:hover { color: var(--gold); }
+ol.editions .ed { flex: none; min-width: 70px; font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--steel); }
+ol.editions .lede { font-size: 13px; color: var(--muted); }
+.empty { margin-top: 26px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-style: italic; text-align: center; }
+.colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
+.colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+.colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+@media (max-width: 640px) {
+.paper { padding: 30px 22px; margin: 12px; }
+ol.editions li { flex-wrap: wrap; gap: 6px 12px; }
+ol.editions .when { min-width: 0; }
+ol.editions .lede { flex-basis: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="paper">
+<header class="masthead">
+<h1 class="wordmark"><a href="/">David's Daily Bread</a></h1>
+<div class="tagline">Past editions &middot; kept warm</div>
+<div class="dateline"><div class="dateline-row"><span>The bread box</span></div></div>
+</header>
+<ol class="editions" id="editions">
+"""
+
+ARCHIVE_HTML_TAIL = """</ol>
+<div class="colophon"><a href="/">&larr; Latest edition</a></div>
+</div>
+</body>
+</html>
+"""
+
+
+def render_archive_html(archive_data: dict) -> str:
+    """Purely mechanical transform of archive.json — no model involved."""
+    items = []
+    for e in archive_data.get("editions", []):
+        items.append(
+            f'<li><span class="when"><a href="{_esc(e["file"])}">{_esc_text(e["dateHuman"])}</a></span>'
+            f'<span class="ed">{_esc_text(e["edition"].capitalize())}</span>'
+            f'<span class="lede">{_esc_text(e["lead"])}</span></li>'
+        )
+    body = "\n".join(items) if items else '<div class="empty">No editions yet.</div>'
+    return ARCHIVE_HTML_HEAD + body + "\n" + ARCHIVE_HTML_TAIL
+
+
+def render_feed_xml(archive_data: dict) -> str:
+    """RSS 2.0 feed, purely mechanical from archive.json. pubDate reuses each
+    edition's own compiled timestamp if present (backfilled from the ET
+    compile time at bake time), else falls back to a nominal slot time."""
+    items = []
+    for e in archive_data.get("editions", []):
+        slot_word = "morning's" if e["edition"] == "morning" else "evening's"
+        label = e["edition"].capitalize()
+        pub_date = e.get("pubDate") or _nominal_pub_date(e["date"], e["edition"])
+        items.append(f"""<item>
+<title>{_esc_text(f'{label} edition – {e["dateHuman"]}: {e["lead"]}')}</title>
+<link>{DOMAIN}/{e["file"]}</link>
+<guid isPermaLink="true">{DOMAIN}/{e["file"]}</guid>
+<pubDate>{pub_date}</pubDate>
+<description>{_esc_text(f'Lead story: {e["lead"]}. Plus the {slot_word} top stories in technology, markets, and science.')}</description>
+</item>""")
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>David's Daily Bread</title>
+<link>{DOMAIN}/</link>
+<description>A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.</description>
+<language>en-us</language>
+<atom:link href="{DOMAIN}/feed.xml" rel="self" type="application/rss+xml"/>
+<image>
+<url>{OG_IMAGE}</url>
+<title>David's Daily Bread</title>
+<link>{DOMAIN}/</link>
+</image>
+""" + "\n".join(items) + "\n</channel>\n</rss>\n"
+
+
+def _nominal_pub_date(date_str: str, edition_type: str) -> str:
+    """Fallback RFC-2822 pubDate for archive entries written before pubDate
+    tracking existed (e.g. by the Mac). Nominal 05:15/19:15 ET."""
+    dt = datetime.strptime(date_str, "%Y-%m-%d")
+    hour = 5 if edition_type == "morning" else 19
+    dt = dt.replace(hour=hour, minute=15)
+    return dt.strftime("%a, %d %b %Y %H:%M:%S -0400")
+
+
+def compute_timestamp_et(now_utc: datetime) -> str:
+    """'Friday, July 10, 2026 at 5:15 AM ET' — matches the real colophon format."""
+    from zoneinfo import ZoneInfo
+    et = now_utc.astimezone(ZoneInfo("America/New_York"))
+    return et.strftime("%A, %B %-d, %Y at %-I:%M %p ET")
+
+
+def compute_readtime(*text_blocks: str, wpm: int = 200) -> str:
+    """'≈ 4 min read' — word count over the real editorial prose, not markup."""
+    words = sum(len(re.sub(r"<[^>]+>", " ", t).split()) for t in text_blocks if t)
+    minutes = max(1, round(words / wpm))
+    return f"&#8776; {minutes} min read"
 
 
 # ---------------------------------------------------------------------------
@@ -334,101 +392,164 @@ def fill_reader_sections(html: str, csv_path: Path, dry_run: bool) -> str:
     return html
 
 
+# Static per-category chrome — confirmed against the real committed pages,
+# not generated per-bake (same tagline/description every day by design).
+CATEGORY_META = {
+    "tech": {
+        "slug": "tech", "title": "Technology", "hero": "Technology",
+        "sub": "AI, chips, and the machines reshaping the world.",
+        "desc": "The day's most important stories in technology and artificial intelligence.",
+    },
+    "markets": {
+        "slug": "markets", "title": "Business &amp; Markets", "hero": "Business &amp; Markets",
+        "sub": "Stocks, deals, and the forces moving the economy.",
+        "desc": "The day's most important stories in business and markets.",
+    },
+    "science": {
+        "slug": "science", "title": "Science", "hero": "Science",
+        "sub": "Space, physics, and the frontiers of discovery.",
+        "desc": "The day's most important stories in science and discovery.",
+    },
+}
+
+
+def render_category(section: str, cards: list[dict]) -> str:
+    """Render one category page (tech.html/markets.html/science.html) from
+    up to 6 ranked+dek'd cards. cards[i] must have title/url/dek (bolded
+    lead-in already applied to dek's HTML)."""
+    template_path = TEMPLATES / "category.html"
+    html = template_path.read_text(encoding="utf-8")
+    meta = CATEGORY_META[section]
+
+    html = html.replace("TITLE", meta["title"]).replace("DESC", _esc(meta["desc"]))
+    html = html.replace("SLUG", meta["slug"])
+    html = html.replace("HERO", meta["hero"]).replace("SUB", meta["sub"])
+
+    for sec_key, token in (("tech", "__ACTIVE_TECH__"), ("markets", "__ACTIVE_MKT__"), ("science", "__ACTIVE_SCI__")):
+        html = html.replace(token, ' class="active"' if sec_key == section else "")
+
+    for i in range(1, 7):
+        if i <= len(cards):
+            c = cards[i - 1]
+            html = html.replace(f"CAT_{i}_URL", _esc(c["url"]))
+            html = html.replace(f"CAT_{i}_HEADLINE", _esc(c["title"]))
+            html = html.replace(f"CAT_{i}_DEK", c["dek"])
+        else:
+            # Fewer than 6 stories today — drop the empty card slot's whole <div class="stack">…</div>.
+            pattern = re.compile(
+                r'<div class="stack"><article class="card story-card"><a class="card-link" href="CAT_' + str(i) +
+                r'_URL">.*?</div></div>',
+                re.DOTALL,
+            )
+            html = pattern.sub("", html)
+
+    return html
+
+
+SECTION_GLANCE_LABEL = {"tech": "technology", "markets": "business and markets", "science": "science"}
+CARD_TOKEN_PREFIX = {"tech": "T", "markets": "M", "science": "S"}
+
+
+def build_ranked_cards(items: list[dict], count: int) -> list[dict]:
+    """Fetch + synthesize a dek for the top `count` items (already
+    rank-ordered by the aggregator). Returns [{title, url, source, dek}]."""
+    cards = []
+    for item in items[:count]:
+        article_text = ddb_synth.fetch_article_text(item["url"])
+        dek = ddb_synth.synthesize_dek(item["title"], item["url"], item["source"], article_text)
+        cards.append({"title": item["title"], "url": item["url"], "source": item["source"], "dek": dek})
+    return cards
+
+
 def render_home(date_str: str, slot: str, data: dict[str, list[dict]],
-                 csv_path: Path, dry_run: bool = False) -> str:
-    """Read home.html template and fill in edition content."""
+                 csv_path: Path, dry_run: bool = False) -> tuple[str, dict]:
+    """Read home.html template and fill in edition content.
+
+    Returns (html, meta) — meta carries {"lead_title": ..., "ranked_cards":
+    {section: [...]}} so main() can reuse the same synthesized cards for
+    the category pages instead of re-fetching/re-synthesizing, and record
+    the real lead title in archive.json.
+    """
     template_path = TEMPLATES / "home.html"
     if not template_path.exists():
         raise FileNotFoundError(f"Template not found: {template_path}")
 
     html = template_path.read_text(encoding="utf-8")
 
-    edition_type = "morning" if slot == "am" else "evening"
     label = slot_label(slot)
     hd = human_date(date_str)
 
-    # Title
-    html = html.replace(
-        "<title>David's Daily Bread – EDITION, DATELINE_DATE</title>",
-        f"<title>David's Daily Bread – {label} edition, {hd}</title>",
-    )
-    html = html.replace(
-        "<meta property=\"og:title\" content=\"David's Daily Bread – EDITION, DATELINE_DATE\">",
-        f"<meta property=\"og:title\" content=\"David's Daily Bread – {label} edition, {hd}\">",
-    )
-    html = html.replace(
-        "<meta property=\"og:description\" content=\"A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.\">",
-        f"<meta property=\"og:description\" content=\"David's Daily Bread – a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.\">",
-    )
-
-    # Date in dateline
+    html = html.replace("EDITION, DATELINE_DATE", f"{label} edition, {hd}")
     html = html.replace("DATELINE_DATE", hd)
+    html = html.replace("EDITION", f"{label} edition")
 
-    # Edition badge
-    html = html.replace("{{EDITION}}", label)
-    html = html.replace("{{DATELINE_DATE}}", hd)
+    # Rank + synthesize top 6 cards per section once; home reuses the top 2,
+    # category pages (built by main()) reuse all 6 — no duplicate model calls.
+    ranked_cards = {s: build_ranked_cards(data.get(s, []), 6) for s in SECTIONS}
 
-    # Build the lead
-    all_items: list[dict] = []
-    for s in SECTIONS:
-        all_items.extend(data.get(s, []))
-
-    lead = pick_lead(all_items) if all_items else None
-
-    if lead:
-        # Replace lead card placeholders
-        html = html.replace("{{LEAD_HEADLINE}}", _esc(lead["title"]))
-        html = html.replace("{{LEAD_BADGE}}", _esc(lead["source"]))
-        html = html.replace("{{LEAD_STANDFIRST}}", f"<a href=\"{_esc(lead['url'])}\" target=\"_blank\" rel=\"noopener\">{_esc(lead['title'])}</a>")
-        html = html.replace("{{LEAD_BODY}}", f"<a href=\"{_esc(lead['url'])}\" target=\"_blank\" rel=\"noopener\">{_esc(lead['title'])}</a>")
-        html = html.replace("{{LEAD_URL}}", _esc(lead["url"]))
+    # Front-page lead: judged across a WIDE pool per section (titles only,
+    # no fetch) so the pick isn't biased toward whatever's simply first —
+    # see synthesize_lead's docstring for why a narrow pool failed in testing.
+    candidates = [
+        {"section": s, "title": item["title"], "url": item["url"], "source": item["source"]}
+        for s in SECTIONS for item in data.get(s, [])[:8]
+    ]
+    if candidates:
+        lead = ddb_synth.synthesize_lead(candidates)
     else:
-        html = html.replace("{{LEAD_HEADLINE}}", "No edition available")
-        html = html.replace("{{LEAD_BADGE}}", "—")
-        html = html.replace("{{LEAD_STANDFIRST}}", "")
-        html = html.replace("{{LEAD_BODY}}", "")
-        html = html.replace("{{LEAD_URL}}", "#")
+        lead = {"section": "tech", "title": "No edition available", "url": "#",
+                "badge": "—", "standfirst": "", "body": ""}
 
-    # Build section cards
-    # Cards: first GLANCE_COUNT per section go in glance, rest in grid
-    tech_cards = data.get("tech", [])
-    markets_cards = data.get("markets", [])
-    science_cards = data.get("science", [])
+    html = html.replace("LEAD_URL", _esc(lead["url"]))
+    html = html.replace("LEAD_BADGE", _esc_text(lead["badge"]))
+    html = html.replace("LEAD_HEADLINE", _esc_text(lead["title"]))
+    html = html.replace("LEAD_STANDFIRST", _esc_text(lead["standfirst"]))
+    html = html.replace("LEAD_BODY", _esc_text(lead["body"]))
 
-    # Grid: up to GRID_COUNT per section (minus lead if it's from tech)
-    tech_grid = tech_cards[1:GRID_COUNT + 1] if tech_cards else []
-    markets_grid = markets_cards[:GRID_COUNT]
-    science_grid = science_cards[:GRID_COUNT]
+    # Home cards: top 2 per section (matches the real template's 2-card sections).
+    for s in SECTIONS:
+        p = CARD_TOKEN_PREFIX[s]
+        for i in (1, 2):
+            if i <= len(ranked_cards[s]):
+                c = ranked_cards[s][i - 1]
+                html = html.replace(f"CARD_{p}{i}_URL", _esc(c["url"]))
+                html = html.replace(f"CARD_{p}{i}_HEADLINE", _esc_text(c["title"]))
+                html = html.replace(f"CARD_{p}{i}_DEK", c["dek"])
+            else:
+                pattern = re.compile(
+                    r'<div class="stack"><article class="card story-card"><a class="card-link" href="CARD_' + p + str(i) +
+                    r'_URL">.*?</div></div>',
+                    re.DOTALL,
+                )
+                html = pattern.sub("", html)
 
-    html = html.replace("{{CARD_T1}}", generate_story_card(tech_grid[0], 1, "Tech") if len(tech_grid) > 0 else '')
-    html = html.replace("{{CARD_T2}}", generate_story_card(tech_grid[1], 2, "Tech") if len(tech_grid) > 1 else '')
-    html = html.replace("{{CARD_T3}}", generate_story_card(tech_grid[2], 3, "Tech") if len(tech_grid) > 2 else '')
-    html = html.replace("{{CARD_M1}}", generate_story_card(markets_grid[0], 1, "Markets") if len(markets_grid) > 0 else '')
-    html = html.replace("{{CARD_M2}}", generate_story_card(markets_grid[1], 2, "Markets") if len(markets_grid) > 1 else '')
-    html = html.replace("{{CARD_M3}}", generate_story_card(markets_grid[2], 3, "Markets") if len(markets_grid) > 2 else '')
-    html = html.replace("{{CARD_S1}}", generate_story_card(science_grid[0], 1, "Science") if len(science_grid) > 0 else '')
-    html = html.replace("{{CARD_S2}}", generate_story_card(science_grid[1], 2, "Science") if len(science_grid) > 1 else '')
-    html = html.replace("{{CARD_S3}}", generate_story_card(science_grid[2], 3, "Science") if len(science_grid) > 2 else '')
+    # "At a glance": one synthesized roundup sentence + expanded top-3 links, per section.
+    for s in SECTIONS:
+        p = CARD_TOKEN_PREFIX[s]
+        top3 = ranked_cards[s][:3]
+        glance_text = ddb_synth.synthesize_glance(SECTION_GLANCE_LABEL[s], [c["title"] for c in top3]) if top3 else ""
+        html = html.replace(f"GLANCE_{s.upper()}", _esc_text(glance_text))
+        for i in (1, 2, 3):
+            if i <= len(top3):
+                c = top3[i - 1]
+                html = html.replace(f"EXP_{p}{i}_URL", _esc(c["url"]))
+                html = html.replace(f"EXP_{p}{i}_TEXT", _esc_text(c["title"]))
+            else:
+                pattern = re.compile(r'<li><span class="rank">' + str(i) + r'</span><span><a href="EXP_' + p + str(i) +
+                                      r'_URL">EXP_' + p + str(i) + r'_TEXT</a></span></li>', re.DOTALL)
+                html = pattern.sub("", html)
 
-    # Glance section: top items from each section
-    html = html.replace("{{GLANCE}}", generate_glance_html(data))
-
-    # Sections with all cards in grid view
-    tech_section = generate_section_html("Technology", "tech", tech_cards) if tech_cards else ""
-    markets_section = generate_section_html("Markets", "markets", markets_cards) if markets_cards else ""
-    science_section = generate_section_html("Science", "science", science_cards) if science_cards else ""
-
-    html = html.replace("{{TECH_SECTION}}", tech_section)
-    html = html.replace("{{MARKETS_SECTION}}", markets_section)
-    html = html.replace("{{SCIENCE_SECTION}}", science_section)
-
-    # Footer: edition info
-    html = html.replace("{{FOOTER_EDITION}}", f"{label} edition, {hd}")
-    html = html.replace("{{FOOTER_TOTAL}}", str(sum(len(v) for v in data.values())))
+    readtime_text = compute_readtime(
+        lead["standfirst"], lead["body"],
+        *[c["dek"] for s in SECTIONS for c in ranked_cards[s]],
+    )
+    html = html.replace("READTIME", readtime_text)
+    html = html.replace("TIMESTAMP", compute_timestamp_et(datetime.now(timezone.utc)))
 
     html = fill_reader_sections(html, csv_path, dry_run)
 
-    return html
+    meta = {"lead_title": lead["title"], "ranked_cards": ranked_cards}
+    return html, meta
 
 
 # ---------------------------------------------------------------------------
@@ -457,9 +578,10 @@ def main():
 
     edition_type = "morning" if args.slot == "am" else "evening"
     date_human = human_date(args.date)
+    now_utc = datetime.now(timezone.utc)
 
-    # Render
-    html = render_home(args.date, args.slot, data, csv_path=CSV_PATH, dry_run=args.dry_run)
+    # Render (also synthesizes deks/glance/lead — real model calls, not free)
+    html, meta = render_home(args.date, args.slot, data, csv_path=CSV_PATH, dry_run=args.dry_run)
 
     output_filename = f"{args.date}-{edition_type}.html"
 
@@ -472,6 +594,7 @@ def main():
         print(f"  Draft: {draft_path} ({total_items} items)")
         for s in SECTIONS:
             print(f"  {s}: {len(data[s])} items")
+        print(f"  Lead: {meta['lead_title']}")
         return
 
     # Write files (site dir must be the git repo root)
@@ -485,12 +608,27 @@ def main():
     index_path.write_text(html, encoding="utf-8")
     print(f"updated {index_path}")
 
-    # Update archive.json (from working tree, never CDN)
+    # Category pages reuse the SAME synthesized cards render_home already
+    # built — no duplicate fetches or model calls.
+    for s in SECTIONS:
+        cat_html = render_category(s, meta["ranked_cards"][s])
+        (SITE / f"{s}.html").write_text(cat_html, encoding="utf-8")
+        print(f"updated {SITE / f'{s}.html'}")
+
+    # Update archive.json (from working tree, never CDN), then regenerate
+    # archive.html and feed.xml from it — both were previously never touched.
     archive_path = SITE / "archive.json"
-    lead = pick_lead([d for items in data.values() for d in items]) if any(data.values()) else None
-    if lead:
-        update_archive(archive_path, args.date, edition_type, lead, date_human)
+    from zoneinfo import ZoneInfo
+    pub_date = now_utc.astimezone(ZoneInfo("America/New_York")).strftime("%a, %d %b %Y %H:%M:%S %z")
+    if meta["lead_title"] and meta["lead_title"] != "No edition available":
+        update_archive(archive_path, args.date, edition_type, meta["lead_title"], date_human, pub_date)
         print(f"updated {archive_path}")
+
+    archive_data = read_archive_json(archive_path)
+    (SITE / "archive.html").write_text(render_archive_html(archive_data), encoding="utf-8")
+    print(f"updated {SITE / 'archive.html'}")
+    (SITE / "feed.xml").write_text(render_feed_xml(archive_data), encoding="utf-8")
+    print(f"updated {SITE / 'feed.xml'}")
 
     print(f"Done. Edition: {args.slot} · {args.date} · {total_items} items")
 
