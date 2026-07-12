@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subscribe · David's Daily Bread</title>
+  <meta name="description" content="Get David's Daily Bread, a concise briefing on technology, markets, and science, delivered every morning and evening.">
+  <link rel="canonical" href="https://davidsdailybread.com/subscribe.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="David's Daily Bread">
+  <meta property="og:title" content="Subscribe · David's Daily Bread">
+  <meta property="og:description" content="Technology, markets, and science, baked fresh every morning and evening.">
+  <meta property="og:url" content="https://davidsdailybread.com/subscribe.html">
+  <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/brand.css">
+  <style>
+    * { box-sizing: border-box; }
+    .subscribe-page .paper { min-height: calc(100vh - 60px); }
+    .masthead-link { display: block; }
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .nav a { color: var(--muted); text-decoration: none; }
+    .nav a:hover, .nav a:focus-visible { color: var(--gold); }
+    .rule {
+      border: 0;
+      border-top: 2px solid var(--line-strong);
+      margin: 18px 0 34px;
+    }
+    .hero { max-width: 680px; margin: 0 auto; text-align: center; }
+    .hero h1 {
+      margin: 8px 0 12px;
+      font-size: clamp(34px, 6vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.6px;
+    }
+    .hero .dek {
+      margin: 0 auto;
+      max-width: 620px;
+      color: var(--muted);
+      font-family: var(--font-serif);
+      font-size: clamp(18px, 3vw, 22px);
+      line-height: 1.5;
+    }
+    .schedule {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 30px auto 24px;
+      max-width: 620px;
+      text-align: left;
+    }
+    .schedule article {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      background: rgba(255,255,255,0.025);
+    }
+    .schedule h2 { margin: 5px 0 5px; font-size: 21px; }
+    .schedule p { margin: 0; color: var(--muted); font-size: 13.5px; }
+    .signup {
+      max-width: 620px;
+      margin: 26px auto 0;
+      padding: 24px;
+      border: 1px solid var(--gold-soft);
+      border-radius: 16px;
+      background: rgba(200,162,74,0.06);
+      text-align: left;
+    }
+    .signup label { display: block; margin-bottom: 8px; font-weight: 600; }
+    .form-row { display: flex; gap: 10px; }
+    .form-row input {
+      min-width: 0;
+      flex: 1;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 13px 17px;
+      background: var(--bg);
+      color: var(--ink);
+      font: inherit;
+    }
+    .form-row input:focus { outline: 2px solid var(--steel); outline-offset: 2px; }
+    .form-row button {
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: var(--gold);
+      color: #0e0e12;
+      font: 700 12px var(--font-ui);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .form-row button:hover, .form-row button:focus-visible { background: #dfbc67; }
+    .fine-print { margin: 11px 4px 0; color: var(--faint); font-size: 12px; }
+    .page-notes { max-width: 620px; margin: 30px auto 0; text-align: left; }
+    .notes-label { margin-bottom: 8px; }
+    .notes {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 10px 12px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.025);
+    }
+    .notes:focus-within { border-style: solid; border-color: var(--gold-soft); }
+    .notes .pen { color: var(--gold-soft); }
+    .notes textarea {
+      min-width: 0;
+      flex: 1;
+      height: 28px;
+      padding: 0;
+      resize: vertical;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--ink);
+      font: 17px/1.4 var(--font-hand);
+    }
+    .notes button {
+      min-width: 28px;
+      height: 24px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .notes button:hover, .notes button:focus-visible { color: var(--gold); border-color: var(--gold-soft); }
+    .notes-tools { display: none; flex-basis: 100%; gap: 6px; padding-top: 8px; border-top: 1px dashed var(--line-strong); }
+    .notes.tools-open .notes-tools { display: flex; }
+    .notes-tools button[aria-pressed="true"] { color: var(--gold); border-color: var(--gold); }
+    .sub-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 18px; font-family: var(--font-serif); font-style: italic; color: var(--muted); }
+    .sub-btn { padding: 8px 16px; border: 1px solid var(--gold-soft); border-radius: 999px; font: 700 10px var(--font-ui); font-style: normal; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; background: rgba(200,162,74,0.10); }
+    .colophon { padding-top: 16px; border-top: 1px solid var(--line); }
+    footer {
+      margin-top: 40px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--faint);
+      font-size: 12px;
+    }
+    footer a { margin: 0 6px; }
+    @media (max-width: 640px) {
+      .subscribe-page .paper { margin: 0; padding: 26px 20px; border-radius: 0; }
+      .schedule { grid-template-columns: 1fr; }
+      .form-row { flex-direction: column; }
+      .form-row button { width: 100%; }
+    }
+  </style>
+</head>
+<body class="ddb subscribe-page">
+  <main class="paper">
+    <a class="masthead-link" href="/" aria-label="David's Daily Bread home">
+      <img class="masthead-art" src="/header-art.png" width="1124" height="418" alt="David's Daily Bread">
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="/">Latest</a>
+      <a href="/archive.html">Bread Box</a>
+      <a href="/chronicles.html">Chronicles</a>
+    </nav>
+    <hr class="rule">
+
+    <section class="hero" aria-labelledby="subscribe-title">
+      <div class="label">We Deliver</div>
+      <h1 id="subscribe-title">The full loaf, twice daily.</h1>
+      <p class="dek">A clear, sourced briefing on technology, markets, and science, baked fresh for your inbox every morning and evening.</p>
+    </section>
+
+    <section class="schedule" aria-label="Delivery schedule">
+      <article>
+        <div class="label">Morning</div>
+        <h2>Start informed.</h2>
+        <p>The overnight developments worth carrying into your day.</p>
+      </article>
+      <article>
+        <div class="label">Evening</div>
+        <h2>Close the loop.</h2>
+        <p>The day's consequential moves, without the noise.</p>
+      </article>
+    </section>
+
+    <form class="signup" method="post" action="https://buttondown.com/api/emails/embed-subscribe/davidsdailybread">
+      <label for="email">Email address</label>
+      <div class="form-row">
+        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+        <button type="submit">Subscribe</button>
+      </div>
+      <p class="fine-print">No spam and no borrowed lists. Just David's Daily Bread. Confirm your address from the email Buttondown sends, then you are in.</p>
+    </form>
+
+    <section class="page-notes" aria-labelledby="page-notes-label">
+      <div class="label notes-label" id="page-notes-label">Page notes</div>
+      <div class="notes" data-note-key="page:subscribe">
+        <span class="pen" aria-hidden="true">&#9998;</span>
+        <textarea id="page-note" rows="1" placeholder="Set down a thought…" aria-label="Page notes"></textarea>
+        <button id="notes-style" type="button" aria-expanded="false" aria-controls="notes-tools" title="Personalize notes">Aa</button>
+        <button id="notes-clear" type="button" title="Clear notes" aria-label="Clear notes">&times;</button>
+        <div class="notes-tools" id="notes-tools" aria-label="Note style">
+          <button type="button" data-font="hand" aria-pressed="true">Hand</button>
+          <button type="button" data-font="serif" aria-pressed="false">Serif</button>
+          <button type="button" data-font="sans" aria-pressed="false">Sans</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="sub-cta">We Deliver <a class="sub-btn" href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
+      <div class="colophon">
+        <p>David's Daily Bread · Technology · Markets · Science</p>
+        <p><a href="/archive.html">Past editions</a> · <a href="/feed.xml">RSS</a> · <a href="/subscribe.html" aria-current="page">Subscribe</a></p>
+      </div>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      var key = 'ddb-note:page:subscribe';
+      var fontKey = key + ':font';
+      var box = document.querySelector('[data-note-key="page:subscribe"]');
+      var note = document.getElementById('page-note');
+      var styleButton = document.getElementById('notes-style');
+      var clearButton = document.getElementById('notes-clear');
+      var tools = document.getElementById('notes-tools');
+      var fonts = { hand: "'Caveat', cursive", serif: "'Newsreader', Georgia, serif", sans: "'Inter', sans-serif" };
+      function setFont(name) {
+        var chosen = fonts[name] ? name : 'hand';
+        note.style.fontFamily = fonts[chosen];
+        tools.querySelectorAll('[data-font]').forEach(function (button) {
+          button.setAttribute('aria-pressed', String(button.dataset.font === chosen));
+        });
+        localStorage.setItem(fontKey, chosen);
+      }
+      note.value = localStorage.getItem(key) || '';
+      setFont(localStorage.getItem(fontKey) || 'hand');
+      note.addEventListener('input', function () { localStorage.setItem(key, note.value); });
+      styleButton.addEventListener('click', function () {
+        var open = box.classList.toggle('tools-open');
+        styleButton.setAttribute('aria-expanded', String(open));
+      });
+      clearButton.addEventListener('click', function () {
+        note.value = '';
+        localStorage.removeItem(key);
+        note.focus();
+      });
+      tools.addEventListener('click', function (event) {
+        var button = event.target.closest('[data-font]');
+        if (button) setFont(button.dataset.font);
+      });
+    })();
+  </script>
+</body>
+</html>
