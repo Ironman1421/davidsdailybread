@@ -1,61 +1,69 @@
 {
-"site": "https://davidsdailybread.com",
-"editions": [
-{
-"date": "2026-07-11",
-"edition": "morning",
-"dateHuman": "Saturday, July 11, 2026",
-"file": "editions/2026-07-11-morning.html",
-"lead": "China lands an orbital rocket for the first time, catching it in a net at sea"
-},
-{
-"date": "2026-07-10",
-"edition": "morning",
-"dateHuman": "Friday, July 10, 2026",
-"file": "editions/2026-07-10-morning.html",
-"lead": "SK Hynix raises $26.5 billion in the largest US listing ever by a foreign company"
-},
-{
-"date": "2026-07-09",
-"edition": "evening",
-"dateHuman": "Thursday, July 9, 2026",
-"file": "editions/2026-07-09-evening.html",
-"lead": "Meta starts charging for AI as three frontier labs ship on a single day"
-},
-{
-"date": "2026-07-09",
-"edition": "morning",
-"dateHuman": "Thursday, July 9, 2026",
-"file": "editions/2026-07-09-morning.html",
-"lead": "OpenAI throws GPT-5.6 open to everyone as the frontier reshuffles in a single week"
-},
-{
-"date": "2026-07-08",
-"edition": "evening",
-"dateHuman": "Wednesday, July 8, 2026",
-"file": "editions/2026-07-08-evening.html",
-"lead": "U.S. strikes Iran again and Wall Street buckles: Dow sheds 577 as oil nears $80"
-},
-{
-"date": "2026-07-08",
-"edition": "morning",
-"dateHuman": "Wednesday, July 8, 2026",
-"file": "editions/2026-07-08-morning.html",
-"lead": "Oil surges 6% and stocks tumble as Trump declares Iran ceasefire 'over'"
-},
-{
-"date": "2026-07-07",
-"edition": "evening",
-"dateHuman": "Tuesday, July 7, 2026",
-"file": "editions/2026-07-07-evening.html",
-"lead": "Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street"
-},
-{
-"date": "2026-07-07",
-"edition": "morning",
-"dateHuman": "Tuesday, July 7, 2026",
-"file": "editions/2026-07-07-morning.html",
-"lead": "Chip stocks slide as Samsung's profit surge fails to satisfy"
-}
-]
+  "site": "https://davidsdailybread.com",
+  "editions": [
+    {
+      "date": "2026-07-12",
+      "edition": "morning",
+      "dateHuman": "Sunday, July 12, 2026",
+      "file": "editions/2026-07-12-morning.html",
+      "lead": "China evacuates nearly two million people as powerful typhoon makes landfall",
+      "pubDate": "Sun, 12 Jul 2026 13:19:51 -0400"
+    },
+    {
+      "date": "2026-07-11",
+      "edition": "morning",
+      "dateHuman": "Saturday, July 11, 2026",
+      "file": "editions/2026-07-11-morning.html",
+      "lead": "China lands an orbital rocket for the first time, catching it in a net at sea"
+    },
+    {
+      "date": "2026-07-10",
+      "edition": "morning",
+      "dateHuman": "Friday, July 10, 2026",
+      "file": "editions/2026-07-10-morning.html",
+      "lead": "SK Hynix raises $26.5 billion in the largest US listing ever by a foreign company"
+    },
+    {
+      "date": "2026-07-09",
+      "edition": "evening",
+      "dateHuman": "Thursday, July 9, 2026",
+      "file": "editions/2026-07-09-evening.html",
+      "lead": "Meta starts charging for AI as three frontier labs ship on a single day"
+    },
+    {
+      "date": "2026-07-09",
+      "edition": "morning",
+      "dateHuman": "Thursday, July 9, 2026",
+      "file": "editions/2026-07-09-morning.html",
+      "lead": "OpenAI throws GPT-5.6 open to everyone as the frontier reshuffles in a single week"
+    },
+    {
+      "date": "2026-07-08",
+      "edition": "evening",
+      "dateHuman": "Wednesday, July 8, 2026",
+      "file": "editions/2026-07-08-evening.html",
+      "lead": "U.S. strikes Iran again and Wall Street buckles: Dow sheds 577 as oil nears $80"
+    },
+    {
+      "date": "2026-07-08",
+      "edition": "morning",
+      "dateHuman": "Wednesday, July 8, 2026",
+      "file": "editions/2026-07-08-morning.html",
+      "lead": "Oil surges 6% and stocks tumble as Trump declares Iran ceasefire 'over'"
+    },
+    {
+      "date": "2026-07-07",
+      "edition": "evening",
+      "dateHuman": "Tuesday, July 7, 2026",
+      "file": "editions/2026-07-07-evening.html",
+      "lead": "Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street"
+    },
+    {
+      "date": "2026-07-07",
+      "edition": "morning",
+      "dateHuman": "Tuesday, July 7, 2026",
+      "file": "editions/2026-07-07-morning.html",
+      "lead": "Chip stocks slide as Samsung's profit surge fails to satisfy"
+    }
+  ]
 }

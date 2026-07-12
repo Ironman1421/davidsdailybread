@@ -3,7 +3,7 @@
 <channel>
 <title>David's Daily Bread</title>
 <link>https://davidsdailybread.com/</link>
-<description>A news briefing on technology, markets, and science. Loved by God. Baked fresh each morning.</description>
+<description>A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.</description>
 <language>en-us</language>
 <atom:link href="https://davidsdailybread.com/feed.xml" rel="self" type="application/rss+xml"/>
 <image>
@@ -12,10 +12,17 @@
 <link>https://davidsdailybread.com/</link>
 </image>
 <item>
+<title>Morning edition – Sunday, July 12, 2026: China evacuates nearly two million people as powerful typhoon makes landfall</title>
+<link>https://davidsdailybread.com/editions/2026-07-12-morning.html</link>
+<guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-12-morning.html</guid>
+<pubDate>Sun, 12 Jul 2026 13:19:51 -0400</pubDate>
+<description>Lead story: China evacuates nearly two million people as powerful typhoon makes landfall. Plus the morning's top stories in technology, markets, and science.</description>
+</item>
+<item>
 <title>Morning edition – Saturday, July 11, 2026: China lands an orbital rocket for the first time, catching it in a net at sea</title>
 <link>https://davidsdailybread.com/editions/2026-07-11-morning.html</link>
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-11-morning.html</guid>
-<pubDate>Sat, 11 Jul 2026 08:50:00 -0400</pubDate>
+<pubDate>Sat, 11 Jul 2026 05:15:00 -0400</pubDate>
 <description>Lead story: China lands an orbital rocket for the first time, catching it in a net at sea. Plus the morning's top stories in technology, markets, and science.</description>
 </item>
 <item>
@@ -43,28 +50,28 @@
 <title>Evening edition – Wednesday, July 8, 2026: U.S. strikes Iran again and Wall Street buckles: Dow sheds 577 as oil nears $80</title>
 <link>https://davidsdailybread.com/editions/2026-07-08-evening.html</link>
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-08-evening.html</guid>
-<pubDate>Wed, 08 Jul 2026 19:10:00 -0400</pubDate>
+<pubDate>Wed, 08 Jul 2026 19:15:00 -0400</pubDate>
 <description>Lead story: U.S. strikes Iran again and Wall Street buckles: Dow sheds 577 as oil nears $80. Plus the evening's top stories in technology, markets, and science.</description>
 </item>
 <item>
 <title>Morning edition – Wednesday, July 8, 2026: Oil surges 6% and stocks tumble as Trump declares Iran ceasefire 'over'</title>
 <link>https://davidsdailybread.com/editions/2026-07-08-morning.html</link>
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-08-morning.html</guid>
-<pubDate>Wed, 08 Jul 2026 05:10:00 -0400</pubDate>
+<pubDate>Wed, 08 Jul 2026 05:15:00 -0400</pubDate>
 <description>Lead story: Oil surges 6% and stocks tumble as Trump declares Iran ceasefire 'over'. Plus the morning's top stories in technology, markets, and science.</description>
 </item>
 <item>
 <title>Evening edition – Tuesday, July 7, 2026: Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street</title>
 <link>https://davidsdailybread.com/editions/2026-07-07-evening.html</link>
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-07-evening.html</guid>
-<pubDate>Tue, 07 Jul 2026 19:10:00 -0400</pubDate>
+<pubDate>Tue, 07 Jul 2026 19:15:00 -0400</pubDate>
 <description>Lead story: Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street. Plus the evening's top stories in technology, markets, and science.</description>
 </item>
 <item>
 <title>Morning edition – Tuesday, July 7, 2026: Chip stocks slide as Samsung's profit surge fails to satisfy</title>
 <link>https://davidsdailybread.com/editions/2026-07-07-morning.html</link>
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-07-morning.html</guid>
-<pubDate>Tue, 07 Jul 2026 05:10:00 -0400</pubDate>
+<pubDate>Tue, 07 Jul 2026 05:15:00 -0400</pubDate>
 <description>Lead story: Chip stocks slide as Samsung's profit surge fails to satisfy. Plus the morning's top stories in technology, markets, and science.</description>
 </item>
 </channel>
