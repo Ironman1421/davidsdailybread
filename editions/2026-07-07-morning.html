@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>David's Daily Bread — Morning edition, Tuesday, July 7, 2026</title>
-<meta name="description" content="David's Daily Bread — a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
+<title>David's Daily Bread – Morning edition, Tuesday, July 7, 2026</title>
+<meta name="description" content="David's Daily Bread – a twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
 <link rel="canonical" href="https://davidsdailybread.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
-<meta property="og:title" content="David's Daily Bread — Morning edition, Tuesday, July 7, 2026">
+<meta property="og:title" content="David's Daily Bread – Morning edition, Tuesday, July 7, 2026">
 <meta property="og:description" content="A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.">
 <meta property="og:url" content="https://davidsdailybread.com/">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
@@ -25,6 +25,8 @@
   #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--steel)); z-index: 10; transition: width 0.08s linear; }
   .paper { max-width: 860px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
   .masthead { text-align: center; }
+  .masthead-art-link { display: block; }
+  .masthead-art { display: block; width: 100%; max-width: 560px; height: auto; margin: 0 auto; }
   .motif { color: var(--gold); display: block; margin: 0 auto 8px; }
   .wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 55px; font-weight: 600; letter-spacing: 0.5px; line-height: 1; margin: 0; }
   .wordmark .initial { position: relative; display: inline-block; color: #f4efe6; }
@@ -76,8 +78,7 @@
 <div id="progress"></div>
 <div class="paper">
   <header class="masthead">
-    <svg class="motif" width="132" height="110" viewBox="0 0 132 110" fill="none" aria-hidden="true"><path d="M38 50 A 29 28 0 0 1 94 50" stroke="#c8a24a" stroke-width="5.5" fill="none"/><g><path d="M50 50 C 42 40, 43 22, 53 11 C 57 7, 63 9, 64 15 C 66 29, 62 42, 58 52 Z" fill="#c8a24a" stroke="#16151a" stroke-width="2.6" stroke-linejoin="round"/><g stroke="#16151a" stroke-width="2.2" stroke-linecap="round"><path d="M50 23 l8 4"/><path d="M52 32 l8 4"/><path d="M54 41 l7 4"/></g></g><g><path d="M63 52 C 60 39, 64 24, 74 15 C 78 11, 84 14, 84 20 C 84 33, 78 44, 72 53 Z" fill="#c8a24a" stroke="#16151a" stroke-width="2.6" stroke-linejoin="round"/><g stroke="#16151a" stroke-width="2.2" stroke-linecap="round"><path d="M67 27 l8 3"/><path d="M67 36 l8 3"/><path d="M68 45 l7 3"/></g></g><circle cx="88" cy="42" r="11" fill="#c8a24a" stroke="#16151a" stroke-width="2.6"/><path d="M88 31 L88 26" stroke="#16151a" stroke-width="2.2" stroke-linecap="round"/><path d="M88 28 C 91 23, 96 21, 101 23 C 99 28, 94 30, 88 28 Z" fill="#c8a24a" stroke="#16151a" stroke-width="1.8" stroke-linejoin="round"/><rect x="34" y="50" width="64" height="10" rx="5" fill="#c8a24a" stroke="#16151a" stroke-width="2.2"/><path d="M39 60 C 41 82, 49 94, 66 94 C 83 94, 91 82, 93 60 Z" fill="#c8a24a" stroke="#16151a" stroke-width="2.2"/><g stroke="#16151a" stroke-width="2.4" stroke-linecap="round"><path d="M50 61 C 51 75, 55 86, 60 92"/><path d="M66 61 L66 94"/><path d="M82 61 C 81 75, 77 86, 72 92"/></g></svg>
-    <h1 class="wordmark"><span class="initial"><svg class="crown" viewBox="0 0 40 32" aria-hidden="true"><path d="M7 26 L3 9 L14 16 L20 4 L26 16 L37 9 L33 26 Z" fill="#1a1920" stroke="#c8a24a" stroke-width="3" stroke-linejoin="round"/><path d="M8 26 H32" stroke="#c8a24a" stroke-width="3" stroke-linecap="round"/></svg>D</span>avid's Daily Bread</h1>
+    <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
     <div class="tagline">Technology &middot; Markets &middot; Science</div>
     <div class="dateline">
       <div class="dateline-row">
@@ -98,7 +99,7 @@
   <section class="lead">
     <div class="kicker">Lead story</div>
     <h1><a href="https://www.sysdig.com/blog/jadepuffer-agentic-ransomware-for-automated-database-extortion">Researchers document the first ransomware run entirely by an AI agent</a></h1>
-    <p class="standfirst">An AI agent chained an entire extortion campaign together on its own — and then botched the ransom in the process.</p>
+    <p class="standfirst">An AI agent chained an entire extortion campaign together on its own, then botched the ransom in the process.</p>
     <p class="lead-body dropcap">Security researchers at Sysdig published the first full analysis of JADEPUFFER, describing it as the earliest documented case of ransomware run end to end by an autonomous AI agent rather than a human operator. Gaining a foothold through an exposed Langflow server, the agent handled reconnaissance, credential theft, lateral movement and encryption on its own, executing more than 600 distinct payloads and, in one sequence, turning a failed login into a working fix in 31 seconds. The campaign also exposed the limits of machine-run crime: the malware generated a random encryption key it never saved, leaving 1,342 encrypted configurations unrecoverable even if the victim were to pay.</p>
   </section>
   <section class="sections">

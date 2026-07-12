@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Chronicles — David's Daily Bread</title>
+<title>The Chronicles – David's Daily Bread</title>
 <meta name="description" content="The Chronicles: every note you've set down on David's Daily Bread, gathered in one record.">
 <link rel="canonical" href="https://davidsdailybread.com/chronicles.html">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -11,7 +11,7 @@
 <meta name="robots" content="noindex">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
-<meta property="og:title" content="The Chronicles — David's Daily Bread">
+<meta property="og:title" content="The Chronicles – David's Daily Bread">
 <meta property="og:description" content="Every note you've set down, gathered in one record.">
 <meta property="og:url" content="https://davidsdailybread.com/chronicles.html">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
@@ -130,30 +130,30 @@
 
   <div id="noteList" class="note-list"></div>
   <div id="emptyState" class="empty" style="display:none">
-    <div class="big">Nothing set down yet &mdash; the record awaits.</div>
+    <div class="big">Nothing set down yet; the record awaits.</div>
     <p>Scribble something under any story on the <a href="/">latest edition</a> and it'll show up here.</p>
   </div>
 
   <div class="ask-baker">
     <div class="rule"></div>
-    <div class="lede">Selah &mdash; does the record leave a question unanswered?</div>
-    <div class="sub">The Counter closes a quarter-hour before each bake &mdash; slips in by 4:45 AM make the morning edition, by 6:45 PM the evening edition. Later slips wait for the next bake.</div>
+    <div class="lede">Selah: does the record leave a question unanswered?</div>
+    <div class="sub">The Counter closes a quarter-hour before each bake. Slips in by 4:45 AM make the morning edition, and slips in by 6:45 PM make the evening edition. Later slips wait for the next bake.</div>
     <div class="bake-form">
-      <textarea id="askText" placeholder="Set your question down here &mdash; the Baker reads everything left on this counter." aria-label="Your question for the Baker"></textarea>
+      <textarea id="askText" placeholder="Set your question down here; the Baker reads everything left on this counter." aria-label="Your question for the Baker"></textarea>
       <input id="askName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
-      <div class="sig-hint">Sign it, and your name is set beside the answer in the next edition. Leave the line blank and the Baker keeps your secret &mdash; the question bakes all the same.</div>
+      <div class="sig-hint">Sign it, and your name is set beside the answer in the next edition. Leave the line blank and the Baker keeps your secret; the question bakes all the same.</div>
     </div>
     <button class="oven-btn" id="askBtn" type="button"><span class="spark">&#10047;</span><span class="lbl">Ask the Baker</span></button>
     <div class="baked-note" id="askDone">Your slip is in the basket. Watch the next edition.</div>
-    <div class="sub">Each bake, the Baker draws five questions from the basket at random and sets them down &mdash; question and answer &mdash; in the next edition. The rest stay warm in the basket for a later pull.</div>
+    <div class="sub">Each bake, the Baker draws five questions from the basket at random and sets down each question and answer in the next edition. The rest stay warm in the basket for a later pull.</div>
   </div>
 
   <div class="crumb-board kings-post">
     <div class="rule"></div>
     <div class="board-head">Letters to the King</div>
-    <div class="lede">The Baker also carries mail to the throne &mdash; leave a letter, and King David himself writes back in the next edition.</div>
+    <div class="lede">The Baker also carries mail to the throne. Leave a letter, and King David himself writes back in the next edition.</div>
     <div class="bake-form">
-      <textarea id="kingText" placeholder="Set your question down for the King &mdash; the Baker relays every letter to the throne." aria-label="Your letter for King David"></textarea>
+      <textarea id="kingText" placeholder="Set your question down for the King; the Baker relays every letter to the throne." aria-label="Your letter for King David"></textarea>
       <input id="kingName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
       <div class="sig-hint">Signed letters are read into the record by name; unsigned letters reach the throne all the same.</div>
     </div>
@@ -165,7 +165,7 @@
   <div class="crumb-board">
     <div class="rule"></div>
     <div class="board-head">The Crumb Board</div>
-    <div class="lede">The corkboard by the ovens &mdash; pin what you please. A hello, a hot take, a happy birthday, a recipe of your own.</div>
+    <div class="lede">The corkboard by the ovens: pin what you please. A hello, a hot take, a happy birthday, a recipe of your own.</div>
     <div class="bake-form">
       <textarea id="pinText" placeholder="Pin a note to the board&hellip;" aria-label="Your note for the Crumb Board"></textarea>
       <input id="pinName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
@@ -218,7 +218,7 @@
   })();
   (function () {
     var PREFIX = 'ddb-note:';
-    var PAGE_NAMES = { 'home': ['Page notes — Home', '/'], 'tech': ['Page notes — Technology', '/tech.html'], 'markets': ['Page notes — Markets', '/markets.html'], 'science': ['Page notes — Science', '/science.html'] };
+    var PAGE_NAMES = { 'home': ['Page notes – Home', '/'], 'tech': ['Page notes – Technology', '/tech.html'], 'markets': ['Page notes – Markets', '/markets.html'], 'science': ['Page notes – Science', '/science.html'] };
     var listEl = document.getElementById('noteList');
     var countEl = document.getElementById('noteCount');
     var emptyEl = document.getElementById('emptyState');
@@ -303,7 +303,7 @@
     function displayTitle(n) {
       if (n.key.indexOf('page:') === 0) {
         var p = PAGE_NAMES[n.key.slice(5)];
-        return p ? p[0] : 'Page notes — ' + n.key.slice(5);
+        return p ? p[0] : 'Page notes – ' + n.key.slice(5);
       }
       if (titles[n.key]) return titles[n.key];
       try { var u = new URL(n.key); return 'Story at ' + u.hostname.replace(/^www\./, ''); } catch (e) { return n.key; }
@@ -337,7 +337,7 @@
     function buildExport() {
       var today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       var lines = [];
-      lines.push("DAVID'S DAILY BREAD — THE CHRONICLES");
+      lines.push("DAVID'S DAILY BREAD – THE CHRONICLES");
       lines.push('Notes exported ' + today);
       lines.push('');
       var urls = [];
@@ -359,7 +359,7 @@
 
       // Markdown version for file download
       var md = [];
-      md.push("# David's Daily Bread — The Chronicles");
+      md.push("# David's Daily Bread – The Chronicles");
       md.push('');
       md.push('*Notes exported ' + today + '*');
       md.push('');
@@ -370,7 +370,7 @@
         var noteLines = nd.text.split('\n');
         for (var q = 0; q < noteLines.length; q++) { md.push('> ' + noteLines[q]); }
         md.push('');
-        md.push('[Read the story](' + linkFor(nd) + ') — <' + linkFor(nd) + '>');
+        md.push('[Read the story](' + linkFor(nd) + '): <' + linkFor(nd) + '>');
         md.push('');
       }
       md.push('---');
@@ -382,7 +382,7 @@
       copyBtn.style.display = '';
       downloadBtn.style.display = '';
       pdfBtn.style.display = '';
-      emailBtn.href = 'mailto:?subject=' + encodeURIComponent("The Chronicles — my Daily Bread notes") + '&body=' + encodeURIComponent(body);
+      emailBtn.href = 'mailto:?subject=' + encodeURIComponent("The Chronicles – my Daily Bread notes") + '&body=' + encodeURIComponent(body);
       copyBtn.addEventListener('click', function () {
         var done = function () { copyBtn.textContent = 'Copied!'; setTimeout(function () { copyBtn.textContent = 'Copy export'; }, 1600); };
         if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(body).then(done); }
@@ -392,7 +392,7 @@
           document.body.removeChild(t);
         }
       });
-      // PERMANENT export handlers (Download .md + PDF) — do not remove.
+      // PERMANENT export handlers (Download .md + PDF). Do not remove.
       downloadBtn.addEventListener('click', function () {
         var blob = new Blob([mdBody], { type: 'text/markdown;charset=utf-8' });
         var a = document.createElement('a');

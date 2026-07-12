@@ -124,7 +124,7 @@ def parse_draft(path: Path) -> dict[str, list[dict]]:
             combined = stripped + "\n" + next_stripped
             m = HEADLINE_RE.match(combined)
             if m:
-                title = m.group(1).strip()
+                title = ddb_synth.strip_em_dashes(m.group(1).strip())
                 url = m.group(2).strip()
                 source_part = m.group(3).strip()
 
@@ -158,10 +158,14 @@ def _esc(text: str) -> str:
 
 
 def _esc_text(text: str) -> str:
-    """Escape for HTML/XML text-node content — quotes need no escaping
-    outside attribute values; matches the real site's existing output
-    (raw apostrophes in ledes/descriptions, not &#39;)."""
+    """Apply house punctuation and escape HTML/XML text-node content."""
+    text = ddb_synth.strip_em_dashes(text)
     return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def _esc_archive_text(text: str) -> str:
+    """Keep archive.html's historical quote encoding byte-stable."""
+    return _esc_text(text).replace('"', "&quot;").replace("'", "&#x27;")
 
 
 # ---------------------------------------------------------------------------
@@ -250,9 +254,8 @@ ARCHIVE_HTML_HEAD = """<!DOCTYPE html>
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(130% 70% at 50% 0%, rgba(200,162,74,0.06), transparent 62%); }
 .paper { max-width: 860px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
 .masthead { text-align: center; }
-.wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; font-weight: 600; letter-spacing: 0.5px; line-height: 1; margin: 0; }
-.wordmark a { color: inherit; text-decoration: none; }
-.wordmark a:hover { color: var(--gold); }
+.masthead-art-link { display: block; }
+.masthead-art { display: block; width: 100%; max-width: 560px; height: auto; margin: 0 auto; }
 .tagline { font-size: 10.5px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--faint); margin-top: 8px; }
 .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
 .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
@@ -279,7 +282,7 @@ ol.editions .lede { flex-basis: 100%; }
 <body>
 <div class="paper">
 <header class="masthead">
-<h1 class="wordmark"><a href="/">David's Daily Bread</a></h1>
+<a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
 <div class="tagline">Past editions &middot; kept warm</div>
 <div class="dateline"><div class="dateline-row"><span>The bread box</span></div></div>
 </header>
@@ -299,9 +302,9 @@ def render_archive_html(archive_data: dict) -> str:
     items = []
     for e in archive_data.get("editions", []):
         items.append(
-            f'<li><span class="when"><a href="{_esc(e["file"])}">{_esc_text(e["dateHuman"])}</a></span>'
-            f'<span class="ed">{_esc_text(e["edition"].capitalize())}</span>'
-            f'<span class="lede">{_esc_text(e["lead"])}</span></li>'
+            f'<li><span class="when"><a href="{_esc(e["file"])}">{_esc_archive_text(e["dateHuman"])}</a></span>'
+            f'<span class="ed">{_esc_archive_text(e["edition"].capitalize())}</span>'
+            f'<span class="lede">{_esc_archive_text(e["lead"])}</span></li>'
         )
     body = "\n".join(items) if items else '<div class="empty">No editions yet.</div>'
     return ARCHIVE_HTML_HEAD + body + "\n" + ARCHIVE_HTML_TAIL
@@ -432,7 +435,7 @@ def render_category(section: str, cards: list[dict]) -> str:
         if i <= len(cards):
             c = cards[i - 1]
             html = html.replace(f"CAT_{i}_URL", _esc(c["url"]))
-            html = html.replace(f"CAT_{i}_HEADLINE", _esc(c["title"]))
+            html = html.replace(f"CAT_{i}_HEADLINE", _esc_text(c["title"]))
             html = html.replace(f"CAT_{i}_DEK", c["dek"])
         else:
             # Fewer than 6 stories today — drop the empty card slot's whole <div class="stack">…</div>.
@@ -498,7 +501,10 @@ def render_home(date_str: str, slot: str, data: dict[str, list[dict]],
         lead = ddb_synth.synthesize_lead(candidates)
     else:
         lead = {"section": "tech", "title": "No edition available", "url": "#",
-                "badge": "—", "standfirst": "", "body": ""}
+                "badge": "Update", "standfirst": "", "body": ""}
+
+    for field in ("title", "badge", "standfirst", "body"):
+        lead[field] = ddb_synth.strip_em_dashes(lead[field])
 
     html = html.replace("LEAD_URL", _esc(lead["url"]))
     html = html.replace("LEAD_BADGE", _esc_text(lead["badge"]))

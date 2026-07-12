@@ -33,6 +33,7 @@ import csv
 import json
 import os
 import random
+import re
 import subprocess
 import urllib.request
 from pathlib import Path
@@ -53,15 +54,12 @@ CLAUDE_BIN = os.environ.get("DDB_CLAUDE_BIN", "claude")
 MODEL_HAIKU = "claude-haiku-4-5-20251001"
 MODEL_OPUS = "claude-opus-4-8"
 
-EM_DASH_CHARS = ("—", "&mdash;")
+EM_DASH_RE = re.compile(r"\s*(?:—|&mdash;|&#0*8212;|&#x0*2014;)\s*", re.IGNORECASE)
 
 
 def strip_em_dashes(text: str) -> str:
     """Mechanical safety net; copyedit/generation prompts are also told not to use them."""
-    out = text
-    for ch in EM_DASH_CHARS:
-        out = out.replace(ch, ", ")
-    return out
+    return EM_DASH_RE.sub(", ", text)
 
 
 def fetch_csv(dest_path: Path, url: str = COUNTER_CSV_URL, timeout: int = 20) -> bool:

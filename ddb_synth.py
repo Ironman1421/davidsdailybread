@@ -30,14 +30,12 @@ CLAUDE_BIN = os.environ.get("DDB_CLAUDE_BIN", "claude")
 MODEL_SONNET = "claude-sonnet-5"
 MODEL_OPUS = "claude-opus-4-8"
 
-EM_DASH_CHARS = ("—", "&mdash;")
+EM_DASH_RE = re.compile(r"\s*(?:—|&mdash;|&#0*8212;|&#x0*2014;)\s*", re.IGNORECASE)
 
 
 def strip_em_dashes(text: str) -> str:
-    out = text
-    for ch in EM_DASH_CHARS:
-        out = out.replace(ch, ", ")
-    return out
+    """Replace raw or encoded em dashes without leaving doubled whitespace."""
+    return EM_DASH_RE.sub(", ", text)
 
 
 def fetch_article_text(url: str, timeout: int = 12, max_chars: int = 6000) -> str | None:
