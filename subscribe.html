@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Subscribe · David's Daily Bread</title>
-  <meta name="description" content="Get David's Daily Bread, a concise briefing on technology, markets, and science, delivered every morning and evening.">
+  <meta name="description" content="Get David's Daily Bread, a concise briefing on technology, markets, and science, delivered each morning.">
   <link rel="canonical" href="https://davidsdailybread.com/subscribe.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="David's Daily Bread">
   <meta property="og:title" content="Subscribe · David's Daily Bread">
-  <meta property="og:description" content="Technology, markets, and science, baked fresh every morning and evening.">
+  <meta property="og:description" content="Technology, markets, and science, baked fresh each morning.">
   <meta property="og:url" content="https://davidsdailybread.com/subscribe.html">
   <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -106,6 +106,12 @@
       cursor: pointer;
     }
     .form-row button:hover, .form-row button:focus-visible { background: #dfbc67; }
+    .preference { margin: 18px 0 0; padding: 0; border: 0; }
+    .preference legend { padding: 0; font-weight: 600; }
+    .preference-help { margin: 7px 0 11px; color: var(--muted); font-size: 13.5px; }
+    .preference-options { display: flex; flex-wrap: wrap; gap: 10px 18px; }
+    .signup .preference-option { display: inline-flex; align-items: center; gap: 7px; margin: 0; font-weight: 500; }
+    .preference-option input:focus-visible { outline: 2px solid var(--steel); outline-offset: 2px; }
     .fine-print { margin: 11px 4px 0; color: var(--faint); font-size: 12px; }
     .page-notes { max-width: 620px; margin: 30px auto 0; text-align: left; }
     .notes-label { margin-bottom: 8px; }
@@ -167,21 +173,25 @@
   </style>
 </head>
 <body class="ddb subscribe-page">
-  <main class="paper">
-    <a class="masthead-link" href="/" aria-label="David's Daily Bread home">
-      <img class="masthead-art" src="/header-art.png" width="1124" height="418" alt="David's Daily Bread">
-    </a>
-    <nav class="nav" aria-label="Primary navigation">
-      <a href="/">Latest</a>
-      <a href="/archive.html">Bread Box</a>
-      <a href="/chronicles.html">Chronicles</a>
-    </nav>
-    <hr class="rule">
+  <div class="paper">
+    <header>
+      <a class="masthead-link" href="/" aria-label="David's Daily Bread home">
+        <img class="masthead-art" src="/header-art.png" width="1124" height="418" alt="David's Daily Bread">
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="/">Latest</a>
+        <a href="/archive.html">Bread Box</a>
+        <a href="/chronicles.html">Chronicles</a>
+      </nav>
+      <hr class="rule">
+    </header>
+
+    <main>
 
     <section class="hero" aria-labelledby="subscribe-title">
       <div class="label">We Deliver</div>
-      <h1 id="subscribe-title">The full loaf, twice daily.</h1>
-      <p class="dek">A clear, sourced briefing on technology, markets, and science, baked fresh for your inbox every morning and evening.</p>
+      <h1 id="subscribe-title">The full loaf each morning.</h1>
+      <p class="dek">A clear, sourced briefing on technology, markets, and science. One edition each morning, baked fresh for your inbox.</p>
     </section>
 
     <section class="schedule" aria-label="Delivery schedule">
@@ -191,9 +201,9 @@
         <p>The overnight developments worth carrying into your day.</p>
       </article>
       <article>
-        <div class="label">Evening</div>
-        <h2>Close the loop.</h2>
-        <p>The day's consequential moves, without the noise.</p>
+        <div class="label">Evening testing</div>
+        <h2>In the test kitchen.</h2>
+        <p>The evening edition is shadow-only while we test it. Tell us your future preference below.</p>
       </article>
     </section>
 
@@ -203,6 +213,15 @@
         <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
         <button type="submit">Subscribe</button>
       </div>
+      <fieldset class="preference" aria-describedby="preference-help">
+        <legend>Future delivery preference</legend>
+        <p class="preference-help" id="preference-help">Current delivery is one edition each morning. Evening delivery is in testing; this choice records a future preference.</p>
+        <div class="preference-options">
+          <label class="preference-option" for="tag-morning"><input id="tag-morning" name="tag" type="radio" value="morning" checked required> Morning</label>
+          <label class="preference-option" for="tag-evening"><input id="tag-evening" name="tag" type="radio" value="evening"> Evening</label>
+          <label class="preference-option" for="tag-both"><input id="tag-both" name="tag" type="radio" value="both"> Both</label>
+        </div>
+      </fieldset>
       <p class="fine-print">No spam and no borrowed lists. Just David's Daily Bread. Confirm your address from the email Buttondown sends, then you are in.</p>
     </form>
 
@@ -220,6 +239,7 @@
         </div>
       </div>
     </section>
+    </main>
 
     <footer>
       <div class="sub-cta">We Deliver <a class="sub-btn" href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
@@ -228,7 +248,7 @@
         <p><a href="/archive.html">Past editions</a> · <a href="/feed.xml">RSS</a> · <a href="/subscribe.html" aria-current="page">Subscribe</a></p>
       </div>
     </footer>
-  </main>
+  </div>
   <script>
     (function () {
       var key = 'ddb-note:page:subscribe';
