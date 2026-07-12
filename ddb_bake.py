@@ -401,17 +401,17 @@ CATEGORY_META = {
     "tech": {
         "slug": "tech", "title": "Technology", "hero": "Technology",
         "sub": "AI, chips, and the machines reshaping the world.",
-        "desc": "The day's most important stories in technology and artificial intelligence.",
+        "desc": "The latest in technology and AI: models, chips, and the companies racing to build them.",
     },
     "markets": {
         "slug": "markets", "title": "Business &amp; Markets", "hero": "Business &amp; Markets",
         "sub": "Stocks, deals, and the forces moving the economy.",
-        "desc": "The day's most important stories in business and markets.",
+        "desc": "Business and markets: stocks, deals, earnings, and the forces moving the economy.",
     },
     "science": {
         "slug": "science", "title": "Science", "hero": "Science",
         "sub": "Space, physics, and the frontiers of discovery.",
-        "desc": "The day's most important stories in science and discovery.",
+        "desc": "Science news from space, physics, and the frontiers of discovery.",
     },
 }
 

@@ -175,6 +175,26 @@ class C3IntegrityTest(unittest.TestCase):
             self.assertIn(entry["dateHuman"], item.findtext("title", ""))
             self.assertIn(entry["lead"], item.findtext("title", ""))
 
+    def test_category_metadata_matches_generator(self):
+        def description(html):
+            match = re.search(
+                r'<meta name="description" content="([^"]+)">', html
+            )
+            if match is None:
+                self.fail("category page lacks a meta description")
+            return match.group(1)
+
+        previous_templates = ddb_bake.TEMPLATES
+        ddb_bake.TEMPLATES = ROOT / "templates"
+        try:
+            for section in ddb_bake.SECTIONS:
+                with self.subTest(section=section):
+                    static = (ROOT / f"{section}.html").read_text(encoding="utf-8")
+                    rendered = ddb_bake.render_category(section, [])
+                    self.assertEqual(description(static), description(rendered))
+        finally:
+            ddb_bake.TEMPLATES = previous_templates
+
     def test_all_em_dash_encodings_are_sanitized(self):
         sample = "alpha — beta &mdash; gamma &#8212; delta &#x2014; omega"
         expected = "alpha, beta, gamma, delta, omega"
