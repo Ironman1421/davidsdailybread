@@ -234,14 +234,14 @@ ARCHIVE_HTML_HEAD = """<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Past editions – David's Daily Bread</title>
-<meta name="description" content="Every past edition of David's Daily Bread – a twice-daily briefing on technology, markets, and science.">
+<meta name="description" content="Every past edition of David's Daily Bread, kept warm. Loved by God.">
 <link rel="canonical" href="https://davidsdailybread.com/archive.html">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
 <meta property="og:title" content="Past editions – David's Daily Bread">
-<meta property="og:description" content="Every past edition of David's Daily Bread, kept warm.">
+<meta property="og:description" content="Every past edition of David's Daily Bread, kept warm. Loved by God.">
 <meta property="og:url" content="https://davidsdailybread.com/archive.html">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -331,7 +331,7 @@ def render_feed_xml(archive_data: dict) -> str:
 <channel>
 <title>David's Daily Bread</title>
 <link>{DOMAIN}/</link>
-<description>A twice-daily briefing on technology, markets, and science, baked fresh every morning and evening.</description>
+<description>A news briefing on technology, markets, and science. Loved by God. Baked fresh each morning.</description>
 <language>en-us</language>
 <atom:link href="{DOMAIN}/feed.xml" rel="self" type="application/rss+xml"/>
 <image>

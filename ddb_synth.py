@@ -90,7 +90,8 @@ def synthesize_dek(title: str, url: str, source: str, article_text: str | None) 
     real site's format exactly (2 examples read directly from the live
     site)."""
     prompt = (
-        "House style for davidsdailybread.com, a twice-daily news briefing. Write ONE "
+        "David's Daily Bread is a news briefing on technology, markets, and science. "
+        "Loved by God. Write ONE "
         "sentence (occasionally two short ones) summarizing this story for a card dek. "
         "Format EXACTLY: start with 2-4 words in <b>bold</b> as a lead-in, then the rest "
         "of the sentence, ending in a period. Example format: "
@@ -138,8 +139,9 @@ def synthesize_lead(candidates: list[dict]) -> dict:
         f"{i}. [{c['section']}] {c['title']} ({c['source']})" for i, c in enumerate(candidates)
     )
     pick_prompt = (
-        "You are the final editor for davidsdailybread.com's twice-daily briefing, "
-        "picking the single front-page lead story from today's candidates across "
+        "You are the final editor for David's Daily Bread, a news briefing on "
+        "technology, markets, and science. Loved by God. Pick the single front-page "
+        "lead story from today's candidates across "
         "technology, markets, and science. Judge genuine newsworthiness and impact, not "
         "just section order or recency — a routine status update or photo-of-the-day post "
         "should lose to a substantive story even if it's chronologically newer. Reply with "

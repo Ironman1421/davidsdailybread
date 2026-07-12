@@ -6,6 +6,14 @@ the subscribe page, and any future page or tool. If a color, font, or rule here
 disagrees with anything else, **this file wins**. Change the brand by editing this
 file (and `brand.css`) — nowhere else.
 
+## Brand statement and current cadence
+
+- **Loved by God** is the exact current public brand statement and tagline.
+- Current operating truth: one edition is baked each morning. Evening delivery is
+  in testing and may be offered as a future preference; it is not a current promise.
+- Keep historical edition labels such as "Evening edition" intact. They record what
+  was published, rather than describing the current delivery schedule.
+
 ## Palette (canonical)
 
 | Token | Hex | Use |
@@ -101,7 +109,7 @@ file (and `brand.css`) — nowhere else.
 ## Where the code lives
 
 - **Page templates:** `/templates/home.html` and `/templates/category.html` in this
-  repo. The twice-daily bake fetches them from
+  repo. The bake fetches them from
   `https://raw.githubusercontent.com/Ironman1421/davidsdailybread/main/templates/…`
   and replaces ONLY the content tokens (EDITION, LEAD_*, CARD_*, CAT_*, etc.).
   Restyling happens by editing the templates here — never inside the bake prompt.

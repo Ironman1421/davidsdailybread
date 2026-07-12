@@ -1,6 +1,6 @@
 # David's Daily Bread
 
-A twice-daily news briefing — technology, markets, and science — baked fresh every morning (~2 AM) and evening (~5 PM PT) and published at [davidsdailybread.com](https://davidsdailybread.com).
+A news briefing on technology, markets, and science. Loved by God. One edition is baked fresh each morning and published at [davidsdailybread.com](https://davidsdailybread.com). Evening delivery remains in testing.
 
 ## How it works
 

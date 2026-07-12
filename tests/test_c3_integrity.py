@@ -20,6 +20,7 @@ import ddb_bake
 import ddb_satchel
 import ddb_synth
 from tests.test_c3_brand_pages import audit_page
+from tests.test_brand_cadence import BRAND, OBSOLETE_PROMISES
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "2211e98"
@@ -123,8 +124,15 @@ class C3IntegrityTest(unittest.TestCase):
                             relative.endswith("2026-07-07-morning.html")
                             and ("class=\"motif\"" in line or "class=\"wordmark\"" in line)
                         )
+                        allowed_brand_metadata = (
+                            line.lstrip().startswith("<meta ")
+                            and "description\"" in line
+                            and "technology, markets, and science" in line
+                        )
                         self.assertTrue(
-                            EM_DASH.search(line) or allowed_legacy_header,
+                            EM_DASH.search(line)
+                            or allowed_legacy_header
+                            or allowed_brand_metadata,
                             f"non-mechanical historical change in {relative}: {line}",
                         )
 
@@ -252,6 +260,16 @@ ddb_bake.main()
                 if problems:
                     failures.append(f"{page.relative_to(scratch)}: {problems}")
                 text = page.read_text(encoding="utf-8")
+                if BRAND not in text:
+                    failures.append(
+                        f"{page.relative_to(scratch)} missing exact brand statement"
+                    )
+                for pattern in OBSOLETE_PROMISES:
+                    if match := pattern.search(text):
+                        failures.append(
+                            f"{page.relative_to(scratch)} obsolete cadence: "
+                            f"{match.group(0)!r}"
+                        )
                 unresolved = TOKEN.findall(text)
                 if unresolved:
                     failures.append(
@@ -266,7 +284,11 @@ ddb_bake.main()
                 ddb_bake.render_archive_html(scratch_archive),
                 (scratch / "archive.html").read_text(encoding="utf-8"),
             )
-            ET.parse(scratch / "feed.xml")
+            scratch_feed = (scratch / "feed.xml").read_text(encoding="utf-8")
+            self.assertIn(BRAND, scratch_feed)
+            for pattern in OBSOLETE_PROMISES:
+                self.assertNotRegex(scratch_feed, pattern)
+            ET.fromstring(scratch_feed)
 
 
 if __name__ == "__main__":

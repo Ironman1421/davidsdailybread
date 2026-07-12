@@ -103,6 +103,7 @@ assert all(any(label.get("for") == field.get("id") for label in parser.labels) f
 assert "<fieldset" in TEXT and "<legend" in TEXT, "tag choices need an accessible group name"
 
 # Current operating truth: one production morning edition; evening is not promised yet.
+assert "Loved by God" in TEXT
 assert "one edition each morning" in visible_lower
 assert "evening" in visible_lower and "testing" in visible_lower
 assert "future" in visible_lower and "preference" in visible_lower
