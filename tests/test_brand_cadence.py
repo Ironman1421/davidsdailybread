@@ -116,7 +116,8 @@ class BrandCadenceTest(unittest.TestCase):
                 self.assertIn(BRAND, text)
 
         archive = ddb_bake.read_archive_json(ROOT / "archive.json")
-        rendered_archive = ddb_bake.render_archive_html(archive)
+        current_archive = (ROOT / "archive.html").read_text(encoding="utf-8")
+        rendered_archive = ddb_bake.update_archive_html(current_archive, archive)
         rendered_feed = ddb_bake.render_feed_xml(archive)
         self.assertIn(BRAND, rendered_archive)
         self.assertIn(BRAND, rendered_feed)

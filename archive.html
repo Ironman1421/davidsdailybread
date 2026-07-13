@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://davidsdailybread.com/archive.html">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
 <meta property="og:title" content="Past editions – David's Daily Bread">
@@ -38,6 +39,20 @@ ol.editions .when a:hover { color: var(--gold); }
 ol.editions .ed { flex: none; min-width: 70px; font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--steel); }
 ol.editions .lede { font-size: 13px; color: var(--muted); }
 .empty { margin-top: 26px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-style: italic; text-align: center; }
+.page-notes { margin-top: 30px; }
+.notes-label { margin-bottom: 8px; font-size: 10.5px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
+.notes { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 9px; padding: 10px 12px; border: 1px dashed var(--line-strong); border-radius: 14px; background: rgba(255,255,255,0.025); }
+.notes:focus-within { border-style: solid; border-color: var(--gold-soft); }
+.notes .pen { color: var(--gold-soft); }
+.notes textarea { min-width: 0; flex: 1; height: 28px; padding: 0; resize: vertical; border: 0; outline: 0; background: transparent; color: var(--ink); font: 17px/1.4 'Caveat', cursive; }
+.notes button { min-width: 28px; height: 24px; border: 1px solid var(--line-strong); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; }
+.notes button:hover, .notes button:focus-visible { color: var(--gold); border-color: var(--gold-soft); }
+.notes-tools { display: none; flex-basis: 100%; gap: 6px; padding-top: 8px; border-top: 1px dashed var(--line-strong); }
+.notes.tools-open .notes-tools { display: flex; }
+.notes-tools button[aria-pressed="true"] { color: var(--gold); border-color: var(--gold); }
+.sub-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 26px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); }
+.sub-btn { font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 8px 16px; text-decoration: none; }
+.sub-btn:hover { background: rgba(200,162,74,0.22); }
 .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
 .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
 .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
@@ -57,6 +72,7 @@ ol.editions .lede { flex-basis: 100%; }
 <div class="dateline"><div class="dateline-row"><span>The bread box</span></div></div>
 </header>
 <ol class="editions" id="editions">
+<!-- ARCHIVE_EDITIONS_START -->
 <li><span class="when"><a href="editions/2026-07-12-morning.html">Sunday, July 12, 2026</a></span><span class="ed">Morning</span><span class="lede">China evacuates nearly two million people as powerful typhoon makes landfall</span></li>
 <li><span class="when"><a href="editions/2026-07-11-morning.html">Saturday, July 11, 2026</a></span><span class="ed">Morning</span><span class="lede">China lands an orbital rocket for the first time, catching it in a net at sea</span></li>
 <li><span class="when"><a href="editions/2026-07-10-morning.html">Friday, July 10, 2026</a></span><span class="ed">Morning</span><span class="lede">SK Hynix raises $26.5 billion in the largest US listing ever by a foreign company</span></li>
@@ -66,8 +82,60 @@ ol.editions .lede { flex-basis: 100%; }
 <li><span class="when"><a href="editions/2026-07-08-morning.html">Wednesday, July 8, 2026</a></span><span class="ed">Morning</span><span class="lede">Oil surges 6% and stocks tumble as Trump declares Iran ceasefire &#x27;over&#x27;</span></li>
 <li><span class="when"><a href="editions/2026-07-07-evening.html">Tuesday, July 7, 2026</a></span><span class="ed">Evening</span><span class="lede">Chip rout deepens as DeepSeek&#x27;s silicon push and Samsung jolt Wall Street</span></li>
 <li><span class="when"><a href="editions/2026-07-07-morning.html">Tuesday, July 7, 2026</a></span><span class="ed">Morning</span><span class="lede">Chip stocks slide as Samsung&#x27;s profit surge fails to satisfy</span></li>
+<!-- ARCHIVE_EDITIONS_END -->
 </ol>
-<div class="colophon"><a href="/">&larr; Latest edition</a></div>
+<div class="page-notes">
+<div class="notes-label" id="page-notes-label">Page notes</div>
+<div class="notes" data-note-key="page:archive">
+<span class="pen" aria-hidden="true">&#9998;</span>
+<textarea id="page-note" rows="1" placeholder="Set down a thought&hellip;" aria-label="Page notes"></textarea>
+<button id="notes-style" type="button" aria-expanded="false" aria-controls="notes-tools" title="Personalize notes">Aa</button>
+<button id="notes-clear" type="button" title="Clear notes" aria-label="Clear notes">&times;</button>
+<div class="notes-tools" id="notes-tools" aria-label="Note style">
+<button type="button" data-font="hand" aria-pressed="true">Hand</button>
+<button type="button" data-font="serif" aria-pressed="false">Serif</button>
+<button type="button" data-font="sans" aria-pressed="false">Sans</button>
 </div>
+</div>
+</div>
+<div class="sub-cta">We Deliver <a class="sub-btn" href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
+<div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
+</div>
+<script>
+(function () {
+  var key = 'ddb-note:page:archive';
+  var fontKey = key + ':font';
+  var box = document.querySelector('[data-note-key="page:archive"]');
+  var note = document.getElementById('page-note');
+  var styleButton = document.getElementById('notes-style');
+  var clearButton = document.getElementById('notes-clear');
+  var tools = document.getElementById('notes-tools');
+  var fonts = { hand: "'Caveat', cursive", serif: "'Newsreader', Georgia, serif", sans: "'Inter', sans-serif" };
+  function setFont(name) {
+    var chosen = fonts[name] ? name : 'hand';
+    note.style.fontFamily = fonts[chosen];
+    tools.querySelectorAll('[data-font]').forEach(function (button) {
+      button.setAttribute('aria-pressed', String(button.dataset.font === chosen));
+    });
+    localStorage.setItem(fontKey, chosen);
+  }
+  note.value = localStorage.getItem(key) || '';
+  setFont(localStorage.getItem(fontKey) || 'hand');
+  note.addEventListener('input', function () { localStorage.setItem(key, note.value); });
+  styleButton.addEventListener('click', function () {
+    var open = box.classList.toggle('tools-open');
+    styleButton.setAttribute('aria-expanded', String(open));
+  });
+  clearButton.addEventListener('click', function () {
+    note.value = '';
+    localStorage.removeItem(key);
+    note.focus();
+  });
+  tools.addEventListener('click', function (event) {
+    var button = event.target.closest('[data-font]');
+    if (button) setFont(button.dataset.font);
+  });
+})();
+</script>
 </body>
 </html>

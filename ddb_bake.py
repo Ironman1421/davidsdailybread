@@ -8,7 +8,7 @@ Reads:
 Writes:
   - site/editions/YYYY-MM-DD-{am,pm}.html  (dated edition)
   - site/index.html                        (latest edition, overwrites)
-  - site/archive.html                      (updated archive listing)
+  - site/archive.html                      (updates only its marked editions list)
   - site/archive.json                      (updated manifest, from working tree)
 
 Contract:
@@ -29,6 +29,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -53,6 +54,7 @@ else:
             break
 if SITE is None or not (SITE / "templates" / "home.html").exists():
     raise RuntimeError("No site repo found. Clone to ~/davidsdailybread or ~/ddb/site-mirror, or set DDB_SITE_DIR")
+assert SITE is not None
 TEMPLATES = SITE / "templates"
 EDITIONS = SITE / "editions"
 DRAFTS = DDB / "drafts"
@@ -228,77 +230,12 @@ def update_archive(path: Path, edition_date: str, edition_type: str, lead_title:
 # archive.html / feed.xml regeneration (deterministic, from archive.json)
 # ---------------------------------------------------------------------------
 
-ARCHIVE_HTML_HEAD = """<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Past editions – David's Daily Bread</title>
-<meta name="description" content="Every past edition of David's Daily Bread, kept warm. Loved by God.">
-<link rel="canonical" href="https://davidsdailybread.com/archive.html">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="David's Daily Bread">
-<meta property="og:title" content="Past editions – David's Daily Bread">
-<meta property="og:description" content="Every past edition of David's Daily Bread, kept warm. Loved by God.">
-<meta property="og:url" content="https://davidsdailybread.com/archive.html">
-<meta property="og:image" content="https://davidsdailybread.com/og-card.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<style>
-:root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; }
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(130% 70% at 50% 0%, rgba(200,162,74,0.06), transparent 62%); }
-.paper { max-width: 860px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
-.masthead { text-align: center; }
-.masthead-art-link { display: block; }
-.masthead-art { display: block; width: 100%; max-width: 560px; height: auto; margin: 0 auto; }
-.tagline { font-size: 10.5px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--faint); margin-top: 8px; }
-.dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
-.dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
-.dateline-row { display: flex; justify-content: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
-ol.editions { list-style: none; margin: 26px 0 0; padding: 0; }
-ol.editions li { display: flex; align-items: baseline; gap: 16px; padding: 12px 4px; border-bottom: 1px solid var(--line); }
-ol.editions .when { flex: none; min-width: 220px; font-family: 'Newsreader', Georgia, serif; font-size: 16px; }
-ol.editions .when a { color: var(--ink); text-decoration: none; }
-ol.editions .when a:hover { color: var(--gold); }
-ol.editions .ed { flex: none; min-width: 70px; font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--steel); }
-ol.editions .lede { font-size: 13px; color: var(--muted); }
-.empty { margin-top: 26px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-style: italic; text-align: center; }
-.colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
-.colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
-.colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
-@media (max-width: 640px) {
-.paper { padding: 30px 22px; margin: 12px; }
-ol.editions li { flex-wrap: wrap; gap: 6px 12px; }
-ol.editions .when { min-width: 0; }
-ol.editions .lede { flex-basis: 100%; }
-}
-</style>
-</head>
-<body>
-<div class="paper">
-<header class="masthead">
-<a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
-<div class="tagline">Past editions &middot; kept warm</div>
-<div class="dateline"><div class="dateline-row"><span>The bread box</span></div></div>
-</header>
-<ol class="editions" id="editions">
-"""
-
-ARCHIVE_HTML_TAIL = """</ol>
-<div class="colophon"><a href="/">&larr; Latest edition</a></div>
-</div>
-</body>
-</html>
-"""
+ARCHIVE_EDITIONS_START = "<!-- ARCHIVE_EDITIONS_START -->"
+ARCHIVE_EDITIONS_END = "<!-- ARCHIVE_EDITIONS_END -->"
 
 
-def render_archive_html(archive_data: dict) -> str:
-    """Purely mechanical transform of archive.json — no model involved."""
+def render_archive_editions(archive_data: dict) -> str:
+    """Render only the archive editions list from archive.json."""
     items = []
     for e in archive_data.get("editions", []):
         items.append(
@@ -306,8 +243,56 @@ def render_archive_html(archive_data: dict) -> str:
             f'<span class="ed">{_esc_archive_text(e["edition"].capitalize())}</span>'
             f'<span class="lede">{_esc_archive_text(e["lead"])}</span></li>'
         )
-    body = "\n".join(items) if items else '<div class="empty">No editions yet.</div>'
-    return ARCHIVE_HTML_HEAD + body + "\n" + ARCHIVE_HTML_TAIL
+    return "\n".join(items) if items else '<div class="empty">No editions yet.</div>'
+
+
+def _archive_editions_bounds(current_html: str) -> tuple[int, int]:
+    """Validate stable markers and return the mutable editions-list bounds."""
+    if (
+        current_html.count(ARCHIVE_EDITIONS_START) != 1
+        or current_html.count(ARCHIVE_EDITIONS_END) != 1
+    ):
+        raise ValueError("archive.html must contain exactly one start and end marker")
+    start = current_html.index(ARCHIVE_EDITIONS_START) + len(ARCHIVE_EDITIONS_START)
+    end = current_html.index(ARCHIVE_EDITIONS_END)
+    if start > end:
+        raise ValueError("archive.html start marker must precede end marker")
+    return start, end
+
+
+def validate_archive_file(path: Path) -> None:
+    """Preflight the standing archive without mutating it."""
+    current_html = path.read_bytes().decode("utf-8")
+    _archive_editions_bounds(current_html)
+
+
+def update_archive_html(current_html: str, archive_data: dict) -> str:
+    """Replace only the marked editions list in the standing archive page."""
+    start, end = _archive_editions_bounds(current_html)
+    body = render_archive_editions(archive_data)
+    return current_html[:start] + "\n" + body + "\n" + current_html[end:]
+
+
+def _atomic_replace_bytes(path: Path, payload: bytes) -> None:
+    """Replace path from a fully written sibling, preserving the old file on failure."""
+    fd, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    os.close(fd)
+    temporary = Path(temporary_name)
+    try:
+        temporary.write_bytes(payload)
+        os.chmod(temporary, path.stat().st_mode & 0o777)
+        with temporary.open("rb") as handle:
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def update_archive_file(path: Path, archive_data: dict) -> None:
+    """Validate, render, and failure-atomically replace the standing archive."""
+    current_html = path.read_bytes().decode("utf-8")
+    updated_html = update_archive_html(current_html, archive_data)
+    _atomic_replace_bytes(path, updated_html.encode("utf-8"))
 
 
 def render_feed_xml(archive_data: dict) -> str:
@@ -586,6 +571,14 @@ def main():
     date_human = human_date(args.date)
     now_utc = datetime.now(timezone.utc)
 
+    # A real render updates bakery-state.json through the reader-content path.
+    # Validate the standing archive before rendering so malformed markers cannot
+    # leave even that pre-publication state partially advanced.
+    assert SITE is not None
+    archive_html_path = SITE / "archive.html"
+    if not args.dry_run:
+        validate_archive_file(archive_html_path)
+
     # Render (also synthesizes deks/glance/lead — real model calls, not free)
     html, meta = render_home(args.date, args.slot, data, csv_path=CSV_PATH, dry_run=args.dry_run)
 
@@ -621,8 +614,8 @@ def main():
         (SITE / f"{s}.html").write_text(cat_html, encoding="utf-8")
         print(f"updated {SITE / f'{s}.html'}")
 
-    # Update archive.json (from working tree, never CDN), then regenerate
-    # archive.html and feed.xml from it — both were previously never touched.
+    # Update archive.json (from working tree, never CDN), then update only the
+    # marked editions list in the standing archive page. Regenerate feed.xml.
     archive_path = SITE / "archive.json"
     from zoneinfo import ZoneInfo
     pub_date = now_utc.astimezone(ZoneInfo("America/New_York")).strftime("%a, %d %b %Y %H:%M:%S %z")
@@ -631,8 +624,8 @@ def main():
         print(f"updated {archive_path}")
 
     archive_data = read_archive_json(archive_path)
-    (SITE / "archive.html").write_text(render_archive_html(archive_data), encoding="utf-8")
-    print(f"updated {SITE / 'archive.html'}")
+    update_archive_file(archive_html_path, archive_data)
+    print(f"updated {archive_html_path}")
     (SITE / "feed.xml").write_text(render_feed_xml(archive_data), encoding="utf-8")
     print(f"updated {SITE / 'feed.xml'}")
 

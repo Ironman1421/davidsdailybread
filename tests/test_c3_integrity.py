@@ -158,7 +158,7 @@ class C3IntegrityTest(unittest.TestCase):
         self.assertTrue(all((ROOT / path).is_file() for path in files))
 
         archive_html = (ROOT / "archive.html").read_text(encoding="utf-8")
-        self.assertEqual(ddb_bake.render_archive_html(archive), archive_html)
+        self.assertEqual(ddb_bake.update_archive_html(archive_html, archive), archive_html)
         links = LinkParser()
         links.feed(archive_html)
         self.assertEqual(files, links.edition_links)
@@ -301,7 +301,10 @@ ddb_bake.main()
                 (scratch / "archive.json").read_text(encoding="utf-8")
             )
             self.assertEqual(
-                ddb_bake.render_archive_html(scratch_archive),
+                ddb_bake.update_archive_html(
+                    (scratch / "archive.html").read_text(encoding="utf-8"),
+                    scratch_archive,
+                ),
                 (scratch / "archive.html").read_text(encoding="utf-8"),
             )
             scratch_feed = (scratch / "feed.xml").read_text(encoding="utf-8")
