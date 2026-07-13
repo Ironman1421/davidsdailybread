@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-07-13",
+      "edition": "morning",
+      "dateHuman": "Monday, July 13, 2026",
+      "file": "editions/2026-07-13-morning.html",
+      "lead": "Unauthenticated RCE in Motorola's MR2600 Router",
+      "pubDate": "Mon, 13 Jul 2026 11:35:30 -0400"
+    },
+    {
       "date": "2026-07-12",
       "edition": "morning",
       "dateHuman": "Sunday, July 12, 2026",
