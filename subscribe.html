@@ -1,289 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Subscribe · David's Daily Bread</title>
-  <meta name="description" content="David's Daily Bread is a concise briefing on technology, markets, and science. Loved by God. One edition is delivered each morning.">
-  <link rel="canonical" href="https://davidsdailybread.com/subscribe.html">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="David's Daily Bread">
-  <meta property="og:title" content="Subscribe · David's Daily Bread">
-  <meta property="og:description" content="A news briefing on technology, markets, and science. Loved by God. Baked fresh each morning.">
-  <meta property="og:url" content="https://davidsdailybread.com/subscribe.html">
-  <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/brand.css">
-  <style>
-    * { box-sizing: border-box; }
-    .subscribe-page .paper { min-height: calc(100vh - 60px); }
-    .masthead-link { display: block; }
-    .nav {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 12px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-    .nav a { color: var(--muted); text-decoration: none; }
-    .nav a:hover, .nav a:focus-visible { color: var(--gold); }
-    .rule {
-      border: 0;
-      border-top: 2px solid var(--line-strong);
-      margin: 18px 0 34px;
-    }
-    .hero { max-width: 680px; margin: 0 auto; text-align: center; }
-    .hero h1 {
-      margin: 8px 0 12px;
-      font-size: clamp(34px, 6vw, 54px);
-      line-height: 1.05;
-      letter-spacing: -0.6px;
-    }
-    .hero .dek {
-      margin: 0 auto;
-      max-width: 620px;
-      color: var(--muted);
-      font-family: var(--font-serif);
-      font-size: clamp(18px, 3vw, 22px);
-      line-height: 1.5;
-    }
-    .schedule {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin: 30px auto 24px;
-      max-width: 620px;
-      text-align: left;
-    }
-    .schedule article {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
-      background: rgba(255,255,255,0.025);
-    }
-    .schedule h2 { margin: 5px 0 5px; font-size: 21px; }
-    .schedule p { margin: 0; color: var(--muted); font-size: 13.5px; }
-    .signup {
-      max-width: 620px;
-      margin: 26px auto 0;
-      padding: 24px;
-      border: 1px solid var(--gold-soft);
-      border-radius: 16px;
-      background: rgba(200,162,74,0.06);
-      text-align: left;
-    }
-    .signup label { display: block; margin-bottom: 8px; font-weight: 600; }
-    .form-row { display: flex; gap: 10px; }
-    .form-row input {
-      min-width: 0;
-      flex: 1;
-      border: 1px solid var(--line-strong);
-      border-radius: 999px;
-      padding: 13px 17px;
-      background: var(--bg);
-      color: var(--ink);
-      font: inherit;
-    }
-    .form-row input:focus { outline: 2px solid var(--steel); outline-offset: 2px; }
-    .form-row button {
-      border: 1px solid var(--gold);
-      border-radius: 999px;
-      padding: 13px 22px;
-      background: var(--gold);
-      color: #0e0e12;
-      font: 700 12px var(--font-ui);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-    .form-row button:hover, .form-row button:focus-visible { background: #dfbc67; }
-    .preference { margin: 18px 0 0; padding: 0; border: 0; }
-    .preference legend { padding: 0; font-weight: 600; }
-    .preference-help { margin: 7px 0 11px; color: var(--muted); font-size: 13.5px; }
-    .preference-options { display: flex; flex-wrap: wrap; gap: 10px 18px; }
-    .signup .preference-option { display: inline-flex; align-items: center; gap: 7px; margin: 0; font-weight: 500; }
-    .preference-option input:focus-visible { outline: 2px solid var(--steel); outline-offset: 2px; }
-    .fine-print { margin: 11px 4px 0; color: var(--faint); font-size: 12px; }
-    .page-notes { max-width: 620px; margin: 30px auto 0; text-align: left; }
-    .notes-label { margin-bottom: 8px; }
-    .notes {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 9px;
-      padding: 10px 12px;
-      border: 1px dashed var(--line-strong);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.025);
-    }
-    .notes:focus-within { border-style: solid; border-color: var(--gold-soft); }
-    .notes .pen { color: var(--gold-soft); }
-    .notes textarea {
-      min-width: 0;
-      flex: 1;
-      height: 28px;
-      padding: 0;
-      resize: vertical;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      color: var(--ink);
-      font: 17px/1.4 var(--font-hand);
-    }
-    .notes button {
-      min-width: 28px;
-      height: 24px;
-      border: 1px solid var(--line-strong);
-      border-radius: 999px;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-    }
-    .notes button:hover, .notes button:focus-visible { color: var(--gold); border-color: var(--gold-soft); }
-    .notes-tools { display: none; flex-basis: 100%; gap: 6px; padding-top: 8px; border-top: 1px dashed var(--line-strong); }
-    .notes.tools-open .notes-tools { display: flex; }
-    .notes-tools button[aria-pressed="true"] { color: var(--gold); border-color: var(--gold); }
-    .sub-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 18px; font-family: var(--font-serif); font-style: italic; color: var(--muted); }
-    .sub-btn { padding: 8px 16px; border: 1px solid var(--gold-soft); border-radius: 999px; font: 700 10px var(--font-ui); font-style: normal; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; background: rgba(200,162,74,0.10); }
-    .colophon { padding-top: 16px; border-top: 1px solid var(--line); }
-    footer {
-      margin-top: 40px;
-      padding-top: 22px;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      color: var(--faint);
-      font-size: 12px;
-    }
-    footer a { margin: 0 6px; }
-    @media (max-width: 640px) {
-      .subscribe-page .paper { margin: 0; padding: 26px 20px; border-radius: 0; }
-      .schedule { grid-template-columns: 1fr; }
-      .form-row { flex-direction: column; }
-      .form-row button { width: 100%; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fresh Every Morning · David's Daily Bread</title>
+<meta name="description" content="David's Daily Bread. Loved by God. One edition each morning at davidsdailybread.com. The email newsletter has been retired; the RSS feed delivers every edition.">
+<link rel="canonical" href="https://davidsdailybread.com/subscribe.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="David's Daily Bread">
+<meta property="og:title" content="Fresh Every Morning · David's Daily Bread">
+<meta property="og:description" content="A news briefing on technology, markets, and science. Loved by God. Baked fresh each morning.">
+<meta property="og:url" content="https://davidsdailybread.com/subscribe.html">
+<meta property="og:image" content="https://davidsdailybread.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/brand.css">
+<style>
+.paper { max-width: 640px; text-align: center; }
+h1 { font-family: 'Newsreader', Georgia, serif; font-size: 27px; font-weight: 600; margin: 26px 0 10px; }
+main p { font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; line-height: 1.7; color: var(--muted); margin: 0 0 14px; }
+main p b { color: var(--ink); font-weight: 600; }
+.btn-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 22px 0 6px; }
+.gf-btn { display: inline-block; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 9px 16px; text-decoration: none; transition: background 0.15s; }
+.gf-btn:hover { background: rgba(200,162,74,0.22); }
+.page-notes { margin-top: 30px; text-align: left; }
+.notes-label { margin-bottom: 8px; font-size: 10.5px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
+.notes { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 9px; padding: 10px 12px; border: 1px dashed var(--line-strong); border-radius: 14px; background: rgba(255,255,255,0.025); }
+.notes:focus-within { border-style: solid; border-color: var(--gold-soft); }
+.notes .pen { color: var(--gold-soft); }
+.notes textarea { min-width: 0; flex: 1; height: 28px; padding: 0; resize: vertical; border: 0; outline: 0; background: transparent; color: var(--ink); font: 17px/1.4 'Caveat', cursive; }
+.notes button { min-width: 28px; height: 24px; border: 1px solid var(--line-strong); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; }
+.notes button:hover, .notes button:focus-visible { color: var(--gold); border-color: var(--gold-soft); }
+.notes-tools { display: none; flex-basis: 100%; gap: 6px; padding-top: 8px; border-top: 1px dashed var(--line-strong); }
+.notes.tools-open .notes-tools { display: flex; }
+.notes-tools button[aria-pressed="true"] { color: var(--gold); border-color: var(--gold); }
+.colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
+.colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+.colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+@media (max-width: 640px) { .masthead-art { max-width: 100%; } }
+</style>
 </head>
-<body class="ddb subscribe-page">
-  <div class="paper">
-    <header>
-      <a class="masthead-link" href="/" aria-label="David's Daily Bread home">
-        <img class="masthead-art" src="/header-art.png" width="1124" height="418" alt="David's Daily Bread">
-      </a>
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="/">Latest</a>
-        <a href="/archive.html">Bread Box</a>
-        <a href="/chronicles.html">Chronicles</a>
-      </nav>
-      <hr class="rule">
-    </header>
-
-    <main>
-
-    <section class="hero" aria-labelledby="subscribe-title">
-      <div class="label">We Deliver</div>
-      <h1 id="subscribe-title">The full loaf each morning.</h1>
-      <p class="dek">A clear, sourced briefing on technology, markets, and science. Loved by God. One edition each morning, baked fresh for your inbox.</p>
-    </section>
-
-    <section class="schedule" aria-label="Delivery schedule">
-      <article>
-        <div class="label">Morning</div>
-        <h2>Start informed.</h2>
-        <p>The overnight developments worth carrying into your day.</p>
-      </article>
-      <article>
-        <div class="label">Evening testing</div>
-        <h2>In the test kitchen.</h2>
-        <p>The evening edition is shadow-only while we test it. Tell us your future preference below.</p>
-      </article>
-    </section>
-
-    <form class="signup" method="post" action="https://buttondown.com/api/emails/embed-subscribe/davidsdailybread">
-      <label for="email">Email address</label>
-      <div class="form-row">
-        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
-        <button type="submit">Subscribe</button>
-      </div>
-      <fieldset class="preference" aria-describedby="preference-help">
-        <legend>Future delivery preference</legend>
-        <p class="preference-help" id="preference-help">Current delivery is one edition each morning. Evening delivery is in testing; this choice records a future preference.</p>
-        <div class="preference-options">
-          <label class="preference-option" for="tag-morning"><input id="tag-morning" name="tag" type="radio" value="morning" checked required> Morning</label>
-          <label class="preference-option" for="tag-evening"><input id="tag-evening" name="tag" type="radio" value="evening"> Evening</label>
-          <label class="preference-option" for="tag-both"><input id="tag-both" name="tag" type="radio" value="both"> Both</label>
-        </div>
-      </fieldset>
-      <p class="fine-print">No spam and no borrowed lists. Just David's Daily Bread. Confirm your address from the email Buttondown sends, then you are in.</p>
-    </form>
-
-    <section class="page-notes" aria-labelledby="page-notes-label">
-      <div class="label notes-label" id="page-notes-label">Page notes</div>
-      <div class="notes" data-note-key="page:subscribe">
-        <span class="pen" aria-hidden="true">&#9998;</span>
-        <textarea id="page-note" rows="1" placeholder="Set down a thought…" aria-label="Page notes"></textarea>
-        <button id="notes-style" type="button" aria-expanded="false" aria-controls="notes-tools" title="Personalize notes">Aa</button>
-        <button id="notes-clear" type="button" title="Clear notes" aria-label="Clear notes">&times;</button>
-        <div class="notes-tools" id="notes-tools" aria-label="Note style">
-          <button type="button" data-font="hand" aria-pressed="true">Hand</button>
-          <button type="button" data-font="serif" aria-pressed="false">Serif</button>
-          <button type="button" data-font="sans" aria-pressed="false">Sans</button>
-        </div>
-      </div>
-    </section>
-    </main>
-
-    <footer>
-      <div class="sub-cta">We Deliver <a class="sub-btn" href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
-      <div class="colophon">
-        <p>David's Daily Bread · Technology · Markets · Science</p>
-        <p><a href="/archive.html">Past editions</a> · <a href="/feed.xml">RSS</a> · <a href="/subscribe.html" aria-current="page">Subscribe</a></p>
-      </div>
-    </footer>
-  </div>
-  <script>
-    (function () {
-      var key = 'ddb-note:page:subscribe';
-      var fontKey = key + ':font';
-      var box = document.querySelector('[data-note-key="page:subscribe"]');
-      var note = document.getElementById('page-note');
-      var styleButton = document.getElementById('notes-style');
-      var clearButton = document.getElementById('notes-clear');
-      var tools = document.getElementById('notes-tools');
-      var fonts = { hand: "'Caveat', cursive", serif: "'Newsreader', Georgia, serif", sans: "'Inter', sans-serif" };
-      function setFont(name) {
-        var chosen = fonts[name] ? name : 'hand';
-        note.style.fontFamily = fonts[chosen];
-        tools.querySelectorAll('[data-font]').forEach(function (button) {
-          button.setAttribute('aria-pressed', String(button.dataset.font === chosen));
-        });
-        localStorage.setItem(fontKey, chosen);
-      }
-      note.value = localStorage.getItem(key) || '';
-      setFont(localStorage.getItem(fontKey) || 'hand');
-      note.addEventListener('input', function () { localStorage.setItem(key, note.value); });
-      styleButton.addEventListener('click', function () {
-        var open = box.classList.toggle('tools-open');
-        styleButton.setAttribute('aria-expanded', String(open));
-      });
-      clearButton.addEventListener('click', function () {
-        note.value = '';
-        localStorage.removeItem(key);
-        note.focus();
-      });
-      tools.addEventListener('click', function (event) {
-        var button = event.target.closest('[data-font]');
-        if (button) setFont(button.dataset.font);
-      });
-    })();
-  </script>
+<body class="ddb">
+<div class="paper">
+<header class="masthead">
+<a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+</header>
+<main>
+<h1>The ovens still fire every morning.</h1>
+<p><b>The email newsletter has been retired.</b> The bakery found that bread travels best straight from the oven. One edition each morning, baked fresh and served hot at davidsdailybread.com. Loved by God.</p>
+<p>If you like your loaf delivered, the RSS feed carries every edition the moment it comes off the peel.</p>
+<div class="btn-row">
+<a class="gf-btn" href="/">Today&#39;s edition</a>
+<a class="gf-btn" href="/feed.xml">RSS feed</a>
+<a class="gf-btn" href="/archive.html">Past editions</a>
+</div>
+<div class="page-notes">
+<div class="notes-label" id="page-notes-label">Page notes</div>
+<div class="notes" data-note-key="page:subscribe">
+<span class="pen" aria-hidden="true">&#9998;</span>
+<textarea id="page-note" rows="1" placeholder="Set down a thought&hellip;" aria-label="Page notes"></textarea>
+<button id="notes-style" type="button" aria-expanded="false" aria-controls="notes-tools" title="Personalize notes">Aa</button>
+<button id="notes-clear" type="button" title="Clear notes" aria-label="Clear notes">&times;</button>
+<div class="notes-tools" id="notes-tools" aria-label="Note style">
+<button type="button" data-font="hand" aria-pressed="true">Hand</button>
+<button type="button" data-font="serif" aria-pressed="false">Serif</button>
+<button type="button" data-font="sans" aria-pressed="false">Sans</button>
+</div>
+</div>
+</div>
+</main>
+<footer>
+<div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Delivery</a></div>
+</footer>
+</div>
+<script>
+(function () {
+  var key = 'ddb-note:page:subscribe';
+  var fontKey = key + ':font';
+  var box = document.querySelector('[data-note-key="page:subscribe"]');
+  var note = document.getElementById('page-note');
+  var styleButton = document.getElementById('notes-style');
+  var clearButton = document.getElementById('notes-clear');
+  var tools = document.getElementById('notes-tools');
+  var fonts = { hand: "'Caveat', cursive", serif: "'Newsreader', Georgia, serif", sans: "'Inter', sans-serif" };
+  function setFont(name) {
+    var chosen = fonts[name] ? name : 'hand';
+    note.style.fontFamily = fonts[chosen];
+    tools.querySelectorAll('[data-font]').forEach(function (button) {
+      button.setAttribute('aria-pressed', String(button.dataset.font === chosen));
+    });
+    localStorage.setItem(fontKey, chosen);
+  }
+  note.value = localStorage.getItem(key) || '';
+  setFont(localStorage.getItem(fontKey) || 'hand');
+  note.addEventListener('input', function () { localStorage.setItem(key, note.value); });
+  styleButton.addEventListener('click', function () {
+    var open = box.classList.toggle('tools-open');
+    styleButton.setAttribute('aria-expanded', String(open));
+  });
+  clearButton.addEventListener('click', function () {
+    note.value = '';
+    localStorage.removeItem(key);
+    note.focus();
+  });
+  tools.addEventListener('click', function (event) {
+    var button = event.target.closest('[data-font]');
+    if (button) setFont(button.dataset.font);
+  });
+})();
+</script>
 </body>
 </html>

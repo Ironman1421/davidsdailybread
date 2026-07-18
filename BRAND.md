@@ -1,16 +1,19 @@
 # David's Daily Bread — Brand (single source of truth)
 
 This file is the canonical brand definition for **all** David's Daily Bread surfaces:
-the website (davidsdailybread.com), the email newsletter (Buttondown), Chronicles,
-the subscribe page, and any future page or tool. If a color, font, or rule here
+the website (davidsdailybread.com), Chronicles, and any future page or tool. If a color, font, or rule here
 disagrees with anything else, **this file wins**. Change the brand by editing this
 file (and `brand.css`) — nowhere else.
 
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
-- Current operating truth: one edition is baked each morning. Evening delivery is
-  in testing and may be offered as a future preference; it is not a current promise.
+- Current operating truth (updated 2026-07-17, per David): ONE edition is baked each
+  morning at 5:00 AM Pacific by a Claude scheduled task (spec: `/BAKE.md`). There is
+  no evening edition and no email newsletter; delivery is the website and `/feed.xml`.
+- **Email newsletter RETIRED (2026-07-17, per David):** the Buttondown list is closed.
+  Never add subscribe links, signup forms, or email CTAs to any surface.
+  `/subscribe.html` stays as a standing "newsletter retired, take the RSS" page.
 - Keep historical edition labels such as "Evening edition" intact. They record what
   was published, rather than describing the current delivery schedule.
 
@@ -68,9 +71,8 @@ file (and `brand.css`) — nowhere else.
   appear at the very top of EVERY web page (`<img class="masthead-art" src="/header-art.png">`).
   No other art at the top of any page, ever, unless David explicitly says so.
   Never regenerate, rename, or re-upload it — just reference it.
-- **`/og-card.png`** (1200×630) is the social/share card (`og:image`) and the email
-  header image in Buttondown. Web pages use header-art; social previews and email
-  headers use og-card. Never substitute other art.
+- **`/og-card.png`** (1200×630) is the social/share card (`og:image`). Web pages use
+  header-art; social previews use og-card. Never substitute other art.
 
 ## Voice
 
@@ -87,10 +89,8 @@ file (and `brand.css`) — nowhere else.
 
 ## Permanent features (never remove)
 
-- **Subscribe button** (added 2026-07-09): every page ends with the `.sub-cta` line
-  ("We Deliver") and the `.sub-btn` pill linking
-  to https://buttondown.com/davidsdailybread, directly above the colophon; every
-  colophon also carries the RSS and Subscribe text links.
+- ~~Subscribe button~~ **REMOVED 2026-07-17 per David** along with the whole
+  Buttondown newsletter. Colophons carry RSS and archive links only.
 - **Chronicles exports** (2026-07-08): chronicles.html's four note-export buttons
   (Download .md, PDF, email, copy) are hardwired. Never remove or rebuild them;
   edit chronicles.html only from the current live/main version.
@@ -120,10 +120,7 @@ file (and `brand.css`) — nowhere else.
 - **Design tokens:** `/brand.css` (reference stylesheet for new pages, e.g. Chronicles
   or one-off pages; the bake templates carry their full CSS inline for email-safe,
   self-contained archive editions).
-- **Email design:** configured in Buttondown (Settings → Design → Email): accent
-  `#c8a24a`, header image og-card, Modern template. No code in the email body —
-  each edition's email is a short Markdown digest.
-- **Standing pages** (`/chronicles.html`, `/archive.html`, `/subscribe` assets) are
+- **Standing pages** (`/chronicles.html`, `/archive.html`, `/subscribe.html`) are
   NOT rebuilt by the bake. Edit them only from the current live/main version.
 
 ## Checklist for any new surface

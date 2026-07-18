@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
-"""Invariant checks for the first-party DDB subscribe page."""
+"""Invariant checks for the standing /subscribe.html page.
+
+Since 2026-07-17 (per David) the email newsletter is RETIRED: this page is a
+permanent "newsletter retired, take the RSS" notice. These checks enforce that
+truth: no subscription form, no Buttondown reference, and the standing brand
+laws (masthead art first, no em dashes, notes box, canonical metadata).
+"""
 from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "subscribe.html"
 TEXT = PAGE.read_text(encoding="utf-8")
-ENDPOINT = "https://buttondown.com/api/emails/embed-subscribe/davidsdailybread"
 
 
 class SubscribeParser(HTMLParser):
@@ -19,8 +24,6 @@ class SubscribeParser(HTMLParser):
         self.forms: list[dict[str, str | None]] = []
         self.inputs: list[dict[str, str | None]] = []
         self.images: list[dict[str, str | None]] = []
-        self.anchors: list[dict[str, str | None]] = []
-        self.labels: list[dict[str, str | None]] = []
         self.links: list[dict[str, str | None]] = []
         self.meta: list[dict[str, str | None]] = []
         self.visible: list[str] = []
@@ -44,10 +47,6 @@ class SubscribeParser(HTMLParser):
                 and values.get("src") == "/header-art.png"
             ):
                 self.masthead_at = self.event
-        elif tag == "a":
-            self.anchors.append(values)
-        elif tag == "label":
-            self.labels.append(values)
         elif tag == "link":
             self.links.append(values)
         elif tag == "meta":
@@ -83,32 +82,17 @@ assert any(link.get("rel") == "stylesheet" and link.get("href") == "/brand.css" 
 for family in ("Caveat", "Newsreader", "Inter"):
     assert family in TEXT, f"missing loaded font family: {family}"
 
-# Exact real Buttondown form schema.
-assert len(parser.forms) == 1, "subscribe page must contain exactly one form"
-form = parser.forms[0]
-assert str(form.get("method") or "").lower() == "post"
-assert form.get("action") == ENDPOINT
-email_fields = [field for field in parser.inputs if field.get("name") == "email"]
-assert len(email_fields) == 1, "form must contain one name=email field"
-email = email_fields[0]
-assert email.get("type") == "email"
-assert "required" in email
-assert email.get("id") and any(label.get("for") == email.get("id") for label in parser.labels)
-tag_fields = [field for field in parser.inputs if field.get("name") == "tag"]
-assert len(tag_fields) == 3, "form must contain exactly three name=tag controls"
-assert {field.get("value") for field in tag_fields} == {"morning", "evening", "both"}
-assert all(field.get("type") == "radio" for field in tag_fields)
-assert all(field.get("id") for field in tag_fields)
-assert all(any(label.get("for") == field.get("id") for label in parser.labels) for field in tag_fields)
-assert "<fieldset" in TEXT and "<legend" in TEXT, "tag choices need an accessible group name"
+# Newsletter retired (2026-07-17, per David): no subscription mechanics anywhere.
+assert parser.forms == [], "retired page must contain no forms"
+assert parser.inputs == [], "retired page must contain no input fields"
+assert "buttondown" not in TEXT.lower(), "no Buttondown reference may remain"
+assert "retired" in visible_lower, "the page must state the newsletter is retired"
 
-# Current operating truth: one production morning edition; evening is not promised yet.
+# Current operating truth: one edition each morning; no email promises.
 assert "Loved by God" in TEXT
-assert "one edition each morning" in visible_lower
-assert "evening" in visible_lower and "testing" in visible_lower
-assert "future" in visible_lower and "preference" in visible_lower
-for forbidden_promise in ("twice daily", "twice-daily", "every morning and evening"):
-    assert forbidden_promise not in TEXT.lower(), f"current page must not promise {forbidden_promise!r}"
+assert "each morning" in visible_lower
+for forbidden_promise in ("twice daily", "twice-daily", "every morning and evening", "by email"):
+    assert forbidden_promise not in visible_lower, f"current page must not promise {forbidden_promise!r}"
 
 # Canonical art, social metadata, footer, notes, and accessible controls.
 mastheads = [image for image in parser.images if image.get("src") == "/header-art.png"]
@@ -117,11 +101,10 @@ assert all(image.get("src") != "/og-card.png" for image in parser.images), "og-c
 og_images = [meta.get("content") for meta in parser.meta if meta.get("property") == "og:image"]
 assert og_images == ["https://davidsdailybread.com/og-card.png"]
 footer = TEXT.split("<footer>", 1)[1].split("</footer>", 1)[0]
-for required_link in ("/archive.html", "/feed.xml", "/subscribe.html"):
+for required_link in ("/archive.html", "/feed.xml"):
     assert f'href="{required_link}"' in footer, f"missing permanent footer link: {required_link}"
-assert 'class="sub-cta"' in TEXT and 'class="sub-btn"' in TEXT
 assert 'data-note-key="page:subscribe"' in TEXT
 assert 'aria-label="Page notes"' in TEXT and 'aria-label="Clear notes"' in TEXT
 assert "localStorage" in TEXT and ">Aa</button>" in TEXT
 
-print("PASS: subscribe.html satisfies structure, exact schema, cadence truth, accessibility, brand, art, footer, notes, and no-em-dash invariants")
+print("PASS: subscribe.html satisfies retired-newsletter truth, structure, accessibility, brand, art, footer, notes, and no-em-dash invariants")

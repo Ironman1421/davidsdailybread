@@ -14,6 +14,7 @@ BRAND = "Loved by God"
 CANONICAL_SOURCES = (
     ROOT / "README.md",
     ROOT / "BRAND.md",
+    ROOT / "BAKE.md",
     ROOT / "ddb_bake.py",
     ROOT / "ddb_synth.py",
     ROOT / "templates" / "home.html",
@@ -126,19 +127,23 @@ class BrandCadenceTest(unittest.TestCase):
             self.assertNotRegex(rendered_feed, pattern)
 
     def test_current_operating_truth_is_explicit_without_erasing_history(self):
+        # Truth since 2026-07-17 (per David): ONE morning edition, baked by the
+        # 5:00 AM Pacific Claude scheduled task; the email newsletter is retired
+        # and evening delivery is neither promised nor "in testing" anymore.
         subscribe = (ROOT / "subscribe.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, subscribe)
         self.assertIn("One edition each morning", subscribe)
-        self.assertIn("Evening delivery is in testing", subscribe)
-        self.assertIn("future preference", subscribe)
+        self.assertIn("retired", subscribe.lower())
+        self.assertNotIn("Evening delivery is in testing", subscribe)
+        self.assertNotIn("buttondown", subscribe.lower())
 
         chronicles = (ROOT / "chronicles.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, chronicles)
         self.assertIn("one morning edition", chronicles.lower())
-        self.assertIn("evening", chronicles.lower())
-        self.assertIn("testing", chronicles.lower())
+        self.assertNotIn("Evening delivery is in testing", chronicles)
         self.assertIn("4:45 AM", chronicles)
 
+        # Historical labels stay: past evening editions remain in the archive.
         archive = (ROOT / "archive.html").read_text(encoding="utf-8")
         self.assertIn("Evening</span>", archive)
 

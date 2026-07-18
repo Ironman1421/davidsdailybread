@@ -83,9 +83,6 @@
   .crumb-board .sub { margin-top: 12px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13.5px; color: var(--faint); }
   .pin-btn { padding: 16px 32px 11px; border-radius: 26px 26px 4px 4px; }
   @media (prefers-reduced-motion: reduce) { .oven-btn { animation: none; } }
-  .sub-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 26px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); }
-  .sub-btn { font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 8px 16px; text-decoration: none; transition: background 0.15s, color 0.15s; }
-  .sub-btn:hover { background: rgba(200,162,74,0.22); }
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
@@ -137,7 +134,7 @@
   <div class="ask-baker">
     <div class="rule"></div>
     <div class="lede">Selah: does the record leave a question unanswered?</div>
-    <div class="sub">The Counter closes at 4:45 AM for the one morning edition. Evening delivery is in testing; the 6:45 PM cutoff applies only to the shadow evening edition. Later slips wait for the next bake.</div>
+    <div class="sub">The Counter closes at 4:45 AM Pacific for the one morning edition. Later slips wait for the next bake.</div>
     <div class="bake-form">
       <textarea id="askText" placeholder="Set your question down here; the Baker reads everything left on this counter." aria-label="Your question for the Baker"></textarea>
       <input id="askName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
@@ -176,9 +173,7 @@
     <div class="sub">Whatever&rsquo;s on the board when the ovens fire goes out with the next bake.</div>
   </div>
 
-  <div class="sub-cta">We Deliver <a class="sub-btn" href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
-
-  <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
+  <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a></div>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();

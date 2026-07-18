@@ -82,10 +82,6 @@
   .foot-copy { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); margin: 0 0 14px; }
   .gf-btn { display: inline-block; font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-bottom: 3px double var(--gold-soft); border-radius: 999px 999px 3px 3px; padding: 9px 15px 6px; text-decoration: none; transition: background 0.15s, color 0.15s; }
   .gf-btn:hover { background: rgba(200,162,74,0.22); }
-  .sub-btn { display: inline-block; font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,.14); padding: 9px 16px; text-decoration: none; box-shadow: inset 0 0 0 1px var(--gold-soft); -webkit-mask: radial-gradient(circle 2.6px, transparent 2.5px, #000 2.7px) -5px -5px / 10px 10px, linear-gradient(#000,#000) 50% 50% / calc(100% - 10px) calc(100% - 10px) no-repeat; mask: radial-gradient(circle 2.6px, transparent 2.5px, #000 2.7px) -5px -5px / 10px 10px, linear-gradient(#000,#000) 50% 50% / calc(100% - 10px) calc(100% - 10px) no-repeat; transition: background .15s; }
-  .news-line { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; padding: 16px 20px; border-top: 1px solid var(--line); }
-  .news-line .foot-head, .news-line .foot-copy { margin: 0; }
-  .sub-btn:hover { background: rgba(200,162,74,0.22); }
   @media (max-width: 640px) { .foot-grid { grid-template-columns: 1fr; } .foot-cell + .foot-cell { border-left: none; border-top: 1px solid var(--line); } }
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 0; padding-top: 16px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
@@ -132,12 +128,7 @@
         <a class="gf-btn" href="/chronicles.html">the chronicles</a>
       </div>
       </div>
-    <div class="news-line">
-      <span class="foot-head">Newsletter</span>
-      <span class="foot-copy">We Deliver &ndash; every edition by email</span>
-      <a class="sub-btn" href="https://buttondown.com/davidsdailybread">Subscribe</a>
-    </div>
-    <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="https://buttondown.com/davidsdailybread">Subscribe</a></div>
+    <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a></div>
   </footer>
 </div>
 <script>

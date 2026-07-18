@@ -17,10 +17,10 @@ def permanent_feature_failures(html: str) -> list[str]:
     colophon = html.split('<div class="colophon">', 1)[-1].split("</div>", 1)[0]
     checks = {
         "RSS alternate": '<link rel="alternate" type="application/rss+xml"' in html,
-        "We Deliver CTA": '<div class="sub-cta">We Deliver ' in html,
-        "subscribe pill": 'class="sub-btn" href="https://buttondown.com/davidsdailybread"' in html,
+        # Newsletter retired 2026-07-17 per David: no subscribe CTA may return.
+        "no Buttondown reference": "buttondown" not in html.lower(),
+        "no subscribe CTA": 'class="sub-cta"' not in html and 'class="sub-btn"' not in html,
         "colophon RSS": 'href="/feed.xml">RSS</a>' in colophon,
-        "colophon Subscribe": 'href="https://buttondown.com/davidsdailybread">Subscribe</a>' in colophon,
         "page notes localStorage": (
             'data-note-key="page:archive"' in html
             and "ddb-note:page:archive" in html
