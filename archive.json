@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-07-17",
+      "edition": "morning",
+      "dateHuman": "Friday, July 17, 2026",
+      "file": "editions/2026-07-17-morning.html",
+      "lead": "China launches a 29-nation AI alliance as Xi calls for a 'symphony' of cooperation",
+      "pubDate": "Fri, 17 Jul 2026 20:16:26 -0400"
+    },
+    {
       "date": "2026-07-14",
       "edition": "morning",
       "dateHuman": "Tuesday, July 14, 2026",
