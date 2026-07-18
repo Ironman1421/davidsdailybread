@@ -1,4 +1,4 @@
 __pycache__/
 *.pyc
-content.json
+content*.json
 counter.csv.new
