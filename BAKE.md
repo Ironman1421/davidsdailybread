@@ -29,9 +29,11 @@ state). Do not hand-edit rendered pages; do not bypass the script.
 
 ## The bake, step by step
 
-**0. Setup.** Clone with the token from your task prompt (never echo or commit it):
+**0. Setup.** Clone the public repo anonymously over plain HTTPS. There is no
+token anywhere, by design: unattended publishing authenticates through the
+Claude GitHub App at push time (never embed, request, or echo credentials):
 
-    git clone --depth 10 https://x-access-token:${GH_PAT}@github.com/Ironman1421/davidsdailybread.git site
+    git clone --depth 10 https://github.com/Ironman1421/davidsdailybread.git site
     cd site && git config user.name "DDB Baker" && git config user.email "bake@davidsdailybread.com"
 
 Edition date = today in America/New_York (the site's clock): `TZ=America/New_York date +%F`.
@@ -103,7 +105,10 @@ point where they claim, the date is right. Fix content.json and re-render if not
     git push origin main
 
 If push is rejected (non-fast-forward), fetch and rebase once and push again;
-if it still fails, stop and report rather than force-pushing.
+if it still fails, stop and report rather than force-pushing. The push
+authenticates through the Claude GitHub App (no tokens, by design); if
+authentication is unavailable, leave the commits local and report per step 9
+so David can publish manually.
 
 **7. Verify.** Fetch
 `https://raw.githubusercontent.com/Ironman1421/davidsdailybread/main/archive.json`
@@ -123,6 +128,10 @@ or unverified edition, and never mark a failed bake as success.
 
 ## Ops notes
 
+- `/archive.json` and the `/editions/…` URLs are a public contract: the DAICC
+  distribution pipeline reads them daily at 05:35 PT (from
+  raw.githubusercontent.com). Never change their shape or paths without
+  David's sign-off BEFORE deploying.
 - The scheduled task fires at 12:00 UTC (5:00 AM Pacific during daylight time).
   When US daylight time ends (early November) the task and the counter-sync
   workflow cron both need a +1 hour nudge to stay at their Pacific times.
