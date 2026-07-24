@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-07-24",
+      "edition": "morning",
+      "dateHuman": "Friday, July 24, 2026",
+      "file": "editions/2026-07-24-morning.html",
+      "lead": "Alphabet beats big, then rattles Wall Street with a $205 billion spending plan",
+      "pubDate": "Fri, 24 Jul 2026 13:53:52 -0400"
+    },
+    {
       "date": "2026-07-23",
       "edition": "morning",
       "dateHuman": "Thursday, July 23, 2026",
