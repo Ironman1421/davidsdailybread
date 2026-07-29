@@ -1,7 +1,11 @@
-# BAKE.md — the daily bake, run by a Claude scheduled task at 5:00 AM Pacific
+# BAKE.md — the daily bake, run by GitHub Actions at 5:05 AM Pacific
 
 This file is the complete operating spec for baking davidsdailybread.com.
-The scheduled task's prompt says only: clone the repo, read this file, follow it.
+The bake runs in GitHub Actions (`.github/workflows/ddb-bake.yml`): the runner
+checks out the repo, resolves the edition date, and invokes a Claude session
+whose prompt says only follow this file. The workflow, not the session, commits
+and pushes; a Claude session has no repository write credential and would die on
+`git push` with HTTP 403.
 Everything editorial is YOUR job as the session (research, judgment, writing).
 Everything mechanical is `ddb_session_bake.py`'s job (rendering, archive, feed,
 state). Do not hand-edit rendered pages; do not bypass the script.
@@ -29,15 +33,30 @@ state). Do not hand-edit rendered pages; do not bypass the script.
 
 ## The bake, step by step
 
-**0. Setup.** Clone the public repo anonymously over plain HTTPS. There is no
-token anywhere, by design: unattended publishing authenticates through the
-Claude GitHub App at push time (never embed, request, or echo credentials):
+**0. Setup — nothing to do.** The GitHub Actions runner has already done it.
+The repo is checked out in the current working directory on branch `main`, and
+the edition date has already been resolved and handed to you. So:
 
-    git clone --depth 10 https://github.com/Ironman1421/davidsdailybread.git site
-    cd site && git config user.name "DDB Baker" && git config user.email "bake@davidsdailybread.com"
+- Do NOT clone anything; work from this checkout.
+- Do NOT run `git config` to set a git identity.
+- Do NOT run any git command that writes (`add`, `commit`, `push`, `checkout`,
+  `reset`, …). The workflow owns all of that after you finish.
+- Use the date you were handed VERBATIM (`--date <date>`). Do not compute it
+  yourself; the runner already did (`TZ=America/New_York date +%F`, or a
+  dispatched date). If `editions/<date>-morning.html` already exists, the
+  workflow refuses the run before you start, so you will never double-bake.
 
-Edition date = today in America/New_York (the site's clock): `TZ=America/New_York date +%F`.
-If `editions/<date>-morning.html` already exists on main, today is already baked: STOP and report that instead of double-baking.
+This run is one of two **modes**, and the workflow tells you which:
+
+- **daily** — the normal morning bake for today: research news from the last
+  ~24 hours and run the reader sections per the `--plan` output (steps 1-8 below).
+- **backfill** — reconstructing a morning edition that was never published, for
+  a past date. Research only news published on or in the 24 hours before that
+  date (use dated search terms, verify each story's publication date, never use
+  a story published after the edition date), and skip the reader sections
+  entirely: do not run `--plan`, omit `reader` from `content.json`, and do not
+  touch `kings-satchel.json` or `bakery-state.json` (those days had no live
+  reader interaction and inventing one would be dishonest).
 
 **1. Reader plan.** `python3 ddb_session_bake.py --plan` → JSON telling you which
 reader submission to answer (`ask`), which letter the King replies to (`king`,
@@ -96,24 +115,26 @@ self-checks. If it fails, fix content.json and re-run; never hand-patch output.
 the lead reads like front-page news, deks are grounded and non-generic, links
 point where they claim, the date is right. Fix content.json and re-render if not.
 
-**6. Publish.** Two commits, matching house convention, then push:
+**6. Publish — the workflow's job, not yours.** Do NOT commit or push. When your
+render is clean and reviewed, your job is done; stop there. The workflow takes
+over and guards the result before it ships:
 
-    git add index.html tech.html markets.html science.html editions/ bakery-state.json kings-satchel.json
-    git commit -m "Morning edition <Weekday>, <Month> <D>, <YYYY>"
-    git add archive.html archive.json feed.xml
-    git commit -m "Archive: <Weekday>, <Month> <D>, <YYYY> Morning edition"
-    git push origin main
+- It fails the run unless `editions/<date>-morning.html` exists.
+- On **backfill** it reverts `index.html`, `tech.html`, `markets.html`,
+  `science.html`, `bakery-state.json`, and `kings-satchel.json` so a
+  reconstructed morning never displaces the current front page.
+- It checks every changed path against an allowlist (`index.html`, the three
+  section pages, `archive.html`, `archive.json`, `feed.xml`, `bakery-state.json`,
+  `kings-satchel.json`, `counter.csv`, and `editions/<date>-morning|evening.html`)
+  and fails on anything else.
+- It confirms `archive.json` carries this morning's entry, then commits in the
+  house style (edition commit, then the `Archive:` commit), rebases on `main`
+  (counter-sync may have pushed while you baked), and pushes.
 
-If push is rejected (non-fast-forward), fetch and rebase once and push again;
-if it still fails, stop and report rather than force-pushing. The push
-authenticates through the Claude GitHub App (no tokens, by design); if
-authentication is unavailable, leave the commits local and report per step 9
-so David can publish manually.
-
-**7. Verify.** Fetch
+**7. Verify — also the workflow's job.** After pushing, the workflow polls
 `https://raw.githubusercontent.com/Ironman1421/davidsdailybread/main/archive.json`
-and confirm today's entry (raw is the truth; the live CDN may lag a few minutes,
-that is fine and only worth a soft note).
+until the edition date appears (raw is the truth; the live CDN may lag a few
+minutes, which the workflow logs as a soft warning, not a failure).
 
 **8. Satchel restock (only when the plan reported `satchel_unused` < 3).**
 Append new letters to `kings-satchel.json` (same schema, next `KS-0NN` ids,
@@ -132,9 +153,24 @@ or unverified edition, and never mark a failed bake as success.
   distribution pipeline reads them daily at 05:35 PT (from
   raw.githubusercontent.com). Never change their shape or paths without
   David's sign-off BEFORE deploying.
-- The scheduled task fires at 12:00 UTC (5:00 AM Pacific during daylight time).
-  When US daylight time ends (early November) the task and the counter-sync
-  workflow cron both need a +1 hour nudge to stay at their Pacific times.
+- **Publishing runs in GitHub Actions**, not in a Claude session, and the push
+  authenticates with the workflow's built-in `GITHUB_TOKEN`. There is NO
+  personal access token anywhere in this pipeline. A Claude session has no
+  repository write credential and cannot push (it 403s); that is why the bake
+  lives in `.github/workflows/ddb-bake.yml`.
+- **Claude authenticates** inside the runner from the repository secret
+  `CLAUDE_CODE_OAUTH_TOKEN` (created with `claude setup-token`), with
+  `ANTHROPIC_API_KEY` as a fallback. If neither secret is set the bake step
+  stops with a clear error before doing any work.
+- The workflow fires at 12:05 UTC (5:05 AM Pacific during daylight time,
+  20 minutes after counter-sync at 11:45 UTC). **When US daylight time ends
+  (early November) the `ddb-bake` cron AND the counter-sync cron both need a
+  +1 hour nudge** to stay at their Pacific times.
+- **To bake a specific date by hand**, dispatch the workflow: in the repo's
+  Actions tab open "Daily bake", click "Run workflow", and set the `date`
+  input to `YYYY-MM-DD` (blank means today in New York). A past date runs in
+  backfill mode automatically. You can also override the `model` input there.
 - The schedule and this spec were set up 2026-07-17 when David simplified the
-  pipeline: one daily morning bake by a Claude scheduled task; the Spark/Hermes
-  pipeline and the Buttondown newsletter are retired.
+  pipeline: one daily morning bake; the Spark/Hermes pipeline and the Buttondown
+  newsletter are retired. It moved into GitHub Actions on 2026-07-29 to fix the
+  unattended `git push` 403.
