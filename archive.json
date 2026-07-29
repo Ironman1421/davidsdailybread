@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-07-29",
+      "edition": "morning",
+      "dateHuman": "Wednesday, July 29, 2026",
+      "file": "editions/2026-07-29-morning.html",
+      "lead": "Federal Reserve holds interest rates steady as three officials dissent",
+      "pubDate": "Wed, 29 Jul 2026 14:42:28 -0400"
+    },
+    {
       "date": "2026-07-24",
       "edition": "morning",
       "dateHuman": "Friday, July 24, 2026",
