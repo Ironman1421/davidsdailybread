@@ -264,7 +264,7 @@ the workflow's evening allowlist enforces this.
   repo's Actions tab open "Daily bake", click "Run workflow", set the `date`
   input to `YYYY-MM-DD` (blank means today in New York) and pick the `slot`
   (morning is the default). A past date runs in backfill mode automatically.
-  You can also override the `model` input there.
+  You can also override the `model` input there (default: `claude-opus-5`; `claude-sonnet-5` is cheaper but its safeguard classifier flagged this prompt on 2026-07-30, and `claude-fable-5` is the premium override).
 - The morning schedule and this spec were set up 2026-07-17 when David
   simplified the pipeline to one daily morning bake; the Spark/Hermes pipeline
   and the Buttondown newsletter are retired. The bake moved into GitHub

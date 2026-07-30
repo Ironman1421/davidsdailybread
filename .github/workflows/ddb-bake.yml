@@ -30,7 +30,7 @@ on:
       model:
         description: 'Claude model to bake with'
         required: false
-        default: claude-sonnet-5
+        default: claude-opus-5
 permissions:
   contents: write
 concurrency:
@@ -81,7 +81,7 @@ jobs:
           if [ "$D" = "$TODAY" ]; then MODE=daily; else MODE=backfill; fi
           if [ "$SLOT" = "morning" ]; then LABEL="Morning edition"; else LABEL="Evening edition"; fi
           HUMAN="$(TZ=UTC date -d "$D" '+%A, %B %-d, %Y')"
-          MODEL="${IN_MODEL:-claude-sonnet-5}"
+          MODEL="${IN_MODEL:-claude-opus-5}"
           {
             echo "date=$D"
             echo "slot=$SLOT"
