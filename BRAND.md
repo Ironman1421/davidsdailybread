@@ -8,14 +8,21 @@ file (and `brand.css`) — nowhere else.
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
-- Current operating truth (updated 2026-07-17, per David): ONE edition is baked each
-  morning at 5:00 AM Pacific by a Claude scheduled task (spec: `/BAKE.md`). There is
-  no evening edition and no email newsletter; delivery is the website and `/feed.xml`.
+- Current operating truth (updated 2026-07-30, per David): the site is **baked
+  twice daily** by GitHub Actions (spec: `/BAKE.md`). The **morning edition**
+  (cron 5:05 AM Pacific) is straight news on technology, markets, and science,
+  and carries the reader sections. The **evening edition** (cron 3:35 PM
+  Pacific) covers what is trending in AI and tech for everyday people: trending
+  stories, new tools, and practical workflows; it carries no reader sections.
+  GitHub cron fires late, not never; both times are "no earlier than". There is
+  no email newsletter; delivery is the website and `/feed.xml`.
 - **Email newsletter RETIRED (2026-07-17, per David):** the Buttondown list is closed.
   Never add subscribe links, signup forms, or email CTAs to any surface.
   `/subscribe.html` stays as a standing "newsletter retired, take the RSS" page.
-- Keep historical edition labels such as "Evening edition" intact. They record what
-  was published, rather than describing the current delivery schedule.
+- Edition history: evening editions ran 2026-07-07 through 2026-07-14, were
+  retired in the 2026-07-17 simplification (one morning edition), and were
+  restored 2026-07-30 with the trends identity. Historical edition labels in
+  the archive record what was published on those days; leave them intact.
 
 ## Palette (canonical)
 

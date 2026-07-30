@@ -88,10 +88,10 @@ assert parser.inputs == [], "retired page must contain no input fields"
 assert "buttondown" not in TEXT.lower(), "no Buttondown reference may remain"
 assert "retired" in visible_lower, "the page must state the newsletter is retired"
 
-# Current operating truth: one edition each morning; no email promises.
+# Current operating truth (2026-07-30): baked twice daily; no email promises.
 assert "Loved by God" in TEXT
-assert "each morning" in visible_lower
-for forbidden_promise in ("twice daily", "twice-daily", "every morning and evening", "by email"):
+assert "twice daily" in visible_lower
+for forbidden_promise in ("one edition each morning", "by email"):
     assert forbidden_promise not in visible_lower, f"current page must not promise {forbidden_promise!r}"
 
 # Canonical art, social metadata, footer, notes, and accessible controls.
