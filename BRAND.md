@@ -12,8 +12,9 @@ file (and `brand.css`) — nowhere else.
   twice daily** by GitHub Actions (spec: `/BAKE.md`). The **morning edition**
   (cron 5:05 AM Pacific) is straight news on technology, markets, and science,
   and carries the reader sections. The **evening edition** (cron 3:35 PM
-  Pacific) covers what is trending in AI and tech for everyday people: trending
-  stories, new tools, and practical workflows; it carries no reader sections.
+  Pacific) is the Field Guide (layout adopted 2026-07-30, per David): trending
+  tools and trending workflows for everyday people, and NO news of any kind
+  (news is the morning's job); it carries no reader sections.
   GitHub cron fires late, not never; both times are "no earlier than". There is
   no email newsletter; delivery is the website and `/feed.xml`.
 - **Email newsletter RETIRED (2026-07-17, per David):** the Buttondown list is closed.
@@ -21,8 +22,11 @@ file (and `brand.css`) — nowhere else.
   `/subscribe.html` stays as a standing "newsletter retired, take the RSS" page.
 - Edition history: evening editions ran 2026-07-07 through 2026-07-14, were
   retired in the 2026-07-17 simplification (one morning edition), and were
-  restored 2026-07-30 with the trends identity. Historical edition labels in
-  the archive record what was published on those days; leave them intact.
+  restored 2026-07-30 with the trends identity; later that same day the
+  evening dropped its trending-stories section and adopted the two-section
+  Field Guide (tools + workflows, no news). Historical edition labels and
+  layouts in the archive record what was published on those days; leave
+  them intact.
 
 ## Palette (canonical)
 

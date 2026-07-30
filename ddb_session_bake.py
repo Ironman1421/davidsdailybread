@@ -17,9 +17,10 @@ model calls anywhere:
       Render the edition from the session-authored content JSON: home page,
       editions/ file, archive.json, archive.html (marked list only), feed.xml,
       plus (morning only) the three category pages and bakery-state.json.
-      The evening slot renders the trends edition (sections trending/tools/
-      workflows, spec: /BAKE.md "The evening bake"): no reader sections, no
-      category pages, no state writes. Validates the output (no leftover
+      The evening slot renders the trends edition in the Field Guide layout
+      (two sections only, tools + workflows, spec: /BAKE.md "The evening
+      bake"): no news, no reader sections, no category pages, no state
+      writes. Validates the output (no leftover
       tokens, no em dashes, masthead art present, archive markers intact) and
       exits non-zero without partial state if anything fails validation.
 
@@ -43,15 +44,15 @@ os.environ.setdefault("DDB_SITE_DIR", str(REPO))
 import ddb_bake      # noqa: E402  (needs DDB_SITE_DIR set first)
 import ddb_satchel   # noqa: E402
 
-# Sections per edition slot. Both slots reuse the same mechanical template
-# token families (CARD_T/M/S, EXP_T/M/S, GLANCE_TECH/MARKETS/SCIENCE): the
-# prefixes map POSITIONALLY onto the slot's sections, so the evening sections
-# trending/tools/workflows ride the T/M/S token machinery unchanged
-# (templates/evening.html carries the reader-facing labels).
+# Sections per edition slot. The MORNING template keeps the positional token
+# machinery (CARD_T/M/S, EXP_T/M/S, GLANCE_TECH/MARKETS/SCIENCE mapping onto
+# tech/markets/science). The EVENING (Field Guide layout, 2026-07-30) has its
+# own token set: GLANCE_TOOLS/GLANCE_WORKFLOWS, SHELF_ITEMS/RECIPE_ITEMS
+# (item HTML built here, not in the template), and an optional LEAD_NOTE.
 SLOTS = ("morning", "evening")
 SLOT_SECTIONS = {
     "morning": ("tech", "markets", "science"),
-    "evening": ("trending", "tools", "workflows"),
+    "evening": ("tools", "workflows"),
 }
 SLOT_LABEL = {"morning": "Morning edition", "evening": "Evening edition"}
 SLOT_TEMPLATE = {"morning": "home.html", "evening": "evening.html"}
@@ -66,7 +67,8 @@ LEFTOVER_TOKEN_RE = re.compile(
     r"|CARD_[TMS][12]_(URL|HEADLINE|DEK)"
     r"|CAT_[1-6]_(URL|HEADLINE|DEK)"
     r"|EXP_[TMS][123]_(URL|TEXT)"
-    r"|GLANCE_(TECH|MARKETS|SCIENCE)"
+    r"|GLANCE_(TECH|MARKETS|SCIENCE|TOOLS|WORKFLOWS)"
+    r"|SHELF_ITEMS|RECIPE_ITEMS|LEAD_NOTE"
     r"|RQ1_[QA]|KQ1_(Q|A|FROM)|PIN1_(TEXT|SIG)"
     r"|DATELINE_DATE|READTIME|TIMESTAMP"
     r"|__ACTIVE_(TECH|MKT|SCI)__)\b"
@@ -142,15 +144,48 @@ def validate_content(c: dict, date: str, slot: str) -> None:
     _require(str(lead["url"]).startswith("http"), "lead.url must be a real link")
 
     cards = c.get("cards") or {}
-    for s in sections:
-        items = cards.get(s) or []
-        _require(2 <= len(items) <= 6, f"cards.{s}: need 2-6 items, got {len(items)}")
-        for i, item in enumerate(items):
-            for k in ("title", "url", "dek"):
-                _require(bool(str(item.get(k, "")).strip()), f"cards.{s}[{i}].{k} missing")
-            _require(str(item["url"]).startswith("http"), f"cards.{s}[{i}].url must be a link")
-            _require("<b>" in item["dek"] and "</b>" in item["dek"],
-                     f"cards.{s}[{i}].dek must open with a <b>lead-in</b>")
+    if slot == "evening":
+        _require(lead["badge"] in ("Trending tool", "Trending workflow"),
+                 f"evening lead.badge must be 'Trending tool' or 'Trending workflow', "
+                 f"got {lead['badge']!r}")
+        note = str(lead.get("note") or "").strip()
+        _require(len(note) <= 40, "lead.note is a short handwritten aside; keep it under 40 chars")
+        _require(set(cards) == set(sections),
+                 f"evening cards must be exactly {set(sections)}, got {set(cards)} "
+                 "(news has no evening slot; the trending stories section is retired)")
+        tools = cards.get("tools") or []
+        _require(2 <= len(tools) <= 6, f"cards.tools: need 2-6 items, got {len(tools)}")
+        for i, t in enumerate(tools):
+            for k in ("name", "url", "cost", "kind", "seen", "blurb"):
+                _require(bool(str(t.get(k, "")).strip()), f"cards.tools[{i}].{k} missing")
+            _require(str(t["url"]).startswith("http"), f"cards.tools[{i}].url must be a link")
+            _require(len(t["name"]) <= 60, f"cards.tools[{i}].name too long for a shelf tile")
+            for k in ("cost", "kind", "seen"):
+                _require(len(t[k]) <= 32, f"cards.tools[{i}].{k} too long for a tag chip")
+        flows = cards.get("workflows") or []
+        _require(2 <= len(flows) <= 6, f"cards.workflows: need 2-6 items, got {len(flows)}")
+        for i, w in enumerate(flows):
+            for k in ("title", "url", "dek", "time"):
+                _require(bool(str(w.get(k, "")).strip()), f"cards.workflows[{i}].{k} missing")
+            _require(str(w["url"]).startswith("http"), f"cards.workflows[{i}].url must be a link")
+            _require("<b>" in w["dek"] and "</b>" in w["dek"],
+                     f"cards.workflows[{i}].dek must open with a <b>lead-in</b>")
+            _require(len(w["time"]) <= 24, f"cards.workflows[{i}].time too long for a chip")
+            needs = w.get("needs") or []
+            _require(2 <= len(needs) <= 4 and all(str(n).strip() for n in needs),
+                     f"cards.workflows[{i}].needs: 2-4 short non-empty strings")
+            _require(all(len(str(n)) <= 40 for n in needs),
+                     f"cards.workflows[{i}].needs entries must stay short (<=40 chars)")
+    else:
+        for s in sections:
+            items = cards.get(s) or []
+            _require(2 <= len(items) <= 6, f"cards.{s}: need 2-6 items, got {len(items)}")
+            for i, item in enumerate(items):
+                for k in ("title", "url", "dek"):
+                    _require(bool(str(item.get(k, "")).strip()), f"cards.{s}[{i}].{k} missing")
+                _require(str(item["url"]).startswith("http"), f"cards.{s}[{i}].url must be a link")
+                _require("<b>" in item["dek"] and "</b>" in item["dek"],
+                         f"cards.{s}[{i}].dek must open with a <b>lead-in</b>")
 
     glance = c.get("glance") or {}
     for s in sections:
@@ -189,10 +224,93 @@ def validate_content(c: dict, date: str, slot: str) -> None:
                  "reader.pin needs text + state_key")
 
 
+def _evening_shelf_html(tools: list[dict]) -> str:
+    """Build the tool-shelf tiles (Field Guide left lane) as template-ready HTML."""
+    esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
+    out = []
+    for t in tools:
+        out.append(
+            '        <div class="shelf-card"><a href="{u}">\n'
+            '          <h3>{n}</h3>\n'
+            '          <div class="shelf-tags"><span class="tagchip cost">{c}</span>'
+            '<span class="tagchip">{k}</span><span class="tagchip seen">{s}</span></div>\n'
+            '          <p>{b}</p>\n'
+            '        </a></div>'.format(
+                u=esc(t["url"]), n=esc_text(t["name"]), c=esc_text(t["cost"]),
+                k=esc_text(t["kind"]), s=esc_text(t["seen"]), b=esc_text(t["blurb"])))
+    return "\n".join(out)
+
+
+def _evening_recipes_html(flows: list[dict]) -> str:
+    """Build the workflow recipe cards (Field Guide right lane), each with its
+    own notes block keyed by the story URL, as template-ready HTML."""
+    esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
+    out = []
+    for w in flows:
+        needs = '<span class="dot">&middot;</span>'.join(
+            esc_text(str(n)) for n in w["needs"])
+        out.append(
+            '        <article class="recipe"><a class="card-link" href="{u}">\n'
+            '          <div class="r-top"><h3>{t}</h3><span class="time">{tm}</span></div>\n'
+            '          <p class="dek">{d}</p>\n'
+            '          <div class="needs"><b>You need</b>{nd}</div>\n'
+            '        </a></article>\n'
+            '        <div class="notes" data-note-key="{u}"><span class="pen">&#9998;</span>'
+            '<textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story">'
+            '</textarea><button class="notes-close" type="button" title="Close notes" '
+            'aria-label="Close notes">&times;</button></div>'.format(
+                u=esc(w["url"]), t=esc_text(w["title"]), tm=esc_text(w["time"]),
+                d=ddb_satchel.strip_em_dashes(w["dek"]), nd=needs))
+    return "\n".join(out)
+
+
+def render_evening_from_content(c: dict, date: str) -> tuple[str, str]:
+    """Render the Field Guide evening edition (layout adopted 2026-07-30):
+    lead pick, two-row glance, tool shelf, workflow recipes. Returns
+    (html, lead_title)."""
+    template = (REPO / "templates" / SLOT_TEMPLATE["evening"]).read_text(encoding="utf-8")
+    esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
+    label = SLOT_LABEL["evening"]
+
+    hd = ddb_bake.human_date(date)
+    html = template.replace("EDITION, DATELINE_DATE", f"{label}, {hd}")
+    html = html.replace("DATELINE_DATE", hd)
+    html = html.replace("EDITION", label)
+
+    lead = c["lead"]
+    html = html.replace("LEAD_URL", esc(lead["url"]))
+    html = html.replace("LEAD_BADGE", esc_text(lead["badge"]))
+    html = html.replace("LEAD_HEADLINE", esc_text(lead["title"]))
+    html = html.replace("LEAD_STANDFIRST", esc_text(lead["standfirst"]))
+    html = html.replace("LEAD_BODY", esc_text(lead["body"]))
+    note = str(lead.get("note") or "").strip()
+    html = ddb_bake.fill_or_strip_section(
+        html, "<!--LEAD_NOTE_START-->", "<!--LEAD_NOTE_END-->",
+        {"LEAD_NOTE": esc_text(note)}, ["LEAD_NOTE"])
+
+    tools, flows = c["cards"]["tools"], c["cards"]["workflows"]
+    html = html.replace("GLANCE_TOOLS", esc_text(c["glance"]["tools"]))
+    html = html.replace("GLANCE_WORKFLOWS", esc_text(c["glance"]["workflows"]))
+    html = html.replace("SHELF_ITEMS", _evening_shelf_html(tools))
+    html = html.replace("RECIPE_ITEMS", _evening_recipes_html(flows))
+
+    readtime = ddb_bake.compute_readtime(
+        lead["standfirst"], lead["body"],
+        *[t["blurb"] for t in tools],
+        *[w["dek"] + " " + " ".join(str(n) for n in w["needs"]) for w in flows],
+    )
+    html = html.replace("READTIME", readtime)
+    html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(datetime.now(timezone.utc)))
+    return html, lead["title"]
+
+
 def render_home_from_content(c: dict, date: str, slot: str) -> tuple[str, str]:
     """Mirror ddb_bake.render_home's token operations exactly, sourcing all
     editorial content from the session-authored JSON instead of model calls.
-    Returns (html, lead_title)."""
+    The evening slot routes to render_evening_from_content (its own template
+    and token set). Returns (html, lead_title)."""
+    if slot == "evening":
+        return render_evening_from_content(c, date)
     template = (REPO / "templates" / SLOT_TEMPLATE[slot]).read_text(encoding="utf-8")
     esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
     sections = SLOT_SECTIONS[slot]
@@ -380,8 +498,9 @@ def main() -> None:
     ap.add_argument("--date", help="YYYY-MM-DD edition date (render mode)")
     ap.add_argument("--slot", choices=SLOTS, default="morning",
                     help="which edition to render: morning (news; the default) or "
-                         "evening (trends, tools, workflows; no reader sections, "
-                         "no category pages). --plan is a morning-only concern.")
+                         "evening (Field Guide: trending tools + workflows only, "
+                         "no news, no reader sections, no category pages). "
+                         "--plan is a morning-only concern.")
     ap.add_argument("--csv", type=Path, default=REPO / "counter.csv",
                     help="Counter CSV path. Default: the repo's committed copy, kept "
                          "fresh by .github/workflows/counter-sync.yml (the cloud "

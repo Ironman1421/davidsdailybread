@@ -5,9 +5,9 @@ which is baked twice daily:
 
 - the **morning edition** (cron 12:05 UTC): straight news on tech, markets,
   and science, plus the reader sections. Steps 1-9 below.
-- the **evening edition** (cron 22:35 UTC): what is trending in AI and tech
-  for everyday people: trending stories, new tools, practical workflows.
-  See "The evening bake" section below.
+- the **evening edition** (cron 22:35 UTC): the Field Guide. Trending tools
+  and trending workflows for everyday people, and nothing else: no news
+  after dark (news belongs to the morning). See "The evening bake" below.
 
 Each bake runs in GitHub Actions (`.github/workflows/ddb-bake.yml`): the runner
 checks out the repo, resolves the edition date and slot, and invokes a Claude
@@ -41,6 +41,12 @@ state). Do not hand-edit rendered pages; do not bypass the script.
 5. **Work from the fresh clone only.** Never read site state from the live
    davidsdailybread.com (the CDN serves stale files for hours).
 6. The email newsletter is retired. Never add subscribe links or email CTAs.
+7. **The lead title feeds X.** Each edition's archive `lead` (= the lead
+   story's title) is auto-posted to @DavidDailyBread by the DAICC pipeline
+   with fail-closed gates: keep every lead title self-contained and roughly
+   **130 characters or fewer**. An over-length lead means the X post is
+   SKIPPED, not truncated (the evening template tops out around a 146-char
+   lead); an em dash also fails the gate, but rule 1 already bans those.
 
 ## The bake, step by step
 
@@ -173,13 +179,17 @@ push a partial or unverified edition, and never mark a failed bake as success.
 
 ## The evening bake (`--slot evening`)
 
-The evening edition is a different loaf. The morning tells readers what
-happened; the evening tells them what everyone is trying, using, and talking
-about. Its beat: what is trending across AI and tech RIGHT NOW, the new tools
-worth a regular person's attention, and the workflows that help someone get
-real work done. The reader to serve is the average person, not the insider:
-if an item only matters to an ML engineer, it loses its slot to one that
-helps everyone. All hard rules above apply unchanged.
+The evening edition is a different loaf, and since 2026-07-30 (per David) it
+carries NO NEWS AT ALL. News is the morning's job, full stop. The evening is
+the Field Guide: exactly two sections, the trending TOOLS people started
+using today and the trending WORKFLOWS people are following along with. An
+announcement, a launch story, a price change, a policy fight, or an industry
+debate is news; it belongs to the morning even if it is trending everywhere.
+The evening test for every item: could a regular person ACT on this tonight,
+by installing the tool or following the workflow? If not, it does not run.
+The reader to serve is the average person, not the insider: if an item only
+matters to an ML engineer, it loses its slot to one that helps everyone. All
+hard rules above apply unchanged.
 
 **E1. Research.** Using web search and fetches, gather TODAY'S trend material
 (last ~24 hours preferred; ~48 is acceptable when something is clearly still
@@ -187,22 +197,23 @@ rising) from the open web: tech press, blogs and newsletters, Hacker News,
 Reddit, GitHub trending, product announcement pages, video/tutorial writeups,
 and press coverage OF viral X/social posts. You have no X/Twitter access and
 that is deliberate: a viral post reaches you through coverage about it, and
-that coverage is your citable source. The three sections:
+that coverage is your citable source. The two sections:
 
-- **trending** — what the internet is actually talking about today in AI and
-  tech: a release everyone is testing, a capability making the rounds, a
-  debate that jumped from insiders to everyone. Every trending claim must show
-  WHERE it is trending in the cited source (Hacker News front page, GitHub
-  trending, a subreddit lighting up, press coverage of a viral post). If you
-  cannot show where, it is not trending; drop it.
-- **tools** — new or newly upgraded tools, apps, and features an everyday
-  person could start using this week: what it does, what it costs (say if
-  there is a free tier), and one honest caveat. Real availability only: never
-  present waitlist-only vaporware as usable, never invent pricing.
-- **workflows** — concrete ways people are using tools to do something
-  better, written up so a non-expert could follow along: a how-to, a recipe,
-  a clever pipeline from a blog or video. Say what it accomplishes and what
-  you need in order to try it.
+- **tools** (the shelf) — new or newly upgraded tools, apps, and features an
+  everyday person could start using TONIGHT, and that people are actually
+  picking up right now. Each shelf item must show WHERE it is trending in
+  the cited source (GitHub trending, Hacker News front page, a subreddit
+  lighting up, press coverage of a viral post); if you cannot show where,
+  it is not trending and it does not go on the shelf. Capture what it does,
+  what it costs (say if there is a free tier), where it runs, and one honest
+  caveat, which the blurb must carry. Real availability only: never present
+  waitlist-only vaporware as usable, never invent pricing. The shelf-foot
+  line "no waitlists, no vaporware" is a standing promise; keep it true.
+- **workflows** (the recipes) — concrete ways people are using tools to do
+  something better, written up so a non-expert could follow along: a how-to,
+  a recipe, a clever pipeline from a blog or video that is making the
+  rounds. Say what it accomplishes, list the 2-4 things you need in order
+  to try it, and give an honest time estimate.
 
 Up to 6 items per section, best first, minimum 2, never pad. Fetch each
 source's text before writing about it; the morning's rule holds here with
@@ -210,32 +221,50 @@ extra force: no figure survives that was not read in the article itself, and
 popularity numbers (stars, upvotes, views) only as read from the cited page,
 never from memory.
 
-**E2. Write the edition** into `content.json`: same shape as the morning but
-with the evening section keys and NO `reader` key (the Counter feeds the
-morning only; the renderer refuses an evening `reader`):
+**E2. Write the edition** into `content.json`. The evening schema is its own
+(NOT the morning card shape), and there is NO `reader` key (the Counter
+feeds the morning only; the renderer refuses an evening `reader`):
 
 ```json
 {
   "date": "YYYY-MM-DD",
-  "lead":   {"section": "trending|tools|workflows", "title": "...", "url": "https://...",
-             "badge": "Trending|New tools|Workflows",
+  "lead":   {"section": "tools|workflows", "title": "...", "url": "https://...",
+             "badge": "Trending tool|Trending workflow",
              "standfirst": "one punchy editorial sentence",
-             "body": "2-4 sentences of grounded, factual writing"},
-  "cards":  {"trending": ["... up to 6, best first"], "tools": ["..."], "workflows": ["..."]},
-  "glance": {"trending": "one <=20-word roundup sentence", "tools": "...", "workflows": "..."}
+             "body": "2-4 sentences of grounded, factual writing",
+             "note": "OPTIONAL handwritten margin aside, <=40 chars, e.g. worth an evening"},
+  "cards":  {"tools":     [{"name": "short shelf name, <=60 chars", "url": "https://...",
+                            "cost": "Free | Free tier | $N/mo (as read, <=32 chars)",
+                            "kind": "what/where it runs, <=32 chars",
+                            "seen": "where it is trending, <=32 chars",
+                            "blurb": "one factual sentence; must carry the honest caveat"},
+                           "... 2-6, best first"],
+             "workflows": [{"title": "...", "url": "https://...",
+                            "dek": "<b>Two-to-four-word lead-in</b> rest of one factual sentence.",
+                            "needs": ["2-4 short items, <=40 chars each"],
+                            "time": "honest estimate chip, <=24 chars"},
+                           "... 2-6, best first"]},
+  "glance": {"tools": "one <=20-word roundup sentence", "workflows": "..."}
 }
 ```
 
-Lead: the single most useful-to-everyone item of the day; usefulness and
-impact beat hype. Voice: the same straight factual journalism as the morning,
-no bread metaphors in the writing; deks open with a `<b>bold lead-in</b>`.
+Lead ("Start here tonight"): the single most useful-to-everyone item of the
+day; usefulness beats hype. It is one of the two sections' items promoted to
+the top, and its `title` doubles as the archive lead (X rules apply, hard
+rule 7). `lead.note` is the only handwritten aside on the page: use it when
+a short warm nudge fits (worth an evening, try this first); omit it freely.
+Voice: the same straight factual journalism as the morning, no bread
+metaphors in the writing; workflow deks open with a `<b>bold lead-in</b>`;
+tool blurbs are plain text (no markup) and each carries its caveat.
 
 **E3. Render, review, report.**
 `python3 ddb_session_bake.py --render --content content.json --date <date> --slot evening`
 then review it like an editor (step 5) and finish with the step 9 report.
-The evening bake never runs `--plan`, never writes the category pages, and
-never touches `kings-satchel.json`, `bakery-state.json`, or `counter.csv`;
-the workflow's evening allowlist enforces this.
+The renderer builds the shelf tiles and recipe cards from the JSON; the
+template (templates/evening.html, the Field Guide layout) is never edited at
+bake time. The evening bake never runs `--plan`, never writes the category
+pages, and never touches `kings-satchel.json`, `bakery-state.json`, or
+`counter.csv`; the workflow's evening allowlist enforces this.
 
 ## Ops notes
 

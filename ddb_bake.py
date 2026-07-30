@@ -301,7 +301,10 @@ def render_feed_xml(archive_data: dict) -> str:
     compile time at bake time), else falls back to a nominal slot time."""
     items = []
     for e in archive_data.get("editions", []):
-        slot_word = "morning's" if e["edition"] == "morning" else "evening's"
+        if e["edition"] == "morning":
+            plus = "Plus the morning's top stories in technology, markets, and science."
+        else:
+            plus = "Plus the evening's trending tools and workflows."
         label = e["edition"].capitalize()
         pub_date = e.get("pubDate") or _nominal_pub_date(e["date"], e["edition"])
         items.append(f"""<item>
@@ -309,14 +312,14 @@ def render_feed_xml(archive_data: dict) -> str:
 <link>{DOMAIN}/{e["file"]}</link>
 <guid isPermaLink="true">{DOMAIN}/{e["file"]}</guid>
 <pubDate>{pub_date}</pubDate>
-<description>{_esc_text(f'Lead story: {e["lead"]}. Plus the {slot_word} top stories in technology, markets, and science.')}</description>
+<description>{_esc_text(f'Lead story: {e["lead"]}. {plus}')}</description>
 </item>""")
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 <title>David's Daily Bread</title>
 <link>{DOMAIN}/</link>
-<description>A news briefing on technology, markets, and science. Loved by God. Baked fresh each morning.</description>
+<description>A news briefing on technology, markets, and science each morning, and the evening's trending tools and workflows. Loved by God. Baked fresh twice daily.</description>
 <language>en-us</language>
 <atom:link href="{DOMAIN}/feed.xml" rel="self" type="application/rss+xml"/>
 <image>
