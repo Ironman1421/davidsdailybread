@@ -13,10 +13,13 @@ model calls anywhere:
       exactly which submission (or house-satchel letter) the session must write
       replies for today, plus the satchel inventory. Never mutates state.
 
-  --render --content content.json --date YYYY-MM-DD
+  --render --content content.json --date YYYY-MM-DD [--slot morning|evening]
       Render the edition from the session-authored content JSON: home page,
-      three category pages, editions/ file, archive.json, archive.html (marked
-      list only), feed.xml, bakery-state.json. Validates the output (no leftover
+      editions/ file, archive.json, archive.html (marked list only), feed.xml,
+      plus (morning only) the three category pages and bakery-state.json.
+      The evening slot renders the trends edition (sections trending/tools/
+      workflows, spec: /BAKE.md "The evening bake"): no reader sections, no
+      category pages, no state writes. Validates the output (no leftover
       tokens, no em dashes, masthead art present, archive markers intact) and
       exits non-zero without partial state if anything fails validation.
 
@@ -40,8 +43,21 @@ os.environ.setdefault("DDB_SITE_DIR", str(REPO))
 import ddb_bake      # noqa: E402  (needs DDB_SITE_DIR set first)
 import ddb_satchel   # noqa: E402
 
-SECTIONS = ("tech", "markets", "science")
-CARD_PREFIX = {"tech": "T", "markets": "M", "science": "S"}
+# Sections per edition slot. Both slots reuse the same mechanical template
+# token families (CARD_T/M/S, EXP_T/M/S, GLANCE_TECH/MARKETS/SCIENCE): the
+# prefixes map POSITIONALLY onto the slot's sections, so the evening sections
+# trending/tools/workflows ride the T/M/S token machinery unchanged
+# (templates/evening.html carries the reader-facing labels).
+SLOTS = ("morning", "evening")
+SLOT_SECTIONS = {
+    "morning": ("tech", "markets", "science"),
+    "evening": ("trending", "tools", "workflows"),
+}
+SLOT_LABEL = {"morning": "Morning edition", "evening": "Evening edition"}
+SLOT_TEMPLATE = {"morning": "home.html", "evening": "evening.html"}
+SECTIONS = SLOT_SECTIONS["morning"]  # legacy alias
+_PREFIXES = ("T", "M", "S")
+_GLANCE_TOKENS = ("GLANCE_TECH", "GLANCE_MARKETS", "GLANCE_SCIENCE")
 EM_DASH_RE = re.compile(r"—|&mdash;|&#0*8212;|&#x0*2014;", re.IGNORECASE)
 
 # Every token family the templates carry. Post-render, none may survive.
@@ -115,16 +131,18 @@ def _require(cond: bool, msg: str) -> None:
         fail(msg)
 
 
-def validate_content(c: dict, date: str) -> None:
+def validate_content(c: dict, date: str, slot: str) -> None:
+    sections = SLOT_SECTIONS[slot]
     _require(c.get("date") == date, f"content date {c.get('date')!r} != --date {date!r}")
     lead = c.get("lead") or {}
     for k in ("section", "title", "url", "badge", "standfirst", "body"):
         _require(bool(str(lead.get(k, "")).strip()), f"lead.{k} missing/empty")
-    _require(lead["section"] in SECTIONS, f"lead.section {lead['section']!r} invalid")
+    _require(lead["section"] in sections,
+             f"lead.section {lead['section']!r} invalid for the {slot} edition")
     _require(str(lead["url"]).startswith("http"), "lead.url must be a real link")
 
     cards = c.get("cards") or {}
-    for s in SECTIONS:
+    for s in sections:
         items = cards.get(s) or []
         _require(2 <= len(items) <= 6, f"cards.{s}: need 2-6 items, got {len(items)}")
         for i, item in enumerate(items):
@@ -135,7 +153,7 @@ def validate_content(c: dict, date: str) -> None:
                      f"cards.{s}[{i}].dek must open with a <b>lead-in</b>")
 
     glance = c.get("glance") or {}
-    for s in SECTIONS:
+    for s in sections:
         _require(bool(str(glance.get(s, "")).strip()), f"glance.{s} missing")
 
     def scan(obj, path="content"):
@@ -148,6 +166,12 @@ def validate_content(c: dict, date: str) -> None:
             for i, v in enumerate(obj):
                 scan(v, f"{path}[{i}]")
     scan(c)
+
+    if slot == "evening":
+        _require(not (c.get("reader") or {}),
+                 "evening editions carry no reader sections; omit the reader key "
+                 "(the Counter feeds the morning edition only)")
+        return
 
     reader = c.get("reader") or {}
     king = reader.get("king")
@@ -165,17 +189,19 @@ def validate_content(c: dict, date: str) -> None:
                  "reader.pin needs text + state_key")
 
 
-def render_home_from_content(c: dict, date: str) -> tuple[str, str]:
+def render_home_from_content(c: dict, date: str, slot: str) -> tuple[str, str]:
     """Mirror ddb_bake.render_home's token operations exactly, sourcing all
     editorial content from the session-authored JSON instead of model calls.
     Returns (html, lead_title)."""
-    template = (REPO / "templates" / "home.html").read_text(encoding="utf-8")
+    template = (REPO / "templates" / SLOT_TEMPLATE[slot]).read_text(encoding="utf-8")
     esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
+    sections = SLOT_SECTIONS[slot]
+    label = SLOT_LABEL[slot]
 
     hd = ddb_bake.human_date(date)
-    html = template.replace("EDITION, DATELINE_DATE", f"Morning edition, {hd}")
+    html = template.replace("EDITION, DATELINE_DATE", f"{label}, {hd}")
     html = html.replace("DATELINE_DATE", hd)
-    html = html.replace("EDITION", "Morning edition")
+    html = html.replace("EDITION", label)
 
     lead = c["lead"]
     html = html.replace("LEAD_URL", esc(lead["url"]))
@@ -184,8 +210,8 @@ def render_home_from_content(c: dict, date: str) -> tuple[str, str]:
     html = html.replace("LEAD_STANDFIRST", esc_text(lead["standfirst"]))
     html = html.replace("LEAD_BODY", esc_text(lead["body"]))
 
-    for s in SECTIONS:
-        p = CARD_PREFIX[s]
+    for pos, s in enumerate(sections):
+        p = _PREFIXES[pos]
         items = c["cards"][s]
         for i in (1, 2):
             if i <= len(items):
@@ -199,10 +225,10 @@ def render_home_from_content(c: dict, date: str) -> tuple[str, str]:
                     + p + str(i) + r'_URL">.*?</div></div>', re.DOTALL)
                 html = pattern.sub("", html)
 
-    for s in SECTIONS:
-        p = CARD_PREFIX[s]
+    for pos, s in enumerate(sections):
+        p = _PREFIXES[pos]
         top3 = c["cards"][s][:3]
-        html = html.replace(f"GLANCE_{s.upper()}", esc_text(c["glance"][s]))
+        html = html.replace(_GLANCE_TOKENS[pos], esc_text(c["glance"][s]))
         for i in (1, 2, 3):
             if i <= len(top3):
                 card = top3[i - 1]
@@ -243,7 +269,7 @@ def render_home_from_content(c: dict, date: str) -> tuple[str, str]:
 
     readtime = ddb_bake.compute_readtime(
         lead["standfirst"], lead["body"],
-        *[card["dek"] for s in SECTIONS for card in c["cards"][s]],
+        *[card["dek"] for s in sections for card in c["cards"][s]],
     )
     html = html.replace("READTIME", readtime)
     html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(datetime.now(timezone.utc)))
@@ -288,55 +314,61 @@ def update_state(reader: dict) -> None:
     state_path.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def cmd_render(content_path: Path, date: str) -> None:
+def cmd_render(content_path: Path, date: str, slot: str) -> None:
     try:
         content = json.loads(content_path.read_text(encoding="utf-8"))
     except Exception as e:  # noqa: BLE001
         fail(f"cannot read content JSON: {e}")
 
-    validate_content(content, date)
+    validate_content(content, date, slot)
 
     archive_html_path = REPO / "archive.html"
     ddb_bake.validate_archive_file(archive_html_path)  # fail closed before any write
 
-    html, lead_title = render_home_from_content(content, date)
+    html, lead_title = render_home_from_content(content, date, slot)
 
     editions = REPO / "editions"
     editions.mkdir(exist_ok=True)
-    edition_path = editions / f"{date}-morning.html"
+    edition_path = editions / f"{date}-{slot}.html"
     edition_path.write_text(html, encoding="utf-8")
     (REPO / "index.html").write_text(html, encoding="utf-8")
 
     written = [edition_path, REPO / "index.html"]
-    for s in SECTIONS:
-        cards = [
-            {"title": card["title"], "url": card["url"],
-             "dek": ddb_satchel.strip_em_dashes(card["dek"])}
-            for card in content["cards"][s]
-        ]
-        cat_html = ddb_bake.render_category(s, cards)
-        cat_path = REPO / f"{s}.html"
-        cat_path.write_text(cat_html, encoding="utf-8")
-        written.append(cat_path)
+    if slot == "morning":
+        # Category pages belong to the morning news bake only; the evening
+        # (trends) edition never rewrites tech/markets/science.
+        for s in SLOT_SECTIONS["morning"]:
+            cards = [
+                {"title": card["title"], "url": card["url"],
+                 "dek": ddb_satchel.strip_em_dashes(card["dek"])}
+                for card in content["cards"][s]
+            ]
+            cat_html = ddb_bake.render_category(s, cards)
+            cat_path = REPO / f"{s}.html"
+            cat_path.write_text(cat_html, encoding="utf-8")
+            written.append(cat_path)
 
     from zoneinfo import ZoneInfo
     now_et = datetime.now(timezone.utc).astimezone(ZoneInfo("America/New_York"))
     pub_date = now_et.strftime("%a, %d %b %Y %H:%M:%S %z")
     archive_json_path = REPO / "archive.json"
-    ddb_bake.update_archive(archive_json_path, date, "morning", lead_title,
+    ddb_bake.update_archive(archive_json_path, date, slot, lead_title,
                             ddb_bake.human_date(date), pub_date)
     archive_data = ddb_bake.read_archive_json(archive_json_path)
     ddb_bake.update_archive_file(archive_html_path, archive_data)
     (REPO / "feed.xml").write_text(ddb_bake.render_feed_xml(archive_data), encoding="utf-8")
     written += [archive_html_path, REPO / "feed.xml"]
 
-    update_state(content.get("reader") or {})
+    if slot == "morning":
+        # Reader-content bookkeeping is a morning concern; the evening bake
+        # leaves bakery-state.json and kings-satchel.json untouched.
+        update_state(content.get("reader") or {})
 
     verify_output(written)
-    print(f"BAKE OK: {date} morning · lead: {lead_title}")
+    print(f"BAKE OK: {date} {slot} · lead: {lead_title}")
     for p in written:
         print(f"  wrote {p.relative_to(REPO)}")
-    print("  wrote archive.json, bakery-state.json")
+    print("  wrote archive.json" + (", bakery-state.json" if slot == "morning" else ""))
 
 
 def main() -> None:
@@ -346,6 +378,10 @@ def main() -> None:
     mode.add_argument("--render", action="store_true")
     ap.add_argument("--content", type=Path, help="content JSON (render mode)")
     ap.add_argument("--date", help="YYYY-MM-DD edition date (render mode)")
+    ap.add_argument("--slot", choices=SLOTS, default="morning",
+                    help="which edition to render: morning (news; the default) or "
+                         "evening (trends, tools, workflows; no reader sections, "
+                         "no category pages). --plan is a morning-only concern.")
     ap.add_argument("--csv", type=Path, default=REPO / "counter.csv",
                     help="Counter CSV path. Default: the repo's committed copy, kept "
                          "fresh by .github/workflows/counter-sync.yml (the cloud "
@@ -360,7 +396,7 @@ def main() -> None:
             fail("--render requires --content and --date")
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", args.date):
             fail(f"bad --date {args.date!r}")
-        cmd_render(args.content, args.date)
+        cmd_render(args.content, args.date, args.slot)
 
 
 if __name__ == "__main__":

@@ -1,18 +1,21 @@
 # David's Daily Bread
 
-A news briefing on technology, markets, and science. Loved by God. One edition
-is baked fresh each morning and published at
+A news briefing on technology, markets, and science, plus an evening edition
+on what's trending in AI and tech: new tools and workflows for everyday
+people. Loved by God. Baked fresh twice daily and published at
 [davidsdailybread.com](https://davidsdailybread.com) via GitHub Pages.
 
-## How it works (since 2026-07-17)
+## How it works
 
-A **Claude scheduled task** fires daily at 5:00 AM Pacific, clones this repo,
-and follows **`/BAKE.md`** (the complete operating spec). The session does the
-editorial work: researching the last 24 hours of real news, choosing the lead,
-writing every dek and glance line, and answering reader mail in the house
+**GitHub Actions** (`.github/workflows/ddb-bake.yml`) fires two bakes daily,
+morning news at 12:05 UTC and evening trends at 22:35 UTC, each driving a
+Claude session that follows **`/BAKE.md`** (the complete operating spec). The
+session does the editorial work: researching, choosing the lead, writing every
+dek and glance line, and (mornings) answering reader mail in the house
 personas. `ddb_session_bake.py` does the mechanical work deterministically:
-template fill, category pages, archive, RSS, and state. Two commits per bake
-("Morning edition ..." then "Archive: ..."), pushed to `main`; Pages redeploys.
+template fill, category pages (morning only), archive, RSS, and state. Two
+commits per bake ("Morning edition ..." or "Evening edition ..." then
+"Archive: ..."), pushed to `main`; Pages redeploys.
 
 - `templates/` — page templates; ALL design changes happen here, never at bake time.
 - `index.html` — the latest edition; `tech/markets/science.html` — category pages.

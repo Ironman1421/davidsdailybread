@@ -1,10 +1,14 @@
 <!DOCTYPE html>
+<!-- templates/evening.html: the evening (trends) edition. Derived from home.html;
+     reuses the same mechanical token names (CARD_T/M/S, GLANCE_TECH/MARKETS/SCIENCE,
+     EXP_T/M/S) which map positionally to the evening sections trending/tools/workflows.
+     No reader-content blocks: the Counter feeds the morning edition only. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>David's Daily Bread – EDITION, DATELINE_DATE</title>
-<meta name="description" content="David's Daily Bread – technology, markets, and science. Loved by God. Baked fresh twice daily.">
+<meta name="description" content="David's Daily Bread evening edition – what's trending in AI and tech: new tools and workflows for everyday people. Loved by God. Baked fresh twice daily.">
 <link rel="canonical" href="https://davidsdailybread.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -12,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
 <meta property="og:title" content="David's Daily Bread – EDITION, DATELINE_DATE">
-<meta property="og:description" content="A news briefing on technology, markets, and science. Loved by God. Baked fresh twice daily.">
+<meta property="og:description" content="The evening edition: what's trending in AI and tech, new tools, and workflows for everyday people. Loved by God. Baked fresh twice daily.">
 <meta property="og:url" content="https://davidsdailybread.com/">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -177,14 +181,14 @@
       </button>
     </div>
     <ul>
-      <li><span class="tag">Tech &amp; AI</span><span>GLANCE_TECH</span></li>
-      <li><span class="tag">Markets</span><span>GLANCE_MARKETS</span></li>
-      <li><span class="tag">Science</span><span>GLANCE_SCIENCE</span></li>
+      <li><span class="tag">Trending</span><span>GLANCE_TECH</span></li>
+      <li><span class="tag">New tools</span><span>GLANCE_MARKETS</span></li>
+      <li><span class="tag">Workflows</span><span>GLANCE_SCIENCE</span></li>
     </ul>
     <div class="glance-more" id="glanceMore">
       <div class="glance-more-inner">
         <div class="glance-grp">
-          <div class="glance-grp-head">Tech &amp; AI</div>
+          <div class="glance-grp-head">Trending</div>
           <ul>
             <li><span class="rank">1</span><span><a href="EXP_T1_URL">EXP_T1_TEXT</a></span></li>
             <li><span class="rank">2</span><span><a href="EXP_T2_URL">EXP_T2_TEXT</a></span></li>
@@ -192,7 +196,7 @@
           </ul>
         </div>
         <div class="glance-grp">
-          <div class="glance-grp-head">Business &amp; Markets</div>
+          <div class="glance-grp-head">New tools</div>
           <ul>
             <li><span class="rank">1</span><span><a href="EXP_M1_URL">EXP_M1_TEXT</a></span></li>
             <li><span class="rank">2</span><span><a href="EXP_M2_URL">EXP_M2_TEXT</a></span></li>
@@ -200,7 +204,7 @@
           </ul>
         </div>
         <div class="glance-grp">
-          <div class="glance-grp-head">Science</div>
+          <div class="glance-grp-head">Workflows</div>
           <ul>
             <li><span class="rank">1</span><span><a href="EXP_S1_URL">EXP_S1_TEXT</a></span></li>
             <li><span class="rank">2</span><span><a href="EXP_S2_URL">EXP_S2_TEXT</a></span></li>
@@ -223,7 +227,7 @@
   <div class="notes" data-note-key="LEAD_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
 
   <section class="section">
-    <a class="col-head" href="/tech.html">Tech &amp; AI <span class="arrow">&rarr;</span></a>
+    <span class="col-head">Trending tonight</span>
     <div class="card-grid">
       <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_T1_URL"><span class="num">01</span><h3>CARD_T1_HEADLINE</h3><p>CARD_T1_DEK</p></a></article><div class="notes" data-note-key="CARD_T1_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
       <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_T2_URL"><span class="num">02</span><h3>CARD_T2_HEADLINE</h3><p>CARD_T2_DEK</p></a></article><div class="notes" data-note-key="CARD_T2_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
@@ -231,7 +235,7 @@
   </section>
 
   <section class="section">
-    <a class="col-head" href="/markets.html">Business &amp; Markets <span class="arrow">&rarr;</span></a>
+    <span class="col-head">New tools</span>
     <div class="card-grid">
       <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_M1_URL"><span class="num">01</span><h3>CARD_M1_HEADLINE</h3><p>CARD_M1_DEK</p></a></article><div class="notes" data-note-key="CARD_M1_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
       <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_M2_URL"><span class="num">02</span><h3>CARD_M2_HEADLINE</h3><p>CARD_M2_DEK</p></a></article><div class="notes" data-note-key="CARD_M2_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
@@ -239,42 +243,16 @@
   </section>
 
   <section class="section">
-    <a class="col-head" href="/science.html">Science <span class="arrow">&rarr;</span></a>
+    <span class="col-head">Workflows worth knowing</span>
     <div class="card-grid">
       <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_S1_URL"><span class="num">01</span><h3>CARD_S1_HEADLINE</h3><p>CARD_S1_DEK</p></a></article><div class="notes" data-note-key="CARD_S1_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
       <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_S2_URL"><span class="num">02</span><h3>CARD_S2_HEADLINE</h3><p>CARD_S2_DEK</p></a></article><div class="notes" data-note-key="CARD_S2_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
-  <!--READER_QA_START-->
-  <section class="section">
-    <div class="kicker">Reader questions, answered</div>
-    <div class="card qa-card">
-      <details class="qa" open><summary>RQ1_Q</summary><p>RQ1_A</p></details>
-    </div>
-  </section>
-  <!--READER_QA_END-->
-
-  <!--KING_COURT_START-->
-  <section class="section">
-    <div class="kicker">Letters to the King</div>
-    <div class="card qa-card">
-      <details class="qa king" open><summary>KQ1_Q</summary><div class="king-from">KQ1_FROM</div><p>KQ1_A</p><div class="king-sig">&ndash; David, King in Jerusalem</div></details>
-    </div>
-    <div class="king-foot">Mail carried to the throne by the Baker &ndash; leave your own letter at <a href="/chronicles.html">the chronicles</a>.</div>
-  </section>
-  <!--KING_COURT_END-->
-
-  <!--CRUMB_BOARD_START-->
-  <section class="section">
-    <div class="kicker">The Crumb Board</div>
-    <div class="card board-card">
-      <div class="pin"><p class="pin-text">PIN1_TEXT</p><div class="pin-sig">PIN1_SIG</div></div>
-    </div>
-    <div class="board-foot">The corkboard by the ovens &ndash; pinned by readers at <a href="/chronicles.html">the chronicles</a>, cleared with every bake.</div>
-  </section>
-  <!--CRUMB_BOARD_END-->
-
+  
+  
+  
   <div class="page-notes">
     <div class="notes-label">Page notes</div>
     <div class="notes" data-note-key="page:home"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Thoughts on this edition&hellip;" aria-label="Page notes"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>

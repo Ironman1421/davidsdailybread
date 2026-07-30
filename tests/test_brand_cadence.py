@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Regression tests for David's current brand statement and honest cadence copy."""
+"""Regression tests for David's current brand statement and honest cadence copy.
+
+Cadence truth since 2026-07-30: baked twice daily (morning news edition +
+evening trends edition). The obsolete promises below are the RETIRED
+single-morning-cadence claims from the 2026-07-17..07-29 era.
+"""
 
 from html.parser import HTMLParser
 from pathlib import Path
@@ -18,18 +23,18 @@ CANONICAL_SOURCES = (
     ROOT / "ddb_bake.py",
     ROOT / "ddb_synth.py",
     ROOT / "templates" / "home.html",
+    ROOT / "templates" / "evening.html",
     ROOT / "templates" / "category.html",
 )
 
-# These identify active delivery promises, not historical edition labels. In
-# particular, "Evening edition" and honest evening testing/preference language
-# remain valid.
+# These identify RETIRED active delivery promises, not historical edition
+# labels. Since 2026-07-30 the site is honestly baked twice daily again
+# (morning news + evening trends), so the obsolete claims are the
+# one-morning-edition-only promises of the 2026-07-17..07-29 era.
 OBSOLETE_PROMISES = (
-    re.compile(r"\btwice[\s-]+daily\b", re.IGNORECASE),
-    re.compile(
-        r"\b(?:every|each)\s+morning(?:[^.\n<]{0,80})?\band evening\b",
-        re.IGNORECASE,
-    ),
+    re.compile(r"\bno evening edition\b", re.IGNORECASE),
+    re.compile(r"\bone edition each morning\b", re.IGNORECASE),
+    re.compile(r"\bovens still fire every morning\b", re.IGNORECASE),
 )
 
 
@@ -127,21 +132,31 @@ class BrandCadenceTest(unittest.TestCase):
             self.assertNotRegex(rendered_feed, pattern)
 
     def test_current_operating_truth_is_explicit_without_erasing_history(self):
-        # Truth since 2026-07-17 (per David): ONE morning edition, baked by the
-        # 5:00 AM Pacific Claude scheduled task; the email newsletter is retired
-        # and evening delivery is neither promised nor "in testing" anymore.
+        # Truth since 2026-07-30 (per David): baked TWICE daily by GitHub
+        # Actions: the morning news edition (with reader sections) and the
+        # evening trends edition (trending / new tools / workflows, no reader
+        # sections). The email newsletter stays retired.
+        brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
+        self.assertIn("twice daily", brand.lower())
+        self.assertIn("evening edition", brand.lower())
+
         subscribe = (ROOT / "subscribe.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, subscribe)
-        self.assertIn("One edition each morning", subscribe)
+        self.assertIn("Baked twice daily", subscribe)
         self.assertIn("retired", subscribe.lower())
         self.assertNotIn("Evening delivery is in testing", subscribe)
         self.assertNotIn("buttondown", subscribe.lower())
 
         chronicles = (ROOT / "chronicles.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, chronicles)
-        self.assertIn("one morning edition", chronicles.lower())
+        self.assertIn("for the morning edition", chronicles.lower())
         self.assertNotIn("Evening delivery is in testing", chronicles)
         self.assertIn("4:45 AM", chronicles)
+
+        evening_template = (ROOT / "templates" / "evening.html").read_text(encoding="utf-8")
+        self.assertIn(BRAND, evening_template)
+        for kicker in ("Reader questions", "Letters to the King", "Crumb Board"):
+            self.assertNotIn(kicker, evening_template)
 
         # Historical labels stay: past evening editions remain in the archive.
         archive = (ROOT / "archive.html").read_text(encoding="utf-8")

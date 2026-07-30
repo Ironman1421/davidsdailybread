@@ -1,20 +1,32 @@
 name: Daily bake
-# Bakes and publishes the morning edition of davidsdailybread.com unattended.
+# Bakes and publishes davidsdailybread.com unattended, twice daily:
+# the MORNING edition (news: tech, markets, science) and the EVENING edition
+# (trends: what's trending, new tools, workflows; spec: BAKE.md).
 # Runs inside GitHub Actions so the publish can push with the built-in
 # GITHUB_TOKEN; a Claude cloud session carries no repository write credential
 # and dies on `git push` with HTTP 403, which is why the bake lives here.
 on:
   schedule:
-    # 12:05 UTC = 5:05 AM Pacific during PDT, 20 minutes after counter-sync
-    # (11:45 UTC). When US daylight time ends (early November) this cron AND
-    # counter-sync's cron both need a +1 hour nudge to stay at their Pacific times.
+    # Morning: 12:05 UTC = 5:05 AM Pacific during PDT, 20 minutes after
+    # counter-sync (11:45 UTC). Evening: 22:35 UTC = 3:35 PM Pacific during PDT.
+    # GitHub cron fires LATE, not never (observed lag up to ~2-3h); treat these
+    # as "no earlier than". When US daylight time ends (early November) BOTH
+    # bake crons AND counter-sync's cron need a +1 hour nudge to stay at their
+    # Pacific times. The slot is resolved from which cron fired (see cfg step).
     - cron: '5 12 * * *'
+    - cron: '35 22 * * *'
   workflow_dispatch:
     inputs:
       date:
         description: 'edition date YYYY-MM-DD, blank means today in New York'
         required: false
         default: ''
+      slot:
+        description: 'which edition to bake'
+        type: choice
+        options: [morning, evening]
+        required: false
+        default: morning
       model:
         description: 'Claude model to bake with'
         required: false
@@ -39,11 +51,14 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      - name: Resolve edition date and mode
+      - name: Resolve edition date, slot and mode
         id: cfg
         env:
           IN_DATE: ${{ github.event.inputs.date }}
+          IN_SLOT: ${{ github.event.inputs.slot }}
           IN_MODEL: ${{ github.event.inputs.model }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
         run: |
           set -euo pipefail
           IN="${IN_DATE:-}"
@@ -53,24 +68,38 @@ jobs:
             echo "::error::Invalid edition date '$D'; expected YYYY-MM-DD"
             exit 1
           fi
+          # Scheduled runs infer the slot from which cron fired; dispatches say.
+          if [ "${EVENT_NAME}" = "schedule" ]; then
+            if [ "${EVENT_SCHEDULE}" = "5 12 * * *" ]; then SLOT=morning; else SLOT=evening; fi
+          else
+            SLOT="${IN_SLOT:-morning}"
+          fi
+          if [ "$SLOT" != "morning" ] && [ "$SLOT" != "evening" ]; then
+            echo "::error::Invalid slot '$SLOT'"
+            exit 1
+          fi
           if [ "$D" = "$TODAY" ]; then MODE=daily; else MODE=backfill; fi
+          if [ "$SLOT" = "morning" ]; then LABEL="Morning edition"; else LABEL="Evening edition"; fi
           HUMAN="$(TZ=UTC date -d "$D" '+%A, %B %-d, %Y')"
           MODEL="${IN_MODEL:-claude-sonnet-5}"
           {
             echo "date=$D"
+            echo "slot=$SLOT"
+            echo "label=$LABEL"
             echo "mode=$MODE"
             echo "human=$HUMAN"
             echo "model=$MODEL"
           } >> "$GITHUB_OUTPUT"
-          echo "Baking $D ($MODE) with $MODEL"
+          echo "Baking $D $SLOT ($MODE) with $MODEL"
 
       - name: Refuse to double-bake
         env:
           EDITION_DATE: ${{ steps.cfg.outputs.date }}
+          SLOT: ${{ steps.cfg.outputs.slot }}
         run: |
           set -euo pipefail
-          if [ -f "editions/${EDITION_DATE}-morning.html" ]; then
-            echo "::error::editions/${EDITION_DATE}-morning.html already exists on main; refusing to double-bake"
+          if [ -f "editions/${EDITION_DATE}-${SLOT}.html" ]; then
+            echo "::error::editions/${EDITION_DATE}-${SLOT}.html already exists on main; refusing to double-bake"
             exit 1
           fi
 
@@ -82,6 +111,7 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DDB_DATE: ${{ steps.cfg.outputs.date }}
+          DDB_SLOT: ${{ steps.cfg.outputs.slot }}
           DDB_MODE: ${{ steps.cfg.outputs.mode }}
           BAKE_MODEL: ${{ steps.cfg.outputs.model }}
         run: |
@@ -90,19 +120,22 @@ jobs:
             echo "::error::No Claude credential. Add repository secret CLAUDE_CODE_OAUTH_TOKEN (from 'claude setup-token'), or ANTHROPIC_API_KEY."
             exit 1
           fi
-          # Unquoted heredoc delimiter so the two run variables ($DDB_DATE and
-          # $DDB_MODE, the only variables in the prompt) expand into the file.
+          # Unquoted heredoc delimiter so the three run variables ($DDB_DATE,
+          # $DDB_SLOT and $DDB_MODE, the only variables in the prompt) expand into the file.
           cat > "$RUNNER_TEMP/bake-prompt.txt" <<PROMPT
-          You are baking today's edition of davidsdailybread.com. You are running inside a GitHub Actions runner, in a full checkout of the site repo at the current working directory, on branch main.
-          Read /BAKE.md in this checkout and follow it exactly. BRAND.md wins all conflicts. It is the complete editorial spec: reader plan, research, content.json, render, editorial review, satchel restock.
+          You are baking the $DDB_SLOT edition of davidsdailybread.com. You are running inside a GitHub Actions runner, in a full checkout of the site repo at the current working directory, on branch main.
+          Read /BAKE.md in this checkout and follow it exactly. BRAND.md wins all conflicts. It is the complete editorial spec for both edition slots: research, content.json, render, editorial review, and (morning only) reader plan and satchel restock.
           Overrides for this run, which take precedence over BAKE.md where they conflict:
           1. SETUP: skip BAKE.md step 0 entirely. The repo is already checked out here. Do NOT clone anything. Do NOT configure git identity.
           2. EDITION DATE: use exactly $DDB_DATE. Do not compute the date yourself. Pass it verbatim to --date.
           3. PUBLISHING: skip BAKE.md step 6 and step 7 entirely. You have NO push credential and that is deliberate. Do NOT run git add, git commit, git push, git checkout, git reset, or any other command that writes to git. The workflow commits, pushes and verifies after you finish. Your job ends when the render is clean and you have reviewed it.
-          4. MODE: this run is $DDB_MODE. daily means the normal morning bake: research news from the last 24 hours and run the reader sections per the --plan output as usual. backfill means you are reconstructing a morning edition that was never published, for the past date $DDB_DATE: research news actually published on or in the 24 hours before $DDB_DATE using dated search terms, verify each story's publication date before using it, never use a story published after $DDB_DATE, and skip the reader sections completely (do not run --plan, omit reader from content.json, and do not touch kings-satchel.json or bakery-state.json, because those days had no live reader interaction and inventing one would be dishonest).
-          5. HONESTY: every fact traces to a source link you actually fetched. If a section cannot reach the 2-story minimum with verified stories, stop and report the failure rather than padding. A failed bake that says so is a good outcome; a padded one is not.
+          4. SLOT and MODE: this run bakes the $DDB_SLOT edition, in $DDB_MODE mode.
+             - morning + daily: the normal morning news bake (BAKE.md steps 1-8): research news from the last 24 hours and run the reader sections per the --plan output as usual.
+             - evening + daily: follow BAKE.md's section "The evening bake". Research what is trending TODAY in AI and tech for everyday people (sections trending/tools/workflows), open-web sources only. NEVER run --plan, omit reader from content.json, do not touch kings-satchel.json, bakery-state.json or counter.csv, do not rewrite tech.html/markets.html/science.html, and render with --slot evening.
+             - backfill (either slot): you are reconstructing an edition that was never published, for the past date $DDB_DATE: research material actually published on or in the 24 hours before $DDB_DATE using dated search terms, verify each item's publication date before using it, never use anything published after $DDB_DATE, and skip the reader sections completely (do not run --plan, omit reader from content.json, and do not touch kings-satchel.json or bakery-state.json, because those days had no live reader interaction and inventing one would be dishonest). Render with --slot $DDB_SLOT.
+          5. HONESTY: every fact traces to a source link you actually fetched. If a section cannot reach the 2-story minimum with verified stories, stop and report the failure rather than padding. A failed bake that says so is a good outcome; a padded one is not. In the evening edition, never claim something is trending without a source that shows WHERE it is trending.
           6. If anything blocks you, stop and explain plainly what failed and what state the working tree is in. Never hand-edit rendered output to work around a validation error: fix content.json and re-render.
-          Finish with BAKE.md step 9's report: date, lead headline, story count per section, which reader sections ran, and the render result.
+          Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, which reader sections ran (morning only), and the render result.
           PROMPT
           claude -p "$(cat "$RUNNER_TEMP/bake-prompt.txt")" \
             --model "${BAKE_MODEL}" \
@@ -113,22 +146,29 @@ jobs:
         id: guard
         env:
           EDITION_DATE: ${{ steps.cfg.outputs.date }}
+          SLOT: ${{ steps.cfg.outputs.slot }}
           MODE: ${{ steps.cfg.outputs.mode }}
         run: |
           set -euo pipefail
           D="${EDITION_DATE}"
           # (a) the edition file must exist
-          if [ ! -f "editions/${D}-morning.html" ]; then
-            echo "::error::editions/${D}-morning.html was not produced by the bake"
+          if [ ! -f "editions/${D}-${SLOT}.html" ]; then
+            echo "::error::editions/${D}-${SLOT}.html was not produced by the bake"
             exit 1
           fi
-          # (b) a reconstructed morning must never displace the current front page
+          # (b) a reconstructed edition must never displace the current front page
           if [ "${MODE}" = "backfill" ]; then
             git checkout -- index.html tech.html markets.html science.html bakery-state.json kings-satchel.json
           fi
-          # (c) every changed path must be on the allowlist
+          # (c) every changed path must be on the allowlist. The evening (trends)
+          # bake has a tighter write set: no category pages, no reader state,
+          # no counter.csv.
           git status --porcelain | cut -c4- > "$RUNNER_TEMP/changed-files.txt"
-          allow='^(index\.html|tech\.html|markets\.html|science\.html|archive\.html|archive\.json|feed\.xml|bakery-state\.json|kings-satchel\.json|counter\.csv|editions/[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)\.html)$'
+          if [ "${SLOT}" = "morning" ]; then
+            allow='^(index\.html|tech\.html|markets\.html|science\.html|archive\.html|archive\.json|feed\.xml|bakery-state\.json|kings-satchel\.json|counter\.csv|editions/[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)\.html)$'
+          else
+            allow='^(index\.html|archive\.html|archive\.json|feed\.xml|editions/[0-9]{4}-[0-9]{2}-[0-9]{2}-evening\.html)$'
+          fi
           while IFS= read -r p; do
             [ -z "$p" ] && continue
             if ! echo "$p" | grep -qE "$allow"; then
@@ -136,15 +176,16 @@ jobs:
               exit 1
             fi
           done < "$RUNNER_TEMP/changed-files.txt"
-          # (d) archive.json must carry this morning's entry
-          python3 - "$D" <<'PY'
+          # (d) archive.json must carry this edition's entry
+          python3 - "$D" "$SLOT" <<'PY'
           import json, sys
-          d = sys.argv[1]
-          f = "editions/%s-morning.html" % d
+          d, slot = sys.argv[1], sys.argv[2]
+          f = "editions/%s-%s.html" % (d, slot)
           a = json.load(open("archive.json"))
-          ok = any(e.get("date") == d and e.get("file") == f for e in a.get("editions", []))
+          ok = any(e.get("date") == d and e.get("edition") == slot and e.get("file") == f
+                   for e in a.get("editions", []))
           if not ok:
-              sys.stderr.write("::error::archive.json has no morning entry for %s (%s)\n" % (d, f))
+              sys.stderr.write("::error::archive.json has no %s entry for %s (%s)\n" % (slot, d, f))
           sys.exit(0 if ok else 1)
           PY
           # (e) there must be something to commit
@@ -157,6 +198,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           EDITION_DATE: ${{ steps.cfg.outputs.date }}
+          SLOT: ${{ steps.cfg.outputs.slot }}
+          LABEL: ${{ steps.cfg.outputs.label }}
           MODE: ${{ steps.cfg.outputs.mode }}
           HUMAN: ${{ steps.cfg.outputs.human }}
         run: |
@@ -166,14 +209,17 @@ jobs:
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           D="${EDITION_DATE}"
           if [ "${MODE}" = "backfill" ]; then
-            git add "editions/${D}-morning.html"
-            git commit -m "Morning edition ${HUMAN} (backfill)"
-          else
+            git add "editions/${D}-${SLOT}.html"
+            git commit -m "${LABEL} ${HUMAN} (backfill)"
+          elif [ "${SLOT}" = "morning" ]; then
             git add index.html tech.html markets.html science.html editions bakery-state.json kings-satchel.json
-            git commit -m "Morning edition ${HUMAN}"
+            git commit -m "${LABEL} ${HUMAN}"
+          else
+            git add index.html "editions/${D}-evening.html"
+            git commit -m "${LABEL} ${HUMAN}"
           fi
           git add archive.html archive.json feed.xml
-          git commit -m "Archive: ${HUMAN} Morning edition"
+          git commit -m "Archive: ${HUMAN} ${LABEL}"
           # counter-sync may have pushed while we baked
           git pull --rebase --no-edit origin main
           git push origin main
@@ -181,19 +227,23 @@ jobs:
       - name: Verify the publish
         env:
           EDITION_DATE: ${{ steps.cfg.outputs.date }}
+          SLOT: ${{ steps.cfg.outputs.slot }}
         run: |
           set -euo pipefail
           D="${EDITION_DATE}"
+          # Grep for the slot's edition file, not just the date: on an evening
+          # bake the date alone would already match the morning entry.
+          needle="editions/${D}-${SLOT}.html"
           url="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/archive.json"
           for i in $(seq 1 10); do
-            if curl -sSL --fail "$url" | grep -q "\"${D}\""; then
-              echo "Verified: ${D} is live in archive.json"
+            if curl -sSL --fail "$url" | grep -qF "\"${needle}\""; then
+              echo "Verified: ${needle} is live in archive.json"
               exit 0
             fi
-            echo "Attempt ${i}/10: ${D} not visible yet, sleeping 20s"
+            echo "Attempt ${i}/10: ${needle} not visible yet, sleeping 20s"
             sleep 20
           done
-          echo "::warning::Push succeeded but ${D} is not yet visible on raw.githubusercontent.com; this is CDN lag, not a failure."
+          echo "::warning::Push succeeded but ${needle} is not yet visible on raw.githubusercontent.com; this is CDN lag, not a failure."
 
       - name: Collect diagnostics
         if: always()
@@ -208,7 +258,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: bake-${{ steps.cfg.outputs.date }}-${{ github.run_id }}
+          name: bake-${{ steps.cfg.outputs.date }}-${{ steps.cfg.outputs.slot }}-${{ github.run_id }}
           path: ${{ runner.temp }}/bake-artifacts
           retention-days: 14
           if-no-files-found: ignore
