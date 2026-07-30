@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-07-30",
+      "edition": "morning",
+      "dateHuman": "Thursday, July 30, 2026",
+      "file": "editions/2026-07-30-morning.html",
+      "lead": "AI industry employees ask Washington to build a brake for frontier development",
+      "pubDate": "Thu, 30 Jul 2026 10:21:47 -0400"
+    },
+    {
       "date": "2026-07-29",
       "edition": "morning",
       "dateHuman": "Wednesday, July 29, 2026",
