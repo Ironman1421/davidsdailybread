@@ -45,6 +45,7 @@ official guidance on 2026-07-31. Relevant sources are [API security](https://sup
 [CORS](https://supabase.com/docs/guides/functions/cors),
 [function secrets](https://supabase.com/docs/guides/functions/secrets),
 [function tests](https://supabase.com/docs/guides/functions/unit-test),
+[Postgres SSL enforcement](https://supabase.com/docs/guides/platform/ssl-enforcement),
 [private buckets](https://supabase.com/docs/guides/storage/buckets/fundamentals),
 [signed uploads](https://supabase.com/docs/reference/javascript/file-buckets-createsigneduploadurl),
 [signed downloads](https://supabase.com/docs/reference/javascript/file-buckets-createsignedurl),
@@ -93,9 +94,12 @@ To serve Edge Functions locally, create an uncommitted login role that is a
 member of `reader_edge`, is not superuser, and does not bypass RLS. Put its
 pooled local URL and only synthetic local values in
 `supabase/functions/.env.local`, which is gitignored. Set
-`DDB_READER_DATABASE_SSL_MODE=disable` only for loopback. Never use the local
-`postgres` administrator URL as `DDB_READER_DATABASE_URL` for a function
-canary. Delete the temporary login after the test.
+`DDB_READER_DATABASE_SSL_MODE=disable` only for a URL whose hostname is
+loopback (`localhost`, `127.0.0.0/8`, or `::1`); the function rejects this mode
+for every other hostname. Leave `DDB_READER_DATABASE_SSL_CA` unset in this
+local-only mode. Never use the local `postgres` administrator URL as
+`DDB_READER_DATABASE_URL` for a function canary. Delete the temporary login
+after the test.
 
 If Docker/Postgres is unavailable, the TypeScript, lint, formatting, Python,
 and static security gates remain useful, but they do not replace `db reset`,
@@ -104,24 +108,38 @@ not run, not passed.
 
 ### Verification record for this foundation PR
 
-On 2026-07-31 this worktree passed Edge unit tests, Deno type checking, Deno
-format/lint checks, the reader-store Python static gates, the product-contract
-tests, JSON parsing, `git diff --check`, and `npm audit`. Supabase CLI 2.111.0
-was invoked, but `supabase start` stopped before any container or database
-change because neither Docker nor Podman exists on the host. Therefore clean
-local migration replay, pgTAP, database lint, live `FOR UPDATE SKIP LOCKED`
-concurrency, local Storage integration, and local Edge-to-Postgres integration
-are explicitly not verified in this worktree. Security and performance
-advisors are also not run because there is no dedicated project and this lane
-must not connect to another project. Those checks remain mandatory before any
-canary or cutover.
+Worktree record: on 2026-07-31 the non-container checks passed locally: Edge
+unit tests, Deno type checking, Deno format/lint, reader-store Python static
+gates, product-contract tests, JSON parsing, `git diff --check`, and `npm
+audit`. Supabase CLI 2.111.0 was invoked, but `supabase start` stopped before
+any container or database change because neither Docker nor Podman exists on
+the host. This worktree therefore does not claim local migration replay,
+pgTAP, database lint, live `FOR UPDATE SKIP LOCKED` concurrency, local Storage
+integration, or local Edge-to-Postgres integration.
+
+Authoritative CI record: the PR-event Merge gate for exact head
+`d7086e735a2d8a4638853810f69c396c03a1e3ae` passed on 2026-07-31. That isolated
+GitHub runner completed a clean migration replay, pgTAP 91/91, database lint,
+and the concurrency/locking suite, in addition to 57 repository tests and the
+Edge/source gates. The PR-event CodeQL run also passed for both Python and
+JavaScript/TypeScript. A superseded duplicate push gate for the same SHA was
+cancelled before its database work; it is not evidence of failure. These are
+CI results for that exact SHA, not local worktree results and not results for
+later amendments. Every amended head must pass a fresh PR-event Merge gate and
+CodeQL before integration.
+
+Security and performance advisors remain unrun because there is no dedicated
+project and this lane must not connect to another project. Local Storage and
+Edge-to-Postgres integration also remain unverified. Those checks remain
+mandatory before any canary or cutover.
 
 ## Secret and configuration inventory
 
 | Name | Kind and consumer | Required handling |
 | --- | --- | --- |
-| `DDB_READER_DATABASE_URL` | Secret pooled Postgres URL used by all three functions | Login must only inherit `reader_edge`; require TLS remotely; rotate on exposure |
-| `DDB_READER_DATABASE_SSL_MODE` | Non-secret function config | `require` remotely; `disable` only on loopback |
+| `DDB_READER_DATABASE_URL` | Secret pooled Postgres URL used by all three functions | Login must only inherit `reader_edge`; use the dashboard-provided transaction pooler hostname; rotate on exposure |
+| `DDB_READER_DATABASE_SSL_MODE` | Non-secret function config | Use `verify-full` remotely; `disable` is accepted only for loopback development URLs |
+| `DDB_READER_DATABASE_SSL_CA` | Secret-store PEM CA certificate used by the Postgres client | Required remotely; download it from the dedicated project's Database SSL settings, preserve the PEM newlines, never commit or log it, and update it when the project CA changes |
 | `DDB_READER_BROKER_TOKEN` | Secret bearer token used by trusted workflow steps and `reader-plan` | 32 to 256 random characters; rotate on exposure and at least every 180 days |
 | `DDB_TURNSTILE_SECRET_KEY` | Secret used only by `reader-submit` | Scope to the production widget/hostnames; rotate on exposure |
 | `DDB_READER_STORAGE_SECRET_KEY` | Dedicated-project Supabase secret key used only by handoff code | Never expose to browsers, logs, artifacts, or author/model processes; rotate on exposure |
@@ -154,8 +172,12 @@ this worktree.
 5. Create the declared private bucket with
    `npm exec -- supabase seed buckets --linked`. Verify it is private, capped
    at 10 MiB, and accepts only the two contract MIME types.
-6. Set secrets with an out-of-repository protected env file. Leave all three
-   enable switches absent or `false`.
+6. Download the dedicated project's CA certificate from Database SSL settings.
+   Set `DDB_READER_DATABASE_SSL_MODE=verify-full`, and set the complete PEM as
+   `DDB_READER_DATABASE_SSL_CA` with the other secrets through an
+   out-of-repository protected env file. Leave all three enable switches absent
+   or `false`. The runtime must reject a missing or malformed CA instead of
+   weakening certificate or hostname verification.
 7. Deploy exactly `reader-submit`, `reader-delete`, and `reader-plan` with the
    checked-in config. Do not use `--prune` during the first deployment.
 8. Run pgTAP, database lint, security advisors, performance advisors, and

@@ -14,6 +14,9 @@
     "edgeExecutionRole": "reader_edge",
     "edgeRoleTablePrivileges": [],
     "edgeRoleRoutinePrivileges": "allowlisted-only",
+    "remoteTlsMode": "verify-full",
+    "remoteTlsCaSecret": "DDB_READER_DATABASE_SSL_CA",
+    "tlsDisableScope": "loopback-only",
     "rlsEnabled": true,
     "browserRolesWithTableAccess": [],
     "submissionKinds": [

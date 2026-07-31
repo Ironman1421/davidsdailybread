@@ -7,22 +7,64 @@ type SqlClient = ReturnType<typeof postgres>;
 let client: SqlClient | null = null;
 let identityVerified = false;
 
+type DatabaseTls = false | {
+  ca: string;
+  rejectUnauthorized: true;
+};
+
+export function databaseTls(
+  databaseUrl: string,
+  sslMode: string,
+  caCertificate: string,
+): DatabaseTls {
+  let parsedUrl: URL;
+  try {
+    parsedUrl = new URL(databaseUrl);
+  } catch {
+    throw new Error("database_unconfigured");
+  }
+  if (
+    (parsedUrl.protocol !== "postgres:" &&
+      parsedUrl.protocol !== "postgresql:") ||
+    parsedUrl.hostname === ""
+  ) {
+    throw new Error("database_unconfigured");
+  }
+
+  const hostname = parsedUrl.hostname.toLowerCase();
+  const loopback = hostname === "localhost" || hostname === "[::1]" ||
+    /^127(?:\.[0-9]{1,3}){3}$/.test(hostname);
+
+  if (sslMode === "disable") {
+    if (!loopback) throw new Error("database_unconfigured");
+    return false;
+  }
+  if (sslMode !== "verify-full") {
+    throw new Error("database_unconfigured");
+  }
+
+  const ca = caCertificate.trim();
+  if (
+    !ca.startsWith("-----BEGIN CERTIFICATE-----") ||
+    !ca.endsWith("-----END CERTIFICATE-----")
+  ) {
+    throw new Error("database_unconfigured");
+  }
+  return { ca, rejectUnauthorized: true };
+}
+
 function database(): SqlClient {
   if (client !== null) return client;
   const url = Deno.env.get("DDB_READER_DATABASE_URL") ?? "";
-  if (!/^postgres(?:ql)?:\/\//.test(url)) {
-    throw new Error("database_unconfigured");
-  }
-  const sslMode = Deno.env.get("DDB_READER_DATABASE_SSL_MODE") ?? "require";
-  if (sslMode !== "require" && sslMode !== "disable") {
-    throw new Error("database_unconfigured");
-  }
+  const sslMode = Deno.env.get("DDB_READER_DATABASE_SSL_MODE") ??
+    "verify-full";
+  const sslCa = Deno.env.get("DDB_READER_DATABASE_SSL_CA") ?? "";
   client = postgres(url, {
     max: 1,
     idle_timeout: 5,
     connect_timeout: 5,
     prepare: false,
-    ssl: sslMode === "require" ? "require" : false,
+    ssl: databaseTls(url, sslMode, sslCa),
   });
   return client;
 }

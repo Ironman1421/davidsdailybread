@@ -93,6 +93,7 @@ class ReaderStoreFoundationTest(unittest.TestCase):
             "interval '365 days'",
             "ddb-reader-retention-daily",
             "reader_private.run_retention",
+            "where submission.reserved_batch_id = batch.id",
         ):
             self.assertIn(invariant, self.sql)
         self.assertNotIn("body jsonb", self.sql.lower())
@@ -108,8 +109,31 @@ class ReaderStoreFoundationTest(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, self.functions)
         self.assertIn("DDB_READER_DATABASE_URL", self.functions)
+        self.assertIn("DDB_READER_DATABASE_SSL_CA", self.functions)
         self.assertIn("DDB_READER_BROKER_TOKEN", self.functions)
         self.assertIn("DDB_TURNSTILE_SECRET_KEY", self.functions)
+
+    def test_remote_database_connections_fail_closed_on_tls(self):
+        database = (
+            SUPABASE / "functions" / "_shared" / "database.ts"
+        ).read_text(encoding="utf-8")
+        self.assertIn('sslMode !== "verify-full"', database)
+        self.assertIn("rejectUnauthorized: true", database)
+        self.assertIn('sslMode === "disable"', database)
+        self.assertIn('hostname === "localhost"', database)
+        self.assertNotIn('ssl: "require"', database)
+
+        contract = json.loads(
+            (ROOT / "operations" / "reader-store.contract.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual("verify-full", contract["database"]["remoteTlsMode"])
+        self.assertEqual(
+            "DDB_READER_DATABASE_SSL_CA",
+            contract["database"]["remoteTlsCaSecret"],
+        )
+        self.assertEqual("loopback-only", contract["database"]["tlsDisableScope"])
 
     def test_reserve_response_is_selected_items_only(self):
         response_match = re.search(

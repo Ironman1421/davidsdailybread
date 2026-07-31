@@ -1335,9 +1335,14 @@ begin
     and status in ('published', 'rejected', 'deleted', 'expired');
   get diagnostics deleted_receipts = row_count;
 
-  delete from reader_private.plan_batches
-  where created_at <= reference_time - interval '365 days'
-    and status in ('finalized', 'released', 'expired');
+  delete from reader_private.plan_batches as batch
+  where batch.created_at <= reference_time - interval '365 days'
+    and batch.status in ('finalized', 'released', 'expired')
+    and not exists (
+      select 1
+      from reader_private.submissions as submission
+      where submission.reserved_batch_id = batch.id
+    );
 
   perform reader_private.write_audit(
     'retention', null, 'retention_completed', 'reader-retention'

@@ -1,6 +1,6 @@
 begin;
 
-select plan(32);
+select plan(37);
 
 truncate table
   reader_private.audit_events,
@@ -208,6 +208,63 @@ select is(
   (select count(*)::integer from reader_private.submissions where status = 'published' and body is null),
   3,
   'published private payloads are erased after 30 days'
+);
+
+update reader_private.plan_batches
+set created_at = statement_timestamp() - interval '366 days'
+where id = (select (value ->> 'batchId')::uuid from reader_test_values where key = 'plan_one');
+select lives_ok(
+  $$select reader_private.run_retention(statement_timestamp())$$,
+  'retention keeps an old terminal batch while newer linked receipts remain'
+);
+select is(
+  (
+    select count(*)::integer
+    from reader_private.plan_batches
+    where id = (select (value ->> 'batchId')::uuid from reader_test_values where key = 'plan_one')
+  ),
+  1,
+  'the terminal batch remains until its linked submissions are eligible'
+);
+select is(
+  (
+    select count(*)::integer
+    from reader_private.submissions
+    where reserved_batch_id = (
+      select (value ->> 'batchId')::uuid from reader_test_values where key = 'plan_one'
+    )
+  ),
+  3,
+  'newer linked publication receipts survive the retention transaction'
+);
+
+update reader_private.submissions
+set published_at = statement_timestamp() - interval '366 days'
+where reserved_batch_id = (
+  select (value ->> 'batchId')::uuid from reader_test_values where key = 'plan_one'
+);
+select lives_ok(
+  $$select reader_private.run_retention(statement_timestamp())$$,
+  'retention removes eligible linked receipts before their terminal batch'
+);
+select is(
+  (
+    select (
+      select count(*)::integer
+      from reader_private.plan_batches
+      where id = (
+        select (value ->> 'batchId')::uuid from reader_test_values where key = 'plan_one'
+      )
+    ) + (
+      select count(*)::integer
+      from reader_private.submissions
+      where reserved_batch_id = (
+        select (value ->> 'batchId')::uuid from reader_test_values where key = 'plan_one'
+      )
+    )
+  ),
+  0,
+  'eligible linked receipts and their terminal batch are removed together'
 );
 
 select reader_private.submit_submission(
