@@ -2,9 +2,19 @@
 """Regression tests for the repository-owned YouTube pilot foundation."""
 
 from pathlib import Path
+import copy
 import json
 import re
 import unittest
+
+from jsonschema import Draft202012Validator, FormatChecker, ValidationError
+
+from youtube.validate_ledgers import (
+    SCHEMA_LEDGER_PAIRS,
+    semantic_errors,
+    validate_schema_and_ledger,
+    validate_youtube_ledgers,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +25,84 @@ LEDGERS = YOUTUBE / "ledgers"
 
 def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def human_approval():
+    return {
+        "human": True,
+        "approved": True,
+        "approvedBy": "David Friedhof",
+        "approvedAt": "2026-08-01T00:00:00Z",
+    }
+
+
+def valid_experiment():
+    cells = []
+    for index, (franchise, voice_mode) in enumerate(
+        (
+            ("morning_receipts", "recurring_human_narrator"),
+            ("morning_receipts", "caption_only"),
+            ("tonights_field_guide", "recurring_human_narrator"),
+            ("tonights_field_guide", "caption_only"),
+        ),
+        start=1,
+    ):
+        cells.append(
+            {
+                "cellId": f"YCELL-20260801-{index:02d}",
+                "franchise": franchise,
+                "voiceMode": voice_mode,
+                "eligibleShortVideoRecordIds": [],
+                "withdrawnVideoRecordIds": [],
+            }
+        )
+    return {
+        "experimentId": "YEXP-20260801-01",
+        "status": "planned",
+        "startDate": "2026-08-01",
+        "endDate": "2026-08-30",
+        "baselineReceiptReference": "YT Studio metrics baseline receipt",
+        "hypothesis": "Voice mode changes subscriber conversion.",
+        "cells": cells,
+        "assignments": [],
+        "externalCommittedCostUsd": 0,
+        "externalPaidCostUsd": 0,
+        "externalTotalExposureUsd": 0,
+        "spendAuthorizationReferences": [],
+        "openedByHuman": human_approval(),
+    }
+
+
+def valid_gate(experiment_id="YEXP-20260801-01"):
+    return {
+        "gateId": "YGATE-20260830-001",
+        "experimentId": experiment_id,
+        "franchise": "morning_receipts",
+        "evaluatedAt": "2026-08-30T00:00:00Z",
+        "cellMetrics": [
+            {
+                "cellId": "YCELL-20260801-01",
+                "eligiblePostCount": 5,
+                "medianSubscribersPer1000EngagedViews": None,
+                "medianStayedToWatchPercent": None,
+                "medianSharesPer1000EngagedViews": None,
+            },
+            {
+                "cellId": "YCELL-20260801-02",
+                "eligiblePostCount": 5,
+                "medianSubscribersPer1000EngagedViews": None,
+                "medianStayedToWatchPercent": None,
+                "medianSharesPer1000EngagedViews": None,
+            },
+        ],
+        "winnerMode": None,
+        "primaryMetricRelativeLift": None,
+        "guardrailsPassed": False,
+        "result": "extend",
+        "longFormReleased": False,
+        "rationale": "Metrics are unavailable.",
+        "finalApproval": human_approval(),
+    }
 
 
 class YoutubePilotContractTest(unittest.TestCase):
@@ -29,6 +117,14 @@ class YoutubePilotContractTest(unittest.TestCase):
         self.experiment_schema = load_json(SCHEMAS / "experiment.schema.json")
         self.video_schema = load_json(SCHEMAS / "video-receipts.schema.json")
         self.asset_schema = load_json(SCHEMAS / "asset-provenance.schema.json")
+        self.schemas = {
+            name: load_json(schema_path)
+            for name, (schema_path, _) in SCHEMA_LEDGER_PAIRS.items()
+        }
+        self.ledgers = {
+            name: load_json(ledger_path)
+            for name, (_, ledger_path) in SCHEMA_LEDGER_PAIRS.items()
+        }
 
     def test_all_owned_artifacts_exist_and_all_json_parses(self):
         expected = (
@@ -36,6 +132,7 @@ class YoutubePilotContractTest(unittest.TestCase):
             ROOT / "docs" / "YOUTUBE_PILOT_RUNBOOK.md",
             YOUTUBE / "templates" / "morning-receipts.md",
             YOUTUBE / "templates" / "tonights-field-guide.md",
+            YOUTUBE / "validate_ledgers.py",
             SCHEMAS / "claim-evidence.schema.json",
             SCHEMAS / "asset-provenance.schema.json",
             SCHEMAS / "corrections.schema.json",
@@ -58,6 +155,164 @@ class YoutubePilotContractTest(unittest.TestCase):
             self.assertEqual("https://json-schema.org/draft/2020-12/schema", schema["$schema"])
             self.assertFalse(schema["additionalProperties"])
             self.assertEqual(1, schema["properties"]["version"]["const"])
+
+    def test_all_five_schemas_and_real_baseline_ledgers_validate(self):
+        self.assertEqual(5, len(SCHEMA_LEDGER_PAIRS))
+        validated = validate_youtube_ledgers()
+        self.assertEqual(set(SCHEMA_LEDGER_PAIRS), set(validated))
+        for name in SCHEMA_LEDGER_PAIRS:
+            with self.subTest(contract=name):
+                Draft202012Validator.check_schema(self.schemas[name])
+                validate_schema_and_ledger(
+                    name, self.schemas[name], self.ledgers[name]
+                )
+
+    def test_disabled_or_unmeasured_pilot_cannot_enable_external_actions(self):
+        disabled_with_captured_metrics = copy.deepcopy(self.ledgers["experiment"])
+        baseline = disabled_with_captured_metrics["platformBaseline"]
+        baseline.update(
+            {
+                "metricsStatus": "captured",
+                "metricsCapturedAt": "2026-08-01T00:00:00Z",
+                "subscribers": 0,
+                "historicalViews": 0,
+                "historicalEngagedViews": 0,
+                "metricsSourceReceiptReference": "YouTube Studio metrics receipt",
+                "unknownMeasurementBlockers": [],
+            }
+        )
+        ready_with_unmeasured_metrics = copy.deepcopy(self.ledgers["experiment"])
+        ready_with_unmeasured_metrics["operatingState"] = "ready"
+
+        for condition, baseline_ledger in (
+            ("disabled", disabled_with_captured_metrics),
+            ("unmeasured", ready_with_unmeasured_metrics),
+        ):
+            for field in (
+                "publishingEnabled",
+                "externalAccountMutationAuthorized",
+            ):
+                ledger = copy.deepcopy(baseline_ledger)
+                ledger["constraints"][field] = True
+                with self.subTest(condition=condition, field=field), self.assertRaisesRegex(
+                    ValueError, field
+                ):
+                    validate_schema_and_ledger(
+                        "experiment", self.schemas["experiment"], ledger
+                    )
+                semantic = semantic_errors(
+                    {**self.ledgers, "experiment": ledger}
+                )
+                self.assertTrue(any(field in error for error in semantic))
+
+    def test_semantic_gate_rejects_duplicate_experiment_and_cell_records(self):
+        cases = []
+
+        duplicate_experiment = copy.deepcopy(self.ledgers)
+        experiment = valid_experiment()
+        duplicate_experiment["experiment"]["experiments"] = [
+            experiment,
+            copy.deepcopy(experiment),
+        ]
+        cases.append((duplicate_experiment, "duplicate experimentId"))
+
+        duplicate_cell_id = copy.deepcopy(self.ledgers)
+        experiment = valid_experiment()
+        experiment["cells"][1]["cellId"] = experiment["cells"][0]["cellId"]
+        duplicate_cell_id["experiment"]["experiments"] = [experiment]
+        cases.append((duplicate_cell_id, "duplicate cellId"))
+
+        duplicate_combination = copy.deepcopy(self.ledgers)
+        experiment = valid_experiment()
+        experiment["cells"][1]["voiceMode"] = "recurring_human_narrator"
+        duplicate_combination["experiment"]["experiments"] = [experiment]
+        cases.append((duplicate_combination, "duplicate cell combination"))
+
+        for ledgers, expected in cases:
+            with self.subTest(expected=expected):
+                validate_schema_and_ledger(
+                    "experiment",
+                    self.schemas["experiment"],
+                    ledgers["experiment"],
+                )
+                self.assertTrue(
+                    any(expected in error for error in semantic_errors(ledgers))
+                )
+
+    def test_semantic_gate_rejects_inconsistent_or_unauthorized_cost(self):
+        inconsistent = copy.deepcopy(self.ledgers)
+        experiment = valid_experiment()
+        experiment["externalTotalExposureUsd"] = 1
+        inconsistent["experiment"]["experiments"] = [experiment]
+
+        missing_authorization = copy.deepcopy(self.ledgers)
+        experiment = valid_experiment()
+        experiment["externalCommittedCostUsd"] = 1
+        experiment["externalTotalExposureUsd"] = 1
+        missing_authorization["experiment"]["experiments"] = [experiment]
+
+        for ledgers, expected in (
+            (inconsistent, "must equal committed plus paid"),
+            (missing_authorization, "without spend authorization"),
+            (missing_authorization, "without a spend authorization reference"),
+        ):
+            with self.subTest(expected=expected):
+                validate_schema_and_ledger(
+                    "experiment",
+                    self.schemas["experiment"],
+                    ledgers["experiment"],
+                )
+                self.assertTrue(
+                    any(expected in error for error in semantic_errors(ledgers))
+                )
+
+    def test_gate_references_must_resolve_to_distinct_comparison_cells(self):
+        nonexistent_experiment = copy.deepcopy(self.ledgers)
+        nonexistent_experiment["experiment"]["gateEvaluations"] = [
+            valid_gate("YEXP-20260801-99")
+        ]
+
+        nonexistent_cell = copy.deepcopy(self.ledgers)
+        nonexistent_cell["experiment"]["experiments"] = [valid_experiment()]
+        gate = valid_gate()
+        gate["cellMetrics"][1]["cellId"] = "YCELL-20260801-99"
+        nonexistent_cell["experiment"]["gateEvaluations"] = [gate]
+
+        duplicate_comparison = copy.deepcopy(self.ledgers)
+        duplicate_comparison["experiment"]["experiments"] = [valid_experiment()]
+        gate = valid_gate()
+        gate["cellMetrics"][1]["cellId"] = gate["cellMetrics"][0]["cellId"]
+        duplicate_comparison["experiment"]["gateEvaluations"] = [gate]
+
+        for ledgers, expected in (
+            (nonexistent_experiment, "references nonexistent experiment"),
+            (nonexistent_cell, "references nonexistent cell"),
+            (duplicate_comparison, "compares duplicate cell"),
+        ):
+            with self.subTest(expected=expected):
+                validate_schema_and_ledger(
+                    "experiment",
+                    self.schemas["experiment"],
+                    ledgers["experiment"],
+                )
+                self.assertTrue(
+                    any(expected in error for error in semantic_errors(ledgers))
+                )
+
+    def test_altered_or_synthetic_content_requires_studio_yes(self):
+        disclosure = {
+            "realisticAlteredOrSyntheticContentPresent": True,
+            "studioSelection": "No",
+            "rationale": "Human review found a realistic altered sequence.",
+            "reviewedBy": "David Friedhof",
+            "reviewedAt": "2026-08-01T00:00:00Z",
+        }
+        validator = Draft202012Validator(
+            self.video_schema["$defs"]["disclosureReview"],
+            format_checker=FormatChecker(),
+        )
+        with self.assertRaises(ValidationError):
+            validator.validate(disclosure)
 
     def test_morning_and_evening_have_distinct_jobs(self):
         normalized = " ".join(self.spec.split())

@@ -182,7 +182,19 @@
         "rationale": {"type": "string", "minLength": 1},
         "reviewedBy": {"type": "string", "minLength": 1},
         "reviewedAt": {"type": "string", "format": "date-time"}
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "realisticAlteredOrSyntheticContentPresent": {"const": true}
+            }
+          },
+          "then": {
+            "properties": {"studioSelection": {"const": "Yes"}}
+          }
+        }
+      ]
     },
     "publication": {
       "type": "object",

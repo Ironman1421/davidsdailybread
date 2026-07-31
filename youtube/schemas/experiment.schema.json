@@ -28,6 +28,42 @@
       "items": {"$ref": "#/$defs/gateEvaluation"}
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"operatingState": {"const": "disabled"}}
+      },
+      "then": {
+        "properties": {
+          "constraints": {
+            "properties": {
+              "publishingEnabled": {"const": false},
+              "externalAccountMutationAuthorized": {"const": false}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "platformBaseline": {
+            "properties": {"metricsStatus": {"const": "not_measured"}}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "constraints": {
+            "properties": {
+              "publishingEnabled": {"const": false},
+              "externalAccountMutationAuthorized": {"const": false}
+            }
+          }
+        }
+      }
+    }
+  ],
   "$defs": {
     "httpsUrl": {
       "type": "string",
