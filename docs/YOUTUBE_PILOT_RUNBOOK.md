@@ -1,18 +1,19 @@
 # YouTube pilot operator runbook
 
-Status: disabled until channel and baseline blockers are resolved
+Status: disabled until metrics baseline and explicit upload blockers are resolved
 Applies to: U.S.-English Morning Receipts and Tonight's Field Guide pilot
 
 ## Hard stop at initialization
 
 Read `docs/YOUTUBE_PILOT_SPEC.md` and the five ledgers before doing anything in
-YouTube Studio. Stop if `youtube/ledgers/experiment.json` says `disabled`, if the
-channel handle or baseline is `null`, or if a requested action lacks authority.
+YouTube Studio. Stop if `youtube/ledgers/experiment.json` says `disabled`, if its
+`metricsStatus` is not `captured`, or if a requested action lacks authority.
 
-This runbook does not authorize an account, channel, upload, narrator contact,
-vendor contact, credential, contract, license, or spend. The initial repository
-state is deliberately disabled. Only David can provide the missing channel and
-baseline, authorize a specific expense, and release external operation.
+This runbook does not authorize creating or altering an account or channel, an
+upload, narrator contact, vendor contact, credential, contract, license, or
+spend. The repository state remains deliberately disabled. The known channel
+identity is not an upload authorization. Only David can provide the missing
+metrics baseline, authorize a specific expense, and release external operation.
 
 Never use reader submissions, private data, personal account data, credentials,
 cookies, private analytics, or unpublished material in scripts, prompts,
@@ -135,9 +136,9 @@ Disclosure does not cure deception, missing rights, or an unsupported claim.
 
 ## 8. Private upload and read-back checks
 
-This section remains blocked until David supplies the channel and authorizes the
-specific upload. Private is the first allowed visibility; unlisted is not a
-substitute for the private review gate.
+This section remains blocked until the metrics baseline is captured and David
+separately authorizes the specific upload. Private is the first allowed
+visibility; unlisted is not a substitute for the private review gate.
 
 1. Confirm the kill switch is released for this exact video and the
    idempotency key has no prior provider receipt.
@@ -244,5 +245,6 @@ rule in `docs/YOUTUBE_PILOT_SPEC.md`. Record `pass`, `extend`, or `stop` without
 changing thresholds after seeing results.
 
 Only a passing receipt plus human `longFormReleased: true` permits long-form
-work. An `extend`, missing baseline, missing snapshot, or unresolved guardrail
-keeps long-form blocked. YPP eligibility and raw view count are not this gate.
+work. An `extend`, missing measurement baseline, missing snapshot, or unresolved
+guardrail keeps long-form blocked. YPP eligibility and raw view count are not
+this gate.

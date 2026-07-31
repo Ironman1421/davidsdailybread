@@ -48,59 +48,134 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "status",
+        "channelIdentityStatus",
+        "channelName",
         "channelHandle",
         "channelId",
-        "capturedAt",
+        "publicUrl",
+        "channelIdUrl",
+        "createdAt",
+        "createdAtPrecision",
+        "identitySourceReceiptReference",
+        "unavailablePreferredHandles",
+        "metricsStatus",
+        "metricsCapturedAt",
         "subscribers",
         "historicalViews",
         "historicalEngagedViews",
-        "sourceReceiptReference",
-        "unknownBlockers"
+        "metricsSourceReceiptReference",
+        "unknownMeasurementBlockers",
+        "unknownMetricsTreatedAsZero"
       ],
       "properties": {
-        "status": {"enum": ["unknown", "captured"]},
-        "channelHandle": {"type": ["string", "null"]},
-        "channelId": {"type": ["string", "null"]},
-        "capturedAt": {"type": ["string", "null"], "format": "date-time"},
+        "channelIdentityStatus": {"enum": ["unknown", "known"]},
+        "channelName": {"type": ["string", "null"]},
+        "channelHandle": {
+          "type": ["string", "null"],
+          "pattern": "^@[A-Za-z0-9._-]{3,30}$"
+        },
+        "channelId": {
+          "type": ["string", "null"],
+          "pattern": "^UC[A-Za-z0-9_-]{22}$"
+        },
+        "publicUrl": {
+          "oneOf": [
+            {"$ref": "#/$defs/httpsUrl"},
+            {"type": "null"}
+          ]
+        },
+        "channelIdUrl": {
+          "oneOf": [
+            {"$ref": "#/$defs/httpsUrl"},
+            {"type": "null"}
+          ]
+        },
+        "createdAt": {"type": ["string", "null"], "format": "date-time"},
+        "createdAtPrecision": {
+          "type": ["string", "null"],
+          "enum": ["exact", "approximate", null]
+        },
+        "identitySourceReceiptReference": {"type": ["string", "null"]},
+        "unavailablePreferredHandles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^@[A-Za-z0-9._-]{3,30}$"
+          }
+        },
+        "metricsStatus": {"enum": ["not_measured", "captured"]},
+        "metricsCapturedAt": {"type": ["string", "null"], "format": "date-time"},
         "subscribers": {"type": ["integer", "null"], "minimum": 0},
         "historicalViews": {"type": ["integer", "null"], "minimum": 0},
         "historicalEngagedViews": {"type": ["integer", "null"], "minimum": 0},
-        "sourceReceiptReference": {"type": ["string", "null"]},
-        "unknownBlockers": {
+        "metricsSourceReceiptReference": {"type": ["string", "null"]},
+        "unknownMeasurementBlockers": {
           "type": "array",
           "uniqueItems": true,
           "items": {
             "enum": [
-              "channel_handle_not_supplied",
-              "channel_id_not_supplied",
-              "youtube_baseline_not_supplied"
+              "subscriber_count_not_measured",
+              "historical_views_not_measured",
+              "historical_engaged_views_not_measured"
             ]
           }
-        }
+        },
+        "unknownMetricsTreatedAsZero": {"const": false}
       },
       "allOf": [
         {
-          "if": {"properties": {"status": {"const": "unknown"}}},
+          "if": {"properties": {"channelIdentityStatus": {"const": "unknown"}}},
           "then": {
             "properties": {
+              "channelName": {"const": null},
               "channelHandle": {"const": null},
               "channelId": {"const": null},
-              "capturedAt": {"const": null},
-              "subscribers": {"const": null},
-              "historicalViews": {"const": null},
-              "historicalEngagedViews": {"const": null},
-              "sourceReceiptReference": {"const": null}
+              "publicUrl": {"const": null},
+              "channelIdUrl": {"const": null},
+              "createdAt": {"const": null},
+              "createdAtPrecision": {"const": null},
+              "identitySourceReceiptReference": {"const": null},
+              "unavailablePreferredHandles": {"maxItems": 0}
             }
           },
           "else": {
             "properties": {
-              "channelHandle": {"type": "string", "minLength": 1},
-              "channelId": {"type": "string", "minLength": 1},
-              "capturedAt": {"type": "string", "format": "date-time"},
+              "channelName": {"type": "string", "minLength": 1},
+              "channelHandle": {
+                "type": "string",
+                "pattern": "^@[A-Za-z0-9._-]{3,30}$"
+              },
+              "channelId": {
+                "type": "string",
+                "pattern": "^UC[A-Za-z0-9_-]{22}$"
+              },
+              "publicUrl": {"$ref": "#/$defs/httpsUrl"},
+              "channelIdUrl": {"$ref": "#/$defs/httpsUrl"},
+              "createdAt": {"type": "string", "format": "date-time"},
+              "createdAtPrecision": {"enum": ["exact", "approximate"]},
+              "identitySourceReceiptReference": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"metricsStatus": {"const": "not_measured"}}},
+          "then": {
+            "properties": {
+              "metricsCapturedAt": {"const": null},
+              "subscribers": {"const": null},
+              "historicalViews": {"const": null},
+              "historicalEngagedViews": {"const": null},
+              "metricsSourceReceiptReference": {"const": null},
+              "unknownMeasurementBlockers": {"minItems": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "metricsCapturedAt": {"type": "string", "format": "date-time"},
               "subscribers": {"type": "integer", "minimum": 0},
-              "sourceReceiptReference": {"type": "string", "minLength": 1},
-              "unknownBlockers": {"maxItems": 0}
+              "metricsSourceReceiptReference": {"type": "string", "minLength": 1},
+              "unknownMeasurementBlockers": {"maxItems": 0}
             }
           }
         }

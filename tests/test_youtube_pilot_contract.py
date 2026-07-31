@@ -229,29 +229,51 @@ class YoutubePilotContractTest(unittest.TestCase):
         self.assertIn("exactly USD 2,500", normalized)
         self.assertIn("design constraint, not permission to spend", normalized)
 
-    def test_channel_and_youtube_baseline_remain_unknown_not_zero(self):
+    def test_channel_identity_is_known_but_measurements_remain_unknown_not_zero(self):
         baseline = self.experiment["platformBaseline"]
-        self.assertEqual("unknown", baseline["status"])
+        self.assertEqual("known", baseline["channelIdentityStatus"])
+        self.assertEqual("David's Daily Bread", baseline["channelName"])
+        self.assertEqual("@DavidDailyBreadTV", baseline["channelHandle"])
+        self.assertEqual("UCRZkkqvdcfaiV-mtka-kmjQ", baseline["channelId"])
+        self.assertEqual(
+            "https://www.youtube.com/@DavidDailyBreadTV", baseline["publicUrl"]
+        )
+        self.assertEqual(
+            "https://www.youtube.com/channel/UCRZkkqvdcfaiV-mtka-kmjQ",
+            baseline["channelIdUrl"],
+        )
+        self.assertEqual("2026-07-31T21:46:44Z", baseline["createdAt"])
+        self.assertEqual("approximate", baseline["createdAtPrecision"])
+        self.assertIn(
+            "official YouTube UI creation readback",
+            baseline["identitySourceReceiptReference"],
+        )
+        self.assertEqual(
+            {"@DavidDailyBread", "@DavidsDailyBread"},
+            set(baseline["unavailablePreferredHandles"]),
+        )
+        self.assertEqual("not_measured", baseline["metricsStatus"])
         for field in (
-            "channelHandle",
-            "channelId",
-            "capturedAt",
+            "metricsCapturedAt",
             "subscribers",
             "historicalViews",
             "historicalEngagedViews",
-            "sourceReceiptReference",
+            "metricsSourceReceiptReference",
         ):
             self.assertIsNone(baseline[field], field)
+        self.assertFalse(baseline["unknownMetricsTreatedAsZero"])
         self.assertEqual(
             {
-                "channel_handle_not_supplied",
-                "channel_id_not_supplied",
-                "youtube_baseline_not_supplied",
+                "subscriber_count_not_measured",
+                "historical_views_not_measured",
+                "historical_engaged_views_not_measured",
             },
-            set(baseline["unknownBlockers"]),
+            set(baseline["unknownMeasurementBlockers"]),
         )
+        self.assertIn("Channel identity is no longer a blocker", self.spec)
+        self.assertIn("`metricsStatus` is not `captured`", self.runbook)
 
-    def test_baseline_ledgers_have_no_episode_or_external_receipts(self):
+    def test_baseline_ledgers_have_no_episode_or_operational_receipts(self):
         expected_empty = {
             "claim-evidence.json": ("manifests",),
             "asset-provenance.json": ("manifests",),
@@ -323,12 +345,18 @@ class YoutubePilotContractTest(unittest.TestCase):
 
     def test_policy_references_are_primary_official_pages(self):
         urls = re.findall(r"https://[^)\s]+", self.spec)
-        self.assertGreaterEqual(len(urls), 9)
+        policy_urls = [
+            url
+            for url in urls
+            if url.startswith("https://support.google.com/youtube/")
+        ]
+        self.assertGreaterEqual(len(policy_urls), 9)
         for url in urls:
             with self.subTest(url=url):
                 self.assertTrue(
-                    url.startswith("https://support.google.com/youtube/"),
-                    f"policy reference is not an official YouTube Help page: {url}",
+                    url.startswith("https://support.google.com/youtube/")
+                    or url.startswith("https://www.youtube.com/"),
+                    f"reference is not an official YouTube or YouTube Help page: {url}",
                 )
         for answer_id in (
             "1311392",

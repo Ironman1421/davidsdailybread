@@ -9,8 +9,8 @@ Last policy verification: 2026-07-31
 
 This specification turns a canonical David's Daily Bread edition into an
 original YouTube video package with claim receipts, asset rights, human review,
-and measurable outcomes. It does not authorize a channel, upload, credential,
-contract, purchase, or external account change.
+and measurable outcomes. It does not authorize altering the existing channel,
+an upload, credential, contract, purchase, or other external account change.
 
 `BRAND.md`, `docs/PRODUCT_SPEC.md`, and `docs/DISTRIBUTION_SPEC.md` remain the
 editorial and distribution authorities. This document owns the bounded YouTube
@@ -26,9 +26,11 @@ Accepted pilot decisions:
 - The external pilot planning ceiling is exactly USD 2,500 total. It is a design
   constraint, not permission to spend. Spend defaults to zero and needs separate
   written authorization from David before any commitment.
-- The YouTube channel handle, channel ID, subscriber baseline, historical view
-  baseline, and historical engaged-view baseline are unknown blockers. They
-  remain `null`; they must not be invented and this work must not create them.
+- The official channel identity is known: David's Daily Bread,
+  `@DavidDailyBreadTV`, channel ID `UCRZkkqvdcfaiV-mtka-kmjQ`.
+- The subscriber baseline, historical view baseline, and historical engaged-view
+  baseline have not been measured. They remain `null`, not zero, until an
+  authoritative public or YouTube Studio readback is recorded.
 - Long-form production begins only after the five-post Short winner gate passes
   and a human releases it.
 - No unlicensed press, broadcast, article-screenshot, social-video, or music
@@ -38,15 +40,27 @@ Accepted pilot decisions:
 
 ## Current external blockers
 
-Publishing and account mutation are disabled until David supplies or confirms:
+The channel was created by the user through the official YouTube UI at
+approximately 2026-07-31T21:46:44Z. Its public URL is
+[the public handle URL](https://www.youtube.com/@DavidDailyBreadTV) and its
+channel-ID URL is
+[the immutable channel-ID URL](https://www.youtube.com/channel/UCRZkkqvdcfaiV-mtka-kmjQ).
+The preferred handles `@DavidDailyBread` and `@DavidsDailyBread` were
+unavailable. No avatar, upload, vendor contact, spend, API credential, or public
+video accompanied the creation.
 
-1. the existing YouTube channel handle and channel ID;
-2. a dated YouTube Studio baseline receipt;
+Publishing and further account mutation remain disabled until David supplies or
+confirms:
+
+1. a dated authoritative public or YouTube Studio metrics baseline receipt;
+2. separate authorization for the exact private upload and any later release;
 3. any proposed narrator engagement and a reviewed contract receipt;
 4. any proposed expense and its separate written authorization.
 
-These are blockers to external operation, not blockers to templates, local
-validation, or repository review.
+Channel identity is no longer a blocker. Unknown measurements remain `null` and
+are not silently substituted with a planning zero. The remaining items are
+blockers to external operation, not blockers to templates, local validation, or
+repository review.
 
 ## Official YouTube policy basis
 
@@ -212,7 +226,8 @@ All gates fail closed and record the named human reviewer and time:
 
 ## Thirty-day comparison
 
-The experiment clock does not start until the channel baseline is captured.
+The experiment clock does not start until the channel metrics baseline is
+captured from an authoritative public or YouTube Studio readback.
 The maximum planned window is 30 calendar days. The single changed variable is
 voice mode within each franchise.
 
@@ -306,5 +321,7 @@ ledger, and never erases the original receipt or metrics.
   `youtube/templates/tonights-field-guide.md`
 - `docs/YOUTUBE_PILOT_RUNBOOK.md`
 
-The ledgers are intentionally empty. No episode, platform ID, narrator identity,
-contract, channel value, metric, or expense has been invented.
+The operational event arrays are intentionally empty. The experiment baseline
+records the user-verified channel identity and unavailable preferred handles.
+No episode, video ID, narrator identity, contract, metric, or expense has been
+invented.

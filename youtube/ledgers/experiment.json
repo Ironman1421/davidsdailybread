@@ -1,21 +1,33 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-31T00:00:00Z",
+  "updatedAt": "2026-07-31T21:46:44Z",
   "operatingState": "disabled",
   "platformBaseline": {
-    "status": "unknown",
-    "channelHandle": null,
-    "channelId": null,
-    "capturedAt": null,
+    "channelIdentityStatus": "known",
+    "channelName": "David's Daily Bread",
+    "channelHandle": "@DavidDailyBreadTV",
+    "channelId": "UCRZkkqvdcfaiV-mtka-kmjQ",
+    "publicUrl": "https://www.youtube.com/@DavidDailyBreadTV",
+    "channelIdUrl": "https://www.youtube.com/channel/UCRZkkqvdcfaiV-mtka-kmjQ",
+    "createdAt": "2026-07-31T21:46:44Z",
+    "createdAtPrecision": "approximate",
+    "identitySourceReceiptReference": "User-verified official YouTube UI creation readback in source task 019fb996-d0f6-7cc1-ba25-f9b0a99af6a8",
+    "unavailablePreferredHandles": [
+      "@DavidDailyBread",
+      "@DavidsDailyBread"
+    ],
+    "metricsStatus": "not_measured",
+    "metricsCapturedAt": null,
     "subscribers": null,
     "historicalViews": null,
     "historicalEngagedViews": null,
-    "sourceReceiptReference": null,
-    "unknownBlockers": [
-      "channel_handle_not_supplied",
-      "channel_id_not_supplied",
-      "youtube_baseline_not_supplied"
-    ]
+    "metricsSourceReceiptReference": null,
+    "unknownMeasurementBlockers": [
+      "subscriber_count_not_measured",
+      "historical_views_not_measured",
+      "historical_engaged_views_not_measured"
+    ],
+    "unknownMetricsTreatedAsZero": false
   },
   "constraints": {
     "market": "US",
