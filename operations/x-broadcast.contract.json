@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "deploymentStatus": "implementation-ready-disabled",
+  "repository": "Ironman1421/davidsdailybread",
+  "owner": "David Friedhof",
+  "runtime": "GitHub Actions ubuntu-latest with pinned Python 3.12 setup",
+  "scope": "one canonical X broadcast per newly published edition; no replies, mentions, likes, follows, reposts, quotes, media, or deletion",
+  "trigger": {
+    "workflow": ".github/workflows/ddb-bake.yml",
+    "afterJob": "bake",
+    "requiresSuccessfulCanonicalPublish": true,
+    "inputs": ["date", "slot", "mode"],
+    "backfillPostsAllowed": false
+  },
+  "authorityBoundary": {
+    "freshRunner": true,
+    "authorJobReceivesXCredentials": false,
+    "canonicalPublisherJobReceivesXCredentials": false,
+    "broadcastJobPermissions": {
+      "actions": "read",
+      "contents": "read"
+    },
+    "environment": "x-broadcast-production",
+    "providerInterface": "official X API v2 only"
+  },
+  "githubSecrets": [
+    "X_API_KEY",
+    "X_API_SECRET",
+    "X_ACCESS_TOKEN",
+    "X_ACCESS_TOKEN_SECRET"
+  ],
+  "githubVariables": [
+    "DDB_X_BROADCAST_ENABLED",
+    "DDB_X_BROADCAST_KILL_SWITCH",
+    "X_EXPECTED_USER_ID",
+    "X_EXPECTED_USERNAME"
+  ],
+  "enablement": {
+    "killSwitchDefaultOn": true,
+    "liveRequiresExactEnabledValue": "true",
+    "liveRequiresExactKillSwitchValue": "false",
+    "secretsLoadedOnlyByLiveStep": true
+  },
+  "providerEndpoints": [
+    "GET https://api.x.com/2/users/me",
+    "GET https://api.x.com/2/users/{id}/tweets",
+    "POST https://api.x.com/2/tweets",
+    "GET https://api.x.com/2/tweets/{id}"
+  ],
+  "idempotency": {
+    "key": "ddb:x:canonical:{editionId}:v1",
+    "localBootstrap": "distribution/x-broadcast-state.json",
+    "durablePreMutationReservationArtifactName": "x-broadcast-reservation-{editionId}",
+    "reservationUploadMustSucceedBeforeSecretsLoad": true,
+    "durableReceiptArtifactName": "x-broadcast-receipt-{editionId}",
+    "duplicateArtifactLookup": "GitHub Actions receipt and reservation artifact metadata API",
+    "workflowConcurrency": "ddb-main-writers",
+    "ambiguousMutationBlocksRetry": true,
+    "providerTimelineDuplicatePreflight": {
+      "maximumOriginalPosts": 100,
+      "matchesAuthorTextAndExpandedCanonicalUrl": true
+    },
+    "artifactRetentionDays": 90,
+    "historicalDuplicateBackstop": "successful bakes refuse existing edition files"
+  },
+  "retry": {
+    "maximumAttempts": 3,
+    "jitter": true,
+    "maximumSleepSeconds": 30,
+    "readOnlyRetryStatuses": [429, 500, 502, 503, 504],
+    "createRetryStatuses": [429],
+    "neverRetryStatuses": [400, 401, 403, 404],
+    "ambiguousPostTimeoutOr5xx": "do not retry; write needs_reconciliation receipt"
+  },
+  "logging": {
+    "secretValuesAllowed": false,
+    "authorizationHeadersAllowed": false,
+    "providerBodiesStored": false,
+    "attemptArtifactName": "x-broadcast-attempt-{editionId}-{runId}-{runAttempt}"
+  },
+  "failureNotification": "failed Daily bake workflow run in the GitHub Actions UI; repository owner must keep Actions failure notifications enabled"
+}

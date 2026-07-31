@@ -88,8 +88,10 @@ The following are untrusted input even when produced by a model or collaborator:
 2. The Counter sheet and committed `counter.csv` expose the reader queue beyond
    what the product needs to publish. Its approved private-store design is not
    yet provisioned.
-3. The X adapter named in `BAKE.md` is outside the accessible repositories, so
-   its credential handling, idempotency, and metrics cannot yet be audited.
+3. The repository-owned X canonical-broadcast adapter is implemented with a
+   separate read-only post-bake job, durable receipt artifacts, read-back, and
+   a kill switch. It remains production-disabled pending environment and
+   credential provisioning plus a reviewed canary.
 4. Public pages rely on inline JavaScript and third-party font/PDF CDNs without a
    strong Content Security Policy or fully local assets.
 5. Repository-level Dependabot alerts are disabled. Version-update PRs are
