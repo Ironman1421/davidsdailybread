@@ -1,0 +1,72 @@
+name: Merge gate
+# AUTONOMY.md gate 1: nothing reaches `main` without the full test suite green
+# AND a render check. This job is that gate. It is the machine review that
+# replaces David's approval, so it fails closed: any doubt is a failure.
+#
+# It deliberately does NOT run on the Spark. The Spark is ARM64 and these
+# runners are x86_64, so a local green would not mean anything (per David,
+# 2026-07-30). CI is the only place the baseline is established.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: merge-gate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        # The suite is stdlib-only (unittest style); pytest is just the runner.
+        run: python -m pip install --quiet --upgrade pip pytest
+
+      - name: Full test suite
+        # `python -m pytest` (not bare `pytest`) is load bearing: it puts the
+        # repo root on sys.path so `import ddb_bake` resolves. There is no
+        # conftest.py doing that for us.
+        run: |
+          set -euo pipefail
+          python -m pytest tests/ -q 2>&1 | tee "$RUNNER_TEMP/pytest-out.txt"
+
+      - name: Assert the suite was not silently emptied
+        # pytest exits 5 on "no tests collected", which the step above would
+        # already catch. This guards the subtler case: a refactor that leaves a
+        # handful of tests behind and still exits 0. The floor is deliberately
+        # well below the current count, so it only trips on real breakage.
+        run: |
+          set -euo pipefail
+          passed="$(grep -oE '[0-9]+ passed' "$RUNNER_TEMP/pytest-out.txt" | head -1 | grep -oE '[0-9]+' || echo 0)"
+          echo "tests passed: ${passed}"
+          if [ "${passed}" -lt 15 ]; then
+            echo "::error::Only ${passed} tests passed; expected at least 15. The suite looks emptied or broken."
+            exit 1
+          fi
+
+      - name: Render check
+        # tests/test_evening_render.py asserts at MODULE level and defines no
+        # test_* functions. pytest does execute it on import, but it reports
+        # "0 tests" from this file when it passes, so a future change to
+        # collection could silently drop the render check. Running it directly
+        # makes the check explicit and impossible to no-op.
+        # It renders fixture morning + evening editions into a throwaway copy of
+        # the repo and asserts each slot's write-set contract.
+        run: |
+          set -euo pipefail
+          python3 tests/test_evening_render.py
+
+      - name: Gate result
+        run: echo "Merge gate passed: full suite green and render check explicit."
