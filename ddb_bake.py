@@ -30,8 +30,10 @@ import os
 import re
 import sys
 import tempfile
+from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import ddb_satchel
 import ddb_synth
@@ -128,6 +130,10 @@ def parse_draft(path: Path) -> dict[str, list[dict]]:
             if m:
                 title = ddb_synth.strip_em_dashes(m.group(1).strip())
                 url = m.group(2).strip()
+                if not is_safe_source_url(url):
+                    raise ValueError(
+                        f"unsafe source URL in {path.name}: absolute credential-free https required"
+                    )
                 source_part = m.group(3).strip()
 
                 # Parse source from "Source Name · Jul 09 10:04"
@@ -170,6 +176,55 @@ def _esc_archive_text(text: str) -> str:
     return _esc_text(text).replace('"', "&quot;").replace("'", "&#x27;")
 
 
+def is_safe_source_url(value: object) -> bool:
+    """Return whether a reader-visible source URL is safe to publish.
+
+    Editorial URLs cross two trust boundaries: model/web research into JSON,
+    then JSON into an ``href`` and localStorage note key.  Require encrypted,
+    absolute web URLs with no credentials or control characters.  HTML
+    escaping alone does not make an unsafe scheme or credential-bearing URL a
+    trustworthy source link.
+    """
+    if not isinstance(value, str) or value != value.strip():
+        return False
+    if any(ch.isspace() or ord(ch) == 0x7F for ch in value):
+        return False
+    try:
+        parsed = urlsplit(value)
+        _ = parsed.port  # Force validation of malformed ports.
+    except ValueError:
+        return False
+    return bool(
+        parsed.scheme == "https"
+        and parsed.netloc
+        and parsed.hostname
+        and parsed.username is None
+        and parsed.password is None
+    )
+
+
+DEK_RE = re.compile(r"^\s*<b>([^<>]+)</b>\s+([^<>]+?)\s*$", re.DOTALL)
+
+
+def render_dek(value: object) -> str:
+    """Validate and render the one markup fragment editorial JSON permits.
+
+    A dek may contain exactly one leading ``<b>...</b>`` phrase and plain text
+    after it.  Both text portions are escaped here.  This keeps model output,
+    fetched-page prompt injection, and reader-supplied HTML from becoming
+    executable markup while preserving the house-style bold lead-in.
+    """
+    if not isinstance(value, str):
+        raise ValueError("dek must be a string")
+    match = DEK_RE.fullmatch(value)
+    if match is None:
+        raise ValueError("dek must be '<b>plain lead-in</b> plain text' with no other markup")
+    lead_in, remainder = match.groups()
+    if not lead_in.strip() or not remainder.strip():
+        raise ValueError("dek lead-in and body must both be non-empty")
+    return f"<b>{_esc_text(lead_in.strip())}</b> {_esc_text(remainder.strip())}"
+
+
 # ---------------------------------------------------------------------------
 # Archive management
 # ---------------------------------------------------------------------------
@@ -190,6 +245,41 @@ def write_archive_json(path: Path, data: dict) -> None:
         f.write("\n")
 
 
+def archive_with_edition(data: dict, edition_date: str, edition_type: str,
+                         lead_title: str, human_date: str, pub_date: str) -> dict:
+    """Return an archive manifest with one exact, idempotent edition entry.
+
+    ``lead`` is a downstream distribution contract, including the X poster.
+    It must remain byte-for-byte editorial text rather than being silently
+    shortened by storage code; the active renderer enforces its channel limit
+    before this function is called.
+    """
+    updated = deepcopy(data)
+    updated.setdefault("site", DOMAIN)
+    updated.setdefault("editions", [])
+    file_name = f"editions/{edition_date}-{edition_type}.html"
+    updated["editions"] = [
+        entry for entry in updated["editions"]
+        if not (entry["date"] == edition_date and entry["edition"] == edition_type)
+    ]
+    updated["editions"].append({
+        "date": edition_date,
+        "edition": edition_type,
+        "dateHuman": human_date,
+        "file": file_name,
+        "lead": lead_title,
+        "pubDate": pub_date,
+    })
+    updated["editions"] = sorted(
+        updated["editions"],
+        key=lambda entry: (
+            entry["date"], 0 if entry["edition"] == "morning" else 1
+        ),
+        reverse=True,
+    )
+    return updated
+
+
 def update_archive(path: Path, edition_date: str, edition_type: str, lead_title: str,
                     human_date: str, pub_date: str) -> None:
     """Add or update the edition entry in archive.json (idempotent).
@@ -205,24 +295,10 @@ def update_archive(path: Path, edition_date: str, edition_type: str, lead_title:
     consumer that doesn't know it. Backfills feed.xml's pubDate for entries
     baked here instead of falling back to a nominal slot time.
     """
-    data = read_archive_json(path)
-    file_name = f"editions/{edition_date}-{edition_type}.html"
-
-    # Remove existing entry for same date+edition (idempotent)
-    data["editions"] = [
-        e for e in data["editions"]
-        if not (e["date"] == edition_date and e["edition"] == edition_type)
-    ]
-
-    data["editions"].append({
-        "date": edition_date,
-        "edition": edition_type,
-        "dateHuman": human_date,
-        "file": file_name,
-        "lead": lead_title[:100] + ("…" if len(lead_title) > 100 else ""),
-        "pubDate": pub_date,
-    })
-
+    data = archive_with_edition(
+        read_archive_json(path), edition_date, edition_type, lead_title,
+        human_date, pub_date,
+    )
     write_archive_json(path, data)
 
 
@@ -280,7 +356,8 @@ def _atomic_replace_bytes(path: Path, payload: bytes) -> None:
     temporary = Path(temporary_name)
     try:
         temporary.write_bytes(payload)
-        os.chmod(temporary, path.stat().st_mode & 0o777)
+        mode = path.stat().st_mode & 0o777 if path.exists() else 0o644
+        os.chmod(temporary, mode)
         with temporary.open("rb") as handle:
             os.fsync(handle.fileno())
         os.replace(temporary, path)
@@ -373,7 +450,10 @@ def fill_or_strip_section(html: str, start_marker: str, end_marker: str,
 
 
 def fill_reader_sections(html: str, csv_path: Path, dry_run: bool) -> str:
-    tokens = ddb_satchel.fill_reader_sections(SITE, csv_path, write_state=not dry_run)
+    raw_tokens = ddb_satchel.fill_reader_sections(SITE, csv_path, write_state=not dry_run)
+    # Counter submissions and model replies are untrusted plain text.  Reader
+    # sections permit no HTML, so escape every value before template insertion.
+    tokens = {key: _esc_text(str(value)) for key, value in raw_tokens.items()}
     html = fill_or_strip_section(html, "<!--READER_QA_START-->", "<!--READER_QA_END-->",
                                   tokens, ["RQ1_Q", "RQ1_A"])
     html = fill_or_strip_section(html, "<!--KING_COURT_START-->", "<!--KING_COURT_END-->",
@@ -422,9 +502,11 @@ def render_category(section: str, cards: list[dict]) -> str:
     for i in range(1, 7):
         if i <= len(cards):
             c = cards[i - 1]
+            if not is_safe_source_url(c.get("url")):
+                raise ValueError(f"unsafe source URL in {section} card {i}")
             html = html.replace(f"CAT_{i}_URL", _esc(c["url"]))
             html = html.replace(f"CAT_{i}_HEADLINE", _esc_text(c["title"]))
-            html = html.replace(f"CAT_{i}_DEK", c["dek"])
+            html = html.replace(f"CAT_{i}_DEK", render_dek(c["dek"]))
         else:
             # Fewer than 6 stories today — drop the empty card slot's whole <div class="stack">…</div>.
             pattern = re.compile(
@@ -493,6 +575,8 @@ def render_home(date_str: str, slot: str, data: dict[str, list[dict]],
 
     for field in ("title", "badge", "standfirst", "body"):
         lead[field] = ddb_synth.strip_em_dashes(lead[field])
+    if not is_safe_source_url(lead.get("url")):
+        raise ValueError("lead source URL must be absolute credential-free https")
 
     html = html.replace("LEAD_URL", _esc(lead["url"]))
     html = html.replace("LEAD_BADGE", _esc_text(lead["badge"]))
@@ -506,9 +590,11 @@ def render_home(date_str: str, slot: str, data: dict[str, list[dict]],
         for i in (1, 2):
             if i <= len(ranked_cards[s]):
                 c = ranked_cards[s][i - 1]
+                if not is_safe_source_url(c.get("url")):
+                    raise ValueError(f"unsafe source URL in {s} card {i}")
                 html = html.replace(f"CARD_{p}{i}_URL", _esc(c["url"]))
                 html = html.replace(f"CARD_{p}{i}_HEADLINE", _esc_text(c["title"]))
-                html = html.replace(f"CARD_{p}{i}_DEK", c["dek"])
+                html = html.replace(f"CARD_{p}{i}_DEK", render_dek(c["dek"]))
             else:
                 pattern = re.compile(
                     r'<div class="stack"><article class="card story-card"><a class="card-link" href="CARD_' + p + str(i) +

@@ -34,7 +34,9 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: ddb-bake
+  # Serializes every workflow that can write main. Keep this group in sync
+  # with counter-sync.yml so a late Counter refresh cannot race a bake push.
+  group: ddb-main-writers
   cancel-in-progress: false
 jobs:
   bake:
@@ -42,7 +44,7 @@ jobs:
     timeout-minutes: 75
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           # persist-credentials: false is load bearing. It strips the checkout
           # token from the local git config so the Claude bake step CANNOT push,
@@ -104,7 +106,11 @@ jobs:
           fi
 
       - name: Install Claude Code
-        run: npm install -g @anthropic-ai/claude-code
+        run: |
+          set -euo pipefail
+          package="$(npm pack @anthropic-ai/claude-code@2.1.220 --silent)"
+          echo "a2006bbf092a17d7fca249a75cac6644d1eebed1711447df7b9a5676a395de2403c6550e2a2ac5aa7c960bb3465d79c30385a491b3c7f29bd26f0c8247602ecb  ${package}" | sha512sum --check
+          npm install -g "./${package}"
 
       - name: Bake (research, write, render)
         env:
@@ -129,7 +135,7 @@ jobs:
           1. Setup is already done. The repo is checked out right here, so BAKE.md step 0 needs nothing from you: there is nothing to clone and no git identity to configure.
           2. Edition date: use exactly $DDB_DATE, verbatim, as --date. The runner already resolved it; no need to work it out yourself.
           3. Publishing belongs to the workflow, which commits, pushes, and verifies after you finish; BAKE.md steps 6 and 7 are its job, and git is its tool rather than yours. Your job ends when the render is clean and you have reviewed it like an editor.
-          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. The daily morning bake is BAKE.md steps 1-8 as written, reader sections per the --plan output. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and its own content.json keys, rendered with --slot evening; the reader plan and reader sections belong to the morning paper only. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT.
+          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. The daily morning bake is BAKE.md steps 1-8 as written, reader sections per the --plan output. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and its own content.json keys, rendered with --slot evening --mode $DDB_MODE; the reader plan and reader sections belong to the morning paper only. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
           5. Honesty: every fact traces to a source link you actually fetched. Work through BAKE.md step 5A, the accuracy pass, before you hand off, and say in your report what it changed. If a section cannot reach the 2-story minimum with verified stories, stop and report that plainly rather than padding; a failed bake that says so is a good outcome. In the evening edition, an item counts as trending only when a cited source shows where it is trending.
           6. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
           Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, which reader sections ran (morning only), and the render result.
@@ -162,7 +168,7 @@ jobs:
           # no counter.csv.
           git status --porcelain | cut -c4- > "$RUNNER_TEMP/changed-files.txt"
           if [ "${SLOT}" = "morning" ]; then
-            allow='^(index\.html|tech\.html|markets\.html|science\.html|archive\.html|archive\.json|feed\.xml|bakery-state\.json|kings-satchel\.json|counter\.csv|editions/[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)\.html)$'
+            allow='^(index\.html|tech\.html|markets\.html|science\.html|archive\.html|archive\.json|feed\.xml|bakery-state\.json|kings-satchel\.json|editions/[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)\.html)$'
           else
             allow='^(index\.html|archive\.html|archive\.json|feed\.xml|editions/[0-9]{4}-[0-9]{2}-[0-9]{2}-evening\.html)$'
           fi
@@ -253,7 +259,7 @@ jobs:
 
       - name: Upload diagnostics
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: bake-${{ steps.cfg.outputs.date }}-${{ steps.cfg.outputs.slot }}-${{ github.run_id }}
           path: ${{ runner.temp }}/bake-artifacts

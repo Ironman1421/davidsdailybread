@@ -8,7 +8,7 @@ personas. This script does everything MECHANICAL, deterministically, with no
 model calls anywhere:
 
   --plan
-      Fetch the Counter CSV (reader submissions), read bakery-state.json and
+      Read the committed Counter CSV snapshot (reader submissions), bakery-state.json and
       kings-satchel.json from the working tree, and print a JSON "reader plan":
       exactly which submission (or house-satchel letter) the session must write
       replies for today, plus the satchel inventory. Never mutates state.
@@ -56,6 +56,12 @@ SLOT_SECTIONS = {
 }
 SLOT_LABEL = {"morning": "Morning edition", "evening": "Evening edition"}
 SLOT_TEMPLATE = {"morning": "home.html", "evening": "evening.html"}
+MORNING_BADGES = {
+    "tech": "Technology",
+    "markets": "Business & markets",
+    "science": "Science",
+}
+X_LEAD_MAX_CHARS = 130
 SECTIONS = SLOT_SECTIONS["morning"]  # legacy alias
 _PREFIXES = ("T", "M", "S")
 _GLANCE_TOKENS = ("GLANCE_TECH", "GLANCE_MARKETS", "GLANCE_SCIENCE")
@@ -89,12 +95,20 @@ def cmd_plan(csv_path: Path) -> None:
     satchel_path = REPO / "kings-satchel.json"
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
 
-    csv_ok = ddb_satchel.fetch_csv(csv_path)
+    # counter-sync owns network ingestion.  Planning reads the committed,
+    # reviewable snapshot only so a bake cannot mutate reader input behind the
+    # workflow's changed-file gate.
     rows = ddb_satchel.classify(ddb_satchel.load_csv_rows(csv_path)) if csv_path.exists() else {
         "asks": [], "king_letters": [], "pins": []
     }
 
-    plan: dict = {"csv_fetched": bool(csv_ok), "ask": None, "king": None, "pin": None}
+    plan: dict = {
+        "counter_source": "committed counter.csv",
+        "csv_fetched": False,  # retained for older bake-session consumers
+        "ask": None,
+        "king": None,
+        "pin": None,
+    }
 
     ask_row = ddb_satchel.pick_oldest_unused(rows["asks"], set(state.get("answeredQuestions", [])))
     if ask_row:
@@ -134,66 +148,107 @@ def _require(cond: bool, msg: str) -> None:
 
 
 def validate_content(c: dict, date: str, slot: str) -> None:
+    _require(isinstance(c, dict), "content root must be an object")
     sections = SLOT_SECTIONS[slot]
     _require(c.get("date") == date, f"content date {c.get('date')!r} != --date {date!r}")
     lead = c.get("lead") or {}
+    _require(isinstance(lead, dict), "lead must be an object")
     for k in ("section", "title", "url", "badge", "standfirst", "body"):
-        _require(bool(str(lead.get(k, "")).strip()), f"lead.{k} missing/empty")
+        _require(isinstance(lead.get(k), str) and bool(lead[k].strip()),
+                 f"lead.{k} must be a non-empty string")
     _require(lead["section"] in sections,
              f"lead.section {lead['section']!r} invalid for the {slot} edition")
-    _require(str(lead["url"]).startswith("http"), "lead.url must be a real link")
+    _require(ddb_bake.is_safe_source_url(lead["url"]),
+             "lead.url must be an absolute credential-free https link")
+    _require(len(lead["title"]) <= X_LEAD_MAX_CHARS,
+             f"lead.title must be <= {X_LEAD_MAX_CHARS} characters for the X contract")
+
+    def require_dek(value: object, path: str) -> None:
+        try:
+            ddb_bake.render_dek(value)
+        except ValueError as exc:
+            fail(f"{path}: {exc}")
 
     cards = c.get("cards") or {}
+    _require(isinstance(cards, dict), "cards must be an object")
     if slot == "evening":
         _require(lead["badge"] in ("Trending tool", "Trending workflow"),
                  f"evening lead.badge must be 'Trending tool' or 'Trending workflow', "
                  f"got {lead['badge']!r}")
-        note = str(lead.get("note") or "").strip()
+        _require(lead.get("note") is None or isinstance(lead.get("note"), str),
+                 "lead.note must be a string when present")
+        note = (lead.get("note") or "").strip()
         _require(len(note) <= 40, "lead.note is a short handwritten aside; keep it under 40 chars")
         _require(set(cards) == set(sections),
                  f"evening cards must be exactly {set(sections)}, got {set(cards)} "
                  "(news has no evening slot; the trending stories section is retired)")
         tools = cards.get("tools") or []
+        _require(isinstance(tools, list), "cards.tools must be a list")
         _require(2 <= len(tools) <= 6, f"cards.tools: need 2-6 items, got {len(tools)}")
         for i, t in enumerate(tools):
+            _require(isinstance(t, dict), f"cards.tools[{i}] must be an object")
             for k in ("name", "url", "cost", "kind", "seen", "blurb"):
-                _require(bool(str(t.get(k, "")).strip()), f"cards.tools[{i}].{k} missing")
-            _require(str(t["url"]).startswith("http"), f"cards.tools[{i}].url must be a link")
+                _require(isinstance(t.get(k), str) and bool(t[k].strip()),
+                         f"cards.tools[{i}].{k} must be a non-empty string")
+            _require(ddb_bake.is_safe_source_url(t["url"]),
+                     f"cards.tools[{i}].url must be an absolute credential-free https link")
             _require(len(t["name"]) <= 60, f"cards.tools[{i}].name too long for a shelf tile")
             for k in ("cost", "kind", "seen"):
                 _require(len(t[k]) <= 32, f"cards.tools[{i}].{k} too long for a tag chip")
         flows = cards.get("workflows") or []
+        _require(isinstance(flows, list), "cards.workflows must be a list")
         _require(2 <= len(flows) <= 6, f"cards.workflows: need 2-6 items, got {len(flows)}")
         for i, w in enumerate(flows):
+            _require(isinstance(w, dict), f"cards.workflows[{i}] must be an object")
             for k in ("title", "url", "dek", "time"):
-                _require(bool(str(w.get(k, "")).strip()), f"cards.workflows[{i}].{k} missing")
-            _require(str(w["url"]).startswith("http"), f"cards.workflows[{i}].url must be a link")
-            _require("<b>" in w["dek"] and "</b>" in w["dek"],
-                     f"cards.workflows[{i}].dek must open with a <b>lead-in</b>")
+                _require(isinstance(w.get(k), str) and bool(w[k].strip()),
+                         f"cards.workflows[{i}].{k} must be a non-empty string")
+            _require(ddb_bake.is_safe_source_url(w["url"]),
+                     f"cards.workflows[{i}].url must be an absolute credential-free https link")
+            require_dek(w["dek"], f"cards.workflows[{i}].dek")
             _require(len(w["time"]) <= 24, f"cards.workflows[{i}].time too long for a chip")
             needs = w.get("needs") or []
-            _require(2 <= len(needs) <= 4 and all(str(n).strip() for n in needs),
+            _require(isinstance(needs, list),
+                     f"cards.workflows[{i}].needs must be a list")
+            _require(2 <= len(needs) <= 4
+                     and all(isinstance(n, str) and n.strip() for n in needs),
                      f"cards.workflows[{i}].needs: 2-4 short non-empty strings")
             _require(all(len(str(n)) <= 40 for n in needs),
                      f"cards.workflows[{i}].needs entries must stay short (<=40 chars)")
     else:
+        _require(lead["badge"] == MORNING_BADGES[lead["section"]],
+                 f"morning lead.badge for {lead['section']!r} must be "
+                 f"{MORNING_BADGES[lead['section']]!r}")
+        _require(set(cards) == set(sections),
+                 f"morning cards must be exactly {set(sections)}, got {set(cards)}")
         for s in sections:
             items = cards.get(s) or []
+            _require(isinstance(items, list), f"cards.{s} must be a list")
             _require(2 <= len(items) <= 6, f"cards.{s}: need 2-6 items, got {len(items)}")
             for i, item in enumerate(items):
+                _require(isinstance(item, dict), f"cards.{s}[{i}] must be an object")
                 for k in ("title", "url", "dek"):
-                    _require(bool(str(item.get(k, "")).strip()), f"cards.{s}[{i}].{k} missing")
-                _require(str(item["url"]).startswith("http"), f"cards.{s}[{i}].url must be a link")
-                _require("<b>" in item["dek"] and "</b>" in item["dek"],
-                         f"cards.{s}[{i}].dek must open with a <b>lead-in</b>")
+                    _require(isinstance(item.get(k), str) and bool(item[k].strip()),
+                             f"cards.{s}[{i}].{k} must be a non-empty string")
+                _require(ddb_bake.is_safe_source_url(item["url"]),
+                         f"cards.{s}[{i}].url must be an absolute credential-free https link")
+                require_dek(item["dek"], f"cards.{s}[{i}].dek")
 
     glance = c.get("glance") or {}
+    _require(isinstance(glance, dict), "glance must be an object")
+    _require(set(glance) == set(sections),
+             f"glance must be exactly {set(sections)}, got {set(glance)}")
     for s in sections:
-        _require(bool(str(glance.get(s, "")).strip()), f"glance.{s} missing")
+        _require(isinstance(glance.get(s), str) and bool(glance[s].strip()),
+                 f"glance.{s} must be a non-empty string")
+        _require(len(glance[s].split()) <= 20,
+                 f"glance.{s} must be <=20 words")
 
     def scan(obj, path="content"):
         if isinstance(obj, str):
             _require(not EM_DASH_RE.search(obj), f"em dash found in {path} (house style forbids them)")
+            _require(not LEFTOVER_TOKEN_RE.search(obj),
+                     f"template token found in {path}; refusing ambiguous rendered output")
         elif isinstance(obj, dict):
             for k, v in obj.items():
                 scan(v, f"{path}.{k}")
@@ -209,19 +264,119 @@ def validate_content(c: dict, date: str, slot: str) -> None:
         return
 
     reader = c.get("reader") or {}
+    _require(isinstance(reader, dict), "reader must be an object")
     king = reader.get("king")
     if king:
-        _require(bool(str(king.get("answer", "")).strip()), "reader.king.answer missing")
-        _require(bool(king.get("state_key")) or bool(king.get("satchel_id")),
+        _require(isinstance(king, dict), "reader.king must be an object")
+        _require(isinstance(king.get("question"), str) and bool(king["question"].strip()),
+                 "reader.king.question missing")
+        _require(isinstance(king.get("answer"), str) and bool(king["answer"].strip()),
+                 "reader.king.answer missing")
+        _require((isinstance(king.get("state_key"), str) and bool(king["state_key"]))
+                 or (isinstance(king.get("satchel_id"), str) and bool(king["satchel_id"])),
                  "reader.king needs state_key (reader mail) or satchel_id (house letter)")
+        _require(bool(king.get("state_key")) != bool(king.get("satchel_id")),
+                 "reader.king must have exactly one of state_key or satchel_id")
+        if king.get("state_key"):
+            _require(isinstance(king.get("from"), str) and bool(king["from"].strip()),
+                     "reader.king.from is required for reader mail")
     ask = reader.get("ask")
     if ask:
-        _require(bool(str(ask.get("answer", "")).strip()) and bool(ask.get("state_key")),
-                 "reader.ask needs answer + state_key")
+        _require(isinstance(ask, dict), "reader.ask must be an object")
+        _require(isinstance(ask.get("question"), str) and bool(ask["question"].strip())
+                 and isinstance(ask.get("answer"), str) and bool(ask["answer"].strip())
+                 and isinstance(ask.get("state_key"), str) and bool(ask["state_key"]),
+                 "reader.ask needs question + answer + state_key")
     pin = reader.get("pin")
     if pin:
-        _require(bool(str(pin.get("text", "")).strip()) and bool(pin.get("state_key")),
+        _require(isinstance(pin, dict), "reader.pin must be an object")
+        _require(isinstance(pin.get("text"), str) and bool(pin["text"].strip())
+                 and isinstance(pin.get("state_key"), str) and bool(pin["state_key"]),
                  "reader.pin needs text + state_key")
+        _require(pin.get("sig_name") is None or isinstance(pin.get("sig_name"), str),
+                 "reader.pin.sig_name must be a string when present")
+
+
+def validate_reader_provenance(reader: dict, csv_path: Path | None = None,
+                               state_path: Path | None = None,
+                               satchel_path: Path | None = None,
+                               require_complete: bool = False) -> None:
+    """Bind reader-visible submissions to the committed Counter and satchel.
+
+    Replies remain editorial model output, but the quoted question, sender,
+    signature, selection order, and bookkeeping key may not be invented or
+    swapped. Pin text may differ because the product explicitly permits a
+    light typo copyedit.
+    """
+    csv_path = csv_path or REPO / "counter.csv"
+    state_path = state_path or REPO / "bakery-state.json"
+    satchel_path = satchel_path or REPO / "kings-satchel.json"
+    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
+    rows = ddb_satchel.classify(ddb_satchel.load_csv_rows(csv_path))
+
+    expected_ask = ddb_satchel.pick_oldest_unused(
+        rows["asks"], set(state.get("answeredQuestions", []))
+    )
+    ask = reader.get("ask")
+    if require_complete:
+        _require(bool(ask) == bool(expected_ask),
+                 "reader.ask must match whether the plan has a waiting question")
+    if ask:
+        expected = expected_ask
+        _require(expected is not None, "reader.ask has no waiting Counter source")
+        _require(ask["state_key"] == ddb_satchel.dedup_key(expected),
+                 "reader.ask.state_key does not match the oldest waiting Counter question")
+        _require(ask["question"] == ddb_satchel.strip_em_dashes(expected["text"]),
+                 "reader.ask.question does not match its Counter source")
+
+    expected_king = ddb_satchel.pick_oldest_unused(
+        rows["king_letters"], set(state.get("kingLetters", []))
+    )
+    unused_house_letters = [
+        letter for letter in ddb_satchel.load_satchel(satchel_path)
+        if letter.get("id") not in set(state.get("usedSatchelLetters", []))
+    ]
+    king = reader.get("king")
+    if require_complete:
+        _require(bool(king) == bool(expected_king or unused_house_letters),
+                 "reader.king must match whether the plan has reader or house mail")
+    if king and king.get("state_key"):
+        expected = expected_king
+        _require(expected is not None, "reader.king has no waiting Counter source")
+        _require(king["state_key"] == ddb_satchel.dedup_key(expected),
+                 "reader.king.state_key does not match the oldest waiting Counter letter")
+        letter = expected["text"][len(ddb_satchel.KING_PREFIX):].strip()
+        _require(king["question"] == ddb_satchel.strip_em_dashes(letter),
+                 "reader.king.question does not match its Counter source")
+        _require(king["from"] == ddb_satchel.strip_em_dashes(expected["name"]),
+                 "reader.king.from does not match its Counter source")
+    elif king:
+        _require(expected_king is None,
+                 "reader.king cannot use a house letter while reader mail waits")
+        expected = next(
+            (letter for letter in unused_house_letters
+             if letter.get("id") == king["satchel_id"]),
+            None,
+        )
+        _require(expected is not None, "reader.king.satchel_id is not in kings-satchel.json")
+        _require(king["question"] == ddb_satchel.strip_em_dashes(expected["letter"]),
+                 "reader.king.question does not match its house letter")
+
+    expected_pin = ddb_satchel.pick_oldest_unused(
+        rows["pins"], set(state.get("postedPins", []))
+    )
+    pin = reader.get("pin")
+    if require_complete:
+        _require(bool(pin) == bool(expected_pin),
+                 "reader.pin must match whether the plan has a waiting pin")
+    if pin:
+        expected = expected_pin
+        _require(expected is not None, "reader.pin has no waiting Counter source")
+        _require(pin["state_key"] == ddb_satchel.dedup_key(expected),
+                 "reader.pin.state_key does not match the oldest waiting Counter pin")
+        _require((pin.get("sig_name") or "Anonymous")
+                 == ddb_satchel.strip_em_dashes(expected["name"]),
+                 "reader.pin.sig_name does not match its Counter source")
 
 
 def _evening_shelf_html(tools: list[dict]) -> str:
@@ -260,7 +415,7 @@ def _evening_recipes_html(flows: list[dict]) -> str:
             '</textarea><button class="notes-close" type="button" title="Close notes" '
             'aria-label="Close notes">&times;</button></div>'.format(
                 u=esc(w["url"]), t=esc_text(w["title"]), tm=esc_text(w["time"]),
-                d=ddb_satchel.strip_em_dashes(w["dek"]), nd=needs))
+                d=ddb_bake.render_dek(w["dek"]), nd=needs))
     return "\n".join(out)
 
 
@@ -336,7 +491,7 @@ def render_home_from_content(c: dict, date: str, slot: str) -> tuple[str, str]:
                 card = items[i - 1]
                 html = html.replace(f"CARD_{p}{i}_URL", esc(card["url"]))
                 html = html.replace(f"CARD_{p}{i}_HEADLINE", esc_text(card["title"]))
-                html = html.replace(f"CARD_{p}{i}_DEK", ddb_satchel.strip_em_dashes(card["dek"]))
+                html = html.replace(f"CARD_{p}{i}_DEK", ddb_bake.render_dek(card["dek"]))
             else:
                 pattern = re.compile(
                     r'<div class="stack"><article class="card story-card"><a class="card-link" href="CARD_'
@@ -361,20 +516,20 @@ def render_home_from_content(c: dict, date: str, slot: str) -> tuple[str, str]:
     reader = c.get("reader") or {}
     tokens: dict[str, str] = {}
     ask = reader.get("ask")
-    tokens["RQ1_Q"] = ddb_satchel.strip_em_dashes(ask["question"]) if ask else ""
-    tokens["RQ1_A"] = ddb_satchel.strip_em_dashes(ask["answer"]) if ask else ""
+    tokens["RQ1_Q"] = esc_text(ask["question"]) if ask else ""
+    tokens["RQ1_A"] = esc_text(ask["answer"]) if ask else ""
     king = reader.get("king")
     if king:
-        tokens["KQ1_Q"] = ddb_satchel.strip_em_dashes(king["question"])
+        tokens["KQ1_Q"] = esc_text(king["question"])
         tokens["KQ1_FROM"] = ("From the Baker's own shelf" if king.get("satchel_id")
-                              else f"From {ddb_satchel.strip_em_dashes(king.get('from', 'a reader'))}")
-        tokens["KQ1_A"] = ddb_satchel.strip_em_dashes(king["answer"])
+                              else f"From {esc_text(king.get('from', 'a reader'))}")
+        tokens["KQ1_A"] = esc_text(king["answer"])
     else:
         tokens["KQ1_Q"] = tokens["KQ1_FROM"] = tokens["KQ1_A"] = ""
     pin = reader.get("pin")
     if pin:
-        tokens["PIN1_TEXT"] = ddb_satchel.strip_em_dashes(pin["text"])
-        tokens["PIN1_SIG"] = f"– {ddb_satchel.strip_em_dashes(pin.get('sig_name') or 'Anonymous')}"
+        tokens["PIN1_TEXT"] = esc_text(pin["text"])
+        tokens["PIN1_SIG"] = f"– {esc_text(pin.get('sig_name') or 'Anonymous')}"
     else:
         tokens["PIN1_TEXT"] = tokens["PIN1_SIG"] = ""
 
@@ -394,9 +549,9 @@ def render_home_from_content(c: dict, date: str, slot: str) -> tuple[str, str]:
     return html, lead["title"]
 
 
-def verify_output(paths: list[Path]) -> None:
-    for p in paths:
-        text = p.read_text(encoding="utf-8")
+def verify_rendered_outputs(outputs: dict[Path, str]) -> None:
+    """Validate all candidate reader-visible outputs before any file changes."""
+    for p, text in outputs.items():
         m = LEFTOVER_TOKEN_RE.search(text)
         _require(m is None, f"{p.name}: leftover template token {m.group() if m else ''!r}")
         if p.suffix in (".html", ".xml"):
@@ -406,7 +561,13 @@ def verify_output(paths: list[Path]) -> None:
                      f"{p.name}: masthead art missing")
 
 
-def update_state(reader: dict) -> None:
+def verify_output(paths: list[Path]) -> None:
+    """Compatibility wrapper for callers validating files already on disk."""
+    verify_rendered_outputs({p: p.read_text(encoding="utf-8") for p in paths})
+
+
+def state_with_reader(reader: dict) -> dict:
+    """Return updated reader bookkeeping without mutating the working tree."""
     state_path = REPO / "bakery-state.json"
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {
         "note": "", "answeredQuestions": [], "postedPins": [], "kingLetters": [], "usedSatchelLetters": []
@@ -429,16 +590,31 @@ def update_state(reader: dict) -> None:
     pin = reader.get("pin")
     if pin:
         add("postedPins", pin["state_key"])
-    state_path.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return state
 
 
-def cmd_render(content_path: Path, date: str, slot: str) -> None:
+def update_state(reader: dict) -> None:
+    """Compatibility wrapper for the retired direct-write helper."""
+    state_path = REPO / "bakery-state.json"
+    state_path.write_text(
+        json.dumps(state_with_reader(reader), indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+
+def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily") -> None:
     try:
         content = json.loads(content_path.read_text(encoding="utf-8"))
     except Exception as e:  # noqa: BLE001
         fail(f"cannot read content JSON: {e}")
 
     validate_content(content, date, slot)
+    if slot == "morning":
+        reader = content.get("reader") or {}
+        if bake_mode == "backfill":
+            _require(not reader, "backfill editions must omit reader sections")
+        else:
+            validate_reader_provenance(reader, require_complete=True)
 
     archive_html_path = REPO / "archive.html"
     ddb_bake.validate_archive_file(archive_html_path)  # fail closed before any write
@@ -446,11 +622,11 @@ def cmd_render(content_path: Path, date: str, slot: str) -> None:
     html, lead_title = render_home_from_content(content, date, slot)
 
     editions = REPO / "editions"
-    editions.mkdir(exist_ok=True)
     edition_path = editions / f"{date}-{slot}.html"
-    edition_path.write_text(html, encoding="utf-8")
-    (REPO / "index.html").write_text(html, encoding="utf-8")
-
+    outputs: dict[Path, str] = {
+        edition_path: html,
+        REPO / "index.html": html,
+    }
     written = [edition_path, REPO / "index.html"]
     if slot == "morning":
         # Category pages belong to the morning news bake only; the evening
@@ -463,30 +639,51 @@ def cmd_render(content_path: Path, date: str, slot: str) -> None:
             ]
             cat_html = ddb_bake.render_category(s, cards)
             cat_path = REPO / f"{s}.html"
-            cat_path.write_text(cat_html, encoding="utf-8")
+            outputs[cat_path] = cat_html
             written.append(cat_path)
 
     from zoneinfo import ZoneInfo
     now_et = datetime.now(timezone.utc).astimezone(ZoneInfo("America/New_York"))
     pub_date = now_et.strftime("%a, %d %b %Y %H:%M:%S %z")
     archive_json_path = REPO / "archive.json"
-    ddb_bake.update_archive(archive_json_path, date, slot, lead_title,
-                            ddb_bake.human_date(date), pub_date)
-    archive_data = ddb_bake.read_archive_json(archive_json_path)
-    ddb_bake.update_archive_file(archive_html_path, archive_data)
-    (REPO / "feed.xml").write_text(ddb_bake.render_feed_xml(archive_data), encoding="utf-8")
+    archive_data = ddb_bake.archive_with_edition(
+        ddb_bake.read_archive_json(archive_json_path), date, slot, lead_title,
+        ddb_bake.human_date(date), pub_date,
+    )
+    outputs[archive_json_path] = json.dumps(
+        archive_data, indent=2, ensure_ascii=False
+    ) + "\n"
+    current_archive_html = archive_html_path.read_text(encoding="utf-8")
+    outputs[archive_html_path] = ddb_bake.update_archive_html(
+        current_archive_html, archive_data
+    )
+    outputs[REPO / "feed.xml"] = ddb_bake.render_feed_xml(archive_data)
     written += [archive_html_path, REPO / "feed.xml"]
 
-    if slot == "morning":
+    if slot == "morning" and bake_mode == "daily":
         # Reader-content bookkeeping is a morning concern; the evening bake
-        # leaves bakery-state.json and kings-satchel.json untouched.
-        update_state(content.get("reader") or {})
+        # and historical backfills leave reader state untouched.
+        state_path = REPO / "bakery-state.json"
+        outputs[state_path] = json.dumps(
+            state_with_reader(content.get("reader") or {}),
+            indent=2,
+            ensure_ascii=False,
+        ) + "\n"
 
-    verify_output(written)
+    # All validation happens before the first replace.  Each destination is
+    # then installed from a fully written sibling temp file.
+    verify_rendered_outputs({
+        path: text for path, text in outputs.items()
+        if path.suffix in (".html", ".xml")
+    })
+    editions.mkdir(exist_ok=True)
+    for path, text in outputs.items():
+        ddb_bake._atomic_replace_bytes(path, text.encode("utf-8"))
     print(f"BAKE OK: {date} {slot} · lead: {lead_title}")
     for p in written:
         print(f"  wrote {p.relative_to(REPO)}")
-    print("  wrote archive.json" + (", bakery-state.json" if slot == "morning" else ""))
+    wrote_state = slot == "morning" and bake_mode == "daily"
+    print("  wrote archive.json" + (", bakery-state.json" if wrote_state else ""))
 
 
 def main() -> None:
@@ -501,11 +698,13 @@ def main() -> None:
                          "evening (Field Guide: trending tools + workflows only, "
                          "no news, no reader sections, no category pages). "
                          "--plan is a morning-only concern.")
+    ap.add_argument("--mode", choices=("daily", "backfill"),
+                    default=os.environ.get("DDB_MODE", "daily"),
+                    help="daily or historical reconstruction mode (default: DDB_MODE or daily)")
     ap.add_argument("--csv", type=Path, default=REPO / "counter.csv",
                     help="Counter CSV path. Default: the repo's committed copy, kept "
-                         "fresh by .github/workflows/counter-sync.yml (the cloud "
-                         "sandbox cannot reach docs.google.com; a live refresh is "
-                         "still attempted and quietly falls back to this file)")
+                         "fresh by .github/workflows/counter-sync.yml. Planning reads "
+                         "this snapshot and never refreshes it.")
     args = ap.parse_args()
 
     if args.plan:
@@ -515,7 +714,7 @@ def main() -> None:
             fail("--render requires --content and --date")
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", args.date):
             fail(f"bad --date {args.date!r}")
-        cmd_render(args.content, args.date, args.slot)
+        cmd_render(args.content, args.date, args.slot, args.mode)
 
 
 if __name__ == "__main__":

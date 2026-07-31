@@ -9,11 +9,15 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  # Shared with ddb-bake.yml because both workflows push directly to main.
+  group: ddb-main-writers
+  cancel-in-progress: false
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Fetch published Counter CSV
         run: |
           curl -sSL --fail --retry 3 -o counter.csv.new \
@@ -33,5 +37,6 @@ jobs:
             echo "No change."
           else
             git commit -m "Counter sync: $(date -u +%F)"
+            git pull --rebase origin main
             git push
           fi

@@ -27,6 +27,10 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
 - `bakery-state.json` / `kings-satchel.json` — reader-content bookkeeping and
   the King's house letters.
 - `BRAND.md` — brand source of truth; `brand.css` — design tokens.
+- `docs/PRODUCT_SPEC.md` — current product and distribution contract;
+  `docs/SECURITY_SPEC.md` — trust boundaries and required controls;
+  `docs/GROWTH_ROADMAP.md` — the six-month audience plan;
+  `docs/AUDIT_2026-07-31.md` — takeover findings and open decisions.
 - `ddb_bake.py` / `ddb_satchel.py` / `ddb_synth.py` — the previous Spark-era
   pipeline; `ddb_session_bake.py` reuses their tested render/state helpers.
 - `tests/` — regression tests for brand law, archive integrity, and standing pages.
