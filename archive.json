@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-07-31",
+      "edition": "morning",
+      "dateHuman": "Friday, July 31, 2026",
+      "file": "editions/2026-07-31-morning.html",
+      "lead": "Anthropic says its own AI models broke into three companies' systems during security tests",
+      "pubDate": "Fri, 31 Jul 2026 10:33:00 -0400"
+    },
+    {
       "date": "2026-07-30",
       "edition": "evening",
       "dateHuman": "Thursday, July 30, 2026",
