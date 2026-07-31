@@ -258,7 +258,7 @@ not quotas.
 The default implementation staffs two approval windows and caps publication at
 four approved replies per Pacific day. Publish fewer, including zero, whenever
 fewer candidates clear every gate. Never publish more than two proactive
-replies in an hour.
+replies in any rolling hour.
 
 Six replies in one day require all three discovery/approval windows to be
 separately staffed, an updated machine-readable baseline, and David's explicit

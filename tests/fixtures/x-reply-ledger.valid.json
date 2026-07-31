@@ -11,6 +11,7 @@
     "scoutingMode": "manual-x-search-or-lists",
     "staffedApprovalWindows": 2,
     "dailyPublishedReplyCap": 4,
+    "maximumProactiveRepliesPerRollingHour": 2,
     "sixReplyDayMinimumApprovalWindows": 3,
     "breadMinimumScore": 9,
     "opportunityPublishThreshold": 75,

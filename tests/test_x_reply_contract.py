@@ -69,6 +69,7 @@ def assert_ledger_semantics(ledger):
 
     daily_counts = Counter()
     by_target = defaultdict(list)
+    proactive_timestamps = []
     for reply in ledger["publishedReplies"]:
         assert_score_totals(reply)
         discovered = parse_time(reply["discoveredAt"])
@@ -81,11 +82,22 @@ def assert_ledger_semantics(ledger):
         pacific_day = published.astimezone(PACIFIC).date()
         daily_counts[pacific_day] += 1
         by_target[reply["targetAccount"].lower()].append(published)
+        proactive_timestamps.append(published)
 
     assert all(
         count <= baseline["dailyPublishedReplyCap"]
         for count in daily_counts.values()
     )
+
+    proactive_timestamps.sort()
+    rolling_hour = timedelta(hours=1)
+    maximum_per_hour = baseline["maximumProactiveRepliesPerRollingHour"]
+    for start_index, start in enumerate(proactive_timestamps):
+        count = sum(
+            start <= timestamp < start + rolling_hour
+            for timestamp in proactive_timestamps[start_index:]
+        )
+        assert count <= maximum_per_hour
 
     minimum_gap = timedelta(
         hours=baseline["targetMinimumHoursBetweenProactiveReplies"]
@@ -126,12 +138,12 @@ class XReplyContractTest(unittest.TestCase):
             FIXTURES / "x-reply-approval-card.valid.json"
         )
 
-    def test_schemas_and_current_empty_ledger_validate(self):
+    def test_schemas_and_current_ledger_validate_semantically(self):
         Draft202012Validator.check_schema(self.ledger_schema)
         Draft202012Validator.check_schema(self.card_schema)
-        self.ledger_validator.validate(
-            load_json(ROOT / "distribution" / "x-replies.json")
-        )
+        current_ledger = load_json(ROOT / "distribution" / "x-replies.json")
+        self.ledger_validator.validate(current_ledger)
+        assert_ledger_semantics(current_ledger)
 
     def test_synthetic_valid_fixtures_validate_semantically(self):
         self.card_validator.validate(self.valid_card)
@@ -203,7 +215,7 @@ class XReplyContractTest(unittest.TestCase):
         with self.assertRaises(AssertionError):
             assert_approval_card_semantics(expired)
 
-    def test_semantic_checks_enforce_four_per_day_and_target_frequency(self):
+    def test_semantic_checks_enforce_volume_and_target_frequency(self):
         too_many = deepcopy(self.valid_ledger)
         original = too_many["publishedReplies"][0]
         for index in range(2, 6):
@@ -218,6 +230,29 @@ class XReplyContractTest(unittest.TestCase):
         self.ledger_validator.validate(too_many)
         with self.assertRaises(AssertionError):
             assert_ledger_semantics(too_many)
+
+        too_many_in_hour = deepcopy(self.valid_ledger)
+        for index, minutes in ((2, 20), (3, 40)):
+            reply = deepcopy(original)
+            reply["replyId"] = f"XR-20260731-{index:03d}"
+            reply["targetAccount"] = f"@Fixture{index}"
+            reply["replyPostId"] = f"100000000000000000{index}"
+            reply["replyUrl"] = (
+                f"https://x.com/Fixture{index}/status/100000000000000000{index}"
+            )
+            for field in (
+                "discoveredAt",
+                "approvedAt",
+                "approvalExpiresAt",
+                "publishedAt",
+            ):
+                reply[field] = (
+                    parse_time(reply[field]) + timedelta(minutes=minutes)
+                ).isoformat().replace("+00:00", "Z")
+            too_many_in_hour["publishedReplies"].append(reply)
+        self.ledger_validator.validate(too_many_in_hour)
+        with self.assertRaises(AssertionError):
+            assert_ledger_semantics(too_many_in_hour)
 
         repeated_target = deepcopy(self.valid_ledger)
         repeat = deepcopy(original)
