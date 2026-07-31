@@ -3,7 +3,7 @@
 <channel>
 <title>David's Daily Bread</title>
 <link>https://davidsdailybread.com/</link>
-<description>A news briefing on technology, markets, and science. Loved by God. Baked fresh each morning.</description>
+<description>A news briefing on technology, markets, and science each morning, and the evening's trending tools and workflows. Loved by God. Baked fresh twice daily.</description>
 <language>en-us</language>
 <atom:link href="https://davidsdailybread.com/feed.xml" rel="self" type="application/rss+xml"/>
 <image>
@@ -16,7 +16,7 @@
 <link>https://davidsdailybread.com/editions/2026-07-30-evening.html</link>
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-30-evening.html</guid>
 <pubDate>Thu, 30 Jul 2026 16:15:01 -0400</pubDate>
-<description>Lead story: OpenAI cuts GPT-5.6 prices by as much as 80 percent. Plus the evening's top stories in technology, markets, and science.</description>
+<description>Lead story: OpenAI cuts GPT-5.6 prices by as much as 80 percent. Plus the evening's trending tools and workflows.</description>
 </item>
 <item>
 <title>Morning edition – Thursday, July 30, 2026: AI industry employees ask Washington to build a brake for frontier development</title>
@@ -24,6 +24,13 @@
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-30-morning.html</guid>
 <pubDate>Thu, 30 Jul 2026 10:21:47 -0400</pubDate>
 <description>Lead story: AI industry employees ask Washington to build a brake for frontier development. Plus the morning's top stories in technology, markets, and science.</description>
+</item>
+<item>
+<title>Evening edition – Wednesday, July 29, 2026: KOReader's July release turns a Kindle, Kobo, or Android tablet into a far better e-reader, for free</title>
+<link>https://davidsdailybread.com/editions/2026-07-29-evening.html</link>
+<guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-29-evening.html</guid>
+<pubDate>Thu, 30 Jul 2026 22:00:12 -0400</pubDate>
+<description>Lead story: KOReader's July release turns a Kindle, Kobo, or Android tablet into a far better e-reader, for free. Plus the evening's trending tools and workflows.</description>
 </item>
 <item>
 <title>Morning edition – Wednesday, July 29, 2026: Federal Reserve holds interest rates steady as three officials dissent</title>
@@ -170,7 +177,7 @@
 <link>https://davidsdailybread.com/editions/2026-07-09-evening.html</link>
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-09-evening.html</guid>
 <pubDate>Thu, 09 Jul 2026 19:15:00 -0400</pubDate>
-<description>Lead story: Meta starts charging for AI as three frontier labs ship on a single day. Plus the evening's top stories in technology, markets, and science.</description>
+<description>Lead story: Meta starts charging for AI as three frontier labs ship on a single day. Plus the evening's trending tools and workflows.</description>
 </item>
 <item>
 <title>Morning edition – Thursday, July 9, 2026: OpenAI throws GPT-5.6 open to everyone as the frontier reshuffles in a single week</title>
@@ -184,7 +191,7 @@
 <link>https://davidsdailybread.com/editions/2026-07-08-evening.html</link>
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-08-evening.html</guid>
 <pubDate>Wed, 08 Jul 2026 19:15:00 -0400</pubDate>
-<description>Lead story: U.S. strikes Iran again and Wall Street buckles: Dow sheds 577 as oil nears $80. Plus the evening's top stories in technology, markets, and science.</description>
+<description>Lead story: U.S. strikes Iran again and Wall Street buckles: Dow sheds 577 as oil nears $80. Plus the evening's trending tools and workflows.</description>
 </item>
 <item>
 <title>Morning edition – Wednesday, July 8, 2026: Oil surges 6% and stocks tumble as Trump declares Iran ceasefire 'over'</title>
@@ -198,7 +205,7 @@
 <link>https://davidsdailybread.com/editions/2026-07-07-evening.html</link>
 <guid isPermaLink="true">https://davidsdailybread.com/editions/2026-07-07-evening.html</guid>
 <pubDate>Tue, 07 Jul 2026 19:15:00 -0400</pubDate>
-<description>Lead story: Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street. Plus the evening's top stories in technology, markets, and science.</description>
+<description>Lead story: Chip rout deepens as DeepSeek's silicon push and Samsung jolt Wall Street. Plus the evening's trending tools and workflows.</description>
 </item>
 <item>
 <title>Morning edition – Tuesday, July 7, 2026: Chip stocks slide as Samsung's profit surge fails to satisfy</title>
