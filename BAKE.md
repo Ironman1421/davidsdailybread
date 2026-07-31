@@ -81,8 +81,8 @@ workflow tells you both:
   dishonest). Render with `--slot <slot>`.
 
 Steps 1-9 below are the **morning** bake. The evening bake replaces steps 1-3
-with its own section and skips the satchel restock; render, review, and report
-(steps 4, 5, 9) apply to both slots.
+with its own section and skips the satchel restock; render, review, accuracy
+pass, and report (steps 4, 5, 5A, 9) apply to both slots.
 
 **1. Reader plan.** `python3 ddb_session_bake.py --plan` → JSON telling you which
 reader submission to answer (`ask`), which letter the King replies to (`king`,
@@ -141,6 +141,28 @@ and re-run; never hand-patch output.
 **5. Review like an editor.** Open the rendered `index.html` and read it. Check:
 the lead reads like front-page news, deks are grounded and non-generic, links
 point where they claim, the date is right. Fix content.json and re-render if not.
+
+**5A. Accuracy pass.** This step is required before handoff and applies to both
+slots. Go back through the edition one item at a time and check each claim
+against the source you actually fetched in this run, working from the fetched
+text rather than from memory:
+
+- every item traces to a URL you fetched, and the link resolves to the story it
+  claims;
+- every number, quote, date, name, and price appears in that fetched text. Where
+  you only had the headline, the item stays at headline level and carries no
+  specifics;
+- evening only: each item shows WHERE it is trending, read from the cited page,
+  and any popularity figure (stars, upvotes, views) is read from that page too;
+- the lead title is self-contained and about 130 characters or fewer, so the X
+  gate passes;
+- nothing reader-visible contains an em dash.
+
+If an item fails and the source cannot settle it, drop the item and re-render.
+If dropping takes a section under its 2-story minimum, stop and report that
+plainly per step 9. A bake that halts and says why is a good outcome; an edition
+published with an unverified fact is not. Say in your step 9 report that the
+accuracy pass ran, and what it changed or dropped.
 
 **6. Publish — the workflow's job, not yours.** Do NOT commit or push. When your
 render is clean and reviewed, your job is done; stop there. The workflow takes
@@ -259,7 +281,8 @@ tool blurbs are plain text (no markup) and each carries its caveat.
 
 **E3. Render, review, report.**
 `python3 ddb_session_bake.py --render --content content.json --date <date> --slot evening`
-then review it like an editor (step 5) and finish with the step 9 report.
+then review it like an editor (step 5), run the step 5A accuracy pass, and
+finish with the step 9 report.
 The renderer builds the shelf tiles and recipe cards from the JSON; the
 template (templates/evening.html, the Field Guide layout) is never edited at
 bake time. The evening bake never runs `--plan`, never writes the category
@@ -293,7 +316,14 @@ pages, and never touches `kings-satchel.json`, `bakery-state.json`, or
   repo's Actions tab open "Daily bake", click "Run workflow", set the `date`
   input to `YYYY-MM-DD` (blank means today in New York) and pick the `slot`
   (morning is the default). A past date runs in backfill mode automatically.
-  You can also override the `model` input there (default: `claude-opus-5`; `claude-sonnet-5` is cheaper but its safeguard classifier flagged this prompt on 2026-07-30, and `claude-fable-5` is the premium override).
+  You can also override the `model` input there. The standing target is
+  **`claude-opus-5`** ($5 / $25 per MTok), which is the workflow default and is
+  the model that produced the first clean evening edition on 2026-07-30.
+  `claude-sonnet-5` is cheaper but its safeguard classifier flagged this prompt
+  twice that same day, so it is not a safe fallback for the evening slot.
+  `claude-fable-5` ($10 / $50 per MTok, double Opus 5) is a case-by-case
+  escalation only, never the standing default, and any bake that uses it is
+  noted with its reason in the HQ ops log.
 - The morning schedule and this spec were set up 2026-07-17 when David
   simplified the pipeline to one daily morning bake; the Spark/Hermes pipeline
   and the Buttondown newsletter are retired. The bake moved into GitHub
