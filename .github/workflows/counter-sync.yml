@@ -12,6 +12,7 @@ permissions:
 concurrency:
   # Shared with ddb-bake.yml because both workflows push directly to main.
   group: ddb-main-writers
+  queue: max
   cancel-in-progress: false
 jobs:
   sync:

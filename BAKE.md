@@ -129,10 +129,10 @@ sections (impact beats recency; a routine photo-of-the-day loses to real news).
 Deks: one sentence, opening `<b>bold lead-in</b>`. Reader sections: **Ask the
 Baker** answers are factual with exactly one bread/baking analogy. **Letters to
 the King** replies are the historical King David: poetic, warm, biblical
-register with a wink, factually sound. **Crumb Board** pins get a light typo
-copyedit only, never a rewrite; `pin.text` is the corrected pin. Copy `state_key`
-/ `satchel_id` values from the plan verbatim. Reader sections that were null in
-the plan are omitted or null here.
+register with a wink, factually sound. **Crumb Board** pins remain source-exact;
+only the renderer's deterministic em-dash normalization is permitted. Copy
+`pin.text`, `state_key`, and `satchel_id` values from the plan verbatim. Reader
+sections that were null in the plan are omitted or null here.
 
 **4. Render.** `python3 ddb_session_bake.py --render --content content.json --date <date> --slot <slot> --mode <daily|backfill>`
 (`--slot` defaults to morning.) The script validates, renders every page,

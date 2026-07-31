@@ -64,6 +64,7 @@ class RendererSecurityTest(unittest.TestCase):
             "javascript:alert(1)",
             "https://user:secret@example.com/story",
             "https://example.com/story\nnext",
+            "https://example.com/story\x01next",
             "https:///missing-host",
             " https://example.com/space",
         )
@@ -170,6 +171,27 @@ class RendererSecurityTest(unittest.TestCase):
             self.assertEqual("committed counter.csv", plan["counter_source"])
             self.assertFalse(plan["csv_fetched"])
 
+    def test_oldest_reader_selection_parses_google_timestamps_chronologically(self):
+        rows = [
+            {"timestamp": "7/31/2026 09:00:00", "text": "later"},
+            {"timestamp": "7/8/2026 16:45:29", "text": "earlier"},
+            {"timestamp": "8/1/2026 01:00:00", "text": "latest"},
+        ]
+        picked = ddb_satchel.pick_oldest_unused(rows, set())
+        self.assertEqual("earlier", picked["text"])
+
+        tied = [
+            {"timestamp": "7/8/2026 16:45:29", "text": "first"},
+            {"timestamp": "7/8/2026 16:45:29", "text": "second"},
+        ]
+        self.assertEqual(
+            "first", ddb_satchel.pick_oldest_unused(tied, set())["text"]
+        )
+        with self.assertRaisesRegex(ValueError, "unsupported Counter timestamp"):
+            ddb_satchel.pick_oldest_unused(
+                [{"timestamp": "not-a-date", "text": "invalid"}], set()
+            )
+
     def test_reader_content_is_bound_to_committed_sources(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -177,20 +199,28 @@ class RendererSecurityTest(unittest.TestCase):
             csv_path.write_text(
                 "Timestamp,Slip type,The slip,Signed\n"
                 "2099-01-01 01:00,Question for the Baker,First question,Ada\n"
-                "2099-01-01 02:00,Question for the Baker,Second question,Ben\n",
+                "2099-01-01 02:00,Question for the Baker,Second question,Ben\n"
+                "2099-01-01 03:00,Pin for the Crumb Board,Keep the pin exact,Cora\n",
                 encoding="utf-8",
             )
             state_path = root / "bakery-state.json"
             state_path.write_text("{}\n", encoding="utf-8")
             satchel_path = root / "kings-satchel.json"
             satchel_path.write_text('{"letters": []}\n', encoding="utf-8")
-            first = ddb_satchel.load_csv_rows(csv_path)[0]
+            rows = ddb_satchel.classify(ddb_satchel.load_csv_rows(csv_path))
+            first = rows["asks"][0]
+            pin = rows["pins"][0]
             reader = {
                 "ask": {
                     "question": first["text"],
                     "answer": "A grounded answer.",
                     "state_key": ddb_satchel.dedup_key(first),
-                }
+                },
+                "pin": {
+                    "text": pin["text"],
+                    "sig_name": pin["name"],
+                    "state_key": ddb_satchel.dedup_key(pin),
+                },
             }
 
             ddb_session_bake.validate_reader_provenance(
@@ -201,6 +231,12 @@ class RendererSecurityTest(unittest.TestCase):
                     {}, csv_path, state_path, satchel_path, require_complete=True
                 )
             reader["ask"]["question"] = "A substituted question"
+            with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
+                ddb_session_bake.validate_reader_provenance(
+                    reader, csv_path, state_path, satchel_path
+                )
+            reader["ask"]["question"] = first["text"]
+            reader["pin"]["text"] = "A substituted pin"
             with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
                 ddb_session_bake.validate_reader_provenance(
                     reader, csv_path, state_path, satchel_path

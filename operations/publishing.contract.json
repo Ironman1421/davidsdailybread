@@ -6,6 +6,7 @@
   "workflow": {
     "name": "Daily bake",
     "concurrencyGroup": "ddb-main-publisher",
+    "concurrencyQueue": "max",
     "topLevelPermissions": {
       "contents": "read"
     },

@@ -177,11 +177,9 @@ class ProductContractTest(unittest.TestCase):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
             encoding="utf-8"
         )
-        allowlist_line = next(
-            line for line in workflow.splitlines()
-            if line.strip().startswith("allow='^(index")
-        )
-        self.assertNotIn("counter\\.csv", allowlist_line)
+        guard = (ROOT / "ddb_workflow_guard.py").read_text(encoding="utf-8")
+        self.assertNotIn('"counter.csv"', guard)
+        self.assertIn("python3 ddb_workflow_guard.py", workflow)
         self.assertIn("persist-credentials: false", workflow)
         self.assertRegex(workflow, r"(?m)^permissions:\n  contents: write$")
 
@@ -197,6 +195,8 @@ class ProductContractTest(unittest.TestCase):
         )
         self.assertIn("group: ddb-main-writers", bake)
         self.assertIn("group: ddb-main-writers", counter)
+        self.assertIn("queue: max", bake)
+        self.assertIn("queue: max", counter)
         self.assertIn("git pull --rebase origin main", counter)
 
     def test_private_reader_store_desired_state_is_machine_readable(self):
@@ -255,6 +255,7 @@ class ProductContractTest(unittest.TestCase):
         self.assertEqual(1, contract["version"])
         self.assertEqual("design-approved-not-provisioned", contract["deploymentStatus"])
         self.assertEqual({"contents": "read"}, contract["workflow"]["topLevelPermissions"])
+        self.assertEqual("max", contract["workflow"]["concurrencyQueue"])
         self.assertTrue(contract["workflow"]["freshRunnerBoundaryBeforePublisherCredential"])
         self.assertTrue(contract["workflow"]["publisherRequiresUnchangedBaseSha"])
         self.assertFalse(

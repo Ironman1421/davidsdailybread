@@ -188,7 +188,7 @@ def is_safe_source_url(value: object) -> bool:
     """
     if not isinstance(value, str) or value != value.strip():
         return False
-    if any(ch.isspace() or ord(ch) == 0x7F for ch in value):
+    if any(ch.isspace() or ord(ch) < 0x20 or ord(ch) == 0x7F for ch in value):
         return False
     try:
         parsed = urlsplit(value)

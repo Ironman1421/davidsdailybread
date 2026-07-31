@@ -305,8 +305,8 @@ def validate_reader_provenance(reader: dict, csv_path: Path | None = None,
 
     Replies remain editorial model output, but the quoted question, sender,
     signature, selection order, and bookkeeping key may not be invented or
-    swapped. Pin text may differ because the product explicitly permits a
-    light typo copyedit.
+    swapped. Pin text is source-bound too; the only permitted transformation
+    is the deterministic house-style replacement of em dashes.
     """
     csv_path = csv_path or REPO / "counter.csv"
     state_path = state_path or REPO / "bakery-state.json"
@@ -374,6 +374,8 @@ def validate_reader_provenance(reader: dict, csv_path: Path | None = None,
         _require(expected is not None, "reader.pin has no waiting Counter source")
         _require(pin["state_key"] == ddb_satchel.dedup_key(expected),
                  "reader.pin.state_key does not match the oldest waiting Counter pin")
+        _require(pin["text"] == ddb_satchel.strip_em_dashes(expected["text"]),
+                 "reader.pin.text does not match its Counter source")
         _require((pin.get("sig_name") or "Anonymous")
                  == ddb_satchel.strip_em_dashes(expected["name"]),
                  "reader.pin.sig_name does not match its Counter source")

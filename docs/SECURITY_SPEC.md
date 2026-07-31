@@ -31,6 +31,9 @@ The following are untrusted input even when produced by a model or collaborator:
 - Validate the complete candidate output before writing generated files.
 - Reject unresolved template tokens, forbidden punctuation, wrong slot schemas,
   and over-length distribution headlines.
+- Treat published history as immutable during a bake. Permit exactly one new
+  `editions/<date>-<slot>.html` path, reject staged/deleted/renamed or prior-
+  edition changes, and stage only the exact expected edition.
 - Bind selected reader questions, letters, names, signatures, and state keys to
   the committed Counter/satchel records before rendering or updating state.
 
