@@ -21,6 +21,15 @@ jobs:
   gate:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      # ddb_bake.py resolves the site repo AT IMPORT TIME and raises if it finds
+      # none, so without this the suite cannot even be collected, let alone run.
+      # Its two fallbacks (~/davidsdailybread and ~/ddb/site-mirror) are
+      # Spark-era paths that no longer exist anywhere: ~/ddb was archived and
+      # deleted on 2026-07-23. DDB_SITE_DIR is the module's own documented
+      # override, intended for exactly this (running against a scratch copy so a
+      # real bake never touches a tracked tree). Here it is the checkout.
+      DDB_SITE_DIR: ${{ github.workspace }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
