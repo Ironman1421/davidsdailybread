@@ -129,6 +129,117 @@ class ProductContractTest(unittest.TestCase):
         self.assertIn("group: ddb-main-writers", counter)
         self.assertIn("git pull --rebase origin main", counter)
 
+    def test_private_reader_store_desired_state_is_machine_readable(self):
+        contract = json.loads(
+            (ROOT / "operations" / "reader-store.contract.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(1, contract["version"])
+        self.assertEqual("design-approved-not-provisioned", contract["deploymentStatus"])
+        self.assertEqual("dedicated-reader-project", contract["projectIsolation"])
+        self.assertEqual("reader_private", contract["database"]["storageSchema"])
+        self.assertEqual([], contract["database"]["exposedSchemas"])
+        self.assertTrue(contract["database"]["rlsEnabled"])
+        self.assertEqual([], contract["database"]["browserRolesWithTableAccess"])
+        self.assertEqual([], contract["browserSubmission"]["browserSecrets"])
+        self.assertEqual([], contract["browserSubmission"]["storedNetworkIdentifiers"])
+        self.assertTrue(contract["browserSubmission"]["publicationConsentRequired"])
+        self.assertEqual(
+            ["pending", "reserved"], contract["browserDeletion"]["erasableStates"]
+        )
+        self.assertTrue(
+            contract["browserDeletion"]["publishingStateUsesPublicRemovalProcess"]
+        )
+        self.assertFalse(contract["readerBroker"]["mayReturnFullQueue"])
+        self.assertEqual("selected-items-only", contract["selection"]["agentVisibility"])
+        self.assertEqual(1, contract["selection"]["maximumPerKind"])
+        self.assertEqual(120, contract["selection"]["leaseMinutes"])
+        self.assertTrue(contract["selection"]["sameLiveEditionRetryIsIdempotent"])
+        self.assertIn(
+            "deletion-state", contract["selection"]["authorizePublishRevalidates"]
+        )
+        self.assertFalse(contract["privateHandoff"]["public"])
+        self.assertFalse(contract["privateHandoff"]["publicActionsArtifactsAllowed"])
+        self.assertLessEqual(contract["privateHandoff"]["maximumRetentionHours"], 6)
+        self.assertIn("counter.csv", contract["retiredPublicArtifacts"])
+        self.assertIn("published Google Sheet export", contract["retiredPublicArtifacts"])
+        self.assertFalse(contract["logging"]["readerBodyAllowed"])
+        self.assertFalse(contract["logging"]["readerBylineAllowed"])
+
+        spec = (ROOT / "docs" / "READER_STORE_SPEC.md").read_text(encoding="utf-8")
+        for invariant in (
+            "FOR UPDATE SKIP LOCKED",
+            "returns the waiting queue",
+            "public Actions artifacts",
+            "History rewriting is a separate destructive privacy operation",
+        ):
+            self.assertIn(invariant, spec)
+
+    def test_only_custom_publisher_is_designed_to_bypass_main(self):
+        contract = json.loads(
+            (ROOT / "operations" / "publishing.contract.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(1, contract["version"])
+        self.assertEqual("design-approved-not-provisioned", contract["deploymentStatus"])
+        self.assertEqual({"contents": "read"}, contract["workflow"]["topLevelPermissions"])
+        self.assertTrue(contract["workflow"]["freshRunnerBoundaryBeforePublisherCredential"])
+        self.assertTrue(contract["workflow"]["publisherRequiresUnchangedBaseSha"])
+        self.assertFalse(
+            contract["workflow"]["publicActionsArtifactsMayContainUnpublishedContent"]
+        )
+
+        bypass = [
+            identity["name"]
+            for identity in contract["identities"]
+            if identity["mainRulesetBypass"]
+        ]
+        self.assertEqual(["ddb-publisher[bot]"], bypass)
+        publisher = next(
+            identity
+            for identity in contract["identities"]
+            if identity["name"] == "ddb-publisher[bot]"
+        )
+        self.assertEqual(
+            ["Ironman1421/davidsdailybread"], publisher["repositorySelection"]
+        )
+        self.assertEqual(
+            {"contents": "write", "metadata": "read"},
+            publisher["repositoryPermissions"],
+        )
+        self.assertIn("administration", publisher["forbiddenPermissions"])
+        self.assertIn("workflows", publisher["forbiddenPermissions"])
+
+        token = contract["publisherToken"]
+        self.assertRegex(token["pinnedCommit"], r"^[0-9a-f]{40}$")
+        self.assertTrue(token["mintAfterValidation"])
+        self.assertFalse(token["persistCheckoutCredentials"])
+        self.assertFalse(token["placeTokenInRemoteUrl"])
+        self.assertEqual("production-publish", token["privateKeyEnvironment"])
+        self.assertEqual(["main"], token["environmentDeploymentBranches"])
+        ruleset = contract["mainRuleset"]
+        self.assertTrue(ruleset["requirePullRequest"])
+        self.assertEqual(0, ruleset["requiredApprovals"])
+        self.assertTrue(ruleset["blockForcePushes"])
+        self.assertTrue(ruleset["blockDeletions"])
+        self.assertEqual(
+            [{
+                "name": "ddb-publisher[bot]",
+                "actorType": "Integration",
+                "mode": "always",
+            }],
+            ruleset["bypassActors"],
+        )
+
+        spec = (ROOT / "docs" / "PUBLISHER_IDENTITY_SPEC.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("Required approvals begin at zero", spec)
+        self.assertIn("trusted maintainer", spec)
+        self.assertIn("fail closed", spec)
+
     def test_workflow_dependencies_are_immutable(self):
         workflows = "\n".join(
             path.read_text(encoding="utf-8")

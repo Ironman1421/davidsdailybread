@@ -31,7 +31,13 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   `docs/SECURITY_SPEC.md` — trust boundaries and required controls;
   `docs/DISTRIBUTION_SPEC.md` — channel, adapter, voice, rights, and measurement law;
   `docs/GROWTH_ROADMAP.md` — the six-month audience plan;
+  `docs/READER_STORE_SPEC.md` — approved private reader-store and cutover design;
+  `docs/PUBLISHER_IDENTITY_SPEC.md` — approved scheduled identity and `main`
+  ruleset design;
   `docs/AUDIT_2026-07-31.md` — takeover findings and open decisions.
+- `operations/*.contract.json` — machine-readable desired state for the private
+  reader boundary and protected publishing path; these are not live credentials
+  or proof that provisioning is complete.
 - `distribution/metrics.schema.json` / `distribution/ledger.json` — the
   machine-readable measurement contract and current baseline/post ledger.
 - `ddb_bake.py` / `ddb_satchel.py` / `ddb_synth.py` — the previous Spark-era

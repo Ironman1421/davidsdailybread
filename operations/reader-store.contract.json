@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "deploymentStatus": "design-approved-not-provisioned",
+  "provider": "supabase",
+  "projectIsolation": "dedicated-reader-project",
+  "database": {
+    "storageSchema": "reader_private",
+    "exposedSchemas": [],
+    "rlsEnabled": true,
+    "browserRolesWithTableAccess": [],
+    "submissionKinds": [
+      "ask_baker",
+      "king_letter",
+      "crumb_pin"
+    ]
+  },
+  "browserSubmission": {
+    "edgeFunction": "reader-submit",
+    "authentication": "public-with-turnstile",
+    "allowedOrigins": [
+      "https://davidsdailybread.com",
+      "https://www.davidsdailybread.com"
+    ],
+    "allowedMethods": [
+      "POST",
+      "OPTIONS"
+    ],
+    "publicationConsentRequired": true,
+    "consentVersion": "reader-publication-v1",
+    "maximumBodyCharacters": 2000,
+    "maximumBylineCharacters": 60,
+    "browserSecrets": [],
+    "storedNetworkIdentifiers": [],
+    "returnsRawDeletionTokenOnce": true,
+    "storesDeletionTokenAs": "sha256"
+  },
+  "browserDeletion": {
+    "edgeFunction": "reader-delete",
+    "authentication": "raw-deletion-token",
+    "erasableStates": [
+      "pending",
+      "reserved"
+    ],
+    "publishingStateUsesPublicRemovalProcess": true
+  },
+  "readerBroker": {
+    "edgeFunction": "reader-plan",
+    "authentication": "dedicated-broker-secret",
+    "githubPermissions": [],
+    "operations": [
+      "reserve",
+      "authorize-publish",
+      "finalize",
+      "release"
+    ],
+    "mayReturnFullQueue": false,
+    "mayReturnSelectedPlan": true
+  },
+  "selection": {
+    "editionSlot": "morning",
+    "policy": "oldest-submitted-first",
+    "maximumPerKind": 1,
+    "leaseMinutes": 120,
+    "transactionLocking": "for-update-skip-locked",
+    "sameLiveEditionRetryIsIdempotent": true,
+    "agentVisibility": "selected-items-only",
+    "states": [
+      "pending",
+      "reserved",
+      "publishing",
+      "published",
+      "rejected",
+      "deleted",
+      "expired"
+    ],
+    "finalizeRequires": [
+      "edition-id",
+      "remote-main-commit-sha",
+      "verified-publish-receipt"
+    ],
+    "authorizePublishRevalidates": [
+      "consent",
+      "deletion-state",
+      "lease",
+      "selection-provenance",
+      "manifest-digest"
+    ]
+  },
+  "privateHandoff": {
+    "storageBucket": "bake-handoffs",
+    "public": false,
+    "authorUpload": "single-object-signed-upload-url",
+    "publisherDownload": "short-lived-signed-download-url",
+    "maximumRetentionHours": 6,
+    "publicActionsArtifactsAllowed": false
+  },
+  "retentionDays": {
+    "pendingSubmission": 90,
+    "rejectedSubmissionPayload": 30,
+    "publishedPrivatePayload": 30,
+    "nonPersonalPublicationReceipt": 365
+  },
+  "logging": {
+    "readerBodyAllowed": false,
+    "readerBylineAllowed": false,
+    "deletionTokenAllowed": false,
+    "opaqueIdsAndStateTransitionsAllowed": true
+  },
+  "retiredPublicArtifacts": [
+    "counter.csv",
+    ".github/workflows/counter-sync.yml",
+    "bakery-state.json reader dedup keys",
+    "published Google Sheet export"
+  ]
+}

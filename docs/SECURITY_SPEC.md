@@ -46,8 +46,15 @@ The following are untrusted input even when produced by a model or collaborator:
   weekly schedule; use Dependabot PRs to review pinned Action upgrades.
 - Set explicit workflow permissions and serialize every workflow that can write
   `main` or shared generated state.
-- Protect `main` with required CI and review rules while granting only the daily
-  bake and counter-sync identities an explicit, narrow bypass.
+- Before protecting `main`, split authoring and publishing onto fresh runners,
+  retire Counter sync as a repository writer, and install the repository-only
+  `ddb-publisher` GitHub App defined in `docs/PUBLISHER_IDENTITY_SPEC.md`.
+- Protect `main` with required CI and review rules while granting only
+  `ddb-publisher[bot]` an explicit bypass. The built-in `GITHUB_TOKEN`, reader
+  broker, model, human owner, deploy keys, PATs, Dependabot, and Pages have no
+  routine bypass.
+- Mint the publisher token only after uncredentialed validation. Never hand an
+  untrusted editorial process and a later publisher credential the same runner.
 
 ### Reader privacy
 
@@ -56,6 +63,9 @@ The following are untrusted input even when produced by a model or collaborator:
 - Do not expose the full unpublished queue in a public repository or a
   published-to-web spreadsheet. Move ingestion to a private store and export
   only the selected, consented item needed for publication.
+- Do not place unpublished reader content in the logs or normal artifacts of a
+  public GitHub repository. Use the private handoff and retention controls in
+  `docs/READER_STORE_SPEC.md`.
 - Define retention and deletion behavior before collecting email addresses,
   account identifiers, or analytics tied to a person.
 
@@ -70,15 +80,20 @@ The following are untrusted input even when produced by a model or collaborator:
 
 ## Current exceptions requiring closure
 
-1. `main` is not protected even though repository policy calls CI the merge gate.
+1. `main` is not protected even though repository policy calls CI the merge
+   gate. Its approved identity/ruleset design is not yet provisioned.
 2. The Counter sheet and committed `counter.csv` expose the reader queue beyond
-   what the product needs to publish.
+   what the product needs to publish. Its approved private-store design is not
+   yet provisioned.
 3. The X adapter named in `BAKE.md` is outside the accessible repositories, so
    its credential handling, idempotency, and metrics cannot yet be audited.
 4. Public pages rely on inline JavaScript and third-party font/PDF CDNs without a
    strong Content Security Policy or fully local assets.
 5. Repository-level Dependabot alerts are disabled. Version-update PRs are
    configured, but the owner must enable vulnerability alerts in GitHub.
+6. The current public-repository diagnostic artifact can include `content.json`
+   and a raw model log. Treat both as unpublished reader data during the private
+   store cutover; the target design prohibits this transfer.
 
 Exceptions are tracked work, not accepted permanent architecture.
 
