@@ -33,6 +33,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history is load bearing, not a nicety. test_c3_integrity's
+          # historical-repair test shells out to `git show <old-sha>:editions/...`
+          # to prove past repairs were mechanical and fact preserving. The default
+          # shallow clone (depth 1) does not contain those commits, so the test
+          # fails with exit 128 rather than telling you the history is missing.
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
