@@ -532,6 +532,38 @@ class ReceiptHydrationAndWorkflowTest(BroadcastFixture):
         self.assertIn("x-broadcast-reservation-", before_live)
         self.assertIn("if-no-files-found: error", before_live)
 
+    def test_runbook_requires_a_real_dry_run_and_resets_one_edition_canary(self):
+        runbook = (ROOT / "docs" / "X_BROADCAST_RUNBOOK.md").read_text()
+        normalized = " ".join(runbook.split())
+        self.assertIn(
+            "Keep enablement `false`, then have a reviewer change the kill switch to `false`",
+            normalized,
+        )
+        self.assertIn("`status` to be exactly `dry_run`", normalized)
+        self.assertIn("A `skipped_kill_switch` attempt is not a dry run", normalized)
+        self.assertIn(
+            "set the kill switch to `true` first and then set enablement to `false`",
+            normalized,
+        )
+        self.assertIn(
+            "Continuous activation requires a separate explicit authorization",
+            normalized,
+        )
+
+        contract = json.loads(
+            (ROOT / "operations" / "x-broadcast.contract.json").read_text()
+        )
+        self.assertEqual(
+            "selected-branch:main",
+            contract["provisioning"]["githubEnvironmentBranchPolicy"],
+        )
+        self.assertFalse(contract["provisioning"]["githubEnvironmentSecretsInstalled"])
+        self.assertTrue(contract["enablement"]["oneEditionCanaryResetsKillSwitchFirst"])
+        self.assertTrue(contract["enablement"]["oneEditionCanaryResetsEnabledSecond"])
+        self.assertTrue(
+            contract["enablement"]["continuousActivationRequiresSeparateApproval"]
+        )
+
     def test_bootstrap_receipt_blocks_known_manual_recovery_post(self):
         state = json.loads(
             (ROOT / "distribution" / "x-broadcast-state.json").read_text()

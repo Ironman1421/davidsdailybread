@@ -35,11 +35,26 @@
     "X_EXPECTED_USER_ID",
     "X_EXPECTED_USERNAME"
   ],
+  "provisioning": {
+    "xDeveloperAppReportedExisting": true,
+    "xDeveloperAppPermissionsVerified": false,
+    "xAccountIdentityVerified": false,
+    "githubEnvironmentCreated": true,
+    "githubEnvironmentBranchPolicy": "selected-branch:main",
+    "githubEnvironmentSecretsInstalled": false,
+    "configuredEnabledValue": "false",
+    "configuredKillSwitchValue": "true"
+  },
   "enablement": {
     "killSwitchDefaultOn": true,
     "liveRequiresExactEnabledValue": "true",
     "liveRequiresExactKillSwitchValue": "false",
-    "secretsLoadedOnlyByLiveStep": true
+    "secretsLoadedOnlyByLiveStep": true,
+    "dryRunRequiresEnabledValue": "false",
+    "dryRunRequiresKillSwitchValue": "false",
+    "oneEditionCanaryResetsKillSwitchFirst": true,
+    "oneEditionCanaryResetsEnabledSecond": true,
+    "continuousActivationRequiresSeparateApproval": true
   },
   "providerEndpoints": [
     "GET https://api.x.com/2/users/me",

@@ -67,17 +67,24 @@ workflow inputs, artifacts, shell arguments, issue text, prompts, or logs.
 
 ## Provisioning and canary
 
-Provisioning is an external owner action and was not performed by this change:
+Provisioning remains an external owner action. As of 2026-07-31, David reports
+that an X developer app already exists, but its plan, permissions, authorized
+account, and numeric account ID have not been verified for this adapter. The
+`x-broadcast-production` GitHub environment has been created, restricted to the
+literal `main` branch, and configured with `DDB_X_BROADCAST_ENABLED=false` and
+`DDB_X_BROADCAST_KILL_SWITCH=true`. It has no X secrets or expected-account
+identity variables yet.
 
-1. In X's developer console, create or select one app owned by David and grant
-   the minimum user-context read/write Post permission. Do not grant Direct
+1. In X's developer console, verify the existing app is owned by David and has
+   only the minimum user-context read/write Post permission. Do not grant Direct
    Message access. Record any plan price before accepting it; no spend is
    authorized by this repository.
 2. Authorize only `@DavidDailyBread`. Obtain its numeric user ID through X's
    official interface or API and verify the username and ID together.
-3. In GitHub, create the `x-broadcast-production` environment, restrict it to
-   `main`, add the four secrets there, and add the four variables above. Start
-   with `DDB_X_BROADCAST_ENABLED=false` and
+3. In GitHub, verify the `x-broadcast-production` environment remains restricted
+   to the selected literal branch `main`. Add the four secrets and the two
+   expected-account variables there. Confirm the existing controls are still
+   `DDB_X_BROADCAST_ENABLED=false` and
    `DDB_X_BROADCAST_KILL_SWITCH=true`.
 4. Run this offline preview and compare it byte for byte with the matching
    archive entry:
@@ -87,16 +94,22 @@ Provisioning is an external owner action and was not performed by this change:
      --archive archive.json --date YYYY-MM-DD --slot morning
    ```
 
-5. Exercise the workflow dry-run path with no X secrets exposed. Review the
-   attempt artifact, confirm `mutationAttempts` is zero, then have a reviewer
-   change the kill switch to `false`. Keep enablement `false` until the next
-   intended live edition.
-6. For the first live edition only, set enablement to `true`, watch the run, and
-   independently open the provider receipt URL. Confirm the text, author,
-   expanded canonical URL, and archive entry. If any differ, set the kill switch
-   immediately.
+5. Keep enablement `false`, then have a reviewer change the kill switch to
+   `false` before a newly published daily edition. This is the only variable
+   combination that selects the workflow dry-run path. Review the attempt
+   artifact and require `status` to be exactly `dry_run` and
+   `mutationAttempts` to be zero. A `skipped_kill_switch` attempt is not a dry
+   run. After review, set the kill switch back to `true`.
+6. For the first live edition only, keep the kill switch `true` while setting
+   enablement to `true`, then have a reviewer set the kill switch to `false`
+   immediately before the intended edition. Watch the run and independently
+   open the provider receipt URL. Confirm the text, author, expanded canonical
+   URL, and archive entry. Whether the canary succeeds or fails, set the kill
+   switch to `true` first and then set enablement to `false`. Continuous
+   activation requires a separate explicit authorization after canary review.
 
-The adapter remains disabled until all six steps are complete. Enabling it is
+The adapter remains disabled until all six steps are complete. A one-edition
+canary does not authorize continued operation. Later continuous enablement is
 authorization for canonical edition broadcasts only, not for any other X
 action.
 
