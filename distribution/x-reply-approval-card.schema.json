@@ -1,0 +1,303 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/x-reply-approval-card-v1.json",
+  "title": "David's Daily Bread private X reply approval card",
+  "description": "Schema only. Cards contain transient drafts and must never be committed to the public reply ledger.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "candidateId",
+    "targetAccount",
+    "targetTier",
+    "targetVerification",
+    "beat",
+    "parentPostUrl",
+    "parentObservedAt",
+    "whyThisConversation",
+    "replyShape",
+    "draft",
+    "supportUrls",
+    "scoutingMethod",
+    "qualityRubric",
+    "opportunityScore",
+    "operationalPriority",
+    "checks",
+    "profileConversionReadiness",
+    "accountCapabilities",
+    "operatorPreflight",
+    "lengthCharacters",
+    "approvalScope",
+    "approvalExpiresAt"
+  ],
+  "properties": {
+    "version": {"const": 1},
+    "candidateId": {
+      "type": "string",
+      "pattern": "^XR-[0-9]{8}-[0-9]{3}$"
+    },
+    "targetAccount": {
+      "type": "string",
+      "pattern": "^@[A-Za-z0-9_]{1,15}$"
+    },
+    "targetTier": {
+      "enum": [
+        "primary_source",
+        "subject_matter_expert",
+        "credible_reporter",
+        "trusted_institution"
+      ]
+    },
+    "targetVerification": {"$ref": "#/$defs/targetVerification"},
+    "beat": {"enum": ["tech", "markets", "science", "ai_tools", "workflows"]},
+    "parentPostUrl": {"$ref": "#/$defs/xStatusUrl"},
+    "parentObservedAt": {"type": "string", "format": "date-time"},
+    "whyThisConversation": {"type": "string", "minLength": 1},
+    "replyShape": {
+      "enum": [
+        "sourced_addition",
+        "plain_language_translation",
+        "practical_application",
+        "evidence_based_caveat",
+        "specific_question"
+      ]
+    },
+    "draft": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 280,
+      "pattern": "^[^—]*$"
+    },
+    "supportUrls": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/httpsUrl"}
+    },
+    "scoutingMethod": {"enum": ["manual-x-search", "manual-x-list"]},
+    "qualityRubric": {"$ref": "#/$defs/breadRubric"},
+    "opportunityScore": {"$ref": "#/$defs/opportunityScore"},
+    "operationalPriority": {"enum": ["P1", "P2", "P3"]},
+    "checks": {"$ref": "#/$defs/checks"},
+    "profileConversionReadiness": {"$ref": "#/$defs/profileConversionReadiness"},
+    "accountCapabilities": {"$ref": "#/$defs/accountCapabilities"},
+    "operatorPreflight": {"$ref": "#/$defs/operatorPreflight"},
+    "lengthCharacters": {"type": "integer", "minimum": 1, "maximum": 280},
+    "approvalScope": {"$ref": "#/$defs/approvalScope"},
+    "approvalExpiresAt": {"type": "string", "format": "date-time"}
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "operationalPriority": {"const": "P1"},
+        "opportunityScore": {
+          "properties": {"total": {"minimum": 90, "maximum": 100}}
+        }
+      }
+    },
+    {
+      "properties": {
+        "operationalPriority": {"const": "P2"},
+        "opportunityScore": {
+          "properties": {"total": {"minimum": 80, "maximum": 89}}
+        }
+      }
+    },
+    {
+      "properties": {
+        "operationalPriority": {"const": "P3"},
+        "opportunityScore": {
+          "properties": {"total": {"minimum": 75, "maximum": 79}}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "httpsUrl": {"type": "string", "pattern": "^https://[^\\s]+$"},
+    "xStatusUrl": {
+      "type": "string",
+      "pattern": "^https://(www\\.)?x\\.com/[A-Za-z0-9_]{1,15}/status/[0-9]+(?:\\?[^\\s]*)?$"
+    },
+    "targetVerification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claimBasis", "evidenceUrl", "checkedAt"],
+      "properties": {
+        "claimBasis": {
+          "enum": [
+            "not_claimed",
+            "organization_gold_check",
+            "government_gray_check",
+            "organization_affiliation_badge",
+            "owned_domain",
+            "employer_source"
+          ]
+        },
+        "evidenceUrl": {
+          "anyOf": [{"$ref": "#/$defs/httpsUrl"}, {"type": "null"}]
+        },
+        "checkedAt": {"type": "string", "format": "date-time"}
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "claimBasis": {"const": "not_claimed"},
+            "evidenceUrl": {"type": "null"}
+          }
+        },
+        {
+          "properties": {
+            "claimBasis": {
+              "enum": [
+                "organization_gold_check",
+                "government_gray_check",
+                "organization_affiliation_badge",
+                "owned_domain",
+                "employer_source"
+              ]
+            },
+            "evidenceUrl": {"$ref": "#/$defs/httpsUrl"}
+          }
+        }
+      ]
+    },
+    "breadRubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "buildsConversation",
+        "relevant",
+        "evidenceGrounded",
+        "appropriateVoice",
+        "distinct",
+        "total"
+      ],
+      "properties": {
+        "buildsConversation": {"type": "integer", "minimum": 0, "maximum": 2},
+        "relevant": {"type": "integer", "minimum": 0, "maximum": 2},
+        "evidenceGrounded": {"type": "integer", "minimum": 0, "maximum": 2},
+        "appropriateVoice": {"type": "integer", "minimum": 0, "maximum": 2},
+        "distinct": {"type": "integer", "minimum": 0, "maximum": 2},
+        "total": {"type": "integer", "minimum": 9, "maximum": 10}
+      }
+    },
+    "opportunityScore": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relevance",
+        "incrementalValue",
+        "sourceConfidence",
+        "conversationTiming",
+        "targetCredibility",
+        "operationalSafety",
+        "total"
+      ],
+      "properties": {
+        "relevance": {"type": "integer", "minimum": 0, "maximum": 20},
+        "incrementalValue": {"type": "integer", "minimum": 0, "maximum": 25},
+        "sourceConfidence": {"type": "integer", "minimum": 0, "maximum": 20},
+        "conversationTiming": {"type": "integer", "minimum": 0, "maximum": 15},
+        "targetCredibility": {"type": "integer", "minimum": 0, "maximum": 10},
+        "operationalSafety": {"type": "integer", "minimum": 0, "maximum": 10},
+        "total": {"type": "integer", "minimum": 75, "maximum": 100}
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parentStillAvailable",
+        "relevanceConfirmed",
+        "sensitiveContentChecked",
+        "duplicateScanPassed",
+        "claimsSupported",
+        "noEngagementCallToAction",
+        "targetFrequencyPassed"
+      ],
+      "properties": {
+        "parentStillAvailable": {"const": true},
+        "relevanceConfirmed": {"const": true},
+        "sensitiveContentChecked": {"const": true},
+        "duplicateScanPassed": {"const": true},
+        "claimsSupported": {"const": true},
+        "noEngagementCallToAction": {"const": true},
+        "targetFrequencyPassed": {"const": true}
+      }
+    },
+    "profileConversionReadiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkedAt",
+        "positioningPromise",
+        "facelessMarkAndBanner",
+        "pinnedSourcedBriefing",
+        "canonicalSiteLink",
+        "recentMorningAndEveningPosts"
+      ],
+      "properties": {
+        "checkedAt": {"type": "string", "format": "date-time"},
+        "positioningPromise": {"const": true},
+        "facelessMarkAndBanner": {"const": true},
+        "pinnedSourcedBriefing": {"const": true},
+        "canonicalSiteLink": {"const": true},
+        "recentMorningAndEveningPosts": {"const": true}
+      }
+    },
+    "accountCapabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkedAt", "premiumTier", "postActivityAnalytics"],
+      "properties": {
+        "checkedAt": {"type": "string", "format": "date-time"},
+        "premiumTier": {"enum": ["none", "basic", "premium", "premium_plus"]},
+        "postActivityAnalytics": {"enum": ["available", "unavailable"]}
+      }
+    },
+    "operatorPreflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator",
+        "authorizedOperatorConfirmed",
+        "correctAccountConfirmed",
+        "secureSessionConfirmed",
+        "mfaAndRecoveryChecked",
+        "noCredentialShared",
+        "officialUiOnly",
+        "browserScriptingAbsent",
+        "scrapingAbsent",
+        "automatedXBrowsingAbsent"
+      ],
+      "properties": {
+        "operator": {"type": "string", "minLength": 1},
+        "authorizedOperatorConfirmed": {"const": true},
+        "correctAccountConfirmed": {"const": true},
+        "secureSessionConfirmed": {"const": true},
+        "mfaAndRecoveryChecked": {"const": true},
+        "noCredentialShared": {"const": true},
+        "officialUiOnly": {"const": true},
+        "browserScriptingAbsent": {"const": true},
+        "scrapingAbsent": {"const": true},
+        "automatedXBrowsingAbsent": {"const": true}
+      }
+    },
+    "approvalScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exactParentUrl",
+        "exactReplyText",
+        "silenceIsRejection",
+        "editRequiresReapproval"
+      ],
+      "properties": {
+        "exactParentUrl": {"const": true},
+        "exactReplyText": {"const": true},
+        "silenceIsRejection": {"const": true},
+        "editRequiresReapproval": {"const": true}
+      }
+    }
+  }
+}

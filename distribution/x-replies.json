@@ -1,11 +1,31 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-31T20:16:37Z",
+  "updatedAt": "2026-07-31T21:05:50Z",
   "strategyBaseline": {
     "approvedAt": "2026-07-31T20:16:37Z",
+    "cadenceApprovedAt": "2026-07-31T21:05:50Z",
     "xFollowers": 5,
     "primaryAcquisitionChannel": "credible-account-replies",
-    "mode": "manual-ui-per-reply-approval"
+    "mode": "manual-ui-per-reply-approval",
+    "aiExternalInteractionAuthorized": false,
+    "scoutingMode": "manual-x-search-or-lists",
+    "staffedApprovalWindows": 2,
+    "dailyPublishedReplyCap": 4,
+    "sixReplyDayMinimumApprovalWindows": 3,
+    "breadMinimumScore": 9,
+    "opportunityPublishThreshold": 75,
+    "minimumComparedShapeObservations": 8,
+    "minimumMeasuredRepliesBeforeVolumeScaling": 50,
+    "targetMinimumHoursBetweenProactiveReplies": 72,
+    "targetMaximumProactiveRepliesPer14Days": 2,
+    "operationalReadiness": {
+      "status": "blocked_pending_readiness",
+      "profileConversion": "not_assessed",
+      "premiumTier": "unknown",
+      "postActivityAnalytics": "not_assessed",
+      "authorizedOperators": "not_assessed",
+      "accountSecurity": "not_assessed"
+    }
   },
   "publishedReplies": []
 }

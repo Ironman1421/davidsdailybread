@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-07T15:20:00Z",
+  "strategyBaseline": {
+    "approvedAt": "2026-07-31T20:16:37Z",
+    "cadenceApprovedAt": "2026-07-31T21:05:50Z",
+    "xFollowers": 5,
+    "primaryAcquisitionChannel": "credible-account-replies",
+    "mode": "manual-ui-per-reply-approval",
+    "aiExternalInteractionAuthorized": false,
+    "scoutingMode": "manual-x-search-or-lists",
+    "staffedApprovalWindows": 2,
+    "dailyPublishedReplyCap": 4,
+    "sixReplyDayMinimumApprovalWindows": 3,
+    "breadMinimumScore": 9,
+    "opportunityPublishThreshold": 75,
+    "minimumComparedShapeObservations": 8,
+    "minimumMeasuredRepliesBeforeVolumeScaling": 50,
+    "targetMinimumHoursBetweenProactiveReplies": 72,
+    "targetMaximumProactiveRepliesPer14Days": 2,
+    "operationalReadiness": {
+      "status": "ready_manual_operation",
+      "profileConversion": "ready",
+      "premiumTier": "none",
+      "postActivityAnalytics": "available",
+      "authorizedOperators": "confirmed",
+      "accountSecurity": "ready"
+    }
+  },
+  "publishedReplies": [
+    {
+      "replyId": "XR-20260731-001",
+      "approvalCardVersion": 1,
+      "parentPostUrl": "https://x.com/DDBFixture/status/1000000000000000001",
+      "targetAccount": "@DDBFixture",
+      "targetTier": "primary_source",
+      "targetVerification": {
+        "claimBasis": "not_claimed",
+        "evidenceUrl": null,
+        "checkedAt": "2026-07-31T15:00:00Z"
+      },
+      "beat": "tech",
+      "replyShape": "sourced_addition",
+      "qualityRubric": {
+        "buildsConversation": 2,
+        "relevant": 2,
+        "evidenceGrounded": 2,
+        "appropriateVoice": 2,
+        "distinct": 1,
+        "total": 9
+      },
+      "opportunityScore": {
+        "relevance": 18,
+        "incrementalValue": 22,
+        "sourceConfidence": 18,
+        "conversationTiming": 12,
+        "targetCredibility": 8,
+        "operationalSafety": 7,
+        "total": 85
+      },
+      "operationalPriority": "P2",
+      "scoutingMethod": "manual-x-search",
+      "discoveryWindow": "morning",
+      "discoveredAt": "2026-07-31T15:00:00Z",
+      "approvedBy": "David",
+      "approvedAt": "2026-07-31T15:10:00Z",
+      "approvalExpiresAt": "2026-07-31T15:45:00Z",
+      "approvalScope": "exact-parent-url-and-reply-text",
+      "operator": "Fixture Operator",
+      "publishedAt": "2026-07-31T15:20:00Z",
+      "followerCountAtApproval": 5,
+      "replyPostId": "1000000000000000002",
+      "replyUrl": "https://x.com/DDBFixture/status/1000000000000000002",
+      "replyText": "Fixture-only reply text.",
+      "supportUrls": [
+        "https://example.com/fixture-source"
+      ],
+      "usedDdbLink": false,
+      "automated": false,
+      "postedThrough": "official-x-ui",
+      "profileConversionReadiness": {
+        "checkedAt": "2026-07-31T15:00:00Z",
+        "positioningPromise": true,
+        "facelessMarkAndBanner": true,
+        "pinnedSourcedBriefing": true,
+        "canonicalSiteLink": true,
+        "recentMorningAndEveningPosts": true
+      },
+      "accountCapabilities": {
+        "checkedAt": "2026-07-31T15:00:00Z",
+        "premiumTier": "none",
+        "postActivityAnalytics": "available"
+      },
+      "policyChecks": {
+        "parentStillAvailable": true,
+        "relevanceConfirmed": true,
+        "sensitiveContentChecked": true,
+        "duplicateScanPassed": true,
+        "claimsSupported": true,
+        "noEngagementCallToAction": true,
+        "targetFrequencyPassed": true
+      },
+      "operatorChecks": {
+        "authorizedOperatorConfirmed": true,
+        "correctAccountConfirmed": true,
+        "secureSessionConfirmed": true,
+        "mfaAndRecoveryChecked": true,
+        "noCredentialShared": true,
+        "officialUiConfirmed": true,
+        "browserScriptingAbsent": true,
+        "scrapingAbsent": true,
+        "automatedXBrowsingAbsent": true
+      },
+      "visibilityInspectionAtPublish": {
+        "capturedAt": "2026-07-31T15:21:00Z",
+        "hidden": false,
+        "probableSpam": false,
+        "method": "manual-official-x-ui"
+      },
+      "targetAuthorInteractions": [],
+      "correction": null,
+      "policySignal": null,
+      "metricsAtPublish": {
+        "capturedAt": "2026-07-31T15:21:00Z",
+        "impressions": 0,
+        "likes": 0,
+        "childReplies": 0,
+        "reposts": 0,
+        "userProfileClicks": 0,
+        "directFollows": 0,
+        "accountProfileVisitsWindow": 0,
+        "followerCount": 5,
+        "followerDeltaWindow": 0,
+        "attribution": "temporal",
+        "visibilityStatus": "visible",
+        "visibilityInspectionMethod": "manual-official-x-ui",
+        "analyticsSource": "x-post-activity-dashboard"
+      },
+      "metrics24h": {
+        "capturedAt": "2026-08-01T15:20:00Z",
+        "impressions": 100,
+        "likes": 3,
+        "childReplies": 1,
+        "reposts": 1,
+        "userProfileClicks": 4,
+        "directFollows": 1,
+        "accountProfileVisitsWindow": 7,
+        "followerCount": 6,
+        "followerDeltaWindow": 1,
+        "attribution": "temporal",
+        "visibilityStatus": "visible",
+        "visibilityInspectionMethod": "manual-official-x-ui",
+        "analyticsSource": "x-post-activity-dashboard"
+      },
+      "metrics7d": {
+        "capturedAt": "2026-08-07T15:20:00Z",
+        "impressions": 140,
+        "likes": 4,
+        "childReplies": 1,
+        "reposts": 1,
+        "userProfileClicks": 5,
+        "directFollows": 1,
+        "accountProfileVisitsWindow": 10,
+        "followerCount": 6,
+        "followerDeltaWindow": 1,
+        "attribution": "temporal",
+        "visibilityStatus": "visible",
+        "visibilityInspectionMethod": "manual-official-x-ui",
+        "analyticsSource": "x-post-activity-dashboard"
+      }
+    }
+  ]
+}
