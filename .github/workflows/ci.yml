@@ -15,7 +15,10 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: merge-gate-${{ github.ref }}
+  # A branch push and its pull_request event target the same commit. Key both
+  # events by the source branch so they do not pull and start two full local
+  # Supabase stacks concurrently.
+  group: merge-gate-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
   gate:
@@ -107,7 +110,12 @@ jobs:
           DDB_READER_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
         run: |
           set -euo pipefail
-          npm exec -- supabase start
+          # The database-only stack is sufficient for migration replay, pgTAP,
+          # lint, and locking tests. Starting every product service here makes
+          # db reset depend on unrelated API health and duplicates large image
+          # pulls; the runbook's local/canary flow still starts the full stack
+          # to verify the private Storage bucket and Edge integration.
+          npm exec -- supabase db start
           npm run supabase:reset
           npm run test:reader-db
           npm exec -- supabase db lint --local --schema reader_private --level error --fail-on error

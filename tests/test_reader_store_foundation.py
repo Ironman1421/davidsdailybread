@@ -177,7 +177,7 @@ class ReaderStoreFoundationTest(unittest.TestCase):
             "npm ci",
             "npm run test:reader-edge",
             "npm run test:reader-types",
-            "npm exec -- supabase start",
+            "npm exec -- supabase db start",
             "npm run supabase:reset",
             "npm run test:reader-db",
             "npm run test:reader-concurrency",
