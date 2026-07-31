@@ -2,7 +2,6 @@
 """Executable checks for current product truth and governance wiring."""
 
 from pathlib import Path
-import re
 import unittest
 
 
@@ -29,12 +28,6 @@ class ProductContractTest(unittest.TestCase):
 
     def test_chronicles_describes_actual_reader_queue_and_publication(self):
         page = (ROOT / "chronicles.html").read_text(encoding="utf-8")
-        visible = re.sub(
-            r"<script.*?</script>|<style.*?</style>",
-            "",
-            page,
-            flags=re.DOTALL | re.IGNORECASE,
-        )
 
         for current_truth in (
             "at most one waiting question, oldest first",
@@ -43,13 +36,13 @@ class ProductContractTest(unittest.TestCase):
             "may be published on the public site",
             "Do not include private or sensitive information",
         ):
-            self.assertIn(current_truth, visible)
+            self.assertIn(current_truth, page)
         for stale_promise in (
             "draws five questions",
             "up to three letters are drawn",
             "Whatever&rsquo;s on the board when the ovens fire goes out",
         ):
-            self.assertNotIn(stale_promise, visible)
+            self.assertNotIn(stale_promise, page)
 
     def test_bake_cannot_change_its_reader_input_snapshot(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
