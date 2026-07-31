@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!-- templates/evening.html: the evening (trends) edition, "Field Guide" layout
+     (adopted 2026-07-30, per David). Two sections only: trending tools (the
+     shelf) and trending workflows (recipe cards); the renderer builds both
+     item lists programmatically and injects them into the two item tokens
+     in the body below. No news here: news
+     is the morning edition's job. No reader-content blocks: the Counter feeds
+     the morning edition only. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David's Daily Bread – Evening edition, Wednesday, July 29, 2026</title>
+<meta name="description" content="David's Daily Bread evening edition – trending tools and trending workflows for everyday people. No news after dark. Loved by God. Baked fresh twice daily.">
+<link rel="canonical" href="https://davidsdailybread.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="David's Daily Bread">
+<meta property="og:title" content="David's Daily Bread – Evening edition, Wednesday, July 29, 2026">
+<meta property="og:description" content="The evening edition: trending tools and trending workflows for everyday people. Loved by God. Baked fresh twice daily.">
+<meta property="og:url" content="https://davidsdailybread.com/">
+<meta property="og:image" content="https://davidsdailybread.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; --marker:#b9772a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(90% 55% at 50% 0%, rgba(200,162,74,0.08), transparent 60%); }
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--marker)); z-index: 10; transition: width 0.08s linear; }
+  .paper { max-width: 900px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.55); }
+  .masthead { text-align: center; }
+  .masthead-art-link { display: block; }
+  .masthead-art { display: block; width: 100%; max-width: 640px; margin: 0 auto; height: auto; }
+  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 10px; }
+  .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
+  .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .dateline .edition { color: var(--marker); font-weight: 600; }
+  .dateline .read { color: var(--gold); }
+  .glance { margin: 24px 0 4px; padding: 15px 22px 13px; background: rgba(200,162,74,0.05); border: 1px dashed var(--gold-soft); border-radius: 12px; }
+  .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .glance ul { list-style: none; margin: 10px 0 0; padding: 0; }
+  .glance li { font-family: 'Newsreader', Georgia, serif; font-size: 15.5px; line-height: 1.5; padding: 4px 0; display: flex; gap: 14px; }
+  .glance .tag { flex: none; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--faint); min-width: 82px; padding-top: 4px; }
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 26px 0 12px; }
+  .lead-card { position: relative; background: linear-gradient(160deg, rgba(200,162,74,0.08), rgba(255,255,255,0.02)); border: 1px solid rgba(200,162,74,0.25); border-radius: 20px; padding: 26px 30px 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); transition: transform 0.18s ease, border-color 0.18s ease; }
+  .lead-card:hover { transform: translateY(-3px); border-color: rgba(200,162,74,0.5); }
+  .lead-card a.card-link { display: block; color: inherit; text-decoration: none; }
+  .lead-card .badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); }
+  .lead-card h1 { font-family: 'Newsreader', Georgia, serif; font-size: 29px; line-height: 1.16; margin: 8px 0 12px; font-weight: 600; letter-spacing: -0.2px; }
+  .lead-card:hover h1 { color: var(--gold); }
+  .lead-card .standfirst { font-family: 'Newsreader', Georgia, serif; font-size: 18px; font-style: italic; line-height: 1.5; color: #cfc7b4; margin: 0 0 10px; }
+  .lead-card .lead-body { font-family: 'Newsreader', Georgia, serif; font-size: 15.5px; line-height: 1.65; margin: 0; color: var(--ink); }
+  .margin-note { position: absolute; top: -14px; right: 26px; font-family: 'Caveat', cursive; font-size: 20px; color: var(--gold); transform: rotate(-2deg); background: var(--panel); padding: 0 10px; }
+  .lanes { display: grid; grid-template-columns: 300px 1fr; gap: 26px; margin-top: 32px; align-items: start; }
+  .lane-head { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); padding-bottom: 8px; margin-bottom: 14px; border-bottom: 2px solid var(--gold-soft); display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .lane-head .sub { font-size: 9.5px; letter-spacing: 1px; color: var(--faint); text-align: right; }
+  .shelf { display: flex; flex-direction: column; gap: 12px; }
+  .shelf-card { background: rgba(255,255,255,0.03); border: 1px solid var(--line-strong); border-radius: 14px; padding: 14px 16px 12px; transition: border-color 0.15s, transform 0.15s; }
+  .shelf-card:hover { border-color: var(--gold-soft); transform: translateY(-2px); }
+  .shelf-card a { color: inherit; text-decoration: none; display: block; }
+  .shelf-card h3 { font-family: 'Newsreader', Georgia, serif; font-size: 15.5px; line-height: 1.3; margin: 0 0 6px; font-weight: 600; }
+  .shelf-card:hover h3 { color: var(--gold); }
+  .shelf-card p { font-size: 12px; line-height: 1.5; color: var(--muted); margin: 6px 0 0; }
+  .shelf-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tagchip { font-size: 8.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; border: 1px solid var(--line-strong); border-radius: 999px; padding: 2px 7px; color: var(--muted); }
+  .tagchip.cost { color: var(--steel); border-color: rgba(111,159,206,0.4); }
+  .tagchip.seen { color: var(--gold); border-color: var(--gold-soft); }
+  .shelf-foot { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 12.5px; color: var(--faint); margin-top: 2px; }
+  .recipes { display: flex; flex-direction: column; gap: 6px; }
+  .recipe { background: rgba(255,255,255,0.035); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px 16px; transition: border-color 0.15s, transform 0.15s; }
+  .recipe:hover { border-color: var(--gold-soft); transform: translateY(-2px); }
+  .recipe a.card-link { color: inherit; text-decoration: none; display: block; }
+  .recipe .r-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .recipe h3 { font-family: 'Newsreader', Georgia, serif; font-size: 19px; line-height: 1.28; margin: 0 0 8px; font-weight: 600; }
+  .recipe:hover h3 { color: var(--gold); }
+  .recipe .time { flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--marker); border: 1px solid rgba(185,119,42,0.45); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+  .recipe p.dek { font-size: 13.5px; line-height: 1.6; color: var(--muted); margin: 0; }
+  .recipe p.dek b { color: var(--ink); font-weight: 600; }
+  .recipe .needs { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line-strong); font-size: 12.5px; color: var(--muted); }
+  .recipe .needs b { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-right: 8px; }
+  .recipe .needs .dot { color: var(--line-strong); margin: 0 7px; }
+  .recipes .notes { margin: 0 0 10px; }
+  .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
+  .notes:focus-within, .notes.open { border-style: solid; border-color: var(--gold-soft); background: rgba(200,162,74,0.05); }
+  .notes .pen { flex: none; color: var(--gold-soft); font-size: 13px; padding-top: 3px; }
+  .notes textarea { flex: 1; background: transparent; border: none; outline: none; resize: none; overflow: hidden; color: var(--ink); font-family: 'Caveat', cursive; font-size: 17px; line-height: 1.35; height: 24px; padding: 0; }
+  .notes textarea::placeholder { color: var(--faint); }
+  .notes .notes-close { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; width: 20px; height: 20px; padding: 0; font-size: 12px; line-height: 1; cursor: pointer; }
+  .notes.open .notes-close { display: inline-flex; }
+  .notes .notes-close:hover { color: var(--gold); border-color: var(--gold-soft); }
+  .notes { flex-wrap: wrap; }
+  .lead-card + .notes { width: calc(50% - 9px); }
+  .notes .notes-style { display: none; flex: none; align-items: center; justify-content: center; background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 999px; min-width: 20px; height: 20px; padding: 0 5px; font-size: 11px; line-height: 1; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .notes.open .notes-style { display: inline-flex; }
+  .notes .notes-style:hover, .notes .notes-style.on { color: var(--gold); border-color: var(--gold-soft); }
+  .notes .notes-tools { display: none; flex-basis: 100%; order: 10; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line-strong); flex-wrap: wrap; align-items: center; gap: 6px; }
+  .notes.tools-open .notes-tools { display: flex; }
+  .notes .notes-tools select { background: var(--panel); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 11px; padding: 2px 6px; cursor: pointer; }
+  .notes .notes-tools button { background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 8px; min-width: 24px; height: 22px; padding: 0 6px; font-size: 11.5px; line-height: 1; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .notes .notes-tools button:hover { color: var(--gold); border-color: var(--gold-soft); }
+  .notes .notes-tools button.on { color: var(--gold); border-color: var(--gold); background: rgba(200,162,74,0.12); }
+  .notes .notes-tools .swatch { width: 16px; height: 16px; min-width: 16px; padding: 0; border-radius: 999px; }
+  .notes .notes-tools .swatch.on { box-shadow: 0 0 0 2px var(--panel), 0 0 0 3px var(--gold); }
+  @media (max-width: 640px) { .lead-card + .notes { width: 100%; } }
+  .page-notes { margin-top: 28px; }
+  .page-notes .notes { margin-top: 0; }
+  .page-notes .notes-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
+  .site-foot { position: relative; border-top: 2px solid var(--line-strong); margin-top: 36px; }
+  .site-foot::before { content:""; position:absolute; left:0; right:0; top:3px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .foot-grid { display: grid; grid-template-columns: 1fr; }
+  .foot-cell { padding: 24px 20px 22px; text-align: center; }
+  .foot-head { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 7px; }
+  .foot-copy { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); margin: 0 0 14px; }
+  .gf-btn { display: inline-block; font-family: 'Inter', sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-bottom: 3px double var(--gold-soft); border-radius: 999px 999px 3px 3px; padding: 9px 15px 6px; text-decoration: none; transition: background 0.15s, color 0.15s; }
+  .gf-btn:hover { background: rgba(200,162,74,0.22); }
+  .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 0; padding-top: 16px; }
+  .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+  .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
+  @media (max-width: 700px) {
+    .paper { padding: 30px 22px; margin: 12px; }
+    .masthead-art { max-width: 100%; }
+    .lanes { grid-template-columns: 1fr; }
+    .lead-card h1 { font-size: 24px; }
+    .margin-note { position: static; display: inline-block; margin-bottom: 6px; transform: rotate(-2deg); }
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="paper">
+  <header class="masthead">
+    <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+    <div class="tagline"><a href="#shelf">The tool shelf</a><span class="sep">&middot;</span><a href="#workflows">The workflows</a><span class="sep">&middot;</span><a href="/archive.html">Past editions</a></div>
+    <div class="dateline">
+      <div class="dateline-row">
+        <span>Wednesday, July 29, 2026</span>
+        <span class="edition">Evening edition</span>
+        <span class="read">&#8776; 3 min read</span>
+      </div>
+    </div>
+  </header>
+
+  <aside class="glance">
+    <div class="glance-head">Tonight, in one look</div>
+    <ul>
+      <li><span class="tag">Tools</span><span>A fresh KOReader build, a free AI guitar tutor, offline Mac dictation, and a map of $10 dinners.</span></li>
+      <li><span class="tag">Workflows</span><span>Run a 26B model on a MacBook Air, automate a rental air conditioner, network your Kindle.</span></li>
+    </ul>
+  </aside>
+
+  <div class="kicker">Start here tonight</div>
+  <article class="lead-card">
+    <!--worth an evening_START--><span class="margin-note">worth an evening</span><!--worth an evening_END-->
+    <a class="card-link" href="https://github.com/koreader/koreader/releases/tag/v2026.07">
+      <span class="badge">Trending tool</span>
+      <h1>KOReader's July release turns a Kindle, Kobo, or Android tablet into a far better e-reader, for free</h1>
+      <p class="standfirst">The open source reading app that people install when the software their device shipped with stops being enough.</p>
+      <p class="lead-body">KOReader 2026.07, nicknamed Sailing Walrus, went out on July 26 with support for Kobo v5 hardware, a new cloud storage plugin that replaces the old SyncService, basic OPDS 2.0 feed support, and background cleanup for PDFs that use Mask and SMask layers. It is free and open source, and the release ships builds for Kindle, Kobo, PocketBook, Cervantes, Android, and desktop Linux, macOS, and Windows. The catch is the Kindle route: KOReader's own documentation says it installs only on jailbroken Kindles, through a launcher such as KUAL, and that newer models are progressively harder to jailbreak. On Android and on a desktop it is an ordinary download, which is the fastest way to try it tonight.</p>
+    </a>
+  </article>
+  <div class="notes" data-note-key="https://github.com/koreader/koreader/releases/tag/v2026.07"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+
+  <div class="lanes">
+    <section id="shelf">
+      <div class="lane-head">The tool shelf <span class="sub">new tonight</span></div>
+      <div class="shelf">
+        <div class="shelf-card"><a href="https://apps.apple.com/us/app/soundgate-guitar/id6760704644">
+          <h3>SoundGate Guitar</h3>
+          <div class="shelf-tags"><span class="tagchip cost">Free, no in-app purchases</span><span class="tagchip">iPhone, iPad, Mac app</span><span class="tagchip seen">Product Hunt No. 2, Jul 29</span></div>
+          <p>It listens through the microphone and draws what you are playing on a live fretboard, with an AI tutor that answers questions and builds practice routines, plus a tuner and metronome; it is an Apple-only app, so Android players are out of luck.</p>
+        </a></div>
+        <div class="shelf-card"><a href="https://github.com/frigadehq/yap">
+          <h3>Yap, on-device dictation for macOS</h3>
+          <div class="shelf-tags"><span class="tagchip cost">Free, MIT licensed</span><span class="tagchip">macOS 26, Apple Silicon</span><span class="tagchip seen">Show HN, 104 points</span></div>
+          <p>Press a shortcut, talk, press it again, and your words appear in whatever text field you were in, using Apple's built-in speech APIs with no model to download and no network calls; it needs macOS 26 or later on Apple Silicon, and Intel Macs are deliberately not supported.</p>
+        </a></div>
+        <div class="shelf-card"><a href="https://cheapfoodmap.com/">
+          <h3>CheapFoodMap</h3>
+          <div class="shelf-tags"><span class="tagchip cost">Free</span><span class="tagchip">Web map, US cities</span><span class="tagchip seen">Show HN, 273 points</span></div>
+          <p>A map of meals under $10 across a dozen featured cities including New York, Chicago, Houston, and Los Angeles, with a price-verified date shown on each spot; the entries are crowdsourced, so coverage thins out fast once you pan away from the big cities.</p>
+        </a></div>
+        <div class="shelf-card"><a href="https://tale.fyi/@sam/announcing-tale-fyi-read-or-listen-to-an-entire-book-from-a-single-link">
+          <h3>tale.fyi</h3>
+          <div class="shelf-tags"><span class="tagchip cost">Free</span><span class="tagchip">Web, reads or plays aloud</span><span class="tagchip seen">Show HN, 71 points</span></div>
+          <p>One link opens a whole book, keeps your place on the device, and lets you swap between reading and listening; an account is optional and only syncs progress, but the library is public domain material from Project Gutenberg, Standard Ebooks, and LibriVox, so nothing modern is on the shelf.</p>
+        </a></div>
+        <div class="shelf-card"><a href="https://laurentiugabriel.github.io/token-town/">
+          <h3>TokenTown</h3>
+          <div class="shelf-tags"><span class="tagchip cost">Free</span><span class="tagchip">Runs in the browser</span><span class="tagchip seen">Hacker News, 72 points</span></div>
+          <p>Type a prompt and watch a single token travel through an isometric city where each district is one stage of a language model, from tokenizing to attention to sampling; the model is deliberately tiny and its weights are random and untrained, so the words it produces are noise and only the machinery is real.</p>
+        </a></div>
+        <p class="shelf-foot">Every shelf item is available today; no waitlists, no vaporware.</p>
+      </div>
+      <div class="notes" data-note-key="page:shelf"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Shelf notes&hellip;" aria-label="Notes on the tool shelf"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+    </section>
+
+    <section id="workflows">
+      <div class="lane-head">The workflows <span class="sub">follow along at home</span></div>
+      <div class="recipes">
+        <article class="recipe"><a class="card-link" href="https://github.com/drumih/turbo-fieldfare">
+          <div class="r-top"><h3>Run a 26B AI model offline on a small Mac laptop</h3><span class="time">About an hour</span></div>
+          <p class="dek"><b>Big model, small Mac</b> TurboFieldfare keeps only the essential weights in memory and streams the rest from storage, so Gemma 4 26B answers inside about 2 GB of RAM, at 5.1 to 6.3 tokens per second on an 8 GB M2 MacBook Air and 31 to 35 on an M5.</p>
+          <div class="needs"><b>You need</b>Apple Silicon Mac on macOS 26<span class="dot">&middot;</span>Xcode 26 and Swift 6.2<span class="dot">&middot;</span>About 15 GB free storage<span class="dot">&middot;</span>Text only: no images or tools</div>
+        </a></article>
+        <div class="notes" data-note-key="https://github.com/drumih/turbo-fieldfare"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+        <article class="recipe"><a class="card-link" href="https://prilik.com/blog/post/automating-ac-nyc/">
+          <div class="r-top"><h3>Make a landlord's dumb air conditioner smart for about $15</h3><span class="time">A few hours</span></div>
+          <p class="dek"><b>Renter-safe automation</b> A stepper motor clamped to the existing dial, driven by an ESP32 talking to Home Assistant over MQTT, switches an analog window unit on and off without modifying the unit or risking the security deposit.</p>
+          <div class="needs"><b>You need</b>ESP32 and a stepper motor, about $15<span class="dot">&middot;</span>Home Assistant and an MQTT broker<span class="dot">&middot;</span>Brackets, a binder clip, cardboard</div>
+        </a></article>
+        <div class="notes" data-note-key="https://prilik.com/blog/post/automating-ac-nyc/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+        <article class="recipe"><a class="card-link" href="https://tailscale.com/blog/jailbroken-kindle-proxy-tun-modes">
+          <div class="r-top"><h3>Put a jailbroken Kindle on your home network with Tailscale</h3><span class="time">An evening</span></div>
+          <p class="dek"><b>Kindle, meet your server</b> The updated Tailscale KUAL app adds proxy and kernel TUN modes, and a KOReader plugin, so the reader can pull books straight from a machine at home, though Tailscale calls it community code on a very unofficial device state and warns 11th-generation Kindles have plugin trouble.</p>
+          <div class="needs"><b>You need</b>A jailbroken Kindle with KUAL<span class="dot">&middot;</span>A Tailscale account and auth key<span class="dot">&middot;</span>KOReader, for the plugin route</div>
+        </a></article>
+        <div class="notes" data-note-key="https://tailscale.com/blog/jailbroken-kindle-proxy-tun-modes"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="page-notes">
+    <div class="notes-label">Page notes</div>
+    <div class="notes" data-note-key="page:home"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Thoughts on this edition&hellip;" aria-label="Page notes"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+  </div>
+
+  <footer class="site-foot">
+    <div class="foot-grid">
+      <div class="foot-cell">
+        <div class="foot-head">Notes &amp; Letters</div>
+        <p class="foot-copy">Selah &ndash; anything to set down?</p>
+        <a class="gf-btn" href="/chronicles.html">the chronicles</a>
+      </div>
+      </div>
+    <div class="colophon">David's Daily Bread &middot; compiled Thursday, July 30, 2026 at 10:00 PM ET &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a></div>
+  </footer>
+</div>
+<script>
+  (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
+  (function () {
+    var FONTS = { hand: "'Caveat', cursive", serif: "'Newsreader', Georgia, serif", elegant: "'Cormorant Garamond', Georgia, serif", sans: "'Inter', -apple-system, system-ui, sans-serif", mono: "'Courier New', Courier, monospace" };
+    var COLORS = { ink: '#ece7db', gold: '#c8a24a', steel: '#6f9fce', copper: '#b9772a' };
+    var DEF = { font: 'hand', size: 17, bold: false, italic: false, color: 'ink' };
+    var blocks = document.querySelectorAll('.notes');
+    for (var i = 0; i < blocks.length; i++) (function (box) {
+      var ta = box.querySelector('textarea');
+      var btn = box.querySelector('.notes-close');
+      var noteKey = box.getAttribute('data-note-key');
+      var key = 'ddb-note:' + noteKey;
+      var styleKey = 'ddb-note-style:' + noteKey;
+      var prev = box.previousElementSibling;
+      var isLead = !!(prev && prev.classList && prev.classList.contains('lead-card'));
+      var st = {}; for (var k in DEF) st[k] = DEF[k];
+      try { var savedSt = JSON.parse(localStorage.getItem(styleKey) || 'null'); if (savedSt) for (var k2 in savedSt) st[k2] = savedSt[k2]; } catch (e) {}
+      var styleBtn = document.createElement('button');
+      styleBtn.type = 'button'; styleBtn.className = 'notes-style'; styleBtn.title = 'Personalize text'; styleBtn.setAttribute('aria-label', 'Personalize note text'); styleBtn.textContent = 'Aa';
+      box.insertBefore(styleBtn, btn);
+      var tools = document.createElement('div');
+      tools.className = 'notes-tools';
+      tools.innerHTML = '<select aria-label="Note font"><option value="hand">Handwritten</option><option value="serif">Serif</option><option value="elegant">Elegant</option><option value="sans">Sans</option><option value="mono">Mono</option></select>' +
+        '<button type="button" data-act="smaller" title="Smaller text">A&minus;</button>' +
+        '<button type="button" data-act="larger" title="Larger text">A+</button>' +
+        '<button type="button" data-act="bold" title="Bold" style="font-weight:700">B</button>' +
+        '<button type="button" data-act="italic" title="Italic" style="font-style:italic">I</button>' +
+        '<button type="button" class="swatch" data-color="ink" title="Ink" style="background:#ece7db"></button>' +
+        '<button type="button" class="swatch" data-color="gold" title="Gold" style="background:#c8a24a"></button>' +
+        '<button type="button" class="swatch" data-color="steel" title="Steel" style="background:#6f9fce"></button>' +
+        '<button type="button" class="swatch" data-color="copper" title="Copper" style="background:#b9772a"></button>' +
+        '<button type="button" data-act="reset" title="Reset style">&#8634;</button>';
+      box.appendChild(tools);
+      var sel = tools.querySelector('select');
+      function lineH() { return Math.max(24, Math.ceil((parseFloat(st.size) || 17) * 1.35) + 2); }
+      function grow() {
+        if (isLead) {
+          box.style.width = '';
+          ta.style.height = 'auto';
+          var maxW = (prev && prev.offsetWidth) || box.parentNode.clientWidth;
+          var w = box.offsetWidth;
+          while (ta.scrollHeight > lineH() && w < maxW) {
+            w = Math.min(maxW, w + 60);
+            box.style.width = w + 'px';
+            ta.style.height = 'auto';
+          }
+          if (w >= maxW) { box.style.width = '100%'; }
+        }
+        ta.style.height = 'auto';
+        ta.style.height = Math.max(24, ta.scrollHeight) + 'px';
+      }
+      function applyStyle() {
+        ta.style.fontFamily = FONTS[st.font] || FONTS.hand;
+        ta.style.fontSize = st.size + 'px';
+        ta.style.fontWeight = st.bold ? '700' : '';
+        ta.style.fontStyle = st.italic ? 'italic' : '';
+        ta.style.color = COLORS[st.color] || '';
+        sel.value = FONTS[st.font] ? st.font : 'hand';
+        var bb = tools.querySelector('[data-act="bold"]');
+        var ib = tools.querySelector('[data-act="italic"]');
+        if (st.bold) { bb.classList.add('on'); } else { bb.classList.remove('on'); }
+        if (st.italic) { ib.classList.add('on'); } else { ib.classList.remove('on'); }
+        var sw = tools.querySelectorAll('.swatch');
+        for (var j = 0; j < sw.length; j++) {
+          if (sw[j].getAttribute('data-color') === st.color) { sw[j].classList.add('on'); } else { sw[j].classList.remove('on'); }
+        }
+        grow();
+      }
+      function saveStyle() {
+        try {
+          var isDef = true; for (var k3 in DEF) { if (st[k3] !== DEF[k3]) { isDef = false; } }
+          if (isDef) { localStorage.removeItem(styleKey); } else { localStorage.setItem(styleKey, JSON.stringify(st)); }
+        } catch (e) {}
+      }
+      try { var saved = localStorage.getItem(key); if (saved) { ta.value = saved; box.classList.add('open'); } } catch (e) {}
+      applyStyle();
+      ta.addEventListener('focus', function () { box.classList.add('open'); grow(); });
+      ta.addEventListener('input', function () {
+        grow();
+        try { if (ta.value) { localStorage.setItem(key, ta.value); } else { localStorage.removeItem(key); } } catch (e) {}
+      });
+      btn.addEventListener('click', function () { box.classList.remove('open'); box.classList.remove('tools-open'); styleBtn.classList.remove('on'); box.style.width = ''; ta.style.height = '24px'; ta.blur(); });
+      styleBtn.addEventListener('click', function () {
+        box.classList.toggle('tools-open');
+        if (box.classList.contains('tools-open')) { styleBtn.classList.add('on'); } else { styleBtn.classList.remove('on'); }
+      });
+      sel.addEventListener('change', function () { st.font = sel.value; applyStyle(); saveStyle(); });
+      tools.addEventListener('click', function (ev) {
+        var t = ev.target;
+        while (t && t !== tools && (!t.tagName || t.tagName !== 'BUTTON')) { t = t.parentNode; }
+        if (!t || t === tools) { return; }
+        var act = t.getAttribute('data-act');
+        var col = t.getAttribute('data-color');
+        if (col) { st.color = col; }
+        else if (act === 'smaller') { st.size = Math.max(13, (parseFloat(st.size) || 17) - 2); }
+        else if (act === 'larger') { st.size = Math.min(27, (parseFloat(st.size) || 17) + 2); }
+        else if (act === 'bold') { st.bold = !st.bold; }
+        else if (act === 'italic') { st.italic = !st.italic; }
+        else if (act === 'reset') { for (var k4 in DEF) { st[k4] = DEF[k4]; } }
+        else { return; }
+        applyStyle(); saveStyle();
+      });
+    })(blocks[i]);
+  })();
+</script>
+</body>
+</html>
