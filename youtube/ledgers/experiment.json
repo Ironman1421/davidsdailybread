@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-31T00:00:00Z",
+  "operatingState": "disabled",
+  "platformBaseline": {
+    "status": "unknown",
+    "channelHandle": null,
+    "channelId": null,
+    "capturedAt": null,
+    "subscribers": null,
+    "historicalViews": null,
+    "historicalEngagedViews": null,
+    "sourceReceiptReference": null,
+    "unknownBlockers": [
+      "channel_handle_not_supplied",
+      "channel_id_not_supplied",
+      "youtube_baseline_not_supplied"
+    ]
+  },
+  "constraints": {
+    "market": "US",
+    "language": "en-US",
+    "durationDays": 30,
+    "singleChangedVariable": "voice_mode",
+    "initialComparison": [
+      "recurring_human_narrator",
+      "caption_only"
+    ],
+    "syntheticNarratorAllowed": false,
+    "clonedVoiceAllowed": false,
+    "externalPlanningCeilingUsd": 2500,
+    "spendAuthorized": false,
+    "authorizedSpendUsd": 0,
+    "publishingEnabled": false,
+    "externalAccountMutationAuthorized": false,
+    "longFormRequiresShortWinner": true,
+    "plannedCellDefinitions": [
+      "morning_receipts:recurring_human_narrator",
+      "morning_receipts:caption_only",
+      "tonights_field_guide:recurring_human_narrator",
+      "tonights_field_guide:caption_only"
+    ],
+    "decisionRule": {
+      "minimumEligiblePostsPerCell": 5,
+      "primaryMetric": "subscribers_per_1000_engaged_views",
+      "minimumMedianRelativeLift": 0.15,
+      "stayedToWatchMaximumMedianRelativeDecline": 0.1,
+      "sharesMaximumMedianRelativeDecline": 0.2,
+      "unsupportedClaimsAllowed": 0,
+      "unknownRightsAssetsAllowed": 0,
+      "materialCorrectionsAllowed": 0,
+      "policyIncidentsAllowed": 0
+    },
+    "classification": "internal_planning_assumptions_not_platform_benchmarks"
+  },
+  "experiments": [],
+  "gateEvaluations": []
+}
