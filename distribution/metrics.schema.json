@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/distribution-metrics-v1.json",
+  "title": "David's Daily Bread distribution ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "updatedAt", "baseline", "posts"],
+  "properties": {
+    "version": {"const": 1},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "baseline": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/baseline"}
+    },
+    "posts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/post"}
+    }
+  },
+  "$defs": {
+    "platform": {
+      "enum": ["x", "youtube", "instagram", "tiktok", "facebook", "linkedin", "other"]
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["platform", "capturedAt", "followers"],
+      "properties": {
+        "platform": {"$ref": "#/$defs/platform"},
+        "capturedAt": {"type": "string", "format": "date-time"},
+        "followers": {"type": ["integer", "null"], "minimum": 0},
+        "source": {"type": ["string", "null"]}
+      }
+    },
+    "snapshot": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["capturedAt"],
+      "properties": {
+        "capturedAt": {"type": "string", "format": "date-time"},
+        "impressions": {"type": ["integer", "null"], "minimum": 0},
+        "views": {"type": ["integer", "null"], "minimum": 0},
+        "engagedViews": {"type": ["integer", "null"], "minimum": 0},
+        "watchTimeSeconds": {"type": ["number", "null"], "minimum": 0},
+        "averagePercentageViewed": {"type": ["number", "null"], "minimum": 0},
+        "likes": {"type": ["integer", "null"], "minimum": 0},
+        "replies": {"type": ["integer", "null"], "minimum": 0},
+        "shares": {"type": ["integer", "null"], "minimum": 0},
+        "profileVisits": {"type": ["integer", "null"], "minimum": 0},
+        "follows": {"type": ["integer", "null"], "minimum": 0},
+        "clicks": {"type": ["integer", "null"], "minimum": 0}
+      }
+    },
+    "post": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "editionId",
+        "canonicalUrl",
+        "lead",
+        "platform",
+        "platformPostId",
+        "formatId",
+        "idempotencyKey",
+        "voiceMode",
+        "automated",
+        "publishedAt",
+        "spendUsd",
+        "metrics24h",
+        "metrics7d"
+      ],
+      "properties": {
+        "editionId": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"
+        },
+        "canonicalUrl": {"type": "string", "format": "uri"},
+        "lead": {"type": "string", "minLength": 1, "maxLength": 130},
+        "platform": {"$ref": "#/$defs/platform"},
+        "platformPostId": {"type": "string", "minLength": 1},
+        "formatId": {"type": "string", "minLength": 1},
+        "idempotencyKey": {"type": "string", "minLength": 1},
+        "hookVariant": {"type": ["string", "null"]},
+        "voiceMode": {"enum": ["voice", "caption_only"]},
+        "automated": {"type": "boolean"},
+        "publishedAt": {"type": "string", "format": "date-time"},
+        "operator": {"type": ["string", "null"]},
+        "rightsManifest": {"type": ["string", "null"]},
+        "receipt": {"type": ["string", "null"]},
+        "spendUsd": {"type": "number", "minimum": 0},
+        "metrics24h": {"$ref": "#/$defs/snapshot"},
+        "metrics7d": {"$ref": "#/$defs/snapshot"}
+      }
+    }
+  }
+}

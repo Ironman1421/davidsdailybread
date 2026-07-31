@@ -97,12 +97,13 @@ def tree_hashes(root: Path) -> dict:
     return out
 
 
-def render(repo: Path, content: dict, slot: str):
+def render(repo: Path, content: dict, slot: str, mode: str = "daily"):
     cj = repo / "content.json"
     cj.write_text(json.dumps(content, ensure_ascii=False), encoding="utf-8")
     r = subprocess.run(
         [sys.executable, "ddb_session_bake.py", "--render",
-         "--content", "content.json", "--date", DATE, "--slot", slot],
+         "--content", "content.json", "--date", DATE, "--slot", slot,
+         "--mode", mode],
         cwd=repo, capture_output=True, text=True)
     cj.unlink()
     return r
@@ -173,7 +174,9 @@ with tempfile.TemporaryDirectory() as td:
     # --- morning render still writes the morning set ------------------------
     before = tree_hashes(repo)
     mo = content_for(("tech", "markets", "science"), "tech", "Technology")
-    r = render(repo, mo, "morning")
+    # This mechanics fixture intentionally carries no live reader plan, so it
+    # uses backfill mode. Daily mode separately requires exact plan provenance.
+    r = render(repo, mo, "morning", "backfill")
     assert r.returncode == 0, f"morning render failed:\n{r.stdout}\n{r.stderr}"
     assert f"BAKE OK: {DATE} morning" in r.stdout, r.stdout
 

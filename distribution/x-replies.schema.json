@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/x-replies-v1.json",
+  "title": "David's Daily Bread published X reply ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "updatedAt", "strategyBaseline", "publishedReplies"],
+  "properties": {
+    "version": {"const": 1},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "strategyBaseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approvedAt", "xFollowers", "primaryAcquisitionChannel", "mode"],
+      "properties": {
+        "approvedAt": {"type": "string", "format": "date-time"},
+        "xFollowers": {"type": "integer", "minimum": 0},
+        "primaryAcquisitionChannel": {"const": "credible-account-replies"},
+        "mode": {"const": "manual-ui-per-reply-approval"}
+      }
+    },
+    "publishedReplies": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/reply"}
+    }
+  },
+  "$defs": {
+    "httpsUrl": {
+      "type": "string",
+      "pattern": "^https://[^\\s]+$"
+    },
+    "xStatusUrl": {
+      "type": "string",
+      "pattern": "^https://(www\\.)?x\\.com/[A-Za-z0-9_]{1,15}/status/[0-9]+(?:\\?[^\\s]*)?$"
+    },
+    "snapshot": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["capturedAt", "attribution"],
+      "properties": {
+        "capturedAt": {"type": "string", "format": "date-time"},
+        "impressions": {"type": ["integer", "null"], "minimum": 0},
+        "likes": {"type": ["integer", "null"], "minimum": 0},
+        "childReplies": {"type": ["integer", "null"], "minimum": 0},
+        "reposts": {"type": ["integer", "null"], "minimum": 0},
+        "profileVisitsWindow": {"type": ["integer", "null"], "minimum": 0},
+        "followerCount": {"type": ["integer", "null"], "minimum": 0},
+        "followerDeltaWindow": {"type": ["integer", "null"]},
+        "attribution": {"enum": ["unknown", "temporal", "platform_reported"]}
+      }
+    },
+    "policyChecks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parentStillAvailable",
+        "relevanceConfirmed",
+        "sensitiveContentChecked",
+        "duplicateScanPassed",
+        "claimsSupported",
+        "noEngagementCallToAction"
+      ],
+      "properties": {
+        "parentStillAvailable": {"const": true},
+        "relevanceConfirmed": {"const": true},
+        "sensitiveContentChecked": {"const": true},
+        "duplicateScanPassed": {"const": true},
+        "claimsSupported": {"const": true},
+        "noEngagementCallToAction": {"const": true}
+      }
+    },
+    "reply": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "replyId",
+        "parentPostUrl",
+        "targetAccount",
+        "targetTier",
+        "beat",
+        "replyShape",
+        "discoveredAt",
+        "approvedBy",
+        "approvedAt",
+        "publishedAt",
+        "followerCountAtApproval",
+        "replyPostId",
+        "replyUrl",
+        "replyText",
+        "supportUrls",
+        "usedDdbLink",
+        "automated",
+        "postedThrough",
+        "policyChecks",
+        "targetAuthorInteractions",
+        "metrics24h",
+        "metrics7d"
+      ],
+      "properties": {
+        "replyId": {
+          "type": "string",
+          "pattern": "^XR-[0-9]{8}-[0-9]{3}$"
+        },
+        "parentPostUrl": {"$ref": "#/$defs/xStatusUrl"},
+        "targetAccount": {
+          "type": "string",
+          "pattern": "^@[A-Za-z0-9_]{1,15}$"
+        },
+        "targetTier": {
+          "enum": [
+            "primary_source",
+            "subject_matter_expert",
+            "credible_reporter",
+            "trusted_institution"
+          ]
+        },
+        "beat": {
+          "enum": ["tech", "markets", "science", "ai_tools", "workflows"]
+        },
+        "replyShape": {
+          "enum": [
+            "sourced_addition",
+            "plain_language_translation",
+            "practical_application",
+            "evidence_based_caveat",
+            "specific_question"
+          ]
+        },
+        "discoveredAt": {"type": "string", "format": "date-time"},
+        "approvedBy": {"const": "David"},
+        "approvedAt": {"type": "string", "format": "date-time"},
+        "publishedAt": {"type": "string", "format": "date-time"},
+        "followerCountAtApproval": {"type": "integer", "minimum": 0},
+        "replyPostId": {"type": "string", "minLength": 1},
+        "replyUrl": {"$ref": "#/$defs/xStatusUrl"},
+        "replyText": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 280,
+          "pattern": "^[^—]*$"
+        },
+        "supportUrls": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/httpsUrl"}
+        },
+        "usedDdbLink": {"type": "boolean"},
+        "automated": {"const": false},
+        "postedThrough": {"const": "official-x-ui"},
+        "policyChecks": {"$ref": "#/$defs/policyChecks"},
+        "targetAuthorInteractions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": ["liked", "replied", "reposted", "quoted", "hidden", "deleted"]
+          }
+        },
+        "correction": {"type": ["string", "null"]},
+        "policySignal": {"type": ["string", "null"]},
+        "metrics24h": {"$ref": "#/$defs/snapshot"},
+        "metrics7d": {"$ref": "#/$defs/snapshot"}
+      }
+    }
+  }
+}

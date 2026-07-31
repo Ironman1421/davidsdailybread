@@ -41,12 +41,14 @@ state). Do not hand-edit rendered pages; do not bypass the script.
 5. **Work from the fresh clone only.** Never read site state from the live
    davidsdailybread.com (the CDN serves stale files for hours).
 6. The email newsletter is retired. Never add subscribe links or email CTAs.
-7. **The lead title feeds X.** Each edition's archive `lead` (= the lead
-   story's title) is auto-posted to @DavidDailyBread by the DAICC pipeline
-   with fail-closed gates: keep every lead title self-contained and roughly
-   **130 characters or fewer**. An over-length lead means the X post is
-   SKIPPED, not truncated (the evening template tops out around a 146-char
-   lead); an em dash also fails the gate, but rule 1 already bans those.
+7. **The lead title is the X distribution contract.** Each edition's archive
+   `lead` (= the lead story's title) is eligible for a canonical post to
+   @DavidDailyBread. The prior DAICC/Claude Cowork-era poster is unlocated and
+   is not an operational authority; its replacement must satisfy
+   `docs/DISTRIBUTION_SPEC.md`. Keep every lead title self-contained and
+   **130 characters or fewer**. An over-length lead is skipped, never truncated
+   (the evening template tops out around a 146-character lead); an em dash also
+   fails the gate, but rule 1 already bans those.
 
 ## The bake, step by step
 
@@ -89,9 +91,8 @@ reader submission to answer (`ask`), which letter the King replies to (`king`,
 either reader mail or a house-satchel draw), and which Crumb Board pin to post
 (`pin`). Null means that section stays empty today; never invent submissions.
 Reader submissions come from `counter.csv` in the clone, committed daily at
-4:45 AM Pacific by `.github/workflows/counter-sync.yml` (this sandbox cannot
-reach docs.google.com, so the committed copy is the source; a "CSV fetch failed"
-warning from the script is expected and harmless).
+4:45 AM Pacific by `.github/workflows/counter-sync.yml`. The committed copy is
+the source for the whole bake: `--plan` never refreshes or mutates it.
 
 **2. Research.** Using web search, gather TODAY'S real news (last ~24 hours,
 reputable primary sources) for the three sections: **tech** (AI, chips, software,
@@ -128,12 +129,12 @@ sections (impact beats recency; a routine photo-of-the-day loses to real news).
 Deks: one sentence, opening `<b>bold lead-in</b>`. Reader sections: **Ask the
 Baker** answers are factual with exactly one bread/baking analogy. **Letters to
 the King** replies are the historical King David: poetic, warm, biblical
-register with a wink, factually sound. **Crumb Board** pins get a light typo
-copyedit only, never a rewrite; `pin.text` is the corrected pin. Copy `state_key`
-/ `satchel_id` values from the plan verbatim. Reader sections that were null in
-the plan are omitted or null here.
+register with a wink, factually sound. **Crumb Board** pins remain source-exact;
+only the renderer's deterministic em-dash normalization is permitted. Copy
+`pin.text`, `state_key`, and `satchel_id` values from the plan verbatim. Reader
+sections that were null in the plan are omitted or null here.
 
-**4. Render.** `python3 ddb_session_bake.py --render --content content.json --date <date> --slot <slot>`
+**4. Render.** `python3 ddb_session_bake.py --render --content content.json --date <date> --slot <slot> --mode <daily|backfill>`
 (`--slot` defaults to morning.) The script validates, renders every page,
 updates archive + feed + state, and self-checks. If it fails, fix content.json
 and re-run; never hand-patch output.
@@ -176,7 +177,7 @@ over and guards the result before it ships:
 - It checks every changed path against the slot's allowlist and fails on
   anything else. Morning: `index.html`, the three section pages, `archive.html`,
   `archive.json`, `feed.xml`, `bakery-state.json`, `kings-satchel.json`,
-  `counter.csv`, and `editions/<date>-morning|evening.html`. Evening (tighter):
+  and `editions/<date>-morning|evening.html`. Evening (tighter):
   ONLY `index.html`, `archive.html`, `archive.json`, `feed.xml`, and
   `editions/<date>-evening.html`.
 - It confirms `archive.json` carries this slot's entry, then commits in the
@@ -280,7 +281,7 @@ metaphors in the writing; workflow deks open with a `<b>bold lead-in</b>`;
 tool blurbs are plain text (no markup) and each carries its caveat.
 
 **E3. Render, review, report.**
-`python3 ddb_session_bake.py --render --content content.json --date <date> --slot evening`
+`python3 ddb_session_bake.py --render --content content.json --date <date> --slot evening --mode <daily|backfill>`
 then review it like an editor (step 5), run the step 5A accuracy pass, and
 finish with the step 9 report.
 The renderer builds the shelf tiles and recipe cards from the JSON; the
@@ -291,11 +292,10 @@ pages, and never touches `kings-satchel.json`, `bakery-state.json`, or
 
 ## Ops notes
 
-- `/archive.json` and the `/editions/…` URLs are a public contract: the DAICC
-  distribution pipeline reads them daily (morning and evening digest runs, from
-  raw.githubusercontent.com). Never change their shape or paths without
-  David's sign-off BEFORE deploying. `edition` values are `morning` and
-  `evening`; downstream readers ground each digest in its own slot.
+- `/archive.json` and the `/editions/…` URLs are a public distribution contract.
+  Never change their shape or paths without David's sign-off BEFORE deploying.
+  `edition` values are `morning` and `evening`; every replacement adapter must
+  ground a post in its exact slot and canonical URL.
 - **Publishing runs in GitHub Actions**, not in a Claude session, and the push
   authenticates with the workflow's built-in `GITHUB_TOKEN`. There is NO
   personal access token anywhere in this pipeline. A Claude session has no

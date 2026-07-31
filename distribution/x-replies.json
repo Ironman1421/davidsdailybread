@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-31T20:16:37Z",
+  "strategyBaseline": {
+    "approvedAt": "2026-07-31T20:16:37Z",
+    "xFollowers": 5,
+    "primaryAcquisitionChannel": "credible-account-replies",
+    "mode": "manual-ui-per-reply-approval"
+  },
+  "publishedReplies": []
+}

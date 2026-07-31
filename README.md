@@ -27,6 +27,22 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
 - `bakery-state.json` / `kings-satchel.json` — reader-content bookkeeping and
   the King's house letters.
 - `BRAND.md` — brand source of truth; `brand.css` — design tokens.
+- `docs/PRODUCT_SPEC.md` — current product and distribution contract;
+  `docs/SECURITY_SPEC.md` — trust boundaries and required controls;
+  `docs/DISTRIBUTION_SPEC.md` — channel, adapter, voice, rights, and measurement law;
+  `docs/GROWTH_ROADMAP.md` — the six-month audience plan;
+  `docs/X_REPLY_PLAYBOOK.md` — manually approved, reply-led X growth law;
+  `docs/READER_STORE_SPEC.md` — approved private reader-store and cutover design;
+  `docs/PUBLISHER_IDENTITY_SPEC.md` — approved scheduled identity and `main`
+  ruleset design;
+  `docs/AUDIT_2026-07-31.md` — takeover findings and open decisions.
+- `operations/*.contract.json` — machine-readable desired state for the private
+  reader boundary and protected publishing path; these are not live credentials
+  or proof that provisioning is complete.
+- `distribution/metrics.schema.json` / `distribution/ledger.json` — the
+  machine-readable measurement contract and current baseline/post ledger.
+- `distribution/x-replies.schema.json` / `distribution/x-replies.json` — the
+  published X reply contract and five-follower manual-strategy baseline.
 - `ddb_bake.py` / `ddb_satchel.py` / `ddb_synth.py` — the previous Spark-era
   pipeline; `ddb_session_bake.py` reuses their tested render/state helpers.
 - `tests/` — regression tests for brand law, archive integrity, and standing pages.

@@ -36,6 +36,7 @@ import random
 import re
 import subprocess
 import urllib.request
+from datetime import datetime
 from pathlib import Path
 
 TIMESTAMP_COL, TYPE_COL, TEXT_COL, NAME_COL = 0, 1, 2, 3
@@ -127,9 +128,27 @@ def pick_oldest_unused(rows: list[dict], used_keys: set[str]) -> dict | None:
     if not candidates:
         return None
 
-    def _sort_key(r):
-        return r["timestamp"]  # ISO-ish / Google Forms default sorts correctly enough lexically for same-day; ties broken by CSV order otherwise
-    return sorted(candidates, key=_sort_key)[0]
+    def parse_timestamp(value: str) -> datetime:
+        formats = (
+            "%m/%d/%Y %H:%M:%S",
+            "%m/%d/%Y %H:%M",
+            "%m/%d/%Y %I:%M:%S %p",
+            "%m/%d/%Y %I:%M %p",
+            "%Y-%m-%d %H:%M:%S",
+            "%Y-%m-%d %H:%M",
+        )
+        for fmt in formats:
+            try:
+                return datetime.strptime(value, fmt)
+            except ValueError:
+                continue
+        raise ValueError(f"unsupported Counter timestamp: {value!r}")
+
+    # ``min`` is stable through the CSV index when timestamps tie.
+    return min(
+        enumerate(candidates),
+        key=lambda indexed: (parse_timestamp(indexed[1]["timestamp"]), indexed[0]),
+    )[1]
 
 
 # ---------------------------------------------------------------------------

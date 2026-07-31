@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "deploymentStatus": "design-approved-not-provisioned",
+  "repository": "Ironman1421/davidsdailybread",
+  "protectedRef": "refs/heads/main",
+  "workflow": {
+    "name": "Daily bake",
+    "concurrencyGroup": "ddb-main-publisher",
+    "concurrencyQueue": "max",
+    "topLevelPermissions": {
+      "contents": "read"
+    },
+    "jobs": [
+      "prepare-reader-plan",
+      "author-edition",
+      "validate-and-publish"
+    ],
+    "freshRunnerBoundaryBeforePublisherCredential": true,
+    "publicActionsArtifactsMayContainUnpublishedContent": false,
+    "publisherRequiresUnchangedBaseSha": true,
+    "publisherCreatesOneAtomicCommit": true
+  },
+  "identities": [
+    {
+      "name": "github-actions[bot]",
+      "kind": "built-in-github-token",
+      "repositoryPermissions": {
+        "contents": "read"
+      },
+      "mainRulesetBypass": false,
+      "purpose": "checkout and orchestration only"
+    },
+    {
+      "name": "ddb-reader-broker",
+      "kind": "supabase-edge-function-client",
+      "repositoryPermissions": {},
+      "mainRulesetBypass": false,
+      "purpose": "reserve, finalize, or release one private morning reader plan"
+    },
+    {
+      "name": "ddb-publisher[bot]",
+      "kind": "github-app-installation",
+      "repositorySelection": [
+        "Ironman1421/davidsdailybread"
+      ],
+      "repositoryPermissions": {
+        "contents": "write",
+        "metadata": "read"
+      },
+      "forbiddenPermissions": [
+        "actions",
+        "administration",
+        "secrets",
+        "workflows"
+      ],
+      "mainRulesetBypass": true,
+      "purpose": "push one validated generated edition commit to main"
+    },
+    {
+      "name": "Ironman1421",
+      "kind": "human-owner",
+      "repositoryPermissions": {
+        "administration": "owner"
+      },
+      "mainRulesetBypass": false,
+      "purpose": "normal pull-request path and audited break-glass ruleset administration"
+    }
+  ],
+  "publisherToken": {
+    "action": "actions/create-github-app-token",
+    "pinnedCommit": "bcd2ba49218906704ab6c1aa796996da409d3eb1",
+    "clientIdVariable": "DDB_PUBLISHER_CLIENT_ID",
+    "privateKeySecret": "DDB_PUBLISHER_PRIVATE_KEY",
+    "privateKeyEnvironment": "production-publish",
+    "environmentDeploymentBranches": [
+      "main"
+    ],
+    "requestedPermissions": {
+      "contents": "write"
+    },
+    "mintAfterValidation": true,
+    "persistCheckoutCredentials": false,
+    "placeTokenInRemoteUrl": false,
+    "revokeAtJobEnd": true
+  },
+  "mainRuleset": {
+    "enforcement": "active",
+    "target": "branch",
+    "include": [
+      "refs/heads/main"
+    ],
+    "requirePullRequest": true,
+    "requiredApprovals": 0,
+    "approvalUpgradeCondition": "second-trusted-maintainer-added",
+    "requireConversationResolution": true,
+    "requireLinearHistory": true,
+    "blockForcePushes": true,
+    "blockDeletions": true,
+    "requiredStatusChecks": [
+      "gate",
+      "Analyze (python)",
+      "Analyze (javascript-typescript)"
+    ],
+    "bypassActors": [
+      {
+        "name": "ddb-publisher[bot]",
+        "actorType": "Integration",
+        "mode": "always"
+      }
+    ]
+  },
+  "retiredWriters": [
+    "counter-sync GITHUB_TOKEN",
+    "Daily bake GITHUB_TOKEN contents:write"
+  ]
+}
