@@ -78,12 +78,16 @@ operating authority unless deliberately migrated into this repository.
 - RSS: `/feed.xml` contains the same ordered edition set as `archive.json`.
 - X: the unlocated Claude Cowork-era process is retired as authority. A
   replacement distributor may consume each edition's exact archive lead only
-  after it satisfies `docs/DISTRIBUTION_SPEC.md`.
+  after it satisfies `docs/DISTRIBUTION_SPEC.md`. Credible-account replies are
+  the primary near-term X acquisition strategy; each is approved by David and
+  manually posted under `docs/X_REPLY_PLAYBOOK.md`.
 - YouTube: the initial discovery channel is a faceless vertical-video format,
   tested voice-led against caption-led and always grounded in a canonical
   edition.
 - Distribution measurements validate against
   `distribution/metrics.schema.json`; unknown metrics are null, never zero.
+- Published X replies validate separately against
+  `distribution/x-replies.schema.json`; unposted drafts are not committed.
 - Email is retired. No signup or delivery promise may return without a new
   product decision and migration plan.
 
@@ -110,6 +114,8 @@ Track separately for morning and evening:
 - unique readers, returning-reader rate, engaged time, and RSS follows;
 - reader slips submitted, wait time, and publish rate;
 - distribution posts attempted, skipped, duplicated, and successfully published;
+- X replies approved and published, reply impressions, target-author
+  interactions, approval latency, profile-visit windows, and follower deltas;
 - impressions, shares, profile visits, follows, and site visits per edition.
 
 Follower count is a reach metric, not a quality substitute. Corrections,

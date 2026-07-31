@@ -15,6 +15,8 @@ Last reconciled: 2026-07-31
 - Claude Cowork conversations and artifacts are historical context, not
   operational authority. Production code, prompts, credentials boundaries,
   tests, and runbooks must live in a named GitHub repository.
+- Credible-account replies are the primary near-term X acquisition strategy.
+  David approves every reply individually and replies are manually posted.
 
 This repository owns the canonical edition and channel-neutral distribution
 contract. A separate private adapter repository is allowed only when its owner,
@@ -34,10 +36,37 @@ packages and never become the only copy of an edition or correction.
 - At most one automatic canonical broadcast per edition.
 - At most one additional edition-derived source card, useful fact, or question;
   it requires human review and must add distinct value.
-- Replies, quote posts, trend participation, likes, and follows are never
-  automated.
+- Replies are read-only scouted and AI-assisted drafted, then individually
+  approved by David and posted through X's official interface. No API
+  credential is installed for replies.
+- Quote posts, trend participation, likes, and follows are never automated.
 - The replacement adapter must pass the acceptance contract below before it can
   receive credentials.
+
+### X reply approval contract
+
+`docs/X_REPLY_PLAYBOOK.md` is the operating authority. Approval is bound to one
+parent URL and the exact proposed text, expires after 60 minutes, and is void
+when context changes. Silence is rejection. Every factual assertion has a
+fetched supporting source, every reply adds one distinct form of value, and no
+reply asks for engagement.
+
+The first 30 operating days prohibit DDB links in proactive replies unless the
+parent author requests the source or the claim would otherwise be
+unverifiable. The profile and pinned post perform conversion. Never send
+duplicative replies, target an account repeatedly for its size, or use replies
+to insert the brand into unrelated attention.
+
+Only published replies enter `distribution/x-replies.json`, validated against
+`distribution/x-replies.schema.json`. The public ledger records the parent,
+target tier, beat, reply shape, exact approved text, supporting sources,
+receipt, policy checks, and outcome snapshots. Unposted drafts stay in a
+private transient queue for at most 24 hours and are never committed here.
+
+The manual boundary may change only after X grants written approval for the
+specific AI-powered reply use case, a reviewed adapter proves policy and safety
+controls, and David approves the contract change. A general X API credential or
+approval of one reply is not permission to automate another.
 
 ### YouTube
 
@@ -88,6 +117,10 @@ Every distributed item carries:
 
 The machine-readable ledger must validate against
 `distribution/metrics.schema.json`. Missing analytics are `null`, never zero.
+X replies use their separate published-reply ledger because they are
+conversation-derived rather than edition-derived. Follower deltas use an
+explicit attribution label and are never presented as causal without provider
+evidence.
 
 ## Adapter acceptance contract
 
@@ -105,6 +138,9 @@ Before any provider credential is installed, an adapter must demonstrate:
 9. fixture tests for success, duplicate, timeout, rate limit, invalid auth,
    invalid content, and partial media upload;
 10. a named repository, owner, runtime, and failure-notification destination.
+
+This acceptance contract currently authorizes edition broadcasts only. It does
+not authorize reply posting through an API.
 
 ## Experiment and budget contract
 

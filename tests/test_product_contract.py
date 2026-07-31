@@ -44,6 +44,8 @@ class ProductContractTest(unittest.TestCase):
             "The brand is faceless",
             "No spend is authorized",
             "Claude Cowork",
+            "Credible-account replies",
+            "David approves every reply individually",
         ):
             self.assertIn(decision, active)
         for stale_question in (
@@ -84,6 +86,74 @@ class ProductContractTest(unittest.TestCase):
         )
         self.assertEqual(5, x_baseline["followers"])
         self.assertEqual([], ledger["posts"])
+
+    def test_x_reply_growth_is_manual_approved_sourced_and_measured(self):
+        schema = json.loads(
+            (ROOT / "distribution" / "x-replies.schema.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        ledger = json.loads(
+            (ROOT / "distribution" / "x-replies.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        playbook = (ROOT / "docs" / "X_REPLY_PLAYBOOK.md").read_text(
+            encoding="utf-8"
+        )
+        distribution = (ROOT / "docs" / "DISTRIBUTION_SPEC.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertEqual(1, schema["properties"]["version"]["const"])
+        self.assertEqual(
+            ["version", "updatedAt", "strategyBaseline", "publishedReplies"],
+            schema["required"],
+        )
+        baseline = ledger["strategyBaseline"]
+        self.assertEqual(5, baseline["xFollowers"])
+        self.assertEqual("credible-account-replies", baseline["primaryAcquisitionChannel"])
+        self.assertEqual("manual-ui-per-reply-approval", baseline["mode"])
+        self.assertEqual([], ledger["publishedReplies"])
+
+        reply = schema["$defs"]["reply"]
+        required = set(reply["required"])
+        self.assertTrue(
+            {
+                "parentPostUrl",
+                "targetTier",
+                "replyShape",
+                "approvedBy",
+                "approvedAt",
+                "followerCountAtApproval",
+                "replyText",
+                "supportUrls",
+                "automated",
+                "postedThrough",
+                "policyChecks",
+                "targetAuthorInteractions",
+                "metrics24h",
+                "metrics7d",
+            }.issubset(required)
+        )
+        self.assertEqual("David", reply["properties"]["approvedBy"]["const"])
+        self.assertFalse(reply["properties"]["automated"]["const"])
+        self.assertEqual(
+            "official-x-ui", reply["properties"]["postedThrough"]["const"]
+        )
+        self.assertEqual(280, reply["properties"]["replyText"]["maxLength"])
+        self.assertEqual(1, reply["properties"]["supportUrls"]["minItems"])
+
+        active = " ".join((playbook + "\n" + distribution).lower().split())
+        for invariant in (
+            "primary near-term acquisition channel",
+            "every reply requires david's explicit approval",
+            "no api credential is installed for replies",
+            "silence is rejection",
+            "no more than 60 minutes",
+            "no reply asks for engagement",
+        ):
+            self.assertIn(invariant, active)
 
     def test_chronicles_describes_actual_reader_queue_and_publication(self):
         page = (ROOT / "chronicles.html").read_text(encoding="utf-8")

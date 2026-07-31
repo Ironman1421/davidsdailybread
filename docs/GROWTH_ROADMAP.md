@@ -45,16 +45,21 @@ Turn each edition into a source package, not one link post:
 - 2 vertical videos, one morning and one evening;
 - 1 automatic canonical X post per edition, plus at most 1 distinct,
   human-reviewed source card, useful fact, or question from that edition;
+- 4 to 6 individually approved, manually posted replies per day during the
+  initial X reply lab, scaling only through the gates below;
 - 1 carousel or document post from the strongest edition each day;
 - after a short franchise wins, 2 long-form YouTube videos per week built from
   recurring themes rather than a read-through of one briefing;
 - 1 weekly "What mattered / What worked" recap that compounds authority.
 
-The X auto-post is a delivery floor, not the growth strategy. A headline plus
-link rarely captures the product's strongest asset: sourced synthesis.
+The X auto-post is a delivery floor, not the growth strategy. Credible-account
+replies are the primary near-term X acquisition strategy; the standing posts
+give profile visitors proof that DDB is worth following. A headline plus link
+rarely captures the product's strongest asset: sourced synthesis.
 
-YouTube Shorts is the initial discovery engine. X is the authority,
-conversation, and source-receipt layer. Add a second short-video platform only
+YouTube Shorts is the initial video discovery engine. On X, useful replies are
+the discovery engine while the profile, canonical broadcasts, and source cards
+are the authority and conversion layer. Add a second short-video platform only
 after one format wins repeatedly on YouTube, then recut it for that platform
 instead of mechanically cross-posting it.
 
@@ -62,8 +67,10 @@ instead of mechanically cross-posting it.
 
 - X automation is limited to distinct, helpful broadcasts of finished
   editions. Do not automate trend reactions, keyword-triggered replies, likes,
-  follows, or near-duplicate link posts. Human-reviewed replies and quote posts
-  carry the growth conversation.
+  follows, or near-duplicate link posts. Every proactive reply requires David's
+  item-level approval and is posted manually through X's official interface;
+  AI may scout and draft but receives no reply-posting credential. Follow
+  `docs/X_REPLY_PLAYBOOK.md`.
 - Separate the canonical link broadcast from the human editorial package. A
   second post must provide genuinely different value, not a repeated headline
   or link.
@@ -86,16 +93,20 @@ instead of mechanically cross-posting it.
 - Test one faceless voice-led cut and one faceless caption-led cut for each of
   ten strong archived stories; keep every other variable as stable as possible.
 - Establish source-card templates and correction workflow.
+- Establish two daily reply-approval windows and publish 4 to 6 approved,
+  sourced replies per day without links or engagement calls to action.
 
-Exit: every post has a format ID, edition ID, publish receipt, and 24-hour metric
-snapshot.
+Exit: every edition-derived post has a format ID, edition ID, publish receipt,
+and 24-hour metric snapshot; every published reply has its parent receipt,
+item-level approval, policy checks, and reply-led metric snapshot.
 
 ### Weeks 3 to 4: establish franchises
 
 - Publish the morning and evening vertical franchises daily.
 - Add one high-context X thread on the strongest story each weekday.
-- Reply thoughtfully to 10 to 15 relevant posts per day from the brand account;
-  no automated generic replies.
+- Publish 6 to 10 individually approved replies per day only if the first 14
+  days show no spam labeling, hidden replies, blocks, policy warnings, or
+  rising negative feedback. Ten to 15 is a later test, not a starting quota.
 - Begin two weekly creator or expert outreach conversations.
 
 Exit: identify at least two formats with above-baseline shares and follows per
@@ -151,6 +162,8 @@ Primary metrics:
 - vertical-video engaged views, completion, retention, and rewatch rate;
 - long-form first-30-second and average-percentage retention;
 - profile-to-follow conversion;
+- median and 75th-percentile reply impressions, qualified target-author
+  interactions, approval latency, and follower delta per approval window;
 - social-to-site click rate and returning-site-reader rate.
 
 Guardrails:
@@ -193,6 +206,9 @@ cost rises above the approved ceiling. Never buy followers or pay for engagement
 4. The last known X baseline is five followers.
 5. Claude Cowork is retired as project authority. Any useful distribution logic
    must be reconstructed in a named GitHub repository with tests and ownership.
+6. Credible-account replies are the primary near-term X acquisition strategy.
+   David approves every reply individually; replies are posted manually through
+   X's official interface unless X later grants written automation approval.
 
 Still needed: first-market country/language, whether a recurring human or
 licensed synthetic voice may be used, and current YouTube/other platform
