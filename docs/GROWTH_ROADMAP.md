@@ -1,15 +1,16 @@
 # Six-month audience growth roadmap
 
-Status: draft pending baseline and brand-format decisions
+Status: active initial strategy; reforecast weekly from measured performance
 Goal: 1,000,000 followers in six months
 
 ## Reality of the target
 
-From a zero baseline, one million net followers in 180 days requires about
-5,556 net new followers every day. Organic growth at that rate is an outlier,
-so this is managed as a portfolio of repeatable formats and breakout bets, not
-as a forecast. The operating target is combined followers across approved
-platforms until David specifies a single-platform goal.
+The documented baseline on 2026-07-31 is five X followers. YouTube and other
+platform baselines are unmeasured and count as zero for planning until captured.
+Against that known floor, the combined-platform goal requires 999,995 net new
+followers in 180 days, or about 5,556 every day. Organic growth at that rate is
+an outlier, so this is managed as a portfolio of repeatable formats and breakout
+bets, not as a forecast.
 
 The exposure requirement is equally demanding. At a 1 percent
 impression-to-follow conversion, a zero-baseline account needs about 100
@@ -31,21 +32,31 @@ Morning answers "What changed, and why does it matter?" Evening answers "What
 can I use or try tonight?" Every channel should make those two franchises easy
 to recognize before the viewer sees the account name.
 
+The brand is faceless. Recognition comes from the bread-and-receipts visual
+system, recurring franchise names, typography, sound, and optionally one
+consistent off-camera voice. Initial vertical tests compare voice-led and
+caption-led cuts; David does not need to appear on camera.
+
 ## Content system
 
 Turn each edition into a source package, not one link post:
 
 - 1 canonical site edition and RSS item;
 - 2 vertical videos, one morning and one evening;
-- 2 to 4 X posts per edition: lead, one contrarian fact, one chart or source
-  card, and one question that invites informed replies;
+- 1 automatic canonical X post per edition, plus at most 1 distinct,
+  human-reviewed source card, useful fact, or question from that edition;
 - 1 carousel or document post from the strongest edition each day;
-- 2 long-form YouTube videos per week, built from themes that recur across
-  editions rather than a read-through of one briefing;
+- after a short franchise wins, 2 long-form YouTube videos per week built from
+  recurring themes rather than a read-through of one briefing;
 - 1 weekly "What mattered / What worked" recap that compounds authority.
 
 The X auto-post is a delivery floor, not the growth strategy. A headline plus
 link rarely captures the product's strongest asset: sourced synthesis.
+
+YouTube Shorts is the initial discovery engine. X is the authority,
+conversation, and source-receipt layer. Add a second short-video platform only
+after one format wins repeatedly on YouTube, then recut it for that platform
+instead of mechanically cross-posting it.
 
 ## Channel policy constraints
 
@@ -53,9 +64,9 @@ link rarely captures the product's strongest asset: sourced synthesis.
   editions. Do not automate trend reactions, keyword-triggered replies, likes,
   follows, or near-duplicate link posts. Human-reviewed replies and quote posts
   carry the growth conversation.
-- Separate the canonical link broadcast from the human editorial package. Two
-  to four X posts per edition means genuinely different value, not repeated
-  headlines or links.
+- Separate the canonical link broadcast from the human editorial package. A
+  second post must provide genuinely different value, not a repeated headline
+  or link.
 - For YouTube Shorts, raw views are a distribution counter, not the decision
   metric. Use engaged views, audience retention, watch time, and subscribers
   gained to select formats; compare like-length videos where possible.
@@ -68,10 +79,12 @@ link rarely captures the product's strongest asset: sourced synthesis.
 
 - Record current followers, impressions, engagement, profile visits, site
   clicks, RSS follows, and post history by platform.
-- Audit the X adapter and install edition-scoped deduplication and receipts.
+- Replace the unlocated Claude Cowork-era X process with repository-owned,
+  edition-scoped posting, deduplication, receipts, and a disable switch.
 - Produce 20 hook variants from real archived stories; test four repeatable
   visual formats without changing the reporting standard.
-- Decide faceless versus David-led voice and define a single on-screen identity.
+- Test one faceless voice-led cut and one faceless caption-led cut for each of
+  ten strong archived stories; keep every other variable as stable as possible.
 - Establish source-card templates and correction workflow.
 
 Exit: every post has a format ID, edition ID, publish receipt, and 24-hour metric
@@ -81,7 +94,7 @@ snapshot.
 
 - Publish the morning and evening vertical franchises daily.
 - Add one high-context X thread on the strongest story each weekday.
-- Reply thoughtfully to 15 to 25 relevant posts per day from the brand account;
+- Reply thoughtfully to 10 to 15 relevant posts per day from the brand account;
   no automated generic replies.
 - Begin two weekly creator or expert outreach conversations.
 
@@ -148,18 +161,47 @@ Guardrails:
 - production hours and cost per retained follower;
 - morning and evening on-time publish rate.
 
-## Decisions needed from David
+## Value-gated budget
 
-1. Is the million-follower target aggregate or platform-specific?
-2. Is the brand faceless, voice-led, or David on camera?
-3. What cash budget, paid-media ceiling, and contractor capacity are available?
-4. Which countries and languages are in the first six-month audience?
-5. What are the current X baseline metrics and where is its adapter deployed?
+Budget is flexible but never automatic. No spend is authorized by this document.
+Each release requires a short proposal naming the expected value, owner, maximum
+cost, measurement window, and kill rule.
 
-## Zero-baseline milestone gates
+Suggested authorization bands:
 
-These are decision gates, not promises. Reforecast them after David supplies
-the current baseline and approved platforms.
+1. **Format lab, up to $2,500 total:** motion/source-card templates, small editor
+   trials, licensed music or narration, and measurement setup. Release after
+   concrete quotes and deliverables exist.
+2. **Repeatable production, $3,000 to $10,000 per month:** release only after two
+   formats beat baseline conversion across at least five posts each and editing
+   throughput is the constraint.
+3. **Scaled production, $10,000 to $30,000 per month:** release only when four
+   consecutive weekly cohorts show durable reach, follows, and returning
+   viewers without a higher correction or negative-feedback rate.
+4. **Above $30,000 per month:** requires an explicit marginal-return forecast,
+   channel concentration risk, rights review, and David's separate approval.
+
+Paid distribution is allowed only on an organic winner. Measure incremental
+engaged viewers and qualified followers against a holdout; stop when marginal
+cost rises above the approved ceiling. Never buy followers or pay for engagement.
+
+## Decisions resolved
+
+1. The one-million goal is combined across approved platforms.
+2. The brand is faceless; an off-camera voice is an experiment, not a requirement.
+3. Budget is flexible and released only against expected and measured value.
+4. The last known X baseline is five followers.
+5. Claude Cowork is retired as project authority. Any useful distribution logic
+   must be reconstructed in a named GitHub repository with tests and ownership.
+
+Still needed: first-market country/language, whether a recurring human or
+licensed synthetic voice may be used, and current YouTube/other platform
+baselines.
+
+## Known-baseline milestone gates
+
+These are decision gates from the known floor of five X followers, not promises.
+Reforecast them weekly after all platform baselines are captured.
 
 | End of period | Combined follower gate | Evidence required to keep scaling |
 | --- | ---: | --- |

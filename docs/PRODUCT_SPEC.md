@@ -10,12 +10,18 @@ David's Daily Bread is a twice-daily, source-linked briefing for everyday
 readers. It earns attention through useful compression and earns trust by
 making every factual item traceable.
 
+The publisher is faceless. A consistent off-camera voice may be used when it
+improves retention, but David is not required to appear on camera. The active
+audience goal is 1,000,000 combined followers across approved platforms in six
+months, from a documented floor of five X followers on 2026-07-31.
+
 When sources disagree, use this order:
 
 1. `BRAND.md` for brand, voice, art, typography, and reader-visible house law.
 2. This file for the product shape and public promises.
-3. `BAKE.md` for the daily editorial and publishing procedure.
-4. Tests for executable contracts. A test that contradicts the three documents
+3. `docs/DISTRIBUTION_SPEC.md` for channel, adapter, rights, and measurement law.
+4. `BAKE.md` for the daily editorial and publishing procedure.
+5. Tests for executable contracts. A test that contradicts the four documents
    above is a defect, not permission to change the product.
 
 The public `Ironman1421/davidsdailybread` repository is the active production
@@ -70,9 +76,14 @@ operating authority unless deliberately migrated into this repository.
 - Archive: `/archive.json` and `/editions/YYYY-MM-DD-{morning|evening}.html` are
   public APIs. Their paths and field meanings require an explicit migration.
 - RSS: `/feed.xml` contains the same ordered edition set as `archive.json`.
-- X: an external distributor is expected to consume each edition's exact
-  archive lead. Its implementation, credentials, retries, deduplication, and
-  metrics are not present in this repository and remain an ownership gap.
+- X: the unlocated Claude Cowork-era process is retired as authority. A
+  replacement distributor may consume each edition's exact archive lead only
+  after it satisfies `docs/DISTRIBUTION_SPEC.md`.
+- YouTube: the initial discovery channel is a faceless vertical-video format,
+  tested voice-led against caption-led and always grounded in a canonical
+  edition.
+- Distribution measurements validate against
+  `distribution/metrics.schema.json`; unknown metrics are null, never zero.
 - Email is retired. No signup or delivery promise may return without a new
   product decision and migration plan.
 

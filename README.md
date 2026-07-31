@@ -29,8 +29,11 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
 - `BRAND.md` — brand source of truth; `brand.css` — design tokens.
 - `docs/PRODUCT_SPEC.md` — current product and distribution contract;
   `docs/SECURITY_SPEC.md` — trust boundaries and required controls;
+  `docs/DISTRIBUTION_SPEC.md` — channel, adapter, voice, rights, and measurement law;
   `docs/GROWTH_ROADMAP.md` — the six-month audience plan;
   `docs/AUDIT_2026-07-31.md` — takeover findings and open decisions.
+- `distribution/metrics.schema.json` / `distribution/ledger.json` — the
+  machine-readable measurement contract and current baseline/post ledger.
 - `ddb_bake.py` / `ddb_satchel.py` / `ddb_synth.py` — the previous Spark-era
   pipeline; `ddb_session_bake.py` reuses their tested render/state helpers.
 - `tests/` — regression tests for brand law, archive integrity, and standing pages.

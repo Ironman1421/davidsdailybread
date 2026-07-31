@@ -41,12 +41,14 @@ state). Do not hand-edit rendered pages; do not bypass the script.
 5. **Work from the fresh clone only.** Never read site state from the live
    davidsdailybread.com (the CDN serves stale files for hours).
 6. The email newsletter is retired. Never add subscribe links or email CTAs.
-7. **The lead title feeds X.** Each edition's archive `lead` (= the lead
-   story's title) is auto-posted to @DavidDailyBread by the DAICC pipeline
-   with fail-closed gates: keep every lead title self-contained and roughly
-   **130 characters or fewer**. An over-length lead means the X post is
-   SKIPPED, not truncated (the evening template tops out around a 146-char
-   lead); an em dash also fails the gate, but rule 1 already bans those.
+7. **The lead title is the X distribution contract.** Each edition's archive
+   `lead` (= the lead story's title) is eligible for a canonical post to
+   @DavidDailyBread. The prior DAICC/Claude Cowork-era poster is unlocated and
+   is not an operational authority; its replacement must satisfy
+   `docs/DISTRIBUTION_SPEC.md`. Keep every lead title self-contained and
+   **130 characters or fewer**. An over-length lead is skipped, never truncated
+   (the evening template tops out around a 146-character lead); an em dash also
+   fails the gate, but rule 1 already bans those.
 
 ## The bake, step by step
 
@@ -290,11 +292,10 @@ pages, and never touches `kings-satchel.json`, `bakery-state.json`, or
 
 ## Ops notes
 
-- `/archive.json` and the `/editions/…` URLs are a public contract: the DAICC
-  distribution pipeline reads them daily (morning and evening digest runs, from
-  raw.githubusercontent.com). Never change their shape or paths without
-  David's sign-off BEFORE deploying. `edition` values are `morning` and
-  `evening`; downstream readers ground each digest in its own slot.
+- `/archive.json` and the `/editions/…` URLs are a public distribution contract.
+  Never change their shape or paths without David's sign-off BEFORE deploying.
+  `edition` values are `morning` and `evening`; every replacement adapter must
+  ground a post in its exact slot and canonical URL.
 - **Publishing runs in GitHub Actions**, not in a Claude session, and the push
   authenticates with the workflow's built-in `GITHUB_TOKEN`. There is NO
   personal access token anywhere in this pipeline. A Claude session has no

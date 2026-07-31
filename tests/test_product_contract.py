@@ -2,6 +2,7 @@
 """Executable checks for current product truth and governance wiring."""
 
 from pathlib import Path
+import json
 import unittest
 
 
@@ -13,6 +14,9 @@ class ProductContractTest(unittest.TestCase):
         product = (ROOT / "docs" / "PRODUCT_SPEC.md").read_text(encoding="utf-8")
         security = (ROOT / "docs" / "SECURITY_SPEC.md").read_text(encoding="utf-8")
         growth = (ROOT / "docs" / "GROWTH_ROADMAP.md").read_text(encoding="utf-8")
+        distribution = (ROOT / "docs" / "DISTRIBUTION_SPEC.md").read_text(
+            encoding="utf-8"
+        )
         repo_map = (ROOT / "docs" / "REPOSITORY_MAP.md").read_text(encoding="utf-8")
 
         for required in (
@@ -24,7 +28,62 @@ class ProductContractTest(unittest.TestCase):
             self.assertIn(required, product)
         self.assertIn("Reader privacy", security)
         self.assertIn("1,000,000 followers", growth)
+        self.assertIn("Adapter acceptance contract", distribution)
         self.assertIn("Production source of truth", repo_map)
+
+    def test_growth_decisions_are_resolved_in_active_docs(self):
+        growth = (ROOT / "docs" / "GROWTH_ROADMAP.md").read_text(encoding="utf-8")
+        distribution = (ROOT / "docs" / "DISTRIBUTION_SPEC.md").read_text(
+            encoding="utf-8"
+        )
+        active = growth + "\n" + distribution
+
+        for decision in (
+            "combined followers",
+            "five X followers",
+            "The brand is faceless",
+            "No spend is authorized",
+            "Claude Cowork",
+        ):
+            self.assertIn(decision, active)
+        for stale_question in (
+            "Is the million-follower target aggregate or platform-specific?",
+            "Is the brand faceless, voice-led, or David on camera?",
+        ):
+            self.assertNotIn(stale_question, active)
+
+    def test_distribution_metrics_schema_has_provenance_and_outcome_fields(self):
+        schema = json.loads(
+            (ROOT / "distribution" / "metrics.schema.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(1, schema["properties"]["version"]["const"])
+        self.assertEqual(
+            ["version", "updatedAt", "baseline", "posts"], schema["required"]
+        )
+        required_post_fields = set(schema["$defs"]["post"]["required"])
+        self.assertTrue(
+            {
+                "editionId",
+                "lead",
+                "platformPostId",
+                "formatId",
+                "idempotencyKey",
+                "voiceMode",
+                "spendUsd",
+                "metrics24h",
+                "metrics7d",
+            }.issubset(required_post_fields)
+        )
+        ledger = json.loads(
+            (ROOT / "distribution" / "ledger.json").read_text(encoding="utf-8")
+        )
+        x_baseline = next(
+            item for item in ledger["baseline"] if item["platform"] == "x"
+        )
+        self.assertEqual(5, x_baseline["followers"])
+        self.assertEqual([], ledger["posts"])
 
     def test_chronicles_describes_actual_reader_queue_and_publication(self):
         page = (ROOT / "chronicles.html").read_text(encoding="utf-8")

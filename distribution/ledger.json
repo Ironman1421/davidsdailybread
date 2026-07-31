@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-31T19:53:41Z",
+  "baseline": [
+    {
+      "platform": "x",
+      "capturedAt": "2026-07-31T19:53:41Z",
+      "followers": 5,
+      "source": "Owner-reported last-known count in the 2026-07-31 takeover task"
+    },
+    {
+      "platform": "youtube",
+      "capturedAt": "2026-07-31T19:53:41Z",
+      "followers": null,
+      "source": "Not yet measured"
+    }
+  ],
+  "posts": []
+}
