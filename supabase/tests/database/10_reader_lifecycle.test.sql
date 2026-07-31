@@ -210,6 +210,14 @@ select is(
   'published private payloads are erased after 30 days'
 );
 
+select reader_private.submit_submission(
+  'ask_baker',
+  'lease deletion target',
+  null,
+  'reader-publication-v1',
+  true,
+  repeat('06', 32)
+);
 insert into reader_test_values values
   ('lease_one', reader_private.reserve_plan('2026-08-03-morning'));
 select is(
@@ -242,7 +250,7 @@ select is(
   'old lease is marked expired'
 );
 select is(
-  (reader_private.delete_submission(repeat('02', 32)) ->> 'outcome'),
+  (reader_private.delete_submission(repeat('06', 32)) ->> 'outcome'),
   'accepted',
   'reserved deletion is accepted'
 );
