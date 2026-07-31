@@ -563,6 +563,14 @@ class ReceiptHydrationAndWorkflowTest(BroadcastFixture):
         self.assertTrue(
             contract["enablement"]["continuousActivationRequiresSeparateApproval"]
         )
+        self.assertIn("Actions artifacts are operational duplicate evidence", runbook)
+        self.assertEqual(
+            "distribution/ledger.json",
+            contract["measurementPersistence"]["permanentLedger"],
+        )
+        self.assertFalse(
+            contract["measurementPersistence"]["ledgerFailureAuthorizesProviderRetry"]
+        )
 
     def test_bootstrap_receipt_blocks_known_manual_recovery_post(self):
         state = json.loads(

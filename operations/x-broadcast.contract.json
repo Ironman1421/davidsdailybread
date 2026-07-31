@@ -93,5 +93,14 @@
     "providerBodiesStored": false,
     "attemptArtifactName": "x-broadcast-attempt-{editionId}-{runId}-{runAttempt}"
   },
+  "measurementPersistence": {
+    "permanentLedger": "distribution/ledger.json",
+    "schema": "distribution/metrics.schema.json",
+    "writePath": "reviewed-pull-request",
+    "artifactIsPermanentLedger": false,
+    "ledgerFailureAuthorizesProviderRetry": false,
+    "snapshotWindowsHours": [24, 168],
+    "unknownMetrics": "null-never-zero"
+  },
   "failureNotification": "failed Daily bake workflow run in the GitHub Actions UI; repository owner must keep Actions failure notifications enabled"
 }

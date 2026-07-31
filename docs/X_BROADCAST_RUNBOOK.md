@@ -157,6 +157,21 @@ reviewed pull request adding it to `clearedRemoteArtifactIds`. Include the run
 URL and evidence in the PR. Never delete an artifact or receipt merely to force
 a retry.
 
+## Permanent receipt and measurement record
+
+Actions artifacts are operational duplicate evidence, not the permanent
+measurement ledger. After a verified successful broadcast or recovered exact
+provider Post, open a reviewed pull request that appends the exact edition,
+lead, provider Post ID, format, canonical URL, provider publication time,
+automation flag, and redacted receipt reference to `distribution/ledger.json`.
+Validate the updated ledger against `distribution/metrics.schema.json`. A
+ledger-write delay or failure never authorizes another provider mutation.
+
+Add the 24-hour and seven-day snapshots through later reviewed pull requests.
+Record unavailable provider fields as `null`, never zero, and preserve each
+capture time. Keep raw account exports, credentials, authorization headers, and
+unredacted provider bodies outside the public repository.
+
 ## Retry and failure behavior
 
 Read-only identity/read-back calls retry transient network, 429, and 5xx errors
