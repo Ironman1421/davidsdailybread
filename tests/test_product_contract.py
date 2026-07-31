@@ -29,7 +29,12 @@ class ProductContractTest(unittest.TestCase):
 
     def test_chronicles_describes_actual_reader_queue_and_publication(self):
         page = (ROOT / "chronicles.html").read_text(encoding="utf-8")
-        visible = re.sub(r"<script.*?</script>|<style.*?</style>", "", page, flags=re.DOTALL)
+        visible = re.sub(
+            r"<script.*?</script>|<style.*?</style>",
+            "",
+            page,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
 
         for current_truth in (
             "at most one waiting question, oldest first",

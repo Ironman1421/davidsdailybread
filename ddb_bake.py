@@ -28,6 +28,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import sys
 import tempfile
 from copy import deepcopy
@@ -356,8 +357,8 @@ def _atomic_replace_bytes(path: Path, payload: bytes) -> None:
     temporary = Path(temporary_name)
     try:
         temporary.write_bytes(payload)
-        mode = path.stat().st_mode & 0o777 if path.exists() else 0o644
-        os.chmod(temporary, mode)
+        if path.exists():
+            shutil.copymode(path, temporary)
         with temporary.open("rb") as handle:
             os.fsync(handle.fileno())
         os.replace(temporary, path)
