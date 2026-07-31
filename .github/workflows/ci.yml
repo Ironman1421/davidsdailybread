@@ -69,4 +69,8 @@ jobs:
           python3 tests/test_evening_render.py
 
       - name: Gate result
-        run: echo "Merge gate passed: full suite green and render check explicit."
+        # Block scalar, not a plain one. A plain YAML scalar cannot contain ": ",
+        # and shell quotes do not protect it: YAML is parsed before the shell
+        # ever sees the line.
+        run: |
+          echo "Merge gate passed: full suite green and render check explicit."
