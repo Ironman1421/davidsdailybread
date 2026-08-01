@@ -2,6 +2,51 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-01",
+      "name": "Invidious",
+      "url": "https://github.com/iv-org/invidious",
+      "cost": "Free, AGPL-3.0",
+      "kind": "Web, public instances",
+      "seen": "GitHub trending, +361 today",
+      "blurb": "Opens YouTube through a public instance with no ads, no tracking and no JavaScript required, though the project says plainly that it does not use YouTube's official APIs and takes no responsibility for the third-party instances it lists."
+    },
+    {
+      "date": "2026-08-01",
+      "name": "G'MIC 4.0",
+      "url": "https://gmic.eu/gmic40/",
+      "cost": "Free, open source",
+      "kind": "GIMP, Krita, Photoshop",
+      "seen": "Hacker News, 77 points",
+      "blurb": "Brings the filter count to 644 with six new ones in this release, among them Pixel Stretch and Heightfield Warp, but it is a plugin rather than an app: you run it inside GIMP, Krita, Photoshop or Affinity Photo, from the command line, or in a browser at G'MIC Online."
+    },
+    {
+      "date": "2026-08-01",
+      "name": "Elevators, an interactive explainer",
+      "url": "https://john.fun/elevators",
+      "cost": "Free",
+      "kind": "Web, any browser",
+      "seen": "Hacker News, 1,558 points",
+      "blurb": "Lets you set building height, car count and passenger flow, then watch LOOK, destination dispatch and other algorithms rearrange the wait-time histogram, which is the whole of it: this is a browser essay with simulators inside, not an app you keep."
+    },
+    {
+      "date": "2026-08-01",
+      "name": "Yamanote 3D",
+      "url": "https://yamanote-3d.com/",
+      "cost": "Free",
+      "kind": "Web, any browser",
+      "seen": "Product Hunt No. 5, 132 votes",
+      "blurb": "Puts you inside an E235 carriage on Tokyo's Yamanote loop, where you walk the car, sit down, listen to the station announcements and step off at a stop, with nothing to win or finish: its maker pitches it as calm background for studying or working."
+    },
+    {
+      "date": "2026-08-01",
+      "name": "EssayKraft",
+      "url": "https://apps.apple.com/us/app/essaykraft/id6789774290",
+      "cost": "$14.99, one time",
+      "kind": "Mac and iPad, 3.4 MB",
+      "seen": "Product Hunt No. 9, 95 votes",
+      "blurb": "A paginated writing app with automatic citations, built-in reference lookup and DOCX export, bought once with no subscription and no account, though the App Store listing asks for macOS 26 or iPadOS 26, which rules out older machines."
+    },
+    {
       "date": "2026-07-31",
       "name": "Gander",
       "url": "https://github.com/mokshablr/gander",
@@ -85,11 +130,51 @@
   ],
   "workflows": [
     {
+      "date": "2026-08-01",
+      "title": "Back up one folder to every cloud account you own, with a single command",
+      "url": "https://www.howtogeek.com/the-rclone-trick-that-backs-up-my-nas-to-multiple-cloud-services-at-once-for-free/",
+      "dek": "<b>One union remote</b> Faisal Rasool's Saturday walkthrough installs rclone, authenticates each account with rclone config, then merges Google Drive, Dropbox and the rest into one union remote so a single copy command fans a folder out to all of them.",
+      "needs": [
+        "rclone, free on Windows, Mac, Linux",
+        "Two or more cloud accounts",
+        "A terminal for rclone config"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-08-01",
+      "title": "Follow 38 hand-checked blogs at once by importing a single OPML file",
+      "url": "https://iheartrss.com/",
+      "dek": "<b>One file, 38 feeds</b> The directory behind a 140-point post on today's Hacker News front page hands out its whole membership as OPML for any reader to import in one step, and joining it costs a badge on your homepage and a submitted URL, checked for the link back.",
+      "needs": [
+        "Any RSS reader",
+        "The directory's OPML export",
+        "A site of your own, only to join"
+      ],
+      "time": "10 minutes"
+    },
+    {
+      "date": "2026-08-01",
+      "title": "Set three free apps running this weekend and then leave them alone",
+      "url": "https://www.howtogeek.com/free-open-source-set-it-and-forget-it-apps-you-need-to-set-up-this-weekend-july-31aug-2/",
+      "dek": "<b>Watch, sync, encrypt</b> Dibakar Ghosh's weekend list pairs Changedetection.io for price and stock alerts (free self-hosted in Docker, or $9 a month hosted) with Syncthing for device-to-device syncing that skips the cloud, and Cryptomator for encrypting files before they ever reach it.",
+      "needs": [
+        "Docker for Changedetection.io",
+        "Two devices for Syncthing",
+        "A cloud folder for Cryptomator"
+      ],
+      "time": "An evening, all three"
+    },
+    {
       "date": "2026-07-31",
       "title": "Record an episode this week and hear it published on a feed running since 2005",
       "url": "https://hackerpublicradio.org/contribute.html",
       "dek": "<b>Book the slot first</b> Hacker Public Radio lets a contributor reserve a calendar date up to a year out, then emails a one-time upload link that expires in 15 minutes, and it takes phone recordings as readily as FLAC.",
-      "needs": ["A topic you can talk through", "Audacity or a phone recorder", "A free slot on the calendar"],
+      "needs": [
+        "A topic you can talk through",
+        "Audacity or a phone recorder",
+        "A free slot on the calendar"
+      ],
       "time": "An evening to record"
     },
     {
@@ -97,7 +182,11 @@
       "title": "Start Microsoft's free AI curriculum, 24 lessons at your own pace",
       "url": "https://github.com/microsoft/AI-For-Beginners",
       "dek": "<b>Begin at lesson zero</b> The lessons run from symbolic AI through neural networks, computer vision and language in Jupyter notebooks, and the README is blunt that business applications, classic machine learning and chatbots are out of scope.",
-      "needs": ["Python with Jupyter Notebooks", "A GitHub account to fork it", "Lesson 0 for the setup"],
+      "needs": [
+        "Python with Jupyter Notebooks",
+        "A GitHub account to fork it",
+        "Lesson 0 for the setup"
+      ],
       "time": "12 weeks, self paced"
     },
     {
@@ -105,7 +194,12 @@
       "title": "Run a 26B AI model offline on a small Mac laptop",
       "url": "https://github.com/drumih/turbo-fieldfare",
       "dek": "<b>Big model, small Mac</b> TurboFieldfare keeps only the essential weights in memory and streams the rest from storage, so Gemma 4 26B answers inside about 2 GB of RAM, at 5.1 to 6.3 tokens per second on an 8 GB M2 MacBook Air and 31 to 35 on an M5.",
-      "needs": ["Apple Silicon Mac on macOS 26", "Xcode 26 and Swift 6.2", "About 15 GB free storage", "Text only: no images or tools"],
+      "needs": [
+        "Apple Silicon Mac on macOS 26",
+        "Xcode 26 and Swift 6.2",
+        "About 15 GB free storage",
+        "Text only: no images or tools"
+      ],
       "time": "About an hour"
     },
     {
@@ -113,7 +207,11 @@
       "title": "Make a landlord's dumb air conditioner smart for about $15",
       "url": "https://prilik.com/blog/post/automating-ac-nyc/",
       "dek": "<b>Renter-safe automation</b> A stepper motor clamped to the existing dial, driven by an ESP32 talking to Home Assistant over MQTT, switches an analog window unit on and off without modifying the unit or risking the security deposit.",
-      "needs": ["ESP32 and a stepper motor, about $15", "Home Assistant and an MQTT broker", "Brackets, a binder clip, cardboard"],
+      "needs": [
+        "ESP32 and a stepper motor, about $15",
+        "Home Assistant and an MQTT broker",
+        "Brackets, a binder clip, cardboard"
+      ],
       "time": "A few hours"
     },
     {
@@ -121,7 +219,11 @@
       "title": "Put a jailbroken Kindle on your home network with Tailscale",
       "url": "https://tailscale.com/blog/jailbroken-kindle-proxy-tun-modes",
       "dek": "<b>Kindle, meet your server</b> The updated Tailscale KUAL app adds proxy and kernel TUN modes, and a KOReader plugin, so the reader can pull books straight from a machine at home, though Tailscale calls it community code on a very unofficial device state and warns 11th-generation Kindles have plugin trouble.",
-      "needs": ["A jailbroken Kindle with KUAL", "A Tailscale account and auth key", "KOReader, for the plugin route"],
+      "needs": [
+        "A jailbroken Kindle with KUAL",
+        "A Tailscale account and auth key",
+        "KOReader, for the plugin route"
+      ],
       "time": "An evening"
     }
   ]
