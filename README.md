@@ -24,7 +24,8 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
 - `editions/` — every past edition, dated. `archive.html` / `archive.json` — the bread box.
 - `tools.html` / `workflows.html` — searchable evening libraries backed by
   `evening-catalog.json`.
-- `feed.xml` — RSS. The email newsletter is retired; RSS is the delivery.
+- `feed.xml` — complete RSS delivery. `subscribe.html` runs a four-week,
+  once-weekly Buttondown pilot with fresh double opt-in; the daily bake never sends it.
 - `counter.csv` — reader submissions, synced in daily at 4:45 AM Pacific by
   `.github/workflows/counter-sync.yml` (the bake's sandbox cannot reach
   docs.google.com directly).
@@ -39,10 +40,12 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   `docs/READER_STORE_SPEC.md` — approved private reader-store and cutover design;
   `docs/PUBLISHER_IDENTITY_SPEC.md` — approved scheduled identity and `main`
   ruleset design;
+  `docs/NEWSLETTER_PILOT_SPEC.md` — approved four-week weekly-email scope,
+  consent, $0 budget, manual operating loop, and sending gates;
   `docs/AUDIT_2026-07-31.md` — takeover findings and open decisions.
 - `operations/*.contract.json` — machine-readable desired state for the private
-  reader boundary and protected publishing path; these are not live credentials
-  or proof that provisioning is complete.
+  reader boundary, protected publishing path, X broadcaster, and weekly email
+  pilot; these are not live credentials or proof that every activation gate is complete.
 - `distribution/metrics.schema.json` / `distribution/ledger.json` — the
   machine-readable measurement contract and current baseline/post ledger.
 - `distribution/x-reply-approval-card.schema.json` — the private, transient

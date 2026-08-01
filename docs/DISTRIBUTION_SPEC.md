@@ -33,6 +33,19 @@ documented in `docs/REPOSITORY_MAP.md`.
 The website, archive, and RSS are the canonical record. Social posts are derived
 packages and never become the only copy of an edition or correction.
 
+### Weekly email pilot
+
+- Role: a weekly retention and usefulness test, not a complete copy of the
+  twice-daily paper.
+- Scope: four manual Buttondown issues, at most one per week, then pause for an
+  explicit keep, change, or stop decision.
+- Format: Editorial Ledger with the Guided Path Start, Browse, Do, Rest.
+- Consent: fresh double opt-in only. No retired list is imported or reactivated.
+- Budget: $0. Stop before a charge or paid add-on and before the provider's free
+  subscriber allowance is exceeded.
+- The daily bake and GitHub Actions cannot send email or receive subscriber
+  addresses. Activation and operations follow `docs/NEWSLETTER_PILOT_SPEC.md`.
+
 ### X
 
 - Role: authority, source receipts, expert conversation, and site referral.

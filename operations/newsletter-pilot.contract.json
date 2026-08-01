@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "status": "signup-approved-sending-blocked",
+  "owner": "David Friedhof",
+  "provider": {
+    "name": "Buttondown",
+    "account": "davidsdailybread",
+    "subscribeEndpoint": "https://buttondown.com/api/emails/embed-subscribe/davidsdailybread",
+    "systemOfRecordForSubscriberAddresses": true,
+    "doubleOptInRequired": true
+  },
+  "pilot": {
+    "workingTitle": "The Weekly Loaf",
+    "issueCount": 4,
+    "frequency": "weekly",
+    "maximumIssuesPerWeek": 1,
+    "sendMode": "manual-only",
+    "firstSendDate": null,
+    "sendDay": null,
+    "sendTime": null,
+    "timeZone": "America/Los_Angeles",
+    "pauseAfterIssue": 4
+  },
+  "editorialFlow": [
+    "Start",
+    "Browse",
+    "Do",
+    "Rest"
+  ],
+  "consent": {
+    "freshSignupsOnly": true,
+    "importRetiredList": false,
+    "reactivateRetiredList": false,
+    "confirmationRequiredBeforeActive": true,
+    "unsubscribeRequiredEveryIssue": true
+  },
+  "privacy": {
+    "publicContact": "privacy@davidsdailybread.com",
+    "contactVerified": true,
+    "forwardingDestinationStoredInRepository": false,
+    "subscriberAddressesAllowedInRepository": false,
+    "subscriberAddressesAllowedInGitHubActions": false,
+    "subscriberAddressesAllowedInSupabase": false,
+    "requestCompletionDays": 7
+  },
+  "budget": {
+    "maximumMonthlyUsd": 0,
+    "maximumActiveSubscribersOnFreePlan": 100,
+    "paidAddOnsAllowed": false,
+    "stopBeforeCharge": true
+  },
+  "signup": {
+    "enabledAfterMerge": true,
+    "page": "/subscribe.html"
+  },
+  "sending": {
+    "enabled": false,
+    "dailyBakeMaySend": false,
+    "githubActionsMaySend": false,
+    "blockedBy": [
+      "valid-physical-postal-address-not-configured",
+      "first-send-date-and-time-not-chosen",
+      "issue-one-preview-not-approved",
+      "desktop-and-mobile-test-not-approved",
+      "unsubscribe-sender-postal-replyto-test-not-passed",
+      "free-plan-subscriber-count-not-recorded"
+    ]
+  },
+  "measurement": {
+    "aggregateOnly": true,
+    "unknownIsNullNeverZero": true,
+    "fields": [
+      "confirmedSubscribers",
+      "unsubscribes",
+      "complaints",
+      "directReplies",
+      "providerDelivered",
+      "providerOpens",
+      "providerClicks"
+    ],
+    "recipientLevelDataMayBeCommitted": false
+  },
+  "decisionAfterIssueFour": [
+    "keep",
+    "change",
+    "stop"
+  ]
+}

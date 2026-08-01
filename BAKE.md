@@ -42,7 +42,10 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    Backfills do not update `evening-catalog.json`.
 5. **Work from the fresh clone only.** Never read site state from the live
    davidsdailybread.com (the CDN serves stale files for hours).
-6. The email newsletter is retired. Never add subscribe links or email CTAs.
+6. The weekly email is a separate four-week manual pilot. The templates may
+   link to `/subscribe.html`, but a bake never drafts, schedules, sends, imports,
+   or receives newsletter data. Follow `docs/NEWSLETTER_PILOT_SPEC.md` outside
+   the bake.
 7. **The lead title is the X distribution contract.** Each edition's archive
    `lead` (= the lead story's title) is eligible for a canonical post to
    @DavidDailyBread. The prior DAICC/Claude Cowork-era poster is unlocated and
@@ -341,7 +344,9 @@ evening allowlist enforces this.
   noted with its reason in the HQ ops log.
 - The morning schedule and this spec were set up 2026-07-17 when David
   simplified the pipeline to one daily morning bake; the Spark/Hermes pipeline
-  and the Buttondown newsletter are retired. The bake moved into GitHub
+  and its automated Buttondown path are retired. A separate four-week manual
+  Buttondown pilot was approved 2026-07-31 and remains outside the bake under
+  `docs/NEWSLETTER_PILOT_SPEC.md`. The bake moved into GitHub
   Actions on 2026-07-29 to fix the unattended `git push` 403. The evening
   edition returned 2026-07-30 (per David) with the trends identity, making
   the site twice-daily again.

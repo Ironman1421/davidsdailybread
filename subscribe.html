@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fresh Every Morning · David's Daily Bread</title>
-<meta name="description" content="David's Daily Bread. Loved by God. Baked twice daily at davidsdailybread.com: morning news, evening trends and tools. The email newsletter has been retired; the RSS feed delivers every edition.">
+<title>The Weekly Loaf Pilot · David's Daily Bread</title>
+<meta name="description" content="Join the four-week David's Daily Bread email pilot: one useful weekly Editorial Ledger with a Guided Path from news to rest. Loved by God.">
 <link rel="canonical" href="https://davidsdailybread.com/subscribe.html">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
-<meta property="og:title" content="Fresh Every Morning · David's Daily Bread">
-<meta property="og:description" content="A news briefing on technology, markets, and science. Loved by God. Baked fresh each morning.">
+<meta property="og:title" content="The Weekly Loaf Pilot · David's Daily Bread">
+<meta property="og:description" content="One useful weekly Editorial Ledger for four weeks. Loved by God.">
 <meta property="og:url" content="https://davidsdailybread.com/subscribe.html">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -21,10 +21,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/brand.css">
 <style>
-.paper { max-width: 640px; text-align: center; }
-h1 { font-family: 'Newsreader', Georgia, serif; font-size: 27px; font-weight: 600; margin: 26px 0 10px; }
+.paper { max-width: 760px; text-align: center; }
+h1 { font-family: 'Newsreader', Georgia, serif; font-size: clamp(34px, 6vw, 56px); line-height: 1.02; font-weight: 600; margin: 26px 0 12px; }
 main p { font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; line-height: 1.7; color: var(--muted); margin: 0 0 14px; }
 main p b { color: var(--ink); font-weight: 600; }
+.pilot-meta { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 22px 0 30px; }
+.pilot-meta span { padding: 5px 10px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--gold); font: 700 9px/1.4 'Inter', sans-serif; letter-spacing: 1.2px; text-transform: uppercase; }
+.guided { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 26px; text-align: left; }
+.guided article { min-width: 0; padding: 16px 14px; border-top: 3px solid var(--gold-soft); border-bottom: 1px solid var(--line-strong); background: rgba(255,255,255,0.025); }
+.guided .num { display: grid; place-items: center; width: 28px; height: 28px; margin-bottom: 14px; border: 1px solid var(--gold-soft); border-radius: 50%; color: var(--gold); font: 500 14px 'Newsreader', Georgia, serif; }
+.guided h2 { margin: 0 0 6px; font-size: 18px; }
+.guided p { margin: 0; font-family: 'Inter', sans-serif; font-size: 12px; line-height: 1.5; }
+.signup { margin: 24px 0 0; padding: 24px; border: 1px solid var(--gold-soft); background: rgba(200,162,74,0.055); text-align: left; }
+.signup label { display: block; margin-bottom: 8px; color: var(--ink); font: 600 14px 'Inter', sans-serif; }
+.form-row { display: flex; gap: 10px; }
+.form-row input[type="email"] { min-width: 0; flex: 1; min-height: 46px; padding: 11px 14px; border: 1px solid var(--line-strong); border-radius: 4px; background: var(--bg); color: var(--ink); font: 15px 'Inter', sans-serif; }
+.form-row input:focus-visible { outline: 3px solid var(--steel); outline-offset: 2px; }
+.form-row button { min-height: 46px; padding: 11px 20px; border: 1px solid var(--gold); border-radius: 4px; background: var(--gold); color: var(--bg); cursor: pointer; font: 700 10px 'Inter', sans-serif; letter-spacing: 1.3px; text-transform: uppercase; }
+.form-row button:hover, .form-row button:focus-visible { background: #dfbc67; }
+.fine-print { margin: 12px 0 0; color: var(--muted); font: 12px/1.55 'Inter', sans-serif; }
+.fine-print a { color: var(--gold); }
 .btn-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 22px 0 6px; }
 .gf-btn { display: inline-block; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); background: rgba(200,162,74,0.10); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 9px 16px; text-decoration: none; transition: background 0.15s; }
 .gf-btn:hover { background: rgba(200,162,74,0.22); }
@@ -42,7 +58,8 @@ main p b { color: var(--ink); font-weight: 600; }
 .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
 .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
 .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
-@media (max-width: 640px) { .masthead-art { max-width: 100%; } }
+@media (max-width: 700px) { .guided { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .masthead-art { max-width: 100%; } .paper { margin: 10px; padding: 28px 20px; } .form-row { flex-direction: column; } .guided { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body class="ddb">
@@ -51,9 +68,25 @@ main p b { color: var(--ink); font-weight: 600; }
 <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
 </header>
 <main>
-<h1>The ovens fire morning and evening.</h1>
-<p><b>The email newsletter has been retired.</b> The bakery found that bread travels best straight from the oven. Baked twice daily and served hot at davidsdailybread.com: a morning loaf of news, and an evening loaf of what&#39;s trending, new tools, and workflows. Loved by God.</p>
-<p>If you like your loaf delivered, the RSS feed carries every edition the moment it comes off the peel.</p>
+<div class="label">Four-week pilot</div>
+<h1>One weekly loaf worth opening.</h1>
+<p><b>David&#39;s Daily Bread is trying email again, carefully.</b> For four weeks, one Editorial Ledger will gather the most useful parts of the morning and evening editions into a calm Guided Path. Loved by God.</p>
+<div class="pilot-meta"><span>One email each week</span><span>Four issues</span><span>Free</span><span>Pause after week four</span></div>
+<section class="guided" aria-label="The weekly Guided Path">
+<article><span class="num">1</span><h2>Start</h2><p>The one development worth understanding first.</p></article>
+<article><span class="num">2</span><h2>Browse</h2><p>A short shelf of useful reporting and tools.</p></article>
+<article><span class="num">3</span><h2>Do</h2><p>One practical workflow to carry into the week.</p></article>
+<article><span class="num">4</span><h2>Rest</h2><p>A brief spiritual exhale to help set the noise down.</p></article>
+</section>
+<form class="signup" method="post" action="https://buttondown.com/api/emails/embed-subscribe/davidsdailybread" accept-charset="UTF-8">
+<input type="hidden" name="embed" value="1">
+<label for="email">Email address</label>
+<div class="form-row">
+<input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" aria-describedby="signup-details" required>
+<button type="submit">Join the weekly pilot</button>
+</div>
+<p class="fine-print" id="signup-details">Fresh signups only. Buttondown will send a confirmation email, and you are subscribed only after confirming. No retired list will be imported or reactivated. Unsubscribe anytime. For privacy requests, email <a href="mailto:privacy@davidsdailybread.com">privacy@davidsdailybread.com</a>.</p>
+</form>
 <div class="btn-row">
 <a class="gf-btn" href="/">Today&#39;s edition</a>
 <a class="gf-btn" href="/feed.xml">RSS feed</a>
@@ -75,7 +108,7 @@ main p b { color: var(--ink); font-weight: 600; }
 </div>
 </main>
 <footer>
-<div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Delivery</a></div>
+<div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Weekly email</a></div>
 </footer>
 </div>
 <script>

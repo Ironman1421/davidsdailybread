@@ -135,17 +135,18 @@ class BrandCadenceTest(unittest.TestCase):
         # Truth since 2026-07-30 (per David): baked TWICE daily by GitHub
         # Actions: the morning news edition (with reader sections) and the
         # evening trends edition (trending / new tools / workflows, no reader
-        # sections). The email newsletter stays retired.
+        # sections). The separate weekly email is a bounded four-week pilot.
         brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
         self.assertIn("twice daily", brand.lower())
         self.assertIn("evening edition", brand.lower())
 
         subscribe = (ROOT / "subscribe.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, subscribe)
-        self.assertIn("Baked twice daily", subscribe)
-        self.assertIn("retired", subscribe.lower())
+        self.assertIn("Four-week pilot", subscribe)
+        self.assertIn("One email each week", subscribe)
+        self.assertIn("buttondown.com/api/emails/embed-subscribe/davidsdailybread", subscribe)
         self.assertNotIn("Evening delivery is in testing", subscribe)
-        self.assertNotIn("buttondown", subscribe.lower())
+        self.assertNotIn("newsletter has been retired", subscribe.lower())
 
         chronicles = (ROOT / "chronicles.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, chronicles)
@@ -161,6 +162,7 @@ class BrandCadenceTest(unittest.TestCase):
         # Historical labels stay: past evening editions remain in the archive.
         archive = (ROOT / "archive.html").read_text(encoding="utf-8")
         self.assertIn("Evening</span>", archive)
+        self.assertIn('href="/subscribe.html">Weekly email</a>', archive)
 
 
 if __name__ == "__main__":

@@ -41,3 +41,11 @@ before they become unattended production dependencies.
 - `evening-catalog.json`: bounded tools and workflows catalog updated only by a
   successful daily evening render.
 - `tools.html` and `workflows.html`: standing searchable library pages.
+
+## Weekly email pilot
+
+The active four-week pilot is deliberately manual and owned in this repository
+by `docs/NEWSLETTER_PILOT_SPEC.md`, `operations/newsletter-pilot.contract.json`,
+and `newsletter/weekly-ledger.md`. Buttondown is the subscriber system of
+record. The retired `ddb-engineering` Buttondown automation is not authority and
+is not being restored.
