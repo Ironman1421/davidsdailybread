@@ -43,8 +43,8 @@ the public repository's existing Counter Sync and Daily bake
 `workflow_dispatch` endpoints and inspect the exact-date archive contract. They
 may not compose editions, choose the latest available edition, push site
 content, or receive the editorial model secret. The Pacific schedule is Counter
-Sync at 12:30 AM, morning at 3:00 AM, morning watchdog at 5:15 AM, evening at
-1:00 PM, and evening watchdog at 3:30 PM. These starts target reader-ready
+Sync at 4:25 AM, morning at 4:40 AM, morning watchdog at 5:15 AM, evening at
+2:40 PM, and evening watchdog at 3:30 PM. These starts target reader-ready
 publication near 5:00 AM and 3:00 PM Pacific. GitHub's paired PDT/PST schedules
 remain delayed backups for Counter Sync and both bakes.
 The merged commit, installed-unit verification, and no-op canaries are recorded
