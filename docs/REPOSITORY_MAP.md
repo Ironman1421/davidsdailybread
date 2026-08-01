@@ -1,13 +1,13 @@
 # Repository and ownership map
 
-Last reconciled: 2026-07-31
+Last reconciled: 2026-08-01
 
 | Repository | Current role | Authority |
 |---|---|---|
 | `Ironman1421/davidsdailybread` | Live site, renderer, templates, workflows, archive, RSS | Production source of truth |
 | `Ironman1421/ddb-ops` | July 9 to 14 strategy, approvals, experiments, migration history | Historical context; materially stale |
 | `Ironman1421/ddb-engineering` | Retired Spark pipeline, Buttondown path, acceptance harness, handoff log | Preserved engineering history; no deployment authority |
-| `Ironman1421/davids-ai-command-center` | General multi-agent bootstrap and profiles | No DDB distribution implementation found |
+| `Ironman1421/davids-ai-command-center` | Spark-owned DDB workflow trigger and morning watchdog, plus general multi-agent bootstrap and profiles | Operational timing authority only; never editorial or publishing authority |
 | `Ironman1421/hermes-canonical` | Hermes profiles and general skills | Platform configuration, not the active bake |
 
 Claude Cowork is not a repository and is no longer an authority for this
@@ -33,6 +33,15 @@ in version-controlled specs, code, and tests before use.
 New operational components must have a repository, named owner, on-call/failure
 path, secret boundary, idempotency contract, metrics, and a tested disable switch
 before they become unattended production dependencies.
+
+## Morning timing boundary
+
+The canonical bake and publish remain in `Ironman1421/davidsdailybread`.
+Spark's reviewed components in `Ironman1421/davids-ai-command-center` may invoke
+that repository's existing `workflow_dispatch` endpoint and inspect the public
+exact-date archive contract. They may not compose editions, choose the latest
+available edition, push site content, or receive the editorial model secret.
+GitHub's scheduled morning workflow remains a delayed backup trigger.
 
 ## Standing evening surfaces
 

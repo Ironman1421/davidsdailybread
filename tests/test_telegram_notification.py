@@ -1,0 +1,408 @@
+#!/usr/bin/env python3
+"""Acceptance tests for the exact morning Telegram publication receipt."""
+
+from __future__ import annotations
+
+import json
+import os
+from pathlib import Path
+import tempfile
+import unittest
+from unittest.mock import patch
+
+from distribution.telegram_notification import (
+    AmbiguousMutationError,
+    DuplicateError,
+    HttpResponse,
+    ReadbackError,
+    TelegramProvider,
+    ValidationError,
+    assert_not_duplicate,
+    build_package,
+    execute_notification,
+    hydrate_github_receipt,
+    main,
+    write_reservation,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
+DATE = "2026-08-02"
+EDITION_ID = f"{DATE}-morning"
+LEAD = "A verified morning lead from the canonical archive."
+
+
+def write_json(path: Path, value: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value), encoding="utf-8")
+
+
+def state_value(*, cleared: list[str] | None = None) -> dict[str, object]:
+    return {
+        "clearedRemoteArtifactIds": cleared or [],
+        "cutoverAfterEditionId": "2026-08-01-morning",
+        "receipts": [],
+        "version": 1,
+    }
+
+
+class FakeProvider:
+    def __init__(self, package, *, result=None, error=None):
+        self.package = package
+        self.result = result
+        self.error = error
+        self.mutation_attempts = 0
+
+    def send_message(self, text):
+        self.mutation_attempts += 1
+        if self.error:
+            raise self.error
+        return self.result or {
+            "message_id": 42,
+            "chat": {"id": 123456789},
+            "text": self.package.text,
+        }
+
+
+class ScriptedTransport:
+    def __init__(self, responses):
+        self.responses = list(responses)
+        self.calls = []
+
+    def request(self, url, *, body, headers, timeout, method="POST"):
+        self.calls.append((method, url, body, headers, timeout))
+        response = self.responses.pop(0)
+        if isinstance(response, BaseException):
+            raise response
+        return response
+
+
+class NotificationFixture(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        self.archive = self.root / "archive.json"
+        self.state = self.root / "state.json"
+        self.receipts = self.root / "receipts"
+        self.attempts = self.root / "attempts"
+        self.reservation = self.root / "reservation.json"
+        write_json(
+            self.archive,
+            {
+                "editions": [
+                    {
+                        "date": DATE,
+                        "edition": "morning",
+                        "file": f"editions/{EDITION_ID}.html",
+                        "lead": LEAD,
+                    },
+                    {
+                        "date": "2026-08-01",
+                        "edition": "morning",
+                        "file": "editions/2026-08-01-morning.html",
+                        "lead": "Yesterday's edition must never be substituted.",
+                    },
+                ]
+            },
+        )
+        write_json(self.state, state_value())
+        self.package = build_package(self.archive, DATE, "morning")
+        write_reservation(
+            self.package,
+            state_path=self.state,
+            receipt_dir=self.receipts,
+            output_path=self.reservation,
+        )
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def execute(self, provider, **overrides):
+        values = {
+            "enabled": True,
+            "kill_switch": False,
+            "dry_run": False,
+            "expected_chat_id": "123456789",
+        }
+        values.update(overrides)
+        return execute_notification(
+            self.package,
+            state_path=self.state,
+            receipt_dir=self.receipts,
+            attempt_dir=self.attempts,
+            reservation_path=self.reservation,
+            provider_factory=lambda: provider,
+            **values,
+        )
+
+
+class PackageContractTest(NotificationFixture):
+    def test_package_is_exact_and_deterministic(self):
+        self.assertEqual(EDITION_ID, self.package.edition_id)
+        self.assertEqual(LEAD, self.package.lead)
+        self.assertEqual(
+            f"https://davidsdailybread.com/editions/{EDITION_ID}.html",
+            self.package.canonical_url,
+        )
+        self.assertIn("Sunday, August 2, 2026 morning edition is live", self.package.text)
+        self.assertIn(LEAD, self.package.text)
+        self.assertNotIn("Yesterday's edition", self.package.text)
+
+    def test_missing_exact_date_never_falls_back_to_latest(self):
+        with self.assertRaises(ValidationError):
+            build_package(self.archive, "2026-08-03", "morning")
+
+    def test_wrong_file_and_duplicate_exact_entry_fail_closed(self):
+        value = json.loads(self.archive.read_text())
+        value["editions"][0]["file"] = "editions/wrong.html"
+        write_json(self.archive, value)
+        with self.assertRaises(ValidationError):
+            build_package(self.archive, DATE, "morning")
+
+        value["editions"][0]["file"] = f"editions/{EDITION_ID}.html"
+        value["editions"].append(dict(value["editions"][0]))
+        write_json(self.archive, value)
+        with self.assertRaises(ValidationError):
+            build_package(self.archive, DATE, "morning")
+
+    def test_cutover_blocks_the_reported_august_first_message(self):
+        old = build_package(self.archive, "2026-08-01", "morning")
+        with self.assertRaises(DuplicateError):
+            assert_not_duplicate(old, self.state, self.receipts)
+
+    def test_current_archive_contains_the_exact_august_first_edition(self):
+        current = build_package(ROOT / "archive.json", "2026-08-01", "morning")
+        self.assertEqual("2026-08-01-morning", current.edition_id)
+
+
+class ExecutionTest(NotificationFixture):
+    def test_success_requires_provider_readback_and_writes_receipt(self):
+        provider = FakeProvider(self.package)
+        self.assertEqual("sent", self.execute(provider))
+        receipt = json.loads((self.receipts / f"{EDITION_ID}.json").read_text())
+        attempt = json.loads((self.attempts / f"{EDITION_ID}-attempt.json").read_text())
+        self.assertEqual("sent", receipt["status"])
+        self.assertEqual(42, receipt["providerMessageId"])
+        self.assertEqual(1, attempt["mutationAttempts"])
+        with self.assertRaises(DuplicateError):
+            assert_not_duplicate(self.package, self.state, self.receipts)
+
+    def test_kill_disabled_and_dry_run_never_construct_provider(self):
+        for expected, overrides in (
+            ("skipped_kill_switch", {"kill_switch": True}),
+            ("skipped_disabled", {"enabled": False}),
+            ("dry_run", {"dry_run": True}),
+        ):
+            with self.subTest(expected=expected):
+                constructed = []
+                status = execute_notification(
+                    self.package,
+                    state_path=self.state,
+                    receipt_dir=self.root / expected / "receipts",
+                    attempt_dir=self.root / expected / "attempts",
+                    reservation_path=self.root / "missing.json",
+                    enabled=overrides.get("enabled", True),
+                    kill_switch=overrides.get("kill_switch", False),
+                    dry_run=overrides.get("dry_run", False),
+                    expected_chat_id="",
+                    provider_factory=lambda: constructed.append(True),
+                )
+                self.assertEqual(expected, status)
+                self.assertEqual([], constructed)
+
+    def test_ambiguous_response_writes_block_and_is_not_retried(self):
+        provider = FakeProvider(
+            self.package,
+            error=AmbiguousMutationError("delivery is unknown"),
+        )
+        with self.assertRaises(AmbiguousMutationError):
+            self.execute(provider)
+        self.assertEqual(1, provider.mutation_attempts)
+        receipt = json.loads((self.receipts / f"{EDITION_ID}.json").read_text())
+        self.assertEqual("needs_reconciliation", receipt["status"])
+
+    def test_wrong_chat_or_text_blocks_reconciliation(self):
+        for result in (
+            {"message_id": 9, "chat": {"id": 999999999}, "text": self.package.text},
+            {"message_id": 9, "chat": {"id": 123456789}, "text": "wrong"},
+        ):
+            with self.subTest(result=result):
+                receipts = self.root / f"mismatch-{result['chat']['id']}-{len(result['text'])}"
+                with self.assertRaises(ReadbackError):
+                    execute_notification(
+                        self.package,
+                        state_path=self.state,
+                        receipt_dir=receipts,
+                        attempt_dir=receipts / "attempts",
+                        reservation_path=self.reservation,
+                        enabled=True,
+                        kill_switch=False,
+                        dry_run=False,
+                        expected_chat_id="123456789",
+                        provider_factory=lambda: FakeProvider(self.package, result=result),
+                    )
+                receipt = json.loads((receipts / f"{EDITION_ID}.json").read_text())
+                self.assertEqual("needs_reconciliation", receipt["status"])
+
+
+class ProviderAndDurabilityTest(NotificationFixture):
+    def test_provider_200_returns_exact_result(self):
+        body = json.dumps(
+            {
+                "ok": True,
+                "result": {
+                    "message_id": 42,
+                    "chat": {"id": 123456789},
+                    "text": self.package.text,
+                },
+            }
+        ).encode()
+        transport = ScriptedTransport([HttpResponse(200, body)])
+        provider = TelegramProvider(
+            "123456789:abcdefghijklmnopqrstuvwxyzABCDEFGH_123456",
+            "123456789",
+            transport=transport,
+        )
+        self.assertEqual(42, provider.send_message(self.package.text)["message_id"])
+        self.assertEqual("POST", transport.calls[0][0])
+        self.assertNotIn(b"123456789:abcdefghijklmnopqrstuvwxyz", transport.calls[0][2])
+
+    def test_timeout_and_5xx_are_ambiguous_and_never_retried(self):
+        for response in (TimeoutError("timeout"), HttpResponse(500, b"{}")):
+            with self.subTest(response=response):
+                provider = TelegramProvider(
+                    "123456789:abcdefghijklmnopqrstuvwxyzABCDEFGH_123456",
+                    "123456789",
+                    transport=ScriptedTransport([response]),
+                )
+                with self.assertRaises(AmbiguousMutationError):
+                    provider.send_message("hello")
+                self.assertEqual(1, provider.mutation_attempts)
+
+    def test_github_artifact_hydrates_a_duplicate_block(self):
+        body = json.dumps(
+            {
+                "artifacts": [
+                    {
+                        "id": 77,
+                        "name": f"telegram-notification-receipt-{EDITION_ID}",
+                        "expired": False,
+                        "workflow_run": {"id": 88},
+                    }
+                ]
+            }
+        ).encode()
+        transport = ScriptedTransport([HttpResponse(200, body)])
+        found = hydrate_github_receipt(
+            repository="Ironman1421/davidsdailybread",
+            edition_id=EDITION_ID,
+            token="github-secret",
+            state_path=self.state,
+            output_dir=self.receipts,
+            transport=transport,
+        )
+        self.assertTrue(found)
+        with self.assertRaises(DuplicateError):
+            assert_not_duplicate(self.package, self.state, self.receipts)
+        self.assertEqual("GET", transport.calls[0][0])
+        self.assertEqual("Bearer github-secret", transport.calls[0][3]["Authorization"])
+
+    def test_cleared_remote_artifact_does_not_block(self):
+        write_json(self.state, state_value(cleared=["77"]))
+        receipt = HttpResponse(
+            200,
+            json.dumps(
+                {
+                    "artifacts": [
+                        {
+                            "id": 77,
+                            "name": f"telegram-notification-receipt-{EDITION_ID}",
+                            "expired": False,
+                        }
+                    ]
+                }
+            ).encode(),
+        )
+        found = hydrate_github_receipt(
+            repository="Ironman1421/davidsdailybread",
+            edition_id=EDITION_ID,
+            token="github-secret",
+            state_path=self.state,
+            output_dir=self.receipts,
+            transport=ScriptedTransport([receipt, HttpResponse(200, b'{"artifacts":[]}')]),
+        )
+        self.assertFalse(found)
+
+
+class WorkflowContractTest(unittest.TestCase):
+    def test_workflow_is_duplicate_safe_and_credentials_are_isolated(self):
+        workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
+        bake = workflow.split("\n  bake:\n", 1)[1].split("\n  x-broadcast:\n", 1)[0]
+        telegram = workflow.split("\n  telegram-publication-receipt:\n", 1)[1]
+        self.assertIn("Treat an existing edition as a successful no-op", bake)
+        self.assertIn("already_exists: ${{ steps.existing.outputs.exists }}", bake)
+        for name in (
+            "Install Claude Code",
+            "Bake (research, write, render)",
+            "Guard the changed files",
+            "Publish",
+            "Verify the publish",
+        ):
+            following = bake.split(f"- name: {name}", 1)[1].split("\n      - name:", 1)[0]
+            self.assertIn("if: steps.existing.outputs.exists != 'true'", following)
+        self.assertIn("environment: telegram-notification-production", telegram)
+        self.assertIn("actions: read", telegram)
+        self.assertIn("contents: read", telegram)
+        self.assertIn("persist-credentials: false", telegram)
+        self.assertIn("hydrate-github-receipt", telegram)
+        self.assertIn("needs.bake.outputs.slot == 'morning'", telegram)
+        before_live = telegram.split("- name: Run live exact morning notification", 1)[0]
+        self.assertNotIn("secrets.TELEGRAM_", before_live)
+        self.assertIn("DDB_TELEGRAM_NOTIFY_KILL_SWITCH != 'false'", before_live)
+        self.assertIn("Persist mutation reservation before loading Telegram credentials", before_live)
+        self.assertIn("if-no-files-found: error", before_live)
+
+    def test_cli_defaults_to_kill_switch_on(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            archive = root / "archive.json"
+            write_json(
+                archive,
+                {
+                    "editions": [
+                        {
+                            "date": DATE,
+                            "edition": "morning",
+                            "file": f"editions/{EDITION_ID}.html",
+                            "lead": LEAD,
+                        }
+                    ]
+                },
+            )
+            with patch.dict(os.environ, {}, clear=True):
+                result = main(
+                    [
+                        "run",
+                        "--archive",
+                        str(archive),
+                        "--date",
+                        DATE,
+                        "--slot",
+                        "morning",
+                        "--state",
+                        str(ROOT / "distribution" / "telegram-notification-state.json"),
+                        "--receipt-dir",
+                        str(root / "receipts"),
+                        "--attempt-dir",
+                        str(root / "attempts"),
+                        "--reservation",
+                        str(root / "missing.json"),
+                    ]
+                )
+            self.assertEqual(0, result)
+            attempt = json.loads((root / "attempts" / f"{EDITION_ID}-attempt.json").read_text())
+            self.assertEqual("skipped_kill_switch", attempt["status"])
+
+
+if __name__ == "__main__":
+    unittest.main()
