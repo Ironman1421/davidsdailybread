@@ -1,16 +1,18 @@
-# BAKE.md — the daily bakes (morning 5:00 AM PT, evening 3:30 PM PT)
+# BAKE.md — the daily bakes (reader-ready near 5:00 AM PT and 3:00 PM PT)
 
 This file is the complete operating spec for baking davidsdailybread.com,
 which is baked twice daily:
 
-- the **morning edition** (Spark dispatch at 5:00 AM Pacific): straight news
+- the **morning edition** (Spark dispatch at 3:00 AM Pacific): straight news
   on tech, markets, and science, plus the reader sections. Steps 1-9 below.
-- the **evening edition** (Spark dispatch at 3:30 PM Pacific): the Field Guide.
+- the **evening edition** (Spark dispatch at 1:00 PM Pacific): the Field Guide.
   Trending tools, practical workflows, and a short Keep and Ponder closing for
   everyday people, with no news after dark (news belongs to the morning). See
   "The evening bake" below.
 
-GitHub also carries delayed backup schedules at 5:05 AM and 3:35 PM Pacific.
+The early starts target reader-ready publication near 5:00 AM Pacific
+(8:00 AM Eastern) and 3:00 PM Pacific (6:00 PM Eastern). GitHub also carries
+delayed backup schedules at 3:05 AM and 1:05 PM Pacific.
 Each backup uses paired UTC candidates plus an offset gate so exactly one is
 active across daylight and standard time without a manual seasonal edit.
 
@@ -103,8 +105,8 @@ reader submission to answer (`ask`), which letter the King replies to (`king`,
 either reader mail or a house-satchel draw), and which Crumb Board pin to post
 (`pin`). Null means that section stays empty today; never invent submissions.
 Reader submissions come from `counter.csv` in the clone. Spark dispatches
-`.github/workflows/counter-sync.yml` at 4:30 AM Pacific; a DST-safe GitHub
-schedule is the 4:45 AM backup. The committed copy is the source for the whole
+`.github/workflows/counter-sync.yml` at 2:30 AM Pacific; a DST-safe GitHub
+schedule is the 2:45 AM backup. The committed copy is the source for the whole
 bake: `--plan` never refreshes or mutates it.
 
 **2. Research.** Using web search, gather TODAY'S real news (last ~24 hours,
@@ -332,9 +334,10 @@ evening allowlist enforces this.
   `CLAUDE_CODE_OAUTH_TOKEN` (created with `claude setup-token`), with
   `ANTHROPIC_API_KEY` as a fallback. If neither secret is set the bake step
   stops with a clear error before doing any work.
-- Spark is the primary Pacific-time clock: Counter Sync at 4:30 AM, morning at
-  5:00 AM, and evening at 3:30 PM. GitHub retains delayed backup schedules at
-  4:45 AM, 5:05 AM, and 3:35 PM. Every GitHub backup has a PDT/PST UTC pair and
+- Spark is the primary Pacific-time clock: Counter Sync at 2:30 AM, morning at
+  3:00 AM, and evening at 1:00 PM. Those starts target reader-ready publication
+  near 5:00 AM and 3:00 PM Pacific. GitHub retains delayed backup schedules at
+  2:45 AM, 3:05 AM, and 1:05 PM. Every GitHub backup has a PDT/PST UTC pair and
   an offset gate, so exactly one candidate is active and no daylight-saving
   edit is required. The exact-edition guard makes delayed or duplicate triggers
   successful no-ops.

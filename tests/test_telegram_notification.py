@@ -492,14 +492,14 @@ class WorkflowContractTest(unittest.TestCase):
         self.assertIn("TZ=America/Los_Angeles date +%F", bake)
         self.assertNotIn("America/New_York", bake)
         bake_slots = {
-            "morning": ("5 12 * * *", "5 13 * * *"),
-            "evening": ("35 22 * * *", "35 23 * * *"),
+            "morning": ("5 10 * * *", "5 11 * * *"),
+            "evening": ("5 20 * * *", "5 21 * * *"),
         }
         for cron in (*bake_slots["morning"], *bake_slots["evening"]):
             self.assertIn(cron, bake)
         expected_bake_mappings = {
-            "-0700": {"5 12 * * *", "35 22 * * *"},
-            "-0800": {"5 13 * * *", "35 23 * * *"},
+            "-0700": {"5 10 * * *", "5 20 * * *"},
+            "-0800": {"5 11 * * *", "5 21 * * *"},
         }
         for offset, active_schedules in expected_bake_mappings.items():
             for slot, schedules in bake_slots.items():
@@ -515,12 +515,12 @@ class WorkflowContractTest(unittest.TestCase):
                 )
                 self.assertIn(active[0], active_schedules)
 
-        counter_schedules = ("45 11 * * *", "45 12 * * *")
+        counter_schedules = ("45 9 * * *", "45 10 * * *")
         for cron in counter_schedules:
             self.assertIn(cron, counter)
         for offset, expected in {
-            "-0700": "45 11 * * *",
-            "-0800": "45 12 * * *",
+            "-0700": "45 9 * * *",
+            "-0800": "45 10 * * *",
         }.items():
             active = [
                 schedule
