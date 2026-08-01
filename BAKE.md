@@ -6,9 +6,9 @@ which is baked twice daily:
 - the **morning edition** (Spark dispatch at 5:00 AM Pacific): straight news
   on tech, markets, and science, plus the reader sections. Steps 1-9 below.
 - the **evening edition** (Spark dispatch at 3:30 PM Pacific): the Field Guide.
-  Trending tools, practical workflows, and a short Evening Exhale for everyday
-  people, with no news after dark (news belongs to the morning). See "The
-  evening bake" below.
+  Trending tools, practical workflows, and a short Keep and Ponder closing for
+  everyday people, with no news after dark (news belongs to the morning). See
+  "The evening bake" below.
 
 GitHub also carries delayed backup schedules at 5:05 AM and 3:35 PM Pacific.
 Each backup uses paired UTC candidates plus an offset gate so exactly one is
@@ -227,12 +227,13 @@ The reader to serve is the average person, not the insider: if an item only
 matters to an ML engineer, it loses its slot to one that helps everyone. All
 hard rules above apply unchanged.
 
-The approved presentation since 2026-07-31 is the Editorial Ledger with a
-numbered Guided Path: (1) Start here tonight, (2) Browse the shelf, (3) Choose
-a path, and (4) Set the day down. Step 4 is The Evening Exhale, selected by the
-renderer from the reviewed `evening-rest.json` set. It contains Receive,
-Release, and Rest prompts and is not reader mail. The masthead links to the
-standing `/tools.html` and `/workflows.html` libraries, which read the bounded
+The approved presentation is the July 31 Field Guide format: one useful lead,
+the tool shelf and workflows in two lanes, then Keep and Ponder with Mary of
+Nazareth as its recurring biblical presence below all actionable material. Its
+material is selected by the renderer from the reviewed `evening-rest.json` set.
+It presents the reviewed receive, release, and rest material as Keep, Ponder,
+and Entrust, and is not reader mail. The masthead links to the standing
+`/tools.html` and `/workflows.html` libraries, which read the bounded
 `evening-catalog.json`; the links do not scroll to sections in the edition.
 
 **E1. Research.** Using web search and fetches, gather TODAY'S trend material
@@ -306,7 +307,7 @@ tool blurbs are plain text (no markup) and each carries its caveat.
 then review it like an editor (step 5), run the step 5A accuracy pass, and
 finish with the step 9 report.
 The renderer builds the shelf tiles and recipe cards from the JSON; the
-template (`templates/evening.html`, the Editorial Ledger layout) is never edited
+template (`templates/evening.html`, the July 31 Field Guide layout) is never edited
 at bake time. A daily render prepends the validated cards to
 `evening-catalog.json`, deduplicates by exact source URL, and keeps at most 180
 items per library. A backfill leaves the catalog unchanged. The evening bake

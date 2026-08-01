@@ -51,8 +51,9 @@ in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 
 ## Standing evening surfaces
 
-- `templates/evening.html`: approved Editorial Ledger and Guided Path edition.
-- `evening-rest.json`: reviewed spiritual closing material, selected by date.
+- `templates/evening.html`: approved July 31 Field Guide edition, with Keep and
+  Ponder below the tool shelf and workflows.
+- `evening-rest.json`: reviewed Keep and Ponder material, selected by date.
 - `evening-catalog.json`: bounded tools and workflows catalog updated only by a
   successful daily evening render.
 - `tools.html` and `workflows.html`: standing searchable library pages.

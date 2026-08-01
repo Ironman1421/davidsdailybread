@@ -17,10 +17,10 @@ model calls anywhere:
       Render the edition from the session-authored content JSON: home page,
       editions/ file, archive.json, archive.html (marked list only), feed.xml,
       plus (morning only) the three category pages and bakery-state.json.
-      The evening slot renders the trends edition in the Editorial Ledger
-      layout (two sections only, tools + workflows, spec: /BAKE.md "The
-      evening bake"): no news, no reader sections, no category pages, and no
-      reader-state writes. A daily evening render also updates the bounded
+      The evening slot renders the trends edition in the July 31 Field Guide
+      layout (tools + workflows, then Keep and Ponder, spec: /BAKE.md "The
+      evening bake"): no news, reader intake, category pages, or reader-state
+      writes. A daily evening render also updates the bounded
       public evening catalog used by the standing libraries. Validates the
       output (no leftover
       tokens, no em dashes, masthead art present, archive markers intact) and
@@ -525,7 +525,8 @@ def _catalog_with_evening(catalog: dict, content: dict, date: str) -> dict:
 
 def render_evening_from_content(c: dict, date: str) -> tuple[str, str]:
     """Render the Field Guide evening edition (layout adopted 2026-07-30):
-    lead pick, two-row glance, tool shelf, workflow recipes. Returns
+    lead pick, two-row glance, tool shelf, workflow recipes, then Keep and
+    Ponder. Returns
     (html, lead_title)."""
     template = (REPO / "templates" / SLOT_TEMPLATE["evening"]).read_text(encoding="utf-8")
     esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
@@ -812,8 +813,8 @@ def main() -> None:
     ap.add_argument("--date", help="YYYY-MM-DD edition date (render mode)")
     ap.add_argument("--slot", choices=SLOTS, default="morning",
                     help="which edition to render: morning (news; the default) or "
-                         "evening (Field Guide: trending tools + workflows only, "
-                         "no news, no reader sections, no category pages). "
+                         "evening (Field Guide: trending tools + workflows, then "
+                         "Keep and Ponder; no news, reader intake, or category pages). "
                          "--plan is a morning-only concern.")
     ap.add_argument("--mode", choices=("daily", "backfill"),
                     default=os.environ.get("DDB_MODE", "daily"),
