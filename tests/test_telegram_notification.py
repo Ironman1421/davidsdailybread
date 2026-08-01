@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Acceptance tests for the exact morning Telegram publication receipt."""
+"""Acceptance tests for exact daily Telegram publication receipts."""
 
 from __future__ import annotations
 
@@ -30,6 +30,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DATE = "2026-08-02"
 EDITION_ID = f"{DATE}-morning"
 LEAD = "A verified morning lead from the canonical archive."
+EVENING_ID = f"{DATE}-evening"
+EVENING_LEAD = "A practical evening path from the canonical archive."
 
 
 def write_json(path: Path, value: object) -> None:
@@ -52,9 +54,11 @@ class FakeProvider:
         self.result = result
         self.error = error
         self.mutation_attempts = 0
+        self.sent_text = None
 
     def send_message(self, text):
         self.mutation_attempts += 1
+        self.sent_text = text
         if self.error:
             raise self.error
         return self.result or {
@@ -97,10 +101,22 @@ class NotificationFixture(unittest.TestCase):
                         "lead": LEAD,
                     },
                     {
+                        "date": DATE,
+                        "edition": "evening",
+                        "file": f"editions/{EVENING_ID}.html",
+                        "lead": EVENING_LEAD,
+                    },
+                    {
                         "date": "2026-08-01",
                         "edition": "morning",
                         "file": "editions/2026-08-01-morning.html",
                         "lead": "Yesterday's edition must never be substituted.",
+                    },
+                    {
+                        "date": "2026-08-01",
+                        "edition": "evening",
+                        "file": "editions/2026-08-01-evening.html",
+                        "lead": "An exact evening entry after the morning cutover.",
                     },
                 ]
             },
@@ -147,10 +163,39 @@ class PackageContractTest(NotificationFixture):
         self.assertIn("Sunday, August 2, 2026 morning edition is live", self.package.text)
         self.assertIn(LEAD, self.package.text)
         self.assertNotIn("Yesterday's edition", self.package.text)
+        self.assertIn(f"Open the live edition: {self.package.canonical_url}", self.package.text)
+        self.assertEqual(1, self.package.text.count(self.package.canonical_url))
+        self.assertEqual("telegram-morning-receipt-v1", self.package.format_id)
+        self.assertEqual(
+            f"ddb:telegram:morning-receipt:{EDITION_ID}:v1",
+            self.package.idempotency_key,
+        )
+
+    def test_evening_package_is_exact_and_links_directly_to_the_live_edition(self):
+        package = build_package(self.archive, DATE, "evening")
+        self.assertEqual(EVENING_ID, package.edition_id)
+        self.assertEqual(EVENING_LEAD, package.lead)
+        self.assertEqual(
+            f"https://davidsdailybread.com/editions/{EVENING_ID}.html",
+            package.canonical_url,
+        )
+        self.assertIn("Sunday, August 2, 2026 evening edition is live", package.text)
+        self.assertIn(f"Open the live edition: {package.canonical_url}", package.text)
+        self.assertNotIn(LEAD, package.text)
+        self.assertEqual("telegram-evening-receipt-v1", package.format_id)
+        self.assertEqual(
+            f"ddb:telegram:evening-receipt:{EVENING_ID}:v1",
+            package.idempotency_key,
+        )
 
     def test_missing_exact_date_never_falls_back_to_latest(self):
+        for slot in ("morning", "evening"):
+            with self.subTest(slot=slot), self.assertRaises(ValidationError):
+                build_package(self.archive, "2026-08-03", slot)
+
+    def test_unknown_slot_fails_closed(self):
         with self.assertRaises(ValidationError):
-            build_package(self.archive, "2026-08-03", "morning")
+            build_package(self.archive, DATE, "noon")
 
     def test_wrong_file_and_duplicate_exact_entry_fail_closed(self):
         value = json.loads(self.archive.read_text())
@@ -170,6 +215,9 @@ class PackageContractTest(NotificationFixture):
         with self.assertRaises(DuplicateError):
             assert_not_duplicate(old, self.state, self.receipts)
 
+        evening = build_package(self.archive, "2026-08-01", "evening")
+        assert_not_duplicate(evening, self.state, self.receipts)
+
     def test_current_archive_contains_the_exact_august_first_edition(self):
         current = build_package(ROOT / "archive.json", "2026-08-01", "morning")
         self.assertEqual("2026-08-01-morning", current.edition_id)
@@ -186,6 +234,35 @@ class ExecutionTest(NotificationFixture):
         self.assertEqual(1, attempt["mutationAttempts"])
         with self.assertRaises(DuplicateError):
             assert_not_duplicate(self.package, self.state, self.receipts)
+
+    def test_evening_success_uses_its_own_receipt_and_direct_link(self):
+        package = build_package(self.archive, DATE, "evening")
+        receipts = self.root / "evening-receipts"
+        attempts = self.root / "evening-attempts"
+        reservation = self.root / "evening-reservation.json"
+        write_reservation(
+            package,
+            state_path=self.state,
+            receipt_dir=receipts,
+            output_path=reservation,
+        )
+        provider = FakeProvider(package)
+        status = execute_notification(
+            package,
+            state_path=self.state,
+            receipt_dir=receipts,
+            attempt_dir=attempts,
+            reservation_path=reservation,
+            enabled=True,
+            kill_switch=False,
+            dry_run=False,
+            expected_chat_id="123456789",
+            provider_factory=lambda: provider,
+        )
+        self.assertEqual("sent", status)
+        receipt = json.loads((receipts / f"{EVENING_ID}.json").read_text())
+        self.assertEqual("sent", receipt["status"])
+        self.assertIn(package.canonical_url, provider.sent_text)
 
     def test_kill_disabled_and_dry_run_never_construct_provider(self):
         for expected, overrides in (
@@ -355,12 +432,37 @@ class WorkflowContractTest(unittest.TestCase):
         self.assertIn("contents: read", telegram)
         self.assertIn("persist-credentials: false", telegram)
         self.assertIn("hydrate-github-receipt", telegram)
-        self.assertIn("needs.bake.outputs.slot == 'morning'", telegram)
-        before_live = telegram.split("- name: Run live exact morning notification", 1)[0]
+        self.assertNotIn("needs.bake.outputs.slot == 'morning'", telegram)
+        self.assertIn('SLOT: ${{ needs.bake.outputs.slot }}', telegram)
+        self.assertIn('--slot "$SLOT"', telegram)
+        self.assertIn("${EDITION_DATE}-${SLOT}", telegram)
+        self.assertIn(
+            "telegram-notification-receipt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}",
+            telegram,
+        )
+        before_live = telegram.split("- name: Run live exact edition notification", 1)[0]
         self.assertNotIn("secrets.TELEGRAM_", before_live)
         self.assertIn("DDB_TELEGRAM_NOTIFY_KILL_SWITCH != 'false'", before_live)
         self.assertIn("Persist mutation reservation before loading Telegram credentials", before_live)
         self.assertIn("if-no-files-found: error", before_live)
+
+    def test_contract_and_runbook_require_both_slots_and_clickable_exact_links(self):
+        contract = json.loads(
+            (ROOT / "operations" / "telegram-notification.contract.json").read_text()
+        )
+        self.assertEqual(["morning", "evening"], contract["trigger"]["dailySlots"])
+        self.assertTrue(
+            contract["sourceContract"]["messageIncludesDirectCanonicalEditionUrl"]
+        )
+        self.assertFalse(contract["sourceContract"]["latestOlderFallbackAllowed"])
+
+        runbook = (ROOT / "docs" / "TELEGRAM_NOTIFICATION_RUNBOOK.md").read_text()
+        distribution = (ROOT / "docs" / "DISTRIBUTION_SPEC.md").read_text()
+        normalized_runbook = " ".join(runbook.split())
+        self.assertIn("morning or evening publish", normalized_runbook)
+        self.assertIn("direct canonical edition URL", normalized_runbook)
+        self.assertIn("`--slot evening`", runbook)
+        self.assertIn("direct HTTPS URL", distribution)
 
     def test_cli_defaults_to_kill_switch_on(self):
         with tempfile.TemporaryDirectory() as directory:

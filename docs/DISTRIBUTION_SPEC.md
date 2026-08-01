@@ -33,17 +33,19 @@ documented in `docs/REPOSITORY_MAP.md`.
 The website, archive, and RSS are the canonical record. Social posts are derived
 packages and never become the only copy of an edition or correction.
 
-### Owner Telegram receipt
+### Owner Telegram receipts
 
-- Role: a private, post-publication receipt telling David that the exact current
-  morning edition is live. It is not a reader distribution channel or a second
-  edition.
+- Role: private, post-publication receipts telling David that the exact current
+  morning or evening edition is live. They are not a reader distribution
+  channel or a second edition.
 - The receipt is derived deterministically from the exact date, slot, file, and
   lead in `archive.json`. It never asks a model to choose or summarize an
   edition and never substitutes the latest older edition.
-- If the exact morning entry is unavailable, the publication receipt fails
-  closed. Spark's separate watchdog may send a truthful not-ready alert after
-  the morning deadline, but that alert contains no older story content.
+- Each receipt includes the direct HTTPS URL for its exact live edition so the
+  destination is clickable from Telegram.
+- If the exact slot entry is unavailable, the publication receipt fails closed.
+  Spark's separate watchdog may send a truthful not-ready alert after the
+  morning deadline, but that alert contains no older story content.
 - The repository adapter is `distribution/telegram_notification.py`; its
   operating and recovery boundary is `docs/TELEGRAM_NOTIFICATION_RUNBOOK.md`.
 

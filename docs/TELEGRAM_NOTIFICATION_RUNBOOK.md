@@ -1,16 +1,17 @@
-# Exact morning Telegram receipt runbook
+# Exact daily Telegram receipt runbook
 
-Status: approved for production cutover
+Status: production active
 Owner: David Friedhof
 Runtime: `telegram-publication-receipt` in `.github/workflows/ddb-bake.yml`
 
 ## Product boundary
 
-The receipt is a private notification after a successful morning publish. Its
-only source is the one `archive.json` entry whose date, `morning` slot, and
-`editions/YYYY-MM-DD-morning.html` file all match the workflow inputs. The
-adapter includes the exact archive lead and canonical URL. It does not use an
-AI model, choose the newest available entry, or fall back to a prior date.
+The receipt is a private notification after each successful daily morning or
+evening publish. Its only source is the one `archive.json` entry whose date,
+slot, and `editions/YYYY-MM-DD-{slot}.html` file all match the workflow inputs.
+The adapter includes the exact archive lead and direct canonical edition URL,
+which Telegram renders as a clickable link. It does not use an AI model, choose
+the newest available entry, or fall back to a prior date or slot.
 
 The separate Spark watchdog is allowed to send a not-ready alert after the
 morning deadline only when that exact entry is absent. It must not include an
@@ -39,16 +40,19 @@ python3 distribution/telegram_notification.py preview \
   --archive archive.json --date YYYY-MM-DD --slot morning
 ```
 
+Use `--slot evening` for the evening package. In both preview objects, require
+the `canonical_url` and `text` values to contain the exact direct URL
+`https://davidsdailybread.com/editions/YYYY-MM-DD-{slot}.html`.
+
 With enablement `false` and the kill switch explicitly `false`, the workflow's
 credential-free canary must record `status: dry_run`, zero mutation attempts,
 and no provider message ID. A `skipped_disabled` attempt is not a completed dry
 run and must be fixed before activation.
 
 Before activation, keep the kill switch on. Confirm the environment branch
-policy, secrets, variables, test results, and preview. Then set enablement to
-`true` and the kill switch to `false`. The next eligible date after the cutover
-watermark is `2026-08-02-morning`; the reported August 1 message cannot be sent
-again by this adapter.
+policy, secrets, variables, test results, and previews. Then set enablement to
+`true` and the kill switch to `false`. The cutover watermark blocks the reported
+August 1 morning message but allows the later exact August 1 evening edition.
 
 ## Duplicate and failure behavior
 
