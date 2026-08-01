@@ -152,7 +152,7 @@ class BrandCadenceTest(unittest.TestCase):
         self.assertIn(BRAND, chronicles)
         self.assertIn("for the morning edition", chronicles.lower())
         self.assertNotIn("Evening delivery is in testing", chronicles)
-        self.assertIn("4:30 AM", chronicles)
+        self.assertIn("4:25 AM", chronicles)
 
         evening_template = (ROOT / "templates" / "evening.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, evening_template)
