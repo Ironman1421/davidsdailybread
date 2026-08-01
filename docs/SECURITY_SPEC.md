@@ -71,6 +71,11 @@ The following are untrusted input even when produced by a model or collaborator:
   `docs/READER_STORE_SPEC.md`.
 - Define retention and deletion behavior before collecting email addresses,
   account identifiers, or analytics tied to a person.
+- The weekly pilot posts addresses directly from `/subscribe.html` to
+  Buttondown with double opt-in. Subscriber addresses remain in Buttondown and
+  may not enter this repository, GitHub Actions, Supabase, logs, or public
+  metrics. Privacy requests use the verified
+  `privacy@davidsdailybread.com` contact and complete within seven days.
 
 ### Distribution
 

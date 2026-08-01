@@ -48,8 +48,10 @@ Treat every change accordingly.
 8. **Do not change the shape of `archive.json` or the `/editions/…` paths.**
    They are a public contract the DAICC distribution pipeline reads daily.
    Changing them requires checking `command-center/` first.
-9. **The email newsletter is retired** (2026-07-17). Never add a subscribe link,
-   signup form, or email CTA to any surface.
+9. **The weekly email is a bounded pilot** (approved 2026-07-31). Signup uses
+   the reviewed `/subscribe.html` Buttondown form and fresh double opt-in only.
+   The daily bake never drafts, schedules, or sends email. Pilot operations
+   follow `docs/NEWSLETTER_PILOT_SPEC.md`, including the $0 cap and send gate.
 
 ## Where things live
 

@@ -27,7 +27,8 @@ When sources disagree, use this order:
 The public `Ironman1421/davidsdailybread` repository is the active production
 source. The private `ddb-ops` and `ddb-engineering` repositories preserve useful
 history, but their Mac, Spark, Buttondown, and once-daily plans are not current
-operating authority unless deliberately migrated into this repository.
+operating authority unless deliberately migrated into this repository. The
+current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 
 ## Edition contracts
 
@@ -99,8 +100,11 @@ operating authority unless deliberately migrated into this repository.
   `distribution/metrics.schema.json`; unknown metrics are null, never zero.
 - Published X replies validate separately against
   `distribution/x-replies.schema.json`; unposted drafts are not committed.
-- Email is retired. No signup or delivery promise may return without a new
-  product decision and migration plan.
+- Email: a four-week Buttondown pilot accepts fresh double opt-ins at
+  `/subscribe.html` and sends at most one manual Editorial Ledger per week. The
+  flow is Start, Browse, Do, Rest. It pauses after issue four, spends $0, imports
+  no retired list, and remains sending-disabled until the postal, preview, test,
+  schedule, and free-plan gates in `docs/NEWSLETTER_PILOT_SPEC.md` pass.
 
 ## Reliability and release contract
 

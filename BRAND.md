@@ -17,11 +17,13 @@ file (and `brand.css`) — nowhere else.
   approved 2026-07-31 presentation is the **Editorial Ledger** with a numbered
   **Guided Path**: Start here, Browse the shelf, Choose a path, Set the day
   down. It carries no reader submissions or reader-state interaction.
-  GitHub cron fires late, not never; both times are "no earlier than". There is
-  no email newsletter; delivery is the website and `/feed.xml`.
-- **Email newsletter RETIRED (2026-07-17, per David):** the Buttondown list is closed.
-  Never add subscribe links, signup forms, or email CTAs to any surface.
-  `/subscribe.html` stays as a standing "newsletter retired, take the RSS" page.
+  GitHub cron fires late, not never; both times are "no earlier than". The
+  website and `/feed.xml` remain the complete, canonical delivery surfaces.
+- **Weekly email pilot APPROVED (2026-07-31, per David):** `/subscribe.html`
+  accepts fresh Buttondown double opt-ins for a four-week pilot. It sends at
+  most one manual Editorial Ledger each week, follows Start, Browse, Do, Rest,
+  pauses after issue four, and has a hard $0 cap. Never import or reactivate the
+  retired list. The daily bake never drafts, schedules, or sends email.
 - Edition history: evening editions ran 2026-07-07 through 2026-07-14, were
   retired in the 2026-07-17 simplification (one morning edition), and were
   restored 2026-07-30 with the trends identity; later that same day the
@@ -107,8 +109,9 @@ file (and `brand.css`) — nowhere else.
 
 ## Permanent features (never remove)
 
-- ~~Subscribe button~~ **REMOVED 2026-07-17 per David** along with the whole
-  Buttondown newsletter. Colophons carry RSS and archive links only.
+- **Weekly email link:** restored 2026-07-31 for the bounded four-week pilot.
+  Colophons may link to `/subscribe.html`; inline signup forms belong only on
+  that standing page. RSS and the archive remain permanent.
 - **Chronicles exports** (2026-07-08): chronicles.html's four note-export buttons
   (Download .md, PDF, email, copy) are hardwired. Never remove or rebuild them;
   edit chronicles.html only from the current live/main version.
