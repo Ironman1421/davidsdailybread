@@ -41,8 +41,10 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   or proof that provisioning is complete.
 - `distribution/metrics.schema.json` / `distribution/ledger.json` — the
   machine-readable measurement contract and current baseline/post ledger.
+- `distribution/x-reply-approval-card.schema.json` — the private, transient
+  per-candidate approval-card contract; no real draft cards are committed.
 - `distribution/x-replies.schema.json` / `distribution/x-replies.json` — the
-  published X reply contract and five-follower manual-strategy baseline.
+  published X reply contract and blocked five-follower manual-strategy baseline.
 - `ddb_bake.py` / `ddb_satchel.py` / `ddb_synth.py` — the previous Spark-era
   pipeline; `ddb_session_bake.py` reuses their tested render/state helpers.
 - `tests/` — regression tests for brand law, archive integrity, and standing pages.

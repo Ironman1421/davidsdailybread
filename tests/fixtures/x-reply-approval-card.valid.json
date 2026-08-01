@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "candidateId": "XR-20260731-001",
+  "targetAccount": "@DDBFixture",
+  "targetTier": "primary_source",
+  "targetVerification": {
+    "claimBasis": "not_claimed",
+    "evidenceUrl": null,
+    "checkedAt": "2026-07-31T15:00:00Z"
+  },
+  "beat": "tech",
+  "parentPostUrl": "https://x.com/DDBFixture/status/1000000000000000001",
+  "parentObservedAt": "2026-07-31T15:00:00Z",
+  "whyThisConversation": "Synthetic contract fixture with no live target or unpublished DDB draft.",
+  "replyShape": "sourced_addition",
+  "draft": "Fixture-only reply text.",
+  "supportUrls": [
+    "https://example.com/fixture-source"
+  ],
+  "scoutingMethod": "manual-x-search",
+  "qualityRubric": {
+    "buildsConversation": 2,
+    "relevant": 2,
+    "evidenceGrounded": 2,
+    "appropriateVoice": 2,
+    "distinct": 1,
+    "total": 9
+  },
+  "opportunityScore": {
+    "relevance": 18,
+    "incrementalValue": 22,
+    "sourceConfidence": 18,
+    "conversationTiming": 12,
+    "targetCredibility": 8,
+    "operationalSafety": 7,
+    "total": 85
+  },
+  "operationalPriority": "P2",
+  "checks": {
+    "parentStillAvailable": true,
+    "relevanceConfirmed": true,
+    "sensitiveContentChecked": true,
+    "duplicateScanPassed": true,
+    "claimsSupported": true,
+    "noEngagementCallToAction": true,
+    "targetFrequencyPassed": true
+  },
+  "profileConversionReadiness": {
+    "checkedAt": "2026-07-31T15:00:00Z",
+    "positioningPromise": true,
+    "facelessMarkAndBanner": true,
+    "pinnedSourcedBriefing": true,
+    "canonicalSiteLink": true,
+    "recentMorningAndEveningPosts": true
+  },
+  "accountCapabilities": {
+    "checkedAt": "2026-07-31T15:00:00Z",
+    "premiumTier": "none",
+    "postActivityAnalytics": "available"
+  },
+  "operatorPreflight": {
+    "operator": "Fixture Operator",
+    "authorizedOperatorConfirmed": true,
+    "correctAccountConfirmed": true,
+    "secureSessionConfirmed": true,
+    "mfaAndRecoveryChecked": true,
+    "noCredentialShared": true,
+    "officialUiOnly": true,
+    "browserScriptingAbsent": true,
+    "scrapingAbsent": true,
+    "automatedXBrowsingAbsent": true
+  },
+  "lengthCharacters": 24,
+  "approvalScope": {
+    "exactParentUrl": true,
+    "exactReplyText": true,
+    "silenceIsRejection": true,
+    "editRequiresReapproval": true
+  },
+  "approvalExpiresAt": "2026-07-31T15:45:00Z"
+}
