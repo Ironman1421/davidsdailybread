@@ -75,6 +75,22 @@ distribution specifications. It contains no credential values.
 - The GitHub X broadcaster remains disabled and kill-switched. Therefore the
   Spark service is the one observed active canonical X lane. Enabling the GitHub
   lane requires a separate migration that disables Spark first.
+- Private PR
+  [`Ironman1421/davids-ai-command-center#10`](https://github.com/Ironman1421/davids-ai-command-center/pull/10)
+  later aligned the Spark lane's first polls with the reader windows. It merged
+  as `13334a89112cc9dd084ba5168d836bed4e8ef4c8`, passed all 44 private tests,
+  independent review, and Claude cross-model review, then passed Spark-side
+  `systemd-analyze --user verify` before installation.
+- The installed X timer was enabled and active with its next run resolving to
+  15:00 Pacific. It now polls at :00 and :30 from 05:00 through 09:30 and from
+  15:00 through 21:30 Pacific, so the first attempts align to 08:00 and 18:00
+  Eastern. Its recoverable prior copy is under
+  `/home/david/backups/ddb-x-reader-window-20260801T143415-0700`.
+- All six changed production timer files matched the reviewed private `main`
+  byte for byte. The fleet tripwire baseline was backed up under
+  `/home/david/backups/ddb-timer-tripwire-20260801T143458-0700`, reblessed for
+  those classified timer changes, and then passed both its ordinary check and
+  a quiet full checksum verification.
 
 ## Connectivity observation
 
