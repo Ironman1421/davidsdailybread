@@ -1,7 +1,7 @@
 # Distribution and measurement specification
 
 Status: active; canonical X adapter implementation ready but production disabled
-Last reconciled: 2026-07-31
+Last reconciled: 2026-08-01
 
 ## Decisions and authority
 
@@ -32,6 +32,20 @@ documented in `docs/REPOSITORY_MAP.md`.
 
 The website, archive, and RSS are the canonical record. Social posts are derived
 packages and never become the only copy of an edition or correction.
+
+### Owner Telegram receipt
+
+- Role: a private, post-publication receipt telling David that the exact current
+  morning edition is live. It is not a reader distribution channel or a second
+  edition.
+- The receipt is derived deterministically from the exact date, slot, file, and
+  lead in `archive.json`. It never asks a model to choose or summarize an
+  edition and never substitutes the latest older edition.
+- If the exact morning entry is unavailable, the publication receipt fails
+  closed. Spark's separate watchdog may send a truthful not-ready alert after
+  the morning deadline, but that alert contains no older story content.
+- The repository adapter is `distribution/telegram_notification.py`; its
+  operating and recovery boundary is `docs/TELEGRAM_NOTIFICATION_RUNBOOK.md`.
 
 ### Weekly email pilot
 
