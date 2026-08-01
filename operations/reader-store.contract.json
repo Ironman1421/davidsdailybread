@@ -3,9 +3,20 @@
   "deploymentStatus": "design-approved-not-provisioned",
   "provider": "supabase",
   "projectIsolation": "dedicated-reader-project",
+  "launchBlockers": [
+    "verified-privacy-contact-address",
+    "provisioned-dedicated-supabase-project"
+  ],
   "database": {
     "storageSchema": "reader_private",
     "exposedSchemas": [],
+    "postgresMajorVersion": 17,
+    "edgeExecutionRole": "reader_edge",
+    "edgeRoleTablePrivileges": [],
+    "edgeRoleRoutinePrivileges": "allowlisted-only",
+    "remoteTlsMode": "verify-full",
+    "remoteTlsCaSecret": "DDB_READER_DATABASE_SSL_CA",
+    "tlsDisableScope": "loopback-only",
     "rlsEnabled": true,
     "browserRolesWithTableAccess": [],
     "submissionKinds": [
@@ -25,18 +36,36 @@
       "POST",
       "OPTIONS"
     ],
+    "contentType": "application/json",
+    "maximumRequestBytes": 12288,
+    "characterCounting": "unicode-code-points-after-nfc-normalization",
+    "controlCharacterNormalization": "crlf-to-lf-tabs-to-space-remove-other-c0-and-del",
     "publicationConsentRequired": true,
     "consentVersion": "reader-publication-v1",
     "maximumBodyCharacters": 2000,
     "maximumBylineCharacters": 60,
     "browserSecrets": [],
     "storedNetworkIdentifiers": [],
+    "antiAbuse": {
+      "provider": "cloudflare-turnstile",
+      "verification": "server-side-fail-closed",
+      "expectedAction": "reader-submit",
+      "expectedHostnamesDerivedFromAllowedOrigins": true
+    },
     "returnsRawDeletionTokenOnce": true,
     "storesDeletionTokenAs": "sha256"
   },
   "browserDeletion": {
     "edgeFunction": "reader-delete",
     "authentication": "raw-deletion-token",
+    "allowedOrigins": [
+      "https://davidsdailybread.com",
+      "https://www.davidsdailybread.com"
+    ],
+    "allowedMethods": [
+      "POST",
+      "OPTIONS"
+    ],
     "erasableStates": [
       "pending",
       "reserved"
@@ -46,12 +75,23 @@
   "readerBroker": {
     "edgeFunction": "reader-plan",
     "authentication": "dedicated-broker-secret",
+    "allowedMethods": [
+      "POST"
+    ],
+    "browserOriginsAllowed": false,
+    "maximumRequestBytes": 8192,
     "githubPermissions": [],
     "operations": [
       "reserve",
       "authorize-publish",
       "finalize",
       "release"
+    ],
+    "handoffOperations": [
+      "create-handoff-upload",
+      "create-handoff-download",
+      "delete-handoff",
+      "cleanup-handoffs"
     ],
     "mayReturnFullQueue": false,
     "mayReturnSelectedPlan": true
@@ -84,13 +124,23 @@
       "lease",
       "selection-provenance",
       "manifest-digest"
-    ]
+    ],
+    "manifestDigest": "sha256-lowercase-hex"
   },
   "privateHandoff": {
     "storageBucket": "bake-handoffs",
     "public": false,
     "authorUpload": "single-object-signed-upload-url",
     "publisherDownload": "short-lived-signed-download-url",
+    "signedUploadExpirySeconds": 7200,
+    "signedDownloadExpirySeconds": 60,
+    "maximumObjectBytes": 10485760,
+    "allowedMimeTypes": [
+      "application/zip",
+      "application/octet-stream"
+    ],
+    "requiredCacheControl": "0",
+    "objectNaming": "opaque-batch-id-and-sha256-digest",
     "maximumRetentionHours": 6,
     "publicActionsArtifactsAllowed": false
   },
@@ -99,6 +149,22 @@
     "rejectedSubmissionPayload": 30,
     "publishedPrivatePayload": 30,
     "nonPersonalPublicationReceipt": 365
+  },
+  "retentionAutomation": {
+    "databaseJob": "ddb-reader-retention-daily",
+    "databaseScheduleUtc": "17 4 * * *",
+    "handoffCleanupOperation": "cleanup-handoffs"
+  },
+  "killSwitches": [
+    "DDB_READER_SUBMIT_ENABLED",
+    "DDB_READER_DELETE_ENABLED",
+    "DDB_READER_PLAN_ENABLED"
+  ],
+  "localFoundation": {
+    "supabaseCliVersion": "2.111.0",
+    "denoVersion": "2.9.4",
+    "supabaseJsVersion": "2.111.0",
+    "postgresJsVersion": "3.4.9"
   },
   "logging": {
     "readerBodyAllowed": false,
