@@ -12,10 +12,12 @@ file (and `brand.css`) — nowhere else.
   twice daily** in GitHub Actions, dispatched by Spark's Pacific-time clock
   with DST-safe GitHub backup schedules (spec: `/BAKE.md`, deployment evidence:
   `/docs/OPERATIONS_EVIDENCE_2026-08-01.md`). The **morning
-  edition** (5:00 AM Pacific) is straight news on technology, markets, and
-  science, and carries the reader sections. The **evening edition** (3:30 PM
-  Pacific) is the Field Guide: trending tools and practical workflows for
-  everyday people, and NO news of any kind (news is the morning's job). Its
+  edition** targets reader-ready publication near 5:00 AM Pacific (8:00 AM
+  Eastern). It is straight news on technology, markets, and science, and carries
+  the reader sections. The **evening edition** targets reader-ready publication
+  near 3:00 PM Pacific (6:00 PM Eastern). It is the Field Guide: trending tools
+  and practical workflows for everyday people, and NO news of any kind (news is
+  the morning's job). Its
   presentation uses the **July 31 Field Guide** format: one useful lead, a
   two-column tool shelf and workflow lane, then Keep and Ponder with Mary of
   Nazareth below the actionable material. It carries no reader submissions or

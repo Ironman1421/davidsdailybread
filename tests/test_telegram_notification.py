@@ -6,11 +6,13 @@ from __future__ import annotations
 import json
 import io
 import os
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
 from urllib import error
+from zoneinfo import ZoneInfo
 
 from distribution.telegram_notification import (
     AmbiguousMutationError,
@@ -492,14 +494,14 @@ class WorkflowContractTest(unittest.TestCase):
         self.assertIn("TZ=America/Los_Angeles date +%F", bake)
         self.assertNotIn("America/New_York", bake)
         bake_slots = {
-            "morning": ("5 12 * * *", "5 13 * * *"),
-            "evening": ("35 22 * * *", "35 23 * * *"),
+            "morning": ("5 10 * * *", "5 11 * * *"),
+            "evening": ("5 20 * * *", "5 21 * * *"),
         }
         for cron in (*bake_slots["morning"], *bake_slots["evening"]):
             self.assertIn(cron, bake)
         expected_bake_mappings = {
-            "-0700": {"5 12 * * *", "35 22 * * *"},
-            "-0800": {"5 13 * * *", "35 23 * * *"},
+            "-0700": {"5 10 * * *", "5 20 * * *"},
+            "-0800": {"5 11 * * *", "5 21 * * *"},
         }
         for offset, active_schedules in expected_bake_mappings.items():
             for slot, schedules in bake_slots.items():
@@ -515,12 +517,12 @@ class WorkflowContractTest(unittest.TestCase):
                 )
                 self.assertIn(active[0], active_schedules)
 
-        counter_schedules = ("45 11 * * *", "45 12 * * *")
+        counter_schedules = ("45 7 * * *", "45 8 * * *")
         for cron in counter_schedules:
             self.assertIn(cron, counter)
         for offset, expected in {
-            "-0700": "45 11 * * *",
-            "-0800": "45 12 * * *",
+            "-0700": "45 7 * * *",
+            "-0800": "45 8 * * *",
         }.items():
             active = [
                 schedule
@@ -531,6 +533,44 @@ class WorkflowContractTest(unittest.TestCase):
         self.assertIn("active: ${{ steps.cfg.outputs.active }}", bake)
         self.assertIn("needs.bake.outputs.active == 'true'", bake)
         self.assertIn("if: steps.cfg.outputs.active == 'true'", counter)
+
+    def test_counter_backup_survives_both_dst_transition_days(self):
+        counter = (ROOT / ".github" / "workflows" / "counter-sync.yml").read_text()
+        bake = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
+        self.assertIn('date -d "$TODAY 00:45:00" +%z', counter)
+        self.assertIn("TARGET_CLOCK=03:05:00", bake)
+        self.assertIn("TARGET_CLOCK=13:05:00", bake)
+        self.assertIn('date -d "$TODAY $TARGET_CLOCK" +%z', bake)
+
+        pacific = ZoneInfo("America/Los_Angeles")
+        candidates = ((7, "-0700"), (8, "-0800"))
+        for year, month, day in ((2027, 3, 14), (2027, 11, 7)):
+            active = []
+            for utc_hour, expected_offset in candidates:
+                instant = datetime(year, month, day, utc_hour, 45, tzinfo=timezone.utc)
+                local = instant.astimezone(pacific)
+                if local.strftime("%z") == expected_offset:
+                    active.append(local.strftime("%Y-%m-%d %H:%M %z"))
+            self.assertEqual(
+                [f"{year:04d}-{month:02d}-{day:02d} 00:45 " + ("-0800" if month == 3 else "-0700")],
+                active,
+            )
+
+        # The correct candidate may begin after the 2 AM offset change. Its
+        # gate must still use the offset at the nominal 12:45 AM local target.
+        for year, month, day, utc_hour, expected_offset in (
+            (2027, 3, 14, 8, "-0800"),
+            (2027, 11, 7, 7, "-0700"),
+        ):
+            nominal = datetime(year, month, day, 0, 45, tzinfo=pacific)
+            delayed = datetime(
+                year, month, day, utc_hour, 45, tzinfo=timezone.utc
+            ) + timedelta(hours=2)
+            self.assertEqual(expected_offset, nominal.strftime("%z"))
+            self.assertNotEqual(
+                nominal.strftime("%z"),
+                delayed.astimezone(pacific).strftime("%z"),
+            )
 
     def test_workflow_is_duplicate_safe_and_credentials_are_isolated(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()

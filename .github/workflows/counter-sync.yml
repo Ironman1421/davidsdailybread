@@ -1,13 +1,13 @@
 name: Counter sync
 # Fetches the Counter sheet's published CSV (reader submissions for Ask the
 # Baker / Letters to the King / The Crumb Board) and commits it as
-# /counter.csv, because the 5:00 AM bake's cloud sandbox cannot reach
-# docs.google.com directly. Spark dispatches it at 4:30 AM Pacific; the paired
+# /counter.csv, because the morning bake's cloud sandbox cannot reach
+# docs.google.com directly. Spark dispatches it at 12:30 AM Pacific; the paired
 # UTC schedules are DST-safe backups.
 on:
   schedule:
-    - cron: '45 11 * * *'
-    - cron: '45 12 * * *'
+    - cron: '45 7 * * *'
+    - cron: '45 8 * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -29,9 +29,12 @@ jobs:
           set -euo pipefail
           ACTIVE=true
           if [ "${EVENT_NAME}" = "schedule" ]; then
-            PACIFIC_OFFSET="$(TZ=America/Los_Angeles date +%z)"
+            TODAY="$(TZ=America/Los_Angeles date +%F)"
+            # Gate on the nominal 12:45 AM backup time, not the runner's
+            # eventual start time. A queued run can cross the 2 AM DST change.
+            PACIFIC_OFFSET="$(TZ=America/Los_Angeles date -d "$TODAY 00:45:00" +%z)"
             case "${PACIFIC_OFFSET}:${EVENT_SCHEDULE}" in
-              '-0700:45 11 * * *'|'-0800:45 12 * * *') ;;
+              '-0700:45 7 * * *'|'-0800:45 8 * * *') ;;
               *) ACTIVE=false ;;
             esac
           fi

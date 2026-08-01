@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""DDB session bake — the daily 5:00 AM Claude scheduled task's renderer.
+"""DDB session bake, the twice-daily GitHub Actions renderer.
 
 Since 2026-07-17 the bake is driven by a Claude cloud session (spec: /BAKE.md).
 The SESSION does everything editorial: researching the news, choosing the lead,
