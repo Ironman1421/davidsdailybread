@@ -45,7 +45,9 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    `lead` (= the lead story's title) is eligible for a canonical post to
    @DavidDailyBread. The prior DAICC/Claude Cowork-era poster is unlocated and
    is not an operational authority; its replacement must satisfy
-   `docs/DISTRIBUTION_SPEC.md`. Keep every lead title self-contained and
+   `docs/DISTRIBUTION_SPEC.md`. The repository replacement runs in a separate
+   post-bake job under `docs/X_BROADCAST_RUNBOOK.md`; the editorial session never
+   receives its credentials. Keep every lead title self-contained and
    **130 characters or fewer**. An over-length lead is skipped, never truncated
    (the evening template tops out around a 146-character lead); an em dash also
    fails the gate, but rule 1 already bans those.

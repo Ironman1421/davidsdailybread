@@ -16,9 +16,10 @@ in version-controlled specs, code, and tests before use.
 
 ## Known ownership gaps
 
-- The external X poster referenced by `BAKE.md` is not in any accessible DDB or
-  command-center repository; its last known design context lived in Claude
-  Cowork, which is retired for this project.
+- The missing external X poster has been replaced by the repository-owned
+  canonical broadcaster and runbook. Its main-only production environment
+  exists with publishing disabled and the kill switch engaged, but it has no X
+  secrets or expected-account identity until the app and account are verified.
 - Social analytics now have a checked-in schema, but no live ledger, automated
   snapshots, or weekly scorecard.
 - Branch protection and workflow bypass ownership are not documented as code.

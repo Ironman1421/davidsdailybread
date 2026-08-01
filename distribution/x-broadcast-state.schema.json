@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/x-broadcast-state-v1.json",
+  "title": "DDB canonical X broadcast bootstrap and reconciliation state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "cutoverAfterEditionId", "receipts", "clearedRemoteArtifactIds"],
+  "properties": {
+    "version": {"const": 1},
+    "cutoverAfterEditionId": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"
+    },
+    "receipts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "editionId",
+          "canonicalUrl",
+          "postText",
+          "platformPostId",
+          "platformPostUrl",
+          "publicationMode",
+          "publishedAt",
+          "source"
+        ],
+        "properties": {
+          "editionId": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"
+          },
+          "canonicalUrl": {"type": "string", "format": "uri"},
+          "postText": {"type": "string", "minLength": 1},
+          "platformPostId": {"type": "string", "pattern": "^[0-9]{1,19}$"},
+          "platformPostUrl": {"type": "string", "format": "uri"},
+          "publicationMode": {"enum": ["manual-recovery", "imported-provider-receipt"]},
+          "publishedAt": {"type": ["string", "null"], "format": "date-time"},
+          "source": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "clearedRemoteArtifactIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[0-9]+$"}
+    }
+  }
+}

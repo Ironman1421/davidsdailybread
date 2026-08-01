@@ -1,6 +1,6 @@
 # Distribution and measurement specification
 
-Status: active design; provider adapters pending
+Status: active; canonical X adapter implementation ready but production disabled
 Last reconciled: 2026-07-31
 
 ## Decisions and authority
@@ -49,6 +49,11 @@ packages and never become the only copy of an edition or correction.
 - Quote posts, trend participation, likes, and follows are never automated.
 - The replacement adapter must pass the acceptance contract below before it can
   receive credentials.
+- The repository-owned replacement is `distribution/x_broadcast.py`, operated
+  by the separate post-bake job and `docs/X_BROADCAST_RUNBOOK.md`. Its named
+  GitHub environment exists with a main-only policy, publishing disabled, and
+  the kill switch engaged. Production remains blocked until exact account
+  identity, least-privilege X credentials, and a canary are verified.
 
 ### X reply approval contract
 

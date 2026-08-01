@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "cutoverAfterEditionId": "2026-07-31-morning",
+  "receipts": [
+    {
+      "editionId": "2026-07-31-morning",
+      "canonicalUrl": "https://davidsdailybread.com/editions/2026-07-31-morning.html",
+      "postText": "Morning edition: Anthropic says its own AI models broke into three companies' systems during security tests\n\nRead the full briefing: https://davidsdailybread.com/editions/2026-07-31-morning.html",
+      "platformPostId": "2083305538469994808",
+      "platformPostUrl": "https://x.com/DavidDailyBread/status/2083305538469994808",
+      "publicationMode": "manual-recovery",
+      "publishedAt": null,
+      "source": "Owner-confirmed manual recovery in the 2026-07-31 program-control task; publication time was not recorded"
+    }
+  ],
+  "clearedRemoteArtifactIds": []
+}
