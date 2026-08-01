@@ -6,11 +6,13 @@ from __future__ import annotations
 import json
 import io
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
 from urllib import error
+from zoneinfo import ZoneInfo
 
 from distribution.telegram_notification import (
     AmbiguousMutationError,
@@ -515,12 +517,12 @@ class WorkflowContractTest(unittest.TestCase):
                 )
                 self.assertIn(active[0], active_schedules)
 
-        counter_schedules = ("45 9 * * *", "45 10 * * *")
+        counter_schedules = ("45 7 * * *", "45 8 * * *")
         for cron in counter_schedules:
             self.assertIn(cron, counter)
         for offset, expected in {
-            "-0700": "45 9 * * *",
-            "-0800": "45 10 * * *",
+            "-0700": "45 7 * * *",
+            "-0800": "45 8 * * *",
         }.items():
             active = [
                 schedule
@@ -531,6 +533,21 @@ class WorkflowContractTest(unittest.TestCase):
         self.assertIn("active: ${{ steps.cfg.outputs.active }}", bake)
         self.assertIn("needs.bake.outputs.active == 'true'", bake)
         self.assertIn("if: steps.cfg.outputs.active == 'true'", counter)
+
+    def test_counter_backup_survives_both_dst_transition_days(self):
+        pacific = ZoneInfo("America/Los_Angeles")
+        candidates = ((7, "-0700"), (8, "-0800"))
+        for year, month, day in ((2027, 3, 14), (2027, 11, 7)):
+            active = []
+            for utc_hour, expected_offset in candidates:
+                instant = datetime(year, month, day, utc_hour, 45, tzinfo=timezone.utc)
+                local = instant.astimezone(pacific)
+                if local.strftime("%z") == expected_offset:
+                    active.append(local.strftime("%Y-%m-%d %H:%M %z"))
+            self.assertEqual(
+                [f"{year:04d}-{month:02d}-{day:02d} 00:45 " + ("-0800" if month == 3 else "-0700")],
+                active,
+            )
 
     def test_workflow_is_duplicate_safe_and_credentials_are_isolated(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()

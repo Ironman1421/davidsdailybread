@@ -30,8 +30,8 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   `evening-catalog.json`.
 - `feed.xml` — complete RSS delivery. `subscribe.html` runs a four-week,
   once-weekly Buttondown pilot with fresh double opt-in; the daily bake never sends it.
-- `counter.csv` — reader submissions, synced by a 2:30 AM Pacific Spark dispatch
-  with a 2:45 AM GitHub backup through `.github/workflows/counter-sync.yml`
+- `counter.csv` — reader submissions, synced by a 12:30 AM Pacific Spark dispatch
+  with a 12:45 AM GitHub backup through `.github/workflows/counter-sync.yml`
   (the bake's sandbox cannot reach docs.google.com directly).
 - `bakery-state.json` / `kings-satchel.json` — reader-content bookkeeping and
   the King's house letters.

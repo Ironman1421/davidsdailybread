@@ -105,8 +105,8 @@ reader submission to answer (`ask`), which letter the King replies to (`king`,
 either reader mail or a house-satchel draw), and which Crumb Board pin to post
 (`pin`). Null means that section stays empty today; never invent submissions.
 Reader submissions come from `counter.csv` in the clone. Spark dispatches
-`.github/workflows/counter-sync.yml` at 2:30 AM Pacific; a DST-safe GitHub
-schedule is the 2:45 AM backup. The committed copy is the source for the whole
+`.github/workflows/counter-sync.yml` at 12:30 AM Pacific; a DST-safe GitHub
+schedule is the 12:45 AM backup. The committed copy is the source for the whole
 bake: `--plan` never refreshes or mutates it.
 
 **2. Research.** Using web search, gather TODAY'S real news (last ~24 hours,
@@ -334,10 +334,10 @@ evening allowlist enforces this.
   `CLAUDE_CODE_OAUTH_TOKEN` (created with `claude setup-token`), with
   `ANTHROPIC_API_KEY` as a fallback. If neither secret is set the bake step
   stops with a clear error before doing any work.
-- Spark is the primary Pacific-time clock: Counter Sync at 2:30 AM, morning at
+- Spark is the primary Pacific-time clock: Counter Sync at 12:30 AM, morning at
   3:00 AM, and evening at 1:00 PM. Those starts target reader-ready publication
   near 5:00 AM and 3:00 PM Pacific. GitHub retains delayed backup schedules at
-  2:45 AM, 3:05 AM, and 1:05 PM. Every GitHub backup has a PDT/PST UTC pair and
+  12:45 AM, 3:05 AM, and 1:05 PM. Every GitHub backup has a PDT/PST UTC pair and
   an offset gate, so exactly one candidate is active and no daylight-saving
   edit is required. The exact-edition guard makes delayed or duplicate triggers
   successful no-ops.

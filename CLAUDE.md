@@ -61,5 +61,5 @@ Treat every change accordingly.
 - `tests/` — brand law, archive integrity, standing pages, and the two-slot
   render contract.
 - `.github/workflows/ddb-bake.yml` — the twice-daily bake.
-  `.github/workflows/counter-sync.yml` — reader submissions, 2:45 AM PT backup.
+  `.github/workflows/counter-sync.yml` — reader submissions, 12:45 AM PT backup.
   `.github/workflows/ci.yml` — the merge gate.
