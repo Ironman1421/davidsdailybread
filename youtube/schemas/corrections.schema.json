@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/youtube-corrections-v1.json",
+  "title": "David's Daily Bread YouTube corrections and replacements ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "updatedAt", "corrections", "replacements"],
+  "properties": {
+    "version": {"const": 1},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "corrections": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/correction"}
+    },
+    "replacements": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/replacement"}
+    }
+  },
+  "$defs": {
+    "httpsUrl": {
+      "type": "string",
+      "pattern": "^https://(?![^/\\s]*@)[^\\s]+$"
+    },
+    "humanApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human", "approved", "approvedBy", "approvedAt"],
+      "properties": {
+        "human": {"const": true},
+        "approved": {"const": true},
+        "approvedBy": {"type": "string", "minLength": 1},
+        "approvedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "platformCorrection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "keyword",
+        "timestamp",
+        "explanation",
+        "exactDescriptionBlock",
+        "appearsAfterChapters",
+        "readBackAt",
+        "readBackReceiptReference"
+      ],
+      "properties": {
+        "keyword": {"enum": ["Correction:", "Corrections:"]},
+        "timestamp": {
+          "type": "string",
+          "pattern": "^[0-9]{1,2}:[0-5][0-9](?::[0-5][0-9])?$"
+        },
+        "explanation": {"type": "string", "minLength": 1},
+        "exactDescriptionBlock": {"type": "string", "minLength": 1},
+        "appearsAfterChapters": {"const": true},
+        "readBackAt": {"type": "string", "format": "date-time"},
+        "readBackReceiptReference": {"type": "string", "minLength": 1}
+      }
+    },
+    "correction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correctionId",
+        "editionId",
+        "videoRecordId",
+        "youtubeVideoId",
+        "canonicalCorrectionUrl",
+        "discoveredAt",
+        "severity",
+        "status",
+        "erroneousClaim",
+        "correctedClaim",
+        "action",
+        "originalPublishReceiptReference",
+        "platformCorrection",
+        "finalApproval"
+      ],
+      "properties": {
+        "correctionId": {
+          "type": "string",
+          "pattern": "^YCOR-[0-9]{8}-[0-9]{3}$"
+        },
+        "editionId": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"
+        },
+        "videoRecordId": {
+          "type": "string",
+          "pattern": "^YV-[0-9]{8}-[0-9]{3}$"
+        },
+        "youtubeVideoId": {"type": "string", "minLength": 1},
+        "canonicalCorrectionUrl": {"$ref": "#/$defs/httpsUrl"},
+        "discoveredAt": {"type": "string", "format": "date-time"},
+        "severity": {"enum": ["minor", "material", "rights", "privacy"]},
+        "status": {"enum": ["open", "corrected", "unlisted", "removed", "replaced"]},
+        "erroneousClaim": {"type": "string", "minLength": 1},
+        "correctedClaim": {"type": "string", "minLength": 1},
+        "action": {
+          "enum": [
+            "description_correction",
+            "trim",
+            "unlist",
+            "remove",
+            "replace"
+          ]
+        },
+        "originalPublishReceiptReference": {"type": "string", "minLength": 1},
+        "platformCorrection": {
+          "oneOf": [
+            {"$ref": "#/$defs/platformCorrection"},
+            {"type": "null"}
+          ]
+        },
+        "finalApproval": {"$ref": "#/$defs/humanApproval"}
+      }
+    },
+    "replacement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relationshipId",
+        "correctionId",
+        "originalVideoRecordId",
+        "originalYoutubeVideoId",
+        "replacementVideoRecordId",
+        "replacementYoutubeVideoId",
+        "reason",
+        "createdAt",
+        "originalReceiptPreserved",
+        "originalPublishReceiptReference",
+        "replacementPublishReceiptReference",
+        "finalApproval"
+      ],
+      "properties": {
+        "relationshipId": {
+          "type": "string",
+          "pattern": "^YREL-[0-9]{8}-[0-9]{3}$"
+        },
+        "correctionId": {
+          "type": "string",
+          "pattern": "^YCOR-[0-9]{8}-[0-9]{3}$"
+        },
+        "originalVideoRecordId": {
+          "type": "string",
+          "pattern": "^YV-[0-9]{8}-[0-9]{3}$"
+        },
+        "originalYoutubeVideoId": {"type": "string", "minLength": 1},
+        "replacementVideoRecordId": {
+          "type": "string",
+          "pattern": "^YV-[0-9]{8}-[0-9]{3}$"
+        },
+        "replacementYoutubeVideoId": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1},
+        "createdAt": {"type": "string", "format": "date-time"},
+        "originalReceiptPreserved": {"const": true},
+        "originalPublishReceiptReference": {"type": "string", "minLength": 1},
+        "replacementPublishReceiptReference": {"type": "string", "minLength": 1},
+        "finalApproval": {"$ref": "#/$defs/humanApproval"}
+      }
+    }
+  }
+}
