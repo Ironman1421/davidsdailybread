@@ -50,9 +50,10 @@ packages and never become the only copy of an edition or correction.
 - The replacement adapter must pass the acceptance contract below before it can
   receive credentials.
 - The repository-owned replacement is `distribution/x_broadcast.py`, operated
-  by the separate post-bake job and `docs/X_BROADCAST_RUNBOOK.md`. It remains
-  fail-closed and disabled until the named GitHub environment, exact account
-  identity, least-privilege X credentials, and canary are provisioned.
+  by the separate post-bake job and `docs/X_BROADCAST_RUNBOOK.md`. Its named
+  GitHub environment exists with a main-only policy, publishing disabled, and
+  the kill switch engaged. Production remains blocked until exact account
+  identity, least-privilege X credentials, and a canary are verified.
 
 ### X reply approval contract
 

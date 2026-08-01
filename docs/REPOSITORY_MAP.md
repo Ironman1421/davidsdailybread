@@ -17,8 +17,9 @@ in version-controlled specs, code, and tests before use.
 ## Known ownership gaps
 
 - The missing external X poster has been replaced by the repository-owned
-  canonical broadcaster and runbook. Its production environment and X
-  credentials are intentionally not provisioned yet.
+  canonical broadcaster and runbook. Its main-only production environment
+  exists with publishing disabled and the kill switch engaged, but it has no X
+  secrets or expected-account identity until the app and account are verified.
 - Social analytics now have a checked-in schema, but no live ledger, automated
   snapshots, or weekly scorecard.
 - Branch protection and workflow bypass ownership are not documented as code.
