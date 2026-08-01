@@ -33,3 +33,11 @@ in version-controlled specs, code, and tests before use.
 New operational components must have a repository, named owner, on-call/failure
 path, secret boundary, idempotency contract, metrics, and a tested disable switch
 before they become unattended production dependencies.
+
+## Standing evening surfaces
+
+- `templates/evening.html`: approved Editorial Ledger and Guided Path edition.
+- `evening-rest.json`: reviewed spiritual closing material, selected by date.
+- `evening-catalog.json`: bounded tools and workflows catalog updated only by a
+  successful daily evening render.
+- `tools.html` and `workflows.html`: standing searchable library pages.

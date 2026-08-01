@@ -47,11 +47,18 @@ operating authority unless deliberately migrated into this repository.
 - Cadence: daily, scheduled no earlier than 3:35 PM Pacific during daylight time.
 - Job: a Field Guide of things an everyday reader can act on that night.
 - Shape: one useful lead, 2 to 6 trending tools, and 2 to 6 practical workflows.
+- Presentation: the Editorial Ledger with the numbered Guided Path, Start,
+  Browse, Choose, Rest. The final stage is The Evening Exhale: a reviewed KJV
+  passage, a release prompt, and a short prayer selected deterministically.
 - A tool must be available now, show where it is trending, state price and
   platform, and carry an honest caveat.
 - A workflow must state what it accomplishes, 2 to 4 prerequisites, and an
   honest time estimate.
-- No news section, reader section, category-page write, or reader-state write.
+- `/tools.html` and `/workflows.html` are searchable standing libraries backed
+  by a bounded, source-linked `/evening-catalog.json`. The evening's top links
+  open those pages instead of scrolling within the current edition.
+- No news section, reader-submission section, category-page write, or
+  reader-state write. The Evening Exhale is reviewed product copy, not mail.
 
 ## Shared editorial contracts
 
@@ -77,6 +84,9 @@ operating authority unless deliberately migrated into this repository.
 - Archive: `/archive.json` and `/editions/YYYY-MM-DD-{morning|evening}.html` are
   public APIs. Their paths and field meanings require an explicit migration.
 - RSS: `/feed.xml` contains the same ordered edition set as `archive.json`.
+- Evening catalog: daily evening bakes may prepend their exact validated cards
+  to `/evening-catalog.json`, deduplicate by source URL, and retain at most 180
+  entries per library. Backfills must not change the catalog.
 - X: the unlocated Claude Cowork-era process is retired as authority. A
   replacement distributor may consume each edition's exact archive lead only
   after it satisfies `docs/DISTRIBUTION_SPEC.md`. Credible-account replies are

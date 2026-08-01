@@ -32,6 +32,7 @@ SLOT_STANDING_FILES = {
     },
     "evening": {
         "index.html",
+        "evening-catalog.json",
         "archive.html",
         "archive.json",
         "feed.xml",

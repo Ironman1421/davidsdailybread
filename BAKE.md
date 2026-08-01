@@ -5,9 +5,10 @@ which is baked twice daily:
 
 - the **morning edition** (cron 12:05 UTC): straight news on tech, markets,
   and science, plus the reader sections. Steps 1-9 below.
-- the **evening edition** (cron 22:35 UTC): the Field Guide. Trending tools
-  and trending workflows for everyday people, and nothing else: no news
-  after dark (news belongs to the morning). See "The evening bake" below.
+- the **evening edition** (cron 22:35 UTC): the Field Guide. Trending tools,
+  practical workflows, and a short Evening Exhale for everyday people, with
+  no news after dark (news belongs to the morning). See "The evening bake"
+  below.
 
 Each bake runs in GitHub Actions (`.github/workflows/ddb-bake.yml`): the runner
 checks out the repo, resolves the edition date and slot, and invokes a Claude
@@ -35,9 +36,10 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    `science.html`, `editions/<date>-morning.html`, `archive.html` (marked list
    only, via the script), `archive.json`, `feed.xml`, `bakery-state.json`, and
    (restock only) `kings-satchel.json`. The **evening** bake writes ONLY:
-   `index.html`, `editions/<date>-evening.html`, `archive.html` (marked list
-   only), `archive.json`, and `feed.xml`; it never touches the category pages,
-   the reader state, the satchel, or `counter.csv`.
+   `index.html`, `editions/<date>-evening.html`, `evening-catalog.json`,
+   `archive.html` (marked list only), `archive.json`, and `feed.xml`; it never
+   touches the category pages, the reader state, the satchel, or `counter.csv`.
+   Backfills do not update `evening-catalog.json`.
 5. **Work from the fresh clone only.** Never read site state from the live
    davidsdailybread.com (the CDN serves stale files for hours).
 6. The email newsletter is retired. Never add subscribe links or email CTAs.
@@ -216,6 +218,14 @@ The reader to serve is the average person, not the insider: if an item only
 matters to an ML engineer, it loses its slot to one that helps everyone. All
 hard rules above apply unchanged.
 
+The approved presentation since 2026-07-31 is the Editorial Ledger with a
+numbered Guided Path: (1) Start here tonight, (2) Browse the shelf, (3) Choose
+a path, and (4) Set the day down. Step 4 is The Evening Exhale, selected by the
+renderer from the reviewed `evening-rest.json` set. It contains Receive,
+Release, and Rest prompts and is not reader mail. The masthead links to the
+standing `/tools.html` and `/workflows.html` libraries, which read the bounded
+`evening-catalog.json`; the links do not scroll to sections in the edition.
+
 **E1. Research.** Using web search and fetches, gather TODAY'S trend material
 (last ~24 hours preferred; ~48 is acceptable when something is clearly still
 rising) from the open web: tech press, blogs and newsletters, Hacker News,
@@ -287,10 +297,13 @@ tool blurbs are plain text (no markup) and each carries its caveat.
 then review it like an editor (step 5), run the step 5A accuracy pass, and
 finish with the step 9 report.
 The renderer builds the shelf tiles and recipe cards from the JSON; the
-template (templates/evening.html, the Field Guide layout) is never edited at
-bake time. The evening bake never runs `--plan`, never writes the category
-pages, and never touches `kings-satchel.json`, `bakery-state.json`, or
-`counter.csv`; the workflow's evening allowlist enforces this.
+template (`templates/evening.html`, the Editorial Ledger layout) is never edited
+at bake time. A daily render prepends the validated cards to
+`evening-catalog.json`, deduplicates by exact source URL, and keeps at most 180
+items per library. A backfill leaves the catalog unchanged. The evening bake
+never runs `--plan`, never writes the category pages, and never touches
+`kings-satchel.json`, `bakery-state.json`, or `counter.csv`; the workflow's
+evening allowlist enforces this.
 
 ## Ops notes
 

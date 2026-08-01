@@ -12,9 +12,11 @@ file (and `brand.css`) — nowhere else.
   twice daily** by GitHub Actions (spec: `/BAKE.md`). The **morning edition**
   (cron 5:05 AM Pacific) is straight news on technology, markets, and science,
   and carries the reader sections. The **evening edition** (cron 3:35 PM
-  Pacific) is the Field Guide (layout adopted 2026-07-30, per David): trending
-  tools and trending workflows for everyday people, and NO news of any kind
-  (news is the morning's job); it carries no reader sections.
+  Pacific) is the Field Guide: trending tools and practical workflows for
+  everyday people, and NO news of any kind (news is the morning's job). Its
+  approved 2026-07-31 presentation is the **Editorial Ledger** with a numbered
+  **Guided Path**: Start here, Browse the shelf, Choose a path, Set the day
+  down. It carries no reader submissions or reader-state interaction.
   GitHub cron fires late, not never; both times are "no earlier than". There is
   no email newsletter; delivery is the website and `/feed.xml`.
 - **Email newsletter RETIRED (2026-07-17, per David):** the Buttondown list is closed.
@@ -97,6 +99,11 @@ file (and `brand.css`) — nowhere else.
   letters are waiting, the bake answers ONE letter from the house satchel
   (`/kings-satchel.json`), credited "From the Baker's own shelf" — never presented
   as reader mail.
+- **The Evening Exhale:** the evening's distinct spiritual relief after the
+  practical material. It follows Receive, Release, Rest: one short KJV passage,
+  one release prompt, and one prayer. It is contemplative product copy selected
+  deterministically from a reviewed repository set, never reader mail and never
+  a second Letters to the King.
 
 ## Permanent features (never remove)
 
@@ -114,12 +121,16 @@ file (and `brand.css`) — nowhere else.
   and never repeat.
 - **RSS:** `/feed.xml`, prepended every bake; the RSS `<link rel="alternate">` tag
   stays in every page head.
+- **Evening libraries:** `/tools.html` and `/workflows.html` are standing,
+  searchable pages backed by `/evening-catalog.json`. The evening masthead links
+  open these pages; they never masquerade as in-page anchor links.
 - **Selah line:** the "Selah – anything to set down?" vault-door chronicles button
   on the home page footer.
 
 ## Where the code lives
 
-- **Page templates:** `/templates/home.html` and `/templates/category.html` in this
+- **Page templates:** `/templates/home.html`, `/templates/evening.html`, and
+  `/templates/category.html` in this
   repo. The bake fetches them from
   `https://raw.githubusercontent.com/Ironman1421/davidsdailybread/main/templates/…`
   and replaces ONLY the content tokens (EDITION, LEAD_*, CARD_*, CAT_*, etc.).

@@ -38,6 +38,19 @@ class WorkflowGuardTest(unittest.TestCase):
                     "morning",
                 )
 
+    def test_evening_accepts_only_its_catalog_and_exact_edition(self):
+        expected = f"editions/{DATE}-evening.html"
+        paths = validate_changes(
+            [
+                Change(" M", "index.html"),
+                Change(" M", "evening-catalog.json"),
+                Change("??", expected),
+            ],
+            DATE,
+            "evening",
+        )
+        self.assertEqual([expected, "evening-catalog.json", "index.html"], paths)
+
     def test_rejects_staged_deleted_renamed_or_missing_expected_output(self):
         invalid_sets = (
             [Change("A ", EXPECTED)],

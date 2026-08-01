@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "tools": [
+    {
+      "date": "2026-07-31",
+      "name": "Gander",
+      "url": "https://github.com/mokshablr/gander",
+      "cost": "Free",
+      "kind": "Android 8.0 and up",
+      "seen": "Show HN front page, 188 points",
+      "blurb": "Opens PDFs, Word and Excel files, images, video, audio, Markdown and code entirely offline without asking for storage permission, though you sideload the APK from GitHub because it is not on the Play Store or F-Droid."
+    },
+    {
+      "date": "2026-07-31",
+      "name": "mectrics",
+      "url": "https://mectrics.app",
+      "cost": "Free",
+      "kind": "macOS 15 or later, 3.8 MB",
+      "seen": "Product Hunt No. 3, 226 votes",
+      "blurb": "Folds CPU, memory, battery, network, disk, GPU and fan readings into a single menu bar item that stays quiet until a threshold holds, and its own launch notes concede it goes less deep than paid rivals such as iStat Menus."
+    },
+    {
+      "date": "2026-07-31",
+      "name": "Focus Room",
+      "url": "https://focusroom.club/",
+      "cost": "Free",
+      "kind": "Web, any browser",
+      "seen": "Product Hunt No. 9, 162 votes",
+      "blurb": "Put focusroom.club/ in front of any YouTube URL and the video reopens as a distraction-free course with transcript search and timestamped notes, though launch-day testers hit YouTube quota errors and the notes cannot be exported yet."
+    },
+    {
+      "date": "2026-07-31",
+      "name": "Kaneo",
+      "url": "https://github.com/usekaneo/kaneo",
+      "cost": "Free, MIT licensed",
+      "kind": "Self-host with Docker",
+      "seen": "GitHub trending, 188 stars today",
+      "blurb": "Runs kanban boards and issue tracking on a machine you own from a Docker Compose file, and its makers state the trade-off plainly: a deliberately minimal design with fewer features than Jira or Linear."
+    },
+    {
+      "date": "2026-07-29",
+      "name": "SoundGate Guitar",
+      "url": "https://apps.apple.com/us/app/soundgate-guitar/id6760704644",
+      "cost": "Free, no in-app purchases",
+      "kind": "iPhone, iPad, Mac app",
+      "seen": "Product Hunt No. 2, Jul 29",
+      "blurb": "It listens through the microphone and draws what you are playing on a live fretboard, with an AI tutor that answers questions and builds practice routines, plus a tuner and metronome; it is an Apple-only app, so Android players are out of luck."
+    },
+    {
+      "date": "2026-07-29",
+      "name": "Yap, on-device dictation for macOS",
+      "url": "https://github.com/frigadehq/yap",
+      "cost": "Free, MIT licensed",
+      "kind": "macOS 26, Apple Silicon",
+      "seen": "Show HN, 104 points",
+      "blurb": "Press a shortcut, talk, press it again, and your words appear in whatever text field you were in, using Apple's built-in speech APIs with no model to download and no network calls; it needs macOS 26 or later on Apple Silicon, and Intel Macs are deliberately not supported."
+    },
+    {
+      "date": "2026-07-29",
+      "name": "CheapFoodMap",
+      "url": "https://cheapfoodmap.com/",
+      "cost": "Free",
+      "kind": "Web map, US cities",
+      "seen": "Show HN, 273 points",
+      "blurb": "A map of meals under $10 across a dozen featured cities including New York, Chicago, Houston and Los Angeles, with a price-verified date shown on each spot; the entries are crowdsourced, so coverage thins out fast once you pan away from the big cities."
+    },
+    {
+      "date": "2026-07-29",
+      "name": "tale.fyi",
+      "url": "https://tale.fyi/@sam/announcing-tale-fyi-read-or-listen-to-an-entire-book-from-a-single-link",
+      "cost": "Free",
+      "kind": "Web, reads or plays aloud",
+      "seen": "Show HN, 71 points",
+      "blurb": "One link opens a whole book, keeps your place on the device, and lets you swap between reading and listening; an account is optional and only syncs progress, but the library is public domain material from Project Gutenberg, Standard Ebooks and LibriVox, so nothing modern is on the shelf."
+    },
+    {
+      "date": "2026-07-29",
+      "name": "TokenTown",
+      "url": "https://laurentiugabriel.github.io/token-town/",
+      "cost": "Free",
+      "kind": "Runs in the browser",
+      "seen": "Hacker News, 72 points",
+      "blurb": "Type a prompt and watch a single token travel through an isometric city where each district is one stage of a language model, from tokenizing to attention to sampling; the model is deliberately tiny and its weights are random and untrained, so the words it produces are noise and only the machinery is real."
+    }
+  ],
+  "workflows": [
+    {
+      "date": "2026-07-31",
+      "title": "Record an episode this week and hear it published on a feed running since 2005",
+      "url": "https://hackerpublicradio.org/contribute.html",
+      "dek": "<b>Book the slot first</b> Hacker Public Radio lets a contributor reserve a calendar date up to a year out, then emails a one-time upload link that expires in 15 minutes, and it takes phone recordings as readily as FLAC.",
+      "needs": ["A topic you can talk through", "Audacity or a phone recorder", "A free slot on the calendar"],
+      "time": "An evening to record"
+    },
+    {
+      "date": "2026-07-31",
+      "title": "Start Microsoft's free AI curriculum, 24 lessons at your own pace",
+      "url": "https://github.com/microsoft/AI-For-Beginners",
+      "dek": "<b>Begin at lesson zero</b> The lessons run from symbolic AI through neural networks, computer vision and language in Jupyter notebooks, and the README is blunt that business applications, classic machine learning and chatbots are out of scope.",
+      "needs": ["Python with Jupyter Notebooks", "A GitHub account to fork it", "Lesson 0 for the setup"],
+      "time": "12 weeks, self paced"
+    },
+    {
+      "date": "2026-07-29",
+      "title": "Run a 26B AI model offline on a small Mac laptop",
+      "url": "https://github.com/drumih/turbo-fieldfare",
+      "dek": "<b>Big model, small Mac</b> TurboFieldfare keeps only the essential weights in memory and streams the rest from storage, so Gemma 4 26B answers inside about 2 GB of RAM, at 5.1 to 6.3 tokens per second on an 8 GB M2 MacBook Air and 31 to 35 on an M5.",
+      "needs": ["Apple Silicon Mac on macOS 26", "Xcode 26 and Swift 6.2", "About 15 GB free storage", "Text only: no images or tools"],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-07-29",
+      "title": "Make a landlord's dumb air conditioner smart for about $15",
+      "url": "https://prilik.com/blog/post/automating-ac-nyc/",
+      "dek": "<b>Renter-safe automation</b> A stepper motor clamped to the existing dial, driven by an ESP32 talking to Home Assistant over MQTT, switches an analog window unit on and off without modifying the unit or risking the security deposit.",
+      "needs": ["ESP32 and a stepper motor, about $15", "Home Assistant and an MQTT broker", "Brackets, a binder clip, cardboard"],
+      "time": "A few hours"
+    },
+    {
+      "date": "2026-07-29",
+      "title": "Put a jailbroken Kindle on your home network with Tailscale",
+      "url": "https://tailscale.com/blog/jailbroken-kindle-proxy-tun-modes",
+      "dek": "<b>Kindle, meet your server</b> The updated Tailscale KUAL app adds proxy and kernel TUN modes, and a KOReader plugin, so the reader can pull books straight from a machine at home, though Tailscale calls it community code on a very unofficial device state and warns 11th-generation Kindles have plugin trouble.",
+      "needs": ["A jailbroken Kindle with KUAL", "A Tailscale account and auth key", "KOReader, for the plugin route"],
+      "time": "An evening"
+    }
+  ]
+}

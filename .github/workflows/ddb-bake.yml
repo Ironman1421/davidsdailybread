@@ -174,7 +174,7 @@ jobs:
           # (c) every changed path and git status must match this exact run.
           # The helper is byte-pinned in this already-loaded workflow because
           # the untrusted author process can modify files in the checkout.
-          echo "02ece3f5190c8e45f2a25af73c234f8e910e8f7f9fa56be10ac8f8f816972d9b  ddb_workflow_guard.py" | sha256sum --check
+          echo "cdb05086f9e8fa242098298e2502406f064311a07eb5d76b47324af6bacbfbb4  ddb_workflow_guard.py" | sha256sum --check
           python3 ddb_workflow_guard.py --date "$D" --slot "$SLOT" \
             | tee "$RUNNER_TEMP/changed-files.txt"
           # (d) archive.json must carry this edition's entry
@@ -217,7 +217,7 @@ jobs:
             git add index.html tech.html markets.html science.html "$EXPECTED_EDITION" bakery-state.json kings-satchel.json
             git -c core.hooksPath=/dev/null commit -m "${LABEL} ${HUMAN}"
           else
-            git add index.html "$EXPECTED_EDITION"
+            git add index.html evening-catalog.json "$EXPECTED_EDITION"
             git -c core.hooksPath=/dev/null commit -m "${LABEL} ${HUMAN}"
           fi
           git add archive.html archive.json feed.xml

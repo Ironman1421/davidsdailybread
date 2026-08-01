@@ -125,15 +125,21 @@ with tempfile.TemporaryDirectory() as td:
     after = tree_hashes(repo)
     changed = {p for p in set(before) | set(after) if before.get(p) != after.get(p)}
     expected = {"index.html", f"editions/{DATE}-evening.html",
-                "archive.html", "archive.json", "feed.xml"}
+                "archive.html", "archive.json", "feed.xml",
+                "evening-catalog.json"}
     assert changed == expected, f"evening write set wrong: {sorted(changed ^ expected)}"
 
     html = (repo / "editions" / f"{DATE}-evening.html").read_text(encoding="utf-8")
     assert html == (repo / "index.html").read_text(encoding="utf-8"), "index takeover missing"
     assert "Evening edition," in html
     for label in ("Start here tonight", "The tool shelf", "The workflows",
-                  "no waitlists, no vaporware"):
+                  "no waitlists, no vaporware", "The Evening Exhale",
+                  "Receive", "Release", "Rest"):
         assert label in html, f"missing Field Guide label {label!r}"
+    for number in ("1", "2", "3", "4"):
+        assert f'<span class="step-number">{number}</span>' in html
+    assert 'href="/tools.html"' in html and 'href="/workflows.html"' in html
+    assert 'href="#shelf"' not in html and 'href="#workflows"' not in html
     assert "worth an evening" in html, "lead.note margin aside missing"
     assert html.count('class="shelf-card"') == 2, "shelf tile count wrong"
     assert html.count('class="recipe"') == 2, "recipe card count wrong"
@@ -148,6 +154,16 @@ with tempfile.TemporaryDirectory() as td:
              if e["date"] == DATE and e["edition"] == "evening"]
     assert len(entry) == 1 and entry[0]["file"] == f"editions/{DATE}-evening.html"
     assert "Evening edition" in (repo / "feed.xml").read_text(encoding="utf-8")
+
+    catalog = json.loads((repo / "evening-catalog.json").read_text(encoding="utf-8"))
+    assert catalog["version"] == 1
+    assert [item["name"] for item in catalog["tools"][:2]] == [
+        "Fixture tool 1", "Fixture tool 2"
+    ]
+    assert [item["title"] for item in catalog["workflows"][:2]] == [
+        "Fixture workflow 1", "Fixture workflow 2"
+    ]
+    assert all(item["date"] == DATE for item in catalog["tools"][:2])
 
     # --- the lead.note is optional: omitting it strips the margin aside -----
     quiet = evening_content()
