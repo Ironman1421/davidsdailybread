@@ -16,9 +16,10 @@ file (and `brand.css`) — nowhere else.
   science, and carries the reader sections. The **evening edition** (3:30 PM
   Pacific) is the Field Guide: trending tools and practical workflows for
   everyday people, and NO news of any kind (news is the morning's job). Its
-  approved 2026-07-31 presentation is the **Editorial Ledger** with a numbered
-  **Guided Path**: Start here, Browse the shelf, Choose a path, Set the day
-  down. It carries no reader submissions or reader-state interaction.
+  presentation uses the **July 31 Field Guide** format: one useful lead, a
+  two-column tool shelf and workflow lane, then Keep and Ponder with Mary of
+  Nazareth below the actionable material. It carries no reader submissions or
+  reader-state interaction.
   A delayed trigger is safe because an exact edition is published at most once.
   The website and `/feed.xml` remain the complete, canonical delivery surfaces.
 - **Weekly email pilot APPROVED (2026-07-31, per David):** `/subscribe.html`
@@ -104,11 +105,15 @@ file (and `brand.css`) — nowhere else.
   (`/kings-satchel.json`), credited "From the Baker's own shelf" — never presented
   as reader mail. The public section footer says, "Letters answered in the voice of
   the biblical King David."
-- **The Evening Exhale:** the evening's distinct spiritual relief after the
-  practical material. It follows Receive, Release, Rest: one short KJV passage,
-  one release prompt, and one prayer. It is contemplative product copy selected
-  deterministically from a reviewed repository set, never reader mail and never
-  a second Letters to the King.
+- **Keep and Ponder with Mary of Nazareth:** the evening's distinct spiritual
+  relief after the practical material. Mary is the recurring host and spiritual
+  presence only after the trending tools and workflows have finished. She is
+  presented through her biblical witness, not through invented first-person
+  advice or revelation, and the prayers remain addressed to God. The section
+  follows Keep, Ponder, Entrust: one short KJV passage, one release prompt, and
+  one prayer. The name and movement are shaped by Luke 2:19. It is contemplative
+  product copy selected deterministically from a reviewed repository set, never
+  reader mail and never a second Letters to the King.
 
 ## Permanent features (never remove)
 

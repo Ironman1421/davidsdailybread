@@ -50,9 +50,11 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
   DST-safe GitHub backup.
 - Job: a Field Guide of things an everyday reader can act on that night.
 - Shape: one useful lead, 2 to 6 trending tools, and 2 to 6 practical workflows.
-- Presentation: the Editorial Ledger with the numbered Guided Path, Start,
-  Browse, Choose, Rest. The final stage is The Evening Exhale: a reviewed KJV
-  passage, a release prompt, and a short prayer selected deterministically.
+- Presentation: the July 31 Field Guide format with one useful lead, a two-column
+  tool shelf and workflow lane, then Keep and Ponder with Mary of Nazareth as
+  its recurring biblical presence: a reviewed KJV passage, a release prompt,
+  and a short prayer selected deterministically. Mary is not used as an invented
+  first-person advice voice, and the prayer is addressed to God.
 - A tool must be available now, show where it is trending, state price and
   platform, and carry an honest caveat.
 - A workflow must state what it accomplishes, 2 to 4 prerequisites, and an
@@ -61,7 +63,8 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
   by a bounded, source-linked `/evening-catalog.json`. The evening's top links
   open those pages instead of scrolling within the current edition.
 - No news section, reader-submission section, category-page write, or
-  reader-state write. The Evening Exhale is reviewed product copy, not mail.
+  reader-state write. Keep and Ponder with Mary of Nazareth is reviewed product
+  copy, not mail.
 
 ## Shared editorial contracts
 
