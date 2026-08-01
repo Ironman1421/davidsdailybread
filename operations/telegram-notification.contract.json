@@ -18,6 +18,14 @@
     "latestOlderFallbackAllowed": false,
     "modelGeneratedSelectionOrSummaryAllowed": false
   },
+  "publicReadiness": {
+    "requiredBeforeReservationAndCredentials": true,
+    "requiresHttpStatus": 200,
+    "requiresExactEditionHtmlTitle": true,
+    "attempts": 20,
+    "delaySeconds": 10,
+    "failureCreatesReservation": false
+  },
   "authorityBoundary": {
     "freshRunner": true,
     "bakeJobReceivesTelegramCredentials": false,
@@ -60,5 +68,5 @@
     ],
     "automaticPostRetryCount": 0
   },
-  "failureNotification": "failed Daily bake workflow run in GitHub Actions; Spark watchdog separately sends a truthful not-ready alert when the exact morning edition is absent"
+  "failureNotification": "failed Daily bake workflow run in GitHub Actions; Spark watchdogs separately send a truthful not-ready alert when the exact morning or evening edition is absent"
 }

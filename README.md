@@ -8,10 +8,12 @@ and a quiet Evening Exhale. Loved by God. Baked fresh twice daily and published 
 
 ## How it works
 
-**GitHub Actions** (`.github/workflows/ddb-bake.yml`) fires two bakes daily,
-morning news at 12:05 UTC and evening trends at 22:35 UTC, each driving a
-Claude session that follows **`/BAKE.md`** (the complete operating spec). The
-session does the editorial work: researching, choosing the lead, writing every
+Spark is the Pacific-time clock and dispatches **GitHub Actions**
+(`.github/workflows/ddb-bake.yml`) at 5:00 AM for morning news and 3:30 PM for
+evening trends. The installed control plane is recorded in
+`docs/OPERATIONS_EVIDENCE_2026-08-01.md`. DST-safe GitHub schedules remain as delayed backups. Each run
+drives a Claude session that follows **`/BAKE.md`** (the complete operating
+spec). The session does the editorial work: researching, choosing the lead, writing every
 dek and glance line, and (mornings) answering reader mail in the house
 personas. `ddb_session_bake.py` does the mechanical work deterministically:
 template fill, category pages (morning only), the bounded evening catalog,
@@ -26,9 +28,9 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   `evening-catalog.json`.
 - `feed.xml` — complete RSS delivery. `subscribe.html` runs a four-week,
   once-weekly Buttondown pilot with fresh double opt-in; the daily bake never sends it.
-- `counter.csv` — reader submissions, synced in daily at 4:45 AM Pacific by
-  `.github/workflows/counter-sync.yml` (the bake's sandbox cannot reach
-  docs.google.com directly).
+- `counter.csv` — reader submissions, synced by a 4:30 AM Pacific Spark dispatch
+  with a 4:45 AM GitHub backup through `.github/workflows/counter-sync.yml`
+  (the bake's sandbox cannot reach docs.google.com directly).
 - `bakery-state.json` / `kings-satchel.json` — reader-content bookkeeping and
   the King's house letters.
 - `BRAND.md` — brand source of truth; `brand.css` — design tokens.

@@ -2,7 +2,7 @@
 
 Status: active production contract
 Owner: David Friedhof
-Last reconciled: 2026-07-31
+Last reconciled: 2026-08-01
 
 ## Purpose and source precedence
 
@@ -34,7 +34,8 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 
 ### Morning edition
 
-- Cadence: daily, scheduled no earlier than 5:05 AM Pacific during daylight time.
+- Cadence: daily, dispatched at 5:00 AM Pacific, with a delayed 5:05 AM
+  DST-safe GitHub backup.
 - Job: straight news from the prior day in technology, business and markets,
   and science.
 - Shape: one lead across all beats, then 2 to 6 cards in each of the three beats.
@@ -45,7 +46,8 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 
 ### Evening edition
 
-- Cadence: daily, scheduled no earlier than 3:35 PM Pacific during daylight time.
+- Cadence: daily, dispatched at 3:30 PM Pacific, with a delayed 3:35 PM
+  DST-safe GitHub backup.
 - Job: a Field Guide of things an everyday reader can act on that night.
 - Shape: one useful lead, 2 to 6 trending tools, and 2 to 6 practical workflows.
 - Presentation: the Editorial Ledger with the numbered Guided Path, Start,
@@ -88,9 +90,12 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 - Evening catalog: daily evening bakes may prepend their exact validated cards
   to `/evening-catalog.json`, deduplicate by source URL, and retain at most 180
   entries per library. Backfills must not change the catalog.
-- X: the unlocated Claude Cowork-era process is retired as authority. A
-  replacement distributor may consume each edition's exact archive lead only
-  after it satisfies `docs/DISTRIBUTION_SPEC.md`. Credible-account replies are
+- X: Spark's guarded `daicc-ddb-autopost` service is the sole active canonical
+  broadcaster. The GitHub replacement remains disabled and kill-switched; the
+  two lanes must never be enabled together. Either may consume an edition's
+  exact archive lead only under `docs/DISTRIBUTION_SPEC.md`. The production
+  observation is recorded in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
+  Credible-account replies are
   the primary near-term X acquisition strategy; each is approved by David and
   manually posted under `docs/X_REPLY_PLAYBOOK.md`.
 - YouTube: the initial discovery channel is a faceless vertical-video format,
@@ -117,8 +122,10 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 - The renderer validates all candidate public output before replacing any file.
 - Daily reader content is provenance-checked against committed input before any
   reader state or public file changes; historical backfills cannot include it.
-- Daylight-saving schedule changes are an operational risk until the schedule is
-  made timezone-aware or a tested seasonal runbook owns the change.
+- Spark schedules in `America/Los_Angeles`. GitHub backup schedules use tested
+  PDT/PST candidate pairs and an offset gate; no manual daylight-saving edit is
+  required. Installation evidence is recorded in
+  `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 
 ## Product measures
 

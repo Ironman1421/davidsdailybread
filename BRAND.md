@@ -8,17 +8,19 @@ file (and `brand.css`) — nowhere else.
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
-- Current operating truth (updated 2026-07-30, per David): the site is **baked
-  twice daily** by GitHub Actions (spec: `/BAKE.md`). The **morning edition**
-  (cron 5:05 AM Pacific) is straight news on technology, markets, and science,
-  and carries the reader sections. The **evening edition** (cron 3:35 PM
+- Current operating truth (updated 2026-08-01, per David): the site is **baked
+  twice daily** in GitHub Actions, dispatched by Spark's Pacific-time clock
+  with DST-safe GitHub backup schedules (spec: `/BAKE.md`, deployment evidence:
+  `/docs/OPERATIONS_EVIDENCE_2026-08-01.md`). The **morning
+  edition** (5:00 AM Pacific) is straight news on technology, markets, and
+  science, and carries the reader sections. The **evening edition** (3:30 PM
   Pacific) is the Field Guide: trending tools and practical workflows for
   everyday people, and NO news of any kind (news is the morning's job). Its
   approved 2026-07-31 presentation is the **Editorial Ledger** with a numbered
   **Guided Path**: Start here, Browse the shelf, Choose a path, Set the day
   down. It carries no reader submissions or reader-state interaction.
-  GitHub cron fires late, not never; both times are "no earlier than". The
-  website and `/feed.xml` remain the complete, canonical delivery surfaces.
+  A delayed trigger is safe because an exact edition is published at most once.
+  The website and `/feed.xml` remain the complete, canonical delivery surfaces.
 - **Weekly email pilot APPROVED (2026-07-31, per David):** `/subscribe.html`
   accepts fresh Buttondown double opt-ins for a four-week pilot. It sends at
   most one manual Editorial Ledger each week, follows Start, Browse, Do, Rest,

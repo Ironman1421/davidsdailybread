@@ -13,9 +13,12 @@ The adapter includes the exact archive lead and direct canonical edition URL,
 which Telegram renders as a clickable link. It does not use an AI model, choose
 the newest available entry, or fall back to a prior date or slot.
 
-The separate Spark watchdog is allowed to send a not-ready alert after the
-morning deadline only when that exact entry is absent. It must not include an
-older edition's stories or describe an older edition as current.
+Before reserving or loading credentials, the job repeatedly fetches the exact
+public edition URL and requires HTTP 200 plus the edition's exact expected HTML
+title. This distinguishes a committed file from a Pages deployment that is
+actually live. The separate Spark watchdogs may send a not-ready alert after
+the morning or evening deadline only when that exact entry is absent. They must
+not include an older edition's stories or describe an older edition as current.
 
 ## Credential and enablement boundary
 
@@ -56,8 +59,10 @@ August 1 morning message but allows the later exact August 1 evening edition.
 
 ## Duplicate and failure behavior
 
-Before credentials load, the job checks committed reconciliation state and
-non-expired Actions receipt and reservation artifacts. It uploads a durable
+Before credentials load, the job verifies the exact public page, then checks
+committed reconciliation state and non-expired Actions receipt and reservation
+artifacts. A public-readiness failure creates no reservation and sends nothing,
+so a later workflow rerun remains safe. Once live, the job uploads a durable
 reservation before calling Telegram. A receipt is success only when Telegram
 returns a positive message ID, the configured chat ID, and the exact text.
 

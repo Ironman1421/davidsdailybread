@@ -43,9 +43,11 @@ packages and never become the only copy of an edition or correction.
   edition and never substitutes the latest older edition.
 - Each receipt includes the direct HTTPS URL for its exact live edition so the
   destination is clickable from Telegram.
-- If the exact slot entry is unavailable, the publication receipt fails closed.
-  Spark's separate watchdog may send a truthful not-ready alert after the
-  morning deadline, but that alert contains no older story content.
+- Before any reservation or credential load, the adapter requires the exact
+  public URL to return HTTP 200 with the edition's exact expected HTML title.
+  If the exact slot is not publicly live, the receipt fails closed. Spark's
+  separate morning and evening watchdogs may send truthful not-ready alerts
+  after their deadlines, but those alerts contain no older story content.
 - The repository adapter is `distribution/telegram_notification.py`; its
   operating and recovery boundary is `docs/TELEGRAM_NOTIFICATION_RUNBOOK.md`.
 
@@ -78,11 +80,14 @@ packages and never become the only copy of an edition or correction.
 - Quote posts, trend participation, likes, and follows are never automated.
 - The replacement adapter must pass the acceptance contract below before it can
   receive credentials.
-- The repository-owned replacement is `distribution/x_broadcast.py`, operated
-  by the separate post-bake job and `docs/X_BROADCAST_RUNBOOK.md`. Its named
-  GitHub environment exists with a main-only policy, publishing disabled, and
-  the kill switch engaged. Production remains blocked until exact account
-  identity, least-privilege X credentials, and a canary are verified.
+- Spark's guarded `daicc-ddb-autopost` service is the sole active canonical
+  broadcaster. The repository-owned replacement is
+  `distribution/x_broadcast.py`, operated by the separate post-bake job and
+  `docs/X_BROADCAST_RUNBOOK.md`. Its named GitHub environment exists with a
+  main-only policy, publishing disabled, and the kill switch engaged. A future
+  migration must verify account identity, least-privilege credentials, and a
+  canary, then disable Spark before enabling GitHub. The active Spark observation
+  is recorded in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 
 ### X reply approval contract
 

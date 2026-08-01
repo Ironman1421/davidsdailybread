@@ -4,16 +4,19 @@
 from __future__ import annotations
 
 import json
+import io
 import os
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib import error
 
 from distribution.telegram_notification import (
     AmbiguousMutationError,
     DuplicateError,
     HttpResponse,
+    LiveReadinessError,
     ReadbackError,
     TelegramProvider,
     ValidationError,
@@ -22,6 +25,7 @@ from distribution.telegram_notification import (
     execute_notification,
     hydrate_github_receipt,
     main,
+    verify_live_edition,
     write_reservation,
 )
 
@@ -79,6 +83,21 @@ class ScriptedTransport:
         if isinstance(response, BaseException):
             raise response
         return response
+
+
+class LivePageResponse:
+    def __init__(self, status, body):
+        self.status = status
+        self.body = body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_args):
+        return False
+
+    def read(self, _limit):
+        return self.body
 
 
 class NotificationFixture(unittest.TestCase):
@@ -221,6 +240,61 @@ class PackageContractTest(NotificationFixture):
     def test_current_archive_contains_the_exact_august_first_edition(self):
         current = build_package(ROOT / "archive.json", "2026-08-01", "morning")
         self.assertEqual("2026-08-01-morning", current.edition_id)
+
+    def test_live_readiness_requires_the_exact_public_edition_title(self):
+        expected = (
+            "<title>David's Daily Bread – Morning edition, "
+            "Sunday, August 2, 2026</title>"
+        ).encode()
+        calls = []
+
+        def opener(req, timeout):
+            calls.append((req.full_url, timeout))
+            return LivePageResponse(200, expected)
+
+        verify_live_edition(self.package, opener=opener, sleeper=lambda _delay: None)
+        self.assertEqual([(self.package.canonical_url, 10)], calls)
+
+    def test_live_readiness_retries_without_creating_a_delivery_receipt(self):
+        responses = [
+            LivePageResponse(404, b"not found"),
+            LivePageResponse(200, b"wrong edition"),
+        ]
+        delays = []
+
+        def opener(_req, timeout):
+            self.assertEqual(10, timeout)
+            return responses.pop(0)
+
+        with self.assertRaises(LiveReadinessError):
+            verify_live_edition(
+                self.package,
+                attempts=2,
+                delay_seconds=3,
+                opener=opener,
+                sleeper=delays.append,
+            )
+        self.assertEqual([3], delays)
+        self.assertFalse(self.receipts.exists())
+
+    def test_live_readiness_reports_an_http_error_truthfully(self):
+        def opener(req, timeout):
+            self.assertEqual(10, timeout)
+            raise error.HTTPError(
+                req.full_url,
+                404,
+                "Not Found",
+                {},
+                io.BytesIO(b"not found"),
+            )
+
+        with self.assertRaisesRegex(LiveReadinessError, "HTTP 404"):
+            verify_live_edition(
+                self.package,
+                attempts=1,
+                opener=opener,
+                sleeper=lambda _delay: None,
+            )
 
 
 class ExecutionTest(NotificationFixture):
@@ -412,6 +486,52 @@ class ProviderAndDurabilityTest(NotificationFixture):
 
 
 class WorkflowContractTest(unittest.TestCase):
+    def test_backup_schedules_are_pacific_and_dst_safe(self):
+        bake = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
+        counter = (ROOT / ".github" / "workflows" / "counter-sync.yml").read_text()
+        self.assertIn("TZ=America/Los_Angeles date +%F", bake)
+        self.assertNotIn("America/New_York", bake)
+        bake_slots = {
+            "morning": ("5 12 * * *", "5 13 * * *"),
+            "evening": ("35 22 * * *", "35 23 * * *"),
+        }
+        for cron in (*bake_slots["morning"], *bake_slots["evening"]):
+            self.assertIn(cron, bake)
+        expected_bake_mappings = {
+            "-0700": {"5 12 * * *", "35 22 * * *"},
+            "-0800": {"5 13 * * *", "35 23 * * *"},
+        }
+        for offset, active_schedules in expected_bake_mappings.items():
+            for slot, schedules in bake_slots.items():
+                active = [
+                    schedule
+                    for schedule in schedules
+                    if f"'{offset}:{schedule}'" in bake
+                ]
+                self.assertEqual(
+                    1,
+                    len(active),
+                    f"{offset} must activate exactly one {slot} backup",
+                )
+                self.assertIn(active[0], active_schedules)
+
+        counter_schedules = ("45 11 * * *", "45 12 * * *")
+        for cron in counter_schedules:
+            self.assertIn(cron, counter)
+        for offset, expected in {
+            "-0700": "45 11 * * *",
+            "-0800": "45 12 * * *",
+        }.items():
+            active = [
+                schedule
+                for schedule in counter_schedules
+                if f"'{offset}:{schedule}'" in counter
+            ]
+            self.assertEqual([expected], active)
+        self.assertIn("active: ${{ steps.cfg.outputs.active }}", bake)
+        self.assertIn("needs.bake.outputs.active == 'true'", bake)
+        self.assertIn("if: steps.cfg.outputs.active == 'true'", counter)
+
     def test_workflow_is_duplicate_safe_and_credentials_are_isolated(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
         bake = workflow.split("\n  bake:\n", 1)[1].split("\n  x-broadcast:\n", 1)[0]
@@ -445,6 +565,14 @@ class WorkflowContractTest(unittest.TestCase):
         self.assertIn("DDB_TELEGRAM_NOTIFY_KILL_SWITCH != 'false'", before_live)
         self.assertIn("Persist mutation reservation before loading Telegram credentials", before_live)
         self.assertIn("if-no-files-found: error", before_live)
+        readiness_position = telegram.index("Wait for exact public edition URL")
+        reservation_position = telegram.index("Prepare duplicate-blocking mutation reservation")
+        self.assertLess(readiness_position, reservation_position)
+        readiness = telegram.split("- name: Wait for exact public edition URL", 1)[1].split(
+            "\n      - name:", 1
+        )[0]
+        self.assertIn("verify-live", readiness)
+        self.assertNotIn("secrets.TELEGRAM_", readiness)
 
     def test_contract_and_runbook_require_both_slots_and_clickable_exact_links(self):
         contract = json.loads(

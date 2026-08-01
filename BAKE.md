@@ -1,14 +1,18 @@
-# BAKE.md — the daily bakes, run by GitHub Actions (morning 5:05 AM PT, evening 3:35 PM PT)
+# BAKE.md — the daily bakes (morning 5:00 AM PT, evening 3:30 PM PT)
 
 This file is the complete operating spec for baking davidsdailybread.com,
 which is baked twice daily:
 
-- the **morning edition** (cron 12:05 UTC): straight news on tech, markets,
-  and science, plus the reader sections. Steps 1-9 below.
-- the **evening edition** (cron 22:35 UTC): the Field Guide. Trending tools,
-  practical workflows, and a short Evening Exhale for everyday people, with
-  no news after dark (news belongs to the morning). See "The evening bake"
-  below.
+- the **morning edition** (Spark dispatch at 5:00 AM Pacific): straight news
+  on tech, markets, and science, plus the reader sections. Steps 1-9 below.
+- the **evening edition** (Spark dispatch at 3:30 PM Pacific): the Field Guide.
+  Trending tools, practical workflows, and a short Evening Exhale for everyday
+  people, with no news after dark (news belongs to the morning). See "The
+  evening bake" below.
+
+GitHub also carries delayed backup schedules at 5:05 AM and 3:35 PM Pacific.
+Each backup uses paired UTC candidates plus an offset gate so exactly one is
+active across daylight and standard time without a manual seasonal edit.
 
 Each bake runs in GitHub Actions (`.github/workflows/ddb-bake.yml`): the runner
 checks out the repo, resolves the edition date and slot, and invokes a Claude
@@ -48,11 +52,12 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    the bake.
 7. **The lead title is the X distribution contract.** Each edition's archive
    `lead` (= the lead story's title) is eligible for a canonical post to
-   @DavidDailyBread. The prior DAICC/Claude Cowork-era poster is unlocated and
-   is not an operational authority; its replacement must satisfy
-   `docs/DISTRIBUTION_SPEC.md`. The repository replacement runs in a separate
-   post-bake job under `docs/X_BROADCAST_RUNBOOK.md`; the editorial session never
-   receives its credentials. Keep every lead title self-contained and
+   @DavidDailyBread. Spark's guarded `daicc-ddb-autopost` service is the sole
+   active canonical broadcaster. The repository broadcaster is a reviewed
+   replacement path but remains disabled and kill-switched; never activate both
+   lanes. Both are governed by `docs/DISTRIBUTION_SPEC.md`, and the editorial
+   session never receives X credentials. The active-lane observation is recorded
+   in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`. Keep every lead title self-contained and
    **130 characters or fewer**. An over-length lead is skipped, never truncated
    (the evening template tops out around a 146-character lead); an em dash also
    fails the gate, but rule 1 already bans those.
@@ -68,7 +73,7 @@ the edition date has already been resolved and handed to you. So:
 - Do NOT run any git command that writes (`add`, `commit`, `push`, `checkout`,
   `reset`, …). The workflow owns all of that after you finish.
 - Use the date you were handed VERBATIM (`--date <date>`). Do not compute it
-  yourself; the runner already did (`TZ=America/New_York date +%F`, or a
+  yourself; the runner already did (`TZ=America/Los_Angeles date +%F`, or a
   dispatched date). If `editions/<date>-morning.html` already exists, the
   workflow refuses the run before you start, so you will never double-bake.
 
@@ -97,9 +102,10 @@ pass, and report (steps 4, 5, 5A, 9) apply to both slots.
 reader submission to answer (`ask`), which letter the King replies to (`king`,
 either reader mail or a house-satchel draw), and which Crumb Board pin to post
 (`pin`). Null means that section stays empty today; never invent submissions.
-Reader submissions come from `counter.csv` in the clone, committed daily at
-4:45 AM Pacific by `.github/workflows/counter-sync.yml`. The committed copy is
-the source for the whole bake: `--plan` never refreshes or mutates it.
+Reader submissions come from `counter.csv` in the clone. Spark dispatches
+`.github/workflows/counter-sync.yml` at 4:30 AM Pacific; a DST-safe GitHub
+schedule is the 4:45 AM backup. The committed copy is the source for the whole
+bake: `--plan` never refreshes or mutates it.
 
 **2. Research.** Using web search, gather TODAY'S real news (last ~24 hours,
 reputable primary sources) for the three sections: **tech** (AI, chips, software,
@@ -315,24 +321,25 @@ evening allowlist enforces this.
   `edition` values are `morning` and `evening`; every replacement adapter must
   ground a post in its exact slot and canonical URL.
 - **Publishing runs in GitHub Actions**, not in a Claude session, and the push
-  authenticates with the workflow's built-in `GITHUB_TOKEN`. There is NO
-  personal access token anywhere in this pipeline. A Claude session has no
-  repository write credential and cannot push (it 403s); that is why the bake
-  lives in `.github/workflows/ddb-bake.yml`.
+  authenticates with the workflow's built-in `GITHUB_TOKEN`. There is no
+  personal access token in the publishing path. Spark holds a separate,
+  fine-grained dispatch-only token for the clock and watchdog path; it cannot
+  push site content. A Claude session has no repository write credential and
+  cannot push (it 403s); that is why the bake lives in
+  `.github/workflows/ddb-bake.yml`.
 - **Claude authenticates** inside the runner from the repository secret
   `CLAUDE_CODE_OAUTH_TOKEN` (created with `claude setup-token`), with
   `ANTHROPIC_API_KEY` as a fallback. If neither secret is set the bake step
   stops with a clear error before doing any work.
-- The workflow fires twice daily: 12:05 UTC for the morning (5:05 AM Pacific
-  during daylight time, 20 minutes after counter-sync at 11:45 UTC) and
-  22:35 UTC for the evening (3:35 PM Pacific during daylight time). GitHub
-  cron fires late, not never (lag up to ~2-3 hours observed); both times are
-  "no earlier than". **When US daylight time ends (early November) BOTH bake
-  crons AND the counter-sync cron need a +1 hour nudge** to stay at their
-  Pacific times.
+- Spark is the primary Pacific-time clock: Counter Sync at 4:30 AM, morning at
+  5:00 AM, and evening at 3:30 PM. GitHub retains delayed backup schedules at
+  4:45 AM, 5:05 AM, and 3:35 PM. Every GitHub backup has a PDT/PST UTC pair and
+  an offset gate, so exactly one candidate is active and no daylight-saving
+  edit is required. The exact-edition guard makes delayed or duplicate triggers
+  successful no-ops.
 - **To bake a specific date or slot by hand**, dispatch the workflow: in the
   repo's Actions tab open "Daily bake", click "Run workflow", set the `date`
-  input to `YYYY-MM-DD` (blank means today in New York) and pick the `slot`
+  input to `YYYY-MM-DD` (blank means today in Pacific time) and pick the `slot`
   (morning is the default). A past date runs in backfill mode automatically.
   You can also override the `model` input there. The standing target is
   **`claude-opus-5`** ($5 / $25 per MTok), which is the workflow default and is
