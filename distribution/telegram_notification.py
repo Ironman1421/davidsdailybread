@@ -477,12 +477,12 @@ def execute_notification(
         attempt["status"] = "skipped_kill_switch"
         _write_json(attempt_path, attempt)
         return str(attempt["status"])
-    if not enabled:
-        attempt["status"] = "skipped_disabled"
-        _write_json(attempt_path, attempt)
-        return str(attempt["status"])
     if dry_run:
         attempt["status"] = "dry_run"
+        _write_json(attempt_path, attempt)
+        return str(attempt["status"])
+    if not enabled:
+        attempt["status"] = "skipped_disabled"
         _write_json(attempt_path, attempt)
         return str(attempt["status"])
 

@@ -191,7 +191,7 @@ class ExecutionTest(NotificationFixture):
         for expected, overrides in (
             ("skipped_kill_switch", {"kill_switch": True}),
             ("skipped_disabled", {"enabled": False}),
-            ("dry_run", {"dry_run": True}),
+            ("dry_run", {"enabled": False, "dry_run": True}),
         ):
             with self.subTest(expected=expected):
                 constructed = []
@@ -402,6 +402,53 @@ class WorkflowContractTest(unittest.TestCase):
             self.assertEqual(0, result)
             attempt = json.loads((root / "attempts" / f"{EDITION_ID}-attempt.json").read_text())
             self.assertEqual("skipped_kill_switch", attempt["status"])
+
+    def test_cli_dry_run_records_dry_run_while_disabled(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            archive = root / "archive.json"
+            write_json(
+                archive,
+                {
+                    "editions": [
+                        {
+                            "date": DATE,
+                            "edition": "morning",
+                            "file": f"editions/{EDITION_ID}.html",
+                            "lead": LEAD,
+                        }
+                    ]
+                },
+            )
+            environment = {
+                "DDB_TELEGRAM_NOTIFY_ENABLED": "false",
+                "DDB_TELEGRAM_NOTIFY_KILL_SWITCH": "false",
+            }
+            with patch.dict(os.environ, environment, clear=True):
+                result = main(
+                    [
+                        "run",
+                        "--archive",
+                        str(archive),
+                        "--date",
+                        DATE,
+                        "--slot",
+                        "morning",
+                        "--state",
+                        str(ROOT / "distribution" / "telegram-notification-state.json"),
+                        "--receipt-dir",
+                        str(root / "receipts"),
+                        "--attempt-dir",
+                        str(root / "attempts"),
+                        "--reservation",
+                        str(root / "missing.json"),
+                        "--dry-run",
+                    ]
+                )
+            self.assertEqual(0, result)
+            attempt = json.loads((root / "attempts" / f"{EDITION_ID}-attempt.json").read_text())
+            self.assertEqual("dry_run", attempt["status"])
+            self.assertEqual(0, attempt["mutationAttempts"])
 
 
 if __name__ == "__main__":

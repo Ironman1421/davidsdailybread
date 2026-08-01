@@ -39,6 +39,11 @@ python3 distribution/telegram_notification.py preview \
   --archive archive.json --date YYYY-MM-DD --slot morning
 ```
 
+With enablement `false` and the kill switch explicitly `false`, the workflow's
+credential-free canary must record `status: dry_run`, zero mutation attempts,
+and no provider message ID. A `skipped_disabled` attempt is not a completed dry
+run and must be fixed before activation.
+
 Before activation, keep the kill switch on. Confirm the environment branch
 policy, secrets, variables, test results, and preview. Then set enablement to
 `true` and the kill switch to `false`. The next eligible date after the cutover
