@@ -34,6 +34,38 @@ distribution specifications. It contains no credential values.
   backup and deployment manifest are under
   `/home/david/backups/ddb-resilient-20260801T171604Z`.
 
+## Reader-window schedule alignment
+
+- A later same-day schedule review replaced the initial timer values above.
+  Public PR
+  [`Ironman1421/davidsdailybread#25`](https://github.com/Ironman1421/davidsdailybread/pull/25)
+  merged as `453e62ab750c2814e3e6cbd27c5993037869af21`; private PR
+  [`Ironman1421/davids-ai-command-center#9`](https://github.com/Ironman1421/davids-ai-command-center/pull/9)
+  merged as `4eaf52f9805087f2b1d276c0f8e7abce8263b984`.
+- The change passed 30 focused public workflow tests, all 44 private
+  command-center tests, the public merge gate, an independent schedule review,
+  and two Claude cross-model reviews. PDT/PST candidates and both daylight-
+  saving transition days were checked for exactly one active backup.
+- Observed successful full bakes took roughly 9 to 14 minutes; recent Counter
+  syncs took 7 to 36 seconds. The final installed Pacific schedule therefore
+  uses Counter at 04:25, morning trigger at 04:40, morning watchdog at 05:15,
+  evening trigger at 14:40, and evening watchdog at 15:30. Reader-ready targets
+  remain 05:00 Pacific / 08:00 Eastern and 15:00 Pacific / 18:00 Eastern.
+- The public GitHub backups resolve to 04:30 for Counter, 04:45 for morning,
+  and 14:45 for evening. Each has paired PDT/PST UTC candidates gated by the
+  nominal Pacific target rather than delayed runner start time.
+- The three changed final timer files were installed from merged private commit
+  `4eaf52f9805087f2b1d276c0f8e7abce8263b984`, verified with
+  `systemd-analyze --user verify`, and enabled. Their recoverable pre-change
+  copies are under
+  `/home/david/backups/ddb-reader-ready-times-20260801T142628-0700`.
+- During the intermediate cutover, the persistent evening timer dispatched the
+  exact missing `2026-08-01-evening` edition at 14:03 Pacific. GitHub run
+  `30718331963` published and verified it successfully; the canonical page was
+  live by 14:12:33 Pacific, returned HTTP 200 on readback, and the exact-edition
+  Telegram receipt succeeded. The GitHub X lane honored its kill switch; the
+  active Spark X lane remained scheduled for its 15:10 Pacific window.
+
 ## X ownership observation
 
 - `daicc-ddb-autopost.timer` was both enabled and active on Spark.
