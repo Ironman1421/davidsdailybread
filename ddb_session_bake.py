@@ -17,10 +17,12 @@ model calls anywhere:
       Render the edition from the session-authored content JSON: home page,
       editions/ file, archive.json, archive.html (marked list only), feed.xml,
       plus (morning only) the three category pages and bakery-state.json.
-      The evening slot renders the trends edition in the Field Guide layout
-      (two sections only, tools + workflows, spec: /BAKE.md "The evening
-      bake"): no news, no reader sections, no category pages, no state
-      writes. Validates the output (no leftover
+      The evening slot renders the trends edition in the Editorial Ledger
+      layout (two sections only, tools + workflows, spec: /BAKE.md "The
+      evening bake"): no news, no reader sections, no category pages, and no
+      reader-state writes. A daily evening render also updates the bounded
+      public evening catalog used by the standing libraries. Validates the
+      output (no leftover
       tokens, no em dashes, masthead art present, archive markers intact) and
       exits non-zero without partial state if anything fails validation.
 
@@ -66,6 +68,7 @@ SECTIONS = SLOT_SECTIONS["morning"]  # legacy alias
 _PREFIXES = ("T", "M", "S")
 _GLANCE_TOKENS = ("GLANCE_TECH", "GLANCE_MARKETS", "GLANCE_SCIENCE")
 EM_DASH_RE = re.compile(r"—|&mdash;|&#0*8212;|&#x0*2014;", re.IGNORECASE)
+DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 # Every token family the templates carry. Post-render, none may survive.
 LEFTOVER_TOKEN_RE = re.compile(
@@ -75,6 +78,7 @@ LEFTOVER_TOKEN_RE = re.compile(
     r"|EXP_[TMS][123]_(URL|TEXT)"
     r"|GLANCE_(TECH|MARKETS|SCIENCE|TOOLS|WORKFLOWS)"
     r"|SHELF_ITEMS|RECIPE_ITEMS|LEAD_NOTE"
+    r"|REST_(RECEIVE|REFERENCE|RELEASE|PRAYER)"
     r"|RQ1_[QA]|KQ1_(Q|A|FROM)|PIN1_(TEXT|SIG)"
     r"|DATELINE_DATE|READTIME|TIMESTAMP"
     r"|__ACTIVE_(TECH|MKT|SCI)__)\b"
@@ -407,6 +411,7 @@ def _evening_recipes_html(flows: list[dict]) -> str:
         needs = '<span class="dot">&middot;</span>'.join(
             esc_text(str(n)) for n in w["needs"])
         out.append(
+            '        <div class="recipe-stack">\n'
             '        <article class="recipe"><a class="card-link" href="{u}">\n'
             '          <div class="r-top"><h3>{t}</h3><span class="time">{tm}</span></div>\n'
             '          <p class="dek">{d}</p>\n'
@@ -415,10 +420,107 @@ def _evening_recipes_html(flows: list[dict]) -> str:
             '        <div class="notes" data-note-key="{u}"><span class="pen">&#9998;</span>'
             '<textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story">'
             '</textarea><button class="notes-close" type="button" title="Close notes" '
-            'aria-label="Close notes">&times;</button></div>'.format(
+            'aria-label="Close notes">&times;</button></div>\n'
+            '        </div>'.format(
                 u=esc(w["url"]), t=esc_text(w["title"]), tm=esc_text(w["time"]),
                 d=ddb_bake.render_dek(w["dek"]), nd=needs))
     return "\n".join(out)
+
+
+def _evening_rest_for_date(date: str) -> dict:
+    """Choose one reviewed evening rest entry deterministically by edition date."""
+    path = REPO / "evening-rest.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    entries = data.get("entries") if isinstance(data, dict) else None
+    _require(data.get("version") == 1 and isinstance(entries, list) and entries,
+             "evening-rest.json must contain a non-empty version 1 entries list")
+    entry = entries[datetime.strptime(date, "%Y-%m-%d").toordinal() % len(entries)]
+    _require(isinstance(entry, dict), "evening rest entry must be an object")
+    for key in ("receive", "reference", "release", "rest"):
+        value = entry.get(key)
+        _require(isinstance(value, str) and value.strip(),
+                 f"evening rest entry.{key} must be non-empty text")
+        _require(not EM_DASH_RE.search(value),
+                 f"em dash found in evening rest entry.{key}")
+    return entry
+
+
+def _read_evening_catalog() -> dict:
+    path = REPO / "evening-catalog.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        fail(f"cannot read evening-catalog.json: {exc}")
+    _require(isinstance(data, dict) and data.get("version") == 1,
+             "evening-catalog.json must be a version 1 object")
+    for section in ("tools", "workflows"):
+        _require(isinstance(data.get(section), list),
+                 f"evening-catalog.json {section} must be a list")
+        seen: set[str] = set()
+        for index, item in enumerate(data[section]):
+            _require(isinstance(item, dict), f"catalog {section}[{index}] must be an object")
+            required = (
+                ("date", "name", "url", "cost", "kind", "seen", "blurb")
+                if section == "tools"
+                else ("date", "title", "url", "dek", "needs", "time")
+            )
+            _require(set(item) == set(required),
+                     f"catalog {section}[{index}] must contain exactly {set(required)}")
+            _require(DATE_RE.fullmatch(str(item.get("date") or "")) is not None,
+                     f"catalog {section}[{index}].date must be YYYY-MM-DD")
+            url = item.get("url")
+            _require(isinstance(url, str) and ddb_bake.is_safe_source_url(url),
+                     f"catalog {section}[{index}].url must be safe https")
+            _require(url not in seen, f"catalog {section} contains duplicate URL {url}")
+            seen.add(url)
+            if section == "tools":
+                for key in ("name", "cost", "kind", "seen", "blurb"):
+                    _require(isinstance(item[key], str) and item[key].strip(),
+                             f"catalog {section}[{index}].{key} must be non-empty text")
+                _require(len(item["name"]) <= 60,
+                         f"catalog {section}[{index}].name exceeds 60 characters")
+                for key in ("cost", "kind", "seen"):
+                    _require(len(item[key]) <= 32,
+                             f"catalog {section}[{index}].{key} exceeds 32 characters")
+            else:
+                for key in ("title", "dek", "time"):
+                    _require(isinstance(item[key], str) and item[key].strip(),
+                             f"catalog {section}[{index}].{key} must be non-empty text")
+                try:
+                    ddb_bake.render_dek(item["dek"])
+                except ValueError as exc:
+                    fail(f"catalog {section}[{index}].dek: {exc}")
+                needs = item["needs"]
+                _require(isinstance(needs, list) and 2 <= len(needs) <= 4
+                         and all(isinstance(value, str) and value.strip()
+                                 and len(value) <= 40 for value in needs),
+                         f"catalog {section}[{index}].needs must be 2-4 short strings")
+                _require(len(item["time"]) <= 24,
+                         f"catalog {section}[{index}].time exceeds 24 characters")
+            for key, value in item.items():
+                values = value if isinstance(value, list) else [value]
+                for nested in values:
+                    if isinstance(nested, str):
+                        _require(not EM_DASH_RE.search(nested),
+                                 f"em dash found in catalog {section}[{index}].{key}")
+    return data
+
+
+def _catalog_with_evening(catalog: dict, content: dict, date: str) -> dict:
+    """Prepend this edition's cards, dedupe by source URL, and bound growth."""
+    updated = {"version": 1, "tools": [], "workflows": []}
+    for section in ("tools", "workflows"):
+        newest = [{"date": date, **item} for item in content["cards"][section]]
+        seen: set[str] = set()
+        for item in newest + catalog[section]:
+            url = item["url"]
+            if url in seen:
+                continue
+            seen.add(url)
+            updated[section].append(item)
+            if len(updated[section]) >= 180:
+                break
+    return updated
 
 
 def render_evening_from_content(c: dict, date: str) -> tuple[str, str]:
@@ -450,6 +552,12 @@ def render_evening_from_content(c: dict, date: str) -> tuple[str, str]:
     html = html.replace("GLANCE_WORKFLOWS", esc_text(c["glance"]["workflows"]))
     html = html.replace("SHELF_ITEMS", _evening_shelf_html(tools))
     html = html.replace("RECIPE_ITEMS", _evening_recipes_html(flows))
+
+    rest = _evening_rest_for_date(date)
+    html = html.replace("REST_RECEIVE", esc_text(rest["receive"]))
+    html = html.replace("REST_REFERENCE", esc_text(rest["reference"]))
+    html = html.replace("REST_RELEASE", esc_text(rest["release"]))
+    html = html.replace("REST_PRAYER", esc_text(rest["rest"]))
 
     readtime = ddb_bake.compute_readtime(
         lead["standfirst"], lead["body"],
@@ -643,6 +751,13 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
             cat_path = REPO / f"{s}.html"
             outputs[cat_path] = cat_html
             written.append(cat_path)
+    elif bake_mode == "daily":
+        catalog_path = REPO / "evening-catalog.json"
+        catalog = _catalog_with_evening(_read_evening_catalog(), content, date)
+        outputs[catalog_path] = json.dumps(
+            catalog, indent=2, ensure_ascii=False
+        ) + "\n"
+        written.append(catalog_path)
 
     from zoneinfo import ZoneInfo
     now_et = datetime.now(timezone.utc).astimezone(ZoneInfo("America/New_York"))

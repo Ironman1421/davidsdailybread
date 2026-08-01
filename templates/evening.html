@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<!-- templates/evening.html: the evening (trends) edition, "Field Guide" layout
-     (adopted 2026-07-30, per David). Two sections only: trending tools (the
-     shelf) and trending workflows (recipe cards); the renderer builds both
-     item lists programmatically and injects them into the two item tokens
-     in the body below. No news here: news
-     is the morning edition's job. No reader-content blocks: the Counter feeds
-     the morning edition only. -->
+<!-- templates/evening.html: the evening Field Guide in the Editorial Ledger
+     layout with Guided Path flow (approved 2026-07-31, per David). Two
+     actionable sections only: trending tools and practical workflows. The
+     renderer builds both lists and the reviewed Evening Exhale. No news here:
+     news is the morning edition's job. No reader-content blocks: the Counter
+     feeds the morning edition only. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -131,6 +130,64 @@
     .lead-card h1 { font-size: 24px; }
     .margin-note { position: static; display: inline-block; margin-bottom: 6px; transform: rotate(-2deg); }
   }
+  /* Editorial Ledger with Guided Path flow, approved 2026-07-31. */
+  body { overflow-x: clip; background-image: linear-gradient(rgba(200,162,74,0.035) 1px, transparent 1px); background-size: 100% 28px; }
+  .paper { max-width: 1080px; padding: 0 52px 34px; border-radius: 0; background: transparent; border: 0; box-shadow: none; }
+  .masthead { margin: 0 -26px; padding: 18px 26px; border: 1px solid var(--line); background: var(--panel); box-shadow: 0 22px 60px rgba(0,0,0,0.34); }
+  .glance { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: center; margin-top: 38px; padding: 20px 24px; border-style: solid; border-radius: 0; background: var(--panel); }
+  .glance ul { margin-top: 0; }
+  .journey-step { position: relative; display: grid; grid-template-columns: 92px minmax(0,1fr); gap: 24px; margin-top: 34px; }
+  .journey-step + .journey-step { padding-top: 34px; border-top: 1px solid var(--line-strong); }
+  .step-rail { position: relative; padding-top: 2px; }
+  .step-rail::after { content:""; position:absolute; top:52px; left:22px; width:1px; height:calc(100% - 34px); background:linear-gradient(var(--gold-soft),var(--line)); }
+  .journey-step:last-of-type .step-rail::after { display:none; }
+  .step-number { display:grid; place-items:center; width:46px; height:46px; border:1px solid var(--gold-soft); border-radius:50%; color:var(--gold); background:var(--bg); font-family:'Newsreader',Georgia,serif; font-size:20px; }
+  .step-label { display:block; width:76px; margin-top:9px; color:var(--faint); font-size:9px; font-weight:700; letter-spacing:1.2px; line-height:1.35; text-transform:uppercase; }
+  .kicker { margin-top: 0; }
+  .lead-card { border: 0; border-top: 3px solid var(--gold-soft); border-bottom: 1px solid var(--line-strong); border-radius: 0; background: var(--panel); box-shadow: none; }
+  .lead-card h1 { max-width: 900px; font-size: clamp(31px,4.5vw,52px); line-height:1.06; letter-spacing:-0.5px; }
+  .lead-card:hover { transform:none; border-top-color:var(--gold); }
+  .lead-card + .notes { width:100%; }
+  .margin-note { top:-13px; }
+  .lanes { display:block; margin-top:0; }
+  .journey-body { min-width:0; }
+  .lane-head { font-family:'Newsreader',Georgia,serif; font-size:30px; font-weight:600; letter-spacing:0; text-transform:none; }
+  .lane-head .sub { font-family:'Inter',sans-serif; text-transform:uppercase; }
+  .shelf { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .shelf-card { min-width:0; border-radius:0; border-top:3px solid var(--line-strong); background:var(--panel); }
+  .shelf-card h3 { font-size:20px; }
+  .shelf-foot { grid-column:1 / -1; }
+  .recipes { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .recipe-stack { min-width:0; }
+  .recipe { height:100%; min-height:220px; border-radius:0; border-top:3px solid var(--line-strong); background:var(--panel); }
+  .recipe-stack .notes { margin-bottom:0; }
+  .evening-exhale { padding:28px; border:1px solid rgba(200,162,74,0.32); border-radius:18px; background:radial-gradient(80% 110% at 0 100%,rgba(111,159,206,0.1),transparent 65%),var(--panel); }
+  .exhale-heading { display:grid; grid-template-columns:.65fr 1.35fr; gap:30px; align-items:end; margin-bottom:24px; }
+  .exhale-heading h2 { margin:4px 0 0; font-family:'Newsreader',Georgia,serif; font-size:clamp(34px,5vw,50px); line-height:1; font-weight:500; }
+  .exhale-heading p { margin:0; color:var(--muted); font-family:'Newsreader',Georgia,serif; font-size:17px; font-style:italic; }
+  .exhale-movements { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .exhale-movement { min-width:0; padding:0 20px; }
+  .exhale-movement:first-child { padding-left:0; }
+  .exhale-movement + .exhale-movement { border-left:1px solid var(--line-strong); }
+  .exhale-movement h3 { margin:0 0 8px; color:var(--gold); font-size:10px; letter-spacing:1.6px; text-transform:uppercase; }
+  .exhale-movement p, .exhale-movement blockquote { margin:0; color:var(--ink); font-family:'Newsreader',Georgia,serif; font-size:16px; line-height:1.55; }
+  .exhale-movement blockquote { font-style:italic; }
+  .exhale-movement cite { display:block; margin-top:8px; color:var(--faint); font-size:9px; font-style:normal; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; }
+  .browse-more { display:inline-flex; min-height:44px; align-items:center; margin-top:12px; color:var(--gold); font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; text-decoration:none; }
+  .browse-more:hover { text-decoration:underline; text-underline-offset:4px; }
+  @media (max-width: 760px) {
+    .paper { padding:0 20px 28px; margin:10px auto; }
+    .masthead { margin:0 -8px; padding:12px; }
+    .tagline { letter-spacing:1.2px; }
+    .glance { grid-template-columns:1fr; gap:6px; margin-top:24px; }
+    .journey-step { grid-template-columns:1fr; gap:14px; }
+    .step-rail { display:flex; align-items:center; gap:12px; }
+    .step-rail::after { display:none; }
+    .step-label { width:auto; margin-top:0; }
+    .shelf, .recipes, .exhale-movements, .exhale-heading { grid-template-columns:1fr; }
+    .exhale-movement { padding:18px 0; }
+    .exhale-movement + .exhale-movement { border-left:0; border-top:1px solid var(--line-strong); }
+  }
 </style>
 </head>
 <body>
@@ -138,7 +195,7 @@
 <div class="paper">
   <header class="masthead">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
-    <div class="tagline"><a href="#shelf">The tool shelf</a><span class="sep">&middot;</span><a href="#workflows">The workflows</a><span class="sep">&middot;</span><a href="/archive.html">Past editions</a></div>
+    <div class="tagline"><a href="/tools.html">The tool shelf</a><span class="sep">&middot;</span><a href="/workflows.html">The workflows</a><span class="sep">&middot;</span><a href="/archive.html">Past editions</a></div>
     <div class="dateline">
       <div class="dateline-row">
         <span>DATELINE_DATE</span>
@@ -156,35 +213,60 @@
     </ul>
   </aside>
 
-  <div class="kicker">Start here tonight</div>
-  <article class="lead-card">
-    <!--LEAD_NOTE_START--><span class="margin-note">LEAD_NOTE</span><!--LEAD_NOTE_END-->
-    <a class="card-link" href="LEAD_URL">
-      <span class="badge">LEAD_BADGE</span>
-      <h1>LEAD_HEADLINE</h1>
-      <p class="standfirst">LEAD_STANDFIRST</p>
-      <p class="lead-body">LEAD_BODY</p>
-    </a>
-  </article>
-  <div class="notes" data-note-key="LEAD_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+  <section class="journey-step" id="start">
+    <div class="step-rail"><span class="step-number">1</span><span class="step-label">Start here tonight</span></div>
+    <div class="journey-body">
+      <div class="kicker">One useful place to begin</div>
+      <article class="lead-card">
+        <!--LEAD_NOTE_START--><span class="margin-note">LEAD_NOTE</span><!--LEAD_NOTE_END-->
+        <a class="card-link" href="LEAD_URL">
+          <span class="badge">LEAD_BADGE</span>
+          <h1>LEAD_HEADLINE</h1>
+          <p class="standfirst">LEAD_STANDFIRST</p>
+          <p class="lead-body">LEAD_BODY</p>
+        </a>
+      </article>
+      <div class="notes" data-note-key="LEAD_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
+    </div>
+  </section>
 
   <div class="lanes">
-    <section id="shelf">
-      <div class="lane-head">The tool shelf <span class="sub">new tonight</span></div>
-      <div class="shelf">
+    <section class="journey-step" id="shelf">
+      <div class="step-rail"><span class="step-number">2</span><span class="step-label">Browse the shelf</span></div>
+      <div class="journey-body">
+        <div class="lane-head">The tool shelf <span class="sub">new tonight</span></div>
+        <div class="shelf">
 SHELF_ITEMS
-        <p class="shelf-foot">Every shelf item is available today; no waitlists, no vaporware.</p>
+          <p class="shelf-foot">Every shelf item is available today; no waitlists, no vaporware.</p>
+        </div>
+        <a class="browse-more" href="/tools.html">Browse every recent tool &rarr;</a>
+        <div class="notes" data-note-key="page:shelf"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Shelf notes&hellip;" aria-label="Notes on the tool shelf"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
       </div>
-      <div class="notes" data-note-key="page:shelf"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Shelf notes&hellip;" aria-label="Notes on the tool shelf"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
     </section>
 
-    <section id="workflows">
-      <div class="lane-head">The workflows <span class="sub">follow along at home</span></div>
-      <div class="recipes">
+    <section class="journey-step" id="workflows">
+      <div class="step-rail"><span class="step-number">3</span><span class="step-label">Choose a path</span></div>
+      <div class="journey-body">
+        <div class="lane-head">The workflows <span class="sub">follow along at home</span></div>
+        <div class="recipes">
 RECIPE_ITEMS
+        </div>
+        <a class="browse-more" href="/workflows.html">Browse every recent workflow &rarr;</a>
       </div>
     </section>
   </div>
+
+  <section class="journey-step" id="evening-exhale">
+    <div class="step-rail"><span class="step-number">4</span><span class="step-label">Set the day down</span></div>
+    <div class="journey-body evening-exhale">
+      <div class="exhale-heading"><div><div class="kicker">Spiritual rest</div><h2>The Evening Exhale</h2></div><p>Three quiet movements to help the mind stop carrying the whole day.</p></div>
+      <div class="exhale-movements">
+        <div class="exhale-movement"><h3>Receive</h3><blockquote>REST_RECEIVE</blockquote><cite>REST_REFERENCE</cite></div>
+        <div class="exhale-movement"><h3>Release</h3><p>REST_RELEASE</p></div>
+        <div class="exhale-movement"><h3>Rest</h3><p><i>REST_PRAYER</i></p></div>
+      </div>
+    </div>
+  </section>
 
   <div class="page-notes">
     <div class="notes-label">Page notes</div>
