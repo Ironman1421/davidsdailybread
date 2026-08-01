@@ -53,6 +53,7 @@ file (and `brand.css`) — nowhere else.
 | `--steel` | `#6f9fce` | Secondary accent (editions, numbering) |
 | `--steel-soft` | `#456f9c` | Secondary accent, soft |
 | `--marker` | `#b9772a` | Copper: badges, signatures |
+| `--rose` | `#d98c9d` | Mary of Nazareth: name, posture, floral accents |
 
 > Note (2026-07-09): `#c8a24a` gold / `#0e0e12` bg is the canonical palette (the live
 > site's). The older `#d2a53f` / `#121116` / Georgia-serif palette from early drafts
@@ -115,7 +116,11 @@ file (and `brand.css`) — nowhere else.
   follows Keep, Ponder, Entrust: one short KJV passage, one release prompt, and
   one prayer. The name and movement are shaped by Luke 2:19. It is contemplative
   product copy selected deterministically from a reviewed repository set, never
-  reader mail and never a second Letters to the King.
+  reader mail and never a second Letters to the King. Its visual signature is a
+  restrained frame of realistic blush-pink and ivory flowers. The flowers stay
+  small and sparse at the card border so Mary and Keep and Ponder remain the
+  focus. Mary's name and the Luke 2:19 posture line use `--rose`, never steel or
+  gold.
 
 ## Permanent features (never remove)
 
