@@ -60,9 +60,9 @@ file (and `brand.css`) — nowhere else.
 - **Headlines & body prose:** `'Newsreader', Georgia, serif`
 - **UI, labels, navigation (tracked-out uppercase):** `'Inter', -apple-system, system-ui, sans-serif`
 - **Handwritten (reader notes, Crumb Board pins):** `'Caveat', cursive`
-- **The King's voice (Letters to the King, updated 2026-07-09 per David):** answer
+- **The King's voice (Letters to the King, updated 2026-08-01 per David):** answer
   text in `'IM Fell English', 'Cormorant Garamond', Georgia, serif` (antique, royal);
-  his signature line ("– David, King in Jerusalem") in `'Cinzel', 'Cormorant Garamond', Georgia, serif`
+  his signature line ("– David, son of Jesse") in `'Cinzel', 'Cormorant Garamond', Georgia, serif`
   (Roman-capital, regal). The letter itself (the reader's words, the `summary`) stays Newsreader.
 - Google Fonts load: Caveat 600/700 · Cinzel 600 · Cormorant Garamond 500/600/700 · IM Fell English regular + italic · Inter 400–700 · Newsreader 400–600 + italics
 
@@ -102,7 +102,8 @@ file (and `brand.css`) — nowhere else.
   biblical register with a wink; factually sound beneath the poetry. When no reader
   letters are waiting, the bake answers ONE letter from the house satchel
   (`/kings-satchel.json`), credited "From the Baker's own shelf" — never presented
-  as reader mail.
+  as reader mail. The public section footer says, "Letters answered in the voice of
+  the biblical King David."
 - **The Evening Exhale:** the evening's distinct spiritual relief after the
   practical material. It follows Receive, Release, Rest: one short KJV passage,
   one release prompt, and one prayer. It is contemplative product copy selected

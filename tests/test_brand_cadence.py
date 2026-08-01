@@ -164,6 +164,17 @@ class BrandCadenceTest(unittest.TestCase):
         self.assertIn("Evening</span>", archive)
         self.assertIn('href="/subscribe.html">Weekly email</a>', archive)
 
+    def test_letters_to_the_king_identifies_the_biblical_david(self):
+        home = (ROOT / "templates" / "home.html").read_text(encoding="utf-8")
+        brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
+
+        self.assertIn("&ndash; David, son of Jesse", home)
+        self.assertIn(
+            "Letters answered in the voice of the biblical King David.", home
+        )
+        self.assertNotIn("David, King in Jerusalem", home)
+        self.assertIn("– David, son of Jesse", brand)
+
 
 if __name__ == "__main__":
     unittest.main()
