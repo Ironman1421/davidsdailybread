@@ -8,17 +8,7 @@
   "properties": {
     "version": {"const": 1},
     "updatedAt": {"type": "string", "format": "date-time"},
-    "strategyBaseline": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["approvedAt", "xFollowers", "primaryAcquisitionChannel", "mode"],
-      "properties": {
-        "approvedAt": {"type": "string", "format": "date-time"},
-        "xFollowers": {"type": "integer", "minimum": 0},
-        "primaryAcquisitionChannel": {"const": "credible-account-replies"},
-        "mode": {"const": "manual-ui-per-reply-approval"}
-      }
-    },
+    "strategyBaseline": {"$ref": "#/$defs/strategyBaseline"},
     "publishedReplies": {
       "type": "array",
       "items": {"$ref": "#/$defs/reply"}
@@ -33,20 +23,197 @@
       "type": "string",
       "pattern": "^https://(www\\.)?x\\.com/[A-Za-z0-9_]{1,15}/status/[0-9]+(?:\\?[^\\s]*)?$"
     },
-    "snapshot": {
-      "type": ["object", "null"],
+    "strategyBaseline": {
+      "type": "object",
       "additionalProperties": false,
-      "required": ["capturedAt", "attribution"],
+      "required": [
+        "approvedAt",
+        "cadenceApprovedAt",
+        "xFollowers",
+        "primaryAcquisitionChannel",
+        "mode",
+        "aiExternalInteractionAuthorized",
+        "scoutingMode",
+        "staffedApprovalWindows",
+        "dailyPublishedReplyCap",
+        "maximumProactiveRepliesPerRollingHour",
+        "sixReplyDayMinimumApprovalWindows",
+        "breadMinimumScore",
+        "opportunityPublishThreshold",
+        "minimumComparedShapeObservations",
+        "minimumMeasuredRepliesBeforeVolumeScaling",
+        "targetMinimumHoursBetweenProactiveReplies",
+        "targetMaximumProactiveRepliesPer14Days",
+        "operationalReadiness"
+      ],
       "properties": {
-        "capturedAt": {"type": "string", "format": "date-time"},
-        "impressions": {"type": ["integer", "null"], "minimum": 0},
-        "likes": {"type": ["integer", "null"], "minimum": 0},
-        "childReplies": {"type": ["integer", "null"], "minimum": 0},
-        "reposts": {"type": ["integer", "null"], "minimum": 0},
-        "profileVisitsWindow": {"type": ["integer", "null"], "minimum": 0},
-        "followerCount": {"type": ["integer", "null"], "minimum": 0},
-        "followerDeltaWindow": {"type": ["integer", "null"]},
-        "attribution": {"enum": ["unknown", "temporal", "platform_reported"]}
+        "approvedAt": {"type": "string", "format": "date-time"},
+        "cadenceApprovedAt": {"type": "string", "format": "date-time"},
+        "xFollowers": {"type": "integer", "minimum": 0},
+        "primaryAcquisitionChannel": {"const": "credible-account-replies"},
+        "mode": {"const": "manual-ui-per-reply-approval"},
+        "aiExternalInteractionAuthorized": {"const": false},
+        "scoutingMode": {"const": "manual-x-search-or-lists"},
+        "staffedApprovalWindows": {"type": "integer", "minimum": 2, "maximum": 3},
+        "dailyPublishedReplyCap": {"enum": [4, 6]},
+        "maximumProactiveRepliesPerRollingHour": {"const": 2},
+        "sixReplyDayMinimumApprovalWindows": {"const": 3},
+        "breadMinimumScore": {"const": 9},
+        "opportunityPublishThreshold": {"const": 75},
+        "minimumComparedShapeObservations": {"const": 8},
+        "minimumMeasuredRepliesBeforeVolumeScaling": {"const": 50},
+        "targetMinimumHoursBetweenProactiveReplies": {"const": 72},
+        "targetMaximumProactiveRepliesPer14Days": {"const": 2},
+        "operationalReadiness": {"$ref": "#/$defs/operationalReadiness"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"dailyPublishedReplyCap": {"const": 6}},
+            "required": ["dailyPublishedReplyCap"]
+          },
+          "then": {
+            "properties": {"staffedApprovalWindows": {"minimum": 3}}
+          }
+        }
+      ]
+    },
+    "operationalReadiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "profileConversion",
+        "premiumTier",
+        "postActivityAnalytics",
+        "authorizedOperators",
+        "accountSecurity"
+      ],
+      "properties": {
+        "status": {"enum": ["blocked_pending_readiness", "ready_manual_operation"]},
+        "profileConversion": {"enum": ["not_assessed", "ready", "blocked"]},
+        "premiumTier": {"enum": ["unknown", "none", "basic", "premium", "premium_plus"]},
+        "postActivityAnalytics": {"enum": ["not_assessed", "available", "unavailable"]},
+        "authorizedOperators": {"enum": ["not_assessed", "confirmed", "blocked"]},
+        "accountSecurity": {"enum": ["not_assessed", "ready", "blocked"]}
+      }
+    },
+    "breadRubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "buildsConversation",
+        "relevant",
+        "evidenceGrounded",
+        "appropriateVoice",
+        "distinct",
+        "total"
+      ],
+      "properties": {
+        "buildsConversation": {"type": "integer", "minimum": 0, "maximum": 2},
+        "relevant": {"type": "integer", "minimum": 0, "maximum": 2},
+        "evidenceGrounded": {"type": "integer", "minimum": 0, "maximum": 2},
+        "appropriateVoice": {"type": "integer", "minimum": 0, "maximum": 2},
+        "distinct": {"type": "integer", "minimum": 0, "maximum": 2},
+        "total": {"type": "integer", "minimum": 9, "maximum": 10}
+      }
+    },
+    "opportunityScore": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relevance",
+        "incrementalValue",
+        "sourceConfidence",
+        "conversationTiming",
+        "targetCredibility",
+        "operationalSafety",
+        "total"
+      ],
+      "properties": {
+        "relevance": {"type": "integer", "minimum": 0, "maximum": 20},
+        "incrementalValue": {"type": "integer", "minimum": 0, "maximum": 25},
+        "sourceConfidence": {"type": "integer", "minimum": 0, "maximum": 20},
+        "conversationTiming": {"type": "integer", "minimum": 0, "maximum": 15},
+        "targetCredibility": {"type": "integer", "minimum": 0, "maximum": 10},
+        "operationalSafety": {"type": "integer", "minimum": 0, "maximum": 10},
+        "total": {"type": "integer", "minimum": 75, "maximum": 100}
+      }
+    },
+    "targetVerification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claimBasis", "evidenceUrl", "checkedAt"],
+      "properties": {
+        "claimBasis": {
+          "enum": [
+            "not_claimed",
+            "organization_gold_check",
+            "government_gray_check",
+            "organization_affiliation_badge",
+            "owned_domain",
+            "employer_source"
+          ]
+        },
+        "evidenceUrl": {
+          "anyOf": [
+            {"$ref": "#/$defs/httpsUrl"},
+            {"type": "null"}
+          ]
+        },
+        "checkedAt": {"type": "string", "format": "date-time"}
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "claimBasis": {"const": "not_claimed"},
+            "evidenceUrl": {"type": "null"}
+          }
+        },
+        {
+          "properties": {
+            "claimBasis": {
+              "enum": [
+                "organization_gold_check",
+                "government_gray_check",
+                "organization_affiliation_badge",
+                "owned_domain",
+                "employer_source"
+              ]
+            },
+            "evidenceUrl": {"$ref": "#/$defs/httpsUrl"}
+          }
+        }
+      ]
+    },
+    "profileConversionReadiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkedAt",
+        "positioningPromise",
+        "facelessMarkAndBanner",
+        "pinnedSourcedBriefing",
+        "canonicalSiteLink",
+        "recentMorningAndEveningPosts"
+      ],
+      "properties": {
+        "checkedAt": {"type": "string", "format": "date-time"},
+        "positioningPromise": {"const": true},
+        "facelessMarkAndBanner": {"const": true},
+        "pinnedSourcedBriefing": {"const": true},
+        "canonicalSiteLink": {"const": true},
+        "recentMorningAndEveningPosts": {"const": true}
+      }
+    },
+    "accountCapabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkedAt", "premiumTier", "postActivityAnalytics"],
+      "properties": {
+        "checkedAt": {"type": "string", "format": "date-time"},
+        "premiumTier": {"enum": ["none", "basic", "premium", "premium_plus"]},
+        "postActivityAnalytics": {"enum": ["available", "unavailable"]}
       }
     },
     "policyChecks": {
@@ -58,7 +225,8 @@
         "sensitiveContentChecked",
         "duplicateScanPassed",
         "claimsSupported",
-        "noEngagementCallToAction"
+        "noEngagementCallToAction",
+        "targetFrequencyPassed"
       ],
       "properties": {
         "parentStillAvailable": {"const": true},
@@ -66,22 +234,116 @@
         "sensitiveContentChecked": {"const": true},
         "duplicateScanPassed": {"const": true},
         "claimsSupported": {"const": true},
-        "noEngagementCallToAction": {"const": true}
+        "noEngagementCallToAction": {"const": true},
+        "targetFrequencyPassed": {"const": true}
       }
+    },
+    "operatorChecks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorizedOperatorConfirmed",
+        "correctAccountConfirmed",
+        "secureSessionConfirmed",
+        "mfaAndRecoveryChecked",
+        "noCredentialShared",
+        "officialUiConfirmed",
+        "browserScriptingAbsent",
+        "scrapingAbsent",
+        "automatedXBrowsingAbsent"
+      ],
+      "properties": {
+        "authorizedOperatorConfirmed": {"const": true},
+        "correctAccountConfirmed": {"const": true},
+        "secureSessionConfirmed": {"const": true},
+        "mfaAndRecoveryChecked": {"const": true},
+        "noCredentialShared": {"const": true},
+        "officialUiConfirmed": {"const": true},
+        "browserScriptingAbsent": {"const": true},
+        "scrapingAbsent": {"const": true},
+        "automatedXBrowsingAbsent": {"const": true}
+      }
+    },
+    "visibilityInspection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capturedAt", "hidden", "probableSpam", "method"],
+      "properties": {
+        "capturedAt": {"type": "string", "format": "date-time"},
+        "hidden": {"type": "boolean"},
+        "probableSpam": {"type": "boolean"},
+        "method": {"const": "manual-official-x-ui"}
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capturedAt",
+        "impressions",
+        "likes",
+        "childReplies",
+        "reposts",
+        "userProfileClicks",
+        "directFollows",
+        "accountProfileVisitsWindow",
+        "followerCount",
+        "followerDeltaWindow",
+        "attribution",
+        "visibilityStatus",
+        "visibilityInspectionMethod",
+        "analyticsSource"
+      ],
+      "properties": {
+        "capturedAt": {"type": "string", "format": "date-time"},
+        "impressions": {"type": ["integer", "null"], "minimum": 0},
+        "likes": {"type": ["integer", "null"], "minimum": 0},
+        "childReplies": {"type": ["integer", "null"], "minimum": 0},
+        "reposts": {"type": ["integer", "null"], "minimum": 0},
+        "userProfileClicks": {"type": ["integer", "null"], "minimum": 0},
+        "directFollows": {"type": ["integer", "null"], "minimum": 0},
+        "accountProfileVisitsWindow": {"type": ["integer", "null"], "minimum": 0},
+        "followerCount": {"type": ["integer", "null"], "minimum": 0},
+        "followerDeltaWindow": {"type": ["integer", "null"]},
+        "attribution": {"enum": ["unknown", "temporal", "platform_reported"]},
+        "visibilityStatus": {
+          "enum": ["visible", "hidden", "probable_spam", "deleted", "unavailable"]
+        },
+        "visibilityInspectionMethod": {"const": "manual-official-x-ui"},
+        "analyticsSource": {
+          "enum": ["x-post-activity-dashboard", "official-x-post-detail", "unavailable"]
+        }
+      }
+    },
+    "nullableSnapshot": {
+      "anyOf": [
+        {"$ref": "#/$defs/snapshot"},
+        {"type": "null"}
+      ]
     },
     "reply": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "replyId",
+        "approvalCardVersion",
         "parentPostUrl",
         "targetAccount",
         "targetTier",
+        "targetVerification",
         "beat",
         "replyShape",
+        "qualityRubric",
+        "opportunityScore",
+        "operationalPriority",
+        "scoutingMethod",
+        "discoveryWindow",
         "discoveredAt",
         "approvedBy",
         "approvedAt",
+        "approvalExpiresAt",
+        "approvalScope",
+        "operator",
         "publishedAt",
         "followerCountAtApproval",
         "replyPostId",
@@ -91,8 +353,13 @@
         "usedDdbLink",
         "automated",
         "postedThrough",
+        "profileConversionReadiness",
+        "accountCapabilities",
         "policyChecks",
+        "operatorChecks",
+        "visibilityInspectionAtPublish",
         "targetAuthorInteractions",
+        "metricsAtPublish",
         "metrics24h",
         "metrics7d"
       ],
@@ -101,6 +368,7 @@
           "type": "string",
           "pattern": "^XR-[0-9]{8}-[0-9]{3}$"
         },
+        "approvalCardVersion": {"const": 1},
         "parentPostUrl": {"$ref": "#/$defs/xStatusUrl"},
         "targetAccount": {
           "type": "string",
@@ -114,6 +382,7 @@
             "trusted_institution"
           ]
         },
+        "targetVerification": {"$ref": "#/$defs/targetVerification"},
         "beat": {
           "enum": ["tech", "markets", "science", "ai_tools", "workflows"]
         },
@@ -126,12 +395,22 @@
             "specific_question"
           ]
         },
+        "qualityRubric": {"$ref": "#/$defs/breadRubric"},
+        "opportunityScore": {"$ref": "#/$defs/opportunityScore"},
+        "operationalPriority": {"enum": ["P1", "P2", "P3"]},
+        "scoutingMethod": {
+          "enum": ["manual-x-search", "manual-x-list", "official-read-only-x-api"]
+        },
+        "discoveryWindow": {"enum": ["morning", "midday", "late_afternoon"]},
         "discoveredAt": {"type": "string", "format": "date-time"},
         "approvedBy": {"const": "David"},
         "approvedAt": {"type": "string", "format": "date-time"},
+        "approvalExpiresAt": {"type": "string", "format": "date-time"},
+        "approvalScope": {"const": "exact-parent-url-and-reply-text"},
+        "operator": {"type": "string", "minLength": 1},
         "publishedAt": {"type": "string", "format": "date-time"},
         "followerCountAtApproval": {"type": "integer", "minimum": 0},
-        "replyPostId": {"type": "string", "minLength": 1},
+        "replyPostId": {"type": "string", "pattern": "^[0-9]+$"},
         "replyUrl": {"$ref": "#/$defs/xStatusUrl"},
         "replyText": {
           "type": "string",
@@ -148,7 +427,11 @@
         "usedDdbLink": {"type": "boolean"},
         "automated": {"const": false},
         "postedThrough": {"const": "official-x-ui"},
+        "profileConversionReadiness": {"$ref": "#/$defs/profileConversionReadiness"},
+        "accountCapabilities": {"$ref": "#/$defs/accountCapabilities"},
         "policyChecks": {"$ref": "#/$defs/policyChecks"},
+        "operatorChecks": {"$ref": "#/$defs/operatorChecks"},
+        "visibilityInspectionAtPublish": {"$ref": "#/$defs/visibilityInspection"},
         "targetAuthorInteractions": {
           "type": "array",
           "uniqueItems": true,
@@ -158,9 +441,36 @@
         },
         "correction": {"type": ["string", "null"]},
         "policySignal": {"type": ["string", "null"]},
-        "metrics24h": {"$ref": "#/$defs/snapshot"},
-        "metrics7d": {"$ref": "#/$defs/snapshot"}
-      }
+        "metricsAtPublish": {"$ref": "#/$defs/snapshot"},
+        "metrics24h": {"$ref": "#/$defs/nullableSnapshot"},
+        "metrics7d": {"$ref": "#/$defs/nullableSnapshot"}
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "operationalPriority": {"const": "P1"},
+            "opportunityScore": {
+              "properties": {"total": {"minimum": 90, "maximum": 100}}
+            }
+          }
+        },
+        {
+          "properties": {
+            "operationalPriority": {"const": "P2"},
+            "opportunityScore": {
+              "properties": {"total": {"minimum": 80, "maximum": 89}}
+            }
+          }
+        },
+        {
+          "properties": {
+            "operationalPriority": {"const": "P3"},
+            "opportunityScore": {
+              "properties": {"total": {"minimum": 75, "maximum": 79}}
+            }
+          }
+        }
+      ]
     }
   }
 }

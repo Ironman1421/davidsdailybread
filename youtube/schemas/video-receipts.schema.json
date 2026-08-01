@@ -1,0 +1,387 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/youtube-video-receipts-v1.json",
+  "title": "David's Daily Bread YouTube production, publication, and metrics receipts",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "updatedAt", "videos"],
+  "properties": {
+    "version": {"const": 1},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "videos": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/video"}
+    }
+  },
+  "$defs": {
+    "httpsUrl": {
+      "type": "string",
+      "pattern": "^https://(?![^/\\s]*@)[^\\s]+$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "humanApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human", "approved", "approvedBy", "approvedAt"],
+      "properties": {
+        "human": {"const": true},
+        "approved": {"const": true},
+        "approvedBy": {"type": "string", "minLength": 1},
+        "approvedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "reviewGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "reviewedBy", "reviewedAt", "receiptReference"],
+      "properties": {
+        "passed": {"const": true},
+        "reviewedBy": {"type": "string", "minLength": 1},
+        "reviewedAt": {"type": "string", "format": "date-time"},
+        "receiptReference": {"type": "string", "minLength": 1}
+      }
+    },
+    "metricSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "window",
+        "scheduledFor",
+        "status",
+        "capturedAt",
+        "capturedBy",
+        "analyticsReceiptReference",
+        "views",
+        "engagedViews",
+        "stayedToWatchPercent",
+        "watchTimeSeconds",
+        "averageViewDurationSeconds",
+        "averagePercentageViewed",
+        "subscribersGained",
+        "shares",
+        "returningViewers"
+      ],
+      "properties": {
+        "window": {"enum": ["24h", "7d"]},
+        "scheduledFor": {"type": "string", "format": "date-time"},
+        "status": {"enum": ["pending", "captured", "unavailable"]},
+        "capturedAt": {"type": ["string", "null"], "format": "date-time"},
+        "capturedBy": {"type": ["string", "null"]},
+        "analyticsReceiptReference": {"type": ["string", "null"]},
+        "views": {"type": ["integer", "null"], "minimum": 0},
+        "engagedViews": {"type": ["integer", "null"], "minimum": 0},
+        "stayedToWatchPercent": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "watchTimeSeconds": {"type": ["number", "null"], "minimum": 0},
+        "averageViewDurationSeconds": {"type": ["number", "null"], "minimum": 0},
+        "averagePercentageViewed": {"type": ["number", "null"], "minimum": 0},
+        "subscribersGained": {"type": ["integer", "null"]},
+        "shares": {"type": ["integer", "null"], "minimum": 0},
+        "returningViewers": {"type": ["integer", "null"], "minimum": 0}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "captured"}}},
+          "then": {
+            "properties": {
+              "capturedAt": {"type": "string", "format": "date-time"},
+              "capturedBy": {"type": "string", "minLength": 1},
+              "analyticsReceiptReference": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"status": {"enum": ["pending", "unavailable"]}}},
+          "then": {
+            "properties": {
+              "views": {"const": null},
+              "engagedViews": {"const": null},
+              "stayedToWatchPercent": {"const": null},
+              "watchTimeSeconds": {"const": null},
+              "averageViewDurationSeconds": {"const": null},
+              "averagePercentageViewed": {"const": null},
+              "subscribersGained": {"const": null},
+              "shares": {"const": null},
+              "returningViewers": {"const": null}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"status": {"const": "pending"}}},
+          "then": {
+            "properties": {
+              "capturedAt": {"const": null},
+              "capturedBy": {"const": null},
+              "analyticsReceiptReference": {"const": null}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"status": {"const": "unavailable"}}},
+          "then": {
+            "properties": {
+              "capturedAt": {"type": "string", "format": "date-time"},
+              "capturedBy": {"type": "string", "minLength": 1},
+              "analyticsReceiptReference": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      ]
+    },
+    "production": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scriptTemplatePath",
+        "storyboardTemplatePath",
+        "evidenceManifestId",
+        "assetManifestId",
+        "srtPath",
+        "srtSha256",
+        "finalVideoSha256",
+        "originalAnalysisConfirmed",
+        "readAloudOrNewsFeedAutomation",
+        "nearDuplicatePublicVariant",
+        "humanFinalApproval"
+      ],
+      "properties": {
+        "scriptTemplatePath": {"type": "string", "minLength": 1},
+        "storyboardTemplatePath": {"type": "string", "minLength": 1},
+        "evidenceManifestId": {
+          "type": "string",
+          "pattern": "^YEV-[0-9]{8}-[0-9]{3}$"
+        },
+        "assetManifestId": {
+          "type": "string",
+          "pattern": "^YAM-[0-9]{8}-[0-9]{3}$"
+        },
+        "srtPath": {"type": "string", "minLength": 1},
+        "srtSha256": {"$ref": "#/$defs/sha256"},
+        "finalVideoSha256": {"$ref": "#/$defs/sha256"},
+        "originalAnalysisConfirmed": {"const": true},
+        "readAloudOrNewsFeedAutomation": {"const": false},
+        "nearDuplicatePublicVariant": {"const": false},
+        "humanFinalApproval": {"$ref": "#/$defs/humanApproval"}
+      }
+    },
+    "disclosureReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "realisticAlteredOrSyntheticContentPresent",
+        "studioSelection",
+        "rationale",
+        "reviewedBy",
+        "reviewedAt"
+      ],
+      "properties": {
+        "realisticAlteredOrSyntheticContentPresent": {"type": "boolean"},
+        "studioSelection": {"enum": ["Yes", "No"]},
+        "rationale": {"type": "string", "minLength": 1},
+        "reviewedBy": {"type": "string", "minLength": 1},
+        "reviewedAt": {"type": "string", "format": "date-time"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "realisticAlteredOrSyntheticContentPresent": {"const": true}
+            }
+          },
+          "then": {
+            "properties": {"studioSelection": {"const": "Yes"}}
+          }
+        }
+      ]
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "youtubeVideoId",
+        "youtubeUrl",
+        "idempotencyKey",
+        "privateUploadedAt",
+        "privateUploadReceiptReference",
+        "privateVisibilityConfirmed",
+        "copyrightChecksPassed",
+        "metadataReadBackPassed",
+        "captionsReadBackPassed",
+        "publishedAt",
+        "publishedBy",
+        "automated",
+        "visibility",
+        "providerReadBackReceiptReference"
+      ],
+      "properties": {
+        "youtubeVideoId": {"type": "string", "minLength": 1},
+        "youtubeUrl": {"$ref": "#/$defs/httpsUrl"},
+        "idempotencyKey": {"type": "string", "minLength": 1},
+        "privateUploadedAt": {"type": "string", "format": "date-time"},
+        "privateUploadReceiptReference": {"type": "string", "minLength": 1},
+        "privateVisibilityConfirmed": {"const": true},
+        "copyrightChecksPassed": {"const": true},
+        "metadataReadBackPassed": {"const": true},
+        "captionsReadBackPassed": {"const": true},
+        "publishedAt": {"type": "string", "format": "date-time"},
+        "publishedBy": {"type": "string", "minLength": 1},
+        "automated": {"const": false},
+        "visibility": {"const": "public"},
+        "providerReadBackReceiptReference": {"type": "string", "minLength": 1}
+      }
+    },
+    "video": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "videoRecordId",
+        "editionId",
+        "canonicalUrl",
+        "exactArchiveLead",
+        "formatId",
+        "durationClass",
+        "durationSeconds",
+        "market",
+        "language",
+        "voiceMode",
+        "narratorRightsReceiptReference",
+        "syntheticNarration",
+        "clonedVoice",
+        "shortWinnerGateReceiptId",
+        "longFormGatePassed",
+        "production",
+        "reviewGates",
+        "alteredSyntheticDisclosure",
+        "publication",
+        "externalCostUsd",
+        "spendAuthorizationReference",
+        "metrics24h",
+        "metrics7d"
+      ],
+      "properties": {
+        "videoRecordId": {
+          "type": "string",
+          "pattern": "^YV-[0-9]{8}-[0-9]{3}$"
+        },
+        "editionId": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"
+        },
+        "canonicalUrl": {"$ref": "#/$defs/httpsUrl"},
+        "exactArchiveLead": {"type": "string", "minLength": 1, "maxLength": 130},
+        "formatId": {"enum": ["morning_receipts", "tonights_field_guide"]},
+        "durationClass": {"enum": ["short", "long_form"]},
+        "durationSeconds": {"type": "number", "exclusiveMinimum": 0},
+        "market": {"const": "US"},
+        "language": {"const": "en-US"},
+        "voiceMode": {"enum": ["recurring_human_narrator", "caption_only"]},
+        "narratorRightsReceiptReference": {"type": ["string", "null"]},
+        "syntheticNarration": {"const": false},
+        "clonedVoice": {"const": false},
+        "shortWinnerGateReceiptId": {
+          "type": ["string", "null"],
+          "pattern": "^YGATE-[0-9]{8}-[0-9]{3}$"
+        },
+        "longFormGatePassed": {"type": "boolean"},
+        "production": {"$ref": "#/$defs/production"},
+        "reviewGates": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "edition",
+            "evidence",
+            "originality",
+            "rights",
+            "narration",
+            "safetyAndAdvertiserFriendly",
+            "captions",
+            "privateUpload"
+          ],
+          "properties": {
+            "edition": {"$ref": "#/$defs/reviewGate"},
+            "evidence": {"$ref": "#/$defs/reviewGate"},
+            "originality": {"$ref": "#/$defs/reviewGate"},
+            "rights": {"$ref": "#/$defs/reviewGate"},
+            "narration": {"$ref": "#/$defs/reviewGate"},
+            "safetyAndAdvertiserFriendly": {"$ref": "#/$defs/reviewGate"},
+            "captions": {"$ref": "#/$defs/reviewGate"},
+            "privateUpload": {"$ref": "#/$defs/reviewGate"}
+          }
+        },
+        "alteredSyntheticDisclosure": {"$ref": "#/$defs/disclosureReview"},
+        "publication": {"$ref": "#/$defs/publication"},
+        "externalCostUsd": {"type": "number", "minimum": 0, "maximum": 2500},
+        "spendAuthorizationReference": {"type": ["string", "null"]},
+        "metrics24h": {"$ref": "#/$defs/metricSnapshot"},
+        "metrics7d": {"$ref": "#/$defs/metricSnapshot"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"formatId": {"const": "morning_receipts"}}},
+          "then": {
+            "properties": {
+              "editionId": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-morning$"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "editionId": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-evening$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"externalCostUsd": {"exclusiveMinimum": 0}}
+          },
+          "then": {
+            "properties": {
+              "spendAuthorizationReference": {"type": "string", "minLength": 1}
+            }
+          },
+          "else": {
+            "properties": {"spendAuthorizationReference": {"const": null}}
+          }
+        },
+        {
+          "if": {"properties": {"voiceMode": {"const": "recurring_human_narrator"}}},
+          "then": {
+            "properties": {
+              "narratorRightsReceiptReference": {"type": "string", "minLength": 1}
+            }
+          },
+          "else": {
+            "properties": {"narratorRightsReceiptReference": {"const": null}}
+          }
+        },
+        {
+          "if": {"properties": {"durationClass": {"const": "short"}}},
+          "then": {
+            "properties": {
+              "durationSeconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 180},
+              "shortWinnerGateReceiptId": {"const": null},
+              "longFormGatePassed": {"const": false}
+            }
+          },
+          "else": {
+            "properties": {
+              "durationSeconds": {"type": "number", "exclusiveMinimum": 180},
+              "shortWinnerGateReceiptId": {
+                "type": "string",
+                "pattern": "^YGATE-[0-9]{8}-[0-9]{3}$"
+              },
+              "longFormGatePassed": {"const": true}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

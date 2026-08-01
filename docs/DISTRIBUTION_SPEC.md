@@ -17,6 +17,9 @@ Last reconciled: 2026-07-31
   tests, and runbooks must live in a named GitHub repository.
 - Credible-account replies are the primary near-term X acquisition strategy.
   David approves every reply individually and replies are manually posted.
+- X reply operations start with two manual approval/posting windows and a hard
+  cap of four published replies per day. A third window and six/day are disabled
+  unless David separately approves and staffs them.
 
 This repository owns the canonical edition and channel-neutral distribution
 contract. A separate private adapter repository is allowed only when its owner,
@@ -39,6 +42,10 @@ packages and never become the only copy of an edition or correction.
 - Replies are read-only scouted and AI-assisted drafted, then individually
   approved by David and posted through X's official interface. No API
   credential is installed for replies.
+- Read-only scouting means a human using X Search or an existing X List.
+  Browser scripting, scraping, headless or automated X browsing, and DOM
+  automation are prohibited. A future official read-only API requires its own
+  reviewed authorization and may not post.
 - Quote posts, trend participation, likes, and follows are never automated.
 - The replacement adapter must pass the acceptance contract below before it can
   receive credentials.
@@ -55,6 +62,21 @@ when context changes. Silence is rejection. Every factual assertion has a
 fetched supporting source, every reply adds one distinct form of value, and no
 reply asks for engagement.
 
+Every candidate validates privately against
+`distribution/x-reply-approval-card.schema.json`, clears BREAD at 9/10 or
+better, and has an opportunity score of at least 75/100. Priority tiers control
+review order only. The card includes target-verification provenance,
+profile-conversion readiness, Premium and analytics availability, exact scope,
+and operator/security checks. Any failed hard check rejects the candidate even
+when its numeric scores pass.
+
+The default is two staffed manual windows and no more than four published
+replies per day, measured in Pacific time. Six/day requires a separately
+approved and staffed third window plus an updated machine-readable baseline; it
+is currently disabled. Never fill a quota with a weaker candidate. A proactive
+target needs at least 72 hours between DDB replies and may receive no more than
+two in a rolling 14 days.
+
 The first 30 operating days prohibit DDB links in proactive replies unless the
 parent author requests the source or the claim would otherwise be
 unverifiable. The profile and pinned post perform conversion. Never send
@@ -63,9 +85,19 @@ to insert the brand into unrelated attention.
 
 Only published replies enter `distribution/x-replies.json`, validated against
 `distribution/x-replies.schema.json`. The public ledger records the parent,
-target tier, beat, reply shape, exact approved text, supporting sources,
-receipt, policy checks, and outcome snapshots. Unposted drafts stay in a
-private transient queue for at most 24 hours and are never committed here.
+target tier and verification basis, beat, reply shape, BREAD and opportunity
+scores, exact approved text, supporting sources, receipt, operator and policy
+checks, manual hidden/probable-spam inspections, account capabilities, and
+outcome snapshots. Unposted drafts stay in a private transient queue for at
+most 24 hours and are never committed here.
+
+When X exposes them, reply-level user profile clicks and direct follows are the
+primary conversion fields. Account-window profile visits and follower changes
+remain secondary attribution and are never presented as caused by one reply.
+Missing analytics are `null`, never zero. Shape comparisons require at least
+eight measured observations per compared shape and control target tier,
+discovery window, opportunity-score band, and opportunity quality. Volume may
+not scale before at least 50 replies have complete measurement.
 
 The manual boundary may change only after X grants written approval for the
 specific AI-powered reply use case, a reviewed adapter proves policy and safety

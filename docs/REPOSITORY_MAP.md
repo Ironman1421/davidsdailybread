@@ -23,8 +23,11 @@ in version-controlled specs, code, and tests before use.
   snapshots, or weekly scorecard.
 - Branch protection and workflow bypass ownership are not documented as code.
 - Reader-submission storage has no privacy owner or retention policy.
-- YouTube, TikTok, Instagram, and LinkedIn adapters do not yet have repositories,
-  credentials boundaries, acceptance tests, or named operators.
+- YouTube now has repository-owned pilot specifications, templates, schemas,
+  baseline ledgers, validation, and a named owner in this repository. It still
+  has no live upload adapter or credential boundary. TikTok, Instagram, and
+  LinkedIn adapters do not yet have repositories, credential boundaries,
+  acceptance tests, or named operators.
 
 New operational components must have a repository, named owner, on-call/failure
 path, secret boundary, idempotency contract, metrics, and a tested disable switch

@@ -15,12 +15,15 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: merge-gate-${{ github.ref }}
+  # A branch push and its pull_request event target the same commit. Key both
+  # events by the source branch so they do not pull and start two full local
+  # Supabase stacks concurrently.
+  group: merge-gate-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
   gate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     env:
       # ddb_bake.py resolves the site repo AT IMPORT TIME and raises if it finds
       # none, so without this the suite cannot even be collected, let alone run.
@@ -46,9 +49,20 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install pytest
-        # The suite is stdlib-only (unittest style); pytest is just the runner.
-        run: python -m pip install --quiet pytest==8.4.2
+      - name: Set up Node
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '22.23.1'
+          cache: npm
+
+      - name: Install reader-store toolchain
+        run: npm ci
+
+      - name: Install test dependencies
+        # Tests are unittest style; pytest is the runner and jsonschema executes
+        # the checked-in distribution contracts against their fixtures and the
+        # YouTube contracts against their real ledgers.
+        run: python -m pip install --quiet pytest==8.4.2 jsonschema==4.25.1
 
       - name: Full test suite
         # `python -m pytest` (not bare `pytest`) is load bearing: it puts the
@@ -83,6 +97,35 @@ jobs:
         run: |
           set -euo pipefail
           python3 tests/test_evening_render.py
+
+      - name: Reader Edge source gates
+        run: |
+          set -euo pipefail
+          npm run test:reader-edge
+          npm run test:reader-types
+          npm run check:reader-format
+          npm run check:reader-lint
+          npm audit --audit-level=high
+
+      - name: Reader database and concurrency gates
+        env:
+          DDB_READER_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+        run: |
+          set -euo pipefail
+          # The database-only stack is sufficient for migration replay, pgTAP,
+          # lint, and locking tests. Starting every product service here makes
+          # db reset depend on unrelated API health and duplicates large image
+          # pulls; the runbook's local/canary flow still starts the full stack
+          # to verify the private Storage bucket and Edge integration.
+          npm exec -- supabase db start
+          npm run supabase:reset
+          npm run test:reader-db
+          npm exec -- supabase db lint --local --schema reader_private --level error --fail-on error
+          npm run test:reader-concurrency
+
+      - name: Stop local Supabase
+        if: always()
+        run: npm exec -- supabase stop --no-backup
 
       - name: Gate result
         # Block scalar, not a plain one. A plain YAML scalar cannot contain ": ",

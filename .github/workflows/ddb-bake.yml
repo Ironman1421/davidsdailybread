@@ -113,9 +113,12 @@ jobs:
       - name: Install Claude Code
         run: |
           set -euo pipefail
-          package="$(npm pack @anthropic-ai/claude-code@2.1.220 --silent)"
-          echo "a2006bbf092a17d7fca249a75cac6644d1eebed1711447df7b9a5676a395de2403c6550e2a2ac5aa7c960bb3465d79c30385a491b3c7f29bd26f0c8247602ecb  ${package}" | sha512sum --check
-          npm install -g "./${package}"
+          # Keep the verified installer outside the checkout. The bake guard
+          # must see only renderer-owned output, never setup artifacts.
+          package="$(npm pack @anthropic-ai/claude-code@2.1.220 --silent --pack-destination "$RUNNER_TEMP")"
+          package_path="${RUNNER_TEMP}/${package}"
+          echo "a2006bbf092a17d7fca249a75cac6644d1eebed1711447df7b9a5676a395de2403c6550e2a2ac5aa7c960bb3465d79c30385a491b3c7f29bd26f0c8247602ecb  ${package_path}" | sha512sum --check
+          npm install -g "${package_path}"
 
       - name: Bake (research, write, render)
         env:

@@ -93,6 +93,11 @@ class ProductContractTest(unittest.TestCase):
                 encoding="utf-8"
             )
         )
+        approval_schema = json.loads(
+            (ROOT / "distribution" / "x-reply-approval-card.schema.json").read_text(
+                encoding="utf-8"
+            )
+        )
         ledger = json.loads(
             (ROOT / "distribution" / "x-replies.json").read_text(
                 encoding="utf-8"
@@ -114,6 +119,20 @@ class ProductContractTest(unittest.TestCase):
         self.assertEqual(5, baseline["xFollowers"])
         self.assertEqual("credible-account-replies", baseline["primaryAcquisitionChannel"])
         self.assertEqual("manual-ui-per-reply-approval", baseline["mode"])
+        self.assertEqual("2026-07-31T21:05:50Z", baseline["cadenceApprovedAt"])
+        self.assertFalse(baseline["aiExternalInteractionAuthorized"])
+        self.assertEqual("manual-x-search-or-lists", baseline["scoutingMode"])
+        self.assertEqual(2, baseline["staffedApprovalWindows"])
+        self.assertEqual(4, baseline["dailyPublishedReplyCap"])
+        self.assertEqual(3, baseline["sixReplyDayMinimumApprovalWindows"])
+        self.assertEqual(9, baseline["breadMinimumScore"])
+        self.assertEqual(75, baseline["opportunityPublishThreshold"])
+        self.assertEqual(8, baseline["minimumComparedShapeObservations"])
+        self.assertEqual(50, baseline["minimumMeasuredRepliesBeforeVolumeScaling"])
+        self.assertEqual(
+            "blocked_pending_readiness",
+            baseline["operationalReadiness"]["status"],
+        )
         self.assertEqual([], ledger["publishedReplies"])
 
         reply = schema["$defs"]["reply"]
@@ -123,15 +142,22 @@ class ProductContractTest(unittest.TestCase):
                 "parentPostUrl",
                 "targetTier",
                 "replyShape",
+                "qualityRubric",
+                "opportunityScore",
+                "operationalPriority",
                 "approvedBy",
                 "approvedAt",
+                "approvalExpiresAt",
                 "followerCountAtApproval",
                 "replyText",
                 "supportUrls",
                 "automated",
                 "postedThrough",
                 "policyChecks",
+                "operatorChecks",
+                "visibilityInspectionAtPublish",
                 "targetAuthorInteractions",
+                "metricsAtPublish",
                 "metrics24h",
                 "metrics7d",
             }.issubset(required)
@@ -143,6 +169,22 @@ class ProductContractTest(unittest.TestCase):
         )
         self.assertEqual(280, reply["properties"]["replyText"]["maxLength"])
         self.assertEqual(1, reply["properties"]["supportUrls"]["minItems"])
+        snapshot_required = set(schema["$defs"]["snapshot"]["required"])
+        self.assertTrue(
+            {
+                "userProfileClicks",
+                "directFollows",
+                "accountProfileVisitsWindow",
+                "followerDeltaWindow",
+                "visibilityStatus",
+                "visibilityInspectionMethod",
+            }.issubset(snapshot_required)
+        )
+        self.assertEqual(1, approval_schema["properties"]["version"]["const"])
+        self.assertEqual(
+            ["manual-x-search", "manual-x-list"],
+            approval_schema["properties"]["scoutingMethod"]["enum"],
+        )
 
         active = " ".join((playbook + "\n" + distribution).lower().split())
         for invariant in (
@@ -152,6 +194,10 @@ class ProductContractTest(unittest.TestCase):
             "silence is rejection",
             "no more than 60 minutes",
             "no reply asks for engagement",
+            "browser scripting, scraping",
+            "no more than four published replies per day",
+            "at least eight measured observations",
+            "at least 50",
         ):
             self.assertIn(invariant, active)
 

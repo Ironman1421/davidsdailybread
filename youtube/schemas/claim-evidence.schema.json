@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/youtube-claim-evidence-v1.json",
+  "title": "David's Daily Bread YouTube claim evidence ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "updatedAt", "manifests"],
+  "properties": {
+    "version": {"const": 1},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "manifests": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/manifest"}
+    }
+  },
+  "$defs": {
+    "httpsUrl": {
+      "type": "string",
+      "pattern": "^https://(?![^/\\s]*@)[^\\s]+$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "humanApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human", "approved", "approvedBy", "approvedAt"],
+      "properties": {
+        "human": {"const": true},
+        "approved": {"const": true},
+        "approvedBy": {"type": "string", "minLength": 1},
+        "approvedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "retrievalReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptId",
+        "requestedUrl",
+        "resolvedUrl",
+        "retrievedAt",
+        "retrievalOutcome",
+        "httpStatus",
+        "contentType",
+        "contentSha256",
+        "retrievedBy",
+        "primarySource",
+        "artifactReference"
+      ],
+      "properties": {
+        "receiptId": {
+          "type": "string",
+          "pattern": "^YRR-[0-9]{8}-[0-9]{3}$"
+        },
+        "requestedUrl": {"$ref": "#/$defs/httpsUrl"},
+        "resolvedUrl": {"$ref": "#/$defs/httpsUrl"},
+        "retrievedAt": {"type": "string", "format": "date-time"},
+        "retrievalOutcome": {"const": "success"},
+        "httpStatus": {"type": "integer", "minimum": 200, "maximum": 399},
+        "contentType": {"type": "string", "minLength": 1},
+        "contentSha256": {"$ref": "#/$defs/sha256"},
+        "retrievedBy": {"type": "string", "minLength": 1},
+        "primarySource": {"type": "boolean"},
+        "artifactReference": {"type": ["string", "null"]}
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claimId",
+        "exactFinalClaim",
+        "claimType",
+        "delivery",
+        "startMs",
+        "endMs",
+        "status",
+        "sourceReceiptIds",
+        "evidenceLocator",
+        "supportSummary"
+      ],
+      "properties": {
+        "claimId": {
+          "type": "string",
+          "pattern": "^YC-[0-9]{3}$"
+        },
+        "exactFinalClaim": {"type": "string", "minLength": 1},
+        "claimType": {
+          "enum": [
+            "fact",
+            "figure",
+            "date",
+            "quotation",
+            "price",
+            "popularity",
+            "demonstrated_result",
+            "analysis"
+          ]
+        },
+        "delivery": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["spoken", "on_screen", "description"]}
+        },
+        "startMs": {"type": "integer", "minimum": 0},
+        "endMs": {"type": "integer", "minimum": 1},
+        "status": {"const": "verified"},
+        "sourceReceiptIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^YRR-[0-9]{8}-[0-9]{3}$"
+          }
+        },
+        "evidenceLocator": {"type": "string", "minLength": 1},
+        "supportSummary": {"type": "string", "minLength": 1, "maxLength": 500}
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifestId",
+        "editionId",
+        "videoRecordId",
+        "canonicalUrl",
+        "createdAt",
+        "retrievalReceipts",
+        "claims",
+        "unsupportedClaimCount",
+        "finalApproval"
+      ],
+      "properties": {
+        "manifestId": {
+          "type": "string",
+          "pattern": "^YEV-[0-9]{8}-[0-9]{3}$"
+        },
+        "editionId": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"
+        },
+        "videoRecordId": {
+          "type": "string",
+          "pattern": "^YV-[0-9]{8}-[0-9]{3}$"
+        },
+        "canonicalUrl": {"$ref": "#/$defs/httpsUrl"},
+        "createdAt": {"type": "string", "format": "date-time"},
+        "retrievalReceipts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/retrievalReceipt"}
+        },
+        "claims": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/claim"}
+        },
+        "unsupportedClaimCount": {"const": 0},
+        "finalApproval": {"$ref": "#/$defs/humanApproval"}
+      }
+    }
+  }
+}
