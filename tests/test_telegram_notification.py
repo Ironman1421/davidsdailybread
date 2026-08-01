@@ -6,7 +6,7 @@ from __future__ import annotations
 import json
 import io
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import tempfile
 import unittest
@@ -535,6 +535,13 @@ class WorkflowContractTest(unittest.TestCase):
         self.assertIn("if: steps.cfg.outputs.active == 'true'", counter)
 
     def test_counter_backup_survives_both_dst_transition_days(self):
+        counter = (ROOT / ".github" / "workflows" / "counter-sync.yml").read_text()
+        bake = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
+        self.assertIn('date -d "$TODAY 00:45:00" +%z', counter)
+        self.assertIn("TARGET_CLOCK=03:05:00", bake)
+        self.assertIn("TARGET_CLOCK=13:05:00", bake)
+        self.assertIn('date -d "$TODAY $TARGET_CLOCK" +%z', bake)
+
         pacific = ZoneInfo("America/Los_Angeles")
         candidates = ((7, "-0700"), (8, "-0800"))
         for year, month, day in ((2027, 3, 14), (2027, 11, 7)):
@@ -547,6 +554,22 @@ class WorkflowContractTest(unittest.TestCase):
             self.assertEqual(
                 [f"{year:04d}-{month:02d}-{day:02d} 00:45 " + ("-0800" if month == 3 else "-0700")],
                 active,
+            )
+
+        # The correct candidate may begin after the 2 AM offset change. Its
+        # gate must still use the offset at the nominal 12:45 AM local target.
+        for year, month, day, utc_hour, expected_offset in (
+            (2027, 3, 14, 8, "-0800"),
+            (2027, 11, 7, 7, "-0700"),
+        ):
+            nominal = datetime(year, month, day, 0, 45, tzinfo=pacific)
+            delayed = datetime(
+                year, month, day, utc_hour, 45, tzinfo=timezone.utc
+            ) + timedelta(hours=2)
+            self.assertEqual(expected_offset, nominal.strftime("%z"))
+            self.assertNotEqual(
+                nominal.strftime("%z"),
+                delayed.astimezone(pacific).strftime("%z"),
             )
 
     def test_workflow_is_duplicate_safe_and_credentials_are_isolated(self):
