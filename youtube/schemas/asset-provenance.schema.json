@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/youtube-asset-provenance-v1.json",
+  "title": "David's Daily Bread YouTube asset provenance ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "updatedAt", "manifests"],
+  "properties": {
+    "version": {"const": 1},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "manifests": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/manifest"}
+    }
+  },
+  "$defs": {
+    "httpsUrl": {
+      "type": "string",
+      "pattern": "^https://(?![^/\\s]*@)[^\\s]+$"
+    },
+    "humanApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human", "approved", "approvedBy", "approvedAt"],
+      "properties": {
+        "human": {"const": true},
+        "approved": {"const": true},
+        "approvedBy": {"type": "string", "minLength": 1},
+        "approvedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "timecode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["startMs", "endMs", "use"],
+      "properties": {
+        "startMs": {"type": "integer", "minimum": 0},
+        "endMs": {"type": "integer", "minimum": 1},
+        "use": {"type": "string", "minLength": 1}
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assetId",
+        "kind",
+        "sourceClass",
+        "title",
+        "sourceUrl",
+        "creatorOrOwner",
+        "rightsBasis",
+        "rightsStatus",
+        "licenseOrContractReference",
+        "commercialUseAllowed",
+        "youtubeUseAllowed",
+        "territory",
+        "termEndsOn",
+        "finalTimecodes",
+        "reviewedBy",
+        "reviewedAt"
+      ],
+      "properties": {
+        "assetId": {
+          "type": "string",
+          "pattern": "^YA-[0-9]{3}$"
+        },
+        "kind": {
+          "enum": [
+            "narration",
+            "music",
+            "sound_effect",
+            "image",
+            "footage",
+            "graphic",
+            "font",
+            "template",
+            "screen_recording"
+          ]
+        },
+        "sourceClass": {
+          "enum": [
+            "original_capture",
+            "original_graphic",
+            "commissioned",
+            "licensed_stock",
+            "licensed_music",
+            "youtube_audio_library",
+            "verified_public_domain"
+          ]
+        },
+        "title": {"type": "string", "minLength": 1},
+        "sourceUrl": {
+          "oneOf": [
+            {"$ref": "#/$defs/httpsUrl"},
+            {"type": "null"}
+          ]
+        },
+        "creatorOrOwner": {"type": "string", "minLength": 1},
+        "rightsBasis": {"type": "string", "minLength": 1},
+        "rightsStatus": {
+          "enum": [
+            "owned",
+            "contract_verified",
+            "license_verified",
+            "public_domain_verified"
+          ]
+        },
+        "licenseOrContractReference": {"type": "string", "minLength": 1},
+        "commercialUseAllowed": {"const": true},
+        "youtubeUseAllowed": {"const": true},
+        "territory": {"type": "string", "minLength": 1},
+        "termEndsOn": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "finalTimecodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/timecode"}
+        },
+        "reviewedBy": {"type": "string", "minLength": 1},
+        "reviewedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifestId",
+        "videoRecordId",
+        "createdAt",
+        "assets",
+        "unknownRightsAssetCount",
+        "excludedPilotSourceTypes",
+        "finalApproval"
+      ],
+      "properties": {
+        "manifestId": {
+          "type": "string",
+          "pattern": "^YAM-[0-9]{8}-[0-9]{3}$"
+        },
+        "videoRecordId": {
+          "type": "string",
+          "pattern": "^YV-[0-9]{8}-[0-9]{3}$"
+        },
+        "createdAt": {"type": "string", "format": "date-time"},
+        "assets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/asset"}
+        },
+        "unknownRightsAssetCount": {"const": 0},
+        "excludedPilotSourceTypes": {
+          "const": [
+            "press_footage",
+            "broadcast_footage",
+            "article_screenshot",
+            "social_video",
+            "unlicensed_music"
+          ]
+        },
+        "finalApproval": {"$ref": "#/$defs/humanApproval"}
+      }
+    }
+  }
+}

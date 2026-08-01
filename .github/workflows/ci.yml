@@ -58,9 +58,11 @@ jobs:
       - name: Install reader-store toolchain
         run: npm ci
 
-      - name: Install pytest
-        # The suite is stdlib-only (unittest style); pytest is just the runner.
-        run: python -m pip install --quiet pytest==8.4.2
+      - name: Install test dependencies
+        # Tests are unittest style; pytest is the runner and jsonschema executes
+        # the checked-in distribution contracts against their fixtures and the
+        # YouTube contracts against their real ledgers.
+        run: python -m pip install --quiet pytest==8.4.2 jsonschema==4.25.1
 
       - name: Full test suite
         # `python -m pytest` (not bare `pytest`) is load bearing: it puts the

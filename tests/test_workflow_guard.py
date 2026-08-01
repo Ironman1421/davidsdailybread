@@ -62,6 +62,15 @@ class WorkflowGuardTest(unittest.TestCase):
             workflow,
         )
 
+    def test_installer_artifact_stays_outside_the_checkout(self):
+        workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn('--pack-destination "$RUNNER_TEMP"', workflow)
+        self.assertIn('package_path="${RUNNER_TEMP}/${package}"', workflow)
+        self.assertIn('npm install -g "${package_path}"', workflow)
+        self.assertNotIn('npm install -g "./${package}"', workflow)
+
 
 if __name__ == "__main__":
     unittest.main()

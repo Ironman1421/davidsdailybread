@@ -1,0 +1,497 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/youtube-experiment-v1.json",
+  "title": "David's Daily Bread 30-day YouTube experiment and decision gates",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "updatedAt",
+    "operatingState",
+    "platformBaseline",
+    "constraints",
+    "experiments",
+    "gateEvaluations"
+  ],
+  "properties": {
+    "version": {"const": 1},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "operatingState": {"enum": ["disabled", "ready", "running", "stopped", "complete"]},
+    "platformBaseline": {"$ref": "#/$defs/platformBaseline"},
+    "constraints": {"$ref": "#/$defs/constraints"},
+    "experiments": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/experiment"}
+    },
+    "gateEvaluations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/gateEvaluation"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"operatingState": {"const": "disabled"}}
+      },
+      "then": {
+        "properties": {
+          "constraints": {
+            "properties": {
+              "publishingEnabled": {"const": false},
+              "externalAccountMutationAuthorized": {"const": false}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "platformBaseline": {
+            "properties": {"metricsStatus": {"const": "not_measured"}}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "constraints": {
+            "properties": {
+              "publishingEnabled": {"const": false},
+              "externalAccountMutationAuthorized": {"const": false}
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "httpsUrl": {
+      "type": "string",
+      "pattern": "^https://(?![^/\\s]*@)[^\\s]+$"
+    },
+    "humanApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human", "approved", "approvedBy", "approvedAt"],
+      "properties": {
+        "human": {"const": true},
+        "approved": {"const": true},
+        "approvedBy": {"type": "string", "minLength": 1},
+        "approvedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "platformBaseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "channelIdentityStatus",
+        "channelName",
+        "channelHandle",
+        "channelId",
+        "publicUrl",
+        "channelIdUrl",
+        "createdAt",
+        "createdAtPrecision",
+        "identitySourceReceiptReference",
+        "unavailablePreferredHandles",
+        "metricsStatus",
+        "metricsCapturedAt",
+        "subscribers",
+        "historicalViews",
+        "historicalEngagedViews",
+        "metricsSourceReceiptReference",
+        "unknownMeasurementBlockers",
+        "unknownMetricsTreatedAsZero"
+      ],
+      "properties": {
+        "channelIdentityStatus": {"enum": ["unknown", "known"]},
+        "channelName": {"type": ["string", "null"]},
+        "channelHandle": {
+          "type": ["string", "null"],
+          "pattern": "^@[A-Za-z0-9._-]{3,30}$"
+        },
+        "channelId": {
+          "type": ["string", "null"],
+          "pattern": "^UC[A-Za-z0-9_-]{22}$"
+        },
+        "publicUrl": {
+          "oneOf": [
+            {"$ref": "#/$defs/httpsUrl"},
+            {"type": "null"}
+          ]
+        },
+        "channelIdUrl": {
+          "oneOf": [
+            {"$ref": "#/$defs/httpsUrl"},
+            {"type": "null"}
+          ]
+        },
+        "createdAt": {"type": ["string", "null"], "format": "date-time"},
+        "createdAtPrecision": {
+          "type": ["string", "null"],
+          "enum": ["exact", "approximate", null]
+        },
+        "identitySourceReceiptReference": {"type": ["string", "null"]},
+        "unavailablePreferredHandles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^@[A-Za-z0-9._-]{3,30}$"
+          }
+        },
+        "metricsStatus": {"enum": ["not_measured", "captured"]},
+        "metricsCapturedAt": {"type": ["string", "null"], "format": "date-time"},
+        "subscribers": {"type": ["integer", "null"], "minimum": 0},
+        "historicalViews": {"type": ["integer", "null"], "minimum": 0},
+        "historicalEngagedViews": {"type": ["integer", "null"], "minimum": 0},
+        "metricsSourceReceiptReference": {"type": ["string", "null"]},
+        "unknownMeasurementBlockers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "subscriber_count_not_measured",
+              "historical_views_not_measured",
+              "historical_engaged_views_not_measured"
+            ]
+          }
+        },
+        "unknownMetricsTreatedAsZero": {"const": false}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"channelIdentityStatus": {"const": "unknown"}}},
+          "then": {
+            "properties": {
+              "channelName": {"const": null},
+              "channelHandle": {"const": null},
+              "channelId": {"const": null},
+              "publicUrl": {"const": null},
+              "channelIdUrl": {"const": null},
+              "createdAt": {"const": null},
+              "createdAtPrecision": {"const": null},
+              "identitySourceReceiptReference": {"const": null},
+              "unavailablePreferredHandles": {"maxItems": 0}
+            }
+          },
+          "else": {
+            "properties": {
+              "channelName": {"type": "string", "minLength": 1},
+              "channelHandle": {
+                "type": "string",
+                "pattern": "^@[A-Za-z0-9._-]{3,30}$"
+              },
+              "channelId": {
+                "type": "string",
+                "pattern": "^UC[A-Za-z0-9_-]{22}$"
+              },
+              "publicUrl": {"$ref": "#/$defs/httpsUrl"},
+              "channelIdUrl": {"$ref": "#/$defs/httpsUrl"},
+              "createdAt": {"type": "string", "format": "date-time"},
+              "createdAtPrecision": {"enum": ["exact", "approximate"]},
+              "identitySourceReceiptReference": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"metricsStatus": {"const": "not_measured"}}},
+          "then": {
+            "properties": {
+              "metricsCapturedAt": {"const": null},
+              "subscribers": {"const": null},
+              "historicalViews": {"const": null},
+              "historicalEngagedViews": {"const": null},
+              "metricsSourceReceiptReference": {"const": null},
+              "unknownMeasurementBlockers": {"minItems": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "metricsCapturedAt": {"type": "string", "format": "date-time"},
+              "subscribers": {"type": "integer", "minimum": 0},
+              "metricsSourceReceiptReference": {"type": "string", "minLength": 1},
+              "unknownMeasurementBlockers": {"maxItems": 0}
+            }
+          }
+        }
+      ]
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "market",
+        "language",
+        "durationDays",
+        "singleChangedVariable",
+        "initialComparison",
+        "syntheticNarratorAllowed",
+        "clonedVoiceAllowed",
+        "externalPlanningCeilingUsd",
+        "spendAuthorized",
+        "authorizedSpendUsd",
+        "publishingEnabled",
+        "externalAccountMutationAuthorized",
+        "longFormRequiresShortWinner",
+        "plannedCellDefinitions",
+        "decisionRule",
+        "classification"
+      ],
+      "properties": {
+        "market": {"const": "US"},
+        "language": {"const": "en-US"},
+        "durationDays": {"const": 30},
+        "singleChangedVariable": {"const": "voice_mode"},
+        "initialComparison": {
+          "const": ["recurring_human_narrator", "caption_only"]
+        },
+        "syntheticNarratorAllowed": {"const": false},
+        "clonedVoiceAllowed": {"const": false},
+        "externalPlanningCeilingUsd": {"const": 2500},
+        "spendAuthorized": {"type": "boolean"},
+        "authorizedSpendUsd": {"type": "number", "minimum": 0, "maximum": 2500},
+        "publishingEnabled": {"type": "boolean"},
+        "externalAccountMutationAuthorized": {"type": "boolean"},
+        "longFormRequiresShortWinner": {"const": true},
+        "plannedCellDefinitions": {
+          "const": [
+            "morning_receipts:recurring_human_narrator",
+            "morning_receipts:caption_only",
+            "tonights_field_guide:recurring_human_narrator",
+            "tonights_field_guide:caption_only"
+          ]
+        },
+        "decisionRule": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "minimumEligiblePostsPerCell",
+            "primaryMetric",
+            "minimumMedianRelativeLift",
+            "stayedToWatchMaximumMedianRelativeDecline",
+            "sharesMaximumMedianRelativeDecline",
+            "unsupportedClaimsAllowed",
+            "unknownRightsAssetsAllowed",
+            "materialCorrectionsAllowed",
+            "policyIncidentsAllowed"
+          ],
+          "properties": {
+            "minimumEligiblePostsPerCell": {"const": 5},
+            "primaryMetric": {"const": "subscribers_per_1000_engaged_views"},
+            "minimumMedianRelativeLift": {"const": 0.15},
+            "stayedToWatchMaximumMedianRelativeDecline": {"const": 0.10},
+            "sharesMaximumMedianRelativeDecline": {"const": 0.20},
+            "unsupportedClaimsAllowed": {"const": 0},
+            "unknownRightsAssetsAllowed": {"const": 0},
+            "materialCorrectionsAllowed": {"const": 0},
+            "policyIncidentsAllowed": {"const": 0}
+          }
+        },
+        "classification": {"const": "internal_planning_assumptions_not_platform_benchmarks"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"spendAuthorized": {"const": false}}},
+          "then": {"properties": {"authorizedSpendUsd": {"const": 0}}}
+        }
+      ]
+    },
+    "cell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cellId",
+        "franchise",
+        "voiceMode",
+        "eligibleShortVideoRecordIds",
+        "withdrawnVideoRecordIds"
+      ],
+      "properties": {
+        "cellId": {
+          "type": "string",
+          "pattern": "^YCELL-[0-9]{8}-[0-9]{2}$"
+        },
+        "franchise": {"enum": ["morning_receipts", "tonights_field_guide"]},
+        "voiceMode": {"enum": ["recurring_human_narrator", "caption_only"]},
+        "eligibleShortVideoRecordIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^YV-[0-9]{8}-[0-9]{3}$"
+          }
+        },
+        "withdrawnVideoRecordIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^YV-[0-9]{8}-[0-9]{3}$"
+          }
+        }
+      }
+    },
+    "assignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assignmentId",
+        "editionId",
+        "assignedCellId",
+        "assignedBeforeResults",
+        "onlyAssignedVariantMayPublish"
+      ],
+      "properties": {
+        "assignmentId": {
+          "type": "string",
+          "pattern": "^YASN-[0-9]{8}-[0-9]{3}$"
+        },
+        "editionId": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"
+        },
+        "assignedCellId": {
+          "type": "string",
+          "pattern": "^YCELL-[0-9]{8}-[0-9]{2}$"
+        },
+        "assignedBeforeResults": {"const": true},
+        "onlyAssignedVariantMayPublish": {"const": true}
+      }
+    },
+    "experiment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "experimentId",
+        "status",
+        "startDate",
+        "endDate",
+        "baselineReceiptReference",
+        "hypothesis",
+        "cells",
+        "assignments",
+        "externalCommittedCostUsd",
+        "externalPaidCostUsd",
+        "externalTotalExposureUsd",
+        "spendAuthorizationReferences",
+        "openedByHuman"
+      ],
+      "properties": {
+        "experimentId": {
+          "type": "string",
+          "pattern": "^YEXP-[0-9]{8}-[0-9]{2}$"
+        },
+        "status": {"enum": ["planned", "running", "stopped", "complete"]},
+        "startDate": {"type": "string", "format": "date"},
+        "endDate": {"type": "string", "format": "date"},
+        "baselineReceiptReference": {"type": "string", "minLength": 1},
+        "hypothesis": {"type": "string", "minLength": 1},
+        "cells": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {"$ref": "#/$defs/cell"}
+        },
+        "assignments": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/assignment"}
+        },
+        "externalCommittedCostUsd": {"type": "number", "minimum": 0, "maximum": 2500},
+        "externalPaidCostUsd": {"type": "number", "minimum": 0, "maximum": 2500},
+        "externalTotalExposureUsd": {"type": "number", "minimum": 0, "maximum": 2500},
+        "spendAuthorizationReferences": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "openedByHuman": {"$ref": "#/$defs/humanApproval"}
+      }
+    },
+    "cellMetrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cellId",
+        "eligiblePostCount",
+        "medianSubscribersPer1000EngagedViews",
+        "medianStayedToWatchPercent",
+        "medianSharesPer1000EngagedViews"
+      ],
+      "properties": {
+        "cellId": {
+          "type": "string",
+          "pattern": "^YCELL-[0-9]{8}-[0-9]{2}$"
+        },
+        "eligiblePostCount": {"type": "integer", "minimum": 5},
+        "medianSubscribersPer1000EngagedViews": {"type": ["number", "null"]},
+        "medianStayedToWatchPercent": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "medianSharesPer1000EngagedViews": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "gateEvaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gateId",
+        "experimentId",
+        "franchise",
+        "evaluatedAt",
+        "cellMetrics",
+        "winnerMode",
+        "primaryMetricRelativeLift",
+        "guardrailsPassed",
+        "result",
+        "longFormReleased",
+        "rationale",
+        "finalApproval"
+      ],
+      "properties": {
+        "gateId": {
+          "type": "string",
+          "pattern": "^YGATE-[0-9]{8}-[0-9]{3}$"
+        },
+        "experimentId": {
+          "type": "string",
+          "pattern": "^YEXP-[0-9]{8}-[0-9]{2}$"
+        },
+        "franchise": {"enum": ["morning_receipts", "tonights_field_guide"]},
+        "evaluatedAt": {"type": "string", "format": "date-time"},
+        "cellMetrics": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/cellMetrics"}
+        },
+        "winnerMode": {
+          "type": ["string", "null"],
+          "enum": ["recurring_human_narrator", "caption_only", null]
+        },
+        "primaryMetricRelativeLift": {"type": ["number", "null"]},
+        "guardrailsPassed": {"type": "boolean"},
+        "result": {"enum": ["pass", "extend", "stop"]},
+        "longFormReleased": {"type": "boolean"},
+        "rationale": {"type": "string", "minLength": 1},
+        "finalApproval": {"$ref": "#/$defs/humanApproval"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"result": {"const": "pass"}}},
+          "then": {
+            "properties": {
+              "winnerMode": {
+                "enum": ["recurring_human_narrator", "caption_only"]
+              },
+              "primaryMetricRelativeLift": {"type": "number", "minimum": 0.15},
+              "guardrailsPassed": {"const": true},
+              "longFormReleased": {"const": true}
+            }
+          },
+          "else": {
+            "properties": {"longFormReleased": {"const": false}}
+          }
+        }
+      ]
+    }
+  }
+}

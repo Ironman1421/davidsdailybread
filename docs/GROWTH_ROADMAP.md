@@ -5,12 +5,13 @@ Goal: 1,000,000 followers in six months
 
 ## Reality of the target
 
-The documented baseline on 2026-07-31 is five X followers. YouTube and other
-platform baselines are unmeasured and count as zero for planning until captured.
-Against that known floor, the combined-platform goal requires 999,995 net new
-followers in 180 days, or about 5,556 every day. Organic growth at that rate is
-an outlier, so this is managed as a portfolio of repeatable formats and breakout
-bets, not as a forecast.
+The documented baseline on 2026-07-31 is five X followers. The YouTube channel
+identity is known, but its metrics and other platform baselines are unmeasured.
+Those unknowns remain unknown, never zero. If every unmeasured baseline were
+zero, the combined-platform goal would require 999,995 net new followers in 180
+days, or about 5,556 every day. Organic growth at that rate is an outlier, so
+this is managed as a portfolio of repeatable formats and breakout bets, not as a
+forecast.
 
 The exposure requirement is equally demanding. At a 1 percent
 impression-to-follow conversion, a zero-baseline account needs about 100
@@ -45,8 +46,9 @@ Turn each edition into a source package, not one link post:
 - 2 vertical videos, one morning and one evening;
 - 1 automatic canonical X post per edition, plus at most 1 distinct,
   human-reviewed source card, useful fact, or question from that edition;
-- 4 to 6 individually approved, manually posted replies per day during the
-  initial X reply lab, scaling only through the gates below;
+- no more than 4 individually approved, manually posted replies per day across
+  two staffed windows during the initial X reply lab, scaling only through the
+  gates below;
 - 1 carousel or document post from the strongest edition each day;
 - after a short franchise wins, 2 long-form YouTube videos per week built from
   recurring themes rather than a read-through of one briefing;
@@ -69,8 +71,9 @@ instead of mechanically cross-posting it.
   editions. Do not automate trend reactions, keyword-triggered replies, likes,
   follows, or near-duplicate link posts. Every proactive reply requires David's
   item-level approval and is posted manually through X's official interface;
-  AI may scout and draft but receives no reply-posting credential. Follow
-  `docs/X_REPLY_PLAYBOOK.md`.
+  AI may research and draft but receives no reply-posting credential. Scouting
+  uses manual X Search or existing Lists; browser scripting, scraping, and
+  automated X browsing are prohibited. Follow `docs/X_REPLY_PLAYBOOK.md`.
 - Separate the canonical link broadcast from the human editorial package. A
   second post must provide genuinely different value, not a repeated headline
   or link.
@@ -93,8 +96,9 @@ instead of mechanically cross-posting it.
 - Test one faceless voice-led cut and one faceless caption-led cut for each of
   ten strong archived stories; keep every other variable as stable as possible.
 - Establish source-card templates and correction workflow.
-- Establish two daily reply-approval windows and publish 4 to 6 approved,
-  sourced replies per day without links or engagement calls to action.
+- Establish two daily manual reply-approval/posting windows and publish no more
+  than 4 approved, sourced replies per day without links or engagement calls to
+  action. Fewer, including zero, is valid when quality is insufficient.
 
 Exit: every edition-derived post has a format ID, edition ID, publish receipt,
 and 24-hour metric snapshot; every published reply has its parent receipt,
@@ -104,9 +108,10 @@ item-level approval, policy checks, and reply-led metric snapshot.
 
 - Publish the morning and evening vertical franchises daily.
 - Add one high-context X thread on the strongest story each weekday.
-- Publish 6 to 10 individually approved replies per day only if the first 14
-  days show no spam labeling, hidden replies, blocks, policy warnings, or
-  rising negative feedback. Ten to 15 is a later test, not a starting quota.
+- Keep the four/day cap. A six/day test remains disabled until at least 50
+  replies have complete measurements, the guardrails remain clean, and David
+  separately approves and staffs a third daily window. No higher-volume reply
+  plan is approved in this roadmap.
 - Begin two weekly creator or expert outreach conversations.
 
 Exit: identify at least two formats with above-baseline shares and follows per
@@ -163,7 +168,9 @@ Primary metrics:
 - long-form first-30-second and average-percentage retention;
 - profile-to-follow conversion;
 - median and 75th-percentile reply impressions, qualified target-author
-  interactions, approval latency, and follower delta per approval window;
+  interactions, reply-level user profile clicks and direct follows when X
+  exposes them, approval latency, and secondary follower delta per approval
+  window;
 - social-to-site click rate and returning-site-reader rate.
 
 Guardrails:
@@ -173,6 +180,12 @@ Guardrails:
 - unfollow and negative-feedback rate;
 - production hours and cost per retained follower;
 - morning and evening on-time publish rate.
+
+Reply-shape comparisons need at least eight measured observations for every
+shape being compared. Hold or stratify target tier, discovery window,
+opportunity-score band, and opportunity quality as stable as practical; label
+uncontrolled results directional rather than causal. No reply-volume scaling
+decision is eligible before 50 measured replies.
 
 ## Value-gated budget
 
@@ -209,10 +222,15 @@ cost rises above the approved ceiling. Never buy followers or pay for engagement
 6. Credible-account replies are the primary near-term X acquisition strategy.
    David approves every reply individually; replies are posted manually through
    X's official interface unless X later grants written automation approval.
+7. The initial reply cadence is two manual approval/posting windows and no more
+   than four published replies per day. A third window and six/day require
+   separate approval and staffing and are currently disabled.
 
-Still needed: first-market country/language, whether a recurring human or
-licensed synthetic voice may be used, and current YouTube/other platform
-baselines.
+Still needed: an authoritative current YouTube metrics baseline, current other
+platform baselines, and any proposed recurring-human narrator engagement and
+contract receipt. The first market is U.S. English, and the initial YouTube
+comparison is a properly contracted recurring human narrator versus a
+caption-only cut. Synthetic and cloned voices are excluded from the pilot.
 
 ## Known-baseline milestone gates
 
