@@ -2,10 +2,12 @@ name: Counter sync
 # Fetches the Counter sheet's published CSV (reader submissions for Ask the
 # Baker / Letters to the King / The Crumb Board) and commits it as
 # /counter.csv, because the 5:00 AM bake's cloud sandbox cannot reach
-# docs.google.com directly. Runs 15 minutes before the bake.
+# docs.google.com directly. Spark dispatches it at 4:30 AM Pacific; the paired
+# UTC schedules are DST-safe backups.
 on:
   schedule:
-    - cron: '45 11 * * *'   # 4:45 AM Pacific during PDT; nudge with the bake when DST ends
+    - cron: '45 11 * * *'
+    - cron: '45 12 * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -18,8 +20,29 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Resolve active Pacific backup schedule
+        id: cfg
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          set -euo pipefail
+          ACTIVE=true
+          if [ "${EVENT_NAME}" = "schedule" ]; then
+            PACIFIC_OFFSET="$(TZ=America/Los_Angeles date +%z)"
+            case "${PACIFIC_OFFSET}:${EVENT_SCHEDULE}" in
+              '-0700:45 11 * * *'|'-0800:45 12 * * *') ;;
+              *) ACTIVE=false ;;
+            esac
+          fi
+          echo "active=$ACTIVE" >> "$GITHUB_OUTPUT"
+          echo "Counter backup active=$ACTIVE"
+
+      - name: Checkout
+        if: steps.cfg.outputs.active == 'true'
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Fetch published Counter CSV
+        if: steps.cfg.outputs.active == 'true'
         run: |
           curl -sSL --fail --retry 3 -o counter.csv.new \
             "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLZpQtsFE0aGPesDlZceSy-4nRa6GV0TvLM7jJPToJp43Ml0vtRomQpovm4Sbed6JKo9B4h7gh76TE/pub?output=csv"
@@ -30,6 +53,7 @@ jobs:
           fi
           mv counter.csv.new counter.csv
       - name: Commit if changed
+        if: steps.cfg.outputs.active == 'true'
         run: |
           git config user.name "ddb-counter-sync"
           git config user.email "actions@davidsdailybread.com"

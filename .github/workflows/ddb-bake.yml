@@ -7,18 +7,18 @@ name: Daily bake
 # and dies on `git push` with HTTP 403, which is why the bake lives here.
 on:
   schedule:
-    # Morning: 12:05 UTC = 5:05 AM Pacific during PDT, 20 minutes after
-    # counter-sync (11:45 UTC). Evening: 22:35 UTC = 3:35 PM Pacific during PDT.
-    # GitHub cron can be delayed or dropped; treat it as the backup trigger and
-    # these times as "no earlier than". When US daylight time ends (early November) BOTH
-    # bake crons AND counter-sync's cron need a +1 hour nudge to stay at their
-    # Pacific times. The slot is resolved from which cron fired (see cfg step).
+    # GitHub is the backup clock behind Spark's zone-aware 5:00 AM and 3:30 PM
+    # Pacific triggers. Each slot has PDT and PST cron candidates; cfg activates
+    # only the candidate matching the current Pacific UTC offset. This removes
+    # the manual daylight-saving edit without trusting delayed execution time.
     - cron: '5 12 * * *'
+    - cron: '5 13 * * *'
     - cron: '35 22 * * *'
+    - cron: '35 23 * * *'
   workflow_dispatch:
     inputs:
       date:
-        description: 'edition date YYYY-MM-DD, blank means today in New York'
+        description: 'edition date YYYY-MM-DD, blank means today in Pacific time'
         required: false
         default: ''
       slot:
@@ -46,6 +46,7 @@ jobs:
       slot: ${{ steps.cfg.outputs.slot }}
       mode: ${{ steps.cfg.outputs.mode }}
       already_exists: ${{ steps.existing.outputs.exists }}
+      active: ${{ steps.cfg.outputs.active }}
     runs-on: ubuntu-latest
     timeout-minutes: 75
     steps:
@@ -70,15 +71,25 @@ jobs:
         run: |
           set -euo pipefail
           IN="${IN_DATE:-}"
-          TODAY="$(TZ=America/New_York date +%F)"
+          TODAY="$(TZ=America/Los_Angeles date +%F)"
           D="${IN:-$TODAY}"
           if ! echo "$D" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
             echo "::error::Invalid edition date '$D'; expected YYYY-MM-DD"
             exit 1
           fi
           # Scheduled runs infer the slot from which cron fired; dispatches say.
+          ACTIVE=true
           if [ "${EVENT_NAME}" = "schedule" ]; then
-            if [ "${EVENT_SCHEDULE}" = "5 12 * * *" ]; then SLOT=morning; else SLOT=evening; fi
+            case "${EVENT_SCHEDULE}" in
+              '5 12 * * *'|'5 13 * * *') SLOT=morning ;;
+              '35 22 * * *'|'35 23 * * *') SLOT=evening ;;
+              *) echo "::error::Unknown bake schedule '${EVENT_SCHEDULE}'"; exit 1 ;;
+            esac
+            PACIFIC_OFFSET="$(TZ=America/Los_Angeles date +%z)"
+            case "${PACIFIC_OFFSET}:${EVENT_SCHEDULE}" in
+              '-0700:5 12 * * *'|'-0800:5 13 * * *'|'-0700:35 22 * * *'|'-0800:35 23 * * *') ;;
+              *) ACTIVE=false ;;
+            esac
           else
             SLOT="${IN_SLOT:-morning}"
           fi
@@ -97,16 +108,23 @@ jobs:
             echo "mode=$MODE"
             echo "human=$HUMAN"
             echo "model=$MODEL"
+            echo "active=$ACTIVE"
           } >> "$GITHUB_OUTPUT"
-          echo "Baking $D $SLOT ($MODE) with $MODEL"
+          echo "Resolved $D $SLOT ($MODE) with $MODEL; active=$ACTIVE"
 
       - name: Treat an existing edition as a successful no-op
         id: existing
         env:
           EDITION_DATE: ${{ steps.cfg.outputs.date }}
           SLOT: ${{ steps.cfg.outputs.slot }}
+          ACTIVE: ${{ steps.cfg.outputs.active }}
         run: |
           set -euo pipefail
+          if [ "${ACTIVE}" != "true" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Inactive daylight-saving backup candidate; successful no-op"
+            exit 0
+          fi
           if [ -f "editions/${EDITION_DATE}-${SLOT}.html" ]; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
             echo "editions/${EDITION_DATE}-${SLOT}.html already exists on main; bake is a successful no-op"
@@ -277,7 +295,7 @@ jobs:
   x-broadcast:
     name: Canonical X broadcast
     needs: bake
-    if: needs.bake.result == 'success' && needs.bake.outputs.mode == 'daily' && needs.bake.outputs.already_exists != 'true'
+    if: needs.bake.result == 'success' && needs.bake.outputs.active == 'true' && needs.bake.outputs.mode == 'daily' && needs.bake.outputs.already_exists != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: x-broadcast-production
@@ -435,7 +453,7 @@ jobs:
   telegram-publication-receipt:
     name: Exact edition Telegram receipt
     needs: bake
-    if: needs.bake.result == 'success' && needs.bake.outputs.mode == 'daily'
+    if: needs.bake.result == 'success' && needs.bake.outputs.active == 'true' && needs.bake.outputs.mode == 'daily'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: telegram-notification-production
@@ -494,6 +512,17 @@ jobs:
           else
             echo "duplicate=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Wait for exact public edition URL
+        if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
+        env:
+          EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
+        run: |
+          set -euo pipefail
+          python3 distribution/telegram_notification.py verify-live \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
+            --attempts 20 --delay-seconds 10
 
       - name: Prepare duplicate-blocking mutation reservation
         if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'

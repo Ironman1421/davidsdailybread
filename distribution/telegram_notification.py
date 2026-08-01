@@ -19,6 +19,7 @@ from pathlib import Path
 import re
 import secrets
 import sys
+import time
 from typing import Any, Callable, Mapping, Protocol
 from urllib import error, parse, request
 
@@ -56,6 +57,10 @@ class AmbiguousMutationError(NotificationError):
 
 class ReadbackError(NotificationError):
     pass
+
+
+class LiveReadinessError(NotificationError):
+    """The exact public edition page is not ready for a truthful notification."""
 
 
 @dataclass(frozen=True)
@@ -230,6 +235,51 @@ def build_package(archive_path: Path, date: str, slot: str) -> NotificationPacka
         text=text,
         format_id=FORMAT_IDS[slot],
         idempotency_key=f"ddb:telegram:{slot}-receipt:{edition_id}:v1",
+    )
+
+
+def verify_live_edition(
+    package: NotificationPackage,
+    *,
+    attempts: int = 20,
+    delay_seconds: float = 10.0,
+    opener: Any = request.urlopen,
+    sleeper: Callable[[float], None] = time.sleep,
+) -> None:
+    if attempts < 1:
+        raise ValidationError("live readiness attempts must be positive")
+    expected_title = (
+        f"<title>David's Daily Bread – {package.slot.title()} edition, "
+        f"{_human_date(package.date)}</title>"
+    ).encode("utf-8")
+    last_result = "no response"
+    for attempt in range(1, attempts + 1):
+        req = request.Request(
+            package.canonical_url,
+            headers={"Cache-Control": "no-cache", "User-Agent": "ddb-live-readiness/1"},
+            method="GET",
+        )
+        try:
+            with opener(req, timeout=10) as response:
+                status = response.status
+                body = response.read(65_537)
+        except error.HTTPError as exc:
+            status = exc.code
+            body = exc.read(65_537)
+            last_result = (
+                f"HTTP {status} with "
+                f"{'matching' if expected_title in body else 'nonmatching'} title"
+            )
+        except (TimeoutError, error.URLError, OSError) as exc:
+            last_result = type(exc).__name__
+        else:
+            if status == 200 and expected_title in body:
+                return
+            last_result = f"HTTP {status} with {'matching' if expected_title in body else 'nonmatching'} title"
+        if attempt < attempts:
+            sleeper(delay_seconds)
+    raise LiveReadinessError(
+        f"exact public edition was not ready after {attempts} attempts ({last_result})"
     )
 
 
@@ -549,6 +599,11 @@ def _parser() -> argparse.ArgumentParser:
     preview = subparsers.add_parser("preview")
     package_args(preview)
 
+    verify = subparsers.add_parser("verify-live")
+    package_args(verify)
+    verify.add_argument("--attempts", type=int, default=20)
+    verify.add_argument("--delay-seconds", type=float, default=10.0)
+
     reserve = subparsers.add_parser("reserve")
     package_args(reserve)
     reserve.add_argument(
@@ -593,6 +648,14 @@ def main(argv: list[str] | None = None) -> int:
         package = build_package(args.archive, args.date, args.slot)
         if args.command == "preview":
             print(json.dumps(asdict(package), indent=2, sort_keys=True))
+            return 0
+        if args.command == "verify-live":
+            verify_live_edition(
+                package,
+                attempts=args.attempts,
+                delay_seconds=args.delay_seconds,
+            )
+            print(f"live edition verified: {package.edition_id}")
             return 0
         if args.command == "reserve":
             write_reservation(
