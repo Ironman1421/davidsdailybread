@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed Telegram receipt for one exact morning edition.
+"""Fail-closed Telegram receipt for one exact daily edition.
 
 The notification is deliberately deterministic. It consumes the canonical
 archive entry produced by the bake, sends one plain-text Telegram message, and
@@ -24,11 +24,16 @@ from urllib import error, parse, request
 
 
 SITE_BASE = "https://davidsdailybread.com"
-FORMAT_ID = "telegram-morning-receipt-v1"
-EDITION_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-morning$")
+FORMAT_IDS = {
+    "morning": "telegram-morning-receipt-v1",
+    "evening": "telegram-evening-receipt-v1",
+}
+EDITION_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-(morning|evening)$")
 CHAT_ID_RE = re.compile(r"^-?[1-9][0-9]{5,19}$")
 BOT_TOKEN_RE = re.compile(r"^[0-9]{6,12}:[A-Za-z0-9_-]{30,}$")
 TRUE_VALUES = {"1", "true", "yes", "on"}
+
+
 class NotificationError(RuntimeError):
     """Base class for expected notification failures."""
 
@@ -188,8 +193,8 @@ def _validate_lead(value: object) -> str:
 
 def build_package(archive_path: Path, date: str, slot: str) -> NotificationPackage:
     edition_id = f"{date}-{slot}"
-    if slot != "morning" or not EDITION_RE.fullmatch(edition_id):
-        raise ValidationError("Telegram receipts are limited to an exact morning edition")
+    if slot not in FORMAT_IDS or not EDITION_RE.fullmatch(edition_id):
+        raise ValidationError("Telegram receipt requires an exact morning or evening edition")
     try:
         archive = json.loads(archive_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
@@ -211,8 +216,8 @@ def build_package(archive_path: Path, date: str, slot: str) -> NotificationPacka
     lead = _validate_lead(matches[0].get("lead"))
     canonical_url = f"{SITE_BASE}/{expected_file}"
     text = (
-        f"\U0001f35e {_human_date(date)} morning edition is live\n\n"
-        f"{lead}\n\nRead the full briefing: {canonical_url}"
+        f"\U0001f35e {_human_date(date)} {slot} edition is live\n\n"
+        f"{lead}\n\nOpen the live edition: {canonical_url}"
     )
     if len(text) > 4096:
         raise ValidationError("Telegram notification exceeds the 4096-character limit")
@@ -223,8 +228,8 @@ def build_package(archive_path: Path, date: str, slot: str) -> NotificationPacka
         lead=lead,
         canonical_url=canonical_url,
         text=text,
-        format_id=FORMAT_ID,
-        idempotency_key=f"ddb:telegram:morning-receipt:{edition_id}:v1",
+        format_id=FORMAT_IDS[slot],
+        idempotency_key=f"ddb:telegram:{slot}-receipt:{edition_id}:v1",
     )
 
 
@@ -249,10 +254,11 @@ def _write_json(path: Path, value: object) -> None:
         temporary.unlink(missing_ok=True)
 
 
-def _edition_order_key(edition_id: str) -> str:
-    if not EDITION_RE.fullmatch(edition_id):
-        raise ValidationError(f"invalid morning edition id: {edition_id}")
-    return edition_id
+def _edition_order_key(edition_id: str) -> tuple[str, int]:
+    match = EDITION_RE.fullmatch(edition_id)
+    if not match:
+        raise ValidationError(f"invalid edition id: {edition_id}")
+    return match.group(1), 0 if match.group(2) == "morning" else 1
 
 
 def _iter_receipts(receipt_dir: Path) -> list[Mapping[str, Any]]:
@@ -538,7 +544,7 @@ def _parser() -> argparse.ArgumentParser:
     def package_args(subparser: argparse.ArgumentParser) -> None:
         subparser.add_argument("--archive", type=Path, required=True)
         subparser.add_argument("--date", required=True)
-        subparser.add_argument("--slot", choices=["morning"], required=True)
+        subparser.add_argument("--slot", choices=["morning", "evening"], required=True)
 
     preview = subparsers.add_parser("preview")
     package_args(preview)

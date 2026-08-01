@@ -433,9 +433,9 @@ jobs:
           exit 1
 
   telegram-publication-receipt:
-    name: Exact morning Telegram receipt
+    name: Exact edition Telegram receipt
     needs: bake
-    if: needs.bake.result == 'success' && needs.bake.outputs.mode == 'daily' && needs.bake.outputs.slot == 'morning'
+    if: needs.bake.result == 'success' && needs.bake.outputs.mode == 'daily'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: telegram-notification-production
@@ -463,13 +463,14 @@ jobs:
             "$RUNNER_TEMP/telegram-notification/receipts" \
             "$RUNNER_TEMP/telegram-notification/reservation"
 
-      - name: Preview exact morning package
+      - name: Preview exact edition package
         env:
           EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py preview \
-            --archive archive.json --date "$EDITION_DATE" --slot morning \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
             > "$RUNNER_TEMP/telegram-notification/preview.json"
           cat "$RUNNER_TEMP/telegram-notification/preview.json"
 
@@ -479,11 +480,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
         run: |
           set -euo pipefail
           result="$(python3 distribution/telegram_notification.py hydrate-github-receipt \
             --repository "$GITHUB_REPOSITORY" \
-            --edition-id "${EDITION_DATE}-morning" \
+            --edition-id "${EDITION_DATE}-${SLOT}" \
             --state distribution/telegram-notification-state.json \
             --output-dir "$RUNNER_TEMP/telegram-notification/receipts")"
           if [ "$result" = "found" ]; then
@@ -497,20 +499,21 @@ jobs:
         if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
         env:
           EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py reserve \
-            --archive archive.json --date "$EDITION_DATE" --slot morning \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
             --state distribution/telegram-notification-state.json \
             --receipt-dir "$RUNNER_TEMP/telegram-notification/receipts" \
-            --output "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-morning.json"
+            --output "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-${SLOT}.json"
 
       - name: Persist mutation reservation before loading Telegram credentials
         if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: telegram-notification-reservation-${{ needs.bake.outputs.date }}-morning
-          path: ${{ runner.temp }}/telegram-notification/reservation/${{ needs.bake.outputs.date }}-morning.json
+          name: telegram-notification-reservation-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
+          path: ${{ runner.temp }}/telegram-notification/reservation/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
           retention-days: 90
           if-no-files-found: error
 
@@ -520,32 +523,34 @@ jobs:
           DDB_TELEGRAM_NOTIFY_ENABLED: ${{ vars.DDB_TELEGRAM_NOTIFY_ENABLED }}
           DDB_TELEGRAM_NOTIFY_KILL_SWITCH: 'true'
           EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py run \
-            --archive archive.json --date "$EDITION_DATE" --slot morning \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
             --state distribution/telegram-notification-state.json \
             --attempt-dir "$RUNNER_TEMP/telegram-notification/attempts" \
             --receipt-dir "$RUNNER_TEMP/telegram-notification/receipts" \
-            --reservation "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-morning.json"
+            --reservation "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-${SLOT}.json"
 
-      - name: Dry-run exact morning notification without loading credentials
+      - name: Dry-run exact edition notification without loading credentials
         if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED != 'true'
         env:
           DDB_TELEGRAM_NOTIFY_ENABLED: 'false'
           DDB_TELEGRAM_NOTIFY_KILL_SWITCH: 'false'
           EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py run \
-            --archive archive.json --date "$EDITION_DATE" --slot morning \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
             --state distribution/telegram-notification-state.json \
             --attempt-dir "$RUNNER_TEMP/telegram-notification/attempts" \
             --receipt-dir "$RUNNER_TEMP/telegram-notification/receipts" \
-            --reservation "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-morning.json" \
+            --reservation "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-${SLOT}.json" \
             --dry-run
 
-      - name: Run live exact morning notification
+      - name: Run live exact edition notification
         id: telegram_notification_live
         if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
         continue-on-error: true
@@ -555,20 +560,21 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py run \
-            --archive archive.json --date "$EDITION_DATE" --slot morning \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
             --state distribution/telegram-notification-state.json \
             --attempt-dir "$RUNNER_TEMP/telegram-notification/attempts" \
             --receipt-dir "$RUNNER_TEMP/telegram-notification/receipts" \
-            --reservation "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-morning.json"
+            --reservation "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-${SLOT}.json"
 
       - name: Upload redacted Telegram attempt
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: telegram-notification-attempt-${{ needs.bake.outputs.date }}-morning-${{ github.run_id }}-${{ github.run_attempt }}
+          name: telegram-notification-attempt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/telegram-notification/preview.json
             ${{ runner.temp }}/telegram-notification/attempts/*.json
@@ -579,8 +585,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: telegram-notification-receipt-${{ needs.bake.outputs.date }}-morning
-          path: ${{ runner.temp }}/telegram-notification/receipts/${{ needs.bake.outputs.date }}-morning.json
+          name: telegram-notification-receipt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
+          path: ${{ runner.temp }}/telegram-notification/receipts/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
           retention-days: 90
           if-no-files-found: ignore
 

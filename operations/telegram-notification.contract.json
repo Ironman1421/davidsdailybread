@@ -1,19 +1,20 @@
 {
   "version": 1,
-  "deploymentStatus": "approved-for-production-cutover",
+  "deploymentStatus": "production-active",
   "repository": "Ironman1421/davidsdailybread",
   "owner": "David Friedhof",
-  "scope": "one private Telegram receipt for the exact newly published daily morning edition",
+  "scope": "one private Telegram receipt for each exact newly published daily morning and evening edition",
   "trigger": {
     "workflow": ".github/workflows/ddb-bake.yml",
     "job": "telegram-publication-receipt",
     "afterSuccessfulBakeJob": true,
-    "dailyMorningOnly": true,
+    "dailySlots": ["morning", "evening"],
     "backfillAllowed": false
   },
   "sourceContract": {
     "path": "archive.json",
     "requiresExactDateSlotAndFile": true,
+    "messageIncludesDirectCanonicalEditionUrl": true,
     "latestOlderFallbackAllowed": false,
     "modelGeneratedSelectionOrSummaryAllowed": false
   },
@@ -41,7 +42,7 @@
     "secretsLoadedOnlyByLiveStep": true
   },
   "idempotency": {
-    "key": "ddb:telegram:morning-receipt:{editionId}:v1",
+    "key": "ddb:telegram:{slot}-receipt:{editionId}:v1",
     "cutoverAfterEditionId": "2026-08-01-morning",
     "durableReservationArtifact": "telegram-notification-reservation-{editionId}",
     "durableReceiptArtifact": "telegram-notification-receipt-{editionId}",
