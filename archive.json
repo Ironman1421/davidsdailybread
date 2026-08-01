@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-07-31",
+      "edition": "evening",
+      "dateHuman": "Friday, July 31, 2026",
+      "file": "editions/2026-07-31-evening.html",
+      "lead": "Check your cheap TV streaming stick tonight: researchers tracked 38,000 of them running ad fraud with the screen off",
+      "pubDate": "Fri, 31 Jul 2026 20:03:06 -0400"
+    },
+    {
+      "date": "2026-07-31",
       "edition": "morning",
       "dateHuman": "Friday, July 31, 2026",
       "file": "editions/2026-07-31-morning.html",

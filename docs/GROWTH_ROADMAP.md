@@ -5,12 +5,13 @@ Goal: 1,000,000 followers in six months
 
 ## Reality of the target
 
-The documented baseline on 2026-07-31 is five X followers. YouTube and other
-platform baselines are unmeasured and count as zero for planning until captured.
-Against that known floor, the combined-platform goal requires 999,995 net new
-followers in 180 days, or about 5,556 every day. Organic growth at that rate is
-an outlier, so this is managed as a portfolio of repeatable formats and breakout
-bets, not as a forecast.
+The documented baseline on 2026-07-31 is five X followers. The YouTube channel
+identity is known, but its metrics and other platform baselines are unmeasured.
+Those unknowns remain unknown, never zero. If every unmeasured baseline were
+zero, the combined-platform goal would require 999,995 net new followers in 180
+days, or about 5,556 every day. Organic growth at that rate is an outlier, so
+this is managed as a portfolio of repeatable formats and breakout bets, not as a
+forecast.
 
 The exposure requirement is equally demanding. At a 1 percent
 impression-to-follow conversion, a zero-baseline account needs about 100
@@ -225,9 +226,11 @@ cost rises above the approved ceiling. Never buy followers or pay for engagement
    than four published replies per day. A third window and six/day require
    separate approval and staffing and are currently disabled.
 
-Still needed: first-market country/language, whether a recurring human or
-licensed synthetic voice may be used, and current YouTube/other platform
-baselines.
+Still needed: an authoritative current YouTube metrics baseline, current other
+platform baselines, and any proposed recurring-human narrator engagement and
+contract receipt. The first market is U.S. English, and the initial YouTube
+comparison is a properly contracted recurring human narrator versus a
+caption-only cut. Synthetic and cloned voices are excluded from the pilot.
 
 ## Known-baseline milestone gates
 
