@@ -34,7 +34,7 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 
 ### Morning edition
 
-- Cadence: daily, dispatched at 3:00 AM Pacific, with a delayed 3:05 AM
+- Cadence: daily, dispatched at 4:40 AM Pacific, with a delayed 4:45 AM
   DST-safe GitHub backup, targeting reader-ready publication near 5:00 AM
   Pacific (8:00 AM Eastern).
 - Job: straight news from the prior day in technology, business and markets,
@@ -47,7 +47,7 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 
 ### Evening edition
 
-- Cadence: daily, dispatched at 1:00 PM Pacific, with a delayed 1:05 PM
+- Cadence: daily, dispatched at 2:40 PM Pacific, with a delayed 2:45 PM
   DST-safe GitHub backup, targeting reader-ready publication near 3:00 PM
   Pacific (6:00 PM Eastern).
 - Job: a Field Guide of things an everyday reader can act on that night.

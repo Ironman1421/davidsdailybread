@@ -7,15 +7,15 @@ name: Daily bake
 # and dies on `git push` with HTTP 403, which is why the bake lives here.
 on:
   schedule:
-    # GitHub is the backup clock behind Spark's zone-aware 3:00 AM and 1:00 PM
+    # GitHub is the backup clock behind Spark's zone-aware 4:40 AM and 2:40 PM
     # Pacific triggers. Those starts target reader-ready publication near
     # 5:00 AM and 3:00 PM Pacific. Each slot has PDT and PST cron candidates;
     # cfg activates only the candidate matching the current Pacific UTC offset. This removes
     # the manual daylight-saving edit without trusting delayed execution time.
-    - cron: '5 10 * * *'
-    - cron: '5 11 * * *'
-    - cron: '5 20 * * *'
-    - cron: '5 21 * * *'
+    - cron: '45 11 * * *'
+    - cron: '45 12 * * *'
+    - cron: '45 21 * * *'
+    - cron: '45 22 * * *'
   workflow_dispatch:
     inputs:
       date:
@@ -82,15 +82,15 @@ jobs:
           ACTIVE=true
           if [ "${EVENT_NAME}" = "schedule" ]; then
             case "${EVENT_SCHEDULE}" in
-              '5 10 * * *'|'5 11 * * *') SLOT=morning; TARGET_CLOCK=03:05:00 ;;
-              '5 20 * * *'|'5 21 * * *') SLOT=evening; TARGET_CLOCK=13:05:00 ;;
+              '45 11 * * *'|'45 12 * * *') SLOT=morning; TARGET_CLOCK=04:45:00 ;;
+              '45 21 * * *'|'45 22 * * *') SLOT=evening; TARGET_CLOCK=14:45:00 ;;
               *) echo "::error::Unknown bake schedule '${EVENT_SCHEDULE}'"; exit 1 ;;
             esac
             # Gate on the nominal backup time. GitHub can start a queued run
             # after a DST boundary, when the runner's current offset differs.
             PACIFIC_OFFSET="$(TZ=America/Los_Angeles date -d "$TODAY $TARGET_CLOCK" +%z)"
             case "${PACIFIC_OFFSET}:${EVENT_SCHEDULE}" in
-              '-0700:5 10 * * *'|'-0800:5 11 * * *'|'-0700:5 20 * * *'|'-0800:5 21 * * *') ;;
+              '-0700:45 11 * * *'|'-0800:45 12 * * *'|'-0700:45 21 * * *'|'-0800:45 22 * * *') ;;
               *) ACTIVE=false ;;
             esac
           else
