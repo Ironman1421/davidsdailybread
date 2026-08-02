@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/measurement-observation-v1.json",
+  "title": "David's Daily Bread aggregate scorecard observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "date",
+    "capturedAt",
+    "timezone",
+    "editions",
+    "audience"
+  ],
+  "properties": {
+    "version": {"const": 1},
+    "date": {"type": "string", "format": "date"},
+    "capturedAt": {"type": "string", "format": "date-time"},
+    "timezone": {"const": "America/Los_Angeles"},
+    "notes": {"type": "string"},
+    "editions": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/edition"}
+    },
+    "audience": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/audienceMetric"}
+    }
+  },
+  "$defs": {
+    "state": {
+      "enum": ["observed", "unknown", "not_due", "not_applicable"]
+    },
+    "unobservedEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "reason"],
+      "properties": {
+        "state": {"enum": ["unknown", "not_due", "not_applicable"]},
+        "occurredAt": {"type": "null"},
+        "sourceRef": {"type": "null"},
+        "reason": {"type": "string", "minLength": 1},
+        "note": {"type": "string"}
+      }
+    },
+    "dispatch": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "occurredAt", "sourceRef"],
+          "properties": {
+            "state": {"const": "observed"},
+            "occurredAt": {"type": "string", "format": "date-time"},
+            "sourceRef": {"type": "string", "minLength": 1},
+            "reason": {"type": "null"},
+            "note": {"type": "string"}
+          }
+        },
+        {"$ref": "#/$defs/unobservedEvent"}
+      ]
+    },
+    "site": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "occurredAt",
+            "httpStatus",
+            "exactTitleVerified",
+            "sourceRef"
+          ],
+          "properties": {
+            "state": {"const": "observed"},
+            "occurredAt": {"type": "string", "format": "date-time"},
+            "httpStatus": {"type": "integer", "minimum": 100, "maximum": 599},
+            "exactTitleVerified": {"type": "boolean"},
+            "sourceRef": {"type": "string", "minLength": 1},
+            "reason": {"type": "null"},
+            "note": {"type": "string"}
+          }
+        },
+        {"$ref": "#/$defs/unobservedEvent"}
+      ]
+    },
+    "workflow": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "conclusion", "sourceRef"],
+          "properties": {
+            "state": {"const": "observed"},
+            "conclusion": {
+              "enum": ["success", "failure", "cancelled", "timed_out"]
+            },
+            "occurredAt": {"type": "string", "format": "date-time"},
+            "sourceRef": {"type": "string", "minLength": 1},
+            "reason": {"type": "null"},
+            "note": {"type": "string"}
+          }
+        },
+        {"$ref": "#/$defs/unobservedEvent"}
+      ]
+    },
+    "channel": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "occurredAt", "status", "sourceRef"],
+          "properties": {
+            "state": {"const": "observed"},
+            "occurredAt": {"type": "string", "format": "date-time"},
+            "status": {"type": "string", "minLength": 1},
+            "sourceRef": {"type": "string", "minLength": 1},
+            "reason": {"type": "null"},
+            "note": {"type": "string"}
+          }
+        },
+        {"$ref": "#/$defs/unobservedEvent"}
+      ]
+    },
+    "watchdog": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "occurredAt", "result", "sourceRef"],
+          "properties": {
+            "state": {"const": "observed"},
+            "occurredAt": {"type": "string", "format": "date-time"},
+            "result": {"type": "string", "minLength": 1},
+            "sourceRef": {"type": "string", "minLength": 1},
+            "reason": {"type": "null"},
+            "note": {"type": "string"}
+          }
+        },
+        {"$ref": "#/$defs/unobservedEvent"}
+      ]
+    },
+    "edition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "editionId",
+        "slot",
+        "due",
+        "dispatch",
+        "site",
+        "workflow",
+        "x",
+        "telegram",
+        "watchdog"
+      ],
+      "properties": {
+        "editionId": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"
+        },
+        "slot": {"enum": ["morning", "evening"]},
+        "due": {"type": "boolean"},
+        "dispatch": {"$ref": "#/$defs/dispatch"},
+        "site": {"$ref": "#/$defs/site"},
+        "workflow": {"$ref": "#/$defs/workflow"},
+        "x": {"$ref": "#/$defs/channel"},
+        "telegram": {"$ref": "#/$defs/channel"},
+        "watchdog": {"$ref": "#/$defs/watchdog"}
+      }
+    },
+    "audienceMetric": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "metricId",
+            "state",
+            "value",
+            "unit",
+            "observedAt",
+            "periodStart",
+            "periodEnd",
+            "sourceRef",
+            "reason"
+          ],
+          "properties": {
+            "metricId": {"type": "string", "minLength": 1},
+            "state": {"const": "observed"},
+            "value": {"type": "number", "minimum": 0},
+            "unit": {"type": "string", "minLength": 1},
+            "observedAt": {"type": "string", "format": "date-time"},
+            "periodStart": {"type": ["string", "null"], "format": "date"},
+            "periodEnd": {"type": ["string", "null"], "format": "date"},
+            "sourceRef": {"type": "string", "minLength": 1},
+            "reason": {"type": "null"},
+            "note": {"type": "string"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "metricId",
+            "state",
+            "value",
+            "unit",
+            "observedAt",
+            "periodStart",
+            "periodEnd",
+            "sourceRef",
+            "reason"
+          ],
+          "properties": {
+            "metricId": {"type": "string", "minLength": 1},
+            "state": {"enum": ["unknown", "not_due", "not_applicable"]},
+            "value": {"type": "null"},
+            "unit": {"type": "string", "minLength": 1},
+            "observedAt": {"type": "null"},
+            "periodStart": {"type": ["string", "null"], "format": "date"},
+            "periodEnd": {"type": ["string", "null"], "format": "date"},
+            "sourceRef": {"type": "null"},
+            "reason": {"type": "string", "minLength": 1},
+            "note": {"type": "string"}
+          }
+        }
+      ]
+    }
+  }
+}

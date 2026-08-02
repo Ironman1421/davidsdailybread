@@ -57,6 +57,9 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   that every activation gate is complete.
 - `distribution/metrics.schema.json` / `distribution/ledger.json` — the
   machine-readable measurement contract and current baseline/post ledger.
+- `docs/MEASUREMENT_SCORECARD.md` / `measurement/` — the repository-owned,
+  aggregate-only daily and weekly operating scorecard, metric dictionary,
+  normalized observations, and seven-day experiment template.
 - `distribution/x-reply-approval-card.schema.json` — the private, transient
   per-candidate approval-card contract; no real draft cards are committed.
 - `distribution/x-replies.schema.json` / `distribution/x-replies.json` — the

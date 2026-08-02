@@ -1,0 +1,243 @@
+{
+  "version": 1,
+  "northStarMetricId": "genuinely_engaged_returning_people_7d",
+  "proxyStages": [
+    {
+      "stage": 1,
+      "label": "Canonical availability",
+      "interpretation": "The edition was published and verifiably reachable. This is operational readiness, not readership.",
+      "metricIds": [
+        "edition_success_rate",
+        "dispatch_to_site_latency_seconds",
+        "telegram_success_rate",
+        "watchdog_success_rate"
+      ]
+    },
+    {
+      "stage": 2,
+      "label": "Discovery delivery",
+      "interpretation": "An edition reached an approved discovery channel. Delivery is not engagement or return.",
+      "metricIds": [
+        "dispatch_to_x_latency_seconds",
+        "x_impressions_7d",
+        "x_link_clicks_7d"
+      ]
+    },
+    {
+      "stage": 3,
+      "label": "Platform engagement and return",
+      "interpretation": "Provider-reported aggregate engagement or return. Keep each platform separate because one person may appear on more than one platform.",
+      "metricIds": [
+        "x_followers",
+        "youtube_followers",
+        "youtube_returning_viewers_7d"
+      ]
+    },
+    {
+      "stage": 4,
+      "label": "First-party return proxy",
+      "interpretation": "A privacy-preserving site return measure, if David authorizes collection. It remains unknown while first-party return measurement is paused.",
+      "metricIds": [
+        "first_party_returning_readers_7d"
+      ]
+    },
+    {
+      "stage": 5,
+      "label": "North star",
+      "interpretation": "Distinct people who genuinely engaged on at least two days in the rolling seven-day window. This is the proof goal and remains unknown until an authorized aggregate method exists.",
+      "metricIds": [
+        "genuinely_engaged_returning_people_7d"
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "id": "dispatch_to_site_latency_seconds",
+      "label": "Dispatch-to-site latency",
+      "category": "operations",
+      "unit": "seconds",
+      "formula": "Median of exact public-site verification timestamp minus actual dispatch timestamp for due editions; p95 and sample count are also reported.",
+      "sources": [
+        "Spark trigger journal or GitHub workflow dispatch event",
+        "exact public URL verification in a GitHub run or redacted receipt"
+      ],
+      "cadence": "daily and weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown unless both actual timestamps exist for the exact edition. Never substitute a scheduled time, render time, commit time, or an older edition.",
+      "window": "scorecard_period"
+    },
+    {
+      "id": "dispatch_to_x_latency_seconds",
+      "label": "Dispatch-to-X latency",
+      "category": "operations",
+      "unit": "seconds",
+      "formula": "Median of verified X publication timestamp minus actual dispatch timestamp for due editions; p95 and sample count are also reported.",
+      "sources": [
+        "Spark trigger journal or GitHub workflow dispatch event",
+        "Spark X send receipt or repository X read-back receipt"
+      ],
+      "cadence": "daily and weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown unless actual dispatch and exact-edition X publication timestamps are both observed. A skipped or kill-switched lane is not success.",
+      "window": "scorecard_period"
+    },
+    {
+      "id": "edition_success_rate",
+      "label": "Edition success rate",
+      "category": "operations",
+      "unit": "ratio",
+      "formula": "Due editions with a successful workflow, exact archive entry, HTTP 200 exact public URL, and verified exact title divided by due editions with observed outcomes.",
+      "sources": [
+        "archive.json",
+        "GitHub Actions run and exact public-page verification"
+      ],
+      "cadence": "daily and weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown when no due outcome is observed; partial when any due outcome or observation day is missing. Absence alone is not failure.",
+      "window": "scorecard_period"
+    },
+    {
+      "id": "telegram_success_rate",
+      "label": "Telegram receipt success rate",
+      "category": "operations",
+      "unit": "ratio",
+      "formula": "Exact-edition Telegram receipts with status sent divided by due editions with observed Telegram outcomes.",
+      "sources": [
+        "redacted GitHub Actions Telegram receipt artifact"
+      ],
+      "cadence": "daily and weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown without an exact-edition redacted receipt; partial when coverage is incomplete. Missing is never zero or success.",
+      "window": "scorecard_period"
+    },
+    {
+      "id": "watchdog_success_rate",
+      "label": "Watchdog success rate",
+      "category": "operations",
+      "unit": "ratio",
+      "formula": "Due editions whose watchdog observed exact_edition_present divided by due editions with observed watchdog outcomes.",
+      "sources": [
+        "Spark watchdog journal or normalized watchdog receipt"
+      ],
+      "cadence": "daily and weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown without an exact-date, exact-slot watchdog result; partial when coverage is incomplete.",
+      "window": "scorecard_period"
+    },
+    {
+      "id": "genuinely_engaged_returning_people_7d",
+      "label": "Genuinely engaged returning people",
+      "category": "audience",
+      "unit": "people",
+      "formula": "Distinct people with a qualifying engagement on at least two separate days in the rolling seven-day window. Qualifying engagement must be declared before collection and must exclude passive page loads.",
+      "sources": [
+        "future authorized privacy-preserving first-party aggregate",
+        "provider-reported returning-person aggregates kept separate by platform"
+      ],
+      "cadence": "weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown with reason not_authorized until David authorizes a first-party method. Never add platform counts because the same person may overlap.",
+      "window": "rolling_7d"
+    },
+    {
+      "id": "first_party_returning_readers_7d",
+      "label": "First-party returning readers",
+      "category": "audience",
+      "unit": "people",
+      "formula": "Privacy-preserving aggregate count of site readers observed on at least two separate days in the rolling seven-day window under an explicitly authorized method.",
+      "sources": [
+        "future authorized first-party aggregate only"
+      ],
+      "cadence": "weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown with reason not_authorized while first-party return measurement is paused. Do not use cookies, fingerprinting, IP addresses, local notes, or reader-submission data.",
+      "window": "rolling_7d"
+    },
+    {
+      "id": "x_followers",
+      "label": "X followers",
+      "category": "audience",
+      "unit": "followers",
+      "formula": "Aggregate follower count displayed by X or manually entered from X analytics at the recorded timestamp.",
+      "sources": [
+        "manual X account metric",
+        "distribution/ledger.json last-known baseline"
+      ],
+      "cadence": "weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown when no dated source exists. A stale observed value must retain its original timestamp and be labeled last-known, not current.",
+      "window": "point_in_time"
+    },
+    {
+      "id": "x_impressions_7d",
+      "label": "X impressions",
+      "category": "audience",
+      "unit": "impressions",
+      "formula": "Provider-reported aggregate X impressions for the declared rolling seven-day window.",
+      "sources": [
+        "manual X analytics aggregate"
+      ],
+      "cadence": "weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown unless a dated provider aggregate is manually entered. Missing analytics are not zero.",
+      "window": "rolling_7d"
+    },
+    {
+      "id": "x_link_clicks_7d",
+      "label": "X link clicks",
+      "category": "audience",
+      "unit": "clicks",
+      "formula": "Provider-reported aggregate link clicks on David's Daily Bread X posts for the rolling seven-day window.",
+      "sources": [
+        "manual X analytics aggregate"
+      ],
+      "cadence": "weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown unless a dated provider aggregate is manually entered. Do not infer clicks from impressions or public reaction counts.",
+      "window": "rolling_7d"
+    },
+    {
+      "id": "youtube_followers",
+      "label": "YouTube subscribers",
+      "category": "audience",
+      "unit": "subscribers",
+      "formula": "Aggregate subscriber count reported by YouTube Studio at the recorded timestamp.",
+      "sources": [
+        "manual YouTube Studio aggregate",
+        "youtube/ledgers/experiment.json"
+      ],
+      "cadence": "weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown unless a dated provider aggregate is manually entered. Missing analytics are not zero.",
+      "window": "point_in_time"
+    },
+    {
+      "id": "youtube_returning_viewers_7d",
+      "label": "YouTube returning viewers",
+      "category": "audience",
+      "unit": "viewers",
+      "formula": "Provider-reported returning viewers for the declared seven-day window.",
+      "sources": [
+        "manual YouTube Studio aggregate"
+      ],
+      "cadence": "weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown unless YouTube exposes the metric for the exact window and a dated aggregate is entered. Do not estimate from views.",
+      "window": "rolling_7d"
+    },
+    {
+      "id": "rss_subscribers",
+      "label": "RSS subscribers",
+      "category": "audience",
+      "unit": "subscribers",
+      "formula": "Aggregate subscriber count from an authorized RSS source, if one exists.",
+      "sources": [
+        "manual aggregate from an authorized RSS platform"
+      ],
+      "cadence": "weekly",
+      "owner": "David Friedhof",
+      "unknownBehavior": "Unknown when the public feed exposes no subscriber count. Never estimate from feed availability or requests.",
+      "window": "point_in_time"
+    }
+  ]
+}
