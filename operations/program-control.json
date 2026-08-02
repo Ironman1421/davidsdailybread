@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-02T19:45:33Z",
+  "updatedAt": "2026-08-02T19:53:18Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-005",
+  "activeItemId": "DDB-PC-006",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -137,7 +137,7 @@
       "id": "DDB-PC-005",
       "sequence": 5,
       "title": "Build the clean P0 governance and privacy integration",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-004"
       ],
@@ -153,13 +153,23 @@
         "Historical editions and Chronicles exports are preserved",
         "Rendered outputs are produced by the renderer rather than hand edited",
         "No external system or production state changed"
+      ],
+      "completedAt": "2026-08-02T19:53:18Z",
+      "evidence": [
+        "commit 0a96d206a5ea75f83522c5f669708c7ca079d112 on codex/deterministic-program-control",
+        "branch merge-base is origin/main d0421d0b90ecc51dcfe7c469c239e63f3114f595",
+        "FOUNDER_DOCTRINE.md and operations/reader-intake-pause.contract.json are present",
+        "reader-facing endpoint scan found no active Google Forms, Google Sheets, Apps Script, or Buttondown endpoint",
+        "no editions files changed and all four Chronicles exports remain",
+        "generated index and category outputs were excluded from the integration",
+        "all changes are local; no push, PR, merge, deploy, or provider mutation occurred"
       ]
     },
     {
       "id": "DDB-PC-006",
       "sequence": 6,
       "title": "Validate the P0 integration locally",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-005"
       ],
