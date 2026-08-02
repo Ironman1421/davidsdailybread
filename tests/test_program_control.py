@@ -42,13 +42,34 @@ class ProgramControlTest(unittest.TestCase):
                 self.assertIn(dependency, by_id)
                 self.assertLess(by_id[dependency]["sequence"], item["sequence"])
 
-    def test_exactly_one_active_item_matches_active_id(self):
+    def test_active_item_or_explicit_halt_matches_selection_rule(self):
+        items = self.control["items"]
+        by_id = {item["id"]: item for item in items}
         active = [
-            item for item in self.control["items"] if item["status"] == "in_progress"
+            item for item in items if item["status"] == "in_progress"
+        ]
+        eligible = [
+            item
+            for item in items
+            if item["status"] == "pending"
+            and all(by_id[dependency]["status"] == "complete" for dependency in item["dependencies"])
+            and (
+                item["authorization"]["type"] == "none"
+                or item["authorization"].get("granted") is True
+            )
         ]
 
-        self.assertEqual(1, len(active))
-        self.assertEqual(self.control["activeItemId"], active[0]["id"])
+        self.assertLessEqual(len(active), self.control["executionPolicy"]["maximumInProgress"])
+        if active:
+            self.assertEqual(self.control["activeItemId"], active[0]["id"])
+            later_eligible = [item for item in eligible if item["sequence"] < active[0]["sequence"]]
+            self.assertEqual([], later_eligible)
+        else:
+            self.assertIsNone(self.control["activeItemId"])
+            self.assertEqual([], eligible)
+            self.assertEqual("no_eligible_item", self.control["halt"]["type"])
+            self.assertEqual([], self.control["halt"]["eligibleItemIds"])
+            self.assertIn("explicit approval", self.control["halt"]["reason"])
 
     def test_states_completion_evidence_and_pauses_are_valid(self):
         allowed = set(self.control["states"])

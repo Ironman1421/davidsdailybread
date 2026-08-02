@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-02T19:59:19Z",
+  "updatedAt": "2026-08-02T20:02:07Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,13 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-010",
+  "activeItemId": null,
+  "halt": {
+    "type": "no_eligible_item",
+    "nextDecisionItemId": "DDB-PC-007",
+    "reason": "DDB-PC-007 is the lowest-sequence pending item with complete dependencies, but it requires David's explicit approval to push the branch and open a draft PR. Every other incomplete item is approval-gated, dependency-blocked, or paused by doctrine.",
+    "eligibleItemIds": []
+  },
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -274,7 +280,7 @@
       "id": "DDB-PC-010",
       "sequence": 10,
       "title": "Integrate the privacy-preserving measurement scorecard",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-003",
         "DDB-PC-006"
@@ -289,6 +295,16 @@
         "No PII, cookies, fingerprinting, vendor activation, or invented metrics are introduced",
         "Local static checks pass",
         "No external action occurred"
+      ],
+      "completedAt": "2026-08-02T20:02:07Z",
+      "evidence": [
+        "commit ccb2ce3bc065c5f74a618718617beb914be65019 integrates preserved commit 23d209fca783c1654cd36ecd5e01097c2eee29fb",
+        "offline measurement/scorecard.py plus closed observation schema, metric dictionary, authority flag, baseline, experiment template, fixtures, and documentation are integrated",
+        "measurement/authority.json keeps first-party return measurement unauthorized; daily and weekly north-star output remains unknown",
+        "all non-null baseline metrics carry dated source references; missing audience metrics remain null and no cross-platform people total is inferred",
+        "18 scorecard tests plus 16 governance/privacy tests passed; daily and synthetic weekly commands produced deterministic JSON",
+        "source imports only Python standard-library modules and contains no network or file-write client",
+        "all changes are local; no analytics vendor, cookie, fingerprint, collection, push, PR, deploy, or other external action occurred"
       ]
     },
     {
