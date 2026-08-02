@@ -2,7 +2,20 @@
 
 Status: local foundation implemented, deployment blocked
 
-## Hard launch gates
+## Founder pause and authority boundary
+
+New reader intake is paused. Local verification may continue, but no Supabase
+account, project, resource, link, credential, remote migration, deployment,
+canary, traffic, or activation is authorized. Do not link, migrate, deploy,
+canary, or send site traffic unless David first records an explicit reversal in
+the repository and the affected doctrine, specifications, contract, and tests
+are reconciled.
+
+The former technical launch gates below are retained as historical design
+requirements. Satisfying either one does not authorize provisioning or
+deployment.
+
+## Former technical launch gates
 
 Do not link, migrate, deploy, canary, or send site traffic until both of these
 facts are real and independently verified:
@@ -154,10 +167,10 @@ in a repository `.env` file. Use a protected temporary env file outside the
 checkout when the later operator runs `supabase secrets set --env-file`, then
 securely remove it.
 
-## Dedicated-project migration
+## Frozen dedicated-project migration
 
-These steps are future operator actions, not authorization to perform them in
-this worktree.
+These steps are historical future-operator notes, not authorization to perform
+them. They remain frozen until David explicitly reverses the pause.
 
 1. Verify the project owner, project reference, Postgres major version 17,
    isolation purpose, backup policy, region, and privacy-contact launch gate.
@@ -189,7 +202,10 @@ It creates only the non-login privilege role. The Edge connection verifies at
 runtime that its login is a non-superuser member of that role and lacks
 `BYPASSRLS`.
 
-## Canary sequence
+## Frozen canary sequence
+
+Do not run this sequence while the founder pause is active. It is retained only
+to preserve the reviewed design for a possible future decision.
 
 Keep the public form on its current path throughout the canary.
 

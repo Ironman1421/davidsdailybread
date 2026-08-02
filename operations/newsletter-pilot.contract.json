@@ -1,7 +1,14 @@
 {
-  "version": 1,
-  "status": "signup-approved-sending-blocked",
+  "version": 2,
+  "status": "founder-paused-no-activation",
   "owner": "David Friedhof",
+  "founderDecision": {
+    "effectiveDate": "2026-07-31",
+    "newsletterSendingAuthorized": false,
+    "activationWorkAuthorized": false,
+    "explicitReversalRequired": true,
+    "preserveLiveSignupPageState": true
+  },
   "provider": {
     "name": "Buttondown",
     "account": "davidsdailybread",
@@ -10,11 +17,13 @@
     "doubleOptInRequired": true
   },
   "pilot": {
+    "status": "frozen-historical-plan",
     "workingTitle": "The Weekly Loaf",
     "issueCount": 4,
     "frequency": "weekly",
     "maximumIssuesPerWeek": 1,
-    "sendMode": "manual-only",
+    "sendMode": "disabled",
+    "historicalSendMode": "manual-only",
     "firstSendDate": null,
     "sendDay": null,
     "sendTime": null,
@@ -50,20 +59,22 @@
     "stopBeforeCharge": true
   },
   "signup": {
-    "enabledAfterMerge": true,
-    "page": "/subscribe.html"
+    "page": "/subscribe.html",
+    "currentLiveStatePreserved": true,
+    "changesAuthorized": false,
+    "presenceAuthorizesSending": false
   },
   "sending": {
     "enabled": false,
+    "activationWorkEnabled": false,
+    "draftingEnabled": false,
+    "testSendsEnabled": false,
+    "providerConfigurationEnabled": false,
+    "explicitFounderReversalRequired": true,
     "dailyBakeMaySend": false,
     "githubActionsMaySend": false,
     "blockedBy": [
-      "valid-physical-postal-address-not-configured",
-      "first-send-date-and-time-not-chosen",
-      "issue-one-preview-not-approved",
-      "desktop-and-mobile-test-not-approved",
-      "unsubscribe-sender-postal-replyto-test-not-passed",
-      "free-plan-subscriber-count-not-recorded"
+      "founder-direction-no-newsletter-or-activation-work"
     ]
   },
   "measurement": {

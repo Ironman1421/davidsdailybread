@@ -61,6 +61,11 @@ The following are untrusted input even when produced by a model or collaborator:
 
 ### Reader privacy
 
+- New Ask the Baker, Letters to the King, and Crumb Board intake is paused until
+  a private boundary is verified and David explicitly reopens it. Do not invoke
+  Counter sync, deploy or reactivate submission controls, alter the external
+  Google form or Sheet, delete the frozen queue, or rewrite history while the
+  pause is active.
 - Tell submitters that their text and signature may be public and prohibit
   sensitive information.
 - Do not expose the full unpublished queue in a public repository or a
@@ -71,11 +76,20 @@ The following are untrusted input even when produced by a model or collaborator:
   `docs/READER_STORE_SPEC.md`.
 - Define retention and deletion behavior before collecting email addresses,
   account identifiers, or analytics tied to a person.
-- The weekly pilot posts addresses directly from `/subscribe.html` to
-  Buttondown with double opt-in. Subscriber addresses remain in Buttondown and
-  may not enter this repository, GitHub Actions, Supabase, logs, or public
-  metrics. Privacy requests use the verified
+- The existing `/subscribe.html` state is preserved while newsletter work is
+  paused. Any address submitted there posts directly to Buttondown with double
+  opt-in; subscriber addresses remain in Buttondown and may not enter this
+  repository, GitHub Actions, Supabase, logs, or public metrics. No drafting,
+  testing, configuration, credentialing, activation, or sending is authorized.
+  Privacy requests use the verified
   `privacy@davidsdailybread.com` contact and complete within seven days.
+- The Supabase reader-store foundation may be tested locally only. No project,
+  resource, link, remote migration, Edge Function, canary, traffic, or
+  deployment is authorized without David's explicit reversal of the intake
+  pause and a reconciled repository decision.
+- Cloudflare Workers + D1 audience measurement remains local and unprovisioned.
+  No account, resource, endpoint, route, credential, canary, deployment,
+  collection, baseline, or spend is authorized.
 
 ### Distribution
 
@@ -91,8 +105,8 @@ The following are untrusted input even when produced by a model or collaborator:
 1. `main` is not protected even though repository policy calls CI the merge
    gate. Its approved identity/ruleset design is not yet provisioned.
 2. The Counter sheet and committed `counter.csv` expose the reader queue beyond
-   what the product needs to publish. Its approved private-store design is not
-   yet provisioned.
+   what the product needs to publish. New intake is paused; the private-store
+   design remains unprovisioned and is not authorized for deployment.
 3. The repository-owned X canonical-broadcast adapter is implemented with a
    separate read-only post-bake job, durable receipt artifacts, read-back, and
    a kill switch. It remains production-disabled pending environment and

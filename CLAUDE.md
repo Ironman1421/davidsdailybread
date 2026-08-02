@@ -1,9 +1,10 @@
 # daily-bread — interactive-session rules
 
-**Bake sessions follow `/BAKE.md` as the complete operating spec, and nothing in
-this file overrides it.** If you are a bake session (the GitHub Actions runner
-handed you a date and a slot), stop reading here and go do exactly what BAKE.md
-says. `BRAND.md` wins all conflicts, always, for everyone.
+**Read `/FOUNDER_DOCTRINE.md` first.** It governs mission, ownership, strategic
+direction, and paused initiatives. `BRAND.md` governs reader-visible brand and
+house style. Bake sessions follow `/BAKE.md` as the complete procedural spec;
+if the GitHub Actions runner handed you a date and a slot, stop after those
+governing constraints and do exactly what `BAKE.md` says.
 
 Everything below is for *interactive* sessions: a human or an agent editing this
 repo outside a bake.
@@ -48,10 +49,22 @@ Treat every change accordingly.
 8. **Do not change the shape of `archive.json` or the `/editions/…` paths.**
    They are a public contract the DAICC distribution pipeline reads daily.
    Changing them requires checking `command-center/` first.
-9. **The weekly email is a bounded pilot** (approved 2026-07-31). Signup uses
-   the reviewed `/subscribe.html` Buttondown form and fresh double opt-in only.
-   The daily bake never drafts, schedules, or sends email. Pilot operations
-   follow `docs/NEWSLETTER_PILOT_SPEC.md`, including the $0 cap and send gate.
+9. **Newsletter work is paused by the founder** (2026-07-31). Preserve the
+   current `/subscribe.html` state unless David approves a site change, but do
+   not draft, test, schedule, send, configure, credential, or otherwise advance
+   newsletter activation. Resumption requires David's explicit reversal and
+   reconciliation of `FOUNDER_DOCTRINE.md`, `docs/NEWSLETTER_PILOT_SPEC.md`, the
+   machine-readable contract, and tests.
+10. **New reader intake is paused by the founder** (2026-07-31). Do not deploy
+    or reactivate a submission path, fetch or recommit new Counter rows, alter
+    the external Google form or Sheet, delete the existing queue, or rewrite
+    history without David's separate explicit approval.
+11. **Audience and reader-store provider scope is local only.** Cloudflare
+    Workers + D1 may be implemented locally only for the unprovisioned audience
+    canary plan. The Supabase reader-store foundation may be verified locally.
+    Do not create an account or resource, accept terms, install a credential,
+    link a project, deploy, run a canary, activate collection or intake, change
+    DNS, or spend money for either provider.
 
 ## Where things live
 
@@ -61,5 +74,6 @@ Treat every change accordingly.
 - `tests/` — brand law, archive integrity, standing pages, and the two-slot
   render contract.
 - `.github/workflows/ddb-bake.yml` — the twice-daily bake.
-  `.github/workflows/counter-sync.yml` — reader submissions, 4:30 AM PT backup.
+  `.github/workflows/counter-sync.yml` — must remain non-operational while new
+  reader intake is paused.
   `.github/workflows/ci.yml` — the merge gate.

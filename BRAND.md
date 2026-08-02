@@ -1,13 +1,17 @@
-# David's Daily Bread — Brand (single source of truth)
+# David's Daily Bread — Brand (reader-visible source of truth)
 
 This file is the canonical brand definition for **all** David's Daily Bread surfaces:
 the website (davidsdailybread.com), Chronicles, and any future page or tool. If a color, font, or rule here
 disagrees with anything else, **this file wins**. Change the brand by editing this
-file (and `brand.css`) — nowhere else.
+file (and `brand.css`) — nowhere else. `FOUNDER_DOCTRINE.md` separately governs
+mission, ownership, strategic direction, and paused initiatives.
 
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
+- The exact public mission line is: **Grow in faith. Understand technology
+  wisely. Pray for one another. Use what you learn in service to others.** It
+  complements **Loved by God** and does not replace the tagline.
 - Current operating truth (updated 2026-08-01, per David): the site is **baked
   twice daily** in GitHub Actions, dispatched by Spark's Pacific-time clock
   with DST-safe GitHub backup schedules (spec: `/BAKE.md`, deployment evidence:
@@ -24,11 +28,11 @@ file (and `brand.css`) — nowhere else.
   reader-state interaction.
   A delayed trigger is safe because an exact edition is published at most once.
   The website and `/feed.xml` remain the complete, canonical delivery surfaces.
-- **Weekly email pilot APPROVED (2026-07-31, per David):** `/subscribe.html`
-  accepts fresh Buttondown double opt-ins for a four-week pilot. It sends at
-  most one manual Editorial Ledger each week, follows Start, Browse, Do, Rest,
-  pauses after issue four, and has a hard $0 cap. Never import or reactivate the
-  retired list. The daily bake never drafts, schedules, or sends email.
+- **Newsletter sending PAUSED (2026-07-31, per David):** preserve the current
+  live `/subscribe.html` state, but do not draft, test, schedule, send,
+  configure, credential, or advance the former pilot. A new explicit founder
+  decision is required before activation work resumes. The website and
+  `/feed.xml` remain the complete, canonical delivery surfaces.
 - Edition history: evening editions ran 2026-07-07 through 2026-07-14, were
   retired in the 2026-07-17 simplification (one morning edition), and were
   restored 2026-07-30 with the trends identity; later that same day the
@@ -124,19 +128,21 @@ file (and `brand.css`) — nowhere else.
 
 ## Permanent features (never remove)
 
-- **Weekly email link:** restored 2026-07-31 for the bounded four-week pilot.
-  Colophons may link to `/subscribe.html`; inline signup forms belong only on
-  that standing page. RSS and the archive remain permanent.
+- **Existing weekly email link:** its 2026-07-31 live state is preserved while
+  newsletter work is paused. It does not authorize drafting, activation, or
+  sending. RSS and the archive remain permanent.
 - **Chronicles exports** (2026-07-08): chronicles.html's four note-export buttons
   (Download .md, PDF, email, copy) are hardwired. Never remove or rebuild them;
   edit chronicles.html only from the current live/main version.
 - **Notes boxes:** every story card and every page carries localStorage notes with
   the Aa personalization toolbar.
-- **Reader features:** Ask the Baker, Letters to the King, The Crumb Board —
-  submissions come from the chronicles page. Letters to the King is backstopped by
-  the house satchel (`/kings-satchel.json`), restocked weekly by the satchel-steward
-  scheduled task; used letters are tracked in `bakery-state.json` (`usedSatchelLetters`)
-  and never repeat.
+- **Reader features:** Ask the Baker, Letters to the King, and The Crumb Board
+  remain editorial features, but new public submissions are temporarily paused
+  until a private intake boundary is verified and David explicitly approves
+  reopening. Existing reviewed reader material may still appear. Letters to the
+  King is backstopped by the house satchel (`/kings-satchel.json`), restocked
+  weekly by the satchel-steward scheduled task; used letters are tracked in
+  `bakery-state.json` (`usedSatchelLetters`) and never repeat.
 - **RSS:** `/feed.xml`, prepended every bake; the RSS `<link rel="alternate">` tag
   stays in every page head.
 - **Evening libraries:** `/tools.html` and `/workflows.html` are standing,

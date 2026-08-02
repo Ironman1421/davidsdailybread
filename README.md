@@ -1,10 +1,12 @@
 # David's Daily Bread
 
-A news briefing on technology, markets, and science, plus an evening edition
-on what's trending in AI and tech: new tools and workflows for everyday
-people. The evening uses an Editorial Ledger layout, a numbered Guided Path,
-and a quiet Evening Exhale. Loved by God. Baked fresh twice daily and published at
-[davidsdailybread.com](https://davidsdailybread.com) via GitHub Pages.
+A founder-led Christian media and learning project helping believers grow in
+faith, understand technology wisely, pray for one another, and use what they
+learn in service to others. Its current website includes a morning briefing on
+technology, markets, and science plus an evening Field Guide to useful AI and
+technology. Loved by God. Baked fresh twice daily and published at
+[davidsdailybread.com](https://davidsdailybread.com) via GitHub Pages. See
+`FOUNDER_DOCTRINE.md` for the governing direction.
 
 ## How it works
 
@@ -28,28 +30,31 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
 - `editions/` — every past edition, dated. `archive.html` / `archive.json` — the bread box.
 - `tools.html` / `workflows.html` — searchable evening libraries backed by
   `evening-catalog.json`.
-- `feed.xml` — complete RSS delivery. `subscribe.html` runs a four-week,
-  once-weekly Buttondown pilot with fresh double opt-in; the daily bake never sends it.
-- `counter.csv` — reader submissions, synced by a 4:25 AM Pacific Spark dispatch
-  with a 4:30 AM GitHub backup through `.github/workflows/counter-sync.yml`
-  (the bake's sandbox cannot reach docs.google.com directly).
+- `feed.xml` — complete RSS delivery. The current `subscribe.html` state is
+  preserved, but newsletter activation and sending are paused by the founder.
+- `counter.csv` — the frozen existing reader queue. New intake and Counter sync
+  are paused pending a verified private boundary and David's explicit reopening
+  approval.
 - `bakery-state.json` / `kings-satchel.json` — reader-content bookkeeping and
   the King's house letters.
 - `BRAND.md` — brand source of truth; `brand.css` — design tokens.
+- `FOUNDER_DOCTRINE.md` — source of truth for mission, founder authority,
+  strategic direction, and paused initiatives.
 - `docs/PRODUCT_SPEC.md` — current product and distribution contract;
   `docs/SECURITY_SPEC.md` — trust boundaries and required controls;
   `docs/DISTRIBUTION_SPEC.md` — channel, adapter, voice, rights, and measurement law;
-  `docs/GROWTH_ROADMAP.md` — the six-month audience plan;
+  `docs/GROWTH_ROADMAP.md` — the founder-led audience validation roadmap;
   `docs/X_REPLY_PLAYBOOK.md` — manually approved, reply-led X growth law;
   `docs/READER_STORE_SPEC.md` — approved private reader-store and cutover design;
   `docs/PUBLISHER_IDENTITY_SPEC.md` — approved scheduled identity and `main`
   ruleset design;
-  `docs/NEWSLETTER_PILOT_SPEC.md` — approved four-week weekly-email scope,
-  consent, $0 budget, manual operating loop, and sending gates;
+  `docs/NEWSLETTER_PILOT_SPEC.md` — the paused weekly-email plan and
+  no-activation guard;
   `docs/AUDIT_2026-07-31.md` — takeover findings and open decisions.
 - `operations/*.contract.json` — machine-readable desired state for the private
-  reader boundary, protected publishing path, X broadcaster, and weekly email
-  pilot; these are not live credentials or proof that every activation gate is complete.
+  reader boundary, protected publishing path, X broadcaster, and paused weekly
+  email plan; these are not live credentials, provisioning authority, or proof
+  that every activation gate is complete.
 - `distribution/metrics.schema.json` / `distribution/ledger.json` — the
   machine-readable measurement contract and current baseline/post ledger.
 - `distribution/x-reply-approval-card.schema.json` — the private, transient
