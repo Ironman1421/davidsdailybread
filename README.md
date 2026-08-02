@@ -18,8 +18,8 @@ control plane is recorded in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 DST-safe GitHub schedules remain as delayed backups. Each run
 drives a Claude session that follows **`/BAKE.md`** (the complete operating
 spec). The session does the editorial work: researching, choosing the lead, writing every
-dek and glance line, and (mornings) answering reader mail in the house
-personas. `ddb_session_bake.py` does the mechanical work deterministically:
+dek and glance line, and (mornings) answering reviewed house-satchel material
+when selected. `ddb_session_bake.py` does the mechanical work deterministically:
 template fill, category pages (morning only), the bounded evening catalog,
 archive, RSS, and state. Two
 commits per bake ("Morning edition ..." or "Evening edition ..." then
@@ -32,11 +32,11 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   `evening-catalog.json`.
 - `feed.xml` — complete RSS delivery. The current `subscribe.html` state is
   preserved, but newsletter activation and sending are paused by the founder.
-- `counter.csv` — the frozen existing reader queue. New intake and Counter sync
-  are paused pending a verified private boundary and David's explicit reopening
-  approval.
-- `bakery-state.json` / `kings-satchel.json` — reader-content bookkeeping and
-  the King's house letters.
+- `counter.csv` — removed from the current tip and ignored. Its git history is
+  preserved; Counter sync is a read-only no-op while public intake is paused.
+- `bakery-state.json` / `kings-satchel.json` — historical reader bookkeeping and
+  reviewed house letters. The active morning plan may draw only from the house
+  satchel while public intake is paused.
 - `BRAND.md` — brand source of truth; `brand.css` — design tokens.
 - `FOUNDER_DOCTRINE.md` — source of truth for mission, founder authority,
   strategic direction, and paused initiatives.

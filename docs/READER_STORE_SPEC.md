@@ -1,6 +1,6 @@
 # Private reader store specification
 
-Status: approved design, not provisioned
+Status: historical approved design, paused and not provisioned
 Machine-readable contract: `operations/reader-store.contract.json`
 
 ## Founder pause and authority boundary
@@ -15,13 +15,18 @@ documents, machine contract, and tests.
 
 ## Decision
 
-Reader submissions move to a dedicated Supabase project. They live in a
+This design is not the active implementation lane and does not authorize a
+Supabase project, migration, deployment, canary, or traffic. Public reader
+intake is closed under `operations/reader-intake-pause.contract.json`.
+
+If David later reopens this design, reader submissions would move to a dedicated Supabase project. They live in a
 `reader_private` Postgres schema that is not exposed through the Data API. The
 browser submits through a narrow Edge Function; it never receives a Supabase
 secret or direct table access. Row-level security remains enabled as defense in
 depth, with no `anon` or `authenticated` table grants or policies.
 
-This store replaces the published Google Sheet, committed `counter.csv`, the
+The proposed store would replace the published Google Sheet, the removed
+`counter.csv` tip copy, the
 reader-specific keys in `bakery-state.json`, and the `counter-sync` writer. It
 also owns a short-lived private handoff bucket so unpublished content never has
 to cross GitHub Actions' public logs or artifacts.

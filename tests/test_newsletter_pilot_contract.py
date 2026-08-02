@@ -12,7 +12,8 @@ CONTRACT_PATH = ROOT / "operations" / "newsletter-pilot.contract.json"
 
 class NewsletterPilotContractTest(unittest.TestCase):
     def setUp(self):
-        self.contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+        self.text = CONTRACT_PATH.read_text(encoding="utf-8")
+        self.contract = json.loads(self.text)
 
     def test_historical_scope_is_frozen_under_founder_pause(self):
         contract = self.contract
@@ -32,25 +33,23 @@ class NewsletterPilotContractTest(unittest.TestCase):
         self.assertIsNone(contract["pilot"]["firstSendDate"])
         self.assertIsNone(contract["pilot"]["sendDay"])
         self.assertIsNone(contract["pilot"]["sendTime"])
-        self.assertEqual(["Start", "Browse", "Do", "Rest"], contract["editorialFlow"])
 
-    def test_consent_privacy_and_budget_fail_closed(self):
-        consent = self.contract["consent"]
-        self.assertTrue(consent["freshSignupsOnly"])
-        self.assertFalse(consent["importRetiredList"])
-        self.assertFalse(consent["reactivateRetiredList"])
-        self.assertTrue(consent["confirmationRequiredBeforeActive"])
+    def test_every_activation_capability_is_false(self):
+        activation = self.contract["activation"]
+        self.assertTrue(activation)
+        self.assertTrue(all(value is False for value in activation.values()))
+        self.assertFalse(self.contract["provider"]["externalMutationAuthorized"])
+        self.assertFalse(self.contract["provider"]["privateModeVerified"])
 
         privacy = self.contract["privacy"]
-        self.assertEqual("privacy@davidsdailybread.com", privacy["publicContact"])
-        self.assertTrue(privacy["contactVerified"])
-        self.assertFalse(privacy["forwardingDestinationStoredInRepository"])
         self.assertFalse(privacy["subscriberAddressesAllowedInRepository"])
-        self.assertNotIn("gmail.com", CONTRACT_PATH.read_text(encoding="utf-8"))
+        self.assertFalse(privacy["subscriberAddressesAllowedInGitHubActions"])
+        self.assertFalse(privacy["subscriberAddressesAllowedInSupabase"])
+        self.assertFalse(privacy["recipientLevelDataMayBeCommitted"])
+        self.assertNotIn("gmail.com", self.text)
 
         budget = self.contract["budget"]
         self.assertEqual(0, budget["maximumMonthlyUsd"])
-        self.assertEqual(100, budget["maximumActiveSubscribersOnFreePlan"])
         self.assertFalse(budget["paidAddOnsAllowed"])
         self.assertTrue(budget["stopBeforeCharge"])
 

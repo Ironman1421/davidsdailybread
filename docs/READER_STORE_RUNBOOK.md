@@ -1,6 +1,6 @@
 # Private reader-store operator runbook
 
-Status: local foundation implemented, deployment blocked
+Status: historical local foundation, paused; deployment and provisioning blocked
 
 ## Founder pause and authority boundary
 
@@ -17,7 +17,9 @@ deployment.
 
 ## Former technical launch gates
 
-Do not link, migrate, deploy, canary, or send site traffic until both of these
+This runbook is not an active implementation lane. Do not provision Supabase,
+link, migrate, deploy, canary, or send site traffic. Reopening first requires a
+new explicit founder decision. If reopened, both of these
 facts are real and independently verified:
 
 1. a dedicated Supabase project exists solely for reader mail; and
@@ -26,8 +28,9 @@ facts are real and independently verified:
 
 This repository deliberately contains neither a project reference nor a
 privacy-contact value. Do not substitute the primary site database, a personal
-address, a guessed address, or a placeholder. The current Google form/workflow
-remains unchanged until the full cutover checklist is approved.
+address, a guessed address, or a placeholder. The repository form and workflow
+paths are closed; external Google and provider changes remain blocked until the
+separate checklist is approved.
 
 ## Foundation inventory
 

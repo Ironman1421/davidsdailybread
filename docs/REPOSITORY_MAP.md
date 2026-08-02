@@ -10,7 +10,7 @@ paused initiatives. Repository ownership never transfers David's final control.
 | `Ironman1421/davidsdailybread` | Live site, renderer, templates, workflows, archive, RSS | Production source of truth |
 | `Ironman1421/ddb-ops` | July 9 to 14 strategy, approvals, experiments, migration history | Historical context; materially stale |
 | `Ironman1421/ddb-engineering` | Retired Spark pipeline, Buttondown path, acceptance harness, handoff log | Preserved engineering history; no deployment authority |
-| `Ironman1421/davids-ai-command-center` | Spark-owned Counter and edition workflow triggers, both-slot watchdogs, active guarded X autoposter, plus general multi-agent bootstrap and profiles | Operational timing and the current X adapter; never editorial or site-publishing authority |
+| `Ironman1421/davids-ai-command-center` | Spark-owned edition workflow triggers, both-slot watchdogs, active guarded X autoposter, plus general multi-agent bootstrap and profiles | Operational timing and the current X adapter; never editorial or site-publishing authority. Counter dispatch is retired while intake is paused. |
 | `Ironman1421/hermes-canonical` | Hermes profiles and general skills | Platform configuration, not the active bake |
 
 Claude Cowork is not a repository and is no longer an authority for this
@@ -49,8 +49,8 @@ exact-date archive contract. While reader intake is paused, they must not invoke
 Counter Sync. Existing Counter scheduling is implementation state to reconcile,
 not authority to fetch or commit new reader rows. They
 may not compose editions, choose the latest available edition, push site
-content, or receive the editorial model secret. The Pacific schedule is Counter
-Sync at 4:25 AM, morning at 4:40 AM, morning watchdog at 5:15 AM, evening at
+content, or receive the editorial model secret. The Pacific schedule is morning
+at 4:40 AM, morning watchdog at 5:15 AM, evening at
 2:40 PM, and evening watchdog at 3:30 PM. These starts target reader-ready
 publication near 5:00 AM and 3:00 PM Pacific. GitHub's paired PDT/PST schedules
 remain delayed backups for both bakes. The existing Counter Sync schedule is

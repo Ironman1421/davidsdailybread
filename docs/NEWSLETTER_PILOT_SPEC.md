@@ -1,8 +1,9 @@
-# Weekly newsletter pilot specification
+# Newsletter pilot specification
+
+Status: paused, no signup or activation authorized
 
 Status: paused by founder; signup state preserved; no activation work authorized
 Owner: David Friedhof
-Last reconciled: 2026-07-31
 
 ## Controlling decision
 
@@ -20,11 +21,7 @@ or sending. The website and RSS remain the canonical, complete record.
 The former working title was **The Weekly Loaf**. Its proposed Editorial Ledger
 used this Guided Path:
 
-1. **Start:** one development worth understanding first, with its canonical
-   edition source.
-2. **Browse:** a short shelf of the week's strongest reporting and tools.
-3. **Do:** one practical workflow a reader can carry into the coming week.
-4. **Rest:** a brief spiritual exhale that is distinct from Letters to the King.
+## Historical reviewed design, inactive
 
 Do not fill, update, test, or schedule this template while the pause is active.
 If David explicitly restarts the work, any issue must link to canonical pages
@@ -32,7 +29,7 @@ rather than copying a whole edition, preserve factual sources, contain no
 reader-visible em dash, and use reviewed Rest material rather than fabricated
 reader mail.
 
-## Signup and data boundary
+## Reopen gate
 
 - The current live signup page is preserved, not newly activated by this spec.
 - `/subscribe.html` posts an email address directly to the official Buttondown

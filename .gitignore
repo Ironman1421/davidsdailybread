@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 content*.json
+counter.csv
 counter.csv.new
 node_modules/
 supabase/.branches/

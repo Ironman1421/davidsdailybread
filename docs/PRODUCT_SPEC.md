@@ -88,10 +88,10 @@ former weekly email pilot is paused and guarded by
 - Source links are absolute, credential-free HTTPS URLs.
 - The only editorial HTML fragment is one leading `<b>plain text</b>` phrase in
   a card dek. All other editorial and reader content is plain text and escaped.
-- Reader questions, pin text, names, signatures, selection order, and
-  bookkeeping keys must match the committed Counter/satchel plan; the
-  editorial model may write replies but may not alter or substitute a
-  submission. Only deterministic house-style em-dash normalization is allowed.
+- While intake is paused, the renderer rejects questions, pins, names,
+  signatures, and submission-derived bookkeeping keys. A reviewed house letter
+  must match its satchel identifier and text exactly; only deterministic
+  house-style em-dash normalization is allowed.
 - The lead title is self-contained, at most 130 characters, and stored exactly
   in `archive.json`. This is the input contract for downstream distribution.
 

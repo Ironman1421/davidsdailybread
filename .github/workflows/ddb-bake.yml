@@ -35,8 +35,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  # Serializes every workflow that can write main. Keep this group in sync
-  # with counter-sync.yml so a late Counter refresh cannot race a bake push.
+  # Serializes writes to main so morning and evening bakes cannot race.
   group: ddb-main-writers
   queue: max
   cancel-in-progress: false
@@ -165,15 +164,15 @@ jobs:
           # $DDB_SLOT and $DDB_MODE, the only variables in the prompt) expand into the file.
           cat > "$RUNNER_TEMP/bake-prompt.txt" <<PROMPT
           You are the editor baking the $DDB_SLOT edition of davidsdailybread.com for $DDB_DATE. You are working inside a GitHub Actions runner, in a full checkout of the site repo at the current working directory, on branch main.
-          Read /BAKE.md in this checkout and follow it exactly. BRAND.md wins all conflicts. BAKE.md is the complete editorial spec for both edition slots: research, content.json, render, editorial review, and (morning only) the reader plan and satchel restock.
+          Read /FOUNDER_DOCTRINE.md and /BAKE.md in this checkout and follow them exactly. BRAND.md governs reader-visible copy. BAKE.md is the complete editorial spec for both edition slots: research, content.json, render, editorial review, and (morning only) the reviewed house-satchel plan and restock.
           Notes for this run, which take precedence over BAKE.md where they differ:
           1. Setup is already done. The repo is checked out right here, so BAKE.md step 0 needs nothing from you: there is nothing to clone and no git identity to configure.
           2. Edition date: use exactly $DDB_DATE, verbatim, as --date. The runner already resolved it; no need to work it out yourself.
           3. Publishing belongs to the workflow, which commits, pushes, and verifies after you finish; BAKE.md steps 6 and 7 are its job, and git is its tool rather than yours. Your job ends when the render is clean and you have reviewed it like an editor.
-          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. The daily morning bake is BAKE.md steps 1-8 as written, reader sections per the --plan output. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and its own content.json keys, rendered with --slot evening --mode $DDB_MODE; the reader plan and reader sections belong to the morning paper only. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
+          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. New reader intake and newsletter activation are paused. The daily morning bake is BAKE.md steps 1-8 as written; --plan may select only reviewed house-satchel material and must return no Ask the Baker question, reader Letter, or Crumb Board pin. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and content.json keys, rendered with --slot evening --mode $DDB_MODE, with no reader key. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
           5. Honesty: every fact traces to a source link you actually fetched. Work through BAKE.md step 5A, the accuracy pass, before you hand off, and say in your report what it changed. If a section cannot reach the 2-story minimum with verified stories, stop and report that plainly rather than padding; a failed bake that says so is a good outcome. In the evening edition, an item counts as trending only when a cited source shows where it is trending.
           6. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
-          Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, which reader sections ran (morning only), and the render result.
+          Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, whether a reviewed house letter ran (morning only), and the render result.
           PROMPT
           claude -p "$(cat "$RUNNER_TEMP/bake-prompt.txt")" \
             --model "${BAKE_MODEL}" \
@@ -251,7 +250,6 @@ jobs:
           fi
           git add archive.html archive.json feed.xml
           git -c core.hooksPath=/dev/null commit -m "Archive: ${HUMAN} ${LABEL}"
-          # counter-sync may have pushed while we baked
           git -c core.hooksPath=/dev/null pull --rebase --no-edit origin main
           git -c core.hooksPath=/dev/null push origin main
 

@@ -148,8 +148,9 @@ mission, ownership, strategic direction, and paused initiatives.
 - **Evening libraries:** `/tools.html` and `/workflows.html` are standing,
   searchable pages backed by `/evening-catalog.json`. The evening masthead links
   open these pages; they never masquerade as in-page anchor links.
-- **Selah line:** the "Selah – anything to set down?" vault-door chronicles button
-  on the home page footer.
+- **Selah line:** the footer points to Chronicles for private, on-device notes
+  and says those notes remain on the reader's device. It does not invite a
+  public submission while intake is paused.
 
 ## Where the code lives
 

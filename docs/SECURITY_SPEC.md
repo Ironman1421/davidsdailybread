@@ -34,8 +34,9 @@ The following are untrusted input even when produced by a model or collaborator:
 - Treat published history as immutable during a bake. Permit exactly one new
   `editions/<date>-<slot>.html` path, reject staged/deleted/renamed or prior-
   edition changes, and stage only the exact expected edition.
-- Bind selected reader questions, letters, names, signatures, and state keys to
-  the committed Counter/satchel records before rendering or updating state.
+- While public intake is paused, reject Ask the Baker, reader Letter, and Crumb
+  Board fields before rendering or updating state. Only reviewed house-satchel
+  material may enter a new edition.
 
 ### Automation and credentials
 
@@ -50,7 +51,7 @@ The following are untrusted input even when produced by a model or collaborator:
 - Set explicit workflow permissions and serialize every workflow that can write
   `main` or shared generated state.
 - Before protecting `main`, split authoring and publishing onto fresh runners,
-  retire Counter sync as a repository writer, and install the repository-only
+  keep Counter sync retired as a repository writer, and install the repository-only
   `ddb-publisher` GitHub App defined in `docs/PUBLISHER_IDENTITY_SPEC.md`.
 - Protect `main` with required CI and review rules while granting only
   `ddb-publisher[bot]` an explicit bypass. The built-in `GITHUB_TOKEN`, reader
@@ -115,9 +116,9 @@ The following are untrusted input even when produced by a model or collaborator:
    strong Content Security Policy or fully local assets.
 5. Repository-level Dependabot alerts are disabled. Version-update PRs are
    configured, but the owner must enable vulnerability alerts in GitHub.
-6. The current public-repository diagnostic artifact can include `content.json`
-   and a raw model log. Treat both as unpublished reader data during the private
-   store cutover; the target design prohibits this transfer.
+6. The diagnostic artifact still contains `content.json` and a raw model log.
+   The renderer now rejects submission-derived fields, but the broader private
+   artifact design remains future work.
 
 Exceptions are tracked work, not accepted permanent architecture.
 

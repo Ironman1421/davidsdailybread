@@ -57,32 +57,11 @@
   .empty .big { font-family: 'Caveat', cursive; font-size: 27px; color: var(--muted); }
   .empty p { color: var(--faint); font-size: 13.5px; margin: 8px 0 0; }
   .empty a { color: var(--gold); }
-  .ask-baker { text-align: center; margin-top: 46px; }
-  .ask-baker .rule { width: 180px; height: 1px; margin: 0 auto 18px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
-  .ask-baker .lede { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); }
-  .bake-form { max-width: 560px; margin: 18px auto 0; text-align: left; display: flex; flex-direction: column; gap: 10px; }
-  .bake-form textarea, .bake-form input { width: 100%; background: rgba(200,162,74,0.05); border: 1px dashed var(--gold-soft); border-radius: 14px; padding: 10px 14px; color: var(--ink); outline: none; font-family: 'Caveat', cursive; }
-  .bake-form textarea { font-size: 19px; line-height: 1.4; min-height: 64px; resize: vertical; }
-  .bake-form input { font-size: 18px; }
-  .bake-form textarea:focus, .bake-form input:focus { border-style: solid; border-color: var(--gold); background: rgba(200,162,74,0.09); }
-  .bake-form textarea::placeholder, .bake-form input::placeholder { color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 14px; }
-  .sig-hint { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 12.5px; color: var(--faint); margin: -2px 2px 0; }
-  .baked-note { display: none; margin-top: 12px; font-family: 'Caveat', cursive; font-size: 20px; color: var(--gold); }
-  .oven-btn { position: relative; display: inline-block; margin-top: 16px; padding: 22px 40px 14px; color: var(--gold); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--gold-soft); border-bottom: 5px double var(--gold-soft); border-radius: 170px 170px 4px 4px; background: radial-gradient(130% 130% at 50% 112%, rgba(236,193,99,0.30), rgba(185,119,42,0.12) 46%, rgba(200,162,74,0.05) 74%); box-shadow: inset 0 -14px 30px -14px rgba(236,193,99,0.32), 0 10px 30px rgba(0,0,0,0.35); animation: ovenGlow 3.4s ease-in-out infinite; transition: color 0.15s; cursor: pointer; -webkit-appearance: none; }
-  .oven-btn:hover { color: #ecc163; }
-  .oven-btn .spark { display: block; font-size: 13px; line-height: 1; margin-bottom: 7px; color: var(--marker); }
-  @keyframes ovenGlow {
-    0%, 100% { box-shadow: inset 0 -14px 30px -14px rgba(236,193,99,0.28), 0 10px 30px rgba(0,0,0,0.35); }
-    50% { box-shadow: inset 0 -18px 36px -12px rgba(236,193,99,0.55), 0 10px 30px rgba(0,0,0,0.35), 0 6px 26px -6px rgba(236,193,99,0.20); }
-  }
-  .ask-baker .sub { margin-top: 12px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13.5px; color: var(--faint); }
-  .crumb-board { text-align: center; margin-top: 46px; }
-  .crumb-board .rule { width: 180px; height: 1px; margin: 0 auto 18px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
-  .crumb-board .board-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-  .crumb-board .lede { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15.5px; color: var(--muted); margin-top: 6px; }
-  .crumb-board .sub { margin-top: 12px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13.5px; color: var(--faint); }
-  .pin-btn { padding: 16px 32px 11px; border-radius: 26px 26px 4px 4px; }
-  @media (prefers-reduced-motion: reduce) { .oven-btn { animation: none; } }
+  .reader-intake-pause { text-align: center; margin-top: 46px; padding: 28px 24px 24px; border: 1px dashed var(--gold-soft); border-radius: 70px 70px 16px 16px; background: rgba(200,162,74,0.045); }
+  .reader-intake-pause .rule { width: 180px; height: 1px; margin: 0 auto 18px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .reader-intake-pause .status { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--marker); }
+  .reader-intake-pause h2 { font-family: 'Newsreader', Georgia, serif; font-size: 24px; line-height: 1.2; margin: 6px 0 8px; }
+  .reader-intake-pause p { max-width: 620px; margin: 8px auto 0; font-family: 'Newsreader', Georgia, serif; font-size: 15px; color: var(--muted); }
   .colophon { text-align: center; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 14px; }
   .colophon a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
   .colophon a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
@@ -131,87 +110,19 @@
     <p>Scribble something under any story on the <a href="/">latest edition</a> and it'll show up here.</p>
   </div>
 
-  <div class="ask-baker">
+  <section class="reader-intake-pause" aria-labelledby="readerIntakePauseTitle">
     <div class="rule"></div>
-    <div class="lede">Selah: does the record leave a question unanswered?</div>
-    <div class="sub">The Counter closes at 4:25 AM Pacific for the morning edition; reader letters ride the morning loaf only. Later slips wait for the next morning bake.</div>
-    <div class="sub">Submissions and signatures may be published on the public site and stored in its public project files. Do not include private or sensitive information.</div>
-    <div class="bake-form">
-      <textarea id="askText" placeholder="Set your question down here; the Baker reads everything left on this counter." aria-label="Your question for the Baker"></textarea>
-      <input id="askName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
-      <div class="sig-hint">Sign it, and your name is set beside the answer in the next edition. Leave the line blank and the Baker keeps your secret; the question bakes all the same.</div>
-    </div>
-    <button class="oven-btn" id="askBtn" type="button"><span class="spark">&#10047;</span><span class="lbl">Ask the Baker</span></button>
-    <div class="baked-note" id="askDone">Your slip is in the basket. Watch the next edition.</div>
-    <div class="sub">Each morning, the Baker answers at most one waiting question, oldest first. The rest stay warm for a later edition.</div>
-  </div>
+    <div class="status">The Counter is temporarily closed</div>
+    <h2 id="readerIntakePauseTitle">Reader slips are resting</h2>
+    <p>New Ask the Baker questions, Letters to the King, and Crumb Board pins are paused while the Counter moves behind a verified private boundary.</p>
+    <p>Your private Chronicles notes and all four export options still work. Existing reviewed reader material remains preserved in past editions.</p>
+    <p>Please do not send reader slips through an old form link.</p>
+  </section>
 
-  <div class="crumb-board kings-post">
-    <div class="rule"></div>
-    <div class="board-head">Letters to the King</div>
-    <div class="lede">The Baker also carries mail to the throne. Leave a letter, and King David himself writes back in the next edition.</div>
-    <div class="bake-form">
-      <textarea id="kingText" placeholder="Set your question down for the King; the Baker relays every letter to the throne." aria-label="Your letter for King David"></textarea>
-      <input id="kingName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
-      <div class="sig-hint">Signed letters are read into the record by name; unsigned letters reach the throne all the same.</div>
-    </div>
-    <button class="oven-btn pin-btn" id="kingBtn" type="button"><span class="spark">&#9818;</span><span class="lbl">Relay it to the King</span></button>
-    <div class="baked-note" id="kingDone">Sealed and handed to the Baker. The King writes back with the next bake.</div>
-    <div class="sub">Each morning, one waiting reader letter is answered, oldest first. When no reader letter waits, one house letter may be drawn from the Baker's own shelf.</div>
-  </div>
-
-  <div class="crumb-board">
-    <div class="rule"></div>
-    <div class="board-head">The Crumb Board</div>
-    <div class="lede">The corkboard by the ovens: pin what you please. A hello, a hot take, a happy birthday, a recipe of your own.</div>
-    <div class="bake-form">
-      <textarea id="pinText" placeholder="Pin a note to the board&hellip;" aria-label="Your note for the Crumb Board"></textarea>
-      <input id="pinName" type="text" maxlength="60" placeholder="Signed, ____________" aria-label="Your name (optional)">
-      <div class="sig-hint">Same house rule: signed notes carry your name in print; unsigned notes hang on the board anonymous.</div>
-    </div>
-    <button class="oven-btn pin-btn" id="pinBtn" type="button"><span class="spark">&#9998;</span><span class="lbl">Pin it to the board</span></button>
-    <div class="baked-note" id="pinDone">Pinned. It goes out with the next bake.</div>
-    <div class="sub">Each morning, at most one waiting pin goes on the board, oldest first. The rest wait for a later edition.</div>
-  </div>
-
-  <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Weekly email</a></div>
+  <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Email paused</a></div>
 </div>
 <script>
   (function () { var bar = document.getElementById('progress'); function u(){ var h=document.documentElement; var m=h.scrollHeight-h.clientHeight; bar.style.width=(m>0?(h.scrollTop||document.body.scrollTop)/m*100:0)+'%'; } window.addEventListener('scroll',u,{passive:true}); window.addEventListener('resize',u); u(); })();
-  (function () {
-    var FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSeF7V-bXKsHn48S2nM-eFqND9Sw8sLa4QJ5CEvZnPdTfj2ByA/formResponse';
-    var E_TYPE = 'entry.386221157', E_TEXT = 'entry.957805310', E_NAME = 'entry.891809667';
-    function fire(slipType, textId, nameId, btnId, doneId, prefix) {
-      var textEl = document.getElementById(textId);
-      var nameEl = document.getElementById(nameId);
-      var btn = document.getElementById(btnId);
-      var doneEl = document.getElementById(doneId);
-      var text = textEl.value.trim();
-      if (!text) { textEl.focus(); return; }
-      if (btn.disabled) { return; }
-      btn.disabled = true;
-      if (prefix) { text = prefix + text; }
-      var body = E_TYPE + '=' + encodeURIComponent(slipType) +
-                 '&' + E_TEXT + '=' + encodeURIComponent(text) +
-                 '&' + E_NAME + '=' + encodeURIComponent(nameEl.value.trim() || 'Anonymous');
-      function done() {
-        textEl.value = ''; nameEl.value = '';
-        doneEl.style.display = 'block';
-        btn.disabled = false;
-        setTimeout(function () { doneEl.style.display = 'none'; }, 6000);
-      }
-      fetch(FORM, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
-        .then(done)
-        .catch(function () {
-          var img = new Image();
-          img.src = FORM + '?' + body;
-          done();
-        });
-    }
-    document.getElementById('askBtn').addEventListener('click', function () { fire('Question for the Baker', 'askText', 'askName', 'askBtn', 'askDone'); });
-    document.getElementById('pinBtn').addEventListener('click', function () { fire('Pin for the Crumb Board', 'pinText', 'pinName', 'pinBtn', 'pinDone'); });
-    document.getElementById('kingBtn').addEventListener('click', function () { fire('Question for the Baker', 'kingText', 'kingName', 'kingBtn', 'kingDone', '[For King David] '); });
-  })();
   (function () {
     var PREFIX = 'ddb-note:';
     var PAGE_NAMES = { 'home': ['Page notes – Home', '/'], 'tech': ['Page notes – Technology', '/tech.html'], 'markets': ['Page notes – Markets', '/markets.html'], 'science': ['Page notes – Science', '/science.html'] };
