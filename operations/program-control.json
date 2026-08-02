@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-02T19:53:18Z",
+  "updatedAt": "2026-08-02T19:54:32Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-006",
+  "activeItemId": "DDB-PC-009",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -169,7 +169,7 @@
       "id": "DDB-PC-006",
       "sequence": 6,
       "title": "Validate the P0 integration locally",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-005"
       ],
@@ -184,6 +184,16 @@
         "Privacy and governance static scans pass",
         "git diff --check passes",
         "Known local-host test limitations are recorded"
+      ],
+      "completedAt": "2026-08-02T19:54:32Z",
+      "evidence": [
+        "36 tracked JSON files and 5 tracked YAML files parsed successfully",
+        "26 tracked Python sources compiled successfully without emitting artifacts",
+        "16 governance/privacy tests, subscribe-page guard, endpoint scan, and generated-output write-set guard passed",
+        "git diff --check origin/main...HEAD passed; full 43-file diff and 1897-insertion/1187-deletion stat reviewed",
+        "local host is arm64; local checks are informative only",
+        "required x86_64 gate is .github/workflows/ci.yml Merge gate on ubuntu-latest: DDB_SITE_DIR=$GITHUB_WORKSPACE python -m pytest tests/ -q; python3 tests/test_evening_render.py; reader Edge/type/format/lint/audit gates; Supabase reset/database/lint/concurrency gates",
+        "expected release gate: every Merge gate step green for the exact branch head"
       ]
     },
     {
@@ -233,7 +243,7 @@
       "id": "DDB-PC-009",
       "sequence": 9,
       "title": "Integrate the P1 pipeline-reliability commit",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-006"
       ],
