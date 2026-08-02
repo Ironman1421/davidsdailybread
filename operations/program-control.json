@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-02T19:40:50Z",
+  "updatedAt": "2026-08-02T19:43:59Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-002",
+  "activeItemId": "DDB-PC-003",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -56,7 +56,7 @@
       "id": "DDB-PC-002",
       "sequence": 2,
       "title": "Preserve the DDB-02 privacy-containment output",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-001"
       ],
@@ -70,13 +70,20 @@
         "Local preservation commit records all intended DDB-02 paths",
         "Worktree is clean",
         "Branch and commit identifiers are recorded as evidence"
+      ],
+      "completedAt": "2026-08-02T19:43:59Z",
+      "evidence": [
+        "branch codex/privacy-containment-preserved",
+        "commit 040cd9ad1251429c1afedd97d1c21dd3a7b85674",
+        "44 intended paths committed",
+        "worktree clean"
       ]
     },
     {
       "id": "DDB-PC-003",
       "sequence": 3,
       "title": "Preserve the DDB-05 measurement-scorecard output",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-002"
       ],
