@@ -2,6 +2,42 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-02",
+      "name": "Dark Hours",
+      "url": "https://darkhours.io",
+      "cost": "No price or signup shown",
+      "kind": "Web, any browser",
+      "seen": "Hacker News, 45 points",
+      "blurb": "Rates a location's sky on the Bortle scale and lays out the night around it, giving sunset, the astronomical night window, sunrise, moon phase and the darkest direction to face, but it models light pollution from population data rather than satellite radiance and states its own bias plainly: within about 15 km of a mid-size city it reads about one Bortle class too dark, so assume the real sky is worse."
+    },
+    {
+      "date": "2026-08-02",
+      "name": "bitchat",
+      "url": "https://github.com/permissionlesstech/bitchat",
+      "cost": "Free, public domain",
+      "kind": "iOS and Android apps",
+      "seen": "GitHub trending, +5,737/week",
+      "blurb": "Carries messages phone to phone over a Bluetooth mesh with no accounts, phone numbers or central servers, and uses the Nostr protocol when there is internet, though the project warns that only App Store builds or source you verified yourself can be trusted, and its whitepaper notes the mesh carries a persistent per-device identifier that a nearby radio can observe."
+    },
+    {
+      "date": "2026-08-02",
+      "name": "Zen Whisper",
+      "url": "https://zenproducts.ai/apps/zen-whisper",
+      "cost": "Free tier, paid seat packs",
+      "kind": "Apple Silicon Mac, macOS 14+",
+      "seen": "Product Hunt No. 5, 123 votes",
+      "blurb": "Types dictation into any Mac app from a keyboard shortcut with recognition running on the machine instead of in the cloud, free for 3,000 words a week once the 14-day trial ends, and its makers concede that on-device models handle technical jargon poorly, which they answer with a custom dictionary and snippets rather than a larger model."
+    },
+    {
+      "date": "2026-08-02",
+      "name": "Meshdiff",
+      "url": "https://meshdiff.com/",
+      "cost": "No price listed",
+      "kind": "Web, runs client-side",
+      "seen": "Hacker News, 162 points",
+      "blurb": "Takes two STL, 3MF or OBJ files and renders a voxel diff in the browser, green for added material and red for removed, with tolerance adjustable from 0.05 to 1mm and volume delta metrics; its author says nothing is uploaded to any server, and one commenter reported that multi-group OBJ files show only the first group."
+    },
+    {
       "date": "2026-08-01",
       "name": "Invidious",
       "url": "https://github.com/iv-org/invidious",
@@ -129,6 +165,53 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-02",
+      "title": "Print, cut, and fold a paper globe from 30 free templates",
+      "url": "https://foldingglobes.com/globes",
+      "dek": "<b>Thirty curated globes</b> print at A4 or A3 with no signup and no watermark, covering planets, moons, Earth from space and data globes, while custom globes with pinned locations and highlighted countries are a separate one-time purchase starting at $6.95.",
+      "needs": [
+        "A home printer, A4 or A3 paper",
+        "Scissors and glue"
+      ],
+      "time": "An evening"
+    },
+    {
+      "date": "2026-08-02",
+      "title": "Shrink an hour of video from 6.46GB to 2.29GB on Windows, for free",
+      "url": "https://www.makeuseof.com/free-windows-app-compressed-6gb-video-to-2gb-without-handbrake/",
+      "dek": "<b>Constant quality H.264</b> in an MP4 container took Oluwademilade Afolabi's 1080p file from 6.46GB to 2.29GB in roughly two and a half hours with VidCoder, and he notes fine detail looked slightly softer in fast-moving scenes, so he previews the result and keeps the original.",
+      "needs": [
+        "Windows 10 or 11, 64-bit",
+        "VidCoder, free and open source",
+        "The original file, kept as backup"
+      ],
+      "time": "About 2.5 hours"
+    },
+    {
+      "date": "2026-08-02",
+      "title": "Put the files you keep remaking into the Windows right-click New menu",
+      "url": "https://www.makeuseof.com/windows-new-menu-was-useless-until-i-added-my-own-files-to-it/",
+      "dek": "<b>No registry editing</b> required: Afam Onyimadu turns on the New+ module under File Management in Microsoft PowerToys, then drops template files into its folder so they appear on right-click, and he advises adding only the kinds of file you genuinely keep recreating.",
+      "needs": [
+        "Windows 11",
+        "Microsoft PowerToys",
+        "Two or three files you keep remaking"
+      ],
+      "time": "One-time setup"
+    },
+    {
+      "date": "2026-08-02",
+      "title": "Print five car accessories tonight instead of ordering them",
+      "url": "https://www.howtogeek.com/these-5-car-accessories-are-cheaper-and-faster-to-print-than-order-from-amazon/",
+      "dek": "<b>Half an hour for the visor clip</b> and an hour or two for the air vent phone mount, from MakerWorld models the guide links, with a warning worth heeding: plain PLA starts to deform at around 50C (122F), so a parked car calls for PETG, ASA, ABS or PET instead.",
+      "needs": [
+        "A 3D printer",
+        "PETG, ASA, ABS or PET filament",
+        "Supports for the hitch cover"
+      ],
+      "time": "30 minutes to 2 hours"
+    },
     {
       "date": "2026-08-01",
       "title": "Back up one folder to every cloud account you own, with a single command",
