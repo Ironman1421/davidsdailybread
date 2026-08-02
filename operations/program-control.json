@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-02T19:43:59Z",
+  "updatedAt": "2026-08-02T19:44:46Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-003",
+  "activeItemId": "DDB-PC-004",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -83,7 +83,7 @@
       "id": "DDB-PC-003",
       "sequence": 3,
       "title": "Preserve the DDB-05 measurement-scorecard output",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-002"
       ],
@@ -97,13 +97,20 @@
         "Local preservation commit records all intended DDB-05 paths",
         "Worktree is clean",
         "Branch and commit identifiers are recorded as evidence"
+      ],
+      "completedAt": "2026-08-02T19:44:46Z",
+      "evidence": [
+        "branch codex/measurement-scorecard-preserved",
+        "commit 23d209fca783c1654cd36ecd5e01097c2eee29fb",
+        "17 intended files committed",
+        "worktree clean"
       ]
     },
     {
       "id": "DDB-PC-004",
       "sequence": 4,
       "title": "Preserve the DDB-06 production-audit output",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-003"
       ],
