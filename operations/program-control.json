@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-02T19:54:32Z",
+  "updatedAt": "2026-08-02T19:59:19Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-009",
+  "activeItemId": "DDB-PC-010",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -243,7 +243,7 @@
       "id": "DDB-PC-009",
       "sequence": 9,
       "title": "Integrate the P1 pipeline-reliability commit",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-006"
       ],
@@ -258,13 +258,23 @@
         "Telegram no-op and artifact-redaction behavior is preserved",
         "Local static checks pass",
         "No external action occurred"
+      ],
+      "completedAt": "2026-08-02T19:59:19Z",
+      "evidence": [
+        "commit e3d4fc659d6e6cfbeba483a74a7090b022991ca4 integrates source commit 6ab676fd49e726dfeacc36401c1897e97fb333a1",
+        "same-edition morning and evening retries are byte-stable and reader claims cannot change on retry",
+        "publish verification compares the authoritative main ref and then checks the exact public edition",
+        "duplicate editions skip X and Telegram jobs; raw model output is withheld and failure artifacts are payload-free",
+        "59 focused unit tests and tests/test_evening_render.py passed; git diff --check passed",
+        "privacy overlap resolved to house-satchel-only reader state with no Counter input",
+        "all changes are local; no workflow dispatch, push, PR, merge, deploy, or notification occurred"
       ]
     },
     {
       "id": "DDB-PC-010",
       "sequence": 10,
       "title": "Integrate the privacy-preserving measurement scorecard",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-003",
         "DDB-PC-006"
