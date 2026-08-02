@@ -1,0 +1,435 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-02T19:40:50Z",
+  "authority": {
+    "founderDoctrine": "FOUNDER_DOCTRINE.md",
+    "humanOwner": "David Friedhof",
+    "stateSource": "operations/program-control.json",
+    "controllerRole": "single-program-controller"
+  },
+  "mode": "single-controller-serial-execution",
+  "activeItemId": "DDB-PC-002",
+  "executionPolicy": {
+    "maximumInProgress": 1,
+    "workerMaySelectNext": false,
+    "workerMayAddQueueItems": false,
+    "discoveredWorkIsExecutionAuthority": false,
+    "selectionRule": "Select the lowest-sequence pending item whose dependencies are complete, whose doctrine state is not paused, and whose required approval is granted. Activate it immediately after the prior active item reaches complete or blocked.",
+    "noEligibleItemRule": "Stop execution and report the exact unresolved dependency, doctrine pause, or missing David approval. Do not invent substitute work.",
+    "completionRule": "An item becomes complete only after every completionGate entry has recorded evidence in this file.",
+    "queueChangeRule": "Only David may authorize adding, removing, reordering, or materially changing queue scope. The controller records his decision in this file before execution.",
+    "workerRule": "A worker executes only the item ID assigned by the controller, returns evidence, and stops without choosing a successor."
+  },
+  "states": [
+    "pending",
+    "in_progress",
+    "blocked",
+    "complete",
+    "cancelled",
+    "paused_by_doctrine"
+  ],
+  "items": [
+    {
+      "id": "DDB-PC-001",
+      "sequence": 1,
+      "title": "Install deterministic program control",
+      "status": "complete",
+      "dependencies": [],
+      "authorization": {
+        "type": "none"
+      },
+      "externalMutation": false,
+      "completionGate": [
+        "Canonical queue exists in operations/program-control.json",
+        "AGENTS.md and CLAUDE.md require controller-only successor selection",
+        "A validator enforces one active item and deterministic ordering"
+      ],
+      "completedAt": "2026-08-02T19:40:50Z",
+      "evidence": [
+        "operations/program-control.json",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "tests/test_program_control.py"
+      ]
+    },
+    {
+      "id": "DDB-PC-002",
+      "sequence": 2,
+      "title": "Preserve the DDB-02 privacy-containment output",
+      "status": "in_progress",
+      "dependencies": [
+        "DDB-PC-001"
+      ],
+      "authorization": {
+        "type": "none"
+      },
+      "externalMutation": false,
+      "scope": "Put the existing detached DDB-02 worktree output on a named local branch and create a local preservation commit without changing its content or treating it as approved for integration.",
+      "completionGate": [
+        "Named local branch exists",
+        "Local preservation commit records all intended DDB-02 paths",
+        "Worktree is clean",
+        "Branch and commit identifiers are recorded as evidence"
+      ]
+    },
+    {
+      "id": "DDB-PC-003",
+      "sequence": 3,
+      "title": "Preserve the DDB-05 measurement-scorecard output",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-002"
+      ],
+      "authorization": {
+        "type": "none"
+      },
+      "externalMutation": false,
+      "scope": "Put the existing detached DDB-05 worktree output on a named local branch and create a local preservation commit without changing its content.",
+      "completionGate": [
+        "Named local branch exists",
+        "Local preservation commit records all intended DDB-05 paths",
+        "Worktree is clean",
+        "Branch and commit identifiers are recorded as evidence"
+      ]
+    },
+    {
+      "id": "DDB-PC-004",
+      "sequence": 4,
+      "title": "Preserve the DDB-06 production-audit output",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-003"
+      ],
+      "authorization": {
+        "type": "none"
+      },
+      "externalMutation": false,
+      "scope": "Put the existing detached DDB-06 audit document on a named local branch and create a local preservation commit without changing its content.",
+      "completionGate": [
+        "Named local branch exists",
+        "Local preservation commit records the audit",
+        "Worktree is clean",
+        "Branch and commit identifiers are recorded as evidence"
+      ]
+    },
+    {
+      "id": "DDB-PC-005",
+      "sequence": 5,
+      "title": "Build the clean P0 governance and privacy integration",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-004"
+      ],
+      "authorization": {
+        "type": "none"
+      },
+      "externalMutation": false,
+      "scope": "Starting from current origin/main, apply the founder-governance commit and selectively port the privacy-containment behavior. Do not merge the preservation branch wholesale. Preserve the existing Pages architecture unless a focused review proves a hosting change is required.",
+      "completionGate": [
+        "Integration branch is based on current origin/main",
+        "Founder doctrine and pause boundaries are present",
+        "No active public intake endpoint remains in the proposed release",
+        "Historical editions and Chronicles exports are preserved",
+        "Rendered outputs are produced by the renderer rather than hand edited",
+        "No external system or production state changed"
+      ]
+    },
+    {
+      "id": "DDB-PC-006",
+      "sequence": 6,
+      "title": "Validate the P0 integration locally",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-005"
+      ],
+      "authorization": {
+        "type": "none"
+      },
+      "externalMutation": false,
+      "scope": "Run static validation permitted on the current host, review the complete diff, and prepare the exact x86_64 CI command and expected gate.",
+      "completionGate": [
+        "JSON and YAML parse checks pass",
+        "Python compilation checks pass",
+        "Privacy and governance static scans pass",
+        "git diff --check passes",
+        "Known local-host test limitations are recorded"
+      ]
+    },
+    {
+      "id": "DDB-PC-007",
+      "sequence": 7,
+      "title": "Push the P0 branch and open a draft PR for x86_64 CI",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-006"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Push the reviewed P0 branch and open a draft pull request. Do not merge."
+      },
+      "externalMutation": true,
+      "completionGate": [
+        "David approval is recorded",
+        "Branch push succeeds",
+        "Draft PR exists",
+        "x86_64 merge gate result is recorded"
+      ]
+    },
+    {
+      "id": "DDB-PC-008",
+      "sequence": 8,
+      "title": "Approve and deploy the exact intake-pause release",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-007"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Merge the exact reviewed P0 PR, which deploys the GitHub Pages release. External Buttondown, Google Form, Google Sheet, and GitHub Issues changes remain excluded."
+      },
+      "externalMutation": true,
+      "completionGate": [
+        "David approves the exact release",
+        "Merge gate is green",
+        "PR merges successfully",
+        "Pages deployment succeeds",
+        "Public privacy and governance verification passes"
+      ]
+    },
+    {
+      "id": "DDB-PC-009",
+      "sequence": 9,
+      "title": "Integrate the P1 pipeline-reliability commit",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-006"
+      ],
+      "authorization": {
+        "type": "none"
+      },
+      "externalMutation": false,
+      "scope": "Rebase or reapply commit 6ab676fd49e726dfeacc36401c1897e97fb333a1 onto the latest prepared integration state, resolve overlaps intentionally, and keep schedules and editorial output unchanged.",
+      "completionGate": [
+        "Retry idempotency behavior is preserved",
+        "Authoritative verification behavior is preserved",
+        "Telegram no-op and artifact-redaction behavior is preserved",
+        "Local static checks pass",
+        "No external action occurred"
+      ]
+    },
+    {
+      "id": "DDB-PC-010",
+      "sequence": 10,
+      "title": "Integrate the privacy-preserving measurement scorecard",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-003",
+        "DDB-PC-006"
+      ],
+      "authorization": {
+        "type": "none"
+      },
+      "externalMutation": false,
+      "scope": "Rebase the preserved DDB-05 scorecard onto the latest prepared integration state. Keep returning-reader measurement unauthorized and unknown.",
+      "completionGate": [
+        "Scorecard command and schemas are integrated",
+        "No PII, cookies, fingerprinting, vendor activation, or invented metrics are introduced",
+        "Local static checks pass",
+        "No external action occurred"
+      ]
+    },
+    {
+      "id": "DDB-PC-011",
+      "sequence": 11,
+      "title": "Rebase and disposition the four dependency PRs",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-009"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Update remote dependency branches and PR state. Do not merge until each exact PR is separately approved."
+      },
+      "externalMutation": true,
+      "completionGate": [
+        "Each PR is rebased on current main",
+        "Fresh CI is recorded",
+        "Risk-specific verification is recorded",
+        "Each merge decision is recorded"
+      ]
+    },
+    {
+      "id": "DDB-PC-012",
+      "sequence": 12,
+      "title": "Repair Ethernet and configure Wi-Fi failover",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-004"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Modify Spark networking using the audited reversible runbook."
+      },
+      "externalMutation": true,
+      "completionGate": [
+        "Existing network configuration is captured",
+        "Ethernet physical path is repaired",
+        "Higher-metric Wi-Fi failover is configured",
+        "Controlled failover and rollback tests pass",
+        "Twenty-four-hour observation completes"
+      ]
+    },
+    {
+      "id": "DDB-PC-013",
+      "sequence": 13,
+      "title": "Reconcile the dirty Spark and local checkouts",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-004"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Preserve and reconcile dirty or stale checkouts without deleting user-owned work."
+      },
+      "externalMutation": true,
+      "completionGate": [
+        "Preservation manifests and recoverable backups exist",
+        "Canonical private checkout is clean and current",
+        "Deployed files match the approved source",
+        "Services and exact-edition no-op canaries verify"
+      ]
+    },
+    {
+      "id": "DDB-PC-014",
+      "sequence": 14,
+      "title": "Remove redundant Codex automations",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-004"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Update or delete the audited duplicate and exhausted automation records."
+      },
+      "externalMutation": true,
+      "completionGate": [
+        "Keep, update, and delete decisions match the audit",
+        "Duplicate and exhausted records are removed",
+        "Two long-lived controls plus approved temporary monitors remain"
+      ]
+    },
+    {
+      "id": "DDB-PC-015",
+      "sequence": 15,
+      "title": "Implement the publisher App and protect main",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-008",
+        "DDB-PC-009"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Provision the approved publisher identity, run supervised canaries, and change GitHub rulesets."
+      },
+      "externalMutation": true,
+      "completionGate": [
+        "Publisher identity is approved and provisioned",
+        "Two supervised canaries pass",
+        "Ruleset blocks unauthorized main writes",
+        "Approved publisher and green PR paths remain functional",
+        "Rollback and token revocation verify"
+      ]
+    },
+    {
+      "id": "DDB-PC-016",
+      "sequence": 16,
+      "title": "External reader-intake account cutover",
+      "status": "paused_by_doctrine",
+      "dependencies": [
+        "DDB-PC-008"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Change Buttondown, Google Form, Google Sheet, or GitHub Issues intake state."
+      },
+      "externalMutation": true,
+      "pauseAuthority": "FOUNDER_DOCTRINE.md requires a separate explicit approval for external form changes."
+    },
+    {
+      "id": "DDB-PC-017",
+      "sequence": 17,
+      "title": "Cloudflare and D1 canary or activation",
+      "status": "paused_by_doctrine",
+      "dependencies": [],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Provision or run any Cloudflare or D1 resource, credential, endpoint, canary, or collection."
+      },
+      "externalMutation": true,
+      "pauseAuthority": "FOUNDER_DOCTRINE.md authorizes local implementation and an unprovisioned plan only."
+    },
+    {
+      "id": "DDB-PC-018",
+      "sequence": 18,
+      "title": "Supabase reader-store provisioning or activation",
+      "status": "paused_by_doctrine",
+      "dependencies": [],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Provision, link, credential, deploy, or activate the Supabase reader store."
+      },
+      "externalMutation": true,
+      "pauseAuthority": "FOUNDER_DOCTRINE.md keeps new reader intake paused and does not authorize provisioning."
+    },
+    {
+      "id": "DDB-PC-019",
+      "sequence": 19,
+      "title": "Newsletter activation or sending",
+      "status": "paused_by_doctrine",
+      "dependencies": [],
+      "authorization": {
+        "type": "explicit_david_reversal",
+        "granted": false,
+        "scope": "Draft, configure, test, schedule, credential, activate, or send a newsletter."
+      },
+      "externalMutation": true,
+      "pauseAuthority": "FOUNDER_DOCTRINE.md explicitly pauses all newsletter sending and activation work."
+    },
+    {
+      "id": "DDB-PC-020",
+      "sequence": 20,
+      "title": "Close the current reliability and governance program",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-008",
+        "DDB-PC-009",
+        "DDB-PC-010",
+        "DDB-PC-011",
+        "DDB-PC-012",
+        "DDB-PC-013",
+        "DDB-PC-014",
+        "DDB-PC-015"
+      ],
+      "authorization": {
+        "type": "none"
+      },
+      "externalMutation": false,
+      "completionGate": [
+        "Every non-paused queue item is complete or explicitly cancelled by David",
+        "Production verification is green",
+        "Remaining doctrine-paused items are documented without activation",
+        "Final evidence report is delivered to David"
+      ]
+    }
+  ]
+}

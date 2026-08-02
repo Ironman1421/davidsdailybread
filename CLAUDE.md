@@ -9,6 +9,18 @@ governing constraints and do exactly what `BAKE.md` says.
 Everything below is for *interactive* sessions: a human or an agent editing this
 repo outside a bake.
 
+## Deterministic program control
+
+`operations/program-control.json` is the sole source of truth for execution
+order and task state. `FOUNDER_DOCTRINE.md` remains authoritative above it for
+mission, ownership, strategy, and paused work.
+
+Only the designated program controller may activate an item, change task state,
+or select the next item. Every other agent is a worker: execute only the assigned
+item, return the required evidence, and stop. Do not infer, select, or begin a
+successor. Newly discovered work is a finding, not authorization to add or start
+work. At most one item may be `in_progress` at a time.
+
 ## This is production
 
 `main` is served by GitHub Pages and read by the next bake. There is no staging
