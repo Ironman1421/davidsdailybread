@@ -571,6 +571,20 @@ class WorkflowContractTest(unittest.TestCase):
         self.assertIn("verify-live", readiness)
         self.assertNotIn("secrets.TELEGRAM_", readiness)
 
+    def test_existing_edition_backup_skips_telegram_job_and_artifacts(self):
+        workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
+        x_job = workflow.split("\n  x-broadcast:\n", 1)[1].split(
+            "\n  telegram-publication-receipt:\n", 1
+        )[0]
+        telegram = workflow.split("\n  telegram-publication-receipt:\n", 1)[1]
+        guard = "needs.bake.outputs.already_exists != 'true'"
+
+        self.assertIn(guard, x_job.split("\n    runs-on:", 1)[0])
+        self.assertIn(guard, telegram.split("\n    runs-on:", 1)[0])
+        self.assertIn("Run live exact edition notification", telegram)
+        self.assertIn("Upload redacted Telegram attempt", telegram)
+        self.assertIn("Upload blocking Telegram receipt", telegram)
+
     def test_contract_and_runbook_require_both_slots_and_clickable_exact_links(self):
         contract = json.loads(
             (ROOT / "operations" / "telegram-notification.contract.json").read_text()

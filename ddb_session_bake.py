@@ -33,6 +33,9 @@ idempotent for the same date+content.
 from __future__ import annotations
 
 import argparse
+from copy import deepcopy
+from email.utils import parsedate_to_datetime
+import hashlib
 import json
 import os
 import re
@@ -265,11 +268,17 @@ def validate_content(c: dict, date: str, slot: str) -> None:
 def validate_reader_provenance(reader: dict, csv_path: Path | None = None,
                                state_path: Path | None = None,
                                satchel_path: Path | None = None,
-                               require_complete: bool = False) -> None:
+                               require_complete: bool = False,
+                               state_data: dict | None = None) -> None:
     """Bind the only permitted reader-adjacent content to the house satchel."""
     state_path = state_path or REPO / "bakery-state.json"
     satchel_path = satchel_path or REPO / "kings-satchel.json"
-    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
+    if state_data is not None:
+        state = deepcopy(state_data)
+    elif state_path.exists():
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+    else:
+        state = {}
     _require(set(reader) <= {"king"},
              "only reviewed house-satchel king material is allowed while intake is paused")
     _require(not reader.get("ask") and not reader.get("pin"),
@@ -433,7 +442,9 @@ def _catalog_with_evening(catalog: dict, content: dict, date: str) -> dict:
     return updated
 
 
-def render_evening_from_content(c: dict, date: str) -> tuple[str, str]:
+def render_evening_from_content(
+    c: dict, date: str, rendered_at_utc: datetime | None = None
+) -> tuple[str, str]:
     """Render the Field Guide evening edition (layout adopted 2026-07-30):
     lead pick, two-row glance, tool shelf, workflow recipes, then Keep and
     Ponder. Returns
@@ -476,17 +487,20 @@ def render_evening_from_content(c: dict, date: str) -> tuple[str, str]:
         *[w["dek"] + " " + " ".join(str(n) for n in w["needs"]) for w in flows],
     )
     html = html.replace("READTIME", readtime)
-    html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(datetime.now(timezone.utc)))
+    rendered_at_utc = rendered_at_utc or datetime.now(timezone.utc)
+    html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(rendered_at_utc))
     return html, lead["title"]
 
 
-def render_home_from_content(c: dict, date: str, slot: str) -> tuple[str, str]:
+def render_home_from_content(
+    c: dict, date: str, slot: str, rendered_at_utc: datetime | None = None
+) -> tuple[str, str]:
     """Mirror ddb_bake.render_home's token operations exactly, sourcing all
     editorial content from the session-authored JSON instead of model calls.
     The evening slot routes to render_evening_from_content (its own template
     and token set). Returns (html, lead_title)."""
     if slot == "evening":
-        return render_evening_from_content(c, date)
+        return render_evening_from_content(c, date, rendered_at_utc)
     template = (REPO / "templates" / SLOT_TEMPLATE[slot]).read_text(encoding="utf-8")
     esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
     sections = SLOT_SECTIONS[slot]
@@ -566,7 +580,8 @@ def render_home_from_content(c: dict, date: str, slot: str) -> tuple[str, str]:
         *[card["dek"] for s in sections for card in c["cards"][s]],
     )
     html = html.replace("READTIME", readtime)
-    html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(datetime.now(timezone.utc)))
+    rendered_at_utc = rendered_at_utc or datetime.now(timezone.utc)
+    html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(rendered_at_utc))
     return html, lead["title"]
 
 
@@ -587,12 +602,41 @@ def verify_output(paths: list[Path]) -> None:
     verify_rendered_outputs({p: p.read_text(encoding="utf-8") for p in paths})
 
 
-def state_with_reader(reader: dict) -> dict:
+def _reader_claim(reader: dict, date: str) -> dict:
+    """Return a payload-free identity for one morning's reader selection."""
+    king = reader.get("king") or {}
+    selection = {"houseSatchelId": king.get("satchel_id") if king else None}
+    digest = hashlib.sha256(
+        json.dumps(selection, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    return {"version": 1, "date": date, "readerClaimSha256": digest}
+
+
+def _state_before_reader(state: dict, reader: dict) -> dict:
+    """Reconstruct pre-render bookkeeping in memory for a verified retry."""
+    prior = deepcopy(state)
+    king = reader.get("king") or {}
+    if king.get("satchel_id"):
+        prior["usedSatchelLetters"] = [
+            item for item in prior.get("usedSatchelLetters", [])
+            if item != king["satchel_id"]
+        ]
+    return prior
+
+
+def state_with_reader(reader: dict, date: str | None = None,
+                      state_data: dict | None = None) -> dict:
     """Return updated reader bookkeeping without mutating the working tree."""
     state_path = REPO / "bakery-state.json"
-    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {
-        "note": "", "answeredQuestions": [], "postedPins": [], "kingLetters": [], "usedSatchelLetters": []
-    }
+    if state_data is not None:
+        state = deepcopy(state_data)
+    elif state_path.exists():
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+    else:
+        state = {
+            "note": "", "answeredQuestions": [], "postedPins": [],
+            "kingLetters": [], "usedSatchelLetters": []
+        }
 
     def add(key: str, value: str) -> None:
         bucket = state.setdefault(key, [])
@@ -606,6 +650,8 @@ def state_with_reader(reader: dict) -> dict:
         _require(bool(king.get("satchel_id")) and not king.get("state_key"),
                  "only reviewed house satchel state may be written while intake is paused")
         add("usedSatchelLetters", king["satchel_id"])
+    if date is not None:
+        state["lastMorningRender"] = _reader_claim(reader, date)
     return state
 
 
@@ -625,20 +671,58 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
         fail(f"cannot read content JSON: {e}")
 
     validate_content(content, date, slot)
+    editions = REPO / "editions"
+    edition_path = editions / f"{date}-{slot}.html"
+    archive_json_path = REPO / "archive.json"
+    existing_archive = ddb_bake.read_archive_json(archive_json_path)
+    matching_entries = [
+        entry for entry in existing_archive.get("editions", [])
+        if entry.get("date") == date and entry.get("edition") == slot
+        and entry.get("file") == f"editions/{date}-{slot}.html"
+    ]
+    _require(len(matching_entries) <= 1, "archive has duplicate entries for this edition")
+    existing_entry = matching_entries[0] if matching_entries and edition_path.exists() else None
+
+    current_state: dict | None = None
     if slot == "morning":
         reader = content.get("reader") or {}
         if bake_mode == "backfill":
             _require(not reader, "backfill editions must omit reader sections")
         else:
-            validate_reader_provenance(reader, require_complete=True)
+            state_path = REPO / "bakery-state.json"
+            current_state = (
+                json.loads(state_path.read_text(encoding="utf-8"))
+                if state_path.exists() else {}
+            )
+            validation_state = current_state
+            if existing_entry is not None:
+                expected_claim = _reader_claim(reader, date)
+                stored_claim = current_state.get("lastMorningRender")
+                if isinstance(stored_claim, dict) and stored_claim.get("date") == date:
+                    _require(
+                        stored_claim == expected_claim,
+                        "same-edition retry must keep the original reader selection",
+                    )
+                    validation_state = _state_before_reader(current_state, reader)
+            validate_reader_provenance(
+                reader, require_complete=True, state_data=validation_state
+            )
 
     archive_html_path = REPO / "archive.html"
     ddb_bake.validate_archive_file(archive_html_path)  # fail closed before any write
 
-    html, lead_title = render_home_from_content(content, date, slot)
-
-    editions = REPO / "editions"
-    edition_path = editions / f"{date}-{slot}.html"
+    render_instant = datetime.now(timezone.utc)
+    pub_date: str | None = None
+    if existing_entry is not None and existing_entry.get("pubDate"):
+        pub_date = str(existing_entry["pubDate"])
+        try:
+            parsed_pub_date = parsedate_to_datetime(pub_date)
+            if parsed_pub_date.tzinfo is None:
+                raise ValueError("timezone offset is missing")
+            render_instant = parsed_pub_date.astimezone(timezone.utc)
+        except (TypeError, ValueError) as exc:
+            fail(f"existing archive pubDate is invalid: {exc}")
+    html, lead_title = render_home_from_content(content, date, slot, render_instant)
     outputs: dict[Path, str] = {
         edition_path: html,
         REPO / "index.html": html,
@@ -666,11 +750,11 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
         written.append(catalog_path)
 
     from zoneinfo import ZoneInfo
-    now_et = datetime.now(timezone.utc).astimezone(ZoneInfo("America/New_York"))
-    pub_date = now_et.strftime("%a, %d %b %Y %H:%M:%S %z")
-    archive_json_path = REPO / "archive.json"
+    if pub_date is None:
+        now_et = render_instant.astimezone(ZoneInfo("America/New_York"))
+        pub_date = now_et.strftime("%a, %d %b %Y %H:%M:%S %z")
     archive_data = ddb_bake.archive_with_edition(
-        ddb_bake.read_archive_json(archive_json_path), date, slot, lead_title,
+        existing_archive, date, slot, lead_title,
         ddb_bake.human_date(date), pub_date,
     )
     outputs[archive_json_path] = json.dumps(
@@ -688,7 +772,9 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
         # and historical backfills leave reader state untouched.
         state_path = REPO / "bakery-state.json"
         outputs[state_path] = json.dumps(
-            state_with_reader(content.get("reader") or {}),
+            state_with_reader(
+                content.get("reader") or {}, date=date, state_data=current_state
+            ),
             indent=2,
             ensure_ascii=False,
         ) + "\n"

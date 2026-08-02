@@ -197,10 +197,11 @@ over and guards the result before it ships:
   house style (edition commit, then the `Archive:` commit), rebases on `main`
   to incorporate any newer published edition, and pushes.
 
-**7. Verify — also the workflow's job.** After pushing, the workflow polls
-`https://raw.githubusercontent.com/Ironman1421/davidsdailybread/main/archive.json`
-until the edition date appears (raw is the truth; the live CDN may lag a few
-minutes, which the workflow logs as a soft warning, not a failure).
+**7. Verify — also the workflow's job.** After pushing, the workflow compares
+the pushed commit with GitHub's authoritative `refs/heads/main`, then checks the
+exact public edition URL and title on davidsdailybread.com. A delayed public
+page is a soft warning after a bounded retry; verification never polls the raw
+GitHub content CDN.
 
 **8. Satchel restock (only when the plan reported `satchel_unused` < 3).**
 Append new letters to `kings-satchel.json` (same schema, next `KS-0NN` ids,

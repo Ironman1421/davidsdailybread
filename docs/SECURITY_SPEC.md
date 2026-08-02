@@ -116,9 +116,10 @@ The following are untrusted input even when produced by a model or collaborator:
    strong Content Security Policy or fully local assets.
 5. Repository-level Dependabot alerts are disabled. Version-update PRs are
    configured, but the owner must enable vulnerability alerts in GitHub.
-6. The diagnostic artifact still contains `content.json` and a raw model log.
-   The renderer now rejects submission-derived fields, but the broader private
-   artifact design remains future work.
+6. Production remains on the pre-integration workflow until the exact release
+   is approved and deployed. That workflow may retain `content.json` and raw
+   model output after a failed bake; the proposed local workflow replaces this
+   with a payload-free failure summary, but the live risk remains until release.
 
 Exceptions are tracked work, not accepted permanent architecture.
 
