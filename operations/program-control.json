@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-02T20:28:46Z",
+  "updatedAt": "2026-08-03T12:30:18Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -212,6 +212,13 @@
         "decisionEvidence": "Task message: Approve DDB-PC-007: push codex/deterministic-program-control and open a draft PR. Do not merge.",
         "scope": "Push the reviewed P0 branch and open a draft pull request. Do not merge."
       },
+      "repairAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-03T12:30:18Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-007 CI repair: make the three test-only fixes, run targeted checks, push the amended branch, and observe the fresh x86_64 Merge gate. Do not merge.",
+        "scope": "Fix only the three diagnosed test-contract failures, run targeted checks, push the amended branch, and observe fresh x86_64 CI. Do not merge."
+      },
       "externalMutation": true,
       "completionGate": [
         "David approval is recorded",
@@ -226,8 +233,7 @@
         "push-event Merge gate run 30765589885 failed on the same head",
         "CodeQL passed for Python and JavaScript/TypeScript",
         "failure root cause is three test-contract mismatches: node_modules included in a publishable-surface scan, a stale Counter-plan wording assertion, and a line-wrap-sensitive paused-Supabase assertion"
-      ],
-      "blockingCondition": "The gh-fix-ci workflow requires explicit approval before amending the branch. No test fix or additional push is authorized by the current DDB-PC-007 decision."
+      ]
     },
     {
       "id": "DDB-PC-008",
