@@ -319,7 +319,10 @@ with tempfile.TemporaryDirectory() as td:
     assert morning_html.count('class="scripture-inline"') == 7
     assert "Proverbs 18:15 &middot; BSB" in morning_html
     assert "Scripture accompanies each story for the reader's reflection." in morning_html
-    assert "News and Scripture, paired story by story." in morning_html
+    assert (
+        "News and Scripture each morning. Practical tools each evening. Loved by God."
+        in morning_html
+    )
     for section in ("tech", "markets", "science"):
         category_html = (repo / f"{section}.html").read_text(encoding="utf-8")
         assert category_html.count('class="scripture-inline"') == 2
