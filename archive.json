@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-03",
+      "edition": "evening",
+      "dateHuman": "Monday, August 3, 2026",
+      "file": "editions/2026-08-03-evening.html",
+      "lead": "Check what your browser extensions can actually see, then delete the ones that see too much",
+      "pubDate": "Mon, 03 Aug 2026 17:53:10 -0400"
+    },
+    {
+      "date": "2026-08-03",
       "edition": "morning",
       "dateHuman": "Monday, August 3, 2026",
       "file": "editions/2026-08-03-morning.html",
