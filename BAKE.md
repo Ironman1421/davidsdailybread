@@ -5,8 +5,8 @@ which is baked twice daily:
 
 - the **morning edition** (Spark dispatch at 4:40 AM Pacific): politics-free
   news and Scripture, paired story by story across tech, markets, and science,
-  plus reviewed house-satchel material when the plan selects it. New reader
-  intake is paused. Steps 1-9 below.
+  plus reviewed house-satchel material when the plan selects it.
+  New reader intake is paused. Steps 1-9 below.
 - the **evening edition** (Spark dispatch at 2:40 PM Pacific): the Field Guide.
   Trending tools, practical workflows, and a short Keep and Ponder closing for
   everyday people, with no news after dark (news belongs to the morning). See
