@@ -62,6 +62,7 @@
     link.appendChild(element("h2", "", String(item.title || "")));
     var chips = element("div", "chips");
     chips.appendChild(chip(String(item.time || ""), "seen"));
+    if (item.seen) chips.appendChild(chip(String(item.seen), "seen"));
     link.appendChild(chips);
     link.appendChild(element("p", "", String(item.dek || "").replace(/<\/?b>/g, "")));
     var needs = element("div", "needs");
