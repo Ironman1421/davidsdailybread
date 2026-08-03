@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T12:30:18Z",
+  "updatedAt": "2026-08-03T12:35:16Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,13 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-007",
+  "activeItemId": null,
+  "halt": {
+    "type": "no_eligible_item",
+    "nextDecisionItemId": "DDB-PC-008",
+    "reason": "DDB-PC-008 is the lowest-sequence pending item with complete dependencies, but it requires David's separate explicit approval to merge and deploy the exact draft PR. David's current decision says do not merge. Every other incomplete item is approval-gated, dependency-blocked, or paused by doctrine.",
+    "eligibleItemIds": []
+  },
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -200,7 +206,7 @@
       "id": "DDB-PC-007",
       "sequence": 7,
       "title": "Push the P0 branch and open a draft PR for x86_64 CI",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-006"
       ],
@@ -233,6 +239,17 @@
         "push-event Merge gate run 30765589885 failed on the same head",
         "CodeQL passed for Python and JavaScript/TypeScript",
         "failure root cause is three test-contract mismatches: node_modules included in a publishable-surface scan, a stale Counter-plan wording assertion, and a line-wrap-sensitive paused-Supabase assertion"
+      ],
+      "completedAt": "2026-08-03T12:35:16Z",
+      "evidence": [
+        "David's original push/draft-PR approval and subsequent three-test CI-repair approval are recorded in this item",
+        "origin/codex/deterministic-program-control and draft PR https://github.com/Ironman1421/davidsdailybread/pull/29 point to repaired head 44bd258b701738e56310dd326055b72efa65c010",
+        "three test-only repairs changed 7 lines added and 5 lines removed; 9 targeted local checks passed",
+        "PR-event x86_64 Merge gate run 30813912499 passed for exact head 44bd258b701738e56310dd326055b72efa65c010 in 3m24s",
+        "x86_64 gate recorded 184 Python tests passed, explicit two-slot render passed, reader source gates passed, migration replay passed, pgTAP 96/96 passed, database lint passed, and concurrency/locking checks passed",
+        "CodeQL passed for Python and JavaScript/TypeScript on the repaired head",
+        "duplicate push-event Merge gate was cancelled by the intended concurrency rule; the authoritative PR-event gate passed",
+        "PR remains draft and unmerged; no deployment or provider mutation occurred"
       ]
     },
     {
