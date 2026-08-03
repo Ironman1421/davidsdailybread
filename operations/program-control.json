@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T13:05:58Z",
+  "updatedAt": "2026-08-03T13:23:37Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,13 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
-  "halt": {
-    "type": "no_eligible_item",
-    "nextDecisionItemId": "DDB-PC-011",
-    "reason": "DDB-PC-011 is the lowest-sequence pending item with complete dependencies, but it requires David's explicit approval to update the remote dependency branches and PR state. Every other incomplete item is approval-gated, dependency-blocked, or paused by doctrine.",
-    "eligibleItemIds": []
-  },
+  "activeItemId": "DDB-PC-011",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -354,13 +348,16 @@
       "id": "DDB-PC-011",
       "sequence": 11,
       "title": "Rebase and disposition the four dependency PRs",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-009"
       ],
       "authorization": {
         "type": "explicit_david",
-        "granted": false,
+        "granted": true,
+        "grantedAt": "2026-08-03T13:23:37Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-011: update/rebase Dependabot PRs #7, #8, #9, and #15 onto current main, observe fresh x86_64 CI and CodeQL, review each upgrade's workflow risk, and report a separate merge recommendation for each. Do not merge any PR.",
         "scope": "Update remote dependency branches and PR state. Do not merge until each exact PR is separately approved."
       },
       "externalMutation": true,
