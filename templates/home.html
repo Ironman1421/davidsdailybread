@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>David's Daily Bread – EDITION, DATELINE_DATE</title>
-<meta name="description" content="David's Daily Bread – technology, markets, and science. Loved by God. Baked fresh twice daily.">
+<meta name="description" content="News and Scripture, paired story by story, across technology, markets, and science. Loved by God.">
 <link rel="canonical" href="https://davidsdailybread.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
 <meta property="og:title" content="David's Daily Bread – EDITION, DATELINE_DATE">
-<meta property="og:description" content="A news briefing on technology, markets, and science. Loved by God. Baked fresh twice daily.">
+<meta property="og:description" content="News and Scripture, paired story by story, across technology, markets, and science. Loved by God.">
 <meta property="og:url" content="https://davidsdailybread.com/">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -32,11 +32,13 @@
   .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
   .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .format-line { margin-top: 7px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
   .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
   .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
   .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
   .dateline .edition { color: var(--steel); font-weight: 600; }
   .dateline .read { color: var(--gold); }
+  .scripture-scope { max-width: 720px; margin: 13px auto 0; color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; font-style: italic; line-height: 1.45; text-align: center; }
   .glance { margin: 24px 0 4px; padding: 16px 22px 14px; background: rgba(200,162,74,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 12px; }
   .glance-top { display: flex; align-items: center; justify-content: space-between; }
   .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
@@ -92,6 +94,10 @@
   .story-card:hover h3 { color: var(--gold); }
   .story-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0; }
   .story-card p b { color: var(--ink); font-weight: 600; }
+  .story-card .scripture-inline { margin-top: 14px; padding-top: 12px; }
+  .story-card .verse-text { color: var(--ink); font-size: 14px; line-height: 1.42; }
+  .story-card .verse-reference { margin-top: 3px; font-size: 9.5px; }
+  .story-card .scripture-connection { margin-top: 6px; font-size: 12.5px; line-height: 1.45; }
   .stack { display: flex; flex-direction: column; }
   .stack .card { flex: 1; }
   .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
@@ -172,6 +178,7 @@
   <header class="masthead">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
     <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
+    <div class="format-line">News and Scripture, paired story by story.</div>
     <div class="dateline">
       <div class="dateline-row">
         <span>DATELINE_DATE</span>
@@ -180,6 +187,8 @@
       </div>
     </div>
   </header>
+
+  <p class="scripture-scope">Scripture accompanies each story for the reader's reflection. It is not presented as God's judgment on the people or events reported.</p>
 
   <aside class="glance">
     <div class="glance-top">
@@ -239,24 +248,24 @@ LEAD_SCRIPTURE
   <section class="section">
     <a class="col-head" href="/tech.html">Tech &amp; AI <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_T1_URL"><span class="num">01</span><h3>CARD_T1_HEADLINE</h3><p>CARD_T1_DEK</p></a></article><div class="notes" data-note-key="CARD_T1_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_T2_URL"><span class="num">02</span><h3>CARD_T2_HEADLINE</h3><p>CARD_T2_DEK</p></a></article><div class="notes" data-note-key="CARD_T2_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_T1_URL"><span class="num">01</span><h3>CARD_T1_HEADLINE</h3><p>CARD_T1_DEK</p></a>CARD_T1_SCRIPTURE</article><div class="notes" data-note-key="CARD_T1_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_T2_URL"><span class="num">02</span><h3>CARD_T2_HEADLINE</h3><p>CARD_T2_DEK</p></a>CARD_T2_SCRIPTURE</article><div class="notes" data-note-key="CARD_T2_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
   <section class="section">
     <a class="col-head" href="/markets.html">Business &amp; Markets <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_M1_URL"><span class="num">01</span><h3>CARD_M1_HEADLINE</h3><p>CARD_M1_DEK</p></a></article><div class="notes" data-note-key="CARD_M1_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_M2_URL"><span class="num">02</span><h3>CARD_M2_HEADLINE</h3><p>CARD_M2_DEK</p></a></article><div class="notes" data-note-key="CARD_M2_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_M1_URL"><span class="num">01</span><h3>CARD_M1_HEADLINE</h3><p>CARD_M1_DEK</p></a>CARD_M1_SCRIPTURE</article><div class="notes" data-note-key="CARD_M1_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_M2_URL"><span class="num">02</span><h3>CARD_M2_HEADLINE</h3><p>CARD_M2_DEK</p></a>CARD_M2_SCRIPTURE</article><div class="notes" data-note-key="CARD_M2_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 
   <section class="section">
     <a class="col-head" href="/science.html">Science <span class="arrow">&rarr;</span></a>
     <div class="card-grid">
-      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_S1_URL"><span class="num">01</span><h3>CARD_S1_HEADLINE</h3><p>CARD_S1_DEK</p></a></article><div class="notes" data-note-key="CARD_S1_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_S2_URL"><span class="num">02</span><h3>CARD_S2_HEADLINE</h3><p>CARD_S2_DEK</p></a></article><div class="notes" data-note-key="CARD_S2_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_S1_URL"><span class="num">01</span><h3>CARD_S1_HEADLINE</h3><p>CARD_S1_DEK</p></a>CARD_S1_SCRIPTURE</article><div class="notes" data-note-key="CARD_S1_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <div class="stack"><article class="card story-card"><a class="card-link" href="CARD_S2_URL"><span class="num">02</span><h3>CARD_S2_HEADLINE</h3><p>CARD_S2_DEK</p></a>CARD_S2_SCRIPTURE</article><div class="notes" data-note-key="CARD_S2_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
     </div>
   </section>
 

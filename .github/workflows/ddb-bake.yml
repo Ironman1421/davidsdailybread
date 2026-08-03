@@ -1,6 +1,7 @@
 name: Daily bake
 # Bakes and publishes davidsdailybread.com unattended, twice daily:
-# the MORNING edition (news: tech, markets, science) and the EVENING edition
+# the MORNING edition (politics-free news and Scripture: tech, markets, science)
+# and the EVENING edition
 # (trends: what's trending, new tools, workflows; spec: BAKE.md).
 # Runs inside GitHub Actions so the publish can push with the built-in
 # GITHUB_TOKEN; a Claude cloud session carries no repository write credential

@@ -7,12 +7,23 @@ from functools import lru_cache
 from html import escape
 import json
 from pathlib import Path
+import re
 
 
 ROOT = Path(__file__).resolve().parent
 CATALOG_PATH = ROOT / "scripture" / "bsb-verses.json"
 ALLOWED_SELECTION_KEYS = {"id", "connection"}
 MAX_CONNECTION_CHARS = 240
+READER_DIRECTION_RE = re.compile(r"\b(?:reader(?:s|'s)?|we|us|our)\b", re.IGNORECASE)
+PROHIBITED_CONNECTION_RE = re.compile(
+    r"\b(?:"
+    r"God\s+(?:approves?|supports?|opposes?|endorses?|condemns?|judges?|chose|chooses|blesses?)"
+    r"|divine\s+(?:approval|endorsement|judg(?:e)?ment|condemnation)"
+    r"|(?:fulfills?|fulfilled|fulfillment\s+of)\s+(?:a\s+)?prophe(?:cy|tic)"
+    r"|prophe(?:cy|tic)\s+(?:fulfilled|fulfillment)"
+    r")\b",
+    re.IGNORECASE,
+)
 
 
 class ScriptureError(ValueError):
@@ -71,35 +82,46 @@ def load_catalog() -> dict:
     return {**catalog, "byId": by_id}
 
 
-def validate_selection(value: object) -> tuple[dict, str]:
+def validate_selection(value: object, path: str = "scripture") -> tuple[dict, str]:
     if not isinstance(value, dict):
-        raise ScriptureError("lead.scripture must be an object")
+        raise ScriptureError(f"{path} must be an object")
     unexpected = set(value) - ALLOWED_SELECTION_KEYS
     if unexpected:
         raise ScriptureError(
-            "lead.scripture may contain only id and connection; "
+            f"{path} may contain only id and connection; "
             f"unexpected keys: {sorted(unexpected)}"
         )
 
     verse_id = value.get("id")
     if not isinstance(verse_id, str) or not verse_id.strip():
-        raise ScriptureError("lead.scripture.id must be a non-empty catalog identifier")
+        raise ScriptureError(f"{path}.id must be a non-empty catalog identifier")
     verse = load_catalog()["byId"].get(verse_id)
     if verse is None:
-        raise ScriptureError(f"lead.scripture.id is not in the verified BSB catalog: {verse_id}")
+        raise ScriptureError(f"{path}.id is not in the verified BSB catalog: {verse_id}")
 
-    connection = value.get("connection", "")
+    connection = value.get("connection")
     if not isinstance(connection, str):
-        raise ScriptureError("lead.scripture.connection must be a string when present")
+        raise ScriptureError(f"{path}.connection must be a non-empty string")
     connection = connection.strip()
+    if not connection:
+        raise ScriptureError(f"{path}.connection must be a non-empty string")
     if len(connection) > MAX_CONNECTION_CHARS:
         raise ScriptureError(
-            f"lead.scripture.connection must be <= {MAX_CONNECTION_CHARS} characters"
+            f"{path}.connection must be <= {MAX_CONNECTION_CHARS} characters"
         )
     if "\n" in connection or "\r" in connection:
-        raise ScriptureError("lead.scripture.connection must be one brief paragraph")
+        raise ScriptureError(f"{path}.connection must be one brief paragraph")
     if "<" in connection or ">" in connection:
-        raise ScriptureError("lead.scripture.connection must be plain text")
+        raise ScriptureError(f"{path}.connection must be plain text")
+    if not READER_DIRECTION_RE.search(connection):
+        raise ScriptureError(
+            f"{path}.connection must guide the reader using readers, we, us, or our"
+        )
+    if PROHIBITED_CONNECTION_RE.search(connection):
+        raise ScriptureError(
+            f"{path}.connection must not claim divine approval, condemnation, "
+            "judgment, or fulfilled prophecy"
+        )
     return verse, connection
 
 
@@ -132,15 +154,15 @@ def search_catalog(query: str | None, limit: int = 12) -> dict:
     }
 
 
-def render_pairing(selection: object, heading_id: str = "lead-scripture-label") -> str:
-    verse, connection = validate_selection(selection)
+def render_pairing(
+    selection: object,
+    heading_id: str = "lead-scripture-label",
+    path: str = "scripture",
+) -> str:
+    verse, connection = validate_selection(selection, path)
     reference = verse["reference"]
     url = verse["url"]
-    connection_html = (
-        f'      <p class="scripture-connection">{escape(connection)}</p>\n'
-        if connection
-        else ""
-    )
+    connection_html = f'      <p class="scripture-connection">{escape(connection)}</p>\n'
     return (
         f'    <section class="scripture-inline" aria-labelledby="{escape(heading_id)}">\n'
         f'      <h2 class="scripture-label" id="{escape(heading_id)}">Scripture for Reflection</h2>\n'

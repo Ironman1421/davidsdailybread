@@ -18,8 +18,8 @@ SAMPLE_VERSE = (
     "seeks it out."
 )
 SAMPLE_CONNECTION = (
-    "Learning new tools is valuable when it is accompanied by discernment, "
-    "careful listening, and a continuing desire to understand."
+    "We can approach new tools with discernment, careful listening, and a "
+    "continuing desire to understand."
 )
 
 
@@ -28,6 +28,10 @@ def card(section: str, number: int) -> dict:
         "title": f"{section} brief {number}",
         "url": f"https://example.com/{section}/{number}",
         "dek": f"<b>Verified detail</b> factual brief number {number}.",
+        "scripture": {
+            "id": "PRO.18.15",
+            "connection": "We can seek knowledge carefully as we consider this story.",
+        },
     }
 
 
@@ -102,7 +106,8 @@ class MorningScriptureTest(unittest.TestCase):
             content, DATE, "morning"
         )
 
-        self.assertEqual(1, html.count('class="scripture-inline"'))
+        self.assertEqual(7, html.count('class="scripture-inline"'))
+        self.assertIn("News and Scripture, paired story by story.", html)
         self.assertIn("Scripture for Reflection", html)
         self.assertIn(f"&ldquo;{SAMPLE_VERSE}&rdquo;", html)
         self.assertIn("Proverbs 18:15 &middot; BSB", html)
@@ -123,29 +128,57 @@ class MorningScriptureTest(unittest.TestCase):
         injected["lead"]["scripture"]["text"] = "A model-authored paraphrase"
         self.assert_rejected(injected, "may contain only id and connection")
 
-    def test_connection_is_optional_plain_text_and_briefs_cannot_receive_pairings(self):
+    def test_every_story_requires_a_reader_directed_plain_text_connection(self):
+        missing = morning_content()
+        del missing["cards"]["tech"][0]["scripture"]
+        self.assert_rejected(missing, "must contain only title, url, dek, and scripture")
+
         immediate = morning_content()
         del immediate["lead"]["scripture"]["connection"]
-        ddb_session_bake.validate_content(immediate, DATE, "morning")
-        html, _ = ddb_session_bake.render_home_from_content(
-            immediate, DATE, "morning"
-        )
-        self.assertNotIn('class="scripture-connection"', html)
+        self.assert_rejected(immediate, "connection must be a non-empty string")
 
         markup = morning_content()
         markup["lead"]["scripture"]["connection"] = "<b>Generated emphasis</b>"
         self.assert_rejected(markup, "must be plain text")
 
-        brief = morning_content()
-        brief["cards"]["tech"][0]["scripture"] = {"id": "PRO.18.15"}
-        self.assert_rejected(brief, "briefs do not receive Scripture pairings")
+        event_directed = morning_content()
+        event_directed["lead"]["scripture"]["connection"] = (
+            "Discernment gives learning a faithful direction."
+        )
+        self.assert_rejected(event_directed, "must guide the reader")
+
+        endorsement = morning_content()
+        endorsement["cards"]["markets"][0]["scripture"]["connection"] = (
+            "God approves this company, so we should support it."
+        )
+        self.assert_rejected(endorsement, "must not claim divine approval")
+
+    def test_political_and_geopolitical_framing_is_rejected(self):
+        partisan = morning_content()
+        partisan["lead"]["title"] = "Trump Calls Off Iran Strikes as Oil Retreats"
+        self.assert_rejected(partisan, "politics-free morning policy rejects lead.title")
+
+        conflict = morning_content()
+        conflict["cards"]["markets"][0]["dek"] = (
+            "<b>Oil retreats</b> after a ceasefire changed market expectations."
+        )
+        self.assert_rejected(conflict, "politics-free morning policy rejects cards.markets[0].dek")
+
+        practical_rule = morning_content()
+        practical_rule["cards"]["tech"][0]["title"] = (
+            "New Data Rule Changes Small-Business Reporting"
+        )
+        ddb_session_bake.validate_content(practical_rule, DATE, "morning")
 
     def test_evening_and_non_story_templates_remain_outside_the_feature(self):
-        for relative in ("templates/evening.html", "templates/category.html"):
-            self.assertNotIn(
-                "scripture-inline",
-                (ROOT / relative).read_text(encoding="utf-8"),
-            )
+        self.assertNotIn(
+            "scripture-inline",
+            (ROOT / "templates/evening.html").read_text(encoding="utf-8"),
+        )
+        self.assertIn(
+            "scripture-inline",
+            (ROOT / "templates/category.html").read_text(encoding="utf-8"),
+        )
 
         evening = {
             "date": DATE,

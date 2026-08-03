@@ -1,8 +1,11 @@
 # Morning Scripture source
 
-The morning edition uses a curated set of single verses from the Berean
-Standard Bible. The edition-writing session selects only a catalog identifier.
-It cannot supply, rewrite, combine, simplify, or paraphrase verse text.
+Every morning story uses one verse from a curated set of single verses from the
+Berean Standard Bible. The edition-writing session selects only a catalog
+identifier and writes a required, reader-directed connection. It cannot supply,
+rewrite, combine, simplify, or paraphrase verse text. A connection guides the
+reader's response and may not claim divine approval, condemnation, judgment, or
+fulfilled prophecy for the people or event reported.
 
 `bsb-verses.json` is generated from the official Berean Standard Bible text at
 <https://bereanbible.com/bsb.txt>. The source file downloaded on 2026-08-03 was

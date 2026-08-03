@@ -498,8 +498,8 @@ CATEGORY_META = {
 
 def render_category(section: str, cards: list[dict]) -> str:
     """Render one category page (tech.html/markets.html/science.html) from
-    up to 6 ranked+dek'd cards. cards[i] must have title/url/dek (bolded
-    lead-in already applied to dek's HTML)."""
+    up to 6 ranked+dek'd cards. cards[i] must have title/url/dek and may carry
+    trusted renderer-owned scripture_html."""
     template_path = TEMPLATES / "category.html"
     html = template_path.read_text(encoding="utf-8")
     meta = CATEGORY_META[section]
@@ -519,6 +519,7 @@ def render_category(section: str, cards: list[dict]) -> str:
             html = html.replace(f"CAT_{i}_URL", _esc(c["url"]))
             html = html.replace(f"CAT_{i}_HEADLINE", _esc_text(c["title"]))
             html = html.replace(f"CAT_{i}_DEK", render_dek(c["dek"]))
+            html = html.replace(f"CAT_{i}_SCRIPTURE", c.get("scripture_html", ""))
         else:
             # Fewer than 6 stories today — drop the empty card slot's whole <div class="stack">…</div>.
             pattern = re.compile(
@@ -599,6 +600,9 @@ def render_home(date_str: str, slot: str, data: dict[str, list[dict]],
     # production twice-daily bake uses ddb_session_bake.py, which fills this
     # token from the verified repository-owned BSB catalog.
     html = html.replace("LEAD_SCRIPTURE", "")
+    for p in CARD_TOKEN_PREFIX.values():
+        for i in (1, 2):
+            html = html.replace(f"CARD_{p}{i}_SCRIPTURE", "")
 
     # Home cards: top 2 per section (matches the real template's 2-card sections).
     for s in SECTIONS:

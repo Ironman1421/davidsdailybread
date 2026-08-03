@@ -9,6 +9,8 @@ mission, ownership, strategic direction, and paused initiatives.
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
+- The exact morning format descriptor is: **News and Scripture, paired story by
+  story.** It appears beneath the morning masthead and on morning category pages.
 - The exact public mission line is: **Grow in faith. Understand technology
   wisely. Pray for one another. Use what you learn in service to others.** It
   complements **Loved by God** and does not replace the tagline.
@@ -17,8 +19,9 @@ mission, ownership, strategic direction, and paused initiatives.
   with DST-safe GitHub backup schedules (spec: `/BAKE.md`, deployment evidence:
   `/docs/OPERATIONS_EVIDENCE_2026-08-01.md`). The **morning
   edition** targets reader-ready publication near 5:00 AM Pacific (8:00 AM
-  Eastern). It is straight news on technology, markets, and science, and carries
-  the reader sections. The **evening edition** targets reader-ready publication
+  Eastern). It pairs politics-free news and Scripture story by story across
+  technology, markets, and science, and carries the reader sections. The
+  **evening edition** targets reader-ready publication
   near 3:00 PM Pacific (6:00 PM Eastern). It is the Field Guide: trending tools
   and practical workflows for everyday people, and NO news of any kind (news is
   the morning's job). Its
@@ -136,12 +139,19 @@ mission, ownership, strategic direction, and paused initiatives.
   edit chronicles.html only from the current live/main version.
 - **Notes boxes:** every story card and every page carries localStorage notes with
   the Aa personalization toolbar.
-- **Morning Scripture pairings:** every full morning-edition story ends with the
-  approved compact inline "Scripture for Reflection" treatment. The current
-  morning format has one full lead story; its other cards are briefs and do not
-  receive pairings. The verse is exact, verified Berean Standard Bible text
-  selected by repository identifier, followed by a linked reference and an
-  optional brief editorial connection. Category pages, data-only material,
+- **Politics-free morning news:** morning coverage excludes politicians,
+  parties, elections, campaigns, polling, partisan disputes, culture-war
+  disputes, war, diplomacy, sanctions, tariffs, and geopolitical maneuvering.
+  A completed government rule may run only for its direct practical effect on
+  technology, markets, or science, without centering a political contest or
+  personality.
+- **Morning Scripture pairings:** every morning story, including cards and their
+  category-page versions, ends with the approved compact inline "Scripture for
+  Reflection" treatment. The verse is exact, verified Berean Standard Bible
+  text selected by repository identifier, followed by a linked reference and a
+  required brief, reader-directed editorial connection. Scripture guides the
+  reader's response. It never blesses, condemns, diagnoses, or assigns biblical
+  meaning to a person, company, government, or news event. Data-only material,
   navigation, and the evening edition are excluded. The evening's Keep and
   Ponder passage remains KJV.
 - **Reader features:** Ask the Baker, Letters to the King, and The Crumb Board
