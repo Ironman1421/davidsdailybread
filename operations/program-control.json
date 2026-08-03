@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T13:42:51Z",
+  "updatedAt": "2026-08-03T13:51:16Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,13 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
-  "halt": {
-    "type": "no_eligible_item",
-    "nextDecisionItemId": "DDB-PC-012",
-    "reason": "DDB-PC-012 is the lowest-sequence pending item with complete dependencies, but it requires David's explicit approval to modify Spark networking. Every other incomplete item is approval-gated, dependency-blocked, or paused by doctrine.",
-    "eligibleItemIds": []
-  },
+  "activeItemId": "DDB-PC-012",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -434,13 +428,16 @@
       "id": "DDB-PC-012",
       "sequence": 12,
       "title": "Repair Ethernet and configure Wi-Fi failover",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-004"
       ],
       "authorization": {
         "type": "explicit_david",
-        "granted": false,
+        "granted": true,
+        "grantedAt": "2026-08-03T13:51:16Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: I approve the next steps. Please continue.",
         "scope": "Modify Spark networking using the audited reversible runbook."
       },
       "externalMutation": true,
