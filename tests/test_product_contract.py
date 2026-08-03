@@ -45,6 +45,42 @@ class ProductContractTest(unittest.TestCase):
         self.assertIn("Adapter acceptance contract", distribution)
         self.assertIn("Production source of truth", repo_map)
 
+    def test_evening_is_governed_as_a_force_multiplier_not_a_novelty_feed(self):
+        doctrine = (ROOT / "FOUNDER_DOCTRINE.md").read_text(encoding="utf-8")
+        brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
+        product = (ROOT / "docs" / "PRODUCT_SPEC.md").read_text(encoding="utf-8")
+        bake = (ROOT / "BAKE.md").read_text(encoding="utf-8")
+
+        self.assertIn("evening Field Guide is a force multiplier", doctrine)
+        self.assertIn("editorial promise is leverage", brand)
+        self.assertIn("force-multiplier Field Guide", product)
+        self.assertIn("**Force-multiplier gate.**", bake)
+        self.assertIn("must satisfy all four tests", bake)
+        for required in (
+            "**Broad utility:**",
+            "**Repeatability:**",
+            "**Concrete leverage:**",
+            "**Actionability:**",
+            "Trend evidence validates present interest",
+            "Novelty is not a ranking benefit",
+        ):
+            self.assertIn(required, bake)
+
+        ranking = bake[
+            bake.index("Among candidates that pass the") : bake.index("**E2.")
+        ]
+        for priority in (
+            "force-multiplying utility",
+            "broad applicability",
+            "repeatability",
+            "verified trend strength",
+        ):
+            self.assertIn(priority, ranking)
+        self.assertLess(
+            ranking.index("force-multiplying utility"),
+            ranking.index("verified trend strength"),
+        )
+
     def test_growth_decisions_are_resolved_in_active_docs(self):
         growth = (ROOT / "docs" / "GROWTH_ROADMAP.md").read_text(encoding="utf-8")
         distribution = (ROOT / "docs" / "DISTRIBUTION_SPEC.md").read_text(
