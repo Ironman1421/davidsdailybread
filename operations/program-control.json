@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T14:25:14Z",
+  "updatedAt": "2026-08-03T14:49:08Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -447,7 +447,25 @@
         "Higher-metric Wi-Fi failover is configured",
         "Controlled failover and rollback tests pass",
         "Twenty-four-hour observation completes"
-      ]
+      ],
+      "progressEvidence": [
+        "David's exact approval is recorded before the first Spark network mutation",
+        "audited source is the Tailscale DNS warning and reversible remediation section of docs/PRODUCTION_HOST_REPOSITORY_HYGIENE_AUDIT_2026-08-02.md at preserved commit f7f076c5a480e2c19ef6dd3ec12bdf5fb4661859",
+        "pre-change baseline is sealed at /home/david/.local/state/ddb-pc-012/20260803T142939Z with 15 mode-0600 files and SHA256SUMS hash c453a087f9a5e15d0414dd739b0baf981e52a1588054056f3cb891ae1c7ff644",
+        "Ethernet enP7s7 is still the preferred metric-100 route; current link is 2500 Mb/s full duplex with link detected and zero inspected transmit, receive, alignment, MAC, and TCAM-drop errors",
+        "system NetworkManager profile DDB Wi-Fi Failover, UUID bcd9bbe9-0e70-4822-8bd8-9f1026e0e50a, is connected on wlP9s9 with autoconnect enabled and explicit IPv4 and IPv6 route metric 600; no credential is stored in the repository or evidence report",
+        "controlled Ethernet disconnect kept SSH, router DNS, MagicDNS, Tailscale, all seven DDB timers, and zero failed user units available on Wi-Fi from 2026-08-03T14:38:44Z until automatic Ethernet failback at 2026-08-03T14:42:28Z",
+        "rollback test disabled only the new Wi-Fi profile and verified the original Ethernet route, SSH, Tailscale, router DNS, and MagicDNS; the transient automatic Wi-Fi restore harness failed without outage, then direct restoration returned autoconnect=yes and the metric-600 Wi-Fi route",
+        "post-change evidence is sealed at /home/david/.local/state/ddb-pc-012/20260803T144723Z-post with 16 mode-0600 files and SHA256SUMS hash 91dc884e94cf2bf8571c1aa62038d6ae6a69dd8de3008f664fc814b99996bbda",
+        "Tailscale still reports the DNS-forward warning even though router DNS, MagicDNS, bidirectional Tailscale ping, and SSH pass; accept-dns remains enabled as required by the audited runbook",
+        "physical cable and eero or switch-port inspection remains unverified and the required 24-hour observation is not yet complete; DDB-PC-012 therefore remains in progress"
+      ],
+      "observation": {
+        "startedAt": "2026-08-03T14:47:23Z",
+        "scheduledFollowUpLocal": "2026-08-04T07:48:00-07:00",
+        "automationId": "complete-ddb-spark-24h-network-observation",
+        "status": "in_progress"
+      }
     },
     {
       "id": "DDB-PC-013",
