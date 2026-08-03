@@ -896,8 +896,9 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
                 f"{path.name}: morning Scripture clarification is missing",
             )
             _require(
-                "News and Scripture, paired story by story." in outputs[path],
-                f"{path.name}: morning format descriptor is missing",
+                "News and Scripture each morning. Practical tools each evening. "
+                "Loved by God." in outputs[path],
+                f"{path.name}: morning home masthead subtitle is missing",
             )
         if bake_mode == "daily":
             for section in SLOT_SECTIONS["morning"]:
