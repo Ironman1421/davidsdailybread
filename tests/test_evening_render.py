@@ -12,16 +12,20 @@ smuggles in a reader key or a trending (news) section.
 
 Standalone: python3 tests/test_evening_render.py  (no env needed; stdlib only)
 """
+import copy
 import hashlib
 import json
 import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATE = "2099-01-01"  # far future: can never collide with a real edition
+RETRY_DATE = "2099-01-02"
+SATCHEL_DATE = "2099-01-03"
 
 
 def card(n, section):
@@ -97,22 +101,102 @@ def tree_hashes(root: Path) -> dict:
     return out
 
 
-def render(repo: Path, content: dict, slot: str, mode: str = "daily"):
+def render(repo: Path, content: dict, slot: str, mode: str = "daily",
+           date: str = DATE):
     cj = repo / "content.json"
     cj.write_text(json.dumps(content, ensure_ascii=False), encoding="utf-8")
     r = subprocess.run(
         [sys.executable, "ddb_session_bake.py", "--render",
-         "--content", "content.json", "--date", DATE, "--slot", slot,
+         "--content", "content.json", "--date", date, "--slot", slot,
          "--mode", mode],
         cwd=repo, capture_output=True, text=True)
     cj.unlink()
     return r
 
 
+def render_with_state_write_failure(repo: Path, content: dict, date: str):
+    cj = repo / "content.json"
+    cj.write_text(json.dumps(content, ensure_ascii=False), encoding="utf-8")
+    script = """
+from pathlib import Path
+import sys
+import ddb_session_bake
+
+original = ddb_session_bake.ddb_bake._atomic_replace_bytes
+def fail_state(path, payload):
+    if path.name == "bakery-state.json":
+        raise OSError("injected state write failure")
+    original(path, payload)
+
+ddb_session_bake.ddb_bake._atomic_replace_bytes = fail_state
+ddb_session_bake.cmd_render(Path("content.json"), sys.argv[1], "morning", "daily")
+"""
+    result = subprocess.run(
+        [sys.executable, "-c", script, date],
+        cwd=repo, capture_output=True, text=True,
+    )
+    cj.unlink()
+    return result
+
+
+def install_house_fixtures(repo: Path) -> None:
+    (repo / "bakery-state.json").write_text(
+        json.dumps({
+            "note": "Fixture state",
+            "answeredQuestions": [],
+            "postedPins": [],
+            "kingLetters": [],
+            "usedSatchelLetters": [],
+        }, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    (repo / "kings-satchel.json").write_text(
+        json.dumps({
+            "note": "Fixture satchel",
+            "letters": [
+                {
+                    "id": "KS-001",
+                    "added": "2098-12-01",
+                    "letter": "First fixture house letter",
+                },
+                {
+                    "id": "KS-002",
+                    "added": "2098-12-02",
+                    "letter": "Second fixture house letter",
+                },
+            ],
+        }, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def reader_content_from_plan(repo: Path) -> dict:
+    result = subprocess.run(
+        [sys.executable, "ddb_session_bake.py", "--plan"],
+        cwd=repo, capture_output=True, text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    plan = json.loads(result.stdout)
+    assert plan["intake_status"] == "paused"
+    assert plan["ask"] is None and plan["pin"] is None
+    king = plan.get("king")
+    if not king:
+        return {}
+    assert king["kind"] == "satchel"
+    return {
+        "king": {
+            "question": king["letter"],
+            "answer": "A warm fixture answer grounded in the reviewed house letter.",
+            "satchel_id": king["id"],
+        }
+    }
+
+
 with tempfile.TemporaryDirectory() as td:
     repo = Path(td) / "site"
     shutil.copytree(ROOT, repo, ignore=shutil.ignore_patterns(
         ".git", "__pycache__", "content.json"))
+    install_house_fixtures(repo)
 
     before = tree_hashes(repo)
 
@@ -167,6 +251,17 @@ with tempfile.TemporaryDirectory() as td:
     ]
     assert all(item["date"] == DATE for item in catalog["tools"][:2])
 
+    stable_evening = tree_hashes(repo)
+    time.sleep(1.1)
+    repeated_evening = render(repo, ev, "evening")
+    assert repeated_evening.returncode == 0, (
+        "same-edition evening retry failed:\n"
+        f"{repeated_evening.stdout}\n{repeated_evening.stderr}"
+    )
+    assert tree_hashes(repo) == stable_evening, (
+        "same-edition evening retry must be byte-stable"
+    )
+
     # --- the lead.note is optional: omitting it strips the margin aside -----
     quiet = evening_content()
     del quiet["lead"]["note"]
@@ -210,5 +305,63 @@ with tempfile.TemporaryDirectory() as td:
                           "bakery-state.json"}, f"unexpected morning writes: {changed}"
     assert "Morning edition," in (repo / "index.html").read_text(encoding="utf-8")
 
+    # --- same-edition daily retries survive advanced reader state -----------
+    retry = content_for(("tech", "markets", "science"), "tech", "Technology")
+    retry["date"] = RETRY_DATE
+    retry["reader"] = reader_content_from_plan(repo)
+    state_before_partial = (repo / "bakery-state.json").read_bytes()
+    partial = render_with_state_write_failure(repo, retry, RETRY_DATE)
+    assert partial.returncode != 0, "state-write failure injection did not fire"
+    assert (repo / "bakery-state.json").read_bytes() == state_before_partial
+    assert (repo / "editions" / f"{RETRY_DATE}-morning.html").is_file()
+    first = render(repo, retry, "morning", "daily", RETRY_DATE)
+    assert first.returncode == 0, (
+        "retry after partial state-write failure failed:\n"
+        f"{first.stdout}\n{first.stderr}"
+    )
+    state_after_first = (repo / "bakery-state.json").read_bytes()
+    changed_retry = copy.deepcopy(retry)
+    changed_retry["lead"]["body"] = "A corrected factual fixture body grounded in the link."
+    if changed_retry["reader"].get("king"):
+        changed_retry["reader"]["king"]["answer"] += " A corrected closing sentence."
+    corrected = render(repo, changed_retry, "morning", "daily", RETRY_DATE)
+    assert corrected.returncode == 0, (
+        "same-edition correction failed after bakery-state.json advanced:\n"
+        f"{corrected.stdout}\n{corrected.stderr}"
+    )
+    assert (repo / "bakery-state.json").read_bytes() == state_after_first, (
+        "same-edition correction must not consume reader state twice"
+    )
+    after_first = tree_hashes(repo)
+    # A new wall-clock second exposes timestamp/pubDate churn if the retry is
+    # not anchored to the already-rendered edition.
+    time.sleep(1.1)
+    second = render(repo, changed_retry, "morning", "daily", RETRY_DATE)
+    assert second.returncode == 0, (
+        "same-edition retry failed after bakery-state.json advanced:\n"
+        f"{second.stdout}\n{second.stderr}"
+    )
+    after_second = tree_hashes(repo)
+    assert after_second == after_first, "same-edition retry must be byte-stable"
+
+    wrong_claim = copy.deepcopy(changed_retry)
+    wrong_claim["reader"] = reader_content_from_plan(repo)
+    before_wrong_claim = tree_hashes(repo)
+    refused = render(repo, wrong_claim, "morning", "daily", RETRY_DATE)
+    assert refused.returncode != 0, "retry must refuse a different reader claim"
+    assert tree_hashes(repo) == before_wrong_claim, "refused retry must write nothing"
+
+    satchel = content_for(("tech", "markets", "science"), "tech", "Technology")
+    satchel["date"] = SATCHEL_DATE
+    satchel["reader"] = reader_content_from_plan(repo)
+    assert set(satchel["reader"]) == {"king"}
+    assert "satchel_id" in satchel["reader"]["king"]
+    satchel_first = render(repo, satchel, "morning", "daily", SATCHEL_DATE)
+    assert satchel_first.returncode == 0, satchel_first.stderr
+    satchel_state = (repo / "bakery-state.json").read_bytes()
+    satchel_retry = render(repo, satchel, "morning", "daily", SATCHEL_DATE)
+    assert satchel_retry.returncode == 0, satchel_retry.stderr
+    assert (repo / "bakery-state.json").read_bytes() == satchel_state
+
 print("PASS: two-slot renderer honors the evening write set, refuses evening "
-      "reader sections, and leaves the morning bake intact")
+      "reader sections, leaves the morning bake intact, and retries byte-stably")

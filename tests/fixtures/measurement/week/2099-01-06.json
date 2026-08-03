@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "date": "2099-01-06",
+  "capturedAt": "2099-01-06T20:00:00Z",
+  "timezone": "America/Los_Angeles",
+  "editions": [
+    {
+      "editionId": "2099-01-06-morning",
+      "slot": "morning",
+      "due": true,
+      "dispatch": {"state": "observed", "occurredAt": "2099-01-06T12:00:00Z", "sourceRef": "fixture:dispatch:6"},
+      "site": {"state": "observed", "occurredAt": "2099-01-06T12:15:00Z", "httpStatus": 200, "exactTitleVerified": true, "sourceRef": "fixture:site:6"},
+      "workflow": {"state": "observed", "conclusion": "success", "sourceRef": "fixture:workflow:6"},
+      "x": {"state": "observed", "occurredAt": "2099-01-06T12:20:00Z", "status": "sent", "sourceRef": "fixture:x:6"},
+      "telegram": {"state": "observed", "occurredAt": "2099-01-06T12:15:01Z", "status": "sent", "sourceRef": "fixture:telegram:6"},
+      "watchdog": {"state": "observed", "occurredAt": "2099-01-06T12:20:00Z", "result": "exact_edition_present", "sourceRef": "fixture:watchdog:6"}
+    }
+  ],
+  "audience": []
+}

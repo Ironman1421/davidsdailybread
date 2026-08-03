@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Invariant checks for the approved four-week /subscribe.html pilot."""
+"""Invariant checks for the founder-paused /subscribe.html state."""
 
 from __future__ import annotations
 
@@ -83,40 +83,19 @@ assert any(link.get("rel") == "stylesheet" and link.get("href") == "/brand.css" 
 for family in ("Caveat", "Newsreader", "Inter"):
     assert family in TEXT, f"missing loaded font family: {family}"
 
-# Exactly one first-party form posts an email directly to the approved provider.
-assert len(parser.forms) == 1, "pilot page must contain exactly one signup form"
-form = parser.forms[0]
-assert form.get("method", "").lower() == "post"
-assert form.get("action") == "https://buttondown.com/api/emails/embed-subscribe/davidsdailybread"
-email_inputs = [field for field in parser.inputs if field.get("name") == "email"]
-assert len(email_inputs) == 1
-email = email_inputs[0]
-for name, value in (
-    ("type", "email"),
-    ("autocomplete", "email"),
-    ("inputmode", "email"),
-):
-    assert email.get(name) == value, f"email input must set {name}={value!r}"
-assert "required" in email
-embed = [field for field in parser.inputs if field.get("name") == "embed"]
-assert len(embed) == 1 and embed[0].get("type") == "hidden" and embed[0].get("value") == "1"
-assert any(button.get("type") == "submit" for button in parser.buttons)
-
-# Pilot scope, flow, consent, and privacy are stated without reviving the old list.
+# The page is fail-closed: it contains no collection control or provider
+# endpoint, and it states the founder pause plainly.
+assert not parser.forms, "paused signup page must not contain a form"
+assert not [field for field in parser.inputs if field.get("name") == "email"]
+assert not any(button.get("type") == "submit" for button in parser.buttons)
+assert "buttondown" not in TEXT.lower()
 for promise in (
-    "four-week pilot",
-    "one email each week",
-    "four issues",
-    "pause after week four",
-    "fresh signups only",
-    "confirmation email",
-    "no retired list will be imported or reactivated",
-    "unsubscribe anytime",
-    "privacy@davidsdailybread.com",
+    "newsletter signup, activation, and sending are paused",
+    "no new addresses are being collected",
+    "no issue is being drafted, tested, scheduled, or sent",
+    "newsletter work will resume only after a new explicit decision from david",
 ):
-    assert promise in visible_lower, f"missing pilot promise: {promise!r}"
-for stage in ("Start", "Browse", "Do", "Rest"):
-    assert f"<h2>{stage}</h2>" in TEXT
+    assert promise in visible_lower, f"missing pause copy: {promise!r}"
 assert "newsletter has been retired" not in visible_lower
 assert "retired list is active" not in visible_lower
 
@@ -134,4 +113,4 @@ assert 'data-note-key="page:subscribe"' in TEXT
 assert 'aria-label="Page notes"' in TEXT and 'aria-label="Clear notes"' in TEXT
 assert "localStorage" in TEXT and ">Aa</button>" in TEXT
 
-print("PASS: subscribe.html satisfies weekly-pilot scope, consent, provider, privacy, accessibility, brand, and no-em-dash invariants")
+print("PASS: subscribe.html preserves pause, accessibility, brand, and no-em-dash invariants")

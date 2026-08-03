@@ -6,13 +6,11 @@ from __future__ import annotations
 import json
 import io
 import os
-from datetime import datetime, timezone
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
 from urllib import error
-from zoneinfo import ZoneInfo
 
 from distribution.telegram_notification import (
     AmbiguousMutationError,
@@ -517,44 +515,19 @@ class WorkflowContractTest(unittest.TestCase):
                 )
                 self.assertIn(active[0], active_schedules)
 
-        counter_schedules = ("30 11 * * *", "30 12 * * *")
-        for cron in counter_schedules:
-            self.assertIn(cron, counter)
-        for offset, expected in {
-            "-0700": "30 11 * * *",
-            "-0800": "30 12 * * *",
-        }.items():
-            active = [
-                schedule
-                for schedule in counter_schedules
-                if f"'{offset}:{schedule}'" in counter
-            ]
-            self.assertEqual([expected], active)
         self.assertIn("active: ${{ steps.cfg.outputs.active }}", bake)
         self.assertIn("needs.bake.outputs.active == 'true'", bake)
-        self.assertIn("if: steps.cfg.outputs.active == 'true'", counter)
+        self.assertNotIn("schedule:", counter)
+        self.assertNotIn("cron:", counter)
 
-    def test_counter_backup_survives_both_dst_transition_days(self):
+    def test_bake_backups_survive_both_dst_transition_days(self):
         counter = (ROOT / ".github" / "workflows" / "counter-sync.yml").read_text()
         bake = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
-        self.assertIn('date -d "$TODAY 04:30:00" +%z', counter)
+        self.assertNotIn("date -d", counter)
+        self.assertNotIn("TZ=", counter)
         self.assertIn("TARGET_CLOCK=04:45:00", bake)
         self.assertIn("TARGET_CLOCK=14:45:00", bake)
         self.assertIn('date -d "$TODAY $TARGET_CLOCK" +%z', bake)
-
-        pacific = ZoneInfo("America/Los_Angeles")
-        candidates = ((11, "-0700"), (12, "-0800"))
-        for year, month, day in ((2027, 3, 14), (2027, 11, 7)):
-            active = []
-            for utc_hour, expected_offset in candidates:
-                instant = datetime(year, month, day, utc_hour, 30, tzinfo=timezone.utc)
-                local = instant.astimezone(pacific)
-                if local.strftime("%z") == expected_offset:
-                    active.append(local.strftime("%Y-%m-%d %H:%M %z"))
-            self.assertEqual(
-                [f"{year:04d}-{month:02d}-{day:02d} 04:30 " + ("-0700" if month == 3 else "-0800")],
-                active,
-            )
 
     def test_workflow_is_duplicate_safe_and_credentials_are_isolated(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
@@ -597,6 +570,20 @@ class WorkflowContractTest(unittest.TestCase):
         )[0]
         self.assertIn("verify-live", readiness)
         self.assertNotIn("secrets.TELEGRAM_", readiness)
+
+    def test_existing_edition_backup_skips_telegram_job_and_artifacts(self):
+        workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
+        x_job = workflow.split("\n  x-broadcast:\n", 1)[1].split(
+            "\n  telegram-publication-receipt:\n", 1
+        )[0]
+        telegram = workflow.split("\n  telegram-publication-receipt:\n", 1)[1]
+        guard = "needs.bake.outputs.already_exists != 'true'"
+
+        self.assertIn(guard, x_job.split("\n    runs-on:", 1)[0])
+        self.assertIn(guard, telegram.split("\n    runs-on:", 1)[0])
+        self.assertIn("Run live exact edition notification", telegram)
+        self.assertIn("Upload redacted Telegram attempt", telegram)
+        self.assertIn("Upload blocking Telegram receipt", telegram)
 
     def test_contract_and_runbook_require_both_slots_and_clickable_exact_links(self):
         contract = json.loads(

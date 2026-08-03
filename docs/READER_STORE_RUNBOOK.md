@@ -1,10 +1,25 @@
 # Private reader-store operator runbook
 
-Status: local foundation implemented, deployment blocked
+Status: historical local foundation, paused; deployment and provisioning blocked
 
-## Hard launch gates
+## Founder pause and authority boundary
 
-Do not link, migrate, deploy, canary, or send site traffic until both of these
+New reader intake is paused. Local verification may continue, but no Supabase
+account, project, resource, link, credential, remote migration, deployment,
+canary, traffic, or activation is authorized. Do not link, migrate, deploy,
+canary, or send site traffic unless David first records an explicit reversal in
+the repository and the affected doctrine, specifications, contract, and tests
+are reconciled.
+
+The former technical launch gates below are retained as historical design
+requirements. Satisfying either one does not authorize provisioning or
+deployment.
+
+## Former technical launch gates
+
+This runbook is not an active implementation lane. Do not provision Supabase,
+link, migrate, deploy, canary, or send site traffic. Reopening first requires a
+new explicit founder decision. If reopened, both of these
 facts are real and independently verified:
 
 1. a dedicated Supabase project exists solely for reader mail; and
@@ -13,8 +28,9 @@ facts are real and independently verified:
 
 This repository deliberately contains neither a project reference nor a
 privacy-contact value. Do not substitute the primary site database, a personal
-address, a guessed address, or a placeholder. The current Google form/workflow
-remains unchanged until the full cutover checklist is approved.
+address, a guessed address, or a placeholder. The repository form and workflow
+paths are closed; external Google and provider changes remain blocked until the
+separate checklist is approved.
 
 ## Foundation inventory
 
@@ -154,10 +170,10 @@ in a repository `.env` file. Use a protected temporary env file outside the
 checkout when the later operator runs `supabase secrets set --env-file`, then
 securely remove it.
 
-## Dedicated-project migration
+## Frozen dedicated-project migration
 
-These steps are future operator actions, not authorization to perform them in
-this worktree.
+These steps are historical future-operator notes, not authorization to perform
+them. They remain frozen until David explicitly reverses the pause.
 
 1. Verify the project owner, project reference, Postgres major version 17,
    isolation purpose, backup policy, region, and privacy-contact launch gate.
@@ -189,7 +205,10 @@ It creates only the non-login privilege role. The Edge connection verifies at
 runtime that its login is a non-superuser member of that role and lacks
 `BYPASSRLS`.
 
-## Canary sequence
+## Frozen canary sequence
+
+Do not run this sequence while the founder pause is active. It is retained only
+to preserve the reviewed design for a possible future decision.
 
 Keep the public form on its current path throughout the canary.
 

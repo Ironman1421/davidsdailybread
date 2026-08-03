@@ -34,8 +34,9 @@ The following are untrusted input even when produced by a model or collaborator:
 - Treat published history as immutable during a bake. Permit exactly one new
   `editions/<date>-<slot>.html` path, reject staged/deleted/renamed or prior-
   edition changes, and stage only the exact expected edition.
-- Bind selected reader questions, letters, names, signatures, and state keys to
-  the committed Counter/satchel records before rendering or updating state.
+- While public intake is paused, reject Ask the Baker, reader Letter, and Crumb
+  Board fields before rendering or updating state. Only reviewed house-satchel
+  material may enter a new edition.
 
 ### Automation and credentials
 
@@ -50,7 +51,7 @@ The following are untrusted input even when produced by a model or collaborator:
 - Set explicit workflow permissions and serialize every workflow that can write
   `main` or shared generated state.
 - Before protecting `main`, split authoring and publishing onto fresh runners,
-  retire Counter sync as a repository writer, and install the repository-only
+  keep Counter sync retired as a repository writer, and install the repository-only
   `ddb-publisher` GitHub App defined in `docs/PUBLISHER_IDENTITY_SPEC.md`.
 - Protect `main` with required CI and review rules while granting only
   `ddb-publisher[bot]` an explicit bypass. The built-in `GITHUB_TOKEN`, reader
@@ -61,6 +62,11 @@ The following are untrusted input even when produced by a model or collaborator:
 
 ### Reader privacy
 
+- New Ask the Baker, Letters to the King, and Crumb Board intake is paused until
+  a private boundary is verified and David explicitly reopens it. Do not invoke
+  Counter sync, deploy or reactivate submission controls, alter the external
+  Google form or Sheet, delete the frozen queue, or rewrite history while the
+  pause is active.
 - Tell submitters that their text and signature may be public and prohibit
   sensitive information.
 - Do not expose the full unpublished queue in a public repository or a
@@ -71,11 +77,20 @@ The following are untrusted input even when produced by a model or collaborator:
   `docs/READER_STORE_SPEC.md`.
 - Define retention and deletion behavior before collecting email addresses,
   account identifiers, or analytics tied to a person.
-- The weekly pilot posts addresses directly from `/subscribe.html` to
-  Buttondown with double opt-in. Subscriber addresses remain in Buttondown and
-  may not enter this repository, GitHub Actions, Supabase, logs, or public
-  metrics. Privacy requests use the verified
+- The existing `/subscribe.html` state is preserved while newsletter work is
+  paused. Any address submitted there posts directly to Buttondown with double
+  opt-in; subscriber addresses remain in Buttondown and may not enter this
+  repository, GitHub Actions, Supabase, logs, or public metrics. No drafting,
+  testing, configuration, credentialing, activation, or sending is authorized.
+  Privacy requests use the verified
   `privacy@davidsdailybread.com` contact and complete within seven days.
+- The Supabase reader-store foundation may be tested locally only. No project,
+  resource, link, remote migration, Edge Function, canary, traffic, or
+  deployment is authorized without David's explicit reversal of the intake
+  pause and a reconciled repository decision.
+- Cloudflare Workers + D1 audience measurement remains local and unprovisioned.
+  No account, resource, endpoint, route, credential, canary, deployment,
+  collection, baseline, or spend is authorized.
 
 ### Distribution
 
@@ -91,8 +106,8 @@ The following are untrusted input even when produced by a model or collaborator:
 1. `main` is not protected even though repository policy calls CI the merge
    gate. Its approved identity/ruleset design is not yet provisioned.
 2. The Counter sheet and committed `counter.csv` expose the reader queue beyond
-   what the product needs to publish. Its approved private-store design is not
-   yet provisioned.
+   what the product needs to publish. New intake is paused; the private-store
+   design remains unprovisioned and is not authorized for deployment.
 3. The repository-owned X canonical-broadcast adapter is implemented with a
    separate read-only post-bake job, durable receipt artifacts, read-back, and
    a kill switch. It remains production-disabled pending environment and
@@ -101,9 +116,10 @@ The following are untrusted input even when produced by a model or collaborator:
    strong Content Security Policy or fully local assets.
 5. Repository-level Dependabot alerts are disabled. Version-update PRs are
    configured, but the owner must enable vulnerability alerts in GitHub.
-6. The current public-repository diagnostic artifact can include `content.json`
-   and a raw model log. Treat both as unpublished reader data during the private
-   store cutover; the target design prohibits this transfer.
+6. Production remains on the pre-integration workflow until the exact release
+   is approved and deployed. That workflow may retain `content.json` and raw
+   model output after a failed bake; the proposed local workflow replaces this
+   with a payload-free failure summary, but the live risk remains until release.
 
 Exceptions are tracked work, not accepted permanent architecture.
 

@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "isTemplate": true,
+  "experimentId": "replace-before-use",
+  "status": "draft",
+  "owner": "David Friedhof",
+  "hypothesis": "Changing one declared editorial variable increases the selected returning-engagement proxy without weakening reliability, accuracy, privacy, or safety.",
+  "changedVariable": "replace with exactly one variable",
+  "heldConstant": [
+    "edition cadence",
+    "source and accuracy standard",
+    "distribution channels",
+    "measurement window"
+  ],
+  "window": {
+    "startDate": "2099-01-01",
+    "endDate": "2099-01-07",
+    "days": 7
+  },
+  "authority": {
+    "externalActionAuthorized": false,
+    "firstPartyReturnCollectionAuthorized": false,
+    "spendAuthorized": false,
+    "maximumSpendUsd": 0
+  },
+  "primaryDecision": {
+    "metricId": "genuinely_engaged_returning_people_7d",
+    "comparison": "absolute_change_from_recorded_baseline",
+    "minimumObservedDays": 7,
+    "minimumSampleSize": 1,
+    "passThreshold": {
+      "operator": ">=",
+      "value": 1,
+      "unit": "people"
+    },
+    "failThreshold": {
+      "operator": "<=",
+      "value": 0,
+      "unit": "people"
+    },
+    "unknownBehavior": "inconclusive"
+  },
+  "guardrails": [
+    {
+      "metricId": "edition_success_rate",
+      "operator": ">=",
+      "threshold": 0.95,
+      "unit": "ratio",
+      "failureBehavior": "fail"
+    },
+    {
+      "metricId": "telegram_success_rate",
+      "operator": "=",
+      "threshold": 1,
+      "unit": "ratio",
+      "failureBehavior": "fail"
+    },
+    {
+      "metricId": "watchdog_success_rate",
+      "operator": "=",
+      "threshold": 1,
+      "unit": "ratio",
+      "failureBehavior": "fail"
+    },
+    {
+      "metricId": "dispatch_to_site_latency_seconds",
+      "statistic": "p95",
+      "operator": "<=",
+      "threshold": 1200,
+      "unit": "seconds",
+      "failureBehavior": "fail"
+    },
+    {
+      "metricId": "dispatch_to_x_latency_seconds",
+      "statistic": "p95",
+      "operator": "<=",
+      "threshold": 1500,
+      "unit": "seconds",
+      "failureBehavior": "fail"
+    }
+  ],
+  "killRules": [
+    {
+      "id": "privacy_boundary_breach",
+      "trigger": "Any collection or committed record contains PII, cookies, fingerprints, IP addresses, local reader notes, or intake data.",
+      "failureBehavior": "fail"
+    },
+    {
+      "id": "unsupported_claim",
+      "trigger": "Any experiment output contains a factual claim without its required source evidence.",
+      "failureBehavior": "fail"
+    }
+  ],
+  "dailyChecks": [
+    {"date": "2099-01-01", "state": "pending", "scorecardRef": null, "notes": null},
+    {"date": "2099-01-02", "state": "pending", "scorecardRef": null, "notes": null},
+    {"date": "2099-01-03", "state": "pending", "scorecardRef": null, "notes": null},
+    {"date": "2099-01-04", "state": "pending", "scorecardRef": null, "notes": null},
+    {"date": "2099-01-05", "state": "pending", "scorecardRef": null, "notes": null},
+    {"date": "2099-01-06", "state": "pending", "scorecardRef": null, "notes": null},
+    {"date": "2099-01-07", "state": "pending", "scorecardRef": null, "notes": null}
+  ],
+  "decision": {
+    "state": "pending",
+    "decidedAt": null,
+    "primaryObservedValue": null,
+    "primaryBaselineValue": null,
+    "primaryDelta": null,
+    "observedDays": 0,
+    "sampleSize": 0,
+    "guardrailFailures": [],
+    "evidenceRefs": [],
+    "rationale": "No decision before seven complete daily checks and a known, authorized primary metric."
+  }
+}

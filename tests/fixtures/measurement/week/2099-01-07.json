@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "date": "2099-01-07",
+  "capturedAt": "2099-01-07T20:00:00Z",
+  "timezone": "America/Los_Angeles",
+  "editions": [
+    {
+      "editionId": "2099-01-07-morning",
+      "slot": "morning",
+      "due": true,
+      "dispatch": {"state": "observed", "occurredAt": "2099-01-07T12:00:00Z", "sourceRef": "fixture:dispatch:7"},
+      "site": {"state": "observed", "occurredAt": "2099-01-07T12:16:00Z", "httpStatus": 200, "exactTitleVerified": true, "sourceRef": "fixture:site:7"},
+      "workflow": {"state": "observed", "conclusion": "success", "sourceRef": "fixture:workflow:7"},
+      "x": {"state": "observed", "occurredAt": "2099-01-07T12:21:00Z", "status": "sent", "sourceRef": "fixture:x:7"},
+      "telegram": {"state": "observed", "occurredAt": "2099-01-07T12:16:01Z", "status": "sent", "sourceRef": "fixture:telegram:7"},
+      "watchdog": {"state": "observed", "occurredAt": "2099-01-07T12:20:00Z", "result": "exact_edition_present", "sourceRef": "fixture:watchdog:7"}
+    }
+  ],
+  "audience": [
+    {
+      "metricId": "genuinely_engaged_returning_people_7d",
+      "state": "unknown",
+      "value": null,
+      "unit": "people",
+      "observedAt": null,
+      "periodStart": "2099-01-01",
+      "periodEnd": "2099-01-07",
+      "sourceRef": null,
+      "reason": "not_authorized"
+    },
+    {
+      "metricId": "x_impressions_7d",
+      "state": "observed",
+      "value": 0,
+      "unit": "impressions",
+      "observedAt": "2099-01-07T20:00:00Z",
+      "periodStart": "2099-01-01",
+      "periodEnd": "2099-01-07",
+      "sourceRef": "fixture:manual-platform-zero",
+      "reason": null,
+      "note": "An explicit measured zero must remain zero."
+    }
+  ]
+}

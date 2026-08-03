@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "date": "2026-08-02",
+  "capturedAt": "2026-08-02T18:56:50Z",
+  "timezone": "America/Los_Angeles",
+  "notes": "Aggregate-only baseline captured before the August 2 evening dispatch window. No reader records, content payloads, credentials, or personal identifiers were imported.",
+  "editions": [
+    {
+      "editionId": "2026-08-02-morning",
+      "slot": "morning",
+      "due": true,
+      "dispatch": {
+        "state": "observed",
+        "occurredAt": "2026-08-02T04:40:10-07:00",
+        "sourceRef": "spark-journal:daicc-ddb-morning-trigger.service@2026-08-02T04:40:10-07:00",
+        "note": "Spark recorded dispatched exact edition 2026-08-02-morning."
+      },
+      "site": {
+        "state": "observed",
+        "occurredAt": "2026-08-02T11:55:34.544572Z",
+        "httpStatus": 200,
+        "exactTitleVerified": true,
+        "sourceRef": "https://github.com/Ironman1421/davidsdailybread/actions/runs/30746214924/job/91493498914",
+        "note": "The exact Telegram job's read-only live check recorded live edition verified for 2026-08-02-morning."
+      },
+      "workflow": {
+        "state": "observed",
+        "conclusion": "success",
+        "sourceRef": "https://github.com/Ironman1421/davidsdailybread/actions/runs/30746214924"
+      },
+      "x": {
+        "state": "observed",
+        "occurredAt": "2026-08-02T05:00:09-07:00",
+        "status": "sent",
+        "sourceRef": "spark-journal:daicc-ddb-autopost.service@2026-08-02T05:00:09-07:00",
+        "note": "Active Spark lane recorded SENT for the exact morning slot; the separate GitHub X lane remained kill-switched."
+      },
+      "telegram": {
+        "state": "observed",
+        "occurredAt": "2026-08-02T11:55:35.842446Z",
+        "status": "sent",
+        "sourceRef": "https://github.com/Ironman1421/davidsdailybread/actions/runs/30746214924/artifacts/8833117521"
+      },
+      "watchdog": {
+        "state": "observed",
+        "occurredAt": "2026-08-02T05:15:06-07:00",
+        "result": "exact_edition_present",
+        "sourceRef": "spark-journal:daicc-ddb-morning-watchdog.service@2026-08-02T05:15:06-07:00"
+      }
+    },
+    {
+      "editionId": "2026-08-02-evening",
+      "slot": "evening",
+      "due": false,
+      "dispatch": {
+        "state": "not_due",
+        "reason": "capture_precedes_14:40_PT_dispatch_window"
+      },
+      "site": {
+        "state": "not_due",
+        "reason": "capture_precedes_14:40_PT_dispatch_window"
+      },
+      "workflow": {
+        "state": "not_due",
+        "reason": "capture_precedes_14:40_PT_dispatch_window"
+      },
+      "x": {
+        "state": "not_due",
+        "reason": "capture_precedes_14:40_PT_dispatch_window"
+      },
+      "telegram": {
+        "state": "not_due",
+        "reason": "capture_precedes_14:40_PT_dispatch_window"
+      },
+      "watchdog": {
+        "state": "not_due",
+        "reason": "capture_precedes_15:30_PT_watchdog_window"
+      }
+    }
+  ],
+  "audience": [
+    {
+      "metricId": "genuinely_engaged_returning_people_7d",
+      "state": "unknown",
+      "value": null,
+      "unit": "people",
+      "observedAt": null,
+      "periodStart": "2026-07-27",
+      "periodEnd": "2026-08-02",
+      "sourceRef": null,
+      "reason": "not_authorized",
+      "note": "First-party return measurement has not been authorized; platform aggregates cannot be deduplicated into people."
+    },
+    {
+      "metricId": "first_party_returning_readers_7d",
+      "state": "unknown",
+      "value": null,
+      "unit": "people",
+      "observedAt": null,
+      "periodStart": "2026-07-27",
+      "periodEnd": "2026-08-02",
+      "sourceRef": null,
+      "reason": "not_authorized"
+    },
+    {
+      "metricId": "x_followers",
+      "state": "observed",
+      "value": 5,
+      "unit": "followers",
+      "observedAt": "2026-07-31T19:53:41Z",
+      "periodStart": null,
+      "periodEnd": null,
+      "sourceRef": "distribution/ledger.json#baseline-x",
+      "reason": null,
+      "note": "Last-known July 31 floor, not a current August 2 count."
+    },
+    {
+      "metricId": "x_impressions_7d",
+      "state": "unknown",
+      "value": null,
+      "unit": "impressions",
+      "observedAt": null,
+      "periodStart": "2026-07-27",
+      "periodEnd": "2026-08-02",
+      "sourceRef": null,
+      "reason": "not_measured"
+    },
+    {
+      "metricId": "x_link_clicks_7d",
+      "state": "unknown",
+      "value": null,
+      "unit": "clicks",
+      "observedAt": null,
+      "periodStart": "2026-07-27",
+      "periodEnd": "2026-08-02",
+      "sourceRef": null,
+      "reason": "not_measured"
+    },
+    {
+      "metricId": "youtube_followers",
+      "state": "unknown",
+      "value": null,
+      "unit": "subscribers",
+      "observedAt": null,
+      "periodStart": null,
+      "periodEnd": null,
+      "sourceRef": null,
+      "reason": "not_measured"
+    },
+    {
+      "metricId": "youtube_returning_viewers_7d",
+      "state": "unknown",
+      "value": null,
+      "unit": "viewers",
+      "observedAt": null,
+      "periodStart": "2026-07-27",
+      "periodEnd": "2026-08-02",
+      "sourceRef": null,
+      "reason": "not_measured"
+    },
+    {
+      "metricId": "rss_subscribers",
+      "state": "unknown",
+      "value": null,
+      "unit": "subscribers",
+      "observedAt": null,
+      "periodStart": null,
+      "periodEnd": null,
+      "sourceRef": null,
+      "reason": "not_measured"
+    }
+  ]
+}

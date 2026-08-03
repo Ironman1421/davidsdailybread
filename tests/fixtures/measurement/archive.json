@@ -1,0 +1,11 @@
+{
+  "editions": [
+    {"date": "2099-01-01", "edition": "morning", "file": "editions/2099-01-01-morning.html", "lead": "Fixture one"},
+    {"date": "2099-01-02", "edition": "morning", "file": "editions/2099-01-02-morning.html", "lead": "Fixture two"},
+    {"date": "2099-01-03", "edition": "morning", "file": "editions/2099-01-03-morning.html", "lead": "Fixture three"},
+    {"date": "2099-01-04", "edition": "morning", "file": "editions/2099-01-04-morning.html", "lead": "Fixture four"},
+    {"date": "2099-01-05", "edition": "morning", "file": "editions/2099-01-05-morning.html", "lead": "Fixture five"},
+    {"date": "2099-01-06", "edition": "morning", "file": "editions/2099-01-06-morning.html", "lead": "Fixture six"},
+    {"date": "2099-01-07", "edition": "morning", "file": "editions/2099-01-07-morning.html", "lead": "Fixture seven"}
+  ]
+}

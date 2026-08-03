@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class ProductContractTest(unittest.TestCase):
     def test_current_specs_exist_and_name_both_distinct_editions(self):
+        doctrine = (ROOT / "FOUNDER_DOCTRINE.md").read_text(encoding="utf-8")
         product = (ROOT / "docs" / "PRODUCT_SPEC.md").read_text(encoding="utf-8")
         security = (ROOT / "docs" / "SECURITY_SPEC.md").read_text(encoding="utf-8")
         growth = (ROOT / "docs" / "GROWTH_ROADMAP.md").read_text(encoding="utf-8")
@@ -26,8 +27,21 @@ class ProductContractTest(unittest.TestCase):
             "absolute, credential-free HTTPS",
         ):
             self.assertIn(required, product)
+        for governing_truth in (
+            "founder-led Christian media and learning project",
+            "Founder and final decision-maker: David Friedhof",
+            "David retains final control",
+            "first 1,000 genuinely engaged people who return",
+            "Do not send a newsletter or perform newsletter activation work",
+            "Do not build or provision custom community software",
+            "New Ask the Baker, Letters to the King, and Crumb Board submissions",
+            "Cloudflare Workers + D1 is selected only",
+        ):
+            self.assertIn(governing_truth, doctrine)
         self.assertIn("Reader privacy", security)
-        self.assertIn("1,000,000 followers", growth)
+        self.assertIn("first 1,000 genuinely engaged people", growth)
+        self.assertIn("no longer the active", growth)
+        self.assertIn("operating goal", growth)
         self.assertIn("Adapter acceptance contract", distribution)
         self.assertIn("Production source of truth", repo_map)
 
@@ -39,10 +53,11 @@ class ProductContractTest(unittest.TestCase):
         active = growth + "\n" + distribution
 
         for decision in (
-            "combined followers",
+            "current proof goal is the first 1,000 genuinely engaged",
             "five X followers",
-            "The brand is faceless",
-            "No spend is authorized",
+            "David may remain off camera",
+            "The website, archive, and RSS are the permanent home",
+            "No spend",
             "Claude Cowork",
             "Credible-account replies",
             "David approves every reply individually",
@@ -53,6 +68,81 @@ class ProductContractTest(unittest.TestCase):
             "Is the brand faceless, voice-led, or David on camera?",
         ):
             self.assertNotIn(stale_question, active)
+
+    def test_founder_doctrine_and_operating_docs_reject_stale_authority(self):
+        governing_paths = (
+            "AGENTS.md",
+            "CLAUDE.md",
+            "BRAND.md",
+            "BAKE.md",
+            "README.md",
+            "docs/PRODUCT_SPEC.md",
+            "docs/DISTRIBUTION_SPEC.md",
+            "docs/GROWTH_ROADMAP.md",
+            "docs/NEWSLETTER_PILOT_SPEC.md",
+            "docs/AUDIT_2026-07-31.md",
+            "docs/SECURITY_SPEC.md",
+            "docs/REPOSITORY_MAP.md",
+            "docs/READER_STORE_SPEC.md",
+            "docs/READER_STORE_RUNBOOK.md",
+            "newsletter/weekly-ledger.md",
+        )
+        documents = {
+            path: (ROOT / path).read_text(encoding="utf-8")
+            for path in governing_paths
+        }
+        active = "\n".join(documents.values())
+
+        for stale_claim in (
+            "Goal: 1,000,000 followers in six months",
+            "active audience goal is 1,000,000",
+            "The six-month goal is 1,000,000",
+            "Weekly email pilot APPROVED",
+            "The weekly email is a bounded pilot",
+            "The weekly email is a separate four-week manual pilot",
+            "Status: signup approved",
+            "The active four-week pilot",
+            "four-week manual Buttondown pilot was approved",
+        ):
+            self.assertNotIn(stale_claim, active)
+
+        for path in (
+            "AGENTS.md",
+            "CLAUDE.md",
+            "BRAND.md",
+            "BAKE.md",
+            "README.md",
+            "docs/PRODUCT_SPEC.md",
+            "docs/DISTRIBUTION_SPEC.md",
+            "docs/GROWTH_ROADMAP.md",
+            "docs/NEWSLETTER_PILOT_SPEC.md",
+            "docs/SECURITY_SPEC.md",
+            "docs/REPOSITORY_MAP.md",
+        ):
+            with self.subTest(newsletter_pause=path):
+                self.assertIn("pause", documents[path].lower())
+
+        for path in (
+            "CLAUDE.md",
+            "BRAND.md",
+            "BAKE.md",
+            "README.md",
+            "docs/PRODUCT_SPEC.md",
+            "docs/GROWTH_ROADMAP.md",
+            "docs/SECURITY_SPEC.md",
+            "docs/REPOSITORY_MAP.md",
+            "docs/READER_STORE_SPEC.md",
+            "docs/READER_STORE_RUNBOOK.md",
+        ):
+            with self.subTest(reader_intake_pause=path):
+                self.assertIn("intake", documents[path].lower())
+                self.assertIn("pause", documents[path].lower())
+
+        self.assertIn("David retains final control", active)
+        self.assertIn("private/direct messaging", active)
+        self.assertIn("Cloudflare Workers + D1", active)
+        self.assertIn("neither may be provisioned", active)
+        self.assertIn("no Supabase", active)
 
     def test_distribution_metrics_schema_has_provenance_and_outcome_fields(self):
         schema = json.loads(
@@ -201,25 +291,21 @@ class ProductContractTest(unittest.TestCase):
         ):
             self.assertIn(invariant, active)
 
-    def test_chronicles_describes_actual_reader_queue_and_publication(self):
-        page = (ROOT / "chronicles.html").read_text(encoding="utf-8")
+    def test_reader_intake_pause_preserves_only_the_frozen_editorial_queue(self):
+        product = (ROOT / "docs" / "PRODUCT_SPEC.md").read_text(encoding="utf-8")
+        bake = (ROOT / "BAKE.md").read_text(encoding="utf-8")
+        doctrine = (ROOT / "FOUNDER_DOCTRINE.md").read_text(encoding="utf-8")
 
-        for current_truth in (
-            "at most one waiting question, oldest first",
-            "one waiting reader letter is answered, oldest first",
-            "at most one waiting pin goes on the board, oldest first",
-            "may be published on the public site",
-            "Do not include private or sensitive information",
-        ):
-            self.assertIn(current_truth, page)
-        for stale_promise in (
-            "draws five questions",
-            "up to three letters are drawn",
-            "Whatever&rsquo;s on the board when the ovens fire goes out",
-        ):
-            self.assertNotIn(stale_promise, page)
+        self.assertIn("only the frozen existing queue", " ".join(product.split()))
+        self.assertIn("New reader intake is paused", bake)
+        normalized_doctrine = " ".join(doctrine.split())
+        self.assertIn(
+            "Existing reviewed reader material remains an editorial queue",
+            normalized_doctrine,
+        )
+        self.assertIn("not an open community feed", normalized_doctrine)
 
-    def test_bake_cannot_change_its_reader_input_snapshot(self):
+    def test_bake_plan_has_no_counter_or_network_input(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
             encoding="utf-8"
         )
@@ -230,20 +316,20 @@ class ProductContractTest(unittest.TestCase):
         self.assertRegex(workflow, r"(?m)^permissions:\n  contents: write$")
 
         bake_spec = (ROOT / "BAKE.md").read_text(encoding="utf-8")
-        self.assertIn("`--plan` never refreshes or mutates it", bake_spec)
+        self.assertIn(
+            "it has no Counter, network, or public-submission input and never mutates state",
+            " ".join(bake_spec.split()),
+        )
 
-    def test_main_writers_are_serialized(self):
+    def test_bake_writer_remains_serialized_without_authorizing_counter_sync(self):
         bake = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
             encoding="utf-8"
         )
-        counter = (ROOT / ".github" / "workflows" / "counter-sync.yml").read_text(
-            encoding="utf-8"
-        )
         self.assertIn("group: ddb-main-writers", bake)
-        self.assertIn("group: ddb-main-writers", counter)
         self.assertIn("queue: max", bake)
-        self.assertIn("queue: max", counter)
-        self.assertIn("git pull --rebase origin main", counter)
+        doctrine = (ROOT / "FOUNDER_DOCTRINE.md").read_text(encoding="utf-8")
+        self.assertIn("temporarily paused", doctrine)
+        self.assertIn("explicitly approves reopening", doctrine)
 
     def test_private_reader_store_desired_state_is_machine_readable(self):
         contract = json.loads(
@@ -253,6 +339,13 @@ class ProductContractTest(unittest.TestCase):
         )
         self.assertEqual(1, contract["version"])
         self.assertEqual("design-approved-not-provisioned", contract["deploymentStatus"])
+        decision = contract["founderDecision"]
+        self.assertFalse(decision["newReaderIntakeAuthorized"])
+        self.assertFalse(decision["provisioningAuthorized"])
+        self.assertFalse(decision["deploymentAuthorized"])
+        self.assertFalse(decision["canaryAuthorized"])
+        self.assertFalse(decision["activationAuthorized"])
+        self.assertTrue(decision["explicitReversalRequired"])
         self.assertEqual("dedicated-reader-project", contract["projectIsolation"])
         self.assertEqual("reader_private", contract["database"]["storageSchema"])
         self.assertEqual([], contract["database"]["exposedSchemas"])

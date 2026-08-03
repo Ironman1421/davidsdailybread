@@ -4,7 +4,8 @@ This file is the complete operating spec for baking davidsdailybread.com,
 which is baked twice daily:
 
 - the **morning edition** (Spark dispatch at 4:40 AM Pacific): straight news
-  on tech, markets, and science, plus the reader sections. Steps 1-9 below.
+  on tech, markets, and science, plus reviewed house-satchel material when the
+  plan selects it. New reader intake is paused. Steps 1-9 below.
 - the **evening edition** (Spark dispatch at 2:40 PM Pacific): the Field Guide.
   Trending tools, practical workflows, and a short Keep and Ponder closing for
   everyday people, with no news after dark (news belongs to the morning). See
@@ -27,7 +28,7 @@ Everything editorial is YOUR job as the session (research, judgment, writing).
 Everything mechanical is `ddb_session_bake.py`'s job (rendering, archive, feed,
 state). Do not hand-edit rendered pages; do not bypass the script.
 
-## Hard rules (from BRAND.md, which wins all conflicts)
+## Hard rules (from FOUNDER_DOCTRINE.md and BRAND.md)
 
 0. The brand statement is exactly **Loved by God**. It already lives in the
    templates and feed copy; never rephrase or remove it.
@@ -46,14 +47,14 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    (restock only) `kings-satchel.json`. The **evening** bake writes ONLY:
    `index.html`, `editions/<date>-evening.html`, `evening-catalog.json`,
    `archive.html` (marked list only), `archive.json`, and `feed.xml`; it never
-   touches the category pages, the reader state, the satchel, or `counter.csv`.
+   touches the category pages, the reader state, or the satchel.
    Backfills do not update `evening-catalog.json`.
 5. **Work from the fresh clone only.** Never read site state from the live
    davidsdailybread.com (the CDN serves stale files for hours).
-6. The weekly email is a separate four-week manual pilot. The templates may
-   link to `/subscribe.html`, but a bake never drafts, schedules, sends, imports,
-   or receives newsletter data. Follow `docs/NEWSLETTER_PILOT_SPEC.md` outside
-   the bake.
+6. Newsletter work is paused by the founder. The templates may preserve their
+   current link to `/subscribe.html`, but a bake never drafts, tests, schedules,
+   sends, imports, configures, credentials, or receives newsletter data. No
+   activation work proceeds outside the bake without David's explicit reversal.
 7. **The lead title is the X distribution contract.** Each edition's archive
    `lead` (= the lead story's title) is eligible for a canonical post to
    @DavidDailyBread. Spark's guarded `daicc-ddb-autopost` service is the sole
@@ -85,8 +86,9 @@ This run has a **slot** (morning or evening) and one of two **modes**, and the
 workflow tells you both:
 
 - **morning + daily** — the normal morning news bake for today: research news
-  from the last ~24 hours and run the reader sections per the `--plan` output
-  (steps 1-8 below).
+  from the last ~24 hours and run `--plan` only for reviewed house-satchel
+  material. Public Ask the Baker, reader Letter, and Crumb Board intake is
+  paused (steps 1-8 below).
 - **evening + daily** — the trends bake for today: follow "The evening bake"
   section below. Never run `--plan`; render with `--slot evening`.
 - **backfill** (either slot) — reconstructing an edition that was never
@@ -102,14 +104,12 @@ Steps 1-9 below are the **morning** bake. The evening bake replaces steps 1-3
 with its own section and skips the satchel restock; render, review, accuracy
 pass, and report (steps 4, 5, 5A, 9) apply to both slots.
 
-**1. Reader plan.** `python3 ddb_session_bake.py --plan` → JSON telling you which
-reader submission to answer (`ask`), which letter the King replies to (`king`,
-either reader mail or a house-satchel draw), and which Crumb Board pin to post
-(`pin`). Null means that section stays empty today; never invent submissions.
-Reader submissions come from `counter.csv` in the clone. Spark dispatches
-`.github/workflows/counter-sync.yml` at 4:25 AM Pacific; a DST-safe GitHub
-schedule is the 4:30 AM backup. The committed copy is the source for the whole
-bake: `--plan` never refreshes or mutates it.
+**1. Reviewed-material plan.** `python3 ddb_session_bake.py --plan` → JSON that
+may select one reviewed house-satchel letter for the King. While public reader
+intake is paused, `ask` and `pin` are always null, and `king` is either a house
+letter or null. The plan reads only `kings-satchel.json` and
+`bakery-state.json`; it has no Counter, network, or public-submission input and
+never mutates state. Never invent a submission or add submission-derived fields.
 
 **2. Research.** Using web search, gather TODAY'S real news (last ~24 hours,
 reputable primary sources) for the three sections: **tech** (AI, chips, software,
@@ -133,23 +133,19 @@ stories in a section is fine (minimum 2); never pad with weak or stale items.
                       "... up to 6 per section, best first"],
              "markets": ["..."], "science": ["..."]},
   "glance": {"tech": "one <=20-word roundup sentence", "markets": "...", "science": "..."},
-  "reader": {"ask":  {"question": "...", "answer": "...", "state_key": "<from plan>"},
-             "king": {"question": "...", "from": "<name, reader mail only>", "answer": "...",
-                      "state_key": "<from plan>"  ,  "satchel_id": "<instead, if satchel draw>"},
-             "pin":  {"text": "...", "sig_name": "...", "state_key": "<from plan>"}}
+  "reader": {"king": {"question": "...", "answer": "...",
+                      "satchel_id": "<from the reviewed house-satchel plan>"}}
 }
 ```
 
 Editorial voice (BRAND.md): the news itself is straight factual journalism, no
 bread metaphors. Lead: pick the single most substantive story across ALL
 sections (impact beats recency; a routine photo-of-the-day loses to real news).
-Deks: one sentence, opening `<b>bold lead-in</b>`. Reader sections: **Ask the
-Baker** answers are factual with exactly one bread/baking analogy. **Letters to
-the King** replies are the historical King David: poetic, warm, biblical
-register with a wink, factually sound. **Crumb Board** pins remain source-exact;
-only the renderer's deterministic em-dash normalization is permitted. Copy
-`pin.text`, `state_key`, and `satchel_id` values from the plan verbatim. Reader
-sections that were null in the plan are omitted or null here.
+Deks: one sentence, opening `<b>bold lead-in</b>`. A selected house-satchel
+**Letter to the King** reply uses the historical King David voice: poetic, warm,
+biblical register with a wink, factually sound. Copy its `question` and
+`satchel_id` from the plan verbatim. Do not add `ask`, `pin`, `state_key`,
+`from`, or any other submission-derived field while intake is paused.
 
 **4. Render.** `python3 ddb_session_bake.py --render --content content.json --date <date> --slot <slot> --mode <daily|backfill>`
 (`--slot` defaults to morning.) The script validates, renders every page,
@@ -199,12 +195,13 @@ over and guards the result before it ships:
   `editions/<date>-evening.html`.
 - It confirms `archive.json` carries this slot's entry, then commits in the
   house style (edition commit, then the `Archive:` commit), rebases on `main`
-  (counter-sync may have pushed while you baked), and pushes.
+  to incorporate any newer published edition, and pushes.
 
-**7. Verify — also the workflow's job.** After pushing, the workflow polls
-`https://raw.githubusercontent.com/Ironman1421/davidsdailybread/main/archive.json`
-until the edition date appears (raw is the truth; the live CDN may lag a few
-minutes, which the workflow logs as a soft warning, not a failure).
+**7. Verify — also the workflow's job.** After pushing, the workflow compares
+the pushed commit with GitHub's authoritative `refs/heads/main`, then checks the
+exact public edition URL and title on davidsdailybread.com. A delayed public
+page is a soft warning after a bounded retry; verification never polls the raw
+GitHub content CDN.
 
 **8. Satchel restock (only when the plan reported `satchel_unused` < 3).**
 Append new letters to `kings-satchel.json` (same schema, next `KS-0NN` ids,
@@ -213,7 +210,7 @@ House letters are timeless questions a reader might ask the King, in the same
 warm register as the existing ones. Never delete or edit existing letters.
 
 **9. Report.** End with a short summary: date, slot, lead headline, story count
-per section, which reader sections ran (morning only), verification result. On
+per section, whether a reviewed house letter ran (morning only), verification result. On
 ANY failure, say plainly what failed and what state the repo was left in; never
 push a partial or unverified edition, and never mark a failed bake as success.
 
@@ -271,8 +268,8 @@ popularity numbers (stars, upvotes, views) only as read from the cited page,
 never from memory.
 
 **E2. Write the edition** into `content.json`. The evening schema is its own
-(NOT the morning card shape), and there is NO `reader` key (the Counter
-feeds the morning only; the renderer refuses an evening `reader`):
+(NOT the morning card shape), and there is NO `reader` key (the renderer
+refuses an evening `reader`):
 
 ```json
 {
@@ -316,7 +313,7 @@ at bake time. A daily render prepends the validated cards to
 `evening-catalog.json`, deduplicates by exact source URL, and keeps at most 180
 items per library. A backfill leaves the catalog unchanged. The evening bake
 never runs `--plan`, never writes the category pages, and never touches
-`kings-satchel.json`, `bakery-state.json`, or `counter.csv`; the workflow's
+`kings-satchel.json` or `bakery-state.json`; the workflow's
 evening allowlist enforces this.
 
 ## Ops notes
@@ -336,13 +333,14 @@ evening allowlist enforces this.
   `CLAUDE_CODE_OAUTH_TOKEN` (created with `claude setup-token`), with
   `ANTHROPIC_API_KEY` as a fallback. If neither secret is set the bake step
   stops with a clear error before doing any work.
-- Spark is the primary Pacific-time clock: Counter Sync at 4:25 AM, morning at
-  4:40 AM, and evening at 2:40 PM. Those starts target reader-ready publication
-  near 5:00 AM and 3:00 PM Pacific. GitHub retains delayed backup schedules at
-  4:30 AM, 4:45 AM, and 2:45 PM. Every GitHub backup has a PDT/PST UTC pair and
-  an offset gate, so exactly one candidate is active and no daylight-saving
-  edit is required. The exact-edition guard makes delayed or duplicate triggers
-  successful no-ops.
+- Spark is the primary Pacific-time clock for the approved bakes: morning at
+  4:40 AM and evening at 2:40 PM. Those starts target reader-ready publication
+  near 5:00 AM and 3:00 PM Pacific. GitHub retains delayed bake backups at 4:45
+  AM and 2:45 PM. Every bake backup has a PDT/PST UTC pair and an offset gate,
+  so exactly one candidate is active and no daylight-saving edit is required.
+  The exact-edition guard makes delayed or duplicate bake triggers successful
+  no-ops. Counter Sync is a read-only no-op while new reader intake is paused;
+  it has no schedule or data endpoint and is not permission to reactivate one.
 - **To bake a specific date or slot by hand**, dispatch the workflow: in the
   repo's Actions tab open "Daily bake", click "Run workflow", set the `date`
   input to `YYYY-MM-DD` (blank means today in Pacific time) and pick the `slot`
@@ -357,9 +355,9 @@ evening allowlist enforces this.
   noted with its reason in the HQ ops log.
 - The morning schedule and this spec were set up 2026-07-17 when David
   simplified the pipeline to one daily morning bake; the Spark/Hermes pipeline
-  and its automated Buttondown path are retired. A separate four-week manual
-  Buttondown pilot was approved 2026-07-31 and remains outside the bake under
-  `docs/NEWSLETTER_PILOT_SPEC.md`. The bake moved into GitHub
+  and its automated Buttondown path are retired. The later four-week manual
+  Buttondown plan was paused by David on 2026-07-31; its live signup page is
+  preserved, but no activation work or sending is authorized. The bake moved into GitHub
   Actions on 2026-07-29 to fix the unattended `git push` 403. The evening
   edition returned 2026-07-30 (per David) with the trends identity, making
   the site twice-daily again.

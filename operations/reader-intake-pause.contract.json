@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "decisionOwner": "David Friedhof",
+  "approvalReceipt": "founder-decision-2026-07-31-interim-reader-intake-pause",
+  "status": "approved-local-change-not-deployed",
+  "scope": [
+    "ask-the-baker",
+    "letters-to-the-king",
+    "crumb-board",
+    "newsletter-signup"
+  ],
+  "localImplementationPrepared": true,
+  "deploymentAuthorized": false,
+  "deployed": false,
+  "publicSiteTarget": {
+    "acceptsNewReaderSubmissions": false,
+    "acceptsNewsletterSignups": false,
+    "containsGoogleFormEndpoint": false,
+    "containsGoogleSheetEndpoint": false,
+    "containsButtondownEmbedEndpoint": false,
+    "containsGitHubIssueIntakeRoute": false,
+    "containsPrivateEmailAddress": false
+  },
+  "repository": {
+    "counterSyncTargetState": "paused-read-only-no-op",
+    "counterCsvTrackedAtTip": false,
+    "counterCsvIgnored": true,
+    "counterCsvHistoryRewriteAuthorized": false,
+    "counterCsvHistoryPreserved": true,
+    "legacyNetworkIngestionEnabled": false,
+    "submissionDerivedRenderEnabled": false,
+    "pagesArchitectureChanged": false,
+    "internalStateExclusionDeferred": true
+  },
+  "existingQueueDisposition": "preserve-external-source-and-git-history-pending-separate-private-cutover",
+  "existingQueueDeletionAuthorized": false,
+  "externalCutover": {
+    "buttondownMutationAuthorized": false,
+    "buttondownCompleted": false,
+    "googleFormMutationAuthorized": false,
+    "googleFormCompleted": false,
+    "googleSheetMutationAuthorized": false,
+    "googleSheetCompleted": false,
+    "githubIssuesMutationAuthorized": false,
+    "githubIssuesCompleted": false
+  },
+  "chroniclesExportsPreserved": [
+    "download-markdown",
+    "pdf",
+    "email",
+    "copy"
+  ],
+  "reopenGate": "verified-private-intake-boundary-and-explicit-founder-approval"
+}

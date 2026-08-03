@@ -3,15 +3,15 @@
 
 Since 2026-07-17 the bake is driven by a Claude cloud session (spec: /BAKE.md).
 The SESSION does everything editorial: researching the news, choosing the lead,
-writing standfirst/body/deks/glance lines, answering reader mail in the house
-personas. This script does everything MECHANICAL, deterministically, with no
+writing standfirst/body/deks/glance lines, and answering reviewed house-satchel
+material in the King persona. This script does everything MECHANICAL, deterministically, with no
 model calls anywhere:
 
   --plan
-      Read the committed Counter CSV snapshot (reader submissions), bakery-state.json and
-      kings-satchel.json from the working tree, and print a JSON "reader plan":
-      exactly which submission (or house-satchel letter) the session must write
-      replies for today, plus the satchel inventory. Never mutates state.
+      Read bakery-state.json and kings-satchel.json from the working tree and
+      print a reviewed-material plan. Public reader intake is paused, so Ask the
+      Baker and Crumb Board are always empty and Letters to the King may select
+      only a reviewed house-satchel letter. Never mutates state.
 
   --render --content content.json --date YYYY-MM-DD [--slot morning|evening]
       Render the edition from the session-authored content JSON: home page,
@@ -33,6 +33,9 @@ idempotent for the same date+content.
 from __future__ import annotations
 
 import argparse
+from copy import deepcopy
+from email.utils import parsedate_to_datetime
+import hashlib
 import json
 import os
 import re
@@ -94,49 +97,24 @@ def fail(msg: str) -> None:
 # --plan
 # ---------------------------------------------------------------------------
 
-def cmd_plan(csv_path: Path) -> None:
+def cmd_plan() -> None:
     state_path = REPO / "bakery-state.json"
     satchel_path = REPO / "kings-satchel.json"
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
 
-    # counter-sync owns network ingestion.  Planning reads the committed,
-    # reviewable snapshot only so a bake cannot mutate reader input behind the
-    # workflow's changed-file gate.
-    rows = ddb_satchel.classify(ddb_satchel.load_csv_rows(csv_path)) if csv_path.exists() else {
-        "asks": [], "king_letters": [], "pins": []
-    }
-
     plan: dict = {
-        "counter_source": "committed counter.csv",
-        "csv_fetched": False,  # retained for older bake-session consumers
+        "intake_status": "paused",
+        "counter_source": None,
+        "csv_fetched": False,
         "ask": None,
         "king": None,
         "pin": None,
     }
-
-    ask_row = ddb_satchel.pick_oldest_unused(rows["asks"], set(state.get("answeredQuestions", [])))
-    if ask_row:
-        plan["ask"] = {"question": ask_row["text"], "state_key": ddb_satchel.dedup_key(ask_row)}
-
-    king_row = ddb_satchel.pick_oldest_unused(rows["king_letters"], set(state.get("kingLetters", [])))
     letters = ddb_satchel.load_satchel(satchel_path)
     used_satchel = set(state.get("usedSatchelLetters", []))
-    if king_row:
-        plan["king"] = {
-            "kind": "reader",
-            "letter": king_row["text"][len(ddb_satchel.KING_PREFIX):].strip(),
-            "from": king_row["name"],
-            "state_key": ddb_satchel.dedup_key(king_row),
-        }
-    else:
-        drawn = ddb_satchel.pick_satchel_letter(letters, used_satchel)
-        if drawn:
-            plan["king"] = {"kind": "satchel", "id": drawn["id"], "letter": drawn["letter"]}
-
-    pin_row = ddb_satchel.pick_oldest_unused(rows["pins"], set(state.get("postedPins", [])))
-    if pin_row:
-        plan["pin"] = {"text": pin_row["text"], "name": pin_row["name"],
-                       "state_key": ddb_satchel.dedup_key(pin_row)}
+    drawn = ddb_satchel.pick_satchel_letter(letters, used_satchel)
+    if drawn:
+        plan["king"] = {"kind": "satchel", "id": drawn["id"], "letter": drawn["letter"]}
 
     plan["satchel_unused"] = len([l for l in letters if l["id"] not in used_satchel])
     print(json.dumps(plan, indent=2, ensure_ascii=False))
@@ -263,12 +241,17 @@ def validate_content(c: dict, date: str, slot: str) -> None:
 
     if slot == "evening":
         _require(not (c.get("reader") or {}),
-                 "evening editions carry no reader sections; omit the reader key "
-                 "(the Counter feeds the morning edition only)")
+                 "evening editions carry no reader sections; omit the reader key")
         return
 
     reader = c.get("reader") or {}
     _require(isinstance(reader, dict), "reader must be an object")
+    _require(set(reader) <= {"king"},
+             "only reviewed house-satchel king material is allowed while intake is paused")
+    _require(not reader.get("ask"),
+             "reader.ask is closed while public reader intake is paused")
+    _require(not reader.get("pin"),
+             "reader.pin is closed while public reader intake is paused")
     king = reader.get("king")
     if king:
         _require(isinstance(king, dict), "reader.king must be an object")
@@ -276,87 +259,41 @@ def validate_content(c: dict, date: str, slot: str) -> None:
                  "reader.king.question missing")
         _require(isinstance(king.get("answer"), str) and bool(king["answer"].strip()),
                  "reader.king.answer missing")
-        _require((isinstance(king.get("state_key"), str) and bool(king["state_key"]))
-                 or (isinstance(king.get("satchel_id"), str) and bool(king["satchel_id"])),
-                 "reader.king needs state_key (reader mail) or satchel_id (house letter)")
-        _require(bool(king.get("state_key")) != bool(king.get("satchel_id")),
-                 "reader.king must have exactly one of state_key or satchel_id")
-        if king.get("state_key"):
-            _require(isinstance(king.get("from"), str) and bool(king["from"].strip()),
-                     "reader.king.from is required for reader mail")
-    ask = reader.get("ask")
-    if ask:
-        _require(isinstance(ask, dict), "reader.ask must be an object")
-        _require(isinstance(ask.get("question"), str) and bool(ask["question"].strip())
-                 and isinstance(ask.get("answer"), str) and bool(ask["answer"].strip())
-                 and isinstance(ask.get("state_key"), str) and bool(ask["state_key"]),
-                 "reader.ask needs question + answer + state_key")
-    pin = reader.get("pin")
-    if pin:
-        _require(isinstance(pin, dict), "reader.pin must be an object")
-        _require(isinstance(pin.get("text"), str) and bool(pin["text"].strip())
-                 and isinstance(pin.get("state_key"), str) and bool(pin["state_key"]),
-                 "reader.pin needs text + state_key")
-        _require(pin.get("sig_name") is None or isinstance(pin.get("sig_name"), str),
-                 "reader.pin.sig_name must be a string when present")
+        _require(isinstance(king.get("satchel_id"), str) and bool(king["satchel_id"]),
+                 "reader.king requires a reviewed house satchel_id while intake is paused")
+        _require(not king.get("state_key") and not king.get("from"),
+                 "submission-derived reader.king fields are closed while intake is paused")
 
 
 def validate_reader_provenance(reader: dict, csv_path: Path | None = None,
                                state_path: Path | None = None,
                                satchel_path: Path | None = None,
-                               require_complete: bool = False) -> None:
-    """Bind reader-visible submissions to the committed Counter and satchel.
-
-    Replies remain editorial model output, but the quoted question, sender,
-    signature, selection order, and bookkeeping key may not be invented or
-    swapped. Pin text is source-bound too; the only permitted transformation
-    is the deterministic house-style replacement of em dashes.
-    """
-    csv_path = csv_path or REPO / "counter.csv"
+                               require_complete: bool = False,
+                               state_data: dict | None = None) -> None:
+    """Bind the only permitted reader-adjacent content to the house satchel."""
     state_path = state_path or REPO / "bakery-state.json"
     satchel_path = satchel_path or REPO / "kings-satchel.json"
-    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
-    rows = ddb_satchel.classify(ddb_satchel.load_csv_rows(csv_path))
-
-    expected_ask = ddb_satchel.pick_oldest_unused(
-        rows["asks"], set(state.get("answeredQuestions", []))
-    )
-    ask = reader.get("ask")
-    if require_complete:
-        _require(bool(ask) == bool(expected_ask),
-                 "reader.ask must match whether the plan has a waiting question")
-    if ask:
-        expected = expected_ask
-        _require(expected is not None, "reader.ask has no waiting Counter source")
-        _require(ask["state_key"] == ddb_satchel.dedup_key(expected),
-                 "reader.ask.state_key does not match the oldest waiting Counter question")
-        _require(ask["question"] == ddb_satchel.strip_em_dashes(expected["text"]),
-                 "reader.ask.question does not match its Counter source")
-
-    expected_king = ddb_satchel.pick_oldest_unused(
-        rows["king_letters"], set(state.get("kingLetters", []))
-    )
+    if state_data is not None:
+        state = deepcopy(state_data)
+    elif state_path.exists():
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+    else:
+        state = {}
+    _require(set(reader) <= {"king"},
+             "only reviewed house-satchel king material is allowed while intake is paused")
+    _require(not reader.get("ask") and not reader.get("pin"),
+             "public reader submissions are closed while intake is paused")
     unused_house_letters = [
         letter for letter in ddb_satchel.load_satchel(satchel_path)
         if letter.get("id") not in set(state.get("usedSatchelLetters", []))
     ]
     king = reader.get("king")
     if require_complete:
-        _require(bool(king) == bool(expected_king or unused_house_letters),
-                 "reader.king must match whether the plan has reader or house mail")
-    if king and king.get("state_key"):
-        expected = expected_king
-        _require(expected is not None, "reader.king has no waiting Counter source")
-        _require(king["state_key"] == ddb_satchel.dedup_key(expected),
-                 "reader.king.state_key does not match the oldest waiting Counter letter")
-        letter = expected["text"][len(ddb_satchel.KING_PREFIX):].strip()
-        _require(king["question"] == ddb_satchel.strip_em_dashes(letter),
-                 "reader.king.question does not match its Counter source")
-        _require(king["from"] == ddb_satchel.strip_em_dashes(expected["name"]),
-                 "reader.king.from does not match its Counter source")
-    elif king:
-        _require(expected_king is None,
-                 "reader.king cannot use a house letter while reader mail waits")
+        _require(bool(king) == bool(unused_house_letters),
+                 "reader.king must match whether reviewed house mail is available")
+    if king:
+        _require(not king.get("state_key") and not king.get("from"),
+                 "submission-derived reader.king fields are closed while intake is paused")
         expected = next(
             (letter for letter in unused_house_letters
              if letter.get("id") == king["satchel_id"]),
@@ -365,24 +302,6 @@ def validate_reader_provenance(reader: dict, csv_path: Path | None = None,
         _require(expected is not None, "reader.king.satchel_id is not in kings-satchel.json")
         _require(king["question"] == ddb_satchel.strip_em_dashes(expected["letter"]),
                  "reader.king.question does not match its house letter")
-
-    expected_pin = ddb_satchel.pick_oldest_unused(
-        rows["pins"], set(state.get("postedPins", []))
-    )
-    pin = reader.get("pin")
-    if require_complete:
-        _require(bool(pin) == bool(expected_pin),
-                 "reader.pin must match whether the plan has a waiting pin")
-    if pin:
-        expected = expected_pin
-        _require(expected is not None, "reader.pin has no waiting Counter source")
-        _require(pin["state_key"] == ddb_satchel.dedup_key(expected),
-                 "reader.pin.state_key does not match the oldest waiting Counter pin")
-        _require(pin["text"] == ddb_satchel.strip_em_dashes(expected["text"]),
-                 "reader.pin.text does not match its Counter source")
-        _require((pin.get("sig_name") or "Anonymous")
-                 == ddb_satchel.strip_em_dashes(expected["name"]),
-                 "reader.pin.sig_name does not match its Counter source")
 
 
 def _evening_shelf_html(tools: list[dict]) -> str:
@@ -523,7 +442,9 @@ def _catalog_with_evening(catalog: dict, content: dict, date: str) -> dict:
     return updated
 
 
-def render_evening_from_content(c: dict, date: str) -> tuple[str, str]:
+def render_evening_from_content(
+    c: dict, date: str, rendered_at_utc: datetime | None = None
+) -> tuple[str, str]:
     """Render the Field Guide evening edition (layout adopted 2026-07-30):
     lead pick, two-row glance, tool shelf, workflow recipes, then Keep and
     Ponder. Returns
@@ -566,17 +487,20 @@ def render_evening_from_content(c: dict, date: str) -> tuple[str, str]:
         *[w["dek"] + " " + " ".join(str(n) for n in w["needs"]) for w in flows],
     )
     html = html.replace("READTIME", readtime)
-    html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(datetime.now(timezone.utc)))
+    rendered_at_utc = rendered_at_utc or datetime.now(timezone.utc)
+    html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(rendered_at_utc))
     return html, lead["title"]
 
 
-def render_home_from_content(c: dict, date: str, slot: str) -> tuple[str, str]:
+def render_home_from_content(
+    c: dict, date: str, slot: str, rendered_at_utc: datetime | None = None
+) -> tuple[str, str]:
     """Mirror ddb_bake.render_home's token operations exactly, sourcing all
     editorial content from the session-authored JSON instead of model calls.
     The evening slot routes to render_evening_from_content (its own template
     and token set). Returns (html, lead_title)."""
     if slot == "evening":
-        return render_evening_from_content(c, date)
+        return render_evening_from_content(c, date, rendered_at_utc)
     template = (REPO / "templates" / SLOT_TEMPLATE[slot]).read_text(encoding="utf-8")
     esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
     sections = SLOT_SECTIONS[slot]
@@ -656,7 +580,8 @@ def render_home_from_content(c: dict, date: str, slot: str) -> tuple[str, str]:
         *[card["dek"] for s in sections for card in c["cards"][s]],
     )
     html = html.replace("READTIME", readtime)
-    html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(datetime.now(timezone.utc)))
+    rendered_at_utc = rendered_at_utc or datetime.now(timezone.utc)
+    html = html.replace("TIMESTAMP", ddb_bake.compute_timestamp_et(rendered_at_utc))
     return html, lead["title"]
 
 
@@ -677,30 +602,56 @@ def verify_output(paths: list[Path]) -> None:
     verify_rendered_outputs({p: p.read_text(encoding="utf-8") for p in paths})
 
 
-def state_with_reader(reader: dict) -> dict:
+def _reader_claim(reader: dict, date: str) -> dict:
+    """Return a payload-free identity for one morning's reader selection."""
+    king = reader.get("king") or {}
+    selection = {"houseSatchelId": king.get("satchel_id") if king else None}
+    digest = hashlib.sha256(
+        json.dumps(selection, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    return {"version": 1, "date": date, "readerClaimSha256": digest}
+
+
+def _state_before_reader(state: dict, reader: dict) -> dict:
+    """Reconstruct pre-render bookkeeping in memory for a verified retry."""
+    prior = deepcopy(state)
+    king = reader.get("king") or {}
+    if king.get("satchel_id"):
+        prior["usedSatchelLetters"] = [
+            item for item in prior.get("usedSatchelLetters", [])
+            if item != king["satchel_id"]
+        ]
+    return prior
+
+
+def state_with_reader(reader: dict, date: str | None = None,
+                      state_data: dict | None = None) -> dict:
     """Return updated reader bookkeeping without mutating the working tree."""
     state_path = REPO / "bakery-state.json"
-    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {
-        "note": "", "answeredQuestions": [], "postedPins": [], "kingLetters": [], "usedSatchelLetters": []
-    }
+    if state_data is not None:
+        state = deepcopy(state_data)
+    elif state_path.exists():
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+    else:
+        state = {
+            "note": "", "answeredQuestions": [], "postedPins": [],
+            "kingLetters": [], "usedSatchelLetters": []
+        }
 
     def add(key: str, value: str) -> None:
         bucket = state.setdefault(key, [])
         if value and value not in bucket:
             bucket.append(value)
 
-    ask = reader.get("ask")
-    if ask:
-        add("answeredQuestions", ask["state_key"])
+    _require(not reader.get("ask") and not reader.get("pin"),
+             "submission-derived state writes are closed while intake is paused")
     king = reader.get("king")
     if king:
-        if king.get("satchel_id"):
-            add("usedSatchelLetters", king["satchel_id"])
-        else:
-            add("kingLetters", king["state_key"])
-    pin = reader.get("pin")
-    if pin:
-        add("postedPins", pin["state_key"])
+        _require(bool(king.get("satchel_id")) and not king.get("state_key"),
+                 "only reviewed house satchel state may be written while intake is paused")
+        add("usedSatchelLetters", king["satchel_id"])
+    if date is not None:
+        state["lastMorningRender"] = _reader_claim(reader, date)
     return state
 
 
@@ -720,20 +671,58 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
         fail(f"cannot read content JSON: {e}")
 
     validate_content(content, date, slot)
+    editions = REPO / "editions"
+    edition_path = editions / f"{date}-{slot}.html"
+    archive_json_path = REPO / "archive.json"
+    existing_archive = ddb_bake.read_archive_json(archive_json_path)
+    matching_entries = [
+        entry for entry in existing_archive.get("editions", [])
+        if entry.get("date") == date and entry.get("edition") == slot
+        and entry.get("file") == f"editions/{date}-{slot}.html"
+    ]
+    _require(len(matching_entries) <= 1, "archive has duplicate entries for this edition")
+    existing_entry = matching_entries[0] if matching_entries and edition_path.exists() else None
+
+    current_state: dict | None = None
     if slot == "morning":
         reader = content.get("reader") or {}
         if bake_mode == "backfill":
             _require(not reader, "backfill editions must omit reader sections")
         else:
-            validate_reader_provenance(reader, require_complete=True)
+            state_path = REPO / "bakery-state.json"
+            current_state = (
+                json.loads(state_path.read_text(encoding="utf-8"))
+                if state_path.exists() else {}
+            )
+            validation_state = current_state
+            if existing_entry is not None:
+                expected_claim = _reader_claim(reader, date)
+                stored_claim = current_state.get("lastMorningRender")
+                if isinstance(stored_claim, dict) and stored_claim.get("date") == date:
+                    _require(
+                        stored_claim == expected_claim,
+                        "same-edition retry must keep the original reader selection",
+                    )
+                    validation_state = _state_before_reader(current_state, reader)
+            validate_reader_provenance(
+                reader, require_complete=True, state_data=validation_state
+            )
 
     archive_html_path = REPO / "archive.html"
     ddb_bake.validate_archive_file(archive_html_path)  # fail closed before any write
 
-    html, lead_title = render_home_from_content(content, date, slot)
-
-    editions = REPO / "editions"
-    edition_path = editions / f"{date}-{slot}.html"
+    render_instant = datetime.now(timezone.utc)
+    pub_date: str | None = None
+    if existing_entry is not None and existing_entry.get("pubDate"):
+        pub_date = str(existing_entry["pubDate"])
+        try:
+            parsed_pub_date = parsedate_to_datetime(pub_date)
+            if parsed_pub_date.tzinfo is None:
+                raise ValueError("timezone offset is missing")
+            render_instant = parsed_pub_date.astimezone(timezone.utc)
+        except (TypeError, ValueError) as exc:
+            fail(f"existing archive pubDate is invalid: {exc}")
+    html, lead_title = render_home_from_content(content, date, slot, render_instant)
     outputs: dict[Path, str] = {
         edition_path: html,
         REPO / "index.html": html,
@@ -761,11 +750,11 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
         written.append(catalog_path)
 
     from zoneinfo import ZoneInfo
-    now_et = datetime.now(timezone.utc).astimezone(ZoneInfo("America/New_York"))
-    pub_date = now_et.strftime("%a, %d %b %Y %H:%M:%S %z")
-    archive_json_path = REPO / "archive.json"
+    if pub_date is None:
+        now_et = render_instant.astimezone(ZoneInfo("America/New_York"))
+        pub_date = now_et.strftime("%a, %d %b %Y %H:%M:%S %z")
     archive_data = ddb_bake.archive_with_edition(
-        ddb_bake.read_archive_json(archive_json_path), date, slot, lead_title,
+        existing_archive, date, slot, lead_title,
         ddb_bake.human_date(date), pub_date,
     )
     outputs[archive_json_path] = json.dumps(
@@ -783,7 +772,9 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
         # and historical backfills leave reader state untouched.
         state_path = REPO / "bakery-state.json"
         outputs[state_path] = json.dumps(
-            state_with_reader(content.get("reader") or {}),
+            state_with_reader(
+                content.get("reader") or {}, date=date, state_data=current_state
+            ),
             indent=2,
             ensure_ascii=False,
         ) + "\n"
@@ -819,14 +810,10 @@ def main() -> None:
     ap.add_argument("--mode", choices=("daily", "backfill"),
                     default=os.environ.get("DDB_MODE", "daily"),
                     help="daily or historical reconstruction mode (default: DDB_MODE or daily)")
-    ap.add_argument("--csv", type=Path, default=REPO / "counter.csv",
-                    help="Counter CSV path. Default: the repo's committed copy, kept "
-                         "fresh by .github/workflows/counter-sync.yml. Planning reads "
-                         "this snapshot and never refreshes it.")
     args = ap.parse_args()
 
     if args.plan:
-        cmd_plan(args.csv)
+        cmd_plan()
     else:
         if not args.content or not args.date:
             fail("--render requires --content and --date")

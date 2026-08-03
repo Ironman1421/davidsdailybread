@@ -1,70 +1,15 @@
-name: Counter sync
-# Fetches the Counter sheet's published CSV (reader submissions for Ask the
-# Baker / Letters to the King / The Crumb Board) and commits it as
-# /counter.csv, because the morning bake's cloud sandbox cannot reach
-# docs.google.com directly. Spark dispatches it at 4:25 AM Pacific; the paired
-# UTC schedules are DST-safe backups.
+name: Counter sync (paused)
+# New reader intake is paused by the founder until its private boundary is
+# verified. This retained workflow is a visible no-op and has no schedule,
+# network access, checkout, write permission, artifact, or repository mutation.
 on:
-  schedule:
-    - cron: '30 11 * * *'
-    - cron: '30 12 * * *'
   workflow_dispatch:
 permissions:
-  contents: write
-concurrency:
-  # Shared with ddb-bake.yml because both workflows push directly to main.
-  group: ddb-main-writers
-  queue: max
-  cancel-in-progress: false
+  contents: read
 jobs:
-  sync:
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - name: Resolve active Pacific backup schedule
-        id: cfg
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          EVENT_SCHEDULE: ${{ github.event.schedule }}
+      - name: Confirm the reader-intake pause
         run: |
-          set -euo pipefail
-          ACTIVE=true
-          if [ "${EVENT_NAME}" = "schedule" ]; then
-            TODAY="$(TZ=America/Los_Angeles date +%F)"
-            # Gate on the nominal 4:30 AM backup time, not the runner's
-            # eventual start time.
-            PACIFIC_OFFSET="$(TZ=America/Los_Angeles date -d "$TODAY 04:30:00" +%z)"
-            case "${PACIFIC_OFFSET}:${EVENT_SCHEDULE}" in
-              '-0700:30 11 * * *'|'-0800:30 12 * * *') ;;
-              *) ACTIVE=false ;;
-            esac
-          fi
-          echo "active=$ACTIVE" >> "$GITHUB_OUTPUT"
-          echo "Counter backup active=$ACTIVE"
-
-      - name: Checkout
-        if: steps.cfg.outputs.active == 'true'
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - name: Fetch published Counter CSV
-        if: steps.cfg.outputs.active == 'true'
-        run: |
-          curl -sSL --fail --retry 3 -o counter.csv.new \
-            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLZpQtsFE0aGPesDlZceSy-4nRa6GV0TvLM7jJPToJp43Ml0vtRomQpovm4Sbed6JKo9B4h7gh76TE/pub?output=csv"
-          if ! head -1 counter.csv.new | grep -q 'Timestamp'; then
-            echo "Unexpected body; keeping the previous counter.csv." >&2
-            rm -f counter.csv.new
-            exit 0
-          fi
-          mv counter.csv.new counter.csv
-      - name: Commit if changed
-        if: steps.cfg.outputs.active == 'true'
-        run: |
-          git config user.name "ddb-counter-sync"
-          git config user.email "actions@davidsdailybread.com"
-          git add counter.csv
-          if git diff --cached --quiet; then
-            echo "No change."
-          else
-            git commit -m "Counter sync: $(date -u +%F)"
-            git pull --rebase origin main
-            git push
-          fi
+          echo "Counter sync is paused. No reader data was fetched or written."

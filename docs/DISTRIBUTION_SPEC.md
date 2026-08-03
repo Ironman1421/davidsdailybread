@@ -5,7 +5,10 @@ Last reconciled: 2026-08-01
 
 ## Decisions and authority
 
-- The six-month goal is 1,000,000 combined followers across approved platforms.
+- `FOUNDER_DOCTRINE.md` governs channel roles, founder authority, and paused
+  initiatives. The current proof goal is the first 1,000 genuinely engaged
+  people who return for faith, technology, prayer, and service; growth must
+  preserve trust, moderation capacity, and David's direction.
 - The documented starting floor is five X followers. Unknown platform baselines
   are recorded as unknown and treated as zero only for planning math.
 - The publisher is faceless. Voice-led output is permitted as an experiment;
@@ -51,22 +54,20 @@ packages and never become the only copy of an edition or correction.
 - The repository adapter is `distribution/telegram_notification.py`; its
   operating and recovery boundary is `docs/TELEGRAM_NOTIFICATION_RUNBOOK.md`.
 
-### Weekly email pilot
+### Newsletter
 
-- Role: a weekly retention and usefulness test, not a complete copy of the
-  twice-daily paper.
-- Scope: four manual Buttondown issues, at most one per week, then pause for an
-  explicit keep, change, or stop decision.
-- Format: Editorial Ledger with the Guided Path Start, Browse, Do, Rest.
-- Consent: fresh double opt-in only. No retired list is imported or reactivated.
-- Budget: $0. Stop before a charge or paid add-on and before the provider's free
-  subscriber allowance is exceeded.
+- Newsletter sending and activation work are paused by the founder.
+- Preserve the existing live signup page state, but do not draft, test,
+  schedule, send, configure, credential, import, or advance activation gates.
 - The daily bake and GitHub Actions cannot send email or receive subscriber
-  addresses. Activation and operations follow `docs/NEWSLETTER_PILOT_SPEC.md`.
+  addresses.
+- Resumption requires David's explicit reversal plus reconciliation of the
+  doctrine, specification, machine-readable contract, and tests.
 
 ### X
 
-- Role: authority, source receipts, expert conversation, and site referral.
+- Role: discovery, discussion, source receipts, and referral to the canonical
+  website.
 - At most one automatic canonical broadcast per edition.
 - At most one additional edition-derived source card, useful fact, or question;
   it requires human review and must add distinct value.

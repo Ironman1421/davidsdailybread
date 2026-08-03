@@ -3,6 +3,15 @@
   "deploymentStatus": "design-approved-not-provisioned",
   "provider": "supabase",
   "projectIsolation": "dedicated-reader-project",
+  "founderDecision": {
+    "effectiveDate": "2026-07-31",
+    "newReaderIntakeAuthorized": false,
+    "provisioningAuthorized": false,
+    "deploymentAuthorized": false,
+    "canaryAuthorized": false,
+    "activationAuthorized": false,
+    "explicitReversalRequired": true
+  },
   "launchBlockers": [
     "verified-privacy-contact-address",
     "provisioned-dedicated-supabase-project"

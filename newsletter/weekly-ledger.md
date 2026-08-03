@@ -1,5 +1,9 @@
 # The Weekly Loaf
 
+Status: frozen historical template. Do not draft, test, schedule, or send from
+this file unless David explicitly reverses the newsletter pause and the
+governing documents and machine contract are reconciled.
+
 Issue [1-4] | [SEND DATE] | Four-week pilot
 
 One useful weekly Editorial Ledger from David's Daily Bread. Loved by God.

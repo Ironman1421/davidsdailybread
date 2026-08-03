@@ -35,8 +35,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  # Serializes every workflow that can write main. Keep this group in sync
-  # with counter-sync.yml so a late Counter refresh cannot race a bake push.
+  # Serializes writes to main so morning and evening bakes cannot race.
   group: ddb-main-writers
   queue: max
   cancel-in-progress: false
@@ -165,20 +164,24 @@ jobs:
           # $DDB_SLOT and $DDB_MODE, the only variables in the prompt) expand into the file.
           cat > "$RUNNER_TEMP/bake-prompt.txt" <<PROMPT
           You are the editor baking the $DDB_SLOT edition of davidsdailybread.com for $DDB_DATE. You are working inside a GitHub Actions runner, in a full checkout of the site repo at the current working directory, on branch main.
-          Read /BAKE.md in this checkout and follow it exactly. BRAND.md wins all conflicts. BAKE.md is the complete editorial spec for both edition slots: research, content.json, render, editorial review, and (morning only) the reader plan and satchel restock.
+          Read /FOUNDER_DOCTRINE.md and /BAKE.md in this checkout and follow them exactly. BRAND.md governs reader-visible copy. BAKE.md is the complete editorial spec for both edition slots: research, content.json, render, editorial review, and (morning only) the reviewed house-satchel plan and restock.
           Notes for this run, which take precedence over BAKE.md where they differ:
           1. Setup is already done. The repo is checked out right here, so BAKE.md step 0 needs nothing from you: there is nothing to clone and no git identity to configure.
           2. Edition date: use exactly $DDB_DATE, verbatim, as --date. The runner already resolved it; no need to work it out yourself.
           3. Publishing belongs to the workflow, which commits, pushes, and verifies after you finish; BAKE.md steps 6 and 7 are its job, and git is its tool rather than yours. Your job ends when the render is clean and you have reviewed it like an editor.
-          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. The daily morning bake is BAKE.md steps 1-8 as written, reader sections per the --plan output. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and its own content.json keys, rendered with --slot evening --mode $DDB_MODE; the reader plan and reader sections belong to the morning paper only. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
+          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. New reader intake and newsletter activation are paused. The daily morning bake is BAKE.md steps 1-8 as written; --plan may select only reviewed house-satchel material and must return no Ask the Baker question, reader Letter, or Crumb Board pin. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and content.json keys, rendered with --slot evening --mode $DDB_MODE, with no reader key. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
           5. Honesty: every fact traces to a source link you actually fetched. Work through BAKE.md step 5A, the accuracy pass, before you hand off, and say in your report what it changed. If a section cannot reach the 2-story minimum with verified stories, stop and report that plainly rather than padding; a failed bake that says so is a good outcome. In the evening edition, an item counts as trending only when a cited source shows where it is trending.
           6. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
-          Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, which reader sections ran (morning only), and the render result.
+          Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, whether a reviewed house letter ran (morning only), and the render result.
           PROMPT
-          claude -p "$(cat "$RUNNER_TEMP/bake-prompt.txt")" \
+          if ! claude -p "$(cat "$RUNNER_TEMP/bake-prompt.txt")" \
             --model "${BAKE_MODEL}" \
             --dangerously-skip-permissions \
-            2>&1 | tee "$RUNNER_TEMP/bake-log.txt"
+            > "$RUNNER_TEMP/bake-log.txt" 2>&1; then
+            echo "::error::The bake session failed; raw model output is withheld from logs and artifacts."
+            exit 1
+          fi
+          echo "Bake session completed; raw model output remains ephemeral."
 
       - name: Guard the changed files
         if: steps.existing.outputs.exists != 'true'
@@ -202,7 +205,7 @@ jobs:
           # (c) every changed path and git status must match this exact run.
           # The helper is byte-pinned in this already-loaded workflow because
           # the untrusted author process can modify files in the checkout.
-          echo "cdb05086f9e8fa242098298e2502406f064311a07eb5d76b47324af6bacbfbb4  ddb_workflow_guard.py" | sha256sum --check
+          echo "dce98022e1914babb56fa47ac441caa7c6743014ba0148dfb73c9a8acaabeaa1  ddb_workflow_guard.py" | sha256sum --check
           python3 ddb_workflow_guard.py --date "$D" --slot "$SLOT" \
             | tee "$RUNNER_TEMP/changed-files.txt"
           # (d) archive.json must carry this edition's entry
@@ -251,7 +254,6 @@ jobs:
           fi
           git add archive.html archive.json feed.xml
           git -c core.hooksPath=/dev/null commit -m "Archive: ${HUMAN} ${LABEL}"
-          # counter-sync may have pushed while we baked
           git -c core.hooksPath=/dev/null pull --rebase --no-edit origin main
           git -c core.hooksPath=/dev/null push origin main
 
@@ -263,37 +265,88 @@ jobs:
         run: |
           set -euo pipefail
           D="${EDITION_DATE}"
-          # Grep for the slot's edition file, not just the date: on an evening
-          # bake the date alone would already match the morning entry.
-          needle="editions/${D}-${SLOT}.html"
-          url="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/archive.json"
-          for i in $(seq 1 10); do
-            if curl -sSL --fail "$url" | grep -qF "\"${needle}\""; then
-              echo "Verified: ${needle} is live in archive.json"
-              exit 0
-            fi
-            echo "Attempt ${i}/10: ${needle} not visible yet, sleeping 20s"
-            sleep 20
-          done
-          echo "::warning::Push succeeded but ${needle} is not yet visible on raw.githubusercontent.com; this is CDN lag, not a failure."
+          published_sha="$(git rev-parse HEAD)"
+          remote_sha="$(git ls-remote --exit-code origin refs/heads/main | awk 'NR == 1 {print $1}')"
+          if [ "$remote_sha" != "$published_sha" ]; then
+            echo "::error::Authoritative main ref is ${remote_sha:-missing}, expected ${published_sha}"
+            exit 1
+          fi
+          echo "Verified authoritative main ref at ${published_sha}"
 
-      - name: Collect diagnostics
-        if: always()
+          public_url="https://davidsdailybread.com/editions/${D}-${SLOT}.html"
+          if python3 distribution/telegram_notification.py verify-live \
+            --archive archive.json --date "$D" --slot "$SLOT" \
+            --attempts 12 --delay-seconds 5; then
+            echo "Verified exact public edition: ${public_url}"
+          else
+            echo "::warning::Authoritative main is correct, but the exact public edition is not ready yet: ${public_url}"
+          fi
+
+      - name: Collect failure diagnostics
+        if: failure()
+        env:
+          EDITION_DATE: ${{ steps.cfg.outputs.date }}
+          SLOT: ${{ steps.cfg.outputs.slot }}
+          MODE: ${{ steps.cfg.outputs.mode }}
         run: |
           set -euo pipefail
           mkdir -p "$RUNNER_TEMP/bake-artifacts"
-          cp -f "$RUNNER_TEMP/bake-log.txt" "$RUNNER_TEMP/bake-artifacts/" 2>/dev/null || true
-          cp -f content.json "$RUNNER_TEMP/bake-artifacts/" 2>/dev/null || true
-          cp -f "$RUNNER_TEMP/changed-files.txt" "$RUNNER_TEMP/bake-artifacts/" 2>/dev/null || true
+          python3 - "$RUNNER_TEMP/bake-artifacts/content-summary.json" <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import sys
 
-      - name: Upload diagnostics
-        if: always()
+          source = Path("content.json")
+          summary = {
+              "version": 1,
+              "date": os.environ.get("EDITION_DATE") or None,
+              "slot": os.environ.get("SLOT") or None,
+              "mode": os.environ.get("MODE") or None,
+              "contentStatus": "absent",
+              "leadSection": None,
+              "cardCounts": {},
+              "readerSectionsPresent": [],
+          }
+          if source.is_file():
+              try:
+                  content = json.loads(source.read_text(encoding="utf-8"))
+              except (OSError, json.JSONDecodeError):
+                  summary["contentStatus"] = "invalid"
+              else:
+                  summary["contentStatus"] = "valid" if isinstance(content, dict) else "invalid"
+                  if isinstance(content, dict):
+                      allowed_sections = ("tech", "markets", "science", "tools", "workflows")
+                      lead = content.get("lead")
+                      if isinstance(lead, dict) and lead.get("section") in allowed_sections:
+                          summary["leadSection"] = lead["section"]
+                      cards = content.get("cards")
+                      if isinstance(cards, dict):
+                          summary["cardCounts"] = {
+                              section: len(cards[section])
+                              for section in allowed_sections
+                              if isinstance(cards.get(section), list)
+                          }
+                      reader = content.get("reader")
+                      if isinstance(reader, dict):
+                          summary["readerSectionsPresent"] = [
+                              section for section in ("ask", "king", "pin")
+                              if bool(reader.get(section))
+                          ]
+          Path(sys.argv[1]).write_text(
+              json.dumps(summary, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Upload failure diagnostics
+        if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: bake-${{ steps.cfg.outputs.date }}-${{ steps.cfg.outputs.slot }}-${{ github.run_id }}
-          path: ${{ runner.temp }}/bake-artifacts
+          path: ${{ runner.temp }}/bake-artifacts/content-summary.json
           retention-days: 14
-          if-no-files-found: ignore
+          if-no-files-found: error
 
   x-broadcast:
     name: Canonical X broadcast
@@ -456,7 +509,7 @@ jobs:
   telegram-publication-receipt:
     name: Exact edition Telegram receipt
     needs: bake
-    if: needs.bake.result == 'success' && needs.bake.outputs.active == 'true' && needs.bake.outputs.mode == 'daily'
+    if: needs.bake.result == 'success' && needs.bake.outputs.active == 'true' && needs.bake.outputs.mode == 'daily' && needs.bake.outputs.already_exists != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: telegram-notification-production

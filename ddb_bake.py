@@ -259,6 +259,17 @@ def archive_with_edition(data: dict, edition_date: str, edition_type: str,
     updated.setdefault("site", DOMAIN)
     updated.setdefault("editions", [])
     file_name = f"editions/{edition_date}-{edition_type}.html"
+    prior = next(
+        (
+            entry for entry in updated["editions"]
+            if entry["date"] == edition_date and entry["edition"] == edition_type
+        ),
+        None,
+    )
+    # The first successful render owns the publication instant. Re-rendering
+    # the same edition may correct content, but must not manufacture a new RSS
+    # publication time or churn archive/feed bytes solely because time passed.
+    stable_pub_date = (prior.get("pubDate") or pub_date) if prior else pub_date
     updated["editions"] = [
         entry for entry in updated["editions"]
         if not (entry["date"] == edition_date and entry["edition"] == edition_type)
@@ -269,7 +280,7 @@ def archive_with_edition(data: dict, edition_date: str, edition_type: str,
         "dateHuman": human_date,
         "file": file_name,
         "lead": lead_title,
-        "pubDate": pub_date,
+        "pubDate": stable_pub_date,
     })
     updated["editions"] = sorted(
         updated["editions"],

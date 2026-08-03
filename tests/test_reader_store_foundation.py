@@ -173,6 +173,13 @@ class ReaderStoreFoundationTest(unittest.TestCase):
                 encoding="utf-8"
             )
         )
+        decision = contract["founderDecision"]
+        self.assertFalse(decision["newReaderIntakeAuthorized"])
+        self.assertFalse(decision["provisioningAuthorized"])
+        self.assertFalse(decision["deploymentAuthorized"])
+        self.assertFalse(decision["canaryAuthorized"])
+        self.assertFalse(decision["activationAuthorized"])
+        self.assertTrue(decision["explicitReversalRequired"])
         self.assertEqual(
             [
                 "verified-privacy-contact-address",
@@ -190,7 +197,10 @@ class ReaderStoreFoundationTest(unittest.TestCase):
         runbook = (ROOT / "docs" / "READER_STORE_RUNBOOK.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("Do not link, migrate, deploy, canary", runbook)
+        normalized_runbook = " ".join(runbook.split())
+        self.assertIn("Do not link, migrate, deploy, canary", normalized_runbook)
+        self.assertIn("no Supabase", normalized_runbook)
+        self.assertIn("David first records an explicit reversal", normalized_runbook)
         self.assertNotRegex(runbook, r"[A-Za-z0-9._%+-]+@davidsdailybread\.com")
 
     def test_merge_gate_runs_reader_source_database_and_concurrency_checks(self):

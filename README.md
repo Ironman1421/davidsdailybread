@@ -1,10 +1,12 @@
 # David's Daily Bread
 
-A news briefing on technology, markets, and science, plus an evening edition
-on what's trending in AI and tech: new tools and workflows for everyday
-people. The evening uses an Editorial Ledger layout, a numbered Guided Path,
-and a quiet Evening Exhale. Loved by God. Baked fresh twice daily and published at
-[davidsdailybread.com](https://davidsdailybread.com) via GitHub Pages.
+A founder-led Christian media and learning project helping believers grow in
+faith, understand technology wisely, pray for one another, and use what they
+learn in service to others. Its current website includes a morning briefing on
+technology, markets, and science plus an evening Field Guide to useful AI and
+technology. Loved by God. Baked fresh twice daily and published at
+[davidsdailybread.com](https://davidsdailybread.com) via GitHub Pages. See
+`FOUNDER_DOCTRINE.md` for the governing direction.
 
 ## How it works
 
@@ -16,8 +18,8 @@ control plane is recorded in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 DST-safe GitHub schedules remain as delayed backups. Each run
 drives a Claude session that follows **`/BAKE.md`** (the complete operating
 spec). The session does the editorial work: researching, choosing the lead, writing every
-dek and glance line, and (mornings) answering reader mail in the house
-personas. `ddb_session_bake.py` does the mechanical work deterministically:
+dek and glance line, and (mornings) answering reviewed house-satchel material
+when selected. `ddb_session_bake.py` does the mechanical work deterministically:
 template fill, category pages (morning only), the bounded evening catalog,
 archive, RSS, and state. Two
 commits per bake ("Morning edition ..." or "Evening edition ..." then
@@ -28,30 +30,36 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
 - `editions/` — every past edition, dated. `archive.html` / `archive.json` — the bread box.
 - `tools.html` / `workflows.html` — searchable evening libraries backed by
   `evening-catalog.json`.
-- `feed.xml` — complete RSS delivery. `subscribe.html` runs a four-week,
-  once-weekly Buttondown pilot with fresh double opt-in; the daily bake never sends it.
-- `counter.csv` — reader submissions, synced by a 4:25 AM Pacific Spark dispatch
-  with a 4:30 AM GitHub backup through `.github/workflows/counter-sync.yml`
-  (the bake's sandbox cannot reach docs.google.com directly).
-- `bakery-state.json` / `kings-satchel.json` — reader-content bookkeeping and
-  the King's house letters.
+- `feed.xml` — complete RSS delivery. The current `subscribe.html` state is
+  preserved, but newsletter activation and sending are paused by the founder.
+- `counter.csv` — removed from the current tip and ignored. Its git history is
+  preserved; Counter sync is a read-only no-op while public intake is paused.
+- `bakery-state.json` / `kings-satchel.json` — historical reader bookkeeping and
+  reviewed house letters. The active morning plan may draw only from the house
+  satchel while public intake is paused.
 - `BRAND.md` — brand source of truth; `brand.css` — design tokens.
+- `FOUNDER_DOCTRINE.md` — source of truth for mission, founder authority,
+  strategic direction, and paused initiatives.
 - `docs/PRODUCT_SPEC.md` — current product and distribution contract;
   `docs/SECURITY_SPEC.md` — trust boundaries and required controls;
   `docs/DISTRIBUTION_SPEC.md` — channel, adapter, voice, rights, and measurement law;
-  `docs/GROWTH_ROADMAP.md` — the six-month audience plan;
+  `docs/GROWTH_ROADMAP.md` — the founder-led audience validation roadmap;
   `docs/X_REPLY_PLAYBOOK.md` — manually approved, reply-led X growth law;
   `docs/READER_STORE_SPEC.md` — approved private reader-store and cutover design;
   `docs/PUBLISHER_IDENTITY_SPEC.md` — approved scheduled identity and `main`
   ruleset design;
-  `docs/NEWSLETTER_PILOT_SPEC.md` — approved four-week weekly-email scope,
-  consent, $0 budget, manual operating loop, and sending gates;
+  `docs/NEWSLETTER_PILOT_SPEC.md` — the paused weekly-email plan and
+  no-activation guard;
   `docs/AUDIT_2026-07-31.md` — takeover findings and open decisions.
 - `operations/*.contract.json` — machine-readable desired state for the private
-  reader boundary, protected publishing path, X broadcaster, and weekly email
-  pilot; these are not live credentials or proof that every activation gate is complete.
+  reader boundary, protected publishing path, X broadcaster, and paused weekly
+  email plan; these are not live credentials, provisioning authority, or proof
+  that every activation gate is complete.
 - `distribution/metrics.schema.json` / `distribution/ledger.json` — the
   machine-readable measurement contract and current baseline/post ledger.
+- `docs/MEASUREMENT_SCORECARD.md` / `measurement/` — the repository-owned,
+  aggregate-only daily and weekly operating scorecard, metric dictionary,
+  normalized observations, and seven-day experiment template.
 - `distribution/x-reply-approval-card.schema.json` — the private, transient
   per-candidate approval-card contract; no real draft cards are committed.
 - `distribution/x-replies.schema.json` / `distribution/x-replies.json` — the

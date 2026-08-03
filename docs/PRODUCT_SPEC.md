@@ -6,29 +6,36 @@ Last reconciled: 2026-08-01
 
 ## Purpose and source precedence
 
-David's Daily Bread is a twice-daily, source-linked briefing for everyday
-readers. It earns attention through useful compression and earns trust by
-making every factual item traceable.
+David's Daily Bread is a founder-led Christian media and learning project. Its
+current product is a twice-daily, source-linked website for everyday readers,
+combining trustworthy technology coverage, practical learning, and quiet
+Christian reflection. It earns attention through useful compression and earns
+trust by making every factual item traceable.
 
-The publisher is faceless. A consistent off-camera voice may be used when it
-improves retention, but David is not required to appear on camera. The active
-audience goal is 1,000,000 combined followers across approved platforms in six
-months, from a documented floor of five X followers on 2026-07-31.
+David retains final control over mission, theology, editorial direction,
+partnerships, product direction, channels, and monetization. The publisher may
+remain faceless; David is not required to appear on camera. The current proof
+goal is the first 1,000 genuinely engaged people who return for faith,
+technology, prayer, and service. Larger reach remains an aspiration, not an
+instruction to outrun trust, moderation, or founder direction.
 
 When sources disagree, use this order:
 
-1. `BRAND.md` for brand, voice, art, typography, and reader-visible house law.
-2. This file for the product shape and public promises.
-3. `docs/DISTRIBUTION_SPEC.md` for channel, adapter, rights, and measurement law.
-4. `BAKE.md` for the daily editorial and publishing procedure.
-5. Tests for executable contracts. A test that contradicts the four documents
+1. `FOUNDER_DOCTRINE.md` for mission, founder authority, strategic direction,
+   and paused initiatives.
+2. `BRAND.md` for brand, voice, art, typography, and reader-visible house law.
+3. This file for the product shape and public promises.
+4. `docs/DISTRIBUTION_SPEC.md` for channel, adapter, rights, and measurement law.
+5. `BAKE.md` for the daily editorial and publishing procedure.
+6. Tests for executable contracts. A test that contradicts the five documents
    above is a defect, not permission to change the product.
 
 The public `Ironman1421/davidsdailybread` repository is the active production
 source. The private `ddb-ops` and `ddb-engineering` repositories preserve useful
 history, but their Mac, Spark, Buttondown, and once-daily plans are not current
 operating authority unless deliberately migrated into this repository. The
-current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
+former weekly email pilot is paused and guarded by
+`docs/NEWSLETTER_PILOT_SPEC.md`.
 
 ## Edition contracts
 
@@ -41,8 +48,10 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
   and science.
 - Shape: one lead across all beats, then 2 to 6 cards in each of the three beats.
 - Reader features: at most one Ask the Baker question, one Letter to the King,
-  and one Crumb Board pin. Waiting reader submissions are selected oldest first;
-  a house letter may fill the King slot only when no reader letter waits.
+  and one Crumb Board pin. While new intake is paused, only the frozen existing
+  queue may supply reader material, selected oldest first; a house letter may
+  fill the King slot only when no reader letter waits. Reopening submissions
+  requires a verified private boundary and David's explicit approval.
 - Category pages are morning-owned and must not be changed by an evening bake.
 
 ### Evening edition
@@ -79,10 +88,10 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 - Source links are absolute, credential-free HTTPS URLs.
 - The only editorial HTML fragment is one leading `<b>plain text</b>` phrase in
   a card dek. All other editorial and reader content is plain text and escaped.
-- Reader questions, pin text, names, signatures, selection order, and
-  bookkeeping keys must match the committed Counter/satchel plan; the
-  editorial model may write replies but may not alter or substitute a
-  submission. Only deterministic house-style em-dash normalization is allowed.
+- While intake is paused, the renderer rejects questions, pins, names,
+  signatures, and submission-derived bookkeeping keys. A reviewed house letter
+  must match its satchel identifier and text exactly; only deterministic
+  house-style em-dash normalization is allowed.
 - The lead title is self-contained, at most 130 characters, and stored exactly
   in `archive.json`. This is the input contract for downstream distribution.
 
@@ -110,11 +119,15 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
   `distribution/metrics.schema.json`; unknown metrics are null, never zero.
 - Published X replies validate separately against
   `distribution/x-replies.schema.json`; unposted drafts are not committed.
-- Email: a four-week Buttondown pilot accepts fresh double opt-ins at
-  `/subscribe.html` and sends at most one manual Editorial Ledger per week. The
-  flow is Start, Browse, Do, Rest. It pauses after issue four, spends $0, imports
-  no retired list, and remains sending-disabled until the postal, preview, test,
-  schedule, and free-plan gates in `docs/NEWSLETTER_PILOT_SPEC.md` pass.
+- Email: newsletter sending and all activation work are paused. Preserve the
+  current `/subscribe.html` state, but do not draft, test, schedule, send,
+  configure, credential, import, or advance the former pilot's gates. Work may
+  resume only after David explicitly reverses the decision and the governing
+  documents, machine-readable contract, and tests are reconciled.
+- Reader intake: do not reactivate a public submission path, fetch new Counter
+  rows, provision or deploy the Supabase reader store, alter the external Google
+  form or Sheet, delete the frozen queue, or rewrite history. Reopening requires
+  a verified private boundary and David's explicit approval.
 
 ## Reliability and release contract
 
@@ -139,7 +152,8 @@ Track separately for morning and evening:
 - on-time publish rate and failed-bake reason;
 - source-link resolution and post-publication correction count;
 - unique readers, returning-reader rate, engaged time, and RSS follows;
-- reader slips submitted, wait time, and publish rate;
+- reader-intake state and, when intake is explicitly reopened, slips submitted,
+  wait time, and publish rate;
 - distribution posts attempted, skipped, duplicated, and successfully published;
 - X replies approved and published, reply impressions, target-author
   interactions, approval latency, profile-visit windows, and follower deltas;
