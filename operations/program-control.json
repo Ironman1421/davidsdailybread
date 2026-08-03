@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T17:03:40Z",
+  "updatedAt": "2026-08-03T17:24:35Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-021",
+  "activeItemId": "DDB-PC-012",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -468,7 +468,7 @@
       "id": "DDB-PC-021",
       "sequence": 12,
       "title": "Add Morning Scripture Pairings using approved Option A",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-011"
       ],
@@ -494,13 +494,28 @@
       "progressEvidence": [
         "David approved Option A and release readiness for the 2026-08-04 morning edition",
         "David authorized this queue insertion and interruption of DDB-PC-012 while its existing network observation continues unchanged"
+      ],
+      "completedAt": "2026-08-03T17:24:35Z",
+      "evidence": [
+        "David's exact design, release, queue-interruption, and return-to-DDB-PC-012 approvals are recorded; controller activation PR 34 merged as 72ee64db7f0c5051ff10556a3b302d0ac58a326c",
+        "the morning content contract accepts only a repository-owned Scripture id and optional plain-text connection; model-authored verse text, reference, translation label, URL, unknown ids, and Scripture on briefs are rejected",
+        "scripture/bsb-verses.json contains 81 exact single verses mechanically extracted from the official Berean Standard Bible source with verified SHA-256 2ac3af1de52d4e68261cba91d85c320b7eadc6560e830d99e591767b8ff5ca96 and recorded public-domain provenance",
+        "templates/home.html implements the approved compact inline Option A after the full morning lead story with semantic blockquote markup, a linked BSB reference, visible keyboard focus, an external-link label, and responsive typography",
+        "morning cards remain briefs and category templates contain no Scripture treatment; templates/evening.html and the reviewed KJV Keep and Ponder renderer are unchanged",
+        "all 81 generated Bible.com verse links returned HTTP 200 before release",
+        "PR 35 exact head f6f5533be026f8cf98a6d54c9baee8c63424fab5 passed x86_64 Merge gate run 30836229573 and CodeQL run 30836229590, including the full suite, explicit two-slot render, reader source, database, and concurrency gates",
+        "PR 35 was squash-merged into main as db45888e4e9569ce2bf54ff86315bc64f1e3a668 at 2026-08-03T17:22:58Z",
+        "GitHub Pages deployment run 30836490711 passed for exact main commit db45888e4e9569ce2bf54ff86315bc64f1e3a668; the public homepage returned HTTP 200",
+        "raw main template SHA-256 c1e615102555a7cd84944fb9c9e730a43a4870b103fd0ffa5506ef3b51c5d661 and catalog SHA-256 39a429f619f52ed4e61019eda7da31beb510f2d427bd6ec7ba94d20fe23ca960 matched the merged repository bytes",
+        "post-merge CodeQL run 30836492434 passed for Python and JavaScript/TypeScript on exact main commit db45888e4e9569ce2bf54ff86315bc64f1e3a668",
+        "DDB-PC-012 is restored as the sole active item; its network configuration and scheduled observation remain unchanged"
       ]
     },
     {
       "id": "DDB-PC-012",
       "sequence": 13,
       "title": "Repair Ethernet and configure Wi-Fi failover",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-004"
       ],
@@ -534,7 +549,8 @@
         "replacement-cable baseline is sealed at /home/david/.local/state/ddb-pc-012/20260803T151441Z-cable-baseline with 19 mode-0600 files and SHA256SUMS hash c144f168b393d65a5f1edf199c2ff261b3b087d28456a80d14fc984f1bcb9afd",
         "the replacement link negotiated 2500 Mb/s full duplex and kept Ethernet preferred at metric 100 with Wi-Fi at metric 600; router, public-IP, router DNS, MagicDNS, SSH, Tailscale, all seven DDB timers, and zero failed user units passed",
         "the cable baseline records one accumulated transmit error, 89 transmit drops, and an rx_mac_missed lifetime counter of 1418819 after the deliberate unplug interval while receive, carrier, collision, alignment, MAC-error, and TCAM-drop counters remain zero; the 24-hour check must measure exact deltas from this baseline",
-        "the physical-repair gate is satisfied; the observation restarted from replacement-link activation at 2026-08-03T15:09:49Z and DDB-PC-012 remains in progress until that 24-hour gate completes"
+        "the physical-repair gate is satisfied; the observation restarted from replacement-link activation at 2026-08-03T15:09:49Z and DDB-PC-012 remains in progress until that 24-hour gate completes",
+        "program control returned from completed DDB-PC-021 at 2026-08-03T17:24:35Z without changing the network configuration or scheduled observation"
       ],
       "interruption": {
         "authorizedBy": "David Friedhof",
@@ -542,7 +558,9 @@
         "decisionEvidence": "Task message: I authorize the program controller to interrupt DDB-PC-012's task sequence without changing its network configuration or scheduled observation, add and activate Morning Scripture Pairings as the sole active item, and return control to DDB-PC-012 after the Scripture PR is merged and verified",
         "networkConfigurationChanged": false,
         "scheduledObservationChanged": false,
-        "resumeAfter": "DDB-PC-021"
+        "resumeAfter": "DDB-PC-021",
+        "resumedAt": "2026-08-03T17:24:35Z",
+        "resumeEvidence": "DDB-PC-021 completed after PR 35 merged as db45888e4e9569ce2bf54ff86315bc64f1e3a668, Pages run 30836490711 passed, and main verification succeeded"
       },
       "observation": {
         "startedAt": "2026-08-03T15:09:49Z",
