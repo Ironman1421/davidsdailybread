@@ -224,6 +224,13 @@ with tempfile.TemporaryDirectory() as td:
     html = (repo / "editions" / f"{DATE}-evening.html").read_text(encoding="utf-8")
     assert html == (repo / "index.html").read_text(encoding="utf-8"), "index takeover missing"
     assert "Evening edition," in html
+    assert (
+        "News and Scripture each morning. Practical tools each evening. Loved by God."
+        in html
+    )
+    assert "aspect-ratio: 1124 / 330" in html
+    assert "transform: translateX(3.4%)" in html
+    assert 'class="masthead next-format"' in html
     for label in ("Start here tonight", "The tool shelf", "The workflows",
                   "no waitlists, no vaporware", "Keep and Ponder",
                   "Mary of Nazareth",

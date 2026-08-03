@@ -227,6 +227,22 @@ class MorningScriptureTest(unittest.TestCase):
         }
         self.assert_rejected(evening, "evening lead must not contain scripture", "evening")
 
+        del evening["lead"]["scripture"]
+        august_3_html, _ = ddb_session_bake.render_evening_from_content(
+            evening, "2026-08-03"
+        )
+        august_4_html, _ = ddb_session_bake.render_evening_from_content(
+            evening, "2026-08-04"
+        )
+        subtitle = (
+            "News and Scripture each morning. Practical tools each evening. "
+            "Loved by God."
+        )
+        self.assertNotIn(subtitle, august_3_html)
+        self.assertNotIn('class="masthead next-format"', august_3_html)
+        self.assertIn(subtitle, august_4_html)
+        self.assertIn('class="masthead next-format"', august_4_html)
+
     def test_catalog_search_returns_exact_candidates_without_authoring_text(self):
         result = ddb_scripture.search_catalog("knowledge discernment learning")
         self.assertEqual("BSB", result["label"])

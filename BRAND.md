@@ -9,10 +9,12 @@ mission, ownership, strategic direction, and paused initiatives.
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
-- The exact morning home masthead subtitle is: **News and Scripture each
-  morning. Practical tools each evening. Loved by God.** It appears in the
-  original masthead's italic serif treatment and muted color, centered beneath
-  the untouched basket, crown, and David's Daily Bread wordmark.
+- The exact home masthead subtitle in both the morning and evening editions is:
+  **News and Scripture each morning. Practical tools each evening. Loved by
+  God.** It appears in the original masthead's italic serif treatment and muted
+  color, centered beneath the untouched basket, crown, and David's Daily Bread
+  wordmark. The evening edition adopts it beginning August 4, 2026, preserving
+  the already-planned August 3 evening edition.
 - The exact morning category format descriptor is: **News and Scripture, paired
   story by story.**
 - The exact public mission line is: **Grow in faith. Understand technology

@@ -66,6 +66,7 @@ SLOT_SECTIONS = {
 }
 SLOT_LABEL = {"morning": "Morning edition", "evening": "Evening edition"}
 SLOT_TEMPLATE = {"morning": "home.html", "evening": "evening.html"}
+UNIFIED_MASTHEAD_START = "2026-08-04"
 MORNING_BADGES = {
     "tech": "Technology",
     "markets": "Business & markets",
@@ -85,7 +86,7 @@ LEFTOVER_TOKEN_RE = re.compile(
     r"|CAT_[1-6]_(URL|HEADLINE|DEK|SCRIPTURE)"
     r"|EXP_[TMS][123]_(URL|TEXT)"
     r"|GLANCE_(TECH|MARKETS|SCIENCE|TOOLS|WORKFLOWS)"
-    r"|SHELF_ITEMS|RECIPE_ITEMS|LEAD_NOTE"
+    r"|SHELF_ITEMS|RECIPE_ITEMS|LEAD_NOTE|MASTHEAD_FORMAT|MASTHEAD_SUBTITLE"
     r"|REST_(RECEIVE|REFERENCE|RELEASE|PRAYER)"
     r"|RQ1_[QA]|KQ1_(Q|A|FROM)|PIN1_(TEXT|SIG)"
     r"|DATELINE_DATE|READTIME|TIMESTAMP"
@@ -527,6 +528,16 @@ def render_evening_from_content(
     html = template.replace("EDITION, DATELINE_DATE", f"{label}, {hd}")
     html = html.replace("DATELINE_DATE", hd)
     html = html.replace("EDITION", label)
+    if date >= UNIFIED_MASTHEAD_START:
+        html = html.replace("MASTHEAD_FORMAT", " next-format")
+        html = html.replace(
+            "MASTHEAD_SUBTITLE",
+            '<div class="format-line">News and Scripture each morning. '
+            'Practical tools each evening. Loved by God.</div>',
+        )
+    else:
+        html = html.replace("MASTHEAD_FORMAT", "")
+        html = html.replace("MASTHEAD_SUBTITLE", "")
 
     lead = c["lead"]
     html = html.replace("LEAD_URL", esc(lead["url"]))
@@ -882,6 +893,14 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
             ensure_ascii=False,
         ) + "\n"
 
+    if slot == "morning" or date >= UNIFIED_MASTHEAD_START:
+        for path in (REPO / "index.html", edition_path):
+            _require(
+                "News and Scripture each morning. Practical tools each evening. "
+                "Loved by God." in outputs[path],
+                f"{path.name}: home masthead subtitle is missing",
+            )
+
     if slot == "morning":
         expected_home_pairings = 1 + sum(
             min(2, len(content["cards"][section])) for section in SLOT_SECTIONS["morning"]
@@ -894,11 +913,6 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
             _require(
                 "Scripture accompanies each story for the reader's reflection." in outputs[path],
                 f"{path.name}: morning Scripture clarification is missing",
-            )
-            _require(
-                "News and Scripture each morning. Practical tools each evening. "
-                "Loved by God." in outputs[path],
-                f"{path.name}: morning home masthead subtitle is missing",
             )
         if bake_mode == "daily":
             for section in SLOT_SECTIONS["morning"]:
