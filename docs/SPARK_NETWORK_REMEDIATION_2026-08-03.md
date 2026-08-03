@@ -1,7 +1,7 @@
 # Spark Ethernet and Wi-Fi failover remediation, 2026-08-03
 
-Status: in progress; configuration and controlled tests complete, physical-path
-inspection and the required 24-hour observation remain open.
+Status: in progress; configuration, controlled tests, and physical cable
+replacement are complete. The restarted 24-hour observation remains open.
 
 Owner and approver: David Friedhof
 
@@ -97,7 +97,7 @@ deactivate only `DDB Wi-Fi Failover`. Restoring the approved state is the invers
 set autoconnect on and activate that same profile. The existing Ethernet profile
 was never modified.
 
-## Current state and open gates
+## Current state before the physical repair
 
 Post-change evidence is sealed at:
 
@@ -111,14 +111,47 @@ Tailscale still reports its DNS-forward warning even though router DNS,
 MagicDNS, bidirectional Tailscale ping, and SSH all pass. `accept-dns` remains
 enabled; the audit explicitly forbids disabling it as a cosmetic workaround.
 
-Two completion gates remain open:
+## Physical repair and replacement-cable baseline
 
-1. A person must inspect, reseat, or replace the Ethernet cable and its eero or
-   switch port, then record what physical path changed. Remote evidence proves
-   the link is currently healthy but cannot prove a physical repair.
-2. The 24-hour observation starting `2026-08-03T14:47:23Z` must complete. Codex
-   automation `complete-ddb-spark-24h-network-observation` is scheduled for
-   2026-08-04 at 07:48 PDT to inspect carrier journals, routes, DNS, Tailscale,
-   SSH, timers, link counters, and both evidence manifests.
+David reported that he installed a Cat 5e Ethernet cable. NetworkManager
+recorded the expected carrier loss at `2026-08-03T08:01:28-07:00`, link return
+at `08:09:45-07:00`, and successful Ethernet activation at
+`08:09:49-07:00`. The exact eero or switch port was not reported as changed.
 
-`DDB-PC-012` remains `in_progress` until both gates have evidence.
+The replacement link immediately negotiated at 2500 Mb/s, full duplex, with
+autonegotiation enabled. Ethernet remained the preferred metric-100 route and
+the connected Wi-Fi profile remained the metric-600 backup. Three router
+probes and three public-IP probes had zero packet loss. Router DNS, MagicDNS,
+SSH, Tailscale connectivity from the Mac through Spark's physical LAN endpoint,
+all seven DDB timers, and the zero-failed-user-unit check passed.
+
+The replacement-cable baseline is sealed at:
+
+`/home/david/.local/state/ddb-pc-012/20260803T151441Z-cable-baseline`
+
+It contains 19 mode-`0600` files under a mode-`0700` directory.
+`sha256sum -c SHA256SUMS` passed. The manifest hash is:
+
+`c144f168b393d65a5f1edf199c2ff261b3b087d28456a80d14fc984f1bcb9afd`
+
+The cable-baseline counters contain one accumulated transmit error and 89
+transmit drops after the deliberate unplug interval, compared with zero driver
+transmit errors in the earlier sealed post-change snapshot. Receive errors,
+receive drops, carrier errors, collisions, alignment errors, MAC errors, and
+TCAM drops remain zero. The driver's separate `rx_mac_missed` lifetime counter
+is 1,418,819, up 1,287 from the earlier post-change snapshot. The follow-up must
+compare exact counter deltas against this cable baseline rather than treating
+lifetime counters as new failures.
+
+Tailscale still reports its DNS-forward warning even though the router DNS,
+MagicDNS, Tailscale, and internet probes pass. This unchanged warning is being
+observed, not hidden by disabling `accept-dns`.
+
+The physical-repair gate is satisfied. The only remaining completion gate is
+the 24-hour observation starting with successful replacement-link activation at
+`2026-08-03T15:09:49Z`. Codex automation
+`complete-ddb-spark-24h-network-observation` is rescheduled for 2026-08-04 at
+08:15 PDT to inspect carrier journals, routes, DNS, Tailscale, SSH, timers, link
+speed, exact counter deltas, and all three evidence manifests.
+
+`DDB-PC-012` remains `in_progress` until the observation gate has evidence.
