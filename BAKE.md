@@ -302,11 +302,14 @@ rising). Use this source ladder:
 
 Keep the factual source and trend source separate in `content.json`, and fetch
 both. You have no direct X/Twitter access. Do not scrape X through unofficial
-tools, mirrors, search snippets, or workarounds. Until David's approved monitor
-is connected, a viral X post reaches the bake only through reputable citable
-coverage. When the approved monitor is connected later, it is a discovery
-signal only; the independent factual and trend checks in this section still
-apply. The two sections:
+tools, mirrors, search snippets, or workarounds. David's approved X Monitor is
+connected for daily evening runs. The workflow provides its ephemeral,
+read-only snapshot at the path named in the run prompt when it is available.
+Use its candidates only to decide what to investigate. An X post never satisfies
+the factual `url` or citable `trend_url`: independently fetch and verify both
+sources required by the ladder above. If the snapshot is unavailable, empty,
+stale, or unhelpful, continue with the normal source ladder. Never fail or pad
+an edition merely because X Monitor supplied no usable lead. The two sections:
 
 - **tools** (the shelf) — new or newly upgraded tools, apps, and features an
   everyday person could start using TONIGHT, and that people are actually

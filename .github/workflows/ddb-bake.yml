@@ -135,6 +135,85 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Prepare X Monitor discovery snapshot
+        if: steps.existing.outputs.exists != 'true' && steps.cfg.outputs.slot == 'evening' && steps.cfg.outputs.mode == 'daily'
+        env:
+          X_MONITOR_BASE_URL: https://signal-ai-radar.fluxcognition.chatgpt.site
+          X_MONITOR_SITES_BYPASS_TOKEN: ${{ secrets.X_MONITOR_SITES_BYPASS_TOKEN }}
+        run: |
+          set -euo pipefail
+          snapshot="$RUNNER_TEMP/x-monitor-discovery.json"
+          refresh_receipt="$RUNNER_TEMP/x-monitor-refresh.json"
+
+          write_fallback() {
+            python3 - "$snapshot" "$1" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          Path(sys.argv[1]).write_text(
+              json.dumps({
+                  "schemaVersion": "x-monitor-discovery-v1",
+                  "available": False,
+                  "reason": sys.argv[2],
+                  "sections": {"tools": [], "workflows": []},
+              }, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+          }
+
+          if [ -z "${X_MONITOR_SITES_BYPASS_TOKEN:-}" ]; then
+            echo "::warning::X Monitor machine credential is unavailable; continuing with the normal source ladder."
+            write_fallback "credential-unavailable"
+            exit 0
+          fi
+
+          auth_header="OAI-Sites-Authorization: Bearer ${X_MONITOR_SITES_BYPASS_TOKEN}"
+          window_end="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          if ! curl --fail --silent --show-error --retry 2 --retry-all-errors \
+            --connect-timeout 10 --max-time 60 \
+            -H "$auth_header" \
+            "${X_MONITOR_BASE_URL}/api/trends?windowEnd=${window_end}" \
+            -o "$refresh_receipt"; then
+            echo "::warning::X Monitor refresh was unavailable; trying its last durable snapshot."
+          fi
+
+          if ! curl --fail --silent --show-error --retry 2 --retry-all-errors \
+            --connect-timeout 10 --max-time 30 \
+            -H "$auth_header" \
+            "${X_MONITOR_BASE_URL}/api/discovery-export?hours=48&limit=12" \
+            -o "$snapshot"; then
+            echo "::warning::X Monitor export was unavailable; continuing with the normal source ladder."
+            write_fallback "export-unavailable"
+            exit 0
+          fi
+
+          if ! python3 - "$snapshot" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          payload = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          if payload.get("schemaVersion") != "x-monitor-discovery-v1":
+              raise SystemExit("unexpected X Monitor schema")
+          sections = payload.get("sections")
+          if not isinstance(sections, dict):
+              raise SystemExit("missing X Monitor sections")
+          for name in ("tools", "workflows"):
+              if not isinstance(sections.get(name), list):
+                  raise SystemExit(f"invalid X Monitor {name} section")
+          print(
+              "X Monitor snapshot ready: "
+              f"{len(sections['tools'])} tool candidates, "
+              f"{len(sections['workflows'])} workflow candidates"
+          )
+          PY
+          then
+            echo "::warning::X Monitor returned an invalid snapshot; continuing with the normal source ladder."
+            write_fallback "invalid-export"
+          fi
+
       - name: Install Claude Code
         if: steps.existing.outputs.exists != 'true'
         run: |
@@ -155,14 +234,15 @@ jobs:
           DDB_SLOT: ${{ steps.cfg.outputs.slot }}
           DDB_MODE: ${{ steps.cfg.outputs.mode }}
           BAKE_MODEL: ${{ steps.cfg.outputs.model }}
+          X_MONITOR_DISCOVERY_PATH: ${{ runner.temp }}/x-monitor-discovery.json
         run: |
           set -euo pipefail
           if [ -z "${CLAUDE_CODE_OAUTH_TOKEN}" ] && [ -z "${ANTHROPIC_API_KEY}" ]; then
             echo "::error::No Claude credential. Add repository secret CLAUDE_CODE_OAUTH_TOKEN (from 'claude setup-token'), or ANTHROPIC_API_KEY."
             exit 1
           fi
-          # Unquoted heredoc delimiter so the three run variables ($DDB_DATE,
-          # $DDB_SLOT and $DDB_MODE, the only variables in the prompt) expand into the file.
+          # Unquoted heredoc delimiter lets the resolved run values and the
+          # runner-local discovery path expand into the prompt file.
           cat > "$RUNNER_TEMP/bake-prompt.txt" <<PROMPT
           You are the editor baking the $DDB_SLOT edition of davidsdailybread.com for $DDB_DATE. You are working inside a GitHub Actions runner, in a full checkout of the site repo at the current working directory, on branch main.
           Read /FOUNDER_DOCTRINE.md and /BAKE.md in this checkout and follow them exactly. BRAND.md governs reader-visible copy. BAKE.md is the complete editorial spec for both edition slots: research, content.json, render, editorial review, and (morning only) the reviewed house-satchel plan and restock.
@@ -172,7 +252,8 @@ jobs:
           3. Publishing belongs to the workflow, which commits, pushes, and verifies after you finish; BAKE.md steps 6 and 7 are its job, and git is its tool rather than yours. Your job ends when the render is clean and you have reviewed it like an editor.
           4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. New reader intake and newsletter activation are paused. The daily morning bake is BAKE.md steps 1-8 as written; --plan may select only reviewed house-satchel material and must return no Ask the Baker question, reader Letter, or Crumb Board pin. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and content.json keys, rendered with --slot evening --mode $DDB_MODE, with no reader key. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
           5. Honesty: every fact traces to a source link you actually fetched. Work through BAKE.md step 5A, the accuracy pass, before you hand off, and say in your report what it changed. If a section cannot reach the 2-story minimum with verified stories, stop and report that plainly rather than padding; a failed bake that says so is a good outcome. In the evening edition, an item counts as trending only when a cited source shows where it is trending.
-          6. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
+          6. Evening X discovery: for a daily evening bake, the workflow writes its approved X Monitor snapshot to $X_MONITOR_DISCOVERY_PATH. Read it before web research. Treat every entry as a discovery lead only. Never use an X post as the factual source or trend source in content.json; independently fetch the official factual source and a citable trend source required by BAKE.md. If the snapshot says it is unavailable, is empty, or does not help, continue with BAKE.md's normal source ladder without padding.
+          7. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
           Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, whether a reviewed house letter ran (morning only), and the render result.
           PROMPT
           if ! claude -p "$(cat "$RUNNER_TEMP/bake-prompt.txt")" \
