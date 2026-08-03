@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T12:57:53Z",
+  "updatedAt": "2026-08-03T13:05:58Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,13 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-008",
+  "activeItemId": null,
+  "halt": {
+    "type": "no_eligible_item",
+    "nextDecisionItemId": "DDB-PC-011",
+    "reason": "DDB-PC-011 is the lowest-sequence pending item with complete dependencies, but it requires David's explicit approval to update the remote dependency branches and PR state. Every other incomplete item is approval-gated, dependency-blocked, or paused by doctrine.",
+    "eligibleItemIds": []
+  },
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -250,7 +256,7 @@
       "id": "DDB-PC-008",
       "sequence": 8,
       "title": "Approve and deploy the exact intake-pause release",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-007"
       ],
@@ -269,6 +275,17 @@
         "PR merges successfully",
         "Pages deployment succeeds",
         "Public privacy and governance verification passes"
+      ],
+      "completedAt": "2026-08-03T13:05:58Z",
+      "evidence": [
+        "David's explicit release approval is recorded in this item",
+        "PR-event x86_64 Merge gate run 30815807051 passed on exact head d13f1e9c5f2911956a2470bcc7d1acc7dba879df; 184 Python tests, two-slot render, reader source gates, migration replay, pgTAP 96/96, database lint, and concurrency checks passed",
+        "PR-event CodeQL run 30815807866 passed for Python and JavaScript/TypeScript on exact head d13f1e9c5f2911956a2470bcc7d1acc7dba879df",
+        "draft PR https://github.com/Ironman1421/davidsdailybread/pull/29 was marked ready and squash-merged into main as 0e98288248b4e0d6f82e2b78c48a533f8f656795 at 2026-08-03T13:01:54Z",
+        "GitHub Pages build and deployment run 30816070733 passed for main commit 0e98288248b4e0d6f82e2b78c48a533f8f656795",
+        "public subscribe, Chronicles, archive, and RSS bytes matched origin/main; homepage and those surfaces returned HTTP 200; counter.csv returned HTTP 404",
+        "public verification found zero active intake endpoints and zero published email addresses while preserving all four Chronicles export controls",
+        "post-merge CodeQL run 30816073805 passed for Python and JavaScript/TypeScript; no external provider, newsletter, Cloudflare, or Supabase mutation occurred"
       ]
     },
     {
