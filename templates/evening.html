@@ -37,6 +37,10 @@
   .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
   .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .masthead.next-format .masthead-art-link { width: 100%; max-width: 640px; aspect-ratio: 1124 / 330; margin: 0 auto; overflow: hidden; }
+  .masthead.next-format .masthead-art { max-width: none; transform: translateX(3.4%); }
+  .masthead.next-format .tagline { margin-top: 18px; }
+  .format-line { margin-top: 4px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 15px; font-style: italic; font-weight: 400; letter-spacing: 0.2px; text-align: center; }
   .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
   .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
   .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
@@ -175,8 +179,9 @@
 <body>
 <div id="progress"></div>
 <div class="paper">
-  <header class="masthead">
+  <header class="mastheadMASTHEAD_FORMAT">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+    MASTHEAD_SUBTITLE
     <div class="tagline"><a href="/tools.html">The tool shelf</a><span class="sep">&middot;</span><a href="/workflows.html">The workflows</a><span class="sep">&middot;</span><a href="/archive.html">Past editions</a></div>
     <div class="dateline">
       <div class="dateline-row">
