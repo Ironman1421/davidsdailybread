@@ -21,6 +21,16 @@ item, return the required evidence, and stop. Do not infer, select, or begin a
 successor. Newly discovered work is a finding, not authorization to add or start
 work. At most one item may be `in_progress` at a time.
 
+Every completed action or task, pause, blocked state, approval boundary, or
+end-of-turn handoff must end with a `Recommended next step` section. It must
+choose one primary action, explain why it is next in program order, give exact
+copy-and-paste approval wording when approval is required, identify the item,
+PR, and immutable commit SHA when applicable, state the boundaries that remain
+in force, and describe what will be executed and verified after approval. When
+the user has nothing to do, say `No action required` and name the next automatic
+verification or wake condition. Never invent substitute work to populate the
+handoff.
+
 ## This is production
 
 `main` is served by GitHub Pages and read by the next bake. There is no staging

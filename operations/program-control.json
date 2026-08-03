@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T13:42:51Z",
+  "updatedAt": "2026-08-03T16:11:27Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,13 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
-  "halt": {
-    "type": "no_eligible_item",
-    "nextDecisionItemId": "DDB-PC-012",
-    "reason": "DDB-PC-012 is the lowest-sequence pending item with complete dependencies, but it requires David's explicit approval to modify Spark networking. Every other incomplete item is approval-gated, dependency-blocked, or paused by doctrine.",
-    "eligibleItemIds": []
-  },
+  "activeItemId": "DDB-PC-012",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -24,7 +18,32 @@
     "noEligibleItemRule": "Stop execution and report the exact unresolved dependency, doctrine pause, or missing David approval. Do not invent substitute work.",
     "completionRule": "An item becomes complete only after every completionGate entry has recorded evidence in this file.",
     "queueChangeRule": "Only David may authorize adding, removing, reordering, or materially changing queue scope. The controller records his decision in this file before execution.",
-    "workerRule": "A worker executes only the item ID assigned by the controller, returns evidence, and stops without choosing a successor."
+    "workerRule": "A worker executes only the item ID assigned by the controller, returns evidence, and stops without choosing a successor.",
+    "handoffRule": {
+      "required": true,
+      "triggers": [
+        "completed action",
+        "completed task",
+        "pause",
+        "blocked state",
+        "approval boundary",
+        "end-of-turn handoff"
+      ],
+      "heading": "Recommended next step",
+      "selectionRule": "Select one primary recommended action in deterministic program order; do not present an unranked list or invent substitute work.",
+      "requiredFields": [
+        "Action",
+        "Why",
+        "Exact approval when required",
+        "Boundaries",
+        "After approval"
+      ],
+      "exactTargetRule": "When applicable, identify the program item, PR number, and immutable commit SHA in the recommendation and approval wording.",
+      "noActionRule": "If the user does not need to act, state No action required and identify the next automatic verification or wake condition.",
+      "approvedBy": "David Friedhof",
+      "approvedAt": "2026-08-03T14:03:22Z",
+      "decisionEvidence": "Task message: Okay. Add this persistent deterministic handoff rule to agents.md, and CLAD.md, and program control."
+    }
   },
   "states": [
     "pending",
@@ -384,7 +403,11 @@
           "codeqlRun": 30817849858,
           "risk": "Moderate workflow risk: seven scheduled or failure-path uploads move across three majors, and the Merge gate does not execute those upload steps. The exact diff changes only pinned action SHAs; name, path, retention-days, and if-no-files-found remain declared inputs; archive mode remains at its compatible default; and the fresh hosted runner was version 2.336.0, above the Node 24 minimum of 2.327.1.",
           "recommendation": "Recommend merge only after separate approval of exact head be5cec4d6fedd7f93a36040f90131c527615e664, then observe the next scheduled or failure-path artifact upload.",
-          "merged": false
+          "merged": true,
+          "mergeCommit": "c88d66ed7576647ae8d01a4a642c3467186c4862",
+          "postMergeGateRun": 30830364152,
+          "postMergeCodeqlRun": 30830349061,
+          "runtimeArtifactObservation": "pending via automation observe-pr-7-natural-artifact-upload"
         },
         {
           "pullRequest": 8,
@@ -395,7 +418,10 @@
           "codeqlRun": 30818194151,
           "risk": "Low workflow risk: five checkout pins change across three workflow files while ref, fetch-depth, and persist-credentials settings remain unchanged and declared. The v7 fork-checkout restriction applies to pull_request_target and workflow_run, neither of which is used here. Fresh Merge gate and CodeQL runs exercised checkout v7 successfully on the exact head.",
           "recommendation": "Recommend merge only after separate approval of exact head 49284f45cf78c632be34399fbb1be27c26f5a0f3.",
-          "merged": false
+          "merged": true,
+          "mergeCommit": "4e42849a670918d4aff908dd90e51a8bf3f8bbc8",
+          "postMergeGateRun": 30828929607,
+          "postMergeCodeqlRun": 30828908317
         },
         {
           "pullRequest": 9,
@@ -406,7 +432,10 @@
           "codeqlRun": 30818554011,
           "risk": "Low workflow risk: three pins change while python-version 3.12 remains unchanged and declared. The v7 removal of pip-install is irrelevant because no workflow uses that input. Fresh x86_64 CI used setup-python v7 for the full test and database gate, and CodeQL passed both languages.",
           "recommendation": "Recommend merge only after separate approval of exact head b55bb4e8f1ea22b4e267ef8c714e4dc97b0ad4d0.",
-          "merged": false
+          "merged": true,
+          "mergeCommit": "4486c3a7258dc9b94c1165f2166352ca15e2f15e",
+          "postMergeGateRun": 30828393629,
+          "postMergeCodeqlRun": 30828377112
         },
         {
           "pullRequest": 15,
@@ -417,7 +446,10 @@
           "codeqlRun": 30818935023,
           "risk": "Low workflow risk: one CI pin changes while node-version 22.23.1 and explicit npm caching remain unchanged and declared. The v6 automatic-cache restriction does not affect the explicit npm setting, and the v7 ESM action completed setup, cache restore and post-save while the full Merge gate passed.",
           "recommendation": "Recommend merge only after separate approval of exact head 1d6511e64464447a91b019f1756e96d6a0a2d08f.",
-          "merged": false
+          "merged": true,
+          "mergeCommit": "e80fd6f84b6ce70bb1d149e45d87ca14c5612b95",
+          "postMergeGateRun": 30827952600,
+          "postMergeCodeqlRun": 30827909751
         }
       ],
       "evidence": [
@@ -427,20 +459,25 @@
         "fresh CodeQL runs 30817849858, 30818194151, 30818554011, and 30818935023 passed for Python and JavaScript/TypeScript on the four recorded exact heads",
         "exact diffs are action-pin-only changes: seven upload-artifact pins in one file, five checkout pins in three files, three setup-python pins in two files, and one setup-node pin in one file",
         "upstream action manifests at the pinned commits retain every input used by these workflows and all four actions use the hosted-compatible Node 24 runtime",
-        "each PR has an independent exact-head merge recommendation in dispositions; all four PRs remain open and unmerged"
+        "each PR received separate exact-head approval and was squash-merged in the audited risk order: PR 15 at e80fd6f84b6ce70bb1d149e45d87ca14c5612b95, PR 9 at 4486c3a7258dc9b94c1165f2166352ca15e2f15e, PR 8 at 4e42849a670918d4aff908dd90e51a8bf3f8bbc8, and PR 7 at c88d66ed7576647ae8d01a4a642c3467186c4862",
+        "post-merge x86_64 Merge gate runs 30827952600, 30828393629, 30828929607, and 30830364152 passed; post-merge CodeQL runs 30827909751, 30828377112, 30828908317, and 30830349061 passed for both languages",
+        "PR 7 runtime artifact observation remains pending via automation observe-pr-7-natural-artifact-upload; no Daily bake was manually dispatched"
       ]
     },
     {
       "id": "DDB-PC-012",
       "sequence": 12,
       "title": "Repair Ethernet and configure Wi-Fi failover",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-004"
       ],
       "authorization": {
         "type": "explicit_david",
-        "granted": false,
+        "granted": true,
+        "grantedAt": "2026-08-03T14:25:14Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: I explicitly approve the audited Spark Ethernet repair and Wi-Fi failover work before any networking changes begin. manage context window by starting a new task now, if needed, otherwise continue here, you decide",
         "scope": "Modify Spark networking using the audited reversible runbook."
       },
       "externalMutation": true,
@@ -450,7 +487,29 @@
         "Higher-metric Wi-Fi failover is configured",
         "Controlled failover and rollback tests pass",
         "Twenty-four-hour observation completes"
-      ]
+      ],
+      "progressEvidence": [
+        "David's exact approval is recorded before the first Spark network mutation",
+        "audited source is the Tailscale DNS warning and reversible remediation section of docs/PRODUCTION_HOST_REPOSITORY_HYGIENE_AUDIT_2026-08-02.md at preserved commit f7f076c5a480e2c19ef6dd3ec12bdf5fb4661859",
+        "pre-change baseline is sealed at /home/david/.local/state/ddb-pc-012/20260803T142939Z with 15 mode-0600 files and SHA256SUMS hash c453a087f9a5e15d0414dd739b0baf981e52a1588054056f3cb891ae1c7ff644",
+        "before physical replacement Ethernet enP7s7 was the preferred metric-100 route at 2500 Mb/s full duplex with link detected and zero inspected transmit, receive, alignment, MAC, and TCAM-drop errors",
+        "system NetworkManager profile DDB Wi-Fi Failover, UUID bcd9bbe9-0e70-4822-8bd8-9f1026e0e50a, is connected on wlP9s9 with autoconnect enabled and explicit IPv4 and IPv6 route metric 600; no credential is stored in the repository or evidence report",
+        "controlled Ethernet disconnect kept SSH, router DNS, MagicDNS, Tailscale, all seven DDB timers, and zero failed user units available on Wi-Fi from 2026-08-03T14:38:44Z until automatic Ethernet failback at 2026-08-03T14:42:28Z",
+        "rollback test disabled only the new Wi-Fi profile and verified the original Ethernet route, SSH, Tailscale, router DNS, and MagicDNS; the transient automatic Wi-Fi restore harness failed without outage, then direct restoration returned autoconnect=yes and the metric-600 Wi-Fi route",
+        "post-change evidence is sealed at /home/david/.local/state/ddb-pc-012/20260803T144723Z-post with 16 mode-0600 files and SHA256SUMS hash 91dc884e94cf2bf8571c1aa62038d6ae6a69dd8de3008f664fc814b99996bbda",
+        "Tailscale still reports the DNS-forward warning even though router DNS, MagicDNS, bidirectional Tailscale ping, and SSH pass; accept-dns remains enabled as required by the audited runbook",
+        "David reported installing a Cat 5e Ethernet cable; NetworkManager recorded the expected carrier loss at 2026-08-03T08:01:28-07:00, link return at 08:09:45-07:00, and successful activation at 08:09:49-07:00; the exact eero or switch port was not reported as changed",
+        "replacement-cable baseline is sealed at /home/david/.local/state/ddb-pc-012/20260803T151441Z-cable-baseline with 19 mode-0600 files and SHA256SUMS hash c144f168b393d65a5f1edf199c2ff261b3b087d28456a80d14fc984f1bcb9afd",
+        "the replacement link negotiated 2500 Mb/s full duplex and kept Ethernet preferred at metric 100 with Wi-Fi at metric 600; router, public-IP, router DNS, MagicDNS, SSH, Tailscale, all seven DDB timers, and zero failed user units passed",
+        "the cable baseline records one accumulated transmit error, 89 transmit drops, and an rx_mac_missed lifetime counter of 1418819 after the deliberate unplug interval while receive, carrier, collision, alignment, MAC-error, and TCAM-drop counters remain zero; the 24-hour check must measure exact deltas from this baseline",
+        "the physical-repair gate is satisfied; the observation restarted from replacement-link activation at 2026-08-03T15:09:49Z and DDB-PC-012 remains in progress until that 24-hour gate completes"
+      ],
+      "observation": {
+        "startedAt": "2026-08-03T15:09:49Z",
+        "scheduledFollowUpLocal": "2026-08-04T08:15:00-07:00",
+        "automationId": "complete-ddb-spark-24h-network-observation",
+        "status": "in_progress"
+      }
     },
     {
       "id": "DDB-PC-013",
