@@ -35,6 +35,10 @@ def morning_content() -> dict:
             "badge": "Technology",
             "standfirst": "A factual fixture standfirst.",
             "body": "A factual fixture body grounded in the linked source.",
+            "scripture": {
+                "id": "PRO.18.15",
+                "connection": "Discernment gives learning a faithful direction.",
+            },
         },
         "cards": {
             section: [story(section, 1), story(section, 2)]

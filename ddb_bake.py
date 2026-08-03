@@ -595,6 +595,10 @@ def render_home(date_str: str, slot: str, data: dict[str, list[dict]],
     html = html.replace("LEAD_HEADLINE", _esc_text(lead["title"]))
     html = html.replace("LEAD_STANDFIRST", _esc_text(lead["standfirst"]))
     html = html.replace("LEAD_BODY", _esc_text(lead["body"]))
+    # The legacy renderer has no session-authored Scripture selection. The
+    # production twice-daily bake uses ddb_session_bake.py, which fills this
+    # token from the verified repository-owned BSB catalog.
+    html = html.replace("LEAD_SCRIPTURE", "")
 
     # Home cards: top 2 per section (matches the real template's 2-card sections).
     for s in SECTIONS:

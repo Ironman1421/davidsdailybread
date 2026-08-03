@@ -13,6 +13,10 @@ model calls anywhere:
       Baker and Crumb Board are always empty and Letters to the King may select
       only a reviewed house-satchel letter. Never mutates state.
 
+  --scripture-catalog [--scripture-query WORDS]
+      Print verified Berean Standard Bible candidates for a morning lead story.
+      The editor selects an identifier; the renderer owns the exact verse text.
+
   --render --content content.json --date YYYY-MM-DD [--slot morning|evening]
       Render the edition from the session-authored content JSON: home page,
       editions/ file, archive.json, archive.html (marked list only), feed.xml,
@@ -48,6 +52,7 @@ os.environ.setdefault("DDB_SITE_DIR", str(REPO))
 
 import ddb_bake      # noqa: E402  (needs DDB_SITE_DIR set first)
 import ddb_satchel   # noqa: E402
+import ddb_scripture # noqa: E402
 
 # Sections per edition slot. The MORNING template keeps the positional token
 # machinery (CARD_T/M/S, EXP_T/M/S, GLANCE_TECH/MARKETS/SCIENCE mapping onto
@@ -75,7 +80,7 @@ DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 # Every token family the templates carry. Post-render, none may survive.
 LEFTOVER_TOKEN_RE = re.compile(
-    r"\b(LEAD_(URL|BADGE|HEADLINE|STANDFIRST|BODY)"
+    r"\b(LEAD_(URL|BADGE|HEADLINE|STANDFIRST|BODY|SCRIPTURE)"
     r"|CARD_[TMS][12]_(URL|HEADLINE|DEK)"
     r"|CAT_[1-6]_(URL|HEADLINE|DEK)"
     r"|EXP_[TMS][123]_(URL|TEXT)"
@@ -120,6 +125,11 @@ def cmd_plan() -> None:
     print(json.dumps(plan, indent=2, ensure_ascii=False))
 
 
+def cmd_scripture_catalog(query: str | None) -> None:
+    """Print a small, searchable set of exact verified BSB candidates."""
+    print(json.dumps(ddb_scripture.search_catalog(query), indent=2, ensure_ascii=False))
+
+
 # ---------------------------------------------------------------------------
 # --render
 # ---------------------------------------------------------------------------
@@ -154,6 +164,8 @@ def validate_content(c: dict, date: str, slot: str) -> None:
     cards = c.get("cards") or {}
     _require(isinstance(cards, dict), "cards must be an object")
     if slot == "evening":
+        _require("scripture" not in lead,
+                 "evening lead must not contain scripture; Keep and Ponder remains unchanged")
         _require(lead["badge"] in ("Trending tool", "Trending workflow"),
                  f"evening lead.badge must be 'Trending tool' or 'Trending workflow', "
                  f"got {lead['badge']!r}")
@@ -201,6 +213,10 @@ def validate_content(c: dict, date: str, slot: str) -> None:
         _require(lead["badge"] == MORNING_BADGES[lead["section"]],
                  f"morning lead.badge for {lead['section']!r} must be "
                  f"{MORNING_BADGES[lead['section']]!r}")
+        try:
+            ddb_scripture.validate_selection(lead.get("scripture"))
+        except ddb_scripture.ScriptureError as exc:
+            fail(str(exc))
         _require(set(cards) == set(sections),
                  f"morning cards must be exactly {set(sections)}, got {set(cards)}")
         for s in sections:
@@ -209,6 +225,9 @@ def validate_content(c: dict, date: str, slot: str) -> None:
             _require(2 <= len(items) <= 6, f"cards.{s}: need 2-6 items, got {len(items)}")
             for i, item in enumerate(items):
                 _require(isinstance(item, dict), f"cards.{s}[{i}] must be an object")
+                _require(set(item) == {"title", "url", "dek"},
+                         f"cards.{s}[{i}] must contain only title, url, and dek; "
+                         "briefs do not receive Scripture pairings")
                 for k in ("title", "url", "dek"):
                     _require(isinstance(item.get(k), str) and bool(item[k].strip()),
                              f"cards.{s}[{i}].{k} must be a non-empty string")
@@ -517,6 +536,7 @@ def render_home_from_content(
     html = html.replace("LEAD_HEADLINE", esc_text(lead["title"]))
     html = html.replace("LEAD_STANDFIRST", esc_text(lead["standfirst"]))
     html = html.replace("LEAD_BODY", esc_text(lead["body"]))
+    html = html.replace("LEAD_SCRIPTURE", ddb_scripture.render_pairing(lead["scripture"]))
 
     for pos, s in enumerate(sections):
         p = _PREFIXES[pos]
@@ -575,8 +595,12 @@ def render_home_from_content(
     html = ddb_bake.fill_or_strip_section(html, "<!--CRUMB_BOARD_START-->", "<!--CRUMB_BOARD_END-->",
                                           tokens, ["PIN1_TEXT", "PIN1_SIG"])
 
+    scripture_verse, scripture_connection = ddb_scripture.validate_selection(
+        lead["scripture"]
+    )
     readtime = ddb_bake.compute_readtime(
         lead["standfirst"], lead["body"],
+        scripture_verse["text"], scripture_connection,
         *[card["dek"] for s in sections for card in c["cards"][s]],
     )
     html = html.replace("READTIME", readtime)
@@ -800,6 +824,9 @@ def main() -> None:
     mode = ap.add_mutually_exclusive_group(required=True)
     mode.add_argument("--plan", action="store_true")
     mode.add_argument("--render", action="store_true")
+    mode.add_argument("--scripture-catalog", action="store_true")
+    ap.add_argument("--scripture-query",
+                    help="optional words used to search the verified BSB catalog")
     ap.add_argument("--content", type=Path, help="content JSON (render mode)")
     ap.add_argument("--date", help="YYYY-MM-DD edition date (render mode)")
     ap.add_argument("--slot", choices=SLOTS, default="morning",
@@ -814,6 +841,8 @@ def main() -> None:
 
     if args.plan:
         cmd_plan()
+    elif args.scripture_catalog:
+        cmd_scripture_catalog(args.scripture_query)
     else:
         if not args.content or not args.date:
             fail("--render requires --content and --date")

@@ -136,6 +136,14 @@ mission, ownership, strategic direction, and paused initiatives.
   edit chronicles.html only from the current live/main version.
 - **Notes boxes:** every story card and every page carries localStorage notes with
   the Aa personalization toolbar.
+- **Morning Scripture pairings:** every full morning-edition story ends with the
+  approved compact inline "Scripture for Reflection" treatment. The current
+  morning format has one full lead story; its other cards are briefs and do not
+  receive pairings. The verse is exact, verified Berean Standard Bible text
+  selected by repository identifier, followed by a linked reference and an
+  optional brief editorial connection. Category pages, data-only material,
+  navigation, and the evening edition are excluded. The evening's Keep and
+  Ponder passage remains KJV.
 - **Reader features:** Ask the Baker, Letters to the King, and The Crumb Board
   remain editorial features, but new public submissions are temporarily paused
   until a private intake boundary is verified and David explicitly approves
