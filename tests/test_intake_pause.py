@@ -30,6 +30,7 @@ NON_READER_ROOTS = {
     "distribution",
     "docs",
     "newsletter",
+    "node_modules",
     "operations",
     "supabase",
     "templates",

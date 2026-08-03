@@ -305,7 +305,7 @@ class ProductContractTest(unittest.TestCase):
         )
         self.assertIn("not an open community feed", normalized_doctrine)
 
-    def test_bake_cannot_change_its_reader_input_snapshot(self):
+    def test_bake_plan_has_no_counter_or_network_input(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
             encoding="utf-8"
         )
@@ -317,7 +317,7 @@ class ProductContractTest(unittest.TestCase):
 
         bake_spec = (ROOT / "BAKE.md").read_text(encoding="utf-8")
         self.assertIn(
-            "`--plan` never refreshes or mutates it",
+            "it has no Counter, network, or public-submission input and never mutates state",
             " ".join(bake_spec.split()),
         )
 
