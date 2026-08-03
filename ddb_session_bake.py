@@ -441,15 +441,13 @@ def _evening_recipes_html(flows: list[dict]) -> str:
     esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
     out = []
     for w in flows:
-        needs = '<span class="dot">&middot;</span>'.join(
-            esc_text(str(n)) for n in w["needs"])
         out.append(
             '        <div class="recipe-stack">\n'
             '        <article class="recipe"><a class="card-link" href="{u}">\n'
             '          <div class="r-top"><h3>{t}</h3><div class="r-meta">'
-            '<span class="trend">{s}</span><span class="time">{tm}</span></div></div>\n'
+            '<span class="time">{tm}</span><span class="requirement">{rq}</span>'
+            '<span class="trend">{s}</span></div></div>\n'
             '          <p class="dek">{d}</p>\n'
-            '          <div class="needs"><b>You need</b>{nd}</div>\n'
             '        </a></article>\n'
             '        <div class="notes" data-note-key="{u}"><span class="pen">&#9998;</span>'
             '<textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story">'
@@ -457,8 +455,8 @@ def _evening_recipes_html(flows: list[dict]) -> str:
             'aria-label="Close notes">&times;</button></div>\n'
             '        </div>'.format(
                 u=esc(w["url"]), t=esc_text(w["title"]), s=esc_text(w["seen"]),
-                tm=esc_text(w["time"]),
-                d=ddb_bake.render_dek(w["dek"]), nd=needs))
+                tm=esc_text(w["time"]), rq=esc_text(str(w["needs"][0])),
+                d=ddb_bake.render_dek(w["dek"])))
     return "\n".join(out)
 
 

@@ -81,17 +81,15 @@
   .recipe { background: rgba(255,255,255,0.035); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px 16px; transition: border-color 0.15s, transform 0.15s; }
   .recipe:hover { border-color: var(--gold-soft); transform: translateY(-2px); }
   .recipe a.card-link { color: inherit; text-decoration: none; display: block; }
-  .recipe .r-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  .recipe .r-meta { display: flex; flex: none; flex-wrap: wrap; justify-content: flex-end; gap: 5px; }
-  .recipe h3 { font-family: 'Newsreader', Georgia, serif; font-size: 19px; line-height: 1.28; margin: 0 0 8px; font-weight: 600; }
+  .recipe .r-top { display: flex; flex-direction: column; align-items: stretch; gap: 7px; margin-bottom: 9px; }
+  .recipe .r-meta { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 5px; }
+  .recipe h3 { font-family: 'Newsreader', Georgia, serif; font-size: 19px; line-height: 1.28; margin: 0; font-weight: 600; }
   .recipe:hover h3 { color: var(--gold); }
-  .recipe .time { flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--marker); border: 1px solid rgba(185,119,42,0.45); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+  .recipe .time { flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--steel); border: 1px solid rgba(111,159,206,0.4); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
   .recipe .trend { flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+  .recipe .requirement { flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
   .recipe p.dek { font-size: 13.5px; line-height: 1.6; color: var(--muted); margin: 0; }
   .recipe p.dek b { color: var(--ink); font-weight: 600; }
-  .recipe .needs { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line-strong); font-size: 12.5px; color: var(--muted); }
-  .recipe .needs b { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-right: 8px; }
-  .recipe .needs .dot { color: var(--line-strong); margin: 0 7px; }
   .recipes .notes { margin: 0 0 10px; }
   .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
   .notes:focus-within, .notes.open { border-style: solid; border-color: var(--gold-soft); background: rgba(200,162,74,0.05); }
@@ -134,8 +132,6 @@
     .masthead-art { max-width: 100%; }
     .lanes { grid-template-columns: 1fr; }
     .lead-card h1 { font-size: 24px; }
-    .recipe .r-top { flex-direction: column; align-items: flex-start; gap: 4px; }
-    .recipe .r-meta { justify-content: flex-start; margin-bottom: 8px; }
     .margin-note { position: static; display: inline-block; margin-bottom: 6px; transform: rotate(-2deg); }
   }
   .mary-section { margin-top:42px; padding:18px 12px; }
