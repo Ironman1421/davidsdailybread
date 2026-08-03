@@ -66,6 +66,11 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    **130 characters or fewer**. An over-length lead is skipped, never truncated
    (the evening template tops out around a 146-character lead); an em dash also
    fails the gate, but rule 1 already bans those.
+8. **Morning Scripture is renderer-owned BSB text.** The morning editor selects
+   one identifier from the verified repository catalog and may write only the
+   optional connection sentence. Never type, generate, rewrite, combine,
+   simplify, or paraphrase the verse, reference, translation label, or Bible
+   link. The evening's reviewed KJV Keep and Ponder format remains unchanged.
 
 ## The bake, step by step
 
@@ -119,7 +124,22 @@ substance. For each story capture the real article URL and fetch the article
 text to ground your writing. Drop stories you cannot verify. Fewer than 6 solid
 stories in a section is fine (minimum 2); never pad with weak or stale items.
 
-**3. Write the edition** into `content.json`:
+**3. Select a Scripture pairing and write the edition** into `content.json`.
+The lead is the morning edition's full story; the cards are briefs and do not
+receive Scripture pairings. Search the verified catalog with a few themes from
+the lead story, for example:
+
+```sh
+python3 ddb_session_bake.py --scripture-catalog --scripture-query "wisdom discernment learning"
+```
+
+Choose the most meaningful candidate and copy only its `id` into
+`lead.scripture.id`. The renderer supplies the exact BSB wording, reference,
+translation label, and Bible.com link from `scripture/bsb-verses.json`. Add one
+brief plain-text `connection` sentence only when the relationship is not
+immediately apparent. Do not put Scripture fields on cards.
+
+Then write `content.json`:
 
 ```json
 {
@@ -127,7 +147,9 @@ stories in a section is fine (minimum 2); never pad with weak or stale items.
   "lead":   {"section": "tech|markets|science", "title": "...", "url": "https://...",
              "badge": "Technology|Business & markets|Science",
              "standfirst": "one punchy editorial sentence",
-             "body": "2-4 sentences of real synthesized news writing, grounded facts"},
+             "body": "2-4 sentences of real synthesized news writing, grounded facts",
+             "scripture": {"id": "PRO.18.15",
+                            "connection": "optional brief editorial sentence"}},
   "cards":  {"tech": [{"title": "...", "url": "https://...",
                        "dek": "<b>Two-to-four-word lead-in</b> rest of one factual sentence."},
                       "... up to 6 per section, best first"],
@@ -166,6 +188,9 @@ text rather than from memory:
 - every number, quote, date, name, and price appears in that fetched text. Where
   you only had the headline, the item stays at headline level and carries no
   specifics;
+- morning only: the lead's Scripture identifier came from the verified catalog,
+  the rendered wording and reference match that catalog exactly, and any
+  connection sentence accurately and respectfully explains the relationship;
 - evening only: each item shows WHERE it is trending, read from the cited page,
   and any popularity figure (stars, upvotes, views) is read from that page too;
 - the lead title is self-contained and about 130 characters or fewer, so the X

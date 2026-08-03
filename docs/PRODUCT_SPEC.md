@@ -47,6 +47,12 @@ former weekly email pilot is paused and guarded by
 - Job: straight news from the prior day in technology, business and markets,
   and science.
 - Shape: one lead across all beats, then 2 to 6 cards in each of the three beats.
+- Scripture: the full lead story ends with the compact inline Scripture for
+  Reflection treatment. The editor selects a repository-owned identifier; the
+  renderer supplies exact verified BSB text, reference, translation label, and
+  Bible link. An optional brief connection sentence may explain the pairing.
+  Morning cards are briefs, so they do not receive Scripture pairings. Category
+  pages, data-only sections, navigation, and the evening edition are excluded.
 - Reader features: at most one Ask the Baker question, one Letter to the King,
   and one Crumb Board pin. While new intake is paused, only the frozen existing
   queue may supply reader material, selected oldest first; a house letter may

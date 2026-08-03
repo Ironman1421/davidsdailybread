@@ -70,6 +70,16 @@
   .lead-card .lead-body { font-family: 'Newsreader', Georgia, serif; font-size: 16px; line-height: 1.7; margin: 0; color: var(--ink); }
   .lead-card .badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); }
   .lead-card:hover h1 { color: var(--gold); }
+  .scripture-inline { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--gold-soft); }
+  .scripture-label { margin: 0 0 6px; color: var(--gold); font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.7px; text-transform: uppercase; }
+  .scripture-inline blockquote { margin: 0; padding: 0; }
+  .verse-text { margin: 0; color: var(--ink); font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; font-style: italic; font-weight: 500; line-height: 1.44; }
+  .verse-reference { display: block; margin-top: 4px; color: var(--steel); font-family: 'Inter', sans-serif; font-size: 11px; font-style: normal; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .verse-reference a { color: inherit; text-decoration-color: var(--steel-soft); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color 0.15s, text-decoration-color 0.15s; }
+  .verse-reference a:hover { color: var(--gold); text-decoration-color: var(--gold-soft); }
+  .verse-reference a:focus-visible { color: var(--gold); border-radius: 2px; outline: 2px solid var(--gold); outline-offset: 4px; }
+  .external-mark { margin-left: 4px; font-size: 0.9em; }
+  .scripture-connection { margin: 7px 0 0; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 13.5px; line-height: 1.48; }
   .section { margin-top: 30px; }
   .col-head { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); text-decoration: none; padding-bottom: 8px; margin-bottom: 16px; border-bottom: 2px solid var(--gold-soft); }
   .col-head:hover { color: var(--gold); }
@@ -150,6 +160,9 @@
     .card-grid { grid-template-columns: 1fr; }
     .glance .tag { min-width: 66px; }
     .lead-card h1 { font-size: 26px; }
+    .scripture-inline { margin-top: 14px; padding-top: 12px; }
+    .verse-text { font-size: 15.5px; }
+    .scripture-connection { font-size: 13.5px; }
   }
 </style>
 </head>
@@ -219,6 +232,7 @@
       <p class="standfirst">LEAD_STANDFIRST</p>
       <p class="lead-body">LEAD_BODY</p>
     </a>
+LEAD_SCRIPTURE
   </article>
   <div class="notes" data-note-key="LEAD_URL"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div>
 

@@ -46,6 +46,10 @@ def content_for(sections, lead_section, badge):
             "badge": badge,
             "standfirst": "One punchy fixture sentence.",
             "body": "Two grounded fixture sentences. Both trace to the link.",
+            "scripture": {
+                "id": "PRO.18.15",
+                "connection": "Discernment gives learning a faithful direction.",
+            },
         },
         "cards": {s: [card(1, s), card(2, s)] for s in sections},
         "glance": {s: f"Fixture {s} roundup sentence." for s in sections},
@@ -234,6 +238,9 @@ with tempfile.TemporaryDirectory() as td:
         assert old not in html, f"old three-section layout leaked: {old!r}"
     for kicker in ("Reader questions", "Letters to the King", "Crumb Board"):
         assert kicker not in html, f"reader section {kicker!r} leaked into the evening"
+    assert 'class="scripture-inline"' not in html, (
+        "morning Scripture pairing leaked into the evening"
+    )
 
     archive = json.loads((repo / "archive.json").read_text(encoding="utf-8"))
     entry = [e for e in archive["editions"]
@@ -303,7 +310,10 @@ with tempfile.TemporaryDirectory() as td:
                           "tech.html", "markets.html", "science.html",
                           "archive.html", "archive.json", "feed.xml",
                           "bakery-state.json"}, f"unexpected morning writes: {changed}"
-    assert "Morning edition," in (repo / "index.html").read_text(encoding="utf-8")
+    morning_html = (repo / "index.html").read_text(encoding="utf-8")
+    assert "Morning edition," in morning_html
+    assert morning_html.count('class="scripture-inline"') == 1
+    assert "Proverbs 18:15 &middot; BSB" in morning_html
 
     # --- same-edition daily retries survive advanced reader state -----------
     retry = content_for(("tech", "markets", "science"), "tech", "Technology")
@@ -363,5 +373,5 @@ with tempfile.TemporaryDirectory() as td:
     assert satchel_retry.returncode == 0, satchel_retry.stderr
     assert (repo / "bakery-state.json").read_bytes() == satchel_state
 
-print("PASS: two-slot renderer honors the evening write set, refuses evening "
-      "reader sections, leaves the morning bake intact, and retries byte-stably")
+print("PASS: two-slot renderer honors the evening write set, keeps morning "
+      "Scripture scoped to the full lead story, and retries byte-stably")
