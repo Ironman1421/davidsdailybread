@@ -35,7 +35,7 @@ jobs:
       DDB_SITE_DIR: ${{ github.workspace }}
     steps:
       - name: Checkout
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Full history is load bearing, not a nicety. test_c3_integrity's
           # historical-repair test shells out to `git show <old-sha>:editions/...`
