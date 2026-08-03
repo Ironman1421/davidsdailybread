@@ -4,6 +4,8 @@
     "section": "tools",
     "title": "A calmer way to choose one useful tool tonight",
     "url": "https://example.com/lead",
+    "trend_url": "https://example.com/trends/lead",
+    "seen": "Product Hunt No. 1",
     "badge": "Trending tool",
     "standfirst": "Begin with one practical choice, then leave the rest on the shelf.",
     "body": "This fixture demonstrates the approved July 31 Field Guide layout. Its content exists only for deterministic rendering and visual review.",
@@ -14,6 +16,7 @@
       {
         "name": "Quiet Reader",
         "url": "https://example.com/tools/quiet-reader",
+        "trend_url": "https://example.com/trends/quiet-reader",
         "cost": "Free",
         "kind": "Web browser",
         "seen": "Fixture trend source",
@@ -22,6 +25,7 @@
       {
         "name": "Pocket Planner",
         "url": "https://example.com/tools/pocket-planner",
+        "trend_url": "https://example.com/trends/pocket-planner",
         "cost": "Free tier",
         "kind": "Phone and web",
         "seen": "Fixture trend source",
@@ -32,6 +36,8 @@
       {
         "title": "Turn one saved article into a ten-minute action plan",
         "url": "https://example.com/workflows/article-plan",
+        "trend_url": "https://example.com/trends/article-plan",
+        "seen": "Hacker News front page",
         "dek": "<b>Read, choose, act</b> Pull one useful idea from a saved article and translate it into a small next step.",
         "needs": [
           "One saved article",
@@ -42,6 +48,8 @@
       {
         "title": "Clear tomorrow's first hour before closing the laptop",
         "url": "https://example.com/workflows/first-hour",
+        "trend_url": "https://example.com/trends/first-hour",
+        "seen": "Reddit productivity",
         "dek": "<b>End with clarity</b> Choose the first task, gather what it needs, and leave a clean starting point.",
         "needs": [
           "Tomorrow's calendar",

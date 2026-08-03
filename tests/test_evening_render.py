@@ -64,6 +64,7 @@ def tool(n):
     return {
         "name": f"Fixture tool {n}",
         "url": f"https://example.com/tools/{n}",
+        "trend_url": f"https://example.com/trends/tools/{n}",
         "cost": "Free",
         "kind": "Fixture kind",
         "seen": "GitHub trending",
@@ -75,6 +76,8 @@ def workflow(n):
     return {
         "title": f"Fixture workflow {n}",
         "url": f"https://example.com/workflows/{n}",
+        "trend_url": f"https://example.com/trends/workflows/{n}",
+        "seen": "Hacker News front page",
         "dek": f"<b>Fixture lead-in</b> grounded one-sentence dek number {n}.",
         "needs": ["A fixture thing", "Another fixture thing"],
         "time": "An afternoon",
@@ -89,6 +92,8 @@ def evening_content():
             "section": "tools",
             "title": "Fixture lead headline",
             "url": "https://example.com/lead",
+            "trend_url": "https://example.com/trends/lead",
+            "seen": "Product Hunt No. 1",
             "badge": "Trending tool",
             "standfirst": "One punchy fixture sentence.",
             "body": "Two grounded fixture sentences. Both trace to the link.",
@@ -245,6 +250,8 @@ with tempfile.TemporaryDirectory() as td:
     assert html.count('class="shelf-card"') == 2, "shelf tile count wrong"
     assert html.count('class="recipe"') == 2, "recipe card count wrong"
     assert "You need" in html and "An afternoon" in html, "recipe meta missing"
+    assert "Hacker News front page" in html, "workflow trend evidence missing"
+    assert "Product Hunt No. 1" in html, "lead trend evidence missing"
     for old in ("Trending tonight", "Workflows worth knowing", "CARD_T1"):
         assert old not in html, f"old three-section layout leaked: {old!r}"
     for kicker in ("Reader questions", "Letters to the King", "Crumb Board"):
@@ -268,6 +275,9 @@ with tempfile.TemporaryDirectory() as td:
         "Fixture workflow 1", "Fixture workflow 2"
     ]
     assert all(item["date"] == DATE for item in catalog["tools"][:2])
+    assert all(item["trend_url"] != item["url"] for item in catalog["tools"][:2])
+    assert all(item["seen"] == "Hacker News front page"
+               for item in catalog["workflows"][:2])
 
     stable_evening = tree_hashes(repo)
     time.sleep(1.1)
@@ -301,6 +311,19 @@ with tempfile.TemporaryDirectory() as td:
     r = render(repo, news, "evening")
     assert r.returncode != 0, "evening render must refuse a trending section"
     assert "retired" in (r.stdout + r.stderr)
+
+    # --- every new evening item carries independent trend evidence ----------
+    missing_evidence = evening_content()
+    del missing_evidence["cards"]["workflows"][0]["trend_url"]
+    r = render(repo, missing_evidence, "evening")
+    assert r.returncode != 0, "evening workflow without trend evidence must fail"
+    assert "trend_url must be a non-empty string" in (r.stdout + r.stderr)
+
+    direct_x = evening_content()
+    direct_x["cards"]["tools"][0]["trend_url"] = "https://x.com/example/status/1"
+    r = render(repo, direct_x, "evening")
+    assert r.returncode != 0, "direct X sourcing must remain closed"
+    assert "direct X/Twitter sources are closed" in (r.stdout + r.stderr)
 
     # --- morning render still writes the morning set ------------------------
     before = tree_hashes(repo)

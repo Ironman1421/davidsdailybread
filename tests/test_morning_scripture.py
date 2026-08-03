@@ -192,6 +192,8 @@ class MorningScriptureTest(unittest.TestCase):
                 "section": "tools",
                 "title": "Fixture tool",
                 "url": "https://example.com/tool",
+                "trend_url": "https://example.com/trends/lead",
+                "seen": "Product Hunt No. 1",
                 "badge": "Trending tool",
                 "standfirst": "A useful fixture.",
                 "body": "A grounded fixture body.",
@@ -202,6 +204,7 @@ class MorningScriptureTest(unittest.TestCase):
                     {
                         "name": f"Tool {number}",
                         "url": f"https://example.com/tool/{number}",
+                        "trend_url": f"https://example.com/trends/tool/{number}",
                         "cost": "Free",
                         "kind": "Web app",
                         "seen": "GitHub trending",
@@ -213,6 +216,8 @@ class MorningScriptureTest(unittest.TestCase):
                     {
                         "title": f"Workflow {number}",
                         "url": f"https://example.com/workflow/{number}",
+                        "trend_url": f"https://example.com/trends/workflow/{number}",
+                        "seen": "Hacker News front page",
                         "dek": "<b>Try this</b> grounded factual guidance.",
                         "needs": ["One thing", "Another thing"],
                         "time": "Thirty minutes",
