@@ -9,8 +9,12 @@ mission, ownership, strategic direction, and paused initiatives.
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
-- The exact morning format descriptor is: **News and Scripture, paired story by
-  story.** It appears beneath the morning masthead and on morning category pages.
+- The exact morning home masthead subtitle is: **News and Scripture each
+  morning. Practical tools each evening. Loved by God.** It appears in the
+  original masthead's italic serif treatment and muted color, centered beneath
+  the untouched basket, crown, and David's Daily Bread wordmark.
+- The exact morning category format descriptor is: **News and Scripture, paired
+  story by story.**
 - The exact public mission line is: **Grow in faith. Understand technology
   wisely. Pray for one another. Use what you learn in service to others.** It
   complements **Loved by God** and does not replace the tagline.
@@ -99,6 +103,10 @@ mission, ownership, strategic direction, and paused initiatives.
   appear at the very top of EVERY web page (`<img class="masthead-art" src="/header-art.png">`).
   No other art at the top of any page, ever, unless David explicitly says so.
   Never regenerate, rename, or re-upload it — just reference it.
+- On the morning home page only, preserve the official image pixels while the
+  layout crops its superseded baked-in subtitle, optically centers the basket,
+  crown, and wordmark, and renders the approved live subtitle beneath them. The
+  original image file remains untouched.
 - **`/og-card.png`** (1200×630) is the social/share card (`og:image`). Web pages use
   header-art; social previews use og-card. Never substitute other art.
 

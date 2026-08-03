@@ -107,7 +107,13 @@ class MorningScriptureTest(unittest.TestCase):
         )
 
         self.assertEqual(7, html.count('class="scripture-inline"'))
-        self.assertIn("News and Scripture, paired story by story.", html)
+        self.assertIn(
+            "News and Scripture each morning. Practical tools each evening. Loved by God.",
+            html,
+        )
+        self.assertIn("aspect-ratio: 1124 / 330", html)
+        self.assertIn("transform: translateX(3.4%)", html)
+        self.assertIn(".story-card a.card-link { height: auto; }", html)
         self.assertIn("Scripture for Reflection", html)
         self.assertIn(f"&ldquo;{SAMPLE_VERSE}&rdquo;", html)
         self.assertIn("Proverbs 18:15 &middot; BSB", html)
