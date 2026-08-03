@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T16:11:27Z",
+  "updatedAt": "2026-08-03T17:03:40Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-012",
+  "activeItemId": "DDB-PC-021",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -465,10 +465,42 @@
       ]
     },
     {
-      "id": "DDB-PC-012",
+      "id": "DDB-PC-021",
       "sequence": 12,
-      "title": "Repair Ethernet and configure Wi-Fi failover",
+      "title": "Add Morning Scripture Pairings using approved Option A",
       "status": "in_progress",
+      "dependencies": [
+        "DDB-PC-011"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-03T17:03:40Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task messages: Okay, I approve option A. Let's have it ready for tomorrow's morning edition. I authorize the program controller to interrupt DDB-PC-012's task sequence without changing its network configuration or scheduled observation, add and activate Morning Scripture Pairings as the sole active item, and return control to DDB-PC-012 after the Scripture PR is merged and verified",
+        "scope": "Implement and release the approved compact inline Option A after every full morning-edition story for the 2026-08-04 morning edition. Use exact verified Berean Standard Bible text and linked references. Keep the evening KJV format and all unrelated systems unchanged."
+      },
+      "externalMutation": true,
+      "releaseTarget": "2026-08-04-morning",
+      "completionGate": [
+        "The morning content contract selects Scripture by repository-owned identifier and cannot supply or rewrite verse text",
+        "Exact BSB wording, reference, translation label, and Bible link come from a verified repository-owned source",
+        "Option A appears compactly after every full morning story with responsive and accessible markup",
+        "Briefs, data-only sections, navigation pages, category pages, and the evening edition remain outside the feature",
+        "The exact feature head passes the x86_64 Merge gate and CodeQL",
+        "The feature PR is merged, GitHub Pages deploys, and main is verified before the 2026-08-04 morning bake",
+        "DDB-PC-012 is restored as the active item without changing its network configuration or scheduled observation"
+      ],
+      "progressEvidence": [
+        "David approved Option A and release readiness for the 2026-08-04 morning edition",
+        "David authorized this queue insertion and interruption of DDB-PC-012 while its existing network observation continues unchanged"
+      ]
+    },
+    {
+      "id": "DDB-PC-012",
+      "sequence": 13,
+      "title": "Repair Ethernet and configure Wi-Fi failover",
+      "status": "pending",
       "dependencies": [
         "DDB-PC-004"
       ],
@@ -504,6 +536,14 @@
         "the cable baseline records one accumulated transmit error, 89 transmit drops, and an rx_mac_missed lifetime counter of 1418819 after the deliberate unplug interval while receive, carrier, collision, alignment, MAC-error, and TCAM-drop counters remain zero; the 24-hour check must measure exact deltas from this baseline",
         "the physical-repair gate is satisfied; the observation restarted from replacement-link activation at 2026-08-03T15:09:49Z and DDB-PC-012 remains in progress until that 24-hour gate completes"
       ],
+      "interruption": {
+        "authorizedBy": "David Friedhof",
+        "authorizedAt": "2026-08-03T17:03:40Z",
+        "decisionEvidence": "Task message: I authorize the program controller to interrupt DDB-PC-012's task sequence without changing its network configuration or scheduled observation, add and activate Morning Scripture Pairings as the sole active item, and return control to DDB-PC-012 after the Scripture PR is merged and verified",
+        "networkConfigurationChanged": false,
+        "scheduledObservationChanged": false,
+        "resumeAfter": "DDB-PC-021"
+      },
       "observation": {
         "startedAt": "2026-08-03T15:09:49Z",
         "scheduledFollowUpLocal": "2026-08-04T08:15:00-07:00",
@@ -513,7 +553,7 @@
     },
     {
       "id": "DDB-PC-013",
-      "sequence": 13,
+      "sequence": 14,
       "title": "Reconcile the dirty Spark and local checkouts",
       "status": "pending",
       "dependencies": [
@@ -534,7 +574,7 @@
     },
     {
       "id": "DDB-PC-014",
-      "sequence": 14,
+      "sequence": 15,
       "title": "Remove redundant Codex automations",
       "status": "pending",
       "dependencies": [
@@ -554,7 +594,7 @@
     },
     {
       "id": "DDB-PC-015",
-      "sequence": 15,
+      "sequence": 16,
       "title": "Implement the publisher App and protect main",
       "status": "pending",
       "dependencies": [
@@ -577,7 +617,7 @@
     },
     {
       "id": "DDB-PC-016",
-      "sequence": 16,
+      "sequence": 17,
       "title": "External reader-intake account cutover",
       "status": "paused_by_doctrine",
       "dependencies": [
@@ -593,7 +633,7 @@
     },
     {
       "id": "DDB-PC-017",
-      "sequence": 17,
+      "sequence": 18,
       "title": "Cloudflare and D1 canary or activation",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -607,7 +647,7 @@
     },
     {
       "id": "DDB-PC-018",
-      "sequence": 18,
+      "sequence": 19,
       "title": "Supabase reader-store provisioning or activation",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -621,7 +661,7 @@
     },
     {
       "id": "DDB-PC-019",
-      "sequence": 19,
+      "sequence": 20,
       "title": "Newsletter activation or sending",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -635,7 +675,7 @@
     },
     {
       "id": "DDB-PC-020",
-      "sequence": 20,
+      "sequence": 21,
       "title": "Close the current reliability and governance program",
       "status": "pending",
       "dependencies": [
