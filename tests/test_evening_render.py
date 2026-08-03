@@ -33,6 +33,10 @@ def card(n, section):
         "title": f"{section.capitalize()} fixture story {n}",
         "url": f"https://example.com/{section}/{n}",
         "dek": f"<b>Fixture lead-in</b> grounded one-sentence dek number {n}.",
+        "scripture": {
+            "id": "PRO.18.15",
+            "connection": "We can seek knowledge carefully as we consider this story.",
+        },
     }
 
 
@@ -48,7 +52,7 @@ def content_for(sections, lead_section, badge):
             "body": "Two grounded fixture sentences. Both trace to the link.",
             "scripture": {
                 "id": "PRO.18.15",
-                "connection": "Discernment gives learning a faithful direction.",
+                "connection": "We can give learning a faithful direction through discernment.",
             },
         },
         "cards": {s: [card(1, s), card(2, s)] for s in sections},
@@ -312,8 +316,13 @@ with tempfile.TemporaryDirectory() as td:
                           "bakery-state.json"}, f"unexpected morning writes: {changed}"
     morning_html = (repo / "index.html").read_text(encoding="utf-8")
     assert "Morning edition," in morning_html
-    assert morning_html.count('class="scripture-inline"') == 1
+    assert morning_html.count('class="scripture-inline"') == 7
     assert "Proverbs 18:15 &middot; BSB" in morning_html
+    assert "Scripture accompanies each story for the reader's reflection." in morning_html
+    assert "News and Scripture, paired story by story." in morning_html
+    for section in ("tech", "markets", "science"):
+        category_html = (repo / f"{section}.html").read_text(encoding="utf-8")
+        assert category_html.count('class="scripture-inline"') == 2
 
     # --- same-edition daily retries survive advanced reader state -----------
     retry = content_for(("tech", "markets", "science"), "tech", "Technology")

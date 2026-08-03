@@ -3,9 +3,10 @@
 This file is the complete operating spec for baking davidsdailybread.com,
 which is baked twice daily:
 
-- the **morning edition** (Spark dispatch at 4:40 AM Pacific): straight news
-  on tech, markets, and science, plus reviewed house-satchel material when the
-  plan selects it. New reader intake is paused. Steps 1-9 below.
+- the **morning edition** (Spark dispatch at 4:40 AM Pacific): politics-free
+  news and Scripture, paired story by story across tech, markets, and science,
+  plus reviewed house-satchel material when the plan selects it.
+  New reader intake is paused. Steps 1-9 below.
 - the **evening edition** (Spark dispatch at 2:40 PM Pacific): the Field Guide.
   Trending tools, practical workflows, and a short Keep and Ponder closing for
   everyday people, with no news after dark (news belongs to the morning). See
@@ -66,11 +67,22 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    **130 characters or fewer**. An over-length lead is skipped, never truncated
    (the evening template tops out around a 146-character lead); an em dash also
    fails the gate, but rule 1 already bans those.
-8. **Morning Scripture is renderer-owned BSB text.** The morning editor selects
-   one identifier from the verified repository catalog and may write only the
-   optional connection sentence. Never type, generate, rewrite, combine,
+8. **Morning Scripture is renderer-owned BSB text.** Every morning story gets
+   one identifier from the verified repository catalog and one required,
+   reader-directed connection sentence. Never type, generate, rewrite, combine,
    simplify, or paraphrase the verse, reference, translation label, or Bible
-   link. The evening's reviewed KJV Keep and Ponder format remains unchanged.
+   link. Scripture guides the reader's response. It never blesses, condemns,
+   diagnoses, or assigns biblical meaning to a person, company, government, or
+   news event. Never claim divine endorsement, judgment, or fulfilled prophecy.
+   If a pairing feels forced or risky, reject the story. The evening's reviewed
+   KJV Keep and Ponder format remains unchanged.
+9. **Morning news is politics-free.** Exclude stories centered on politicians,
+   parties, elections, campaigns, polling, partisan disputes, culture-war
+   disputes, war, diplomacy, sanctions, tariffs, or geopolitical maneuvering.
+   Political personalities never lead. A completed government rule may run only
+   when it directly changes technology, markets, or science, and the story is
+   framed around the practical effect rather than the political contest or
+   personality.
 
 ## The bake, step by step
 
@@ -116,28 +128,30 @@ letter or null. The plan reads only `kings-satchel.json` and
 `bakery-state.json`; it has no Counter, network, or public-submission input and
 never mutates state. Never invent a submission or add submission-derived fields.
 
-**2. Research.** Using web search, gather TODAY'S real news (last ~24 hours,
+**2. Research.** Using web search, gather TODAY'S real, politics-free news (last ~24 hours,
 reputable primary sources) for the three sections: **tech** (AI, chips, software,
 the industry), **markets** (stocks, deals, earnings, macro), **science** (space,
 physics, medicine, discovery). You need up to 6 stories per section, ranked by
 substance. For each story capture the real article URL and fetch the article
 text to ground your writing. Drop stories you cannot verify. Fewer than 6 solid
 stories in a section is fine (minimum 2); never pad with weak or stale items.
+Apply hard rule 9 before ranking. A political or geopolitical story remains
+excluded even when it moves markets.
 
-**3. Select a Scripture pairing and write the edition** into `content.json`.
-The lead is the morning edition's full story; the cards are briefs and do not
-receive Scripture pairings. Search the verified catalog with a few themes from
-the lead story, for example:
+**3. Select Scripture pairings and write the edition** into `content.json`.
+The lead and every card receive a pairing. For each story, search the verified
+catalog with a few themes from the reader's appropriate response, for example:
 
 ```sh
 python3 ddb_session_bake.py --scripture-catalog --scripture-query "wisdom discernment learning"
 ```
 
-Choose the most meaningful candidate and copy only its `id` into
-`lead.scripture.id`. The renderer supplies the exact BSB wording, reference,
+Choose the most meaningful candidate and copy only its `id` into that story's
+`scripture.id`. The renderer supplies the exact BSB wording, reference,
 translation label, and Bible.com link from `scripture/bsb-verses.json`. Add one
-brief plain-text `connection` sentence only when the relationship is not
-immediately apparent. Do not put Scripture fields on cards.
+required brief plain-text `connection` sentence using readers, we, us, or our.
+The sentence must guide the reader's reflection, not interpret the news event as
+an act or judgment of God. Do not force a pairing. Reject the story instead.
 
 Then write `content.json`:
 
@@ -149,9 +163,11 @@ Then write `content.json`:
              "standfirst": "one punchy editorial sentence",
              "body": "2-4 sentences of real synthesized news writing, grounded facts",
              "scripture": {"id": "PRO.18.15",
-                            "connection": "optional brief editorial sentence"}},
+                            "connection": "We can seek wisdom as we consider this story."}},
   "cards":  {"tech": [{"title": "...", "url": "https://...",
-                       "dek": "<b>Two-to-four-word lead-in</b> rest of one factual sentence."},
+                       "dek": "<b>Two-to-four-word lead-in</b> rest of one factual sentence.",
+                       "scripture": {"id": "PRO.18.15",
+                                     "connection": "We can seek wisdom as we consider this story."}},
                       "... up to 6 per section, best first"],
              "markets": ["..."], "science": ["..."]},
   "glance": {"tech": "one <=20-word roundup sentence", "markets": "...", "science": "..."},
@@ -176,7 +192,9 @@ and re-run; never hand-patch output.
 
 **5. Review like an editor.** Open the rendered `index.html` and read it. Check:
 the lead reads like front-page news, deks are grounded and non-generic, links
-point where they claim, the date is right. Fix content.json and re-render if not.
+point where they claim, the date is right, every story has Scripture for
+Reflection, and no political or geopolitical framing slipped through. Fix
+content.json and re-render if not.
 
 **5A. Accuracy pass.** This step is required before handoff and applies to both
 slots. Go back through the edition one item at a time and check each claim
@@ -188,9 +206,12 @@ text rather than from memory:
 - every number, quote, date, name, and price appears in that fetched text. Where
   you only had the headline, the item stays at headline level and carries no
   specifics;
-- morning only: the lead's Scripture identifier came from the verified catalog,
-  the rendered wording and reference match that catalog exactly, and any
-  connection sentence accurately and respectfully explains the relationship;
+- morning only: every story's Scripture identifier came from the verified
+  catalog, every rendered wording and reference matches that catalog exactly,
+  every connection is reader-directed and respectful, and no pairing assigns
+  biblical meaning or divine approval, condemnation, or judgment to the event;
+- morning only: every story passes the politics-free rule, including the ban on
+  war and diplomacy even when either is market-moving;
 - evening only: each item shows WHERE it is trending, read from the cited page,
   and any popularity figure (stars, upvotes, views) is read from that page too;
 - the lead title is self-contained and about 130 characters or fewer, so the X

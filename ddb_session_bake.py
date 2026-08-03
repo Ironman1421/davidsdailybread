@@ -14,7 +14,7 @@ model calls anywhere:
       only a reviewed house-satchel letter. Never mutates state.
 
   --scripture-catalog [--scripture-query WORDS]
-      Print verified Berean Standard Bible candidates for a morning lead story.
+      Print verified Berean Standard Bible candidates for a morning story.
       The editor selects an identifier; the renderer owns the exact verse text.
 
   --render --content content.json --date YYYY-MM-DD [--slot morning|evening]
@@ -81,8 +81,8 @@ DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 # Every token family the templates carry. Post-render, none may survive.
 LEFTOVER_TOKEN_RE = re.compile(
     r"\b(LEAD_(URL|BADGE|HEADLINE|STANDFIRST|BODY|SCRIPTURE)"
-    r"|CARD_[TMS][12]_(URL|HEADLINE|DEK)"
-    r"|CAT_[1-6]_(URL|HEADLINE|DEK)"
+    r"|CARD_[TMS][12]_(URL|HEADLINE|DEK|SCRIPTURE)"
+    r"|CAT_[1-6]_(URL|HEADLINE|DEK|SCRIPTURE)"
     r"|EXP_[TMS][123]_(URL|TEXT)"
     r"|GLANCE_(TECH|MARKETS|SCIENCE|TOOLS|WORKFLOWS)"
     r"|SHELF_ITEMS|RECIPE_ITEMS|LEAD_NOTE"
@@ -90,6 +90,20 @@ LEFTOVER_TOKEN_RE = re.compile(
     r"|RQ1_[QA]|KQ1_(Q|A|FROM)|PIN1_(TEXT|SIG)"
     r"|DATELINE_DATE|READTIME|TIMESTAMP"
     r"|__ACTIVE_(TECH|MKT|SCI)__)\b"
+)
+
+POLITICS_RE = re.compile(
+    r"\b(?:"
+    r"president|vice\s+president|prime\s+minister|senator|congress(?:man|woman)?|"
+    r"governor|mayor|candidate|campaign|election|polling|republican|democrat(?:ic)?|"
+    r"GOP|white\s+house|congress|parliament|partisan|culture\s+war|"
+    r"Trump|Biden|Harris|Vance|Obama|Putin|Zelenskyy?|Netanyahu|Khamenei|"
+    r"Xi\s+Jinping|Modi|Macron|Starmer|"
+    r"war|ceasefire|troops?|military|missiles?|airstrikes?|sanctions?|tariffs?|"
+    r"NATO|diploma(?:cy|t|ts|tic)|geopolit(?:ic|ics|ical)|invasion|bombing|hostages?|"
+    r"supreme\s+court|SCOTUS"
+    r")\b",
+    re.IGNORECASE,
 )
 
 
@@ -137,6 +151,35 @@ def cmd_scripture_catalog(query: str | None) -> None:
 def _require(cond: bool, msg: str) -> None:
     if not cond:
         fail(msg)
+
+
+def _reject_political_framing(c: dict) -> None:
+    """Fail closed on political or geopolitical framing in morning editorial copy.
+
+    URLs and Scripture are deliberately excluded. Completed rules may still be
+    covered for their practical effects when the copy itself is nonpartisan.
+    """
+    fields: list[tuple[str, object]] = [
+        ("lead.title", c["lead"]["title"]),
+        ("lead.standfirst", c["lead"]["standfirst"]),
+        ("lead.body", c["lead"]["body"]),
+    ]
+    for section, cards in c["cards"].items():
+        for index, card in enumerate(cards):
+            fields.extend((
+                (f"cards.{section}[{index}].title", card.get("title")),
+                (f"cards.{section}[{index}].dek", card.get("dek")),
+            ))
+    fields.extend((f"glance.{section}", value) for section, value in c["glance"].items())
+    for path, value in fields:
+        if not isinstance(value, str):
+            continue
+        match = POLITICS_RE.search(value)
+        if match is not None:
+            fail(
+                f"politics-free morning policy rejects {path}: "
+                f"matched {match.group(0)!r}"
+            )
 
 
 def validate_content(c: dict, date: str, slot: str) -> None:
@@ -214,7 +257,7 @@ def validate_content(c: dict, date: str, slot: str) -> None:
                  f"morning lead.badge for {lead['section']!r} must be "
                  f"{MORNING_BADGES[lead['section']]!r}")
         try:
-            ddb_scripture.validate_selection(lead.get("scripture"))
+            ddb_scripture.validate_selection(lead.get("scripture"), "lead.scripture")
         except ddb_scripture.ScriptureError as exc:
             fail(str(exc))
         _require(set(cards) == set(sections),
@@ -225,15 +268,20 @@ def validate_content(c: dict, date: str, slot: str) -> None:
             _require(2 <= len(items) <= 6, f"cards.{s}: need 2-6 items, got {len(items)}")
             for i, item in enumerate(items):
                 _require(isinstance(item, dict), f"cards.{s}[{i}] must be an object")
-                _require(set(item) == {"title", "url", "dek"},
-                         f"cards.{s}[{i}] must contain only title, url, and dek; "
-                         "briefs do not receive Scripture pairings")
+                _require(set(item) == {"title", "url", "dek", "scripture"},
+                         f"cards.{s}[{i}] must contain only title, url, dek, and scripture")
                 for k in ("title", "url", "dek"):
                     _require(isinstance(item.get(k), str) and bool(item[k].strip()),
                              f"cards.{s}[{i}].{k} must be a non-empty string")
                 _require(ddb_bake.is_safe_source_url(item["url"]),
                          f"cards.{s}[{i}].url must be an absolute credential-free https link")
                 require_dek(item["dek"], f"cards.{s}[{i}].dek")
+                try:
+                    ddb_scripture.validate_selection(
+                        item.get("scripture"), f"cards.{s}[{i}].scripture"
+                    )
+                except ddb_scripture.ScriptureError as exc:
+                    fail(str(exc))
 
     glance = c.get("glance") or {}
     _require(isinstance(glance, dict), "glance must be an object")
@@ -257,6 +305,9 @@ def validate_content(c: dict, date: str, slot: str) -> None:
             for i, v in enumerate(obj):
                 scan(v, f"{path}[{i}]")
     scan(c)
+
+    if slot == "morning":
+        _reject_political_framing(c)
 
     if slot == "evening":
         _require(not (c.get("reader") or {}),
@@ -536,7 +587,12 @@ def render_home_from_content(
     html = html.replace("LEAD_HEADLINE", esc_text(lead["title"]))
     html = html.replace("LEAD_STANDFIRST", esc_text(lead["standfirst"]))
     html = html.replace("LEAD_BODY", esc_text(lead["body"]))
-    html = html.replace("LEAD_SCRIPTURE", ddb_scripture.render_pairing(lead["scripture"]))
+    html = html.replace(
+        "LEAD_SCRIPTURE",
+        ddb_scripture.render_pairing(
+            lead["scripture"], "lead-scripture-label", "lead.scripture"
+        ),
+    )
 
     for pos, s in enumerate(sections):
         p = _PREFIXES[pos]
@@ -547,6 +603,14 @@ def render_home_from_content(
                 html = html.replace(f"CARD_{p}{i}_URL", esc(card["url"]))
                 html = html.replace(f"CARD_{p}{i}_HEADLINE", esc_text(card["title"]))
                 html = html.replace(f"CARD_{p}{i}_DEK", ddb_bake.render_dek(card["dek"]))
+                html = html.replace(
+                    f"CARD_{p}{i}_SCRIPTURE",
+                    ddb_scripture.render_pairing(
+                        card["scripture"],
+                        f"card-{p.lower()}{i}-scripture-label",
+                        f"cards.{s}[{i - 1}].scripture",
+                    ),
+                )
             else:
                 pattern = re.compile(
                     r'<div class="stack"><article class="card story-card"><a class="card-link" href="CARD_'
@@ -595,12 +659,19 @@ def render_home_from_content(
     html = ddb_bake.fill_or_strip_section(html, "<!--CRUMB_BOARD_START-->", "<!--CRUMB_BOARD_END-->",
                                           tokens, ["PIN1_TEXT", "PIN1_SIG"])
 
-    scripture_verse, scripture_connection = ddb_scripture.validate_selection(
-        lead["scripture"]
-    )
+    pairings = [
+        ddb_scripture.validate_selection(lead["scripture"], "lead.scripture"),
+        *[
+            ddb_scripture.validate_selection(
+                card["scripture"], f"cards.{section}[{index}].scripture"
+            )
+            for section in sections
+            for index, card in enumerate(c["cards"][section])
+        ],
+    ]
     readtime = ddb_bake.compute_readtime(
         lead["standfirst"], lead["body"],
-        scripture_verse["text"], scripture_connection,
+        *[text for verse, connection in pairings for text in (verse["text"], connection)],
         *[card["dek"] for s in sections for card in c["cards"][s]],
     )
     html = html.replace("READTIME", readtime)
@@ -757,9 +828,17 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
         # (trends) edition never rewrites tech/markets/science.
         for s in SLOT_SECTIONS["morning"]:
             cards = [
-                {"title": card["title"], "url": card["url"],
-                 "dek": ddb_satchel.strip_em_dashes(card["dek"])}
-                for card in content["cards"][s]
+                {
+                    "title": card["title"],
+                    "url": card["url"],
+                    "dek": ddb_satchel.strip_em_dashes(card["dek"]),
+                    "scripture_html": ddb_scripture.render_pairing(
+                        card["scripture"],
+                        f"{s}-scripture-{index + 1}-label",
+                        f"cards.{s}[{index}].scripture",
+                    ),
+                }
+                for index, card in enumerate(content["cards"][s])
             ]
             cat_html = ddb_bake.render_category(s, cards)
             cat_path = REPO / f"{s}.html"
@@ -802,6 +881,36 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
             indent=2,
             ensure_ascii=False,
         ) + "\n"
+
+    if slot == "morning":
+        expected_home_pairings = 1 + sum(
+            min(2, len(content["cards"][section])) for section in SLOT_SECTIONS["morning"]
+        )
+        for path in (REPO / "index.html", edition_path):
+            _require(
+                outputs[path].count('class="scripture-inline"') == expected_home_pairings,
+                f"{path.name}: every rendered morning story must have Scripture for Reflection",
+            )
+            _require(
+                "Scripture accompanies each story for the reader's reflection." in outputs[path],
+                f"{path.name}: morning Scripture clarification is missing",
+            )
+            _require(
+                "News and Scripture, paired story by story." in outputs[path],
+                f"{path.name}: morning format descriptor is missing",
+            )
+        if bake_mode == "daily":
+            for section in SLOT_SECTIONS["morning"]:
+                category_path = REPO / f"{section}.html"
+                _require(
+                    outputs[category_path].count('class="scripture-inline"')
+                    == len(content["cards"][section]),
+                    f"{category_path.name}: every category story must have Scripture for Reflection",
+                )
+                _require(
+                    "News and Scripture, paired story by story." in outputs[category_path],
+                    f"{category_path.name}: morning format descriptor is missing",
+                )
 
     # All validation happens before the first replace.  Each destination is
     # then installed from a fully written sibling temp file.

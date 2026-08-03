@@ -44,15 +44,20 @@ former weekly email pilot is paused and guarded by
 - Cadence: daily, dispatched at 4:40 AM Pacific, with a delayed 4:45 AM
   DST-safe GitHub backup, targeting reader-ready publication near 5:00 AM
   Pacific (8:00 AM Eastern).
-- Job: straight news from the prior day in technology, business and markets,
-  and science.
+- Job: straight, politics-free news from the prior day in technology, business
+  and markets, and science. Exclude partisan politics, political personalities,
+  elections, culture-war disputes, war, diplomacy, sanctions, tariffs, and
+  geopolitical maneuvering. Completed rules may run only for their direct,
+  practical effect without political framing.
 - Shape: one lead across all beats, then 2 to 6 cards in each of the three beats.
-- Scripture: the full lead story ends with the compact inline Scripture for
-  Reflection treatment. The editor selects a repository-owned identifier; the
-  renderer supplies exact verified BSB text, reference, translation label, and
-  Bible link. An optional brief connection sentence may explain the pairing.
-  Morning cards are briefs, so they do not receive Scripture pairings. Category
-  pages, data-only sections, navigation, and the evening edition are excluded.
+- Scripture: every morning story ends with the compact inline Scripture for
+  Reflection treatment, on the front page and category pages. The editor
+  selects a repository-owned identifier; the renderer supplies exact verified
+  BSB text, reference, translation label, and Bible link. A required brief
+  connection guides the reader using readers, we, us, or our. It never assigns
+  divine approval, condemnation, judgment, prophecy, or biblical meaning to the
+  people or event. Data-only sections, navigation, and the evening edition are
+  excluded.
 - Reader features: at most one Ask the Baker question, one Letter to the King,
   and one Crumb Board pin. While new intake is paused, only the frozen existing
   queue may supply reader material, selected oldest first; a house letter may

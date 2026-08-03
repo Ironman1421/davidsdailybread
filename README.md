@@ -2,9 +2,10 @@
 
 A founder-led Christian media and learning project helping believers grow in
 faith, understand technology wisely, pray for one another, and use what they
-learn in service to others. Its current website includes a morning briefing on
-technology, markets, and science plus an evening Field Guide to useful AI and
-technology. Loved by God. Baked fresh twice daily and published at
+learn in service to others. Its current website pairs politics-free morning
+news and Scripture story by story across technology, markets, and science, then
+publishes an evening Field Guide to useful AI and technology. Loved by God.
+Baked fresh twice daily and published at
 [davidsdailybread.com](https://davidsdailybread.com) via GitHub Pages. See
 `FOUNDER_DOCTRINE.md` for the governing direction.
 
