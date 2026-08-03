@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T13:23:37Z",
+  "updatedAt": "2026-08-03T13:42:51Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,13 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-011",
+  "activeItemId": null,
+  "halt": {
+    "type": "no_eligible_item",
+    "nextDecisionItemId": "DDB-PC-012",
+    "reason": "DDB-PC-012 is the lowest-sequence pending item with complete dependencies, but it requires David's explicit approval to modify Spark networking. Every other incomplete item is approval-gated, dependency-blocked, or paused by doctrine.",
+    "eligibleItemIds": []
+  },
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -348,7 +354,7 @@
       "id": "DDB-PC-011",
       "sequence": 11,
       "title": "Rebase and disposition the four dependency PRs",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-009"
       ],
@@ -366,6 +372,62 @@
         "Fresh CI is recorded",
         "Risk-specific verification is recorded",
         "Each merge decision is recorded"
+      ],
+      "completedAt": "2026-08-03T13:42:51Z",
+      "dispositions": [
+        {
+          "pullRequest": 7,
+          "upgrade": "actions/upload-artifact 4.6.2 to 7.0.1",
+          "baseCommit": "2d8e8d5631e82e6a3298a1150ac60c43a4f78d79",
+          "headCommit": "be5cec4d6fedd7f93a36040f90131c527615e664",
+          "mergeGateRun": 30817847701,
+          "codeqlRun": 30817849858,
+          "risk": "Moderate workflow risk: seven scheduled or failure-path uploads move across three majors, and the Merge gate does not execute those upload steps. The exact diff changes only pinned action SHAs; name, path, retention-days, and if-no-files-found remain declared inputs; archive mode remains at its compatible default; and the fresh hosted runner was version 2.336.0, above the Node 24 minimum of 2.327.1.",
+          "recommendation": "Recommend merge only after separate approval of exact head be5cec4d6fedd7f93a36040f90131c527615e664, then observe the next scheduled or failure-path artifact upload.",
+          "merged": false
+        },
+        {
+          "pullRequest": 8,
+          "upgrade": "actions/checkout 4.4.0 to 7.0.1",
+          "baseCommit": "2d8e8d5631e82e6a3298a1150ac60c43a4f78d79",
+          "headCommit": "49284f45cf78c632be34399fbb1be27c26f5a0f3",
+          "mergeGateRun": 30818195312,
+          "codeqlRun": 30818194151,
+          "risk": "Low workflow risk: five checkout pins change across three workflow files while ref, fetch-depth, and persist-credentials settings remain unchanged and declared. The v7 fork-checkout restriction applies to pull_request_target and workflow_run, neither of which is used here. Fresh Merge gate and CodeQL runs exercised checkout v7 successfully on the exact head.",
+          "recommendation": "Recommend merge only after separate approval of exact head 49284f45cf78c632be34399fbb1be27c26f5a0f3.",
+          "merged": false
+        },
+        {
+          "pullRequest": 9,
+          "upgrade": "actions/setup-python 5.6.0 to 7.0.0",
+          "baseCommit": "2d8e8d5631e82e6a3298a1150ac60c43a4f78d79",
+          "headCommit": "b55bb4e8f1ea22b4e267ef8c714e4dc97b0ad4d0",
+          "mergeGateRun": 30818552557,
+          "codeqlRun": 30818554011,
+          "risk": "Low workflow risk: three pins change while python-version 3.12 remains unchanged and declared. The v7 removal of pip-install is irrelevant because no workflow uses that input. Fresh x86_64 CI used setup-python v7 for the full test and database gate, and CodeQL passed both languages.",
+          "recommendation": "Recommend merge only after separate approval of exact head b55bb4e8f1ea22b4e267ef8c714e4dc97b0ad4d0.",
+          "merged": false
+        },
+        {
+          "pullRequest": 15,
+          "upgrade": "actions/setup-node 5.0.0 to 7.0.0",
+          "baseCommit": "2d8e8d5631e82e6a3298a1150ac60c43a4f78d79",
+          "headCommit": "1d6511e64464447a91b019f1756e96d6a0a2d08f",
+          "mergeGateRun": 30818935075,
+          "codeqlRun": 30818935023,
+          "risk": "Low workflow risk: one CI pin changes while node-version 22.23.1 and explicit npm caching remain unchanged and declared. The v6 automatic-cache restriction does not affect the explicit npm setting, and the v7 ESM action completed setup, cache restore and post-save while the full Merge gate passed.",
+          "recommendation": "Recommend merge only after separate approval of exact head 1d6511e64464447a91b019f1756e96d6a0a2d08f.",
+          "merged": false
+        }
+      ],
+      "evidence": [
+        "David's exact DDB-PC-011 approval and no-merge boundary are recorded in this item",
+        "origin/main remained 2d8e8d5631e82e6a3298a1150ac60c43a4f78d79; PRs 7, 8, 9, and 15 all report that exact base and each branch is one commit ahead and zero commits behind",
+        "fresh PR-event x86_64 Merge gate runs 30817847701, 30818195312, 30818552557, and 30818935075 passed on the four recorded exact heads",
+        "fresh CodeQL runs 30817849858, 30818194151, 30818554011, and 30818935023 passed for Python and JavaScript/TypeScript on the four recorded exact heads",
+        "exact diffs are action-pin-only changes: seven upload-artifact pins in one file, five checkout pins in three files, three setup-python pins in two files, and one setup-node pin in one file",
+        "upstream action manifests at the pinned commits retain every input used by these workflows and all four actions use the hosted-compatible Node 24 runtime",
+        "each PR has an independent exact-head merge recommendation in dispositions; all four PRs remain open and unmerged"
       ]
     },
     {
