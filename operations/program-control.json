@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T12:35:16Z",
+  "updatedAt": "2026-08-03T12:57:53Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,13 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
-  "halt": {
-    "type": "no_eligible_item",
-    "nextDecisionItemId": "DDB-PC-008",
-    "reason": "DDB-PC-008 is the lowest-sequence pending item with complete dependencies, but it requires David's separate explicit approval to merge and deploy the exact draft PR. David's current decision says do not merge. Every other incomplete item is approval-gated, dependency-blocked, or paused by doctrine.",
-    "eligibleItemIds": []
-  },
+  "activeItemId": "DDB-PC-008",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -256,13 +250,16 @@
       "id": "DDB-PC-008",
       "sequence": 8,
       "title": "Approve and deploy the exact intake-pause release",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-007"
       ],
       "authorization": {
         "type": "explicit_david",
-        "granted": false,
+        "granted": true,
+        "grantedAt": "2026-08-03T12:57:53Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Hold on. I notice you're doing a lot of read-only and staging and not merged yet and local only. What is this? If we're not changing GitHub main, we're not changing anything. Let's make some changes. Come on. We need to start writing stuff, not just reading.",
         "scope": "Merge the exact reviewed P0 PR, which deploys the GitHub Pages release. External Buttondown, Google Form, Google Sheet, and GitHub Issues changes remain excluded."
       },
       "externalMutation": true,
