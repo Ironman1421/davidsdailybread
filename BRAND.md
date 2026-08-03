@@ -28,9 +28,12 @@ mission, ownership, strategic direction, and paused initiatives.
   Eastern). It pairs politics-free news and Scripture story by story across
   technology, markets, and science, and carries the reader sections. The
   **evening edition** targets reader-ready publication
-  near 3:00 PM Pacific (6:00 PM Eastern). It is the Field Guide: trending tools
-  and practical workflows for everyday people, and NO news of any kind (news is
-  the morning's job). Its
+  near 3:00 PM Pacific (6:00 PM Eastern). It is the Field Guide: broadly useful
+  productivity tools and repeatable workflows for everyday people, and NO news
+  of any kind (news is the morning's job). Its editorial promise is leverage:
+  help ordinary readers save time, improve work, communicate better, earn, or
+  reduce mental load. Trend evidence confirms interest but never substitutes
+  for that practical value. Its
   presentation uses the **July 31 Field Guide** format: one useful lead, a
   two-column tool shelf and workflow lane, then Keep and Ponder with Mary of
   Nazareth below the actionable material. It carries no reader submissions or

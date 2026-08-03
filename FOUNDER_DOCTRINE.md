@@ -29,6 +29,12 @@ vulnerability.
 - The current proof goal is the first 1,000 genuinely engaged people who return
   for faith, technology, prayer, and service, not organizational scale for its
   own sake.
+- The evening Field Guide is a force multiplier for ordinary work. Every tool
+  and workflow must serve a broad share of ordinary readers and provide
+  recurring or compounding leverage by saving time, improving output,
+  supporting earning, strengthening communication, or reducing mental load.
+  Trend strength validates a candidate; it never makes an otherwise narrow,
+  one-off, or novelty item eligible.
 
 ## Current boundaries
 

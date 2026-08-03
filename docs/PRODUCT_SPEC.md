@@ -70,7 +70,8 @@ former weekly email pilot is paused and guarded by
 - Cadence: daily, dispatched at 2:40 PM Pacific, with a delayed 2:45 PM
   DST-safe GitHub backup, targeting reader-ready publication near 3:00 PM
   Pacific (6:00 PM Eastern).
-- Job: a Field Guide of things an everyday reader can act on that night.
+- Job: a force-multiplier Field Guide of broadly useful productivity tools and
+  repeatable workflows an everyday reader can act on that night.
 - Shape: one useful lead, 2 to 6 trending tools, and 2 to 6 practical workflows.
 - Presentation: the July 31 Field Guide format with one useful lead, a two-column
   tool shelf and workflow lane, then Keep and Ponder with Mary of Nazareth as
@@ -78,9 +79,15 @@ former weekly email pilot is paused and guarded by
   and a short prayer selected deterministically. Mary is not used as an invented
   first-person advice voice, and the prayer is addressed to God.
 - A tool must be available now, show where it is trending, state price and
-  platform, and carry an honest caveat.
+  platform, carry an honest caveat, and plausibly improve recurring work.
 - A workflow must state what it accomplishes, 2 to 4 prerequisites, and an
-  honest time estimate.
+  honest time estimate. It must be a reusable operating routine, not merely a
+  one-time project or clever trick.
+- Every tool and workflow must serve a broad share of ordinary readers and
+  provide recurring or compounding leverage by saving time, improving output,
+  supporting earning, strengthening communication, or reducing mental load.
+  Trend evidence proves current interest only; it never rescues a narrow
+  novelty, amusement, demo, or niche hobby item.
 - `/tools.html` and `/workflows.html` are searchable standing libraries backed
   by a bounded, source-linked `/evening-catalog.json`. The evening's top links
   open those pages instead of scrolling within the current edition.

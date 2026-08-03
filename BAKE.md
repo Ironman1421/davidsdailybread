@@ -8,9 +8,9 @@ which is baked twice daily:
   plus reviewed house-satchel material when the plan selects it.
   New reader intake is paused. Steps 1-9 below.
 - the **evening edition** (Spark dispatch at 2:40 PM Pacific): the Field Guide.
-  Trending tools, practical workflows, and a short Keep and Ponder closing for
-  everyday people, with no news after dark (news belongs to the morning). See
-  "The evening bake" below.
+  Broadly useful productivity tools, repeatable practical workflows, and a
+  short Keep and Ponder closing for everyday people, with no news after dark
+  (news belongs to the morning). See "The evening bake" below.
 
 The production starts target reader-ready publication near 5:00 AM Pacific
 (8:00 AM Eastern) and 3:00 PM Pacific (6:00 PM Eastern). GitHub also carries
@@ -270,15 +270,34 @@ push a partial or unverified edition, and never mark a failed bake as success.
 
 The evening edition is a different loaf, and since 2026-07-30 (per David) it
 carries NO NEWS AT ALL. News is the morning's job, full stop. The evening is
-the Field Guide: exactly two sections, the trending TOOLS people started
-using today and the trending WORKFLOWS people are following along with. An
+the Field Guide: exactly two sections, broadly useful productivity TOOLS and
+repeatable WORKFLOWS that multiply what an everyday person can get done. An
 announcement, a launch story, a price change, a policy fight, or an industry
 debate is news; it belongs to the morning even if it is trending everywhere.
 The evening test for every item: could a regular person ACT on this tonight,
-by installing the tool or following the workflow? If not, it does not run.
+by installing the tool or following the workflow, and then reuse the value in
+ordinary life or work? If not, it does not run.
 The reader to serve is the average person, not the insider: if an item only
 matters to an ML engineer, it loses its slot to one that helps everyone. All
 hard rules above apply unchanged.
+
+**Force-multiplier gate.** Apply this before trend ranking. Every candidate
+must satisfy all four tests:
+
+1. **Broad utility:** it helps a substantial share of ordinary readers rather
+   than one location, device hack, specialist role, or niche hobby.
+2. **Repeatability:** it is useful daily or weekly, establishes a reusable
+   operating routine, or creates compounding value after setup.
+3. **Concrete leverage:** it saves time, improves output, supports earning,
+   strengthens communication, or reduces mental load.
+4. **Actionability:** it is available now and can be adopted with a reasonable
+   amount of setup by a non-expert.
+
+Reject one-off crafts and builds, amusements, games, art experiments, demos,
+novelty websites, location-specific curiosities, and clever tricks with no
+recurring payoff. Trend evidence validates present interest; it never makes a
+candidate pass this gate. If fewer than two candidates in a section pass, keep
+researching or stop the bake. Never lower the gate to fill the page.
 
 The approved presentation is the July 31 Field Guide format: one useful lead,
 the tool shelf and workflows in two lanes, then Keep and Ponder with Mary of
@@ -311,9 +330,11 @@ sources required by the ladder above. If the snapshot is unavailable, empty,
 stale, or unhelpful, continue with the normal source ladder. Never fail or pad
 an edition merely because X Monitor supplied no usable lead. The two sections:
 
-- **tools** (the shelf) — new or newly upgraded tools, apps, and features an
-  everyday person could start using TONIGHT, and that people are actually
-  picking up right now. Its `url` is the official product, repository, or
+- **tools** (the shelf) — productivity tools, apps, and features an everyday
+  person could start using TONIGHT, and that people are actually picking up
+  right now. Favor research, writing, communication,
+  planning, automation, knowledge capture, sales, marketing, finance, and
+  recurring administration. Its `url` is the official product, repository, or
   documentation page used for factual verification. Its `trend_url` is the
   citable page proving the `seen` label. If you cannot prove where it is
   trending, it does not go on the shelf. Capture what it does, what it costs
@@ -321,20 +342,23 @@ an edition merely because X Monitor supplied no usable lead. The two sections:
   blurb must carry. Real availability only: never present waitlist-only vaporware
   as usable, never invent pricing. The shelf-foot line "no waitlists, no
   vaporware" is a standing promise; keep it true.
-- **workflows** (the recipes) — concrete ways people are using tools to do
-  something better, written up so a non-expert could follow along: a how-to,
-  a recipe, a clever pipeline from a blog or video that is making the
-  rounds. Its `url` is the substantive how-to or tutorial, and its `trend_url`
+- **workflows** (the recipes) — repeatable ways people are using tools to do
+  recurring work better, written up so a non-expert could follow along: an
+  operating routine, a reusable recipe, or a durable pipeline from a blog or
+  video that is making the rounds. One-time projects do not qualify. Its `url`
+  is the substantive how-to or tutorial, and its `trend_url`
   proves the reader-visible `seen` label. Say what it accomplishes, list the 2-4
-  things you need in order to try it, and give an honest time estimate.
+  things you need in order to try it, put the primary requirement first for the
+  gray card pill, and give an honest time estimate.
 
-Up to 6 items per section, minimum 2, never pad. Rank by everyday usefulness,
-verified trend strength, immediate availability, source confidence, ease of
-trying it, and novelty, in that order. Fetch both URLs for every item before
-writing about it; the morning's rule holds here with extra force: no figure
-survives that was not read in the article itself, and popularity numbers
-(stars, upvotes, views) only as read from the cited trend page, never from
-memory.
+Up to 6 items per section, minimum 2, never pad. Among candidates that pass the
+force-multiplier gate and factual verification, rank by force-multiplying
+utility, broad applicability, repeatability, verified trend strength, and ease
+of adoption, in that order. Novelty is not a ranking benefit. Fetch both URLs
+for every item before writing about it; the morning's rule holds here with
+extra force: no figure survives that was not read in the article itself, and
+popularity numbers (stars, upvotes, views) only as read from the cited trend
+page, never from memory.
 
 **E2. Write the edition** into `content.json`. The evening schema is its own
 (NOT the morning card shape), and there is NO `reader` key (the renderer
@@ -368,8 +392,8 @@ refuses an evening `reader`):
 ```
 
 Lead ("Start here tonight"): the single most useful-to-everyone item of the
-day; usefulness beats hype. It is one of the two sections' items promoted to
-the top, and its `title` doubles as the archive lead (X rules apply, hard
+day; durable leverage beats hype. It is one of the two sections' items promoted
+to the top, and its `title` doubles as the archive lead (X rules apply, hard
 rule 7). `lead.note` is the only handwritten aside on the page: use it when
 a short warm nudge fits (worth an evening, try this first); omit it freely.
 Voice: the same straight factual journalism as the morning, no bread
