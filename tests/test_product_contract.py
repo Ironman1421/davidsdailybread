@@ -66,9 +66,11 @@ class ProductContractTest(unittest.TestCase):
         ):
             self.assertIn(required, bake)
 
-        ranking = bake[
-            bake.index("Among candidates that pass the") : bake.index("**E2.")
-        ]
+        ranking = " ".join(
+            bake[
+                bake.index("Among candidates that pass the") : bake.index("**E2.")
+            ].split()
+        )
         for priority in (
             "force-multiplying utility",
             "broad applicability",
