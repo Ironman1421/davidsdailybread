@@ -247,9 +247,18 @@ with tempfile.TemporaryDirectory() as td:
     assert 'href="/tools.html"' in html and 'href="/workflows.html"' in html
     assert 'href="#shelf"' not in html and 'href="#workflows"' not in html
     assert "worth an evening" in html, "lead.note margin aside missing"
+    assert '<div class="r-top"><h3>Fixture workflow 1</h3><div class="r-meta">' in html, (
+        "workflow cards must match the shelf hierarchy: headline, metadata, brief"
+    )
+    assert ".recipe .r-top { display: flex; flex-direction: column;" in html
     assert html.count('class="shelf-card"') == 2, "shelf tile count wrong"
     assert html.count('class="recipe"') == 2, "recipe card count wrong"
-    assert "You need" in html and "An afternoon" in html, "recipe meta missing"
+    assert (
+        '<span class="time">An afternoon</span>'
+        '<span class="requirement">A fixture thing</span>'
+        '<span class="trend">Hacker News front page</span>' in html
+    ), "workflow pills must match the shelf order: blue, gray, gold"
+    assert "You need" not in html, "the old workflow requirements row leaked"
     assert "Hacker News front page" in html, "workflow trend evidence missing"
     assert "Product Hunt No. 1" in html, "lead trend evidence missing"
     for old in ("Trending tonight", "Workflows worth knowing", "CARD_T1"):
