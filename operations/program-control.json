@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-04T16:03:40Z",
+  "updatedAt": "2026-08-04T16:28:59Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
+  "activeItemId": "DDB-PC-013",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -488,14 +488,17 @@
       "id": "DDB-PC-013",
       "sequence": 13,
       "title": "Reconcile the dirty Spark and local checkouts",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-004"
       ],
       "authorization": {
         "type": "explicit_david",
-        "granted": false,
-        "scope": "Preserve and reconcile dirty or stale checkouts without deleting user-owned work."
+        "granted": true,
+        "grantedAt": "2026-08-04T16:28:59Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-013: preserve and reconcile the dirty Spark and local checkouts without deleting user-owned work. Do not merge or deploy.",
+        "scope": "Preserve and reconcile dirty or stale Spark and local checkouts without deleting user-owned work. Do not merge or deploy."
       },
       "externalMutation": true,
       "completionGate": [
@@ -650,9 +653,5 @@
       ]
     }
   ],
-  "halt": {
-    "type": "no_eligible_item",
-    "eligibleItemIds": [],
-    "reason": "DDB-PC-013 and DDB-PC-015 require explicit approval from David; DDB-PC-020 depends on both, and DDB-PC-016 through DDB-PC-019 remain paused by doctrine."
-  }
+  "halt": null
 }
