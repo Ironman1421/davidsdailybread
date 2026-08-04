@@ -79,6 +79,9 @@ class PwaContractTest(unittest.TestCase):
         install_block = worker.split(
             'self.addEventListener("install"', 1
         )[1].split('self.addEventListener("activate"', 1)[0]
+        install_helper = worker.split(
+            "async function installStaticAssets()", 1
+        )[1].split('self.addEventListener("activate"', 1)[0]
 
         self.assertIn("url.origin !== self.location.origin", worker)
         self.assertIn('request.mode === "navigate"', worker)
@@ -91,6 +94,15 @@ class PwaContractTest(unittest.TestCase):
         self.assertIn("MAX_DATA_ENTRIES = 8", worker)
         self.assertIn("if (url.search || !canCache(response)) return", worker)
         self.assertIn('new Request(path, { cache: "reload" })', worker)
+        self.assertIn("event.waitUntil(installStaticAssets())", install_block)
+        self.assertNotIn("cache.addAll", worker)
+        self.assertIn("const response = await fetch(request)", install_helper)
+        self.assertIn(
+            "url.origin !== self.location.origin || !canCache(response)",
+            install_helper,
+        )
+        self.assertIn("throw new Error", install_helper)
+        self.assertIn("cache.put(cacheKey, response)", install_helper)
         self.assertIn('name.startsWith("ddb-pwa-")', worker)
         self.assertNotIn("skipWaiting", install_block)
         self.assertNotIn('addEventListener("push"', worker)
@@ -159,6 +171,15 @@ class PwaContractTest(unittest.TestCase):
         self.assertIn("ddb-note:page:offline", page)
         self.assertNotIn("—", page)
         self.assertNotIn("&mdash;", page.lower())
+
+    def test_offline_note_style_stays_out_of_chronicles_note_namespace(self):
+        page = (ROOT / "offline.html").read_text(encoding="utf-8")
+        chronicles = (ROOT / "chronicles.html").read_text(encoding="utf-8")
+
+        self.assertIn("var key = 'ddb-note:page:offline';", page)
+        self.assertIn("var fontKey = 'ddb-note-style:page:offline';", page)
+        self.assertNotIn("fontKey = key + ':font'", page)
+        self.assertIn("var PREFIX = 'ddb-note:';", chronicles)
 
 
 if __name__ == "__main__":

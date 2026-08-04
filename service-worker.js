@@ -32,11 +32,25 @@ const CANONICAL_DATA_PATHS = new Set([
 ]);
 
 self.addEventListener("install", (event) => {
-  const freshAssets = STATIC_ASSETS.map(
-    (path) => new Request(path, { cache: "reload" })
-  );
-  event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(freshAssets)));
+  event.waitUntil(installStaticAssets());
 });
+
+async function installStaticAssets() {
+  const entries = await Promise.all(STATIC_ASSETS.map(async (path) => {
+    const request = new Request(path, { cache: "reload" });
+    const response = await fetch(request);
+    const url = new URL(request.url);
+    if (url.origin !== self.location.origin || !canCache(response)) {
+      throw new Error(`Refusing to cache ineligible shell response: ${path}`);
+    }
+    return [cleanCacheKey(request), response];
+  }));
+
+  const cache = await caches.open(STATIC_CACHE);
+  await Promise.all(entries.map(
+    ([cacheKey, response]) => cache.put(cacheKey, response)
+  ));
+}
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
