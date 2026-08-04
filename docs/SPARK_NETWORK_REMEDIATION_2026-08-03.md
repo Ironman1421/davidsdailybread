@@ -1,7 +1,7 @@
 # Spark Ethernet and Wi-Fi failover remediation, 2026-08-03
 
-Status: in progress; configuration, controlled tests, and physical cable
-replacement are complete. The restarted 24-hour observation remains open.
+Status: complete. Configuration, controlled tests, physical cable replacement,
+and the restarted 24-hour observation all passed.
 
 Owner and approver: David Friedhof
 
@@ -147,11 +147,39 @@ Tailscale still reports its DNS-forward warning even though the router DNS,
 MagicDNS, Tailscale, and internet probes pass. This unchanged warning is being
 observed, not hidden by disabling `accept-dns`.
 
-The physical-repair gate is satisfied. The only remaining completion gate is
-the 24-hour observation starting with successful replacement-link activation at
-`2026-08-03T15:09:49Z`. Codex automation
-`complete-ddb-spark-24h-network-observation` is rescheduled for 2026-08-04 at
-08:15 PDT to inspect carrier journals, routes, DNS, Tailscale, SSH, timers, link
-speed, exact counter deltas, and all three evidence manifests.
+## Twenty-four-hour observation completion
 
-`DDB-PC-012` remains `in_progress` until the observation gate has evidence.
+The final read-only check ran at `2026-08-04T15:38:56Z`, 24 hours, 29 minutes,
+and 7 seconds after successful replacement-link activation. All three sealed
+evidence directories remained mode `0700` with mode-`0600` files, all three
+`SHA256SUMS` manifests passed, and their recorded manifest hashes were
+unchanged.
+
+NetworkManager journal evidence after `2026-08-03T15:09:49Z` contained zero
+Ethernet carrier-down, disconnect, unavailable, link-loss, or activation-failure
+events. Ethernet and Wi-Fi were connected. Ethernet remained preferred at
+metric 100, while `DDB Wi-Fi Failover` remained connected with autoconnect
+enabled and IPv4 and IPv6 metric 600. The Ethernet link remained 2500 Mb/s,
+full duplex, with autonegotiation on and link detected.
+
+Router DNS, MagicDNS, public-IP reachability, SSH over the existing Tailscale
+route, Tailscale's Running and online state, all seven enabled and active DDB
+timers, successful last service results, and zero failed user units passed.
+Tailscale retained the previously documented DNS-forward health warning while
+all direct DNS, MagicDNS, internet, SSH, and Tailscale connectivity checks
+passed. `accept-dns` was not changed.
+
+Exact deltas from the replacement-cable baseline were:
+
+- RX: +439,582,481 bytes, +835,678 packets, and +101,480 multicast packets;
+- TX: +109,472,825 bytes and +512,986 packets;
+- RX errors, RX drops, RX missed errors, TX errors, TX drops, carrier errors,
+  collisions, alignment errors, and TCAM drops: +0 each;
+- the separate driver `rx_mac_missed` lifetime counter: +95,185, from 1,418,819
+  to 1,514,004, while interface RX missed errors and drops remained zero.
+
+The completion inspection changed no network, credential, service, timer, DNS,
+Tailscale, publication, or production configuration. Every `DDB-PC-012`
+completion gate now has recorded evidence, so the item is complete. No successor
+was activated because the next pending queue item requires David's explicit
+approval.

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-03T14:49:08Z",
+  "updatedAt": "2026-08-04T15:38:56Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,13 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-012",
+  "activeItemId": null,
+  "halt": {
+    "type": "no_eligible_item",
+    "recordedAt": "2026-08-04T15:38:56Z",
+    "eligibleItemIds": [],
+    "reason": "DDB-PC-012 is complete. The next pending items, beginning with DDB-PC-013, require explicit approval from David, and the reader-intake, Cloudflare, Supabase, and newsletter items remain paused by doctrine."
+  },
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -428,7 +434,7 @@
       "id": "DDB-PC-012",
       "sequence": 12,
       "title": "Repair Ethernet and configure Wi-Fi failover",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-004"
       ],
@@ -464,11 +470,24 @@
         "the cable baseline records one accumulated transmit error, 89 transmit drops, and an rx_mac_missed lifetime counter of 1418819 after the deliberate unplug interval while receive, carrier, collision, alignment, MAC-error, and TCAM-drop counters remain zero; the 24-hour check must measure exact deltas from this baseline",
         "the physical-repair gate is satisfied; the observation restarted from replacement-link activation at 2026-08-03T15:09:49Z and DDB-PC-012 remains in progress until that 24-hour gate completes"
       ],
+      "completedAt": "2026-08-04T15:38:56Z",
+      "evidence": [
+        "the final read-only check at 2026-08-04T15:38:56Z occurred 24 hours 29 minutes 7 seconds after replacement-link activation at 2026-08-03T15:09:49Z",
+        "all three sealed evidence directories remained mode 0700 with mode-0600 files; their SHA256SUMS manifests verified and retained hashes c453a087f9a5e15d0414dd739b0baf981e52a1588054056f3cb891ae1c7ff644, 91dc884e94cf2bf8571c1aa62038d6ae6a69dd8de3008f664fc814b99996bbda, and c144f168b393d65a5f1edf199c2ff261b3b087d28456a80d14fc984f1bcb9afd",
+        "NetworkManager journal evidence after 2026-08-03T15:09:49Z contained zero Ethernet carrier-down, disconnect, unavailable, link-loss, or activation-failure events",
+        "Ethernet and Wi-Fi were connected; Ethernet remained preferred at metric 100, DDB Wi-Fi Failover remained connected with autoconnect enabled and IPv4 and IPv6 metric 600, and the Ethernet link remained 2500 Mb/s full duplex with autonegotiation and link detected",
+        "router DNS, MagicDNS, public-IP reachability, SSH over the existing Tailscale route, Tailscale Running and online state, all seven enabled and active DDB timers, successful last service results, and zero failed user units passed",
+        "Tailscale retained the previously documented DNS-forward health warning while router DNS, MagicDNS, internet reachability, SSH, and Tailscale connectivity passed; accept-dns was not changed",
+        "exact cable-baseline deltas at 2026-08-04T15:38:56Z were RX +439582481 bytes, +835678 packets, +101480 multicast; TX +109472825 bytes and +512986 packets; RX errors, RX drops, RX missed errors, TX errors, TX drops, carrier errors, collisions, alignment errors, and TCAM drops each changed by zero",
+        "the separate rx_mac_missed lifetime counter increased by 95185 from 1418819 to 1514004 while interface RX missed errors and drops remained zero",
+        "the completion inspection made no network, credential, service, timer, DNS, Tailscale, publication, or production configuration change"
+      ],
       "observation": {
         "startedAt": "2026-08-03T15:09:49Z",
         "scheduledFollowUpLocal": "2026-08-04T08:15:00-07:00",
         "automationId": "complete-ddb-spark-24h-network-observation",
-        "status": "in_progress"
+        "status": "complete",
+        "completedAt": "2026-08-04T15:38:56Z"
       }
     },
     {
