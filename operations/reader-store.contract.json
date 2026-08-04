@@ -17,7 +17,8 @@
     "deploymentAuthorized": false,
     "canaryAuthorized": false,
     "activationAuthorized": false,
-    "scopedExternalApprovalRequired": true
+    "scopedExternalApprovalRequired": true,
+    "explicitReversalRequired": true
   },
   "launchBlockers": [
     "verified-privacy-contact-address",

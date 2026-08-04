@@ -19,6 +19,7 @@ class ProductContractTest(unittest.TestCase):
             encoding="utf-8"
         )
         repo_map = (ROOT / "docs" / "REPOSITORY_MAP.md").read_text(encoding="utf-8")
+        normalized_growth = " ".join(growth.split())
 
         for required in (
             "### Morning edition",
@@ -40,9 +41,9 @@ class ProductContractTest(unittest.TestCase):
         ):
             self.assertIn(governing_truth, doctrine)
         self.assertIn("Reader privacy", security)
-        self.assertIn("1,000 genuinely engaged people", growth)
-        self.assertIn("no longer the active", growth)
-        self.assertIn("operating goal", growth)
+        self.assertIn("1,000 genuinely engaged people", normalized_growth)
+        self.assertIn("no longer the active", normalized_growth)
+        self.assertIn("operating goal", normalized_growth)
         self.assertIn("Adapter acceptance contract", distribution)
         self.assertIn("Production source of truth", repo_map)
 
@@ -51,7 +52,7 @@ class ProductContractTest(unittest.TestCase):
         distribution = (ROOT / "docs" / "DISTRIBUTION_SPEC.md").read_text(
             encoding="utf-8"
         )
-        active = growth + "\n" + distribution
+        active = " ".join((growth + "\n" + distribution).split())
 
         for decision in (
             "first 1,000 genuinely engaged people remain the first proof gate",

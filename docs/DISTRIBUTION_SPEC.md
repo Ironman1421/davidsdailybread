@@ -47,6 +47,8 @@ the website count and is never added to it.
 - Receipts are derived deterministically from the exact date, slot, file, and
   lead in `archive.json`; they never ask a model to choose or summarize an
   edition or substitute an older edition.
+- Each receipt includes the direct HTTPS URL for its exact canonical edition so
+  the destination remains clickable from Telegram.
 - Before any reservation or credential load, the adapter requires the exact
   public URL to return HTTP 200 with the expected edition title. If the exact
   slot is not live, it fails closed.
