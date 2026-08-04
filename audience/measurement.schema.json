@@ -1,0 +1,425 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/audience-measurement-v1.json",
+  "title": "David's Daily Bread first 1,000 audience measurement ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "updatedAt",
+    "operatingState",
+    "milestoneDefinition",
+    "privacy",
+    "instrumentation",
+    "milestoneEvidence",
+    "months"
+  ],
+  "properties": {
+    "version": {"const": 1},
+    "updatedAt": {"type": ["string", "null"], "format": "date-time"},
+    "operatingState": {
+      "enum": ["not-instrumented", "implementation-selected", "instrumented", "measuring", "paused"]
+    },
+    "milestoneDefinition": {"$ref": "#/$defs/milestoneDefinition"},
+    "privacy": {"$ref": "#/$defs/privacy"},
+    "instrumentation": {"$ref": "#/$defs/instrumentation"},
+    "milestoneEvidence": {"$ref": "#/$defs/milestoneEvidence"},
+    "months": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/monthlyReport"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"operatingState": {"const": "not-instrumented"}}},
+      "then": {
+        "properties": {
+          "instrumentation": {
+            "properties": {
+              "status": {"const": "not-selected"},
+              "productionCollectionEnabled": {"const": false}
+            }
+          },
+          "milestoneEvidence": {
+            "properties": {"status": {"const": "not-measured"}}
+          },
+          "months": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"operatingState": {"const": "implementation-selected"}}},
+      "then": {
+        "properties": {
+          "instrumentation": {
+            "properties": {
+              "status": {"const": "selected-not-installed"},
+              "provider": {"const": "cloudflare-workers-d1"},
+              "providerApprovedByDavid": {"const": true},
+              "externalProvisioningAuthorized": {"const": false},
+              "productionCollectionEnabled": {"const": false},
+              "spendAuthorizedUsd": {"const": 0},
+              "activationDate": {"const": null}
+            }
+          },
+          "milestoneEvidence": {
+            "properties": {"status": {"const": "not-measured"}}
+          },
+          "months": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"operatingState": {"const": "measuring"}}},
+      "then": {
+        "properties": {
+          "instrumentation": {
+            "properties": {
+              "status": {"const": "collecting"},
+              "providerApprovedByDavid": {"const": true},
+              "externalProvisioningAuthorized": {"const": true},
+              "productionCollectionEnabled": {"const": true}
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "monthId": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+    },
+    "nullableNonNegativeInteger": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "nullableNonNegativeNumber": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "milestoneDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "definitionVersion",
+        "officialCountSurface",
+        "targetQualifiedReaders",
+        "reportingTimeZone",
+        "reportingWindow",
+        "minimumDistinctVisitDays",
+        "minimumEngagedSessions",
+        "minimumActiveReadingSeconds",
+        "engagedSessionQualifiers",
+        "meaningfulActions",
+        "consecutiveQualifyingMonthsRequired",
+        "crossChannelCountPolicy"
+      ],
+      "properties": {
+        "name": {"const": "first-1000-genuinely-engaged-returning-people"},
+        "definitionVersion": {"const": 1},
+        "officialCountSurface": {"const": "canonical-website"},
+        "targetQualifiedReaders": {"const": 1000},
+        "reportingTimeZone": {"const": "America/Los_Angeles"},
+        "reportingWindow": {"const": "calendar-month"},
+        "minimumDistinctVisitDays": {"const": 3},
+        "minimumEngagedSessions": {"const": 2},
+        "minimumActiveReadingSeconds": {"const": 60},
+        "engagedSessionQualifiers": {
+          "const": ["active-reading-threshold", "meaningful-action"]
+        },
+        "meaningfulActions": {
+          "const": [
+            "archive-edition-opened",
+            "library-item-opened",
+            "reviewed-source-opened",
+            "rss-opened",
+            "local-note-used",
+            "editorial-slip-submitted"
+          ]
+        },
+        "consecutiveQualifyingMonthsRequired": {"const": 2},
+        "crossChannelCountPolicy": {
+          "const": "supporting-evidence-only-not-added-to-website-total"
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregateOnlyRepositoryLedger",
+        "participantLevelRowsAllowedInRepository",
+        "namesCollected",
+        "emailAddressesCollected",
+        "noteTextCollected",
+        "readerSubmissionContentCollected",
+        "rawIpAddressRetentionAllowed",
+        "preciseLocationCollected",
+        "advertisingIdentifiersCollected",
+        "crossSiteTrackingAllowed",
+        "fingerprintingAllowed",
+        "pseudonymousIdentifierMaximumLifetimeDays",
+        "queryStringsOrFragmentsStored",
+        "readerVisibleNoticeRequired",
+        "optOutRequired",
+        "unknownIsNullNeverZero"
+      ],
+      "properties": {
+        "aggregateOnlyRepositoryLedger": {"const": true},
+        "participantLevelRowsAllowedInRepository": {"const": false},
+        "namesCollected": {"const": false},
+        "emailAddressesCollected": {"const": false},
+        "noteTextCollected": {"const": false},
+        "readerSubmissionContentCollected": {"const": false},
+        "rawIpAddressRetentionAllowed": {"const": false},
+        "preciseLocationCollected": {"const": false},
+        "advertisingIdentifiersCollected": {"const": false},
+        "crossSiteTrackingAllowed": {"const": false},
+        "fingerprintingAllowed": {"const": false},
+        "pseudonymousIdentifierMaximumLifetimeDays": {"const": 35},
+        "queryStringsOrFragmentsStored": {"const": false},
+        "readerVisibleNoticeRequired": {"const": true},
+        "optOutRequired": {"const": true},
+        "unknownIsNullNeverZero": {"const": true}
+      }
+    },
+    "instrumentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "provider",
+        "providerApprovedByDavid",
+        "externalProvisioningAuthorized",
+        "productionCollectionEnabled",
+        "spendAuthorizedUsd",
+        "activationDate",
+        "sourceReceipt"
+      ],
+      "properties": {
+        "status": {
+          "enum": ["not-selected", "selected-not-installed", "installed", "collecting", "paused"]
+        },
+        "provider": {"type": ["string", "null"]},
+        "providerApprovedByDavid": {"type": "boolean"},
+        "externalProvisioningAuthorized": {"type": "boolean"},
+        "productionCollectionEnabled": {"type": "boolean"},
+        "spendAuthorizedUsd": {"type": "number", "minimum": 0},
+        "activationDate": {"type": ["string", "null"], "format": "date"},
+        "sourceReceipt": {"type": ["string", "null"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "not-selected"}}},
+          "then": {
+            "properties": {
+              "provider": {"const": null},
+              "providerApprovedByDavid": {"const": false},
+              "externalProvisioningAuthorized": {"const": false},
+              "productionCollectionEnabled": {"const": false},
+              "spendAuthorizedUsd": {"const": 0},
+              "activationDate": {"const": null},
+              "sourceReceipt": {"const": null}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"status": {"const": "selected-not-installed"}}},
+          "then": {
+            "properties": {
+              "provider": {"const": "cloudflare-workers-d1"},
+              "providerApprovedByDavid": {"const": true},
+              "externalProvisioningAuthorized": {"const": false},
+              "productionCollectionEnabled": {"const": false},
+              "spendAuthorizedUsd": {"const": 0},
+              "activationDate": {"const": null},
+              "sourceReceipt": {
+                "const": "founder-decision-2026-07-31-cloudflare-local-and-plan-only"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "milestoneEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "achievedAt", "qualifyingMonths"],
+      "properties": {
+        "status": {"enum": ["not-measured", "in-progress", "achieved"]},
+        "achievedAt": {"type": ["string", "null"], "format": "date-time"},
+        "qualifyingMonths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/monthId"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "achieved"}}},
+          "then": {
+            "properties": {
+              "achievedAt": {"type": "string", "format": "date-time"},
+              "qualifyingMonths": {"minItems": 2, "maxItems": 2}
+            }
+          },
+          "else": {"properties": {"achievedAt": {"const": null}}}
+        },
+        {
+          "if": {"properties": {"status": {"const": "not-measured"}}},
+          "then": {"properties": {"qualifyingMonths": {"maxItems": 0}}}
+        }
+      ]
+    },
+    "monthlyMetrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "uniqueVisitors",
+        "returningVisitors",
+        "qualifiedEngagedReturningReaders",
+        "engagedSessions",
+        "medianActiveSecondsPerEngagedSession"
+      ],
+      "properties": {
+        "uniqueVisitors": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "returningVisitors": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "qualifiedEngagedReturningReaders": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "engagedSessions": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "medianActiveSecondsPerEngagedSession": {"$ref": "#/$defs/nullableNonNegativeNumber"}
+      }
+    },
+    "supportingEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rssFollows",
+        "rssRepeatRetrievals",
+        "constructiveSocialParticipants",
+        "editorialSlipsSubmitted",
+        "repeatPublicDiscussionParticipants"
+      ],
+      "properties": {
+        "rssFollows": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "rssRepeatRetrievals": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "constructiveSocialParticipants": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "editorialSlipsSubmitted": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "repeatPublicDiscussionParticipants": {"$ref": "#/$defs/nullableNonNegativeInteger"}
+      }
+    },
+    "exclusions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["knownBots", "internalVisits", "syntheticMonitorVisits"],
+      "properties": {
+        "knownBots": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "internalVisits": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "syntheticMonitorVisits": {"$ref": "#/$defs/nullableNonNegativeInteger"}
+      }
+    },
+    "monthlyReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "period",
+        "definitionVersion",
+        "measurementStatus",
+        "coverageStatus",
+        "capturedAt",
+        "sourceReceipt",
+        "metrics",
+        "supportingEvidence",
+        "exclusions",
+        "limitations"
+      ],
+      "properties": {
+        "period": {"$ref": "#/$defs/monthId"},
+        "definitionVersion": {"const": 1},
+        "measurementStatus": {"enum": ["not-measured", "partial", "complete"]},
+        "coverageStatus": {"enum": ["not-measured", "partial", "complete"]},
+        "capturedAt": {"type": ["string", "null"], "format": "date-time"},
+        "sourceReceipt": {
+          "type": ["string", "null"],
+          "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+        },
+        "metrics": {"$ref": "#/$defs/monthlyMetrics"},
+        "supportingEvidence": {"$ref": "#/$defs/supportingEvidence"},
+        "exclusions": {"$ref": "#/$defs/exclusions"},
+        "limitations": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"measurementStatus": {"const": "not-measured"}}},
+          "then": {
+            "properties": {
+              "coverageStatus": {"const": "not-measured"},
+              "capturedAt": {"const": null},
+              "sourceReceipt": {"const": null},
+              "metrics": {
+                "properties": {
+                  "uniqueVisitors": {"const": null},
+                  "returningVisitors": {"const": null},
+                  "qualifiedEngagedReturningReaders": {"const": null},
+                  "engagedSessions": {"const": null},
+                  "medianActiveSecondsPerEngagedSession": {"const": null}
+                }
+              },
+              "supportingEvidence": {
+                "properties": {
+                  "rssFollows": {"const": null},
+                  "rssRepeatRetrievals": {"const": null},
+                  "constructiveSocialParticipants": {"const": null},
+                  "editorialSlipsSubmitted": {"const": null},
+                  "repeatPublicDiscussionParticipants": {"const": null}
+                }
+              },
+              "exclusions": {
+                "properties": {
+                  "knownBots": {"const": null},
+                  "internalVisits": {"const": null},
+                  "syntheticMonitorVisits": {"const": null}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {"properties": {"measurementStatus": {"const": "partial"}}},
+          "then": {
+            "properties": {
+              "coverageStatus": {"const": "partial"},
+              "capturedAt": {"type": "string", "format": "date-time"},
+              "sourceReceipt": {"type": "string", "minLength": 1},
+              "limitations": {"minItems": 1}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"measurementStatus": {"const": "complete"}}},
+          "then": {
+            "properties": {
+              "coverageStatus": {"const": "complete"},
+              "capturedAt": {"type": "string", "format": "date-time"},
+              "sourceReceipt": {"type": "string", "minLength": 1},
+              "metrics": {
+                "properties": {
+                  "uniqueVisitors": {"type": "integer", "minimum": 0},
+                  "returningVisitors": {"type": "integer", "minimum": 0},
+                  "qualifiedEngagedReturningReaders": {"type": "integer", "minimum": 0},
+                  "engagedSessions": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+                  "medianActiveSecondsPerEngagedSession": {"$ref": "#/$defs/nullableNonNegativeNumber"}
+                }
+              },
+              "limitations": {"minItems": 1}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,9 +1,10 @@
 # daily-bread — interactive-session rules
 
-**Bake sessions follow `/BAKE.md` as the complete operating spec, and nothing in
-this file overrides it.** If you are a bake session (the GitHub Actions runner
-handed you a date and a slot), stop reading here and go do exactly what BAKE.md
-says. `BRAND.md` wins all conflicts, always, for everyone.
+**Read `/FOUNDER_DOCTRINE.md` first.** It governs mission, ownership, strategic
+direction, authorized local work, and production boundaries. `BRAND.md` governs
+reader-visible brand and house style. Bake sessions follow `/BAKE.md` as the complete procedural spec;
+if the GitHub Actions runner handed you a date and a slot, stop after those
+governing constraints and do exactly what `BAKE.md` says.
 
 Everything below is for *interactive* sessions: a human or an agent editing this
 repo outside a bake.
@@ -48,18 +49,34 @@ Treat every change accordingly.
 8. **Do not change the shape of `archive.json` or the `/editions/…` paths.**
    They are a public contract the DAICC distribution pipeline reads daily.
    Changing them requires checking `command-center/` first.
-9. **The weekly email is a bounded pilot** (approved 2026-07-31). Signup uses
-   the reviewed `/subscribe.html` Buttondown form and fresh double opt-in only.
-   The daily bake never drafts, schedules, or sends email. Pilot operations
-   follow `docs/NEWSLETTER_PILOT_SPEC.md`, including the $0 cap and send gate.
+9. **Durable-moat local work is active** (2026-08-04). Research, design,
+   implementation, and tests may proceed across the phases in
+   `docs/GROWTH_ROADMAP.md`. Do not infer permission to deploy, provision,
+   install credentials, collect live personal data, spend, or open an external
+   app or community surface.
+10. **Newsletter product planning is active; sending remains disabled.**
+    Preserve the current `/subscribe.html` state unless David approves a site
+    change. Do not draft an issue, test a send, schedule, send, configure the
+    provider, operate on a list, or install a newsletter credential.
+11. **Reader-intake implementation is active; public intake remains closed.**
+    Continue the private-boundary work locally. Do not deploy a submission
+    path, fetch or recommit new Counter rows, alter the external Google form or
+    Sheet, migrate or delete the queue, or rewrite history without the scoped
+    approval named in `operations/reader-intake-pause.contract.json`.
+12. **Audience provider scope is local only** (2026-07-31). Cloudflare Workers
+    + D1 may be implemented in `audience/cloudflare/`, and the unprovisioned
+    canary may be planned. Do not create an account or resource, accept terms,
+    install a credential, deploy, run the canary, activate collection, start a
+    baseline, change DNS, or spend money.
 
 ## Where things live
 
 - `BAKE.md` — the bake spec, both slots. `BRAND.md` — brand source of truth.
+- `docs/GROWTH_ROADMAP.md` — active phased durable-moat strategy and gates.
 - `templates/` — all design changes happen here, never at bake time.
 - `ddb_session_bake.py` — the mechanical half: render, archive, feed, state.
 - `tests/` — brand law, archive integrity, standing pages, and the two-slot
   render contract.
 - `.github/workflows/ddb-bake.yml` — the twice-daily bake.
-  `.github/workflows/counter-sync.yml` — reader submissions, 4:45 AM PT.
+  `.github/workflows/counter-sync.yml` — paused reader-intake no-op.
   `.github/workflows/ci.yml` — the merge gate.

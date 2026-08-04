@@ -2,33 +2,71 @@
 
 Status: active production contract
 Owner: David Friedhof
-Last reconciled: 2026-07-31
+Last reconciled: 2026-08-04
 
 ## Purpose and source precedence
 
-David's Daily Bread is a twice-daily, source-linked briefing for everyday
-readers. It earns attention through useful compression and earns trust by
-making every factual item traceable.
+David's Daily Bread is a founder-led Christian media and learning project. Its
+current production product is a twice-daily, source-linked website for everyday
+readers, combining trustworthy technology coverage, practical learning, and
+quiet Christian reflection. The active roadmap grows it into a carefully
+moderated Christian learning, prayer, and service network. It earns attention
+through useful compression and earns trust by making every factual item
+traceable.
 
-The publisher is faceless. A consistent off-camera voice may be used when it
-improves retention, but David is not required to appear on camera. The active
-audience goal is 1,000,000 combined followers across approved platforms in six
-months, from a documented floor of five X followers on 2026-07-31.
+The publisher may remain faceless. A consistent off-camera voice may be used
+when it improves retention, but David is not required to appear on camera. The
+first proof goal is 1,000 genuinely engaged people who return for faith,
+technology, prayer, and service. This is the first gate, not the ceiling.
+Larger reach must compound trust and usefulness rather than outrun moderation
+or founder direction.
 
 When sources disagree, use this order:
 
-1. `BRAND.md` for brand, voice, art, typography, and reader-visible house law.
-2. This file for the product shape and public promises.
-3. `docs/DISTRIBUTION_SPEC.md` for channel, adapter, rights, and measurement law.
-4. `BAKE.md` for the daily editorial and publishing procedure.
-5. Tests for executable contracts. A test that contradicts the four documents
+1. `FOUNDER_DOCTRINE.md` for mission, founder authority, strategic direction,
+   authorized local work, and production boundaries.
+2. `BRAND.md` for brand, voice, art, typography, and reader-visible house law.
+3. This file for the product shape and public promises.
+4. `docs/DISTRIBUTION_SPEC.md` for channel, adapter, rights, and measurement law.
+5. `BAKE.md` for the daily editorial and publishing procedure.
+6. Tests for executable contracts. A test that contradicts the five documents
    above is a defect, not permission to change the product.
 
 The public `Ironman1421/davidsdailybread` repository is the active production
 source. The private `ddb-ops` and `ddb-engineering` repositories preserve useful
 history, but their Mac, Spark, Buttondown, and once-daily plans are not current
 operating authority unless deliberately migrated into this repository. The
-current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
+former weekly email pilot is not an active send plan. Newsletter retention
+planning is active, while issue drafting, provider operations, and sending
+remain disabled under `docs/NEWSLETTER_PILOT_SPEC.md`.
+
+## Durable-moat product contract
+
+`docs/GROWTH_ROADMAP.md` is the active phased roadmap. Product decisions should
+strengthen at least one of these assets without weakening another:
+
+- trust through sourcing, theology, privacy, and responsible moderation;
+- a daily rhythm of learning, reflection, prayer, and service;
+- reader-owned personal history;
+- trusted relationships;
+- useful contributions and earned helpfulness reputation; and
+- distribution back to the canonical home.
+
+The installable web app is the first app target. Native iOS and Android work is
+evidence-gated by a platform capability the web app cannot adequately provide.
+A desktop app is a later decision based on demonstrated study, Chronicles,
+creation, or moderation needs.
+
+Accounts are optional infrastructure for durable personal value, not a wall
+around canonical journalism. Guest reading remains available. Personal notes,
+prayer journals, saved material, and spiritual history are private by default,
+portable, and deletable within any plainly disclosed public-record boundary.
+
+Social features are released from private to broader scope: personal value,
+trusted circles, bounded moderated cohorts, then any wider surface. Open posting
+and private/direct messaging may be built and tested locally, but remain
+production-disabled until their specific roadmap gates are approved. Private
+messaging is optional and may be omitted permanently.
 
 ## Edition contracts
 
@@ -39,8 +77,10 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
   and science.
 - Shape: one lead across all beats, then 2 to 6 cards in each of the three beats.
 - Reader features: at most one Ask the Baker question, one Letter to the King,
-  and one Crumb Board pin. Waiting reader submissions are selected oldest first;
-  a house letter may fill the King slot only when no reader letter waits.
+  and one Crumb Board pin. While public intake is closed, only the frozen existing
+  queue may supply reader material, selected oldest first; a house letter may
+  fill the King slot only when no reader letter waits. Reopening submissions
+  requires a verified private boundary and David's explicit approval.
 - Category pages are morning-owned and must not be changed by an evening bake.
 
 ### Evening edition
@@ -48,9 +88,12 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 - Cadence: daily, scheduled no earlier than 3:35 PM Pacific during daylight time.
 - Job: a Field Guide of things an everyday reader can act on that night.
 - Shape: one useful lead, 2 to 6 trending tools, and 2 to 6 practical workflows.
-- Presentation: the Editorial Ledger with the numbered Guided Path, Start,
-  Browse, Choose, Rest. The final stage is The Evening Exhale: a reviewed KJV
-  passage, a release prompt, and a short prayer selected deterministically.
+- Presentation: the July 31 Field Guide format with one useful lead, a two-column
+  tool shelf and workflow lane, then Keep and Ponder with Mary of Nazareth as
+  its recurring biblical
+  presence: a reviewed KJV passage, a release prompt, and a short prayer selected
+  deterministically. Mary is not used as an invented first-person advice voice,
+  and the prayer is addressed to God.
 - A tool must be available now, show where it is trending, state price and
   platform, and carry an honest caveat.
 - A workflow must state what it accomplishes, 2 to 4 prerequisites, and an
@@ -59,7 +102,8 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
   by a bounded, source-linked `/evening-catalog.json`. The evening's top links
   open those pages instead of scrolling within the current edition.
 - No news section, reader-submission section, category-page write, or
-  reader-state write. The Evening Exhale is reviewed product copy, not mail.
+  reader-state write. Keep and Ponder with Mary of Nazareth is reviewed
+  product copy, not mail.
 
 ## Shared editorial contracts
 
@@ -100,11 +144,37 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
   `distribution/metrics.schema.json`; unknown metrics are null, never zero.
 - Published X replies validate separately against
   `distribution/x-replies.schema.json`; unposted drafts are not committed.
-- Email: a four-week Buttondown pilot accepts fresh double opt-ins at
-  `/subscribe.html` and sends at most one manual Editorial Ledger per week. The
-  flow is Start, Browse, Do, Rest. It pauses after issue four, spends $0, imports
-  no retired list, and remains sending-disabled until the postal, preview, test,
-  schedule, and free-plan gates in `docs/NEWSLETTER_PILOT_SPEC.md` pass.
+- Email: strategy and local product-integration prototypes are active. Preserve
+  the current `/subscribe.html` state, but do not draft an issue, test a send,
+  schedule, send, configure the provider, operate on a list, or install a
+  credential. Any external activation requires a scoped founder decision and a
+  reconciled contract.
+- Reader intake: private-boundary implementation and reopening preparation are
+  active roadmap work. Public intake remains closed. The approved interim local
+  site change removes the three public submission controls and makes Counter
+  sync a no-op while preserving private browser notes and the four Chronicles
+  exports. Deployment, external Google form/Sheet changes, data migration,
+  legacy queue deletion, private-store provisioning, and history rewriting
+  remain separately gated.
+
+## Community and app release contract
+
+- Local research, design, implementation, and testing are authorized across all
+  roadmap phases.
+- A completed local feature is not production approval.
+- Every external release names the exact reviewed commit or package, provider,
+  operator, data classes, retention and deletion behavior, moderation coverage,
+  cost ceiling, measurement window, kill switch, rollback, and incident path.
+- Public is never the default audience for a prayer, journal entry, personal
+  history item, or trusted-circle contribution.
+- A participation surface includes clear rules, consent, report and removal
+  paths, rate limits, and blocking wherever relationships exist.
+- No feature may sell or license personal or spiritual data, use it for
+  behavioral advertising, or create a cross-site identity graph.
+- No notification may reveal sensitive prayer text on a lock screen by default.
+- The product must not promise continuous moderation or emergency response.
+  Crisis and medical copy must direct people to appropriate immediate or
+  professional help without presenting the product as a substitute.
 
 ## Reliability and release contract
 
@@ -122,16 +192,37 @@ current weekly email pilot is defined only by `docs/NEWSLETTER_PILOT_SPEC.md`.
 
 ## Product measures
 
+The official first-1,000 milestone is measured on the canonical website under
+`docs/AUDIENCE_MEASUREMENT_SPEC.md`. Social, RSS, and public-participation
+signals are supporting evidence and are not added to the website total because
+the same person may appear in more than one channel. Until approved
+instrumentation produces a complete month, the audience baseline is unknown,
+not zero.
+
 Track separately for morning and evening:
 
 - on-time publish rate and failed-bake reason;
 - source-link resolution and post-publication correction count;
 - unique readers, returning-reader rate, engaged time, and RSS follows;
-- reader slips submitted, wait time, and publish rate;
+- reader-intake state and, when intake is approved and operating, slips
+  submitted, wait time, and publish rate;
 - distribution posts attempted, skipped, duplicated, and successfully published;
 - X replies approved and published, reply impressions, target-author
   interactions, approval latency, profile-visit windows, and follower deltas;
 - impressions, shares, profile visits, follows, and site visits per edition.
 
+As roadmap features become separately activated, also track by surface and
+cohort:
+
+- account activation, export, deletion, recovery, and session-revocation health;
+- saved personal value without inspecting private content;
+- trusted-circle return, invitation acceptance, helpful contributions, and
+  constructive responses;
+- report volume, block use, queue age, removals, appeals, repeat abuse,
+  moderator load, privacy requests, and incidents; and
+- voluntarily shared prayer and service outcomes in aggregate.
+
 Follower count is a reach metric, not a quality substitute. Corrections,
 retention, shares per impression, and returning readers are guardrail metrics.
+Raw time-on-site, posting volume, streaks, and notification opens are not
+success when they reduce well-being, privacy, trust, or mission value.

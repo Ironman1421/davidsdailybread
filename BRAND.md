@@ -1,29 +1,37 @@
-# David's Daily Bread — Brand (single source of truth)
+# David's Daily Bread — Brand (reader-visible source of truth)
 
 This file is the canonical brand definition for **all** David's Daily Bread surfaces:
 the website (davidsdailybread.com), Chronicles, and any future page or tool. If a color, font, or rule here
 disagrees with anything else, **this file wins**. Change the brand by editing this
-file (and `brand.css`) — nowhere else.
+file (and `brand.css`) — nowhere else. `FOUNDER_DOCTRINE.md` separately governs
+mission, ownership, strategic direction, and production boundaries.
 
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
+- **The Bakery** is the exact X profile location. It is brand language, not a
+  physical location or a publication timezone.
+- The exact public mission line is: **Grow in faith. Understand technology
+  wisely. Pray for one another. Use what you learn in service to others.** It
+  complements **Loved by God** and does not replace the tagline.
 - Current operating truth (updated 2026-07-30, per David): the site is **baked
   twice daily** by GitHub Actions (spec: `/BAKE.md`). The **morning edition**
   (cron 5:05 AM Pacific) is straight news on technology, markets, and science,
   and carries the reader sections. The **evening edition** (cron 3:35 PM
   Pacific) is the Field Guide: trending tools and practical workflows for
   everyday people, and NO news of any kind (news is the morning's job). Its
-  approved 2026-07-31 presentation is the **Editorial Ledger** with a numbered
-  **Guided Path**: Start here, Browse the shelf, Choose a path, Set the day
-  down. It carries no reader submissions or reader-state interaction.
+  presentation uses the **July 31 Field Guide** format: one useful lead, a
+  two-column tool shelf and workflow lane, then Keep and Ponder with Mary of
+  Nazareth below the actionable material. It carries no reader submissions or
+  reader-state interaction.
   GitHub cron fires late, not never; both times are "no earlier than". The
   website and `/feed.xml` remain the complete, canonical delivery surfaces.
-- **Weekly email pilot APPROVED (2026-07-31, per David):** `/subscribe.html`
-  accepts fresh Buttondown double opt-ins for a four-week pilot. It sends at
-  most one manual Editorial Ledger each week, follows Start, Browse, Do, Rest,
-  pauses after issue four, and has a hard $0 cap. Never import or reactivate the
-  retired list. The daily bake never drafts, schedules, or sends email.
+- **Newsletter sending remains INACTIVE (updated 2026-08-04, per David):**
+  newsletter strategy and local product-integration prototypes may proceed,
+  but preserve the current live `/subscribe.html` state. Do not draft an issue,
+  test a send, schedule, send, configure the provider, operate on a list, or
+  install a credential. The website and `/feed.xml` remain the complete,
+  canonical delivery surfaces.
 - Edition history: evening editions ran 2026-07-07 through 2026-07-14, were
   retired in the 2026-07-17 simplification (one morning edition), and were
   restored 2026-07-30 with the trends identity; later that same day the
@@ -51,16 +59,17 @@ file (and `brand.css`) — nowhere else.
 
 > Note (2026-07-09): `#c8a24a` gold / `#0e0e12` bg is the canonical palette (the live
 > site's). The older `#d2a53f` / `#121116` / Georgia-serif palette from early drafts
-> and the og-card is deprecated for interfaces — the og-card image itself stays as-is.
+> and the og-card is deprecated for interfaces. The og-card remains a social-only
+> asset and uses the current public subtitle defined below.
 
 ## Typography
 
 - **Headlines & body prose:** `'Newsreader', Georgia, serif`
 - **UI, labels, navigation (tracked-out uppercase):** `'Inter', -apple-system, system-ui, sans-serif`
 - **Handwritten (reader notes, Crumb Board pins):** `'Caveat', cursive`
-- **The King's voice (Letters to the King, updated 2026-07-09 per David):** answer
+- **The King's voice (Letters to the King, updated 2026-08-01 per David):** answer
   text in `'IM Fell English', 'Cormorant Garamond', Georgia, serif` (antique, royal);
-  his signature line ("– David, King in Jerusalem") in `'Cinzel', 'Cormorant Garamond', Georgia, serif`
+  his signature line ("– David, son of Jesse") in `'Cinzel', 'Cormorant Garamond', Georgia, serif`
   (Roman-capital, regal). The letter itself (the reader's words, the `summary`) stays Newsreader.
 - Google Fonts load: Caveat 600/700 · Cinzel 600 · Cormorant Garamond 500/600/700 · IM Fell English regular + italic · Inter 400–700 · Newsreader 400–600 + italics
 
@@ -87,7 +96,12 @@ file (and `brand.css`) — nowhere else.
   No other art at the top of any page, ever, unless David explicitly says so.
   Never regenerate, rename, or re-upload it — just reference it.
 - **`/og-card.png`** (1200×630) is the social/share card (`og:image`). Web pages use
-  header-art; social previews use og-card. Never substitute other art.
+  header-art; social previews use og-card. Its exact subtitle is **News and Scripture
+  each morning. Practical tools each evening. Loved by God.** Never substitute other
+  art.
+- **`/x-banner.png`** (1500×500) is the official X profile banner. It carries the
+  same exact subtitle as `og-card.png` and preserves the masthead mark, wordmark,
+  palette, and typographic hierarchy.
 
 ## Voice
 
@@ -100,28 +114,38 @@ file (and `brand.css`) — nowhere else.
   biblical register with a wink; factually sound beneath the poetry. When no reader
   letters are waiting, the bake answers ONE letter from the house satchel
   (`/kings-satchel.json`), credited "From the Baker's own shelf" — never presented
-  as reader mail.
-- **The Evening Exhale:** the evening's distinct spiritual relief after the
-  practical material. It follows Receive, Release, Rest: one short KJV passage,
-  one release prompt, and one prayer. It is contemplative product copy selected
-  deterministically from a reviewed repository set, never reader mail and never
-  a second Letters to the King.
+  as reader mail. The public section footer says, "Letters answered in the voice of
+  the biblical King David."
+- **Keep and Ponder with Mary of Nazareth:** the evening's distinct spiritual
+  relief after the practical material. Mary is the recurring host and spiritual
+  presence only after the trending tools and workflows have finished. She is
+  presented through her biblical witness, not through invented first-person
+  advice or revelation, and the prayers remain addressed to God. The section
+  follows Keep, Ponder, Entrust: one short KJV passage, one release prompt, and
+  one prayer. The name and movement are shaped by Luke 2:19. It is contemplative
+  product copy selected deterministically from
+  a reviewed repository set, never reader mail and never a second Letters to the
+  King.
 
 ## Permanent features (never remove)
 
-- **Weekly email link:** restored 2026-07-31 for the bounded four-week pilot.
-  Colophons may link to `/subscribe.html`; inline signup forms belong only on
-  that standing page. RSS and the archive remain permanent.
+- **Existing weekly email link:** its current live state is preserved while
+  sending remains inactive. It does not authorize issue drafting, provider
+  activation, list operation, or sending. RSS and the archive remain permanent.
 - **Chronicles exports** (2026-07-08): chronicles.html's four note-export buttons
   (Download .md, PDF, email, copy) are hardwired. Never remove or rebuild them;
   edit chronicles.html only from the current live/main version.
 - **Notes boxes:** every story card and every page carries localStorage notes with
   the Aa personalization toolbar.
-- **Reader features:** Ask the Baker, Letters to the King, The Crumb Board —
-  submissions come from the chronicles page. Letters to the King is backstopped by
-  the house satchel (`/kings-satchel.json`), restocked weekly by the satchel-steward
-  scheduled task; used letters are tracked in `bakery-state.json` (`usedSatchelLetters`)
-  and never repeat.
+- **Reader features:** Ask the Baker, Letters to the King, and The Crumb Board
+  remain editorial features, but new public submissions are temporarily closed
+  while the Counter moves behind a verified private boundary. Existing reviewed
+  reader material may still appear while the private replacement is built under
+  the durable-moat roadmap. Letters to the King is backstopped by the
+  house satchel (`/kings-satchel.json`), restocked weekly by the satchel-steward
+  scheduled task; used letters are tracked in `bakery-state.json`
+  (`usedSatchelLetters`) and never repeat. Reopening intake requires David's
+  verified private cutover and a separate activation approval.
 - **RSS:** `/feed.xml`, prepended every bake; the RSS `<link rel="alternate">` tag
   stays in every page head.
 - **Evening libraries:** `/tools.html` and `/workflows.html` are standing,

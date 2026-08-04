@@ -1,258 +1,300 @@
-# Six-month audience growth roadmap
+# Durable moat roadmap
 
-Status: active initial strategy; reforecast weekly from measured performance
-Goal: 1,000,000 followers in six months
+Status: active founder direction; local work authorized; external activation gated
 
-## Reality of the target
+Owner and final decision-maker: David Friedhof
 
-The documented baseline on 2026-07-31 is five X followers. The YouTube channel
-identity is known, but its metrics and other platform baselines are unmeasured.
-Those unknowns remain unknown, never zero. If every unmeasured baseline were
-zero, the combined-platform goal would require 999,995 net new followers in 180
-days, or about 5,556 every day. Organic growth at that rate is an outlier, so
-this is managed as a portfolio of repeatable formats and breakout bets, not as a
-forecast.
+Effective: 2026-08-04
 
-The exposure requirement is equally demanding. At a 1 percent
-impression-to-follow conversion, a zero-baseline account needs about 100
-million qualified impressions in six months; at 0.5 percent it needs about 200
-million. Track that funnel weekly so a follower goal cannot hide insufficient
-reach or weak conversion.
+Machine-readable contract: `operations/durable-moat-roadmap.contract.json`
 
-The quality constraint is absolute: no bought followers, engagement pods,
-fabricated urgency, unattributed clips, or lower verification standard for
-social content.
+## Objective
 
-## Positioning
+Build David's Daily Bread into a trusted Christian learning, prayer, and service
+network whose value compounds with every healthy returning participant. The
+code can be copied. The community's trust, daily rhythm, personal history,
+relationships, contributions, and accumulated operating judgment cannot be
+copied quickly.
 
-Own one memorable promise:
+The first 1,000 genuinely engaged people remain the first proof gate. They are
+not the ceiling. The former one-million-followers-in-six-months target is no
+longer the active operating goal. Reach will be reforecast from measured return,
+healthy participation, and responsible moderation.
 
-> The useful edge of technology, twice a day, with receipts.
+The exact public mission remains:
 
-Morning answers "What changed, and why does it matter?" Evening answers "What
-can I use or try tonight?" Every channel should make those two franchises easy
-to recognize before the viewer sees the account name.
+> Grow in faith. Understand technology wisely. Pray for one another. Use what
+> you learn in service to others.
 
-The brand is faceless. Recognition comes from the bread-and-receipts visual
-system, recurring franchise names, typography, sound, and optionally one
-consistent off-camera voice. Initial vertical tests compare voice-led and
-caption-led cuts; David does not need to appear on camera.
+David may remain off camera. The website, archive, and RSS are the permanent
+home and canonical record. Social channels bring people into the network and
+host bounded experiments, but they do not own the mission, the archive, or the
+community's durable history.
 
-## Content system
+## The moat
 
-Turn each edition into a source package, not one link post:
+### Trust
 
-- 1 canonical site edition and RSS item;
-- 2 vertical videos, one morning and one evening;
-- 1 automatic canonical X post per edition, plus at most 1 distinct,
-  human-reviewed source card, useful fact, or question from that edition;
-- no more than 4 individually approved, manually posted replies per day across
-  two staffed windows during the initial X reply lab, scaling only through the
-  gates below;
-- 1 carousel or document post from the strongest edition each day;
-- after a short franchise wins, 2 long-form YouTube videos per week built from
-  recurring themes rather than a read-through of one briefing;
-- 1 weekly "What mattered / What worked" recap that compounds authority.
+Sourced journalism, honest caveats, theological consistency, corrections,
+privacy, and visible moderation earn confidence over time. Growth that weakens
+trust destroys the moat it is supposed to create.
 
-The X auto-post is a delivery floor, not the growth strategy. Credible-account
-replies are the primary near-term X acquisition strategy; the standing posts
-give profile visitors proof that DDB is worth following. A headline plus link
-rarely captures the product's strongest asset: sourced synthesis.
+### Daily ritual
 
-YouTube Shorts is the initial video discovery engine. On X, useful replies are
-the discovery engine while the profile, canonical broadcasts, and source cards
-are the authority and conversion layer. Add a second short-video platform only
-after one format wins repeatedly on YouTube, then recut it for that platform
-instead of mechanically cross-posting it.
+Morning understanding, evening practical guidance, personal reflection, prayer,
+and service form a recognizable daily rhythm. Notifications and apps may support
+that rhythm, but compulsive engagement mechanics may not replace it.
 
-## Channel policy constraints
+### Personal history
 
-- X automation is limited to distinct, helpful broadcasts of finished
-  editions. Do not automate trend reactions, keyword-triggered replies, likes,
-  follows, or near-duplicate link posts. Every proactive reply requires David's
-  item-level approval and is posted manually through X's official interface;
-  AI may research and draft but receives no reply-posting credential. Scouting
-  uses manual X Search or existing Lists; browser scripting, scraping, and
-  automated X browsing are prohibited. Follow `docs/X_REPLY_PLAYBOOK.md`.
-- Separate the canonical link broadcast from the human editorial package. A
-  second post must provide genuinely different value, not a repeated headline
-  or link.
-- For YouTube Shorts, raw views are a distribution counter, not the decision
-  metric. Use engaged views, audience retention, watch time, and subscribers
-  gained to select formats; compare like-length videos where possible.
-- License or create every visual and audio asset. Preserve source attribution
-  on screen and in the description, and keep a rights record for clips.
+Notes, saved stories, tools, workflows, prayer journals, answered-prayer records,
+and service reflections become more useful as they accumulate. This history is
+reader-owned, private by default, exportable, and deletable within disclosed
+public-record limits.
 
-## Six phases
+### Relationships
 
-### Weeks 1 to 2: instrumentation and format lab
+Trusted prayer and service relationships create genuine network effects. The
+product should help people become known and supported without exposing
+vulnerability or requiring a public identity.
 
-- Record current followers, impressions, engagement, profile visits, site
-  clicks, RSS follows, and post history by platform.
-- Replace the unlocated Claude Cowork-era X process with repository-owned,
-  edition-scoped posting, deduplication, receipts, and a disable switch.
-- Produce 20 hook variants from real archived stories; test four repeatable
-  visual formats without changing the reporting standard.
-- Test one faceless voice-led cut and one faceless caption-led cut for each of
-  ten strong archived stories; keep every other variable as stable as possible.
-- Establish source-card templates and correction workflow.
-- Establish two daily manual reply-approval/posting windows and publish no more
-  than 4 approved, sourced replies per day without links or engagement calls to
-  action. Fewer, including zero, is valid when quality is insufficient.
+### Contributions and reputation
 
-Exit: every edition-derived post has a format ID, edition ID, publish receipt,
-and 24-hour metric snapshot; every published reply has its parent receipt,
-item-level approval, policy checks, and reply-led metric snapshot.
+Questions, prayers, testimonies, workflows, corrections, and acts of service can
+improve the experience for others. Reputation reflects consistent helpfulness
+and safety, never popularity alone. No pay-to-rank spiritual status is allowed.
 
-### Weeks 3 to 4: establish franchises
+### Distribution
 
-- Publish the morning and evening vertical franchises daily.
-- Add one high-context X thread on the strongest story each weekday.
-- Keep the four/day cap. A six/day test remains disabled until at least 50
-  replies have complete measurements, the guardrails remain clean, and David
-  separately approves and staffs a third daily window. No higher-volume reply
-  plan is approved in this roadmap.
-- Begin two weekly creator or expert outreach conversations.
+X is the current discovery and discussion channel. Other channels may be added
+one at a time after a format demonstrates healthy return. Canonical editions,
+source receipts, and participant invitations all lead back to the permanent
+home.
 
-Exit: identify at least two formats with above-baseline shares and follows per
-1,000 impressions across three separate posts.
+## Authorization model
 
-### Month 2: double down and collaborate
+David's 2026-08-04 decision authorizes research, strategy, architecture, design,
+local implementation, fixtures, threat modeling, and tests for all phases below.
+It reverses the former ban on planning or locally building custom community
+software, member accounts, social feeds, open posting, private messaging, apps,
+and newsletter product integration.
 
-- Put 70 percent of output into winning formats, 20 percent into adjacent
-  variants, and 10 percent into new bets.
-- Launch weekly interviews, demonstrations, or sourced reactions with people
-  already inside the covered story.
-- Package useful evening workflows as saveable checklists and downloadable
-  source bundles.
-- Start long-form YouTube with strong first-30-second retention as the gating
-  metric, not upload count.
+It does not authorize publishing, deployment, a test or production send,
+provider mutation, account or resource creation, terms acceptance, credential
+installation, live personal-data collection, partnership outreach, spending, or
+opening a community surface. Each external action requires the scoped founder
+decision defined by `FOUNDER_DOCTRINE.md`.
 
-### Month 3: distribution loops
+No spend is authorized by this roadmap.
 
-- Build guest swaps, newsletter/RSS cross-recommendations, and expert quote
-  loops around recurring beats.
-- Create a public correction and methodology page that turns trust into a
-  shareable feature.
-- Test localized subtitles only after English formats show repeatable retention.
-- Add a weekly community prompt whose best response can enter the next edition
-  with explicit consent.
+## Phase 0: govern and measure
 
-### Months 4 to 5: scale proven systems
+Purpose: make the mission, safety law, baseline, and ownership explicit before
+network features create operational pressure.
 
-- Increase production only for formats that hold retention and share rates.
-- Add an editor/producer or contractor when review throughput, not ideas, is the
-  bottleneck. Preserve one accountable final editor.
-- Consider paid amplification only for organically proven posts and only after
-  a defined budget and follower-quality measurement exist.
-- Build topical landing pages and searchable YouTube series from archive depth.
+Authorized work:
 
-### Month 6: breakout campaign and consolidation
+- reconcile doctrine, product, distribution, security, contracts, and tests;
+- retain the website, archive, RSS, X, morning edition, and evening Field Guide;
+- finish privacy-safe audience measurement locally and prepare its separately
+  approved canary path;
+- define account, personal-history, prayer-audience, moderation, age-safety,
+  deletion, portability, and incident boundaries;
+- establish one network-health scorecard with unknown values recorded as null;
+  and
+- produce installable-web-app architecture without deploying it.
 
-- Concentrate on the two strongest franchises and one tent-pole collaborative
-  series with multiple credible guests.
-- Recut proven stories for each platform instead of mechanically cross-posting.
-- Audit follower quality, returning viewers, site conversion, corrections, and
-  operational error rate before calling the goal achieved.
+Exit evidence:
 
-## Weekly experiment loop
+- the governing documents and machine-readable contract agree;
+- every proposed live data class has a purpose, owner, retention rule, deletion
+  behavior, export behavior, and prohibited use;
+- moderation roles, response expectations, escalation, kill switches, and a
+  no-continuous-monitoring notice are specified;
+- the current audience baseline is either measured under the approved contract
+  or plainly recorded as unknown; and
+- no unresolved high-severity reader-data exposure is carried into a new
+  collection surface.
 
-Each experiment has a hypothesis, one changed variable, a format ID, a minimum
-sample, a decision date, and a kill rule. Review after 24 hours and seven days.
+Passing this phase permits David to consider scoped external canaries. It does
+not activate them automatically.
 
-Primary metrics:
+## Phase 1: strengthen ritual and discovery
 
-- follows per 1,000 impressions;
-- shares or reposts per 1,000 impressions;
-- vertical-video engaged views, completion, retention, and rewatch rate;
-- long-form first-30-second and average-percentage retention;
-- profile-to-follow conversion;
-- median and 75th-percentile reply impressions, qualified target-author
-  interactions, reply-level user profile clicks and direct follows when X
-  exposes them, approval latency, and secondary follower delta per approval
-  window;
-- social-to-site click rate and returning-site-reader rate.
+Purpose: make the existing product easier to return to, install, save, and share
+before asking readers to join an empty network.
 
-Guardrails:
+Authorized local work:
 
-- correction rate and unsupported-claim count;
-- duplicate or failed posts;
-- unfollow and negative-feedback rate;
-- production hours and cost per retained follower;
-- morning and evening on-time publish rate.
+- an installable progressive web app using the canonical site and archive;
+- offline reading, saved-item and notes portability, accessible install
+  guidance, and optional quiet reminder designs;
+- X broadcasts and manually approved replies under their existing contracts;
+- one approved social-format experiment at a time, derived from canonical work;
+- a public, carefully moderated prayer-thread playbook for approved existing
+  channels; and
+- newsletter retention strategy and local integration prototypes, with sending
+  and provider operations disabled.
 
-Reply-shape comparisons need at least eight measured observations for every
-shape being compared. Hold or stratify target tier, discovery window,
-opportunity-score band, and opportunity quality as stable as practical; label
-uncontrolled results directional rather than causal. No reply-volume scaling
-decision is eligible before 50 measured replies.
+Exit evidence:
 
-## Value-gated budget
+- returning use improves without a material correction, privacy, or reliability
+  regression;
+- at least two recurring formats show repeat value;
+- public prayer pilots, if separately activated, have named moderation windows,
+  published rules, incident records, and a sustainable workload;
+- installability and core use pass accessibility and mobile-quality review; and
+- discovery measures site return rather than follower count alone.
 
-Budget is flexible but never automatic. No spend is authorized by this document.
-Each release requires a short proposal naming the expected value, owner, maximum
-cost, measurement window, and kill rule.
+## Phase 2: accounts and private personal value
 
-Suggested authorization bands:
+Purpose: give each participant durable personal value before exposing social
+features.
 
-1. **Format lab, up to $2,500 total:** motion/source-card templates, small editor
-   trials, licensed music or narration, and measurement setup. Release after
-   concrete quotes and deliverables exist.
-2. **Repeatable production, $3,000 to $10,000 per month:** release only after two
-   formats beat baseline conversion across at least five posts each and editing
-   throughput is the constraint.
-3. **Scaled production, $10,000 to $30,000 per month:** release only when four
-   consecutive weekly cohorts show durable reach, follows, and returning
-   viewers without a higher correction or negative-feedback rate.
-4. **Above $30,000 per month:** requires an explicit marginal-return forecast,
-   channel concentration risk, rights review, and David's separate approval.
+Authorized local work:
 
-Paid distribution is allowed only on an organic winner. Measure incremental
-engaged viewers and qualified followers against a holdout; stop when marginal
-cost rises above the approved ceiling. Never buy followers or pay for engagement.
+- optional member accounts with a guest path where practical;
+- a portable personal archive for notes, saved material, prayer journals,
+  answered-prayer markers, and service reflections;
+- clear audience choices for every prayer or contribution;
+- verified deletion, export, account recovery, session revocation, abuse rate
+  limits, and minimum-data profiles;
+- the private reader-intake cutover specified by `docs/READER_STORE_SPEC.md`;
+  and
+- notification preferences that default to quiet and never reveal sensitive
+  prayer text on a lock screen.
 
-## Decisions resolved
+Exit evidence before any live account activation:
 
-1. The one-million goal is combined across approved platforms.
-2. The brand is faceless; an off-camera voice is an experiment, not a requirement.
-3. Budget is flexible and released only against expected and measured value.
-4. The last known X baseline is five followers.
-5. Claude Cowork is retired as project authority. Any useful distribution logic
-   must be reconstructed in a named GitHub repository with tests and ownership.
-6. Credible-account replies are the primary near-term X acquisition strategy.
-   David approves every reply individually; replies are posted manually through
-   X's official interface unless X later grants written automation approval.
-7. The initial reply cadence is two manual approval/posting windows and no more
-   than four published replies per day. A third window and six/day require
-   separate approval and staffing and are currently disabled.
+- independent security and privacy review of the exact implementation;
+- successful deletion, export, recovery, authorization, rate-limit, logging,
+  backup, and rollback tests;
+- no spiritual text, relationship graph, or unpublished contribution appears in
+  public repositories, ordinary logs, analytics, or advertising systems;
+- the private reader store and intake cutover pass their own activation gate;
+- a named operator and support path exist; and
+- David approves the exact reviewed release, provider, cost ceiling, notice,
+  and data-processing boundary.
 
-Still needed: an authoritative current YouTube metrics baseline, current other
-platform baselines, and any proposed recurring-human narrator engagement and
-contract receipt. The first market is U.S. English, and the initial YouTube
-comparison is a properly contracted recurring human narrator versus a
-caption-only cut. Synthetic and cloned voices are excluded from the pilot.
+## Phase 3: moderated participation and prayer network
 
-## Known-baseline milestone gates
+Purpose: create the first true network effect through safe contribution and
+trusted prayer relationships.
 
-These are decision gates from the known floor of five X followers, not promises.
-Reforecast them weekly after all platform baselines are captured.
+Authorized local work:
 
-| End of period | Combined follower gate | Evidence required to keep scaling |
-| --- | ---: | --- |
-| Week 2 | 1,000 | Complete measurement, 20 format tests, no policy or accuracy incidents |
-| Month 1 | 10,000 | Two repeatable formats beat baseline on shares and follows per 1,000 impressions |
-| Month 2 | 50,000 | At least one collaboration loop and one video franchise produce returning viewers |
-| Month 3 | 150,000 | Weekly reach and conversion trajectory supports at least 300,000 by month 4 |
-| Month 4 | 300,000 | Production scales without lowering retention, source quality, or on-time bakes |
-| Month 5 | 600,000 | Multiple channels contribute; no single breakout supplies an unhealthy majority |
-| Month 6 | 1,000,000 | Followers are real, retained, policy-compliant, and supported by returning audience |
+- carefully moderated public prayer requests with public never selected by
+  default;
+- small trusted prayer circles with invite, leave, remove, report, and block
+  controls;
+- reviewed questions, testimonies, corrections, workflows, and service prompts;
+- helpfulness and trust signals resistant to popularity gaming;
+- moderator queues, context, audit receipts, rate controls, appeals, and
+  emergency shutdown; and
+- aggregated measures of return, helpful participation, moderation health, and
+  voluntarily shared prayer or service outcomes.
 
-Missing a gate triggers a strategy review and reforecast, not follower buying,
-spam, or a lower editorial standard.
+Activation gates:
 
-## Platform references
+- Phase 2 is healthy and stable;
+- community rules prohibit identifying details about other people, financial
+  solicitation, romantic recruitment, coercion, targeted harassment, political
+  campaigning disguised as prayer, and medical claims that replace professional
+  care;
+- crisis copy states that the service is not continuously monitored or an
+  emergency service and provides reviewed routes to immediate help;
+- moderator coverage and response expectations are realistic at the proposed
+  cohort size;
+- the first cohort is bounded and invite-controlled;
+- kill-switch and abuse drills pass; and
+- David approves the exact cohort, surface, rules, moderators, duration, and
+  rollback.
 
-- [X automation rules](https://help.x.com/en/rules-and-policies/x-automation)
-- [X authenticity and spam policy](https://help.x.com/en/rules-and-policies/authenticity)
-- [YouTube Shorts view-count and engaged-view definitions](https://support.google.com/youtube/answer/10059070)
-- [YouTube Shorts analytics guidance](https://support.google.com/youtube/answer/12942217)
+Open member posting can begin only inside the approved bounded cohort. Passing a
+pilot does not authorize an unlimited public feed.
+
+## Phase 4: native mobile and carefully expanded network
+
+Purpose: deepen the daily rhythm when platform capabilities justify a native
+app.
+
+Candidate capabilities:
+
+- iOS and Android apps sharing the canonical content and account model;
+- privacy-safe notifications, widgets, offline access, and media capture only
+  when they provide clear mission value;
+- expanded trusted circles, church or service cohorts, and contribution tools;
+  and
+- private/direct messaging only if the dedicated abuse, age-safety, encryption,
+  reporting, retention, and moderation review concludes that it should exist.
+
+Exit evidence:
+
+- the installable web app has demonstrated a platform limitation that native
+  software can materially solve;
+- Phase 3 retention and network health remain strong across multiple cohorts;
+- notification opt-out, uninstall, deletion, moderation, and support behavior
+  are healthy;
+- app-store, payments, privacy-label, review, and incident ownership are
+  documented; and
+- David approves each store account, release, cost, and public listing.
+
+Private messaging is optional. It is not evidence of maturity and may be
+permanently omitted.
+
+## Phase 5: durable institutions and desktop decision
+
+Purpose: extend the network only where the community has demonstrated a real
+need and responsible operating capacity.
+
+Possible work:
+
+- church, ministry, study, and service partnerships with clear authority and
+  data boundaries;
+- facilitator tools, group exports, and interoperable resources;
+- a desktop app only if study, Chronicles, creation, or moderation workflows
+  demonstrate value that the web app cannot deliver; and
+- sustainable monetization that never sells spiritual data, exploits prayer,
+  privileges wealthy participants in community standing, or transfers founder
+  control.
+
+Nonprofit formation, a governing board, and outside governance remain separate
+founder decisions. Network scale does not require surrendering mission control.
+
+## Network-health scorecard
+
+Review by cohort and surface, with unknown values recorded as null:
+
+- qualified engaged returning people and cohort retention;
+- completion of morning, evening, reflection, prayer, and service rhythms;
+- saved or exported personal value without inspecting private content;
+- helpful contributions, constructive responses, and repeat trusted-circle
+  participation;
+- invitation acceptance and healthy relationship persistence without growth
+  pressure;
+- moderation queue age, reports, blocks, removals, appeals, repeat abuse, and
+  moderator workload;
+- privacy requests, deletion completion, security incidents, and unsupported
+  claims;
+- voluntarily shared answered-prayer and service outcomes in aggregate; and
+- production time, reliability, accessibility, and approved cost.
+
+Never optimize for raw time-on-site, posting volume, outrage, streak anxiety,
+public vulnerability, or notification opens at the expense of well-being.
+Never buy followers, use engagement pods, fabricate urgency, or pay people for
+spiritual testimony.
+
+## Immediate portfolio
+
+The active work order is:
+
+1. complete Phase 0 reconciliation and safety architecture;
+2. continue the current X discovery system and mission-led canonical product;
+3. design and implement the installable web app locally;
+4. prepare the private account, personal-history, and reader-intake boundaries;
+5. prepare a bounded moderated prayer pilot; and
+6. defer native mobile, private messaging, desktop, partnerships, and formal
+   organization until their evidence gates.
+
+This is full speed in direction and local execution, with production exposure
+released deliberately one safe, measurable layer at a time.

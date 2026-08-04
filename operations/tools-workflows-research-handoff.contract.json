@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "status": "scheduled-advisory-research",
+  "owner": "David Friedhof",
+  "purpose": "Give DDB program control a reviewed daily discovery handoff for the evening Field Guide without transferring editorial or publishing authority.",
+  "producer": {
+    "name": "X Manager, Tools and Workflows",
+    "repositoryPath": "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows",
+    "projectAlias": "/Users/davidfriedhof/Documents/Trending"
+  },
+  "sourceRecords": [
+    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/coordination/ddb/tools-workflows-handoff.json",
+    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/docs/DDB_RESEARCH_COORDINATION_2026-08-03.md"
+  ],
+  "targetEdition": {
+    "dateRule": "current date in America/Los_Angeles at execution time",
+    "slot": "evening",
+    "timeZone": "America/Los_Angeles",
+    "bakeStartsLocal": "14:40:00"
+  },
+  "coordination": {
+    "timeZone": "America/Los_Angeles",
+    "researchStartsLocal": "12:00:00",
+    "handoffReadyByLocal": "13:45:00",
+    "ddbReviewStartsLocal": "14:00:00",
+    "bakeStartsLocal": "14:40:00",
+    "reviewBufferMinutesBeforeBake": 40
+  },
+  "expectedResearchRecords": [
+    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/coordination/ddb/YYYY-MM-DD-tools-workflows-research.json",
+    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/coordination/ddb/YYYY-MM-DD-tools-workflows-research.md",
+    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/coordination/ddb/research-latest.json"
+  ],
+  "expectedReviewRecords": [
+    "operations/intake-reviews/YYYY-MM-DD-tools-workflows-research-review.json",
+    "operations/intake-reviews/YYYY-MM-DD-tools-workflows-research-review.md"
+  ],
+  "intakeRules": [
+    "Treat every candidate as advisory discovery evidence",
+    "Independently verify every factual and trend claim",
+    "Use only practical tools and workflows suitable for the evening Field Guide",
+    "Do not include news in the evening edition",
+    "David's Daily Bread makes the final include, hold, or reject decision"
+  ],
+  "authority": {
+    "researchMayPublish": false,
+    "researchMayEditEdition": false,
+    "ddbSelectionRequired": true,
+    "ddbVerificationRequired": true,
+    "publicationControlledByExistingBake": true
+  }
+}

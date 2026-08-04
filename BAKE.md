@@ -6,7 +6,7 @@ which is baked twice daily:
 - the **morning edition** (cron 12:05 UTC): straight news on tech, markets,
   and science, plus the reader sections. Steps 1-9 below.
 - the **evening edition** (cron 22:35 UTC): the Field Guide. Trending tools,
-  practical workflows, and a short Evening Exhale for everyday people, with
+  practical workflows, and a short Keep and Ponder closing for everyday people, with
   no news after dark (news belongs to the morning). See "The evening bake"
   below.
 
@@ -19,7 +19,7 @@ Everything editorial is YOUR job as the session (research, judgment, writing).
 Everything mechanical is `ddb_session_bake.py`'s job (rendering, archive, feed,
 state). Do not hand-edit rendered pages; do not bypass the script.
 
-## Hard rules (from BRAND.md, which wins all conflicts)
+## Hard rules (from FOUNDER_DOCTRINE.md and BRAND.md)
 
 0. The brand statement is exactly **Loved by God**. It already lives in the
    templates and feed copy; never rephrase or remove it.
@@ -42,10 +42,10 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    Backfills do not update `evening-catalog.json`.
 5. **Work from the fresh clone only.** Never read site state from the live
    davidsdailybread.com (the CDN serves stale files for hours).
-6. The weekly email is a separate four-week manual pilot. The templates may
-   link to `/subscribe.html`, but a bake never drafts, schedules, sends, imports,
-   or receives newsletter data. Follow `docs/NEWSLETTER_PILOT_SPEC.md` outside
-   the bake.
+6. Newsletter strategy and local product prototypes may proceed outside a bake,
+   but sending remains disabled. The templates may preserve their current link
+   to `/subscribe.html`; a bake never drafts, tests, schedules, sends, imports,
+   configures, credentials, or receives newsletter data.
 7. **The lead title is the X distribution contract.** Each edition's archive
    `lead` (= the lead story's title) is eligible for a canonical post to
    @DavidDailyBread. The prior DAICC/Claude Cowork-era poster is unlocated and
@@ -97,9 +97,10 @@ pass, and report (steps 4, 5, 5A, 9) apply to both slots.
 reader submission to answer (`ask`), which letter the King replies to (`king`,
 either reader mail or a house-satchel draw), and which Crumb Board pin to post
 (`pin`). Null means that section stays empty today; never invent submissions.
-Reader submissions come from `counter.csv` in the clone, committed daily at
-4:45 AM Pacific by `.github/workflows/counter-sync.yml`. The committed copy is
-the source for the whole bake: `--plan` never refreshes or mutates it.
+Reader material comes only from the frozen existing `counter.csv` in the clone.
+Public reader intake is closed and `.github/workflows/counter-sync.yml` is a
+no-op that must not fetch new rows. The committed copy
+is the source for the whole bake: `--plan` never refreshes or mutates it.
 
 **2. Research.** Using web search, gather TODAY'S real news (last ~24 hours,
 reputable primary sources) for the three sections: **tech** (AI, chips, software,
@@ -221,11 +222,12 @@ The reader to serve is the average person, not the insider: if an item only
 matters to an ML engineer, it loses its slot to one that helps everyone. All
 hard rules above apply unchanged.
 
-The approved presentation since 2026-07-31 is the Editorial Ledger with a
-numbered Guided Path: (1) Start here tonight, (2) Browse the shelf, (3) Choose
-a path, and (4) Set the day down. Step 4 is The Evening Exhale, selected by the
-renderer from the reviewed `evening-rest.json` set. It contains Receive,
-Release, and Rest prompts and is not reader mail. The masthead links to the
+The approved presentation is the July 31 Field Guide format: one useful lead,
+the tool shelf and workflows in two lanes, then Keep and Ponder with Mary of
+Nazareth as its recurring biblical presence below all actionable material. Its
+material is selected by the renderer from the reviewed
+`evening-rest.json` set. It presents the reviewed receive, release, and rest
+material as Keep, Ponder, and Entrust, and is not reader mail. The masthead links to the
 standing `/tools.html` and `/workflows.html` libraries, which read the bounded
 `evening-catalog.json`; the links do not scroll to sections in the edition.
 
@@ -300,7 +302,7 @@ tool blurbs are plain text (no markup) and each carries its caveat.
 then review it like an editor (step 5), run the step 5A accuracy pass, and
 finish with the step 9 report.
 The renderer builds the shelf tiles and recipe cards from the JSON; the
-template (`templates/evening.html`, the Editorial Ledger layout) is never edited
+template (`templates/evening.html`, the July 31 Field Guide layout) is never edited
 at bake time. A daily render prepends the validated cards to
 `evening-catalog.json`, deduplicates by exact source URL, and keeps at most 180
 items per library. A backfill leaves the catalog unchanged. The evening bake
@@ -344,9 +346,11 @@ evening allowlist enforces this.
   noted with its reason in the HQ ops log.
 - The morning schedule and this spec were set up 2026-07-17 when David
   simplified the pipeline to one daily morning bake; the Spark/Hermes pipeline
-  and its automated Buttondown path are retired. A separate four-week manual
-  Buttondown pilot was approved 2026-07-31 and remains outside the bake under
-  `docs/NEWSLETTER_PILOT_SPEC.md`. The bake moved into GitHub
+  and its automated Buttondown path are retired. The later four-week manual
+  Buttondown plan was paused by David on 2026-07-31. Strategy and local product
+  integration planning resumed on 2026-08-04, but its live signup page remains
+  preserved and no issue drafting, provider operation, or sending is authorized.
+  The bake moved into GitHub
   Actions on 2026-07-29 to fix the unattended `git push` 403. The evening
   edition returned 2026-07-30 (per David) with the trends identity, making
   the site twice-daily again.

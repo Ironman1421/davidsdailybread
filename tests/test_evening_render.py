@@ -133,11 +133,13 @@ with tempfile.TemporaryDirectory() as td:
     assert html == (repo / "index.html").read_text(encoding="utf-8"), "index takeover missing"
     assert "Evening edition," in html
     for label in ("Start here tonight", "The tool shelf", "The workflows",
-                  "no waitlists, no vaporware", "The Evening Exhale",
-                  "Receive", "Release", "Rest"):
+                  "no waitlists, no vaporware", "Keep and Ponder",
+                  "Mary of Nazareth",
+                  "Guided by the biblical witness of Mary of Nazareth.",
+                  "Keep", "Ponder", "Entrust"):
         assert label in html, f"missing Field Guide label {label!r}"
-    for number in ("1", "2", "3", "4"):
-        assert f'<span class="step-number">{number}</span>' in html
+    assert 'class="journey-step"' not in html
+    assert 'class="step-number"' not in html
     assert 'href="/tools.html"' in html and 'href="/workflows.html"' in html
     assert 'href="#shelf"' not in html and 'href="#workflows"' not in html
     assert "worth an evening" in html, "lead.note margin aside missing"

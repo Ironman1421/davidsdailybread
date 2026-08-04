@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "decisionOwner": "David Friedhof",
+  "approvalReceipt": "founder-decision-2026-07-31-interim-reader-intake-pause",
+  "latestDecisionReceipt": "founder-decision-2026-08-04-durable-moat-private-boundary-work",
+  "status": "roadmap-active-public-intake-closed",
+  "scope": [
+    "ask-the-baker",
+    "letters-to-the-king",
+    "crumb-board"
+  ],
+  "localImplementationAuthorized": true,
+  "reopeningPreparationAuthorized": true,
+  "localImplementationPrepared": true,
+  "privateStoreProvisioningAuthorized": false,
+  "liveDataMigrationAuthorized": false,
+  "deploymentAuthorized": false,
+  "deployed": false,
+  "targetSiteAcceptsNewSubmissions": false,
+  "targetSiteContainsGoogleFormEndpoint": false,
+  "counterSyncTargetState": "paused-no-write",
+  "externalGoogleFormDeactivationAuthorized": false,
+  "externalGoogleFormDeactivated": false,
+  "publishedSheetUnpublishAuthorized": false,
+  "publishedSheetUnpublished": false,
+  "existingQueueDisposition": "preserve-frozen-existing-queue-pending-separate-private-cutover",
+  "existingQueueDeletionAuthorized": false,
+  "repositoryHistoryRewriteAuthorized": false,
+  "chroniclesExportsPreserved": [
+    "download-markdown",
+    "pdf",
+    "email",
+    "copy"
+  ],
+  "reopenGate": "verified-private-intake-boundary-and-explicit-founder-approval"
+}

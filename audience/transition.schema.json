@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/audience-transition-v1.json",
+  "title": "David's Daily Bread local-first audience transition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "definitionVersion",
+    "month",
+    "transition",
+    "token"
+  ],
+  "properties": {
+    "version": {"const": 1},
+    "definitionVersion": {"const": 1},
+    "month": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+    },
+    "transition": {
+      "enum": ["first-seen", "returned", "qualified"]
+    },
+    "token": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{22,64}$"
+    }
+  }
+}

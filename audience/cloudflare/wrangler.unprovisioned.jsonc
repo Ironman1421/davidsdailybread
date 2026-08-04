@@ -1,0 +1,39 @@
+{
+  // This file is an intentionally non-deployable planning template.
+  // No Cloudflare account, Worker, D1 database, namespace, route, or secret exists.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ddb-audience-unprovisioned",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-07-31",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {
+    "enabled": false
+  },
+  "vars": {
+    "DDB_AUDIENCE_MODE": "disabled",
+    "DDB_CONTROL_REVISION": "audience-cloudflare-v1",
+    "DDB_EXPECTED_HOST": "UNSET",
+    "DDB_BOT_CONTROL_VERIFIED": "false",
+    "DDB_LOGGING_DISABLED_VERIFIED": "false",
+    "DDB_RETENTION_CONTROL_VERIFIED": "false",
+    "DDB_PURGE_ENABLED": "false"
+  },
+  "d1_databases": [
+    {
+      "binding": "AUDIENCE_DB",
+      "database_name": "UNPROVISIONED",
+      "database_id": "UNPROVISIONED"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "AUDIENCE_REGISTRATION_LIMITER",
+      "namespace_id": "UNPROVISIONED",
+      "simple": {
+        "limit": 240,
+        "period": 60
+      }
+    }
+  ]
+}

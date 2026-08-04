@@ -17,7 +17,7 @@ model calls anywhere:
       Render the edition from the session-authored content JSON: home page,
       editions/ file, archive.json, archive.html (marked list only), feed.xml,
       plus (morning only) the three category pages and bakery-state.json.
-      The evening slot renders the trends edition in the Editorial Ledger
+      The evening slot renders the trends edition in the July 31 Field Guide
       layout (two sections only, tools + workflows, spec: /BAKE.md "The
       evening bake"): no news, no reader sections, no category pages, and no
       reader-state writes. A daily evening render also updates the bounded
@@ -812,8 +812,8 @@ def main() -> None:
     ap.add_argument("--date", help="YYYY-MM-DD edition date (render mode)")
     ap.add_argument("--slot", choices=SLOTS, default="morning",
                     help="which edition to render: morning (news; the default) or "
-                         "evening (Field Guide: trending tools + workflows only, "
-                         "no news, no reader sections, no category pages). "
+                         "evening (Field Guide: trending tools + workflows, then "
+                         "Keep and Ponder; no news, reader intake, or category pages). "
                          "--plan is a morning-only concern.")
     ap.add_argument("--mode", choices=("daily", "backfill"),
                     default=os.environ.get("DDB_MODE", "daily"),

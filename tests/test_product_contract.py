@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class ProductContractTest(unittest.TestCase):
     def test_current_specs_exist_and_name_both_distinct_editions(self):
+        doctrine = (ROOT / "FOUNDER_DOCTRINE.md").read_text(encoding="utf-8")
         product = (ROOT / "docs" / "PRODUCT_SPEC.md").read_text(encoding="utf-8")
         security = (ROOT / "docs" / "SECURITY_SPEC.md").read_text(encoding="utf-8")
         growth = (ROOT / "docs" / "GROWTH_ROADMAP.md").read_text(encoding="utf-8")
@@ -26,8 +27,22 @@ class ProductContractTest(unittest.TestCase):
             "absolute, credential-free HTTPS",
         ):
             self.assertIn(required, product)
+        for governing_truth in (
+            "founder-led Christian media and learning project",
+            "website, archive, and RSS are the permanent canonical home",
+            "Durable-moat direction",
+            "research, product strategy, architecture, design, local",
+            "Newsletter strategy and local integration prototypes may proceed",
+            "Do not form a nonprofit",
+            "Do not deploy or activate custom community software",
+            "Public is never the default",
+            "David retains final control",
+        ):
+            self.assertIn(governing_truth, doctrine)
         self.assertIn("Reader privacy", security)
-        self.assertIn("1,000,000 followers", growth)
+        self.assertIn("1,000 genuinely engaged people", growth)
+        self.assertIn("no longer the active", growth)
+        self.assertIn("operating goal", growth)
         self.assertIn("Adapter acceptance contract", distribution)
         self.assertIn("Production source of truth", repo_map)
 
@@ -39,10 +54,12 @@ class ProductContractTest(unittest.TestCase):
         active = growth + "\n" + distribution
 
         for decision in (
-            "combined followers",
+            "first 1,000 genuinely engaged people remain the first proof gate",
             "five X followers",
-            "The brand is faceless",
-            "No spend is authorized",
+            "David may remain off camera",
+            "The website, archive, and RSS are the permanent home",
+            "public, carefully moderated prayer-thread playbook",
+            "No spend is authorized by this roadmap",
             "Claude Cowork",
             "Credible-account replies",
             "David approves every reply individually",
@@ -53,6 +70,24 @@ class ProductContractTest(unittest.TestCase):
             "Is the brand faceless, voice-led, or David on camera?",
         ):
             self.assertNotIn(stale_question, active)
+
+    def test_both_homepage_templates_state_the_founder_mission(self):
+        mission = (
+            "Grow in faith. Understand technology wisely. Pray for one another. "
+            "Use what you learn in service to others."
+        )
+        brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
+        self.assertIn(mission, " ".join(brand.split()))
+        for relative_path in (
+            Path("templates/home.html"),
+            Path("templates/evening.html"),
+        ):
+            with self.subTest(template=relative_path):
+                template = (ROOT / relative_path).read_text(encoding="utf-8")
+                self.assertIn(f'<p class="mission-statement">{mission}</p>', template)
+                self.assertIn("Faith, technology, prayer, and service", template)
+                self.assertNotIn("newsletter", mission.lower())
+                self.assertNotIn("—", mission)
 
     def test_distribution_metrics_schema_has_provenance_and_outcome_fields(self):
         schema = json.loads(
@@ -201,23 +236,24 @@ class ProductContractTest(unittest.TestCase):
         ):
             self.assertIn(invariant, active)
 
-    def test_chronicles_describes_actual_reader_queue_and_publication(self):
+    def test_chronicles_closes_new_intake_and_preserves_existing_material_notice(self):
         page = (ROOT / "chronicles.html").read_text(encoding="utf-8")
 
         for current_truth in (
-            "at most one waiting question, oldest first",
-            "one waiting reader letter is answered, oldest first",
-            "at most one waiting pin goes on the board, oldest first",
-            "may be published on the public site",
-            "Do not include private or sensitive information",
+            "The Counter is temporarily closed",
+            "Reader slips are resting",
+            "New Ask the Baker questions, Letters to the King, and Crumb Board pins are paused",
+            "Existing reviewed reader material may still appear",
+            "Please do not send reader slips through an old form link",
         ):
             self.assertIn(current_truth, page)
-        for stale_promise in (
-            "draws five questions",
-            "up to three letters are drawn",
-            "Whatever&rsquo;s on the board when the ovens fire goes out",
+        for forbidden_intake in (
+            "formResponse",
+            'id="askBtn"',
+            'id="kingBtn"',
+            'id="pinBtn"',
         ):
-            self.assertNotIn(stale_promise, page)
+            self.assertNotIn(forbidden_intake, page)
 
     def test_bake_cannot_change_its_reader_input_snapshot(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
@@ -232,7 +268,7 @@ class ProductContractTest(unittest.TestCase):
         bake_spec = (ROOT / "BAKE.md").read_text(encoding="utf-8")
         self.assertIn("`--plan` never refreshes or mutates it", bake_spec)
 
-    def test_main_writers_are_serialized(self):
+    def test_bake_is_serialized_and_paused_counter_is_not_a_writer(self):
         bake = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
             encoding="utf-8"
         )
@@ -240,10 +276,15 @@ class ProductContractTest(unittest.TestCase):
             encoding="utf-8"
         )
         self.assertIn("group: ddb-main-writers", bake)
-        self.assertIn("group: ddb-main-writers", counter)
         self.assertIn("queue: max", bake)
-        self.assertIn("queue: max", counter)
-        self.assertIn("git pull --rebase origin main", counter)
+        self.assertIn("contents: read", counter)
+        for forbidden in (
+            "group: ddb-main-writers",
+            "contents: write",
+            "git pull --rebase origin main",
+            "git push",
+        ):
+            self.assertNotIn(forbidden, counter)
 
     def test_private_reader_store_desired_state_is_machine_readable(self):
         contract = json.loads(
@@ -251,8 +292,20 @@ class ProductContractTest(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        self.assertEqual(1, contract["version"])
-        self.assertEqual("design-approved-not-provisioned", contract["deploymentStatus"])
+        self.assertEqual(2, contract["version"])
+        self.assertEqual(
+            "local-implementation-authorized-not-provisioned",
+            contract["deploymentStatus"],
+        )
+        self.assertEqual(2, contract["roadmapPhase"])
+        self.assertTrue(contract["localImplementationAuthorized"])
+        for field in (
+            "externalProvisioningAuthorized",
+            "deploymentAuthorized",
+            "liveDataMigrationAuthorized",
+            "publicIntakeActivationAuthorized",
+        ):
+            self.assertFalse(contract[field])
         self.assertEqual("dedicated-reader-project", contract["projectIsolation"])
         self.assertEqual("reader_private", contract["database"]["storageSchema"])
         self.assertEqual([], contract["database"]["exposedSchemas"])
@@ -291,6 +344,51 @@ class ProductContractTest(unittest.TestCase):
             "History rewriting is a separate destructive privacy operation",
         ):
             self.assertIn(invariant, spec)
+
+    def test_durable_moat_roadmap_authorizes_local_work_only(self):
+        contract = json.loads(
+            (ROOT / "operations" / "durable-moat-roadmap.contract.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(1, contract["version"])
+        self.assertEqual(
+            "active-local-work-external-activation-gated", contract["status"]
+        )
+        self.assertEqual(1000, contract["firstProofGate"]["qualifiedEngagedReturningPeople"])
+        self.assertFalse(contract["firstProofGate"]["isCeiling"])
+        self.assertEqual(6, len(contract["moatAssets"]))
+        authorization = contract["authorization"]
+        for field in (
+            "research",
+            "strategy",
+            "architecture",
+            "design",
+            "localPrototyping",
+            "localImplementation",
+            "localTesting",
+        ):
+            self.assertTrue(authorization[field])
+        for field in (
+            "publishing",
+            "externalDeployment",
+            "providerMutation",
+            "accountOrResourceCreation",
+            "providerTermsAcceptance",
+            "credentialInstallation",
+            "livePersonalDataCollection",
+            "communitySurfaceActivation",
+            "newsletterSending",
+        ):
+            self.assertFalse(authorization[field])
+        self.assertEqual(0, authorization["spendAuthorizedUsd"])
+        self.assertEqual(list(range(6)), [phase["id"] for phase in contract["phases"]])
+        for phase in contract["phases"]:
+            self.assertTrue(phase["localWorkAuthorized"])
+            self.assertFalse(phase["externalActivationAuthorized"])
+        self.assertTrue(contract["privacy"]["personalAndSpiritualDataPrivateByDefault"])
+        self.assertFalse(contract["privacy"]["publicSharingDefault"])
+        self.assertFalse(contract["moderation"]["privateMessagingIsLaunchRequirement"])
 
     def test_only_custom_publisher_is_designed_to_bypass_main(self):
         contract = json.loads(

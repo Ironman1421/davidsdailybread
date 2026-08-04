@@ -1,0 +1,68 @@
+{
+  "$schema": "./canary-plan.schema.json",
+  "version": 1,
+  "status": "approved-plan-only-unprovisioned",
+  "approvalReceipt": "founder-decision-2026-07-31-cloudflare-local-and-plan-only",
+  "provider": "cloudflare-workers-d1",
+  "implementationDirectory": "audience/cloudflare",
+  "reviewedCommit": null,
+  "externalProvisioningAuthorized": false,
+  "canaryExecutionAuthorized": false,
+  "deploymentAuthorized": false,
+  "activationAuthorized": false,
+  "productionCollectionAuthorized": false,
+  "baselineStartAuthorized": false,
+  "spendAuthorizedUsd": 0,
+  "accountOwner": null,
+  "operator": null,
+  "cloudflareAccountId": null,
+  "workerName": null,
+  "d1DatabaseId": null,
+  "rateLimitNamespaceId": null,
+  "endpoint": null,
+  "routeProposal": {
+    "kind": "workers.dev-diagnostic-only",
+    "hostname": null,
+    "websiteDnsChangeRequired": false,
+    "productionEligible": false
+  },
+  "proposedOrigins": [
+    "https://davidsdailybread.com",
+    "https://www.davidsdailybread.com"
+  ],
+  "preconditions": [
+    "David separately authorizes Cloudflare account and resource provisioning",
+    "David names the account owner, canary operator, and failure owner",
+    "Provider terms, DPA, request metadata, logging, backup, and deletion behavior are reviewed",
+    "The D1 database and rate-limit namespace identifiers are recorded outside public logs",
+    "Workers invocation logs, traces, preview URLs, and tail consumers are verified disabled",
+    "Verified-bot and registration-rate controls are demonstrated without retained raw IP",
+    "The 35-day purge trigger and deletion verification are installed and healthy before accepting a transition",
+    "A random canary secret is installed through a provider secret boundary and never committed",
+    "David names the reviewed commit and explicitly authorizes canary execution"
+  ],
+  "testCases": [
+    "kill switch and missing-control failure",
+    "origin, method, path, query, content type, encoding, and body-size rejection",
+    "missing and incorrect canary authorization",
+    "extra field, free text, malformed JSON, invalid token, and unknown transition rejection",
+    "first-seen registration and idempotent replay",
+    "missing, same-day, ordered, and duplicate returned transitions",
+    "missing, same-day, ordered, and duplicate qualified transitions",
+    "Pacific month rollover and cross-month rejection",
+    "verified-bot and registration-rate rejection",
+    "concurrent transition integrity and aggregate parity",
+    "35-day participant-row purge with aggregate survival",
+    "absence of raw token, digest, body, IP, referrer, URL, or header data in logs and traces",
+    "full endpoint disablement and removal"
+  ],
+  "requiredEvidence": [
+    "opaque canary receipt tied to the reviewed commit",
+    "aggregate-only partial report that cannot count toward the milestone",
+    "D1 schema and aggregate parity evidence",
+    "provider screenshots or exports proving logging and preview controls",
+    "purge and deletion verification",
+    "kill-switch and removal verification",
+    "incident and limitation record, including a clean result when none occurred"
+  ]
+}

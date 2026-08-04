@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Invariant checks for the approved four-week /subscribe.html pilot."""
+"""Invariant checks for the preserved live /subscribe.html state."""
 
 from __future__ import annotations
 
@@ -83,8 +83,9 @@ assert any(link.get("rel") == "stylesheet" and link.get("href") == "/brand.css" 
 for family in ("Caveat", "Newsreader", "Inter"):
     assert family in TEXT, f"missing loaded font family: {family}"
 
-# Exactly one first-party form posts an email directly to the approved provider.
-assert len(parser.forms) == 1, "pilot page must contain exactly one signup form"
+# The preserved page still contains one form that posts directly to the
+# previously selected provider. Its presence is not activation authority.
+assert len(parser.forms) == 1, "preserved signup page must contain exactly one form"
 form = parser.forms[0]
 assert form.get("method", "").lower() == "post"
 assert form.get("action") == "https://buttondown.com/api/emails/embed-subscribe/davidsdailybread"
@@ -102,7 +103,8 @@ embed = [field for field in parser.inputs if field.get("name") == "embed"]
 assert len(embed) == 1 and embed[0].get("type") == "hidden" and embed[0].get("value") == "1"
 assert any(button.get("type") == "submit" for button in parser.buttons)
 
-# Pilot scope, flow, consent, and privacy are stated without reviving the old list.
+# Preserved historical scope, flow, consent, and privacy remain visible without
+# authorizing activation or reviving the old list.
 for promise in (
     "four-week pilot",
     "one email each week",
@@ -114,7 +116,7 @@ for promise in (
     "unsubscribe anytime",
     "privacy@davidsdailybread.com",
 ):
-    assert promise in visible_lower, f"missing pilot promise: {promise!r}"
+    assert promise in visible_lower, f"missing preserved signup copy: {promise!r}"
 for stage in ("Start", "Browse", "Do", "Rest"):
     assert f"<h2>{stage}</h2>" in TEXT
 assert "newsletter has been retired" not in visible_lower
@@ -134,4 +136,4 @@ assert 'data-note-key="page:subscribe"' in TEXT
 assert 'aria-label="Page notes"' in TEXT and 'aria-label="Clear notes"' in TEXT
 assert "localStorage" in TEXT and ">Aa</button>" in TEXT
 
-print("PASS: subscribe.html satisfies weekly-pilot scope, consent, provider, privacy, accessibility, brand, and no-em-dash invariants")
+print("PASS: subscribe.html preserves reviewed signup copy, provider, privacy, accessibility, brand, and no-em-dash invariants")

@@ -1,15 +1,18 @@
 # Distribution and measurement specification
 
 Status: active; canonical X adapter implementation ready but production disabled
-Last reconciled: 2026-07-31
+Last reconciled: 2026-08-04
 
 ## Decisions and authority
 
-- The six-month goal is 1,000,000 combined followers across approved platforms.
+- `FOUNDER_DOCTRINE.md` governs channel roles, founder authority, authorized
+  local work, and production boundaries. The first proof goal is 1,000
+  genuinely engaged people; it is not the ceiling. Growth must preserve trust,
+  moderation capacity, and David's direction.
 - The documented starting floor is five X followers. Unknown platform baselines
   are recorded as unknown and treated as zero only for planning math.
-- The publisher is faceless. Voice-led output is permitted as an experiment;
-  David does not need to appear on camera.
+- The publisher may remain faceless. Voice-led output is permitted as an
+  experiment; David does not need to appear on camera.
 - Budget is flexible but value-gated. No spend is implied or authorized by this
   specification.
 - Claude Cowork conversations and artifacts are historical context, not
@@ -32,23 +35,43 @@ documented in `docs/REPOSITORY_MAP.md`.
 
 The website, archive, and RSS are the canonical record. Social posts are derived
 packages and never become the only copy of an edition or correction.
+The official first-1,000 audience count follows
+`docs/AUDIENCE_MEASUREMENT_SPEC.md`; social and RSS evidence is reported beside
+the website count and is never added to it.
 
-### Weekly email pilot
+### Installable app and hosted community
 
-- Role: a weekly retention and usefulness test, not a complete copy of the
-  twice-daily paper.
-- Scope: four manual Buttondown issues, at most one per week, then pause for an
-  explicit keep, change, or stop decision.
-- Format: Editorial Ledger with the Guided Path Start, Browse, Do, Rest.
-- Consent: fresh double opt-in only. No retired list is imported or reactivated.
-- Budget: $0. Stop before a charge or paid add-on and before the provider's free
-  subscriber allowance is exceeded.
+- The installable web app remains a presentation and return layer over the
+  canonical site, archive, and account model. It does not fork editorial
+  history or create a second source of truth.
+- Native mobile packages, if later approved, consume the same canonical content
+  and correction records.
+- Hosted community invitations and notifications are distribution events with
+  consent, preference, rate, quiet-hours, idempotency, receipt, unsubscribe or
+  leave, and kill-switch requirements.
+- Sensitive prayer text is excluded from lock-screen notification payloads by
+  default.
+- Local implementation is authorized. No app listing, push provider, invite,
+  community activation, credential, or external distribution is authorized by
+  this specification.
+
+### Newsletter
+
+- Role under evaluation: an owned retention path back to canonical work, not a
+  replacement archive or a transfer of subscriber data into this repository.
+- Strategy and local product-integration prototypes are authorized. Preserve
+  the existing live signup page state, but do not draft an issue, test a send,
+  schedule, send, configure the provider, operate on a list, or install a
+  credential.
 - The daily bake and GitHub Actions cannot send email or receive subscriber
-  addresses. Activation and operations follow `docs/NEWSLETTER_PILOT_SPEC.md`.
+  addresses.
+- Any operational pilot requires a scoped founder activation decision plus
+  reconciliation of the specification, machine-readable contract, and tests.
 
 ### X
 
-- Role: authority, source receipts, expert conversation, and site referral.
+- Role: discovery, discussion, source receipts, and referral to the canonical
+  website.
 - At most one automatic canonical broadcast per edition.
 - At most one additional edition-derived source card, useful fact, or question;
   it requires human review and must add distinct value.
@@ -201,8 +224,8 @@ not authorize reply posting through an API.
   viewers, and returning viewers.
 - Contractors are purchased for measurable throughput or specialist quality,
   not follower promises.
-- David approves every new spending band. See `docs/GROWTH_ROADMAP.md` for the
-  proposed bands and release evidence.
+- No spend is authorized by the roadmap. David must approve the exact maximum,
+  owner, evidence window, and kill rule for every future spending band.
 
 ## Failure and correction behavior
 

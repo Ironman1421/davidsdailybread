@@ -1,7 +1,15 @@
 # Private reader store specification
 
-Status: approved design, not provisioned
+Status: active Phase 2 implementation prerequisite, not provisioned
 Machine-readable contract: `operations/reader-store.contract.json`
+
+The 2026-08-04 durable-moat decision authorizes continued local implementation,
+testing, and reopening preparation for this private boundary. New public reader
+submissions remain closed. The approved local site change removes the current
+form controls and makes Counter sync a no-op, but no deployment, provider
+provisioning, live-data migration, external Google form or Sheet change, frozen
+queue deletion, or repository history rewrite is authorized. See
+`operations/reader-intake-pause.contract.json`.
 
 ## Decision
 
@@ -220,10 +228,12 @@ The deployed migration is incomplete until tests prove:
 
 Run Supabase's security advisors, performance advisors, RLS tests, and a clean
 local migration before linking production. Pull the live schema after deploy
-and require an empty diff. The July 2026 Supabase changelog was reviewed for
-this design: do not pin extension versions, require current Node/TypeScript for
-future tooling, and rely on explicit schema exposure rather than old automatic
-Data API behavior.
+and require an empty diff. The Supabase changelog and API-security guidance were
+rechecked on 2026-08-04 for this roadmap decision: do not pin extension versions,
+require current Node/TypeScript for future tooling, treat Data API exposure as
+explicit and opt-in, and preserve grants plus RLS as separate controls. The
+private schema, empty exposed-schema list, and zero browser-role table grants
+remain deliberate even when platform defaults become safer.
 
 ## Cutover, rollback, and history
 

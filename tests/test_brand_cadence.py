@@ -135,7 +135,9 @@ class BrandCadenceTest(unittest.TestCase):
         # Truth since 2026-07-30 (per David): baked TWICE daily by GitHub
         # Actions: the morning news edition (with reader sections) and the
         # evening trends edition (trending / new tools / workflows, no reader
-        # sections). The separate weekly email is a bounded four-week pilot.
+        # sections). The preserved signup page still describes the former
+        # four-week pilot, but founder doctrine keeps activation and sending
+        # paused.
         brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
         self.assertIn("twice daily", brand.lower())
         self.assertIn("evening edition", brand.lower())
@@ -150,9 +152,10 @@ class BrandCadenceTest(unittest.TestCase):
 
         chronicles = (ROOT / "chronicles.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, chronicles)
-        self.assertIn("for the morning edition", chronicles.lower())
+        self.assertIn("Reader slips are resting", chronicles)
+        self.assertIn("Existing reviewed reader material may still appear", chronicles)
+        self.assertNotIn("docs.google.com/forms", chronicles)
         self.assertNotIn("Evening delivery is in testing", chronicles)
-        self.assertIn("4:45 AM", chronicles)
 
         evening_template = (ROOT / "templates" / "evening.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, evening_template)

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/audience-browser-adapter-v1.json",
+  "title": "Disabled-by-default audience browser adapter configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "enabled",
+    "endpoint",
+    "reportingTimeZone",
+    "idleAfterSeconds",
+    "tickSeconds",
+    "tokenRandomBits",
+    "persistentStateKey",
+    "sessionKey",
+    "optOutKey"
+  ],
+  "properties": {
+    "version": {"const": 1},
+    "enabled": {"const": false},
+    "endpoint": {"const": null},
+    "reportingTimeZone": {"const": "America/Los_Angeles"},
+    "idleAfterSeconds": {"const": 30},
+    "tickSeconds": {"const": 5},
+    "tokenRandomBits": {"const": 128},
+    "persistentStateKey": {"const": "ddb.audience.v1"},
+    "sessionKey": {"const": "ddb.audience.session.v1"},
+    "optOutKey": {"const": "ddb.audience.optout.v1"}
+  }
+}

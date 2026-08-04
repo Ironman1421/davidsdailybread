@@ -77,6 +77,19 @@ class EveningLibraryTest(unittest.TestCase):
                 self.assertTrue(value.strip())
                 self.assertIsNone(EM_DASH.search(value))
 
+    def test_mary_closes_the_actionable_evening_without_reader_intake(self):
+        template = (ROOT / "templates" / "evening.html").read_text(encoding="utf-8")
+        self.assertLess(template.index('id="workflows"'), template.index('id="keep-and-ponder"'))
+        self.assertIn("Mary of Nazareth", template)
+        self.assertIn("Keep and Ponder", template)
+        self.assertIn("A practice shaped by Luke 2:19", template)
+        self.assertIn("Guided by the biblical witness of Mary of Nazareth.", template)
+        self.assertIn("REST_RECEIVE", template)
+        self.assertIn("REST_RELEASE", template)
+        self.assertIn("REST_PRAYER", template)
+        self.assertNotIn("Ask for prayer", template)
+        self.assertNotRegex(template, EM_DASH)
+
 
 if __name__ == "__main__":
     unittest.main()
