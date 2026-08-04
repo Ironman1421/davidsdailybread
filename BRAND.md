@@ -73,7 +73,8 @@ mission, ownership, strategic direction, and paused initiatives.
 
 > Note (2026-07-09): `#c8a24a` gold / `#0e0e12` bg is the canonical palette (the live
 > site's). The older `#d2a53f` / `#121116` / Georgia-serif palette from early drafts
-> and the og-card is deprecated for interfaces — the og-card image itself stays as-is.
+> and the og-card is deprecated for interfaces. The og-card remains a social-only
+> asset and uses the current public subtitle defined below.
 
 ## Typography
 
@@ -113,7 +114,12 @@ mission, ownership, strategic direction, and paused initiatives.
   crown, and wordmark, and renders the approved live subtitle beneath them. The
   original image file remains untouched.
 - **`/og-card.png`** (1200×630) is the social/share card (`og:image`). Web pages use
-  header-art; social previews use og-card. Never substitute other art.
+  header-art; social previews use og-card. Its exact subtitle is **News and Scripture
+  each morning. Practical tools each evening. Loved by God.** Never substitute other
+  art.
+- **`/x-banner.png`** (1500×500) is the official X profile banner. It carries the
+  same exact subtitle as `og-card.png` and preserves the masthead mark, wordmark,
+  palette, and typographic hierarchy.
 
 ## Voice
 
