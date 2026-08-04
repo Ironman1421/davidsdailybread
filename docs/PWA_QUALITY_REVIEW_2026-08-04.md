@@ -1,9 +1,10 @@
 # Phase 1 PWA quality review
 
-Status: local browser, generated-home bootstrap, physical iPhone
-install/launch/update/correction/offline, isolated normal-bake preview, native
-keyboard activation, and 200-percent zoom completed; clean first-route iPhone
-offline, Android, full auditory screen-reader, and release gates remain
+Status: local browser, generated-home bootstrap, clean physical iPhone
+install/first-route offline/update/correction, isolated normal-bake preview,
+native keyboard activation, 200-percent zoom, and a short physical VoiceOver
+check completed; Android/TalkBack, a full auditory accessibility review, and
+release-decision gates remain
 
 Reviewed: 2026-08-04, beginning at PR #48 head `6cbe9a8`
 
@@ -227,19 +228,87 @@ processes were stopped, port 8787 had no listener, and `tailscale serve status
 --json` returned `{}`. The approved tailnet HTTPS feature and its certificate
 hostname remain enabled, but no Serve route remains.
 
-## Remaining release gates
+## Clean first-route HTTPS closure
 
-- After exact-head CI passes, remove both test Home Screen installs and obtain
-  fresh, exact-head approval for one private HTTPS rehearsal. Install cleanly,
-  take the first route offline before visiting another page, and prove immediate
-  post-install cold start. Then repeat the bounded update and correction checks.
-- Complete a short physical, on-device VoiceOver checklist with David operating
-  native gestures and confirming the spoken announcements. Mirroring is not a
-  substitute for auditory evidence.
+Reviewed on 2026-08-04 at exact PR head
+`ca5065d4e53a47bc71340eec610317391cda94d6` after its pull-request Merge gate
+and both CodeQL analyses passed. David separately approved one private
+tailnet-only Tailscale Serve rehearsal for that exact head. Before installation,
+the two `Daily Bread` test installs and their local data were removed. iOS also
+exposed one stale August 4 full-title Home Screen bookmark during cleanup; it
+was removed and reported separately.
+
+The approved commit was extracted to a temporary directory. Its 258 files had
+aggregate SHA-256 inventory hash
+`388aa96caf2fca50a4370d89ebc52891403769d02fbaecc26dbf5a109ec37152`.
+The backend listened only on `127.0.0.1:8787`, and foreground Tailscale Serve
+provided the already approved tailnet HTTPS hostname. Funnel was never
+configured or enabled.
+
+Passed on the physical iPhone:
+
+- Safari loaded the generated current-morning homepage with the PWA manifest,
+  approved icon, PWA script, and complete morning, Field Guide, and **Loved by
+  God** distinction. Add to Home Screen used the `Daily Bread` name and **Open
+  as Web App** mode.
+- The clean standalone app's first and only online route requested `/`, the
+  manifest, PWA script, worker, offline fallback, and bounded shell assets.
+  Before any second page was visited, both foreground processes were stopped
+  and the route was proved unreachable. A terminated-and-reopened cold launch
+  displayed the branded offline fallback instead of Safari's unable-to-connect
+  screen. This closes the generated-home bootstrap gap.
+- After the exact route was restored, a visibly labeled temporary correction
+  and worker-generation change were made only in the extracted copy. The app
+  presented **A fresher app shell is ready**, **Refresh now**, and the statement
+  that notes remain on the device. It refreshed only after activation and then
+  showed the correction marker.
+- With Serve and the backend stopped again, a native reload retained the
+  corrected canonical response and marker. The extracted files were then
+  restored to the approved inventory, the exact content and worker were
+  reactivated on the handset, and the temporary marker disappeared.
+
+The final temporary inventory again contained 258 files with the original
+aggregate hash. The repository remained clean at the approved SHA. Port 8787
+had no listener, the HTTPS route was unreachable, and both
+`tailscale serve status --json` and `tailscale funnel status --json` returned
+`{}`.
+
+## Physical VoiceOver smoke check
+
+David operated VoiceOver gestures on the physical iPhone and confirmed the
+spoken output; Mirroring was not treated as auditory evidence.
+
+- The masthead link and the publication rhythm were separate, sensible focus
+  items. VoiceOver read David's Daily Bread, then the morning, practical-tools,
+  and **Loved by God** distinction.
+- The disclosure was announced as **More, button, collapsed, double tap to
+  expand** and opened and closed through a double tap.
+- When collapsed, VoiceOver read the three always-visible Tech & AI, Markets,
+  and Science summaries, skipped the inert detailed links, and then reached
+  **Lead story**.
+- David selected the Headings rotor. Its first relevant stop was the actual lead
+  headline, **Amazon tops $3 trillion in market value for the first time**. The
+  visual **At a glance** and **Lead story** labels are not semantic headings and
+  therefore were not rotor stops.
+
+This is a bounded physical smoke check, not a full VoiceOver audit. A correct
+heading-structure change is not an isolated label substitution because the
+generated page currently combines the lead `h1`, repeated Scripture `h2`
+labels, and story `h3` headings. The skipped visual labels are recorded as a
+semantic-discovery gap for a future complete hierarchy review rather than being
+papered over with misleading heading levels.
+
+## Remaining evidence and decision gates
+
 - Physical Android Chrome install, launch, update, offline, and TalkBack review
   is explicitly deferred as an evidence gap until a borrowed physical Android
   is available. It is not a pass; this phase does not justify buying a handset or
   provisioning a device-testing service.
-- CI on the exact follow-up commit and David's separate ready-for-review
-  decision. The PR remains draft, and this record does not authorize merge or
-  deployment.
+- A comprehensive auditory accessibility review remains an evidence gap. The
+  physical smoke check above does not claim continuous-reading, every control,
+  every route, all rotor categories, or full focus-management coverage. The
+  heading hierarchy should be addressed as part of that complete review.
+- Exact-head CI is verified separately by the draft PR checks. David must make a
+  separate ready-for-review decision after those checks pass. Ready status would
+  still not authorize merge, deployment, publication, production changes,
+  reader intake, or notifications.
