@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-04",
+      "edition": "evening",
+      "dateHuman": "Tuesday, August 4, 2026",
+      "file": "editions/2026-08-04-evening.html",
+      "lead": "Dictate into any app on Windows, Mac, or Linux with SpeakoFlow, a free tool that keeps your voice on your machine",
+      "pubDate": "Tue, 04 Aug 2026 17:55:49 -0400"
+    },
+    {
+      "date": "2026-08-04",
       "edition": "morning",
       "dateHuman": "Tuesday, August 4, 2026",
       "file": "editions/2026-08-04-morning.html",

@@ -298,6 +298,26 @@ labels, and story `h3` headings. The skipped visual labels are recorded as a
 semantic-discovery gap for a future complete hierarchy review rather than being
 papered over with misleading heading levels.
 
+## Post-review production reconciliation
+
+While the physical review was closing, `origin/main` advanced from `3ac2f54` to
+`14b99fb` with the August 4 evening Field Guide and its archive commit. The
+draft branch was reconciled onto that production head without mutating `main`.
+
+- `archive.json`, `feed.xml`, and `evening-catalog.json` match the new production
+  head exactly. The archive HTML retains the new evening record and adds only
+  the reviewed PWA wiring.
+- The canonical homepage and `editions/2026-08-04-evening.html` retain the new
+  production content byte for byte relative to each other. Their only changes
+  from `main` are the manifest and mobile metadata, PWA stylesheet and script,
+  and the governing product-rhythm statement already present in the reviewed
+  evening template.
+- The physical iPhone evidence above remains tied to exact head `ca5065d`. It
+  validates the shared PWA shell, generated-home bootstrap, update, correction,
+  offline, and short VoiceOver behaviors. It is not represented as a physical
+  editorial review of the subsequently merged evening edition; the reconciled
+  output is gated by exact-head CI and the documented template contracts.
+
 ## Remaining evidence and decision gates
 
 - Physical Android Chrome install, launch, update, offline, and TalkBack review
