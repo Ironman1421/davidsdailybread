@@ -181,9 +181,19 @@ class MorningScriptureTest(unittest.TestCase):
             "scripture-inline",
             (ROOT / "templates/evening.html").read_text(encoding="utf-8"),
         )
+        category_template = (ROOT / "templates/category.html").read_text(
+            encoding="utf-8"
+        )
         self.assertIn(
             "scripture-inline",
-            (ROOT / "templates/category.html").read_text(encoding="utf-8"),
+            category_template,
+        )
+        generic_link_height = ".card a.card-link { display: block;"
+        story_link_height = ".story-card a.card-link { height: auto; }"
+        self.assertIn(story_link_height, category_template)
+        self.assertLess(
+            category_template.index(generic_link_height),
+            category_template.index(story_link_height),
         )
 
         evening = {
