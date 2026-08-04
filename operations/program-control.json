@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-04T02:21:23Z",
+  "updatedAt": "2026-08-04T02:34:34Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-022",
+  "activeItemId": "DDB-PC-012",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -515,7 +515,7 @@
       "id": "DDB-PC-022",
       "sequence": 13,
       "title": "Rotate the exposed X Monitor Sites bypass credential",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-004"
       ],
@@ -538,13 +538,21 @@
       "progressEvidence": [
         "David explicitly authorized the emergency credential rotation, GitHub secret update, read-only bridge verification, temporary interruption, and return to DDB-PC-012",
         "The approved boundaries prohibit publishing, X posting, paid refresh beyond the normal monitor schedule, networking changes, and unrelated checkout cleanup"
+      ],
+      "completedAt": "2026-08-04T02:34:34Z",
+      "evidence": [
+        "PR 44 activated DDB-PC-022 and was squash-merged into main as 81255a87bf1eb2f7eb906cca6a125ea2e559c0f1 before the credential mutation; exact head 1015666e1f939c616921bb1ed70c1d41038ab533 passed Merge gate run 30871759053 and CodeQL run 30871759045",
+        "The Sites SIWC bypass-token rotation completed at 2026-08-04T02:31:36.737350Z for the existing private X Monitor project; the provider operation immediately invalidated the prior credential and no credential value was recorded",
+        "GitHub Actions secret X_MONITOR_SITES_BYPASS_TOKEN was updated at 2026-08-04T02:33:02Z without printing or storing the replacement credential in the repository",
+        "The replacement credential returned HTTP 200 from the read-only /api/discovery-export endpoint with schema x-monitor-discovery-v1, monitor status live, valid tools and workflows arrays, and zero current candidates; /api/trends was not called",
+        "DDB-PC-012 returned as the sole active item with its network configuration untouched and its 2026-08-04T08:15:00-07:00 observation unchanged"
       ]
     },
     {
       "id": "DDB-PC-012",
       "sequence": 14,
       "title": "Repair Ethernet and configure Wi-Fi failover",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-004"
       ],
@@ -580,7 +588,8 @@
         "the cable baseline records one accumulated transmit error, 89 transmit drops, and an rx_mac_missed lifetime counter of 1418819 after the deliberate unplug interval while receive, carrier, collision, alignment, MAC-error, and TCAM-drop counters remain zero; the 24-hour check must measure exact deltas from this baseline",
         "the physical-repair gate is satisfied; the observation restarted from replacement-link activation at 2026-08-03T15:09:49Z and DDB-PC-012 remains in progress until that 24-hour gate completes",
         "program control returned from completed DDB-PC-021 at 2026-08-03T17:24:35Z without changing the network configuration or scheduled observation",
-        "program control temporarily interrupted DDB-PC-012 for authorized emergency credential rotation DDB-PC-022 at 2026-08-04T02:21:23Z without changing the network configuration or scheduled observation"
+        "program control temporarily interrupted DDB-PC-012 for authorized emergency credential rotation DDB-PC-022 at 2026-08-04T02:21:23Z without changing the network configuration or scheduled observation",
+        "program control returned from completed DDB-PC-022 at 2026-08-04T02:34:34Z without changing the network configuration or scheduled observation"
       ],
       "interruption": {
         "authorizedBy": "David Friedhof",
@@ -598,7 +607,9 @@
         "decisionEvidence": "Task message: I approve temporarily interrupting DDB-PC-012 solely to record and execute an emergency rotation of the X Monitor Sites bypass credential, update the GitHub secret X_MONITOR_SITES_BYPASS_TOKEN, verify the read-only discovery bridge, and then resume DDB-PC-012 without changing its network configuration or scheduled observation",
         "networkConfigurationChanged": false,
         "scheduledObservationChanged": false,
-        "resumeAfter": "DDB-PC-022"
+        "resumeAfter": "DDB-PC-022",
+        "resumedAt": "2026-08-04T02:34:34Z",
+        "resumeEvidence": "DDB-PC-022 completed after the exposed Sites bypass credential was invalidated, the matching GitHub Actions secret was updated, and the read-only discovery export verified with the replacement credential"
       },
       "observation": {
         "startedAt": "2026-08-03T15:09:49Z",
