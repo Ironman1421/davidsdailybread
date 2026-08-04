@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-04",
+      "name": "Pandoc",
+      "url": "https://pandoc.org/",
+      "trend_url": "https://news.ycombinator.com/item?id=49156750",
+      "cost": "Free, GPL licensed",
+      "kind": "Windows, macOS, Linux",
+      "seen": "Hacker News, 388 points",
+      "blurb": "Turns one document into another from a single command, and John MacFarlane's twentieth anniversary post counts 51 input formats and 76 output formats, so a Markdown draft can leave as a Word file, an EPUB, or a slide deck; the honest catch is that PDF output still leans on a LaTeX engine you install separately, MiKTeX on Windows, BasicTeX or TinyTeX on macOS, TeX Live on Linux."
+    },
+    {
+      "date": "2026-08-04",
+      "name": "space ocr",
+      "url": "https://space-ocr.com/",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/4/all",
+      "cost": "Free tier, then paid plans",
+      "kind": "Web app, plus an API",
+      "seen": "Product Hunt No. 12, 98 votes",
+      "blurb": "Reads photographed receipts, statements, and forms into a table where every value shows where on the page it came from, and marks the readings it is unsure of as needs_review instead of guessing quietly, with the limits stated plainly on its pricing page: the free tier is 100 pages a month across three sheets, and exporting a CSV spends one of those pages."
+    },
+    {
       "date": "2026-08-03",
       "name": "Voicebox",
       "url": "https://github.com/jamiepine/voicebox",
@@ -205,6 +225,49 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-04",
+      "title": "Retire the Adobe subscription with four free apps for photos, video, design, and PDFs",
+      "url": "https://www.makeuseof.com/these-adobe-alternatives-so-good-now-confused-why-anyone-still-subscribes/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf Trending Now",
+      "dek": "<b>Four free swaps</b> Abhijith N Arjunan replaces Lightroom with Darktable, Premiere Pro with DaVinci Resolve, Photoshop, Illustrator, and InDesign with the Affinity suite behind a free Canva account, and Acrobat with PDFgear, while granting that Darktable has a steep learning curve and PDFgear's OCR accuracy may not match Adobe's.",
+      "needs": [
+        "Darktable, free on Win, Mac, Linux",
+        "DaVinci Resolve, free version",
+        "A free Canva account for Affinity",
+        "PDFgear, free on desktop and mobile"
+      ],
+      "time": "An evening to switch"
+    },
+    {
+      "date": "2026-08-04",
+      "title": "Swap the all-purpose chatbot for four AI tools each built to do one job",
+      "url": "https://www.howtogeek.com/forget-chatbotsthese-4-ai-tools-actually-change-how-you-work/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek Popular News",
+      "dek": "<b>Sources, not memory</b> Sydney Butler starts with Gemini Notebook, which works from the PDFs, web pages, documents, and videos you hand it and can read them back as a podcast-style audio overview, then adds Perplexity for cited search, Midjourney for images, and ElevenLabs for voice, and he warns that the notebook still hallucinates occasionally.",
+      "needs": [
+        "Gemini Notebook, free tier",
+        "Your own PDFs, links, or documents",
+        "A browser"
+      ],
+      "time": "30 minutes to try"
+    },
+    {
+      "date": "2026-08-04",
+      "title": "Give the old Android tablet in the drawer a job again with five free apps",
+      "url": "https://www.howtogeek.com/these-free-apps-give-old-and-slow-android-tablets-a-reason-to-exist/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek Popular News",
+      "dek": "<b>Five lightweight apps</b> Goran Damnjanovic turns a slow tablet into a reader with Librera, a stylus notepad with Squid, a video player with NOVA, a Pomodoro timer with Goodtime, and an RSS reader with FeedMe, all free and running on hardware as old as Android 8.0, though he sends you to F-Droid for Librera's fully open-source build and to VLC on truly ancient devices.",
+      "needs": [
+        "An old Android tablet, 8.0 or newer",
+        "Google Play or F-Droid",
+        "Wi-Fi for the first downloads"
+      ],
+      "time": "About an hour"
+    },
     {
       "date": "2026-08-03",
       "title": "Add Android Auto to a car that never had it, using a spare Android device",
