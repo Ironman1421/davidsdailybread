@@ -1,7 +1,8 @@
 # Phase 1 PWA quality review
 
-Status: local browser and physical iPhone install/launch review completed;
-secure-origin, Android, full screen-reader, and release gates remain
+Status: local browser, physical iPhone install/launch, and isolated normal-bake
+preview completed; secure-origin, Android, full screen-reader, and release gates
+remain
 
 Reviewed: 2026-08-04, beginning at PR #48 head `6cbe9a8`
 
@@ -107,6 +108,60 @@ Material limits observed:
 - No physical Android handset was available, so Android Chrome and TalkBack were
   not tested or simulated.
 
+## Normal non-publishing bake preview
+
+Reviewed on 2026-08-04 at exact PR head
+`93ce1574da29b7a7865143d50b6aa42bece712a4`. The normal daily renderer was
+invoked for both slots in an automatically deleted copy of the repository. It
+used far-future fixture dates and no network. It did not invoke the local test
+suite, rewrite a real edition, or modify the working tree.
+
+- The morning daily path rendered the homepage, morning edition, all three
+  category pages, archive, feed, archive JSON, and reader-state bookkeeping.
+  Its plan kept intake `paused`, Ask the Baker and Crumb Board empty, and used
+  only the reviewed house-satchel path.
+- The evening daily path rendered the homepage, evening edition, archive, feed,
+  archive JSON, and bounded evening catalog. It did not write morning category
+  pages or reader state.
+- The generated morning homepage, morning edition, three category pages,
+  evening homepage, evening edition, and archive all carried the manifest,
+  PWA stylesheet, Apple web-app metadata, and PWA script from the templates.
+- Both far-future edition records retained the canonical
+  `editions/YYYY-MM-DD-slot.html` archive paths.
+- Tracked-file hashes and targeted canonical-output hashes matched before and
+  after the preview. The real working tree remained clean.
+
+This satisfies the normal non-publishing bake gate. It does not substitute for
+CI and does not make the current generated homepage PWA-enabled before a future
+authorized bake or release.
+
+## Private HTTPS preview decision
+
+A narrowly scoped Tailscale Serve preview is the preferred remaining physical
+iPhone path, but it is not authorized by this review. Read-only checks found
+the paired Mac and iPhone online in the same existing tailnet and an empty Serve
+configuration on the Mac. Tailscale Serve can proxy a loopback-only local HTTP
+server over tailnet-only HTTPS in the foreground; Tailscale Funnel is not
+needed and must remain unused.
+
+The tailnet does not currently advertise certificate domains. Enabling HTTPS
+is therefore a provider mutation and requires David's separate approval.
+Tailscale also documents that the device and tailnet certificate hostname is
+recorded in the public Certificate Transparency ledger. Preview content and
+access remain tailnet-private, but that hostname disclosure is not temporary.
+No HTTPS feature, certificate, Serve route, or preview server was enabled as
+part of this decision.
+
+References: [Tailscale Serve](https://tailscale.com/docs/features/tailscale-serve)
+and [Enabling HTTPS](https://tailscale.com/docs/how-to/set-up-https-certificates).
+
+If approved, the review must use only exact head
+`93ce1574da29b7a7865143d50b6aa42bece712a4`, bind the backend to loopback, run
+Serve in the foreground, verify install/update/correction/offline behavior on
+the physical iPhone, and then stop both processes and confirm the Serve
+configuration is empty. It must not use Funnel, the Spark, background serving,
+deployment, public intake, production data, or repository writes.
+
 ## Remaining release gates
 
 - Physical iPhone Safari service-worker update, correction, and offline recovery
@@ -120,8 +175,5 @@ Material limits observed:
 - Manual keyboard activation and 200-percent text/zoom review in a shipping
   browser. The automation harness verified focus but did not dispatch native
   Enter or Space button activation reliably.
-- A normal non-publishing bake preview confirming generated home, category, and
-  edition pages receive PWA wiring from templates. Historical editions must not
-  be rewritten.
 - CI on the exact follow-up commit and David's separate approval of the exact
   release and rollback. This record does not authorize merge or deployment.
