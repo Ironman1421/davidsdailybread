@@ -71,23 +71,25 @@ class ProductContractTest(unittest.TestCase):
         ):
             self.assertNotIn(stale_question, active)
 
-    def test_both_homepage_templates_state_the_founder_mission(self):
-        mission = (
-            "Grow in faith. Understand technology wisely. Pray for one another. "
-            "Use what you learn in service to others."
+    def test_canonical_surfaces_state_the_product_distinction(self):
+        distinction = (
+            "News and Scripture each morning. An evening Field Guide with useful "
+            "tools and workflows. "
+            "Loved by God."
         )
         brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
-        self.assertIn(mission, " ".join(brand.split()))
-        for relative_path in (
-            Path("templates/home.html"),
-            Path("templates/evening.html"),
-        ):
-            with self.subTest(template=relative_path):
-                template = (ROOT / relative_path).read_text(encoding="utf-8")
-                self.assertIn(f'<p class="mission-statement">{mission}</p>', template)
-                self.assertIn("Faith, technology, prayer, and service", template)
-                self.assertNotIn("newsletter", mission.lower())
-                self.assertNotIn("—", mission)
+        templates = [
+            (ROOT / "templates" / name).read_text(encoding="utf-8")
+            for name in ("home.html", "evening.html")
+        ]
+        renderer = (ROOT / "ddb_session_bake.py").read_text(encoding="utf-8")
+        self.assertIn("news and Scripture each morning", brand)
+        self.assertIn("Field Guide with useful tools and workflows", brand)
+        for template in templates:
+            self.assertIn(distinction, template)
+        self.assertIn("News and Scripture each morning", renderer)
+        self.assertIn("Practical tools each evening", renderer)
+        self.assertNotIn("—", distinction)
 
     def test_distribution_metrics_schema_has_provenance_and_outcome_fields(self):
         schema = json.loads(
@@ -236,14 +238,15 @@ class ProductContractTest(unittest.TestCase):
         ):
             self.assertIn(invariant, active)
 
-    def test_chronicles_closes_new_intake_and_preserves_existing_material_notice(self):
+    def test_chronicles_closes_new_intake_and_preserves_notes(self):
         page = (ROOT / "chronicles.html").read_text(encoding="utf-8")
 
         for current_truth in (
             "The Counter is temporarily closed",
             "Reader slips are resting",
             "New Ask the Baker questions, Letters to the King, and Crumb Board pins are paused",
-            "Existing reviewed reader material may still appear",
+            "all four export options still work",
+            "Existing reviewed reader material remains preserved in past editions",
             "Please do not send reader slips through an old form link",
         ):
             self.assertIn(current_truth, page)
@@ -255,7 +258,7 @@ class ProductContractTest(unittest.TestCase):
         ):
             self.assertNotIn(forbidden_intake, page)
 
-    def test_bake_cannot_change_its_reader_input_snapshot(self):
+    def test_bake_plan_has_no_counter_or_network_input(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
             encoding="utf-8"
         )
@@ -266,7 +269,11 @@ class ProductContractTest(unittest.TestCase):
         self.assertRegex(workflow, r"(?m)^permissions:\n  contents: write$")
 
         bake_spec = (ROOT / "BAKE.md").read_text(encoding="utf-8")
-        self.assertIn("`--plan` never refreshes or mutates it", bake_spec)
+        normalized = " ".join(bake_spec.split())
+        self.assertIn(
+            "it has no Counter, network, or public-submission input and never mutates state",
+            normalized,
+        )
 
     def test_bake_is_serialized_and_paused_counter_is_not_a_writer(self):
         bake = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(

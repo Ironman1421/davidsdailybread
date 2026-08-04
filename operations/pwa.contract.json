@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "status": "phase-1-local-ready-not-published",
+  "owner": "David Friedhof",
+  "canonical": {
+    "origin": "https://davidsdailybread.com",
+    "startUrl": "/",
+    "scope": "/",
+    "websiteRemainsCanonical": true,
+    "archiveJsonRemainsCanonical": true,
+    "rssRemainsCanonical": true,
+    "editionPathsRemainCanonical": true,
+    "correctionsRemainCanonical": true,
+    "separateEditorialProductCreated": false
+  },
+  "productDistinction": [
+    "news-and-scripture-each-morning",
+    "evening-field-guide-with-useful-tools-and-workflows",
+    "loved-by-god"
+  ],
+  "cachePolicy": {
+    "sameOriginOnly": true,
+    "navigationStrategy": "network-first-last-successful-offline-fallback",
+    "canonicalDataStrategy": "network-first-last-successful",
+    "staticShellStrategy": "versioned-cache-first",
+    "crossOriginCaching": false,
+    "queryStringsPersisted": false,
+    "fragmentsPersisted": false,
+    "failedResponsesCached": false,
+    "redirectedResponsesCached": false,
+    "noStoreResponsesCached": false,
+    "correctionsCheckedOnEveryOnlineNavigation": true
+  },
+  "personalData": {
+    "existingNotePrefixes": [
+      "ddb-note:",
+      "ddb-note-style:"
+    ],
+    "notesReadByPwaLayer": false,
+    "notesMigratedByPwaLayer": false,
+    "notesDeletedByPwaLayer": false,
+    "notesUploaded": false,
+    "savedItemSchemaAdded": false
+  },
+  "install": {
+    "readerInitiated": true,
+    "nativePromptRequiresReaderAction": true,
+    "iosGuidanceProvided": true,
+    "accessibleStatusRegion": true
+  },
+  "updates": {
+    "skipWaitingDuringInstall": false,
+    "readerRefreshActionRequiredForWaitingWorker": true,
+    "cacheCleanupLimitedToOwnedPrefix": true
+  },
+  "activation": {
+    "publicationAuthorized": false,
+    "deploymentAuthorized": false,
+    "appStoreListingAuthorized": false,
+    "externalServiceProvisioningAuthorized": false,
+    "credentialsAuthorized": false,
+    "notificationsAuthorized": false,
+    "pushProviderAuthorized": false,
+    "livePersonalDataCollectionAuthorized": false,
+    "spendAuthorizedUsd": 0
+  }
+}

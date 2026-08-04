@@ -31,6 +31,11 @@ home and canonical record. Social channels bring people into the network and
 host bounded experiments, but they do not own the mission, the archive, or the
 community's durable history.
 
+The publication remains news and Scripture each morning, an evening Field
+Guide with useful tools and workflows, and **Loved by God**. The installable app
+is this canonical website made mobile-capable, not a separate editorial product
+or a generic Christian feature suite.
+
 ## The moat
 
 ### Trust
@@ -118,6 +123,10 @@ Exit evidence:
 
 Passing this phase permits David to consider scoped external canaries. It does
 not activate them automatically.
+
+The 2026-08-04 readiness record is
+`docs/PHASE_0_READINESS_2026-08-04.md`. It identifies satisfied prerequisites
+and only the material gaps that keep this exit gate open.
 
 ## Phase 1: strengthen ritual and discovery
 

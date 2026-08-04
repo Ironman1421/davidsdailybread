@@ -1,0 +1,54 @@
+{
+  "id": "/",
+  "name": "David's Daily Bread",
+  "short_name": "Daily Bread",
+  "description": "News and Scripture each morning. An evening Field Guide with useful tools and workflows. Loved by God.",
+  "lang": "en-US",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0e0e12",
+  "theme_color": "#0e0e12",
+  "categories": [
+    "news",
+    "education",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Latest edition",
+      "short_name": "Latest",
+      "url": "/"
+    },
+    {
+      "name": "Past editions",
+      "short_name": "Archive",
+      "url": "/archive.html"
+    },
+    {
+      "name": "Tool shelf",
+      "short_name": "Tools",
+      "url": "/tools.html"
+    },
+    {
+      "name": "Workflows",
+      "short_name": "Workflows",
+      "url": "/workflows.html"
+    }
+  ]
+}

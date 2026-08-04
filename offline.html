@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Offline at the bakery · David's Daily Bread</title>
+<meta name="description" content="David's Daily Bread is offline. Reopen a saved page or return when the connection is ready. Loved by God.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://davidsdailybread.com/offline.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
+<link rel="stylesheet" href="/brand.css">
+<link rel="stylesheet" href="/pwa.css">
+<meta name="theme-color" content="#0e0e12">
+<meta name="application-name" content="David's Daily Bread">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Daily Bread">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="David's Daily Bread">
+<meta property="og:title" content="Offline at the bakery · David's Daily Bread">
+<meta property="og:description" content="Reopen a saved page or return when the connection is ready. Loved by God.">
+<meta property="og:url" content="https://davidsdailybread.com/offline.html">
+<meta property="og:image" content="https://davidsdailybread.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  .paper { max-width: 720px; text-align: center; }
+  main { margin-top: 26px; }
+  h1 { margin: 0 0 10px; font: 600 clamp(34px, 7vw, 52px)/1.05 'Newsreader', Georgia, serif; }
+  .rhythm { max-width: 590px; margin: 0 auto 18px; color: var(--ink); font: 500 17px/1.55 'Newsreader', Georgia, serif; }
+  .explain { max-width: 590px; margin: 0 auto; color: var(--muted); font: 16px/1.65 'Newsreader', Georgia, serif; }
+  .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 24px 0; }
+  .links a { padding: 8px 14px; border: 1px solid var(--gold-soft); border-radius: 999px; color: var(--gold); font: 700 10px/1.4 'Inter', sans-serif; letter-spacing: 1px; text-decoration: none; text-transform: uppercase; }
+  .page-notes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 28px; text-align: left; }
+  .page-notes label { display: block; margin-bottom: 7px; color: var(--gold); font: 700 10px/1.4 'Inter', sans-serif; letter-spacing: 1.4px; text-transform: uppercase; }
+  .page-notes label, .page-notes-tools { flex-basis: 100%; }
+  .page-notes textarea { min-width: 0; min-height: 88px; flex: 1; padding: 12px; border: 1px dashed var(--line-strong); border-radius: 12px; background: rgba(255,255,255,0.025); color: var(--ink); font: 18px/1.4 'Caveat', 'Newsreader', Georgia, serif; }
+  .page-notes textarea:focus-visible { outline: 3px solid var(--steel); outline-offset: 3px; }
+  .page-notes button { min-width: 38px; min-height: 38px; border: 1px solid var(--line-strong); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; font: 700 11px/1 'Inter', sans-serif; }
+  .page-notes button:hover, .page-notes button:focus-visible, .page-notes button[aria-pressed="true"] { border-color: var(--gold-soft); color: var(--gold); }
+  .page-notes button:focus-visible { outline: 3px solid var(--steel); outline-offset: 3px; }
+  .page-notes-tools { display: none; gap: 7px; padding-top: 8px; border-top: 1px dashed var(--line-strong); }
+  .page-notes.tools-open .page-notes-tools { display: flex; }
+  .colophon { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--faint); font: 700 10px/1.4 'Inter', sans-serif; letter-spacing: 1.5px; text-transform: uppercase; }
+  .colophon a { color: var(--muted); }
+</style>
+</head>
+<body class="ddb">
+<div class="paper">
+  <header class="masthead">
+    <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+  </header>
+  <main>
+    <h1>The ovens are offline.</h1>
+    <p class="rhythm">News and Scripture each morning. An evening Field Guide with useful tools and workflows. Loved by God.</p>
+    <p class="explain">A saved page may still open from the archive below. When the connection returns, the app checks the canonical site before showing a cached edition or correction.</p>
+    <nav class="links" aria-label="Offline reading links">
+      <a href="/">Latest edition</a>
+      <a href="/archive.html">Past editions</a>
+      <a href="/tools.html">Tool shelf</a>
+      <a href="/workflows.html">Workflows</a>
+    </nav>
+    <div class="page-notes">
+      <label for="offline-note">Page notes</label>
+      <textarea id="offline-note" data-note-key="page:offline" placeholder="Set down a thought while you wait"></textarea>
+      <button id="offline-note-style" type="button" aria-expanded="false" aria-controls="offline-note-tools" title="Personalize notes">Aa</button>
+      <button id="offline-note-clear" type="button" title="Clear notes" aria-label="Clear notes">&times;</button>
+      <div class="page-notes-tools" id="offline-note-tools" aria-label="Note style">
+        <button type="button" data-font="hand" aria-pressed="true">Hand</button>
+        <button type="button" data-font="serif" aria-pressed="false">Serif</button>
+        <button type="button" data-font="sans" aria-pressed="false">Sans</button>
+      </div>
+    </div>
+  </main>
+  <footer class="colophon"><a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a></footer>
+</div>
+<script>
+  (function () {
+    var note = document.getElementById('offline-note');
+    var key = 'ddb-note:page:offline';
+    var fontKey = key + ':font';
+    var noteBox = document.querySelector('.page-notes');
+    var styleButton = document.getElementById('offline-note-style');
+    var clearButton = document.getElementById('offline-note-clear');
+    var tools = document.getElementById('offline-note-tools');
+    var fonts = { hand: "'Caveat', cursive", serif: "'Newsreader', Georgia, serif", sans: "'Inter', sans-serif" };
+    function setFont(name) {
+      var chosen = fonts[name] ? name : 'hand';
+      note.style.fontFamily = fonts[chosen];
+      tools.querySelectorAll('[data-font]').forEach(function (button) {
+        button.setAttribute('aria-pressed', String(button.getAttribute('data-font') === chosen));
+      });
+      try { localStorage.setItem(fontKey, chosen); } catch (error) {}
+    }
+    try { note.value = localStorage.getItem(key) || ''; } catch (error) {}
+    try { setFont(localStorage.getItem(fontKey) || 'hand'); } catch (error) { setFont('hand'); }
+    note.addEventListener('input', function () {
+      try {
+        if (note.value) localStorage.setItem(key, note.value);
+        else localStorage.removeItem(key);
+      } catch (error) {}
+    });
+    styleButton.addEventListener('click', function () {
+      var open = !noteBox.classList.contains('tools-open');
+      noteBox.classList.toggle('tools-open', open);
+      styleButton.setAttribute('aria-expanded', String(open));
+    });
+    clearButton.addEventListener('click', function () {
+      note.value = '';
+      try { localStorage.removeItem(key); } catch (error) {}
+      note.focus();
+    });
+    tools.querySelectorAll('[data-font]').forEach(function (button) {
+      button.addEventListener('click', function () { setFont(button.getAttribute('data-font')); });
+    });
+  })();
+</script>
+<script src="/pwa.js" defer></script>
+</body>
+</html>

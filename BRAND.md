@@ -126,6 +126,10 @@ boundaries.
 - **`/x-banner.png`** (1500×500) is the official X profile banner. It carries the
   same exact subtitle as `og-card.png` and preserves the masthead mark, wordmark,
   palette, and typographic hierarchy.
+- **Installable app icons:** `/icons/icon-192.png` and
+  `/icons/icon-512.png` are raster exports of the approved `/favicon.svg`
+  basket mark. They identify the same website and never replace header art at
+  the top of a page or `og-card.png` in social previews.
 
 ## Voice
 
@@ -222,3 +226,5 @@ boundaries.
 4. Links/accents in gold; secondary accents steel; badges copper.
 5. Baker's voice on public-facing chrome; straight news in content.
 6. No em dashes anywhere readers can see (House style above).
+7. Installable surfaces point to `/manifest.webmanifest`, use canonical URLs,
+   and preserve the same morning, evening, and **Loved by God** distinction.

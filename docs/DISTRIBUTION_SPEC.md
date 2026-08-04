@@ -58,6 +58,13 @@ the website count and is never added to it.
 - The installable web app remains a presentation and return layer over the
   canonical site, archive, and account model. It does not fork editorial
   history or create a second source of truth.
+- Its manifest starts at `/` and all installed navigation uses the same public
+  URLs. HTML, dated editions, the archive manifest, RSS, and the evening catalog
+  check the network first so corrections remain canonical; only the last
+  successful same-origin response is available offline.
+- The service worker does not cache cross-origin sources or persist query
+  strings, and its upgrade path does not read, migrate, upload, or clear
+  existing browser-local notes.
 - Native mobile packages, if later approved, consume the same canonical content
   and correction records.
 - Hosted community invitations and notifications are distribution events with

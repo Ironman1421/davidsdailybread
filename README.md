@@ -37,6 +37,9 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
 - `editions/` — every past edition, dated. `archive.html` / `archive.json` — the bread box.
 - `tools.html` / `workflows.html` — searchable evening libraries backed by
   `evening-catalog.json`.
+- `manifest.webmanifest` / `service-worker.js` / `pwa.js` / `pwa.css` — the
+  local Phase 1 installable-web-app shell over canonical site URLs;
+  `offline.html` is its branded fallback.
 - `feed.xml` — complete RSS delivery. The current fail-closed `subscribe.html`
   state is preserved. Newsletter strategy may proceed locally, but address
   collection, provider operations, activation, and sending remain disabled.
@@ -52,6 +55,9 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   `docs/SECURITY_SPEC.md` — trust boundaries and required controls;
   `docs/DISTRIBUTION_SPEC.md` — channel, adapter, voice, rights, and measurement law;
   `docs/GROWTH_ROADMAP.md` — the active durable-moat roadmap and phase gates;
+  `docs/PWA_ARCHITECTURE.md` — install, offline, update, and correction policy;
+  `docs/PHASE_0_READINESS_2026-08-04.md` — satisfied Phase 0 prerequisites and
+  material remaining gaps;
   `docs/X_REPLY_PLAYBOOK.md` — manually approved, reply-led X growth law;
   `docs/READER_STORE_SPEC.md` — approved private reader-store and cutover design;
   `docs/PUBLISHER_IDENTITY_SPEC.md` — approved scheduled identity and `main`

@@ -127,6 +127,23 @@ applicable controls below:
   messaging requires a separate abuse, age-safety, encryption, retention,
   reporting, and incident-response decision and may remain omitted.
 
+### Installable web app
+
+- The manifest, service worker, and install layer reuse canonical URLs. They do
+  not create an app-only edition, archive, correction record, or account path.
+- The service worker handles only same-origin GET requests. HTML navigations and
+  canonical data use network-first behavior so online corrections replace prior
+  cached responses before display.
+- Only successful, non-redirected, same-origin basic responses without
+  `no-store` may be cached. Query strings and fragments are not persisted, and
+  runtime caches are bounded.
+- Cache cleanup deletes only cache names owned by the `ddb-pwa-` prefix. It does
+  not touch browser `localStorage`, existing `ddb-note:*` or
+  `ddb-note-style:*` keys, Chronicles exports, or other origins.
+- A new worker waits until the reader chooses refresh. Install prompts are
+  reader-initiated. Push, notification, background-sync, analytics, and
+  external-provider APIs remain absent and unauthorized in this package.
+
 ### Distribution
 
 - Every channel adapter needs an edition-scoped idempotency key, a length and

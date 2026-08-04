@@ -25,8 +25,8 @@ in version-controlled specs, code, and tests before use.
   main-only environment remains disabled and kill-switched. Activating it is a
   separately reviewed credential migration that must first disable Spark's
   lane so the two publishers can never duplicate an edition.
-- Social analytics now have a checked-in schema, but no live ledger, automated
-  snapshots, or weekly scorecard.
+- Social analytics and the aggregate operating scorecard are checked in, but
+  there is no activated reader measurement or complete audience baseline.
 - Branch protection and workflow bypass ownership are not documented as code.
 - Reader-submission storage has an approved private design but no provisioned
   project or named operator. Site-side intake closure is deployed; external
@@ -67,6 +67,20 @@ in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 - `evening-catalog.json`: bounded tools and workflows catalog updated only by a
   successful daily evening render.
 - `tools.html` and `workflows.html`: standing searchable library pages.
+
+## Installable web app surfaces
+
+- `manifest.webmanifest`: same-origin app identity and approved brand icons.
+- `service-worker.js`: bounded same-origin offline and correction policy.
+- `pwa.js` and `pwa.css`: accessible install, connectivity, and waiting-update
+  behavior without notification or personal-data APIs.
+- `offline.html`: branded fallback with a browser-local page note.
+- `operations/pwa.contract.json` and `docs/PWA_ARCHITECTURE.md`: local-only
+  activation boundary and cache contract.
+
+Generated home, category, and edition pages receive these links from
+`templates/` during the normal bake. Historical rendered editions are not
+rewritten.
 
 ## Durable-moat product direction
 
