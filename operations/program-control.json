@@ -513,7 +513,7 @@
     },
     {
       "id": "DDB-PC-022",
-      "sequence": 12.5,
+      "sequence": 13,
       "title": "Rotate the exposed X Monitor Sites bypass credential",
       "status": "in_progress",
       "dependencies": [
@@ -542,7 +542,7 @@
     },
     {
       "id": "DDB-PC-012",
-      "sequence": 13,
+      "sequence": 14,
       "title": "Repair Ethernet and configure Wi-Fi failover",
       "status": "pending",
       "dependencies": [
@@ -609,7 +609,7 @@
     },
     {
       "id": "DDB-PC-013",
-      "sequence": 14,
+      "sequence": 15,
       "title": "Reconcile the dirty Spark and local checkouts",
       "status": "pending",
       "dependencies": [
@@ -630,7 +630,7 @@
     },
     {
       "id": "DDB-PC-014",
-      "sequence": 15,
+      "sequence": 16,
       "title": "Remove redundant Codex automations",
       "status": "pending",
       "dependencies": [
@@ -650,7 +650,7 @@
     },
     {
       "id": "DDB-PC-015",
-      "sequence": 16,
+      "sequence": 17,
       "title": "Implement the publisher App and protect main",
       "status": "pending",
       "dependencies": [
@@ -673,7 +673,7 @@
     },
     {
       "id": "DDB-PC-016",
-      "sequence": 17,
+      "sequence": 18,
       "title": "External reader-intake account cutover",
       "status": "paused_by_doctrine",
       "dependencies": [
@@ -689,7 +689,7 @@
     },
     {
       "id": "DDB-PC-017",
-      "sequence": 18,
+      "sequence": 19,
       "title": "Cloudflare and D1 canary or activation",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -703,7 +703,7 @@
     },
     {
       "id": "DDB-PC-018",
-      "sequence": 19,
+      "sequence": 20,
       "title": "Supabase reader-store provisioning or activation",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -717,7 +717,7 @@
     },
     {
       "id": "DDB-PC-019",
-      "sequence": 20,
+      "sequence": 21,
       "title": "Newsletter activation or sending",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -731,7 +731,7 @@
     },
     {
       "id": "DDB-PC-020",
-      "sequence": 21,
+      "sequence": 22,
       "title": "Close the current reliability and governance program",
       "status": "pending",
       "dependencies": [
