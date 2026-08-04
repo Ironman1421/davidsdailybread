@@ -55,8 +55,10 @@ finalization against the verified edition and SHA; never bake or push again.
 
 No unpublished reader payload or generated bundle uses a normal Actions
 artifact. Anyone with read access to a public repository can access its
-artifacts, so the current diagnostic upload of `content.json` and the raw bake
-log must be removed or strictly redacted during cutover.
+artifacts. The current bake therefore withholds raw model output from Actions
+logs, creates diagnostics only on failure, and uploads only a whitelist-built
+summary with no reader or model payload. The private-store cutover must preserve
+that boundary.
 
 ## GitHub App setup
 

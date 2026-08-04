@@ -12,13 +12,14 @@ candidate owned retention path back to canonical work. The previously approved
 four-week Buttondown plan remains a guarded historical design, not an active
 pilot or a queue of operational next steps.
 
-Preserve the existing live `/subscribe.html` state unless David approves a site
-change. Local research, information architecture, consent-flow design, provider
-comparison, and non-networked interface prototypes are authorized. The form's
-presence, a new signup, completion of an old gate, or silence does not authorize
-issue drafting, send testing, provider configuration, list operations,
-credentialing, scheduling, or sending. The website and RSS remain the canonical,
-complete record.
+Preserve the current fail-closed `/subscribe.html` state unless David approves
+a site change. Local research, information architecture, consent-flow design,
+provider comparison, and non-networked interface prototypes are authorized.
+No public form or provider endpoint is present, and no new address is collected.
+Completion of an old gate, local prototype, or silence does not authorize issue
+drafting, send testing, provider configuration, list operations, credentialing,
+scheduling, or sending. The website and RSS remain the canonical, complete
+record.
 
 ## Frozen historical format
 
@@ -38,17 +39,17 @@ use reviewed Rest material rather than fabricated reader mail.
 
 ## Signup and data boundary
 
-- The current live signup page is preserved, not newly activated by this spec.
-- `/subscribe.html` posts an email address directly to the official Buttondown
-  embedded-subscribe endpoint for `davidsdailybread`.
-- Buttondown double opt-in remains required. A submitted address is not an
-  active subscriber until the reader confirms it.
+- The current fail-closed signup page is preserved, not reopened by this spec.
+- `/subscribe.html` contains no form, email input, provider endpoint, or public
+  email address and collects no new address.
+- Buttondown remains only the historical provider named by the frozen pilot.
+  This document does not authorize account access or provider mutation.
 - The repository, GitHub Actions, Supabase, logs, and public ledgers do not
   receive subscriber email addresses.
 - Subscriber exports are not committed, attached to issues, or placed in normal
   artifacts. Buttondown is the system of record for the pilot list.
-- `privacy@davidsdailybread.com` is the verified public privacy contact. Its
-  private forwarding destination is deliberately not recorded here.
+- A verified privacy contact is required before any signup surface can reopen.
+  Do not add or guess a public address as part of local prototype work.
 - Every issue provides the provider unsubscribe control. A privacy or deletion
   request is acknowledged and completed within seven days.
 

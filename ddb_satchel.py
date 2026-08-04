@@ -1,23 +1,16 @@
 #!/usr/bin/env python3
-"""DDB satchel — fills the three reader-content sections of a bake:
-Ask the Baker (RQ*), Letters to the King (KQ*), The Crumb Board (PIN*).
+"""DDB satchel helpers for reviewed house material and frozen legacy records.
 
 Subsumes satchel-steward's draw/bookkeeping logic for bake time (selecting
 and marking used). Weekly restock of kings-satchel.json back up to 16 unused
 letters is a separate, larger job (satchel-steward proper, APR-005 sec 4) and
 is NOT done here.
 
-Reads:
-  - bakery-state.json   (used-item dedup keys, from the git working tree)
-  - kings-satchel.json  (house letters, fallback when no reader letter waits)
-  - the Counter response sheet, published to the web as CSV (COUNTER_CSV_URL).
-    No credential needed; it's a public "publish to web" export. Google
-    302-redirects it, so fetch with redirects followed (curl -L equivalent)
-    or a plain GET returns an empty body. The publish can lag a live
-    submission by a few minutes.
-
-Writes:
-  - bakery-state.json   (appends the newly-used dedup key)
+Network reader intake and the legacy all-in-one reader renderer are disabled
+while the founder pause is active. The current session renderer may select only
+reviewed house letters from `kings-satchel.json`. CSV parsing functions remain
+solely for deterministic migration and historical tests; no production path
+fetches or publishes those rows.
 
 Columns (confirmed against the real export 2026-07-10): Timestamp, Slip type
 ("Question for the Baker" | "Pin for the Crumb Board"), The slip, Signed.
@@ -35,7 +28,6 @@ import os
 import random
 import re
 import subprocess
-import urllib.request
 from datetime import datetime
 from pathlib import Path
 
@@ -44,12 +36,6 @@ TIMESTAMP_COL, TYPE_COL, TEXT_COL, NAME_COL = 0, 1, 2, 3
 TYPE_QUESTION = "Question for the Baker"   # covers BOTH Ask the Baker and Letters to the King
 TYPE_PIN = "Pin for the Crumb Board"
 KING_PREFIX = "[For King David] "
-
-COUNTER_CSV_URL = (
-    "https://docs.google.com/spreadsheets/d/e/"
-    "2PACX-1vSLZpQtsFE0aGPesDlZceSy-4nRa6GV0TvLM7jJPToJp43Ml0vtRomQpovm4Sbed6JKo9B4h7gh76TE"
-    "/pub?output=csv"
-)
 
 CLAUDE_BIN = os.environ.get("DDB_CLAUDE_BIN", "claude")
 MODEL_HAIKU = "claude-haiku-4-5-20251001"
@@ -63,24 +49,9 @@ def strip_em_dashes(text: str) -> str:
     return EM_DASH_RE.sub(", ", text)
 
 
-def fetch_csv(dest_path: Path, url: str = COUNTER_CSV_URL, timeout: int = 20) -> bool:
-    """Fetch the published Counter sheet to dest_path, following redirects
-    (a plain GET without redirect-follow returns an empty body). Returns
-    True if the fetch produced a real CSV (header + at least the header
-    row), False otherwise — caller should treat False as "no new data",
-    never as license to publish placeholders."""
-    req = urllib.request.Request(url, headers={"User-Agent": "ddb-bake/1.0"})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            body = resp.read().decode("utf-8", errors="replace")
-    except Exception as e:
-        print(f"WARNING: Counter CSV fetch failed: {e}")
-        return False
-    if not body.strip() or "Timestamp" not in body.splitlines()[0]:
-        print(f"WARNING: Counter CSV fetch returned unexpected body (len={len(body)})")
-        return False
-    dest_path.write_text(body, encoding="utf-8")
-    return True
+def fetch_csv(*_args, **_kwargs) -> bool:
+    """Fail closed if retired code attempts network reader ingestion."""
+    raise RuntimeError("reader intake is paused; Counter network ingestion is disabled")
 
 
 # ---------------------------------------------------------------------------
@@ -227,68 +198,7 @@ def generate_king_reply(letter: str) -> str:
 # ---------------------------------------------------------------------------
 
 def fill_reader_sections(site_dir: Path, csv_path: Path, write_state: bool = True) -> dict[str, str]:
-    """Returns the token->value dict for RQ1_*, KQ1_*, PIN1_* and updates
-    bakery-state.json in place (site_dir) with newly-used dedup keys, unless
-    write_state is False (dry runs must not mutate shared state)."""
-    state_path = site_dir / "bakery-state.json"
-    satchel_path = site_dir / "kings-satchel.json"
-
-    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {
-        "note": "", "answeredQuestions": [], "postedPins": [], "kingLetters": [], "usedSatchelLetters": []
-    }
-
-    fetch_csv(csv_path)  # best-effort refresh; on failure we fall back to whatever csv_path already has (possibly nothing)
-    rows = classify(load_csv_rows(csv_path))
-    tokens: dict[str, str] = {}
-
-    # --- Ask the Baker ---
-    ask_used = set(state.get("answeredQuestions", []))
-    ask_row = pick_oldest_unused(rows["asks"], ask_used)
-    if ask_row:
-        answer = generate_baker_reply(ask_row["text"])
-        tokens["RQ1_Q"] = strip_em_dashes(ask_row["text"])
-        tokens["RQ1_A"] = answer
-        state.setdefault("answeredQuestions", []).append(dedup_key(ask_row))
-    else:
-        tokens["RQ1_Q"] = ""
-        tokens["RQ1_A"] = ""
-
-    # --- Letters to the King ---
-    king_used = set(state.get("kingLetters", []))
-    king_row = pick_oldest_unused(rows["king_letters"], king_used)
-    if king_row:
-        letter_text = king_row["text"][len(KING_PREFIX):].strip()
-        reply = generate_king_reply(letter_text)
-        tokens["KQ1_Q"] = strip_em_dashes(letter_text)
-        tokens["KQ1_FROM"] = f"From {strip_em_dashes(king_row['name'])}"
-        tokens["KQ1_A"] = reply
-        state.setdefault("kingLetters", []).append(dedup_key(king_row))
-    else:
-        satchel_used = set(state.get("usedSatchelLetters", []))
-        satchel_letters = load_satchel(satchel_path)
-        drawn = pick_satchel_letter(satchel_letters, satchel_used)
-        if drawn:
-            reply = generate_king_reply(drawn["letter"])
-            tokens["KQ1_Q"] = strip_em_dashes(drawn["letter"])
-            tokens["KQ1_FROM"] = "From the Baker's own shelf"
-            tokens["KQ1_A"] = reply
-            state.setdefault("usedSatchelLetters", []).append(drawn["id"])
-        else:
-            # Satchel exhausted too — leave empty rather than publish placeholders.
-            tokens["KQ1_Q"] = tokens["KQ1_FROM"] = tokens["KQ1_A"] = ""
-
-    # --- The Crumb Board ---
-    pin_used = set(state.get("postedPins", []))
-    pin_row = pick_oldest_unused(rows["pins"], pin_used)
-    if pin_row:
-        text, name = copyedit_pin(pin_row["text"], pin_row["name"])
-        tokens["PIN1_TEXT"] = text
-        tokens["PIN1_SIG"] = f"– {name}"
-        state.setdefault("postedPins", []).append(dedup_key(pin_row))
-    else:
-        tokens["PIN1_TEXT"] = ""
-        tokens["PIN1_SIG"] = ""
-
-    if write_state:
-        state_path.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    return tokens
+    """Retired all-in-one reader renderer, retained only to fail closed."""
+    raise RuntimeError(
+        "reader intake is paused; legacy Counter rendering is disabled"
+    )

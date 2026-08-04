@@ -18,7 +18,7 @@ def permanent_feature_failures(html: str) -> list[str]:
     checks = {
         "RSS alternate": '<link rel="alternate" type="application/rss+xml"' in html,
         "no embedded Buttondown form": "buttondown" not in html.lower(),
-        "weekly pilot link": 'href="/subscribe.html">Weekly email</a>' in colophon,
+        "email pause link": 'href="/subscribe.html">Email paused</a>' in colophon,
         "colophon RSS": 'href="/feed.xml">RSS</a>' in colophon,
         "page notes localStorage": (
             'data-note-key="page:archive"' in html

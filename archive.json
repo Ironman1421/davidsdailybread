@@ -2,6 +2,62 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-04",
+      "edition": "morning",
+      "dateHuman": "Tuesday, August 4, 2026",
+      "file": "editions/2026-08-04-morning.html",
+      "lead": "Amazon tops $3 trillion in market value for the first time",
+      "pubDate": "Tue, 04 Aug 2026 07:49:08 -0400"
+    },
+    {
+      "date": "2026-08-03",
+      "edition": "evening",
+      "dateHuman": "Monday, August 3, 2026",
+      "file": "editions/2026-08-03-evening.html",
+      "lead": "Check what your browser extensions can actually see, then delete the ones that see too much",
+      "pubDate": "Mon, 03 Aug 2026 17:53:10 -0400"
+    },
+    {
+      "date": "2026-08-03",
+      "edition": "morning",
+      "dateHuman": "Monday, August 3, 2026",
+      "file": "editions/2026-08-03-morning.html",
+      "lead": "Trump calls off Iran strikes and Wall Street futures climb as oil retreats",
+      "pubDate": "Mon, 03 Aug 2026 07:55:55 -0400"
+    },
+    {
+      "date": "2026-08-02",
+      "edition": "evening",
+      "dateHuman": "Sunday, August 2, 2026",
+      "file": "editions/2026-08-02-evening.html",
+      "lead": "Record a screen demo tonight with Capptivo, a free open source recorder for Mac, Windows, and Linux",
+      "pubDate": "Sun, 02 Aug 2026 17:55:03 -0400"
+    },
+    {
+      "date": "2026-08-02",
+      "edition": "morning",
+      "dateHuman": "Sunday, August 2, 2026",
+      "file": "editions/2026-08-02-morning.html",
+      "lead": "WHO says Congo's Ebola outbreak is now the largest ever recorded there, with 3,605 cases and 1,587 deaths",
+      "pubDate": "Sun, 02 Aug 2026 07:51:21 -0400"
+    },
+    {
+      "date": "2026-08-01",
+      "edition": "evening",
+      "dateHuman": "Saturday, August 1, 2026",
+      "file": "editions/2026-08-01-evening.html",
+      "lead": "Switch your DNS tonight: one router setting moves every lookup off your internet provider's servers",
+      "pubDate": "Sat, 01 Aug 2026 18:15:19 -0400"
+    },
+    {
+      "date": "2026-08-01",
+      "edition": "morning",
+      "dateHuman": "Saturday, August 1, 2026",
+      "file": "editions/2026-08-01-morning.html",
+      "lead": "Apple loses nearly $500 billion in market value as AI data centers squeeze the chips it needs for iPhones",
+      "pubDate": "Sat, 01 Aug 2026 09:51:47 -0400"
+    },
+    {
       "date": "2026-07-31",
       "edition": "evening",
       "dateHuman": "Friday, July 31, 2026",

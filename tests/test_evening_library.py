@@ -48,19 +48,25 @@ class EveningLibraryTest(unittest.TestCase):
     def test_catalog_is_bounded_source_linked_and_schema_complete(self):
         catalog = json.loads((ROOT / "evening-catalog.json").read_text(encoding="utf-8"))
         self.assertEqual(1, catalog["version"])
-        expected = {
+        legacy = {
             "tools": {"date", "name", "url", "cost", "kind", "seen", "blurb"},
             "workflows": {"date", "title", "url", "dek", "needs", "time"},
         }
-        for section, fields in expected.items():
+        current = {
+            "tools": legacy["tools"] | {"trend_url"},
+            "workflows": legacy["workflows"] | {"trend_url", "seen"},
+        }
+        for section in ("tools", "workflows"):
             items = catalog[section]
             self.assertTrue(items)
             self.assertLessEqual(len(items), 180)
             urls = []
             for item in items:
-                self.assertEqual(fields, set(item))
+                self.assertIn(set(item), (legacy[section], current[section]))
                 self.assertRegex(item["date"], r"^\d{4}-\d{2}-\d{2}$")
                 self.assertTrue(ddb_bake.is_safe_source_url(item["url"]))
+                if "trend_url" in item:
+                    self.assertTrue(ddb_bake.is_safe_source_url(item["trend_url"]))
                 self.assertIsNone(EM_DASH.search(json.dumps(item, ensure_ascii=False)))
                 urls.append(item["url"])
             self.assertEqual(len(urls), len(set(urls)))

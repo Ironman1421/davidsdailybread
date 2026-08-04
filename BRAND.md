@@ -4,33 +4,52 @@ This file is the canonical brand definition for **all** David's Daily Bread surf
 the website (davidsdailybread.com), Chronicles, and any future page or tool. If a color, font, or rule here
 disagrees with anything else, **this file wins**. Change the brand by editing this
 file (and `brand.css`) — nowhere else. `FOUNDER_DOCTRINE.md` separately governs
-mission, ownership, strategic direction, and production boundaries.
+mission, ownership, strategic direction, authorized local work, and production
+boundaries.
 
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
-- **The Bakery** is the exact X profile location. It is brand language, not a
-  physical location or a publication timezone.
+- The governing product distinction is: news and Scripture each morning, an
+  evening Field Guide with useful tools and workflows, and **Loved by God**.
+  The installable app presents this same canonical publication and does not add
+  a separate editorial identity.
+- The exact home masthead subtitle in both the morning and evening editions is:
+  **News and Scripture each morning. Practical tools each evening. Loved by
+  God.** It appears in the original masthead's italic serif treatment and muted
+  color, centered beneath the untouched basket, crown, and David's Daily Bread
+  wordmark. The evening edition adopts it beginning August 4, 2026, preserving
+  the already-planned August 3 evening edition.
+- The exact morning category format descriptor is: **News and Scripture, paired
+  story by story.**
 - The exact public mission line is: **Grow in faith. Understand technology
   wisely. Pray for one another. Use what you learn in service to others.** It
   complements **Loved by God** and does not replace the tagline.
-- Current operating truth (updated 2026-07-30, per David): the site is **baked
-  twice daily** by GitHub Actions (spec: `/BAKE.md`). The **morning edition**
-  (cron 5:05 AM Pacific) is straight news on technology, markets, and science,
-  and carries the reader sections. The **evening edition** (cron 3:35 PM
-  Pacific) is the Field Guide: trending tools and practical workflows for
-  everyday people, and NO news of any kind (news is the morning's job). Its
+- Current operating truth (updated 2026-08-01, per David): the site is **baked
+  twice daily** in GitHub Actions, dispatched by Spark's Pacific-time clock
+  with DST-safe GitHub backup schedules (spec: `/BAKE.md`, deployment evidence:
+  `/docs/OPERATIONS_EVIDENCE_2026-08-01.md`). The **morning
+  edition** targets reader-ready publication near 5:00 AM Pacific (8:00 AM
+  Eastern). It pairs politics-free news and Scripture story by story across
+  technology, markets, and science, and carries the reader sections. The
+  **evening edition** targets reader-ready publication
+  near 3:00 PM Pacific (6:00 PM Eastern). It is the Field Guide: broadly useful
+  productivity tools and repeatable workflows for everyday people, and NO news
+  of any kind (news is the morning's job). Its editorial promise is leverage:
+  help ordinary readers save time, improve work, communicate better, earn, or
+  reduce mental load. Trend evidence confirms interest but never substitutes
+  for that practical value. Its
   presentation uses the **July 31 Field Guide** format: one useful lead, a
   two-column tool shelf and workflow lane, then Keep and Ponder with Mary of
   Nazareth below the actionable material. It carries no reader submissions or
   reader-state interaction.
-  GitHub cron fires late, not never; both times are "no earlier than". The
-  website and `/feed.xml` remain the complete, canonical delivery surfaces.
-- **Newsletter sending remains INACTIVE (updated 2026-08-04, per David):**
-  newsletter strategy and local product-integration prototypes may proceed,
-  but preserve the current live `/subscribe.html` state. Do not draft an issue,
-  test a send, schedule, send, configure the provider, operate on a list, or
-  install a credential. The website and `/feed.xml` remain the complete,
+  A delayed trigger is safe because an exact edition is published at most once.
+  The website and `/feed.xml` remain the complete, canonical delivery surfaces.
+- **Newsletter operations remain disabled (updated 2026-08-04, per David):**
+  preserve the current fail-closed `/subscribe.html` state. Strategy and local
+  product-integration prototypes may proceed, but do not collect addresses,
+  draft, test, schedule, send, configure, credential, operate on a list, or
+  activate the former pilot. The website and `/feed.xml` remain the complete,
   canonical delivery surfaces.
 - Edition history: evening editions ran 2026-07-07 through 2026-07-14, were
   retired in the 2026-07-17 simplification (one morning edition), and were
@@ -56,6 +75,7 @@ mission, ownership, strategic direction, and production boundaries.
 | `--steel` | `#6f9fce` | Secondary accent (editions, numbering) |
 | `--steel-soft` | `#456f9c` | Secondary accent, soft |
 | `--marker` | `#b9772a` | Copper: badges, signatures |
+| `--rose` | `#d98c9d` | Mary of Nazareth: name, posture, floral accents |
 
 > Note (2026-07-09): `#c8a24a` gold / `#0e0e12` bg is the canonical palette (the live
 > site's). The older `#d2a53f` / `#121116` / Georgia-serif palette from early drafts
@@ -95,6 +115,10 @@ mission, ownership, strategic direction, and production boundaries.
   appear at the very top of EVERY web page (`<img class="masthead-art" src="/header-art.png">`).
   No other art at the top of any page, ever, unless David explicitly says so.
   Never regenerate, rename, or re-upload it — just reference it.
+- On the morning home page only, preserve the official image pixels while the
+  layout crops its superseded baked-in subtitle, optically centers the basket,
+  crown, and wordmark, and renders the approved live subtitle beneath them. The
+  original image file remains untouched.
 - **`/og-card.png`** (1200×630) is the social/share card (`og:image`). Web pages use
   header-art; social previews use og-card. Its exact subtitle is **News and Scripture
   each morning. Practical tools each evening. Loved by God.** Never substitute other
@@ -123,36 +147,54 @@ mission, ownership, strategic direction, and production boundaries.
   advice or revelation, and the prayers remain addressed to God. The section
   follows Keep, Ponder, Entrust: one short KJV passage, one release prompt, and
   one prayer. The name and movement are shaped by Luke 2:19. It is contemplative
-  product copy selected deterministically from
-  a reviewed repository set, never reader mail and never a second Letters to the
-  King.
+  product copy selected deterministically from a reviewed repository set, never
+  reader mail and never a second Letters to the King. Its visual signature is a
+  restrained frame of realistic blush-pink and ivory flowers. The flowers stay
+  small and sparse at the card border so Mary and Keep and Ponder remain the
+  focus. Mary's name and the Luke 2:19 posture line use `--rose`, never steel or
+  gold.
 
 ## Permanent features (never remove)
 
-- **Existing weekly email link:** its current live state is preserved while
-  sending remains inactive. It does not authorize issue drafting, provider
-  activation, list operation, or sending. RSS and the archive remain permanent.
+- **Existing weekly email link:** its 2026-07-31 live state is preserved while
+  newsletter work is paused. It does not authorize drafting, activation, or
+  sending. RSS and the archive remain permanent.
 - **Chronicles exports** (2026-07-08): chronicles.html's four note-export buttons
   (Download .md, PDF, email, copy) are hardwired. Never remove or rebuild them;
   edit chronicles.html only from the current live/main version.
 - **Notes boxes:** every story card and every page carries localStorage notes with
   the Aa personalization toolbar.
+- **Politics-free morning news:** morning coverage excludes politicians,
+  parties, elections, campaigns, polling, partisan disputes, culture-war
+  disputes, war, diplomacy, sanctions, tariffs, and geopolitical maneuvering.
+  A completed government rule may run only for its direct practical effect on
+  technology, markets, or science, without centering a political contest or
+  personality.
+- **Morning Scripture pairings:** every morning story, including cards and their
+  category-page versions, ends with the approved compact inline "Scripture for
+  Reflection" treatment. The verse is exact, verified Berean Standard Bible
+  text selected by repository identifier, followed by a linked reference and a
+  required brief, reader-directed editorial connection. Scripture guides the
+  reader's response. It never blesses, condemns, diagnoses, or assigns biblical
+  meaning to a person, company, government, or news event. Data-only material,
+  navigation, and the evening edition are excluded. The evening's Keep and
+  Ponder passage remains KJV.
 - **Reader features:** Ask the Baker, Letters to the King, and The Crumb Board
-  remain editorial features, but new public submissions are temporarily closed
-  while the Counter moves behind a verified private boundary. Existing reviewed
-  reader material may still appear while the private replacement is built under
-  the durable-moat roadmap. Letters to the King is backstopped by the
-  house satchel (`/kings-satchel.json`), restocked weekly by the satchel-steward
-  scheduled task; used letters are tracked in `bakery-state.json`
-  (`usedSatchelLetters`) and never repeat. Reopening intake requires David's
-  verified private cutover and a separate activation approval.
+  remain editorial features, but public submissions are closed until a private
+  intake boundary is verified and David explicitly approves reopening. Current
+  morning bakes reject submission-derived material; only a reviewed house
+  letter may run. Letters to the King is backstopped by the house satchel
+  (`/kings-satchel.json`), restocked
+  weekly by the satchel-steward scheduled task; used letters are tracked in
+  `bakery-state.json` (`usedSatchelLetters`) and never repeat.
 - **RSS:** `/feed.xml`, prepended every bake; the RSS `<link rel="alternate">` tag
   stays in every page head.
 - **Evening libraries:** `/tools.html` and `/workflows.html` are standing,
   searchable pages backed by `/evening-catalog.json`. The evening masthead links
   open these pages; they never masquerade as in-page anchor links.
-- **Selah line:** the "Selah – anything to set down?" vault-door chronicles button
-  on the home page footer.
+- **Selah line:** the footer points to Chronicles for private, on-device notes
+  and says those notes remain on the reader's device. It does not invite a
+  public submission while intake is paused.
 
 ## Where the code lives
 

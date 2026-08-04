@@ -133,28 +133,28 @@ class BrandCadenceTest(unittest.TestCase):
 
     def test_current_operating_truth_is_explicit_without_erasing_history(self):
         # Truth since 2026-07-30 (per David): baked TWICE daily by GitHub
-        # Actions: the morning news edition (with reader sections) and the
-        # evening trends edition (trending / new tools / workflows, no reader
-        # sections). The preserved signup page still describes the former
-        # four-week pilot, but founder doctrine keeps activation and sending
-        # paused.
+        # Actions: the morning news edition (reviewed house-satchel material
+        # only while public intake is paused) and the evening trends edition
+        # (trending / new tools / workflows, no reader sections). Newsletter
+        # signup and activation are paused.
         brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
         self.assertIn("twice daily", brand.lower())
         self.assertIn("evening edition", brand.lower())
 
         subscribe = (ROOT / "subscribe.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, subscribe)
-        self.assertIn("Four-week pilot", subscribe)
-        self.assertIn("One email each week", subscribe)
-        self.assertIn("buttondown.com/api/emails/embed-subscribe/davidsdailybread", subscribe)
+        self.assertIn("Newsletter signup, activation, and sending are paused", subscribe)
+        self.assertIn("No new addresses are being collected", subscribe)
+        self.assertNotIn("<form", subscribe.lower())
+        self.assertNotIn("buttondown", subscribe.lower())
         self.assertNotIn("Evening delivery is in testing", subscribe)
         self.assertNotIn("newsletter has been retired", subscribe.lower())
 
         chronicles = (ROOT / "chronicles.html").read_text(encoding="utf-8")
         self.assertIn(BRAND, chronicles)
         self.assertIn("Reader slips are resting", chronicles)
-        self.assertIn("Existing reviewed reader material may still appear", chronicles)
-        self.assertNotIn("docs.google.com/forms", chronicles)
+        self.assertIn("all four export options still work", chronicles)
+        self.assertNotIn("formResponse", chronicles)
         self.assertNotIn("Evening delivery is in testing", chronicles)
 
         evening_template = (ROOT / "templates" / "evening.html").read_text(encoding="utf-8")
@@ -165,7 +165,18 @@ class BrandCadenceTest(unittest.TestCase):
         # Historical labels stay: past evening editions remain in the archive.
         archive = (ROOT / "archive.html").read_text(encoding="utf-8")
         self.assertIn("Evening</span>", archive)
-        self.assertIn('href="/subscribe.html">Weekly email</a>', archive)
+        self.assertIn('href="/subscribe.html">Email paused</a>', archive)
+
+    def test_letters_to_the_king_identifies_the_biblical_david(self):
+        home = (ROOT / "templates" / "home.html").read_text(encoding="utf-8")
+        brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
+
+        self.assertIn("&ndash; David, son of Jesse", home)
+        self.assertIn(
+            "Letters answered in the voice of the biblical King David.", home
+        )
+        self.assertNotIn("David, King in Jerusalem", home)
+        self.assertIn("– David, son of Jesse", brand)
 
 
 if __name__ == "__main__":

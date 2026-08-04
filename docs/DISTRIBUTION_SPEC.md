@@ -39,6 +39,20 @@ The official first-1,000 audience count follows
 `docs/AUDIENCE_MEASUREMENT_SPEC.md`; social and RSS evidence is reported beside
 the website count and is never added to it.
 
+### Owner Telegram receipts
+
+- Role: private, post-publication receipts telling David that the exact current
+  morning or evening edition is live. They are not a reader distribution
+  channel or a second edition.
+- Receipts are derived deterministically from the exact date, slot, file, and
+  lead in `archive.json`; they never ask a model to choose or summarize an
+  edition or substitute an older edition.
+- Before any reservation or credential load, the adapter requires the exact
+  public URL to return HTTP 200 with the expected edition title. If the exact
+  slot is not live, it fails closed.
+- The repository adapter is `distribution/telegram_notification.py`; its
+  operating boundary is `docs/TELEGRAM_NOTIFICATION_RUNBOOK.md`.
+
 ### Installable app and hosted community
 
 - The installable web app remains a presentation and return layer over the
@@ -85,11 +99,15 @@ the website count and is never added to it.
 - Quote posts, trend participation, likes, and follows are never automated.
 - The replacement adapter must pass the acceptance contract below before it can
   receive credentials.
-- The repository-owned replacement is `distribution/x_broadcast.py`, operated
-  by the separate post-bake job and `docs/X_BROADCAST_RUNBOOK.md`. Its named
-  GitHub environment exists with a main-only policy, publishing disabled, and
-  the kill switch engaged. Production remains blocked until exact account
-  identity, least-privilege X credentials, and a canary are verified.
+- Spark's guarded `daicc-ddb-autopost` service is the sole active canonical
+  broadcaster. The repository-owned replacement is
+  `distribution/x_broadcast.py`, operated by the separate post-bake job and
+  `docs/X_BROADCAST_RUNBOOK.md`. Its named GitHub environment exists with a
+  main-only policy, publishing disabled, and the kill switch engaged. A future
+  migration must verify account identity, least-privilege credentials, and a
+  canary, then disable Spark before enabling GitHub so duplicate publication is
+  impossible. The active Spark observation is recorded in
+  `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 
 ### X reply approval contract
 

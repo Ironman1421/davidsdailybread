@@ -9,6 +9,16 @@
   "publicIntakeActivationAuthorized": false,
   "provider": "supabase",
   "projectIsolation": "dedicated-reader-project",
+  "founderDecision": {
+    "effectiveDate": "2026-08-04",
+    "localImplementationAuthorized": true,
+    "newReaderIntakeAuthorized": false,
+    "provisioningAuthorized": false,
+    "deploymentAuthorized": false,
+    "canaryAuthorized": false,
+    "activationAuthorized": false,
+    "scopedExternalApprovalRequired": true
+  },
   "launchBlockers": [
     "verified-privacy-contact-address",
     "provisioned-dedicated-supabase-project"

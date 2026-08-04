@@ -27,7 +27,7 @@ class NewsletterPilotContractTest(unittest.TestCase):
         self.assertFalse(decision["newsletterSendingAuthorized"])
         self.assertFalse(decision["activationWorkAuthorized"])
         self.assertTrue(decision["scopedOperationalApprovalRequired"])
-        self.assertTrue(decision["preserveLiveSignupPageState"])
+        self.assertTrue(decision["preserveCurrentFailClosedSignupPageState"])
         self.assertEqual(4, contract["pilot"]["issueCount"])
         self.assertEqual(1, contract["pilot"]["maximumIssuesPerWeek"])
         self.assertEqual("disabled", contract["pilot"]["sendMode"])
@@ -46,8 +46,8 @@ class NewsletterPilotContractTest(unittest.TestCase):
         self.assertTrue(consent["confirmationRequiredBeforeActive"])
 
         privacy = self.contract["privacy"]
-        self.assertEqual("privacy@davidsdailybread.com", privacy["publicContact"])
-        self.assertTrue(privacy["contactVerified"])
+        self.assertIsNone(privacy["publicContact"])
+        self.assertTrue(privacy["verifiedContactRequiredBeforeReopen"])
         self.assertFalse(privacy["forwardingDestinationStoredInRepository"])
         self.assertFalse(privacy["subscriberAddressesAllowedInRepository"])
         self.assertNotIn("gmail.com", CONTRACT_PATH.read_text(encoding="utf-8"))
@@ -58,9 +58,11 @@ class NewsletterPilotContractTest(unittest.TestCase):
         self.assertFalse(budget["paidAddOnsAllowed"])
         self.assertTrue(budget["stopBeforeCharge"])
 
-    def test_signup_state_is_preserved_but_all_activation_is_blocked(self):
+    def test_fail_closed_signup_state_is_preserved_and_activation_is_blocked(self):
         signup = self.contract["signup"]
-        self.assertTrue(signup["currentLiveStatePreserved"])
+        self.assertTrue(signup["currentFailClosedStatePreserved"])
+        self.assertFalse(signup["collectsAddresses"])
+        self.assertFalse(signup["providerEndpointPresent"])
         self.assertFalse(signup["changesAuthorized"])
         self.assertFalse(signup["presenceAuthorizesSending"])
         sending = self.contract["sending"]

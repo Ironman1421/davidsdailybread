@@ -1,7 +1,7 @@
 name: Counter sync (paused)
 # New reader intake is paused by the founder until its private boundary is
 # verified. This retained workflow is a visible no-op and has no schedule,
-# network access, checkout, write permission, or repository mutation.
+# network access, checkout, write permission, artifact, or repository mutation.
 on:
   workflow_dispatch:
 permissions:

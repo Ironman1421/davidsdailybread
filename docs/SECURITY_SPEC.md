@@ -35,11 +35,19 @@ The following are untrusted input even when produced by a model or collaborator:
 - Validate the complete candidate output before writing generated files.
 - Reject unresolved template tokens, forbidden punctuation, wrong slot schemas,
   and over-length distribution headlines.
+- For every morning story's Scripture, accept only a verified catalog identifier
+  and a required reader-directed plain-text connection from `content.json`.
+  Reject claims of divine approval, condemnation, judgment, or fulfilled
+  prophecy. Supply exact BSB text, reference, translation label, and Bible link
+  from the repository-owned catalog, never from model-authored fields.
+- Reject political and geopolitical framing in morning editorial fields before
+  rendering. Do not scan source URLs or renderer-owned Scripture text.
 - Treat published history as immutable during a bake. Permit exactly one new
   `editions/<date>-<slot>.html` path, reject staged/deleted/renamed or prior-
   edition changes, and stage only the exact expected edition.
-- Bind selected reader questions, letters, names, signatures, and state keys to
-  the committed Counter/satchel records before rendering or updating state.
+- While public intake is paused, reject Ask the Baker, reader Letter, and Crumb
+  Board fields before rendering or updating state. Only reviewed house-satchel
+  material may enter a new edition.
 
 ### Automation and credentials
 
@@ -54,7 +62,7 @@ The following are untrusted input even when produced by a model or collaborator:
 - Set explicit workflow permissions and serialize every workflow that can write
   `main` or shared generated state.
 - Before protecting `main`, split authoring and publishing onto fresh runners,
-  retire Counter sync as a repository writer, and install the repository-only
+  keep Counter sync retired as a repository writer, and install the repository-only
   `ddb-publisher` GitHub App defined in `docs/PUBLISHER_IDENTITY_SPEC.md`.
 - Protect `main` with required CI and review rules while granting only
   `ddb-publisher[bot]` an explicit bypass. The built-in `GITHUB_TOKEN`, reader
@@ -65,14 +73,12 @@ The following are untrusted input even when produced by a model or collaborator:
 
 ### Reader privacy
 
-- Private-boundary implementation and reopening preparation for Ask the Baker,
-  Letters to the King, and Crumb Board are active roadmap work. Public intake
-  remains closed until the private boundary is verified and David approves the
-  exact cutover. The approved local interim page removes the Google form
-  endpoint and submission controls, preserves browser-local notes and all four
-  exports, and turns Counter sync into a no-op. Deployment, external form/Sheet
-  changes, data migration, legacy queue deletion, and history rewriting remain
-  unauthorized.
+- New Ask the Baker, Letters to the King, and Crumb Board intake is closed until
+  a private boundary is verified and David explicitly reopens it. The deployed
+  site closure, retired Counter writer, removed tip-level `counter.csv`, and
+  preserved Chronicles exports remain production truth. Do not reactivate
+  submission controls, alter external intake providers, delete the frozen
+  queue, or rewrite history while the pause is active.
 - Tell submitters that their text and signature may be public and prohibit
   sensitive information.
 - Do not expose the full unpublished queue in a public repository or a
@@ -83,79 +89,43 @@ The following are untrusted input even when produced by a model or collaborator:
   `docs/READER_STORE_SPEC.md`.
 - Define retention and deletion behavior before collecting email addresses,
   account identifiers, or analytics tied to a person.
-- The existing `/subscribe.html` state is preserved while newsletter strategy
-  and local product prototypes proceed. Any address submitted there posts
-  directly to Buttondown with double opt-in; subscriber addresses remain in
-  Buttondown and may not enter this repository, GitHub Actions, Supabase, logs,
-  or public metrics. No issue drafting, send testing, provider configuration,
-  list operation, credentialing, activation, or sending is authorized. Privacy
-  requests use the verified `privacy@davidsdailybread.com` contact and complete
-  within seven days.
-- Audience measurement follows `docs/AUDIENCE_MEASUREMENT_SPEC.md`. Production
-  collection is disabled until David approves the provider, exact payload,
-  retention, reader notice, opt-out, owner, credential boundary, and budget.
-  Names, email addresses, note text, submission content, retained raw IP
-  addresses, precise location, advertising identifiers, cross-site tracking,
-  and fingerprinting are forbidden.
-- The local audience prototype remains absent from public templates and its
-  checked-in browser configuration remains `enabled: false` with no endpoint.
-  Any approved collector must derive server receipt days, reject unordered or
-  same-day milestone transitions, domain-separate token digests by month, avoid
-  request-body and identifier logging, and purge participant-level state after
-  aggregate close under `docs/AUDIENCE_MEASUREMENT_RUNBOOK.md`.
-- The selected Cloudflare Worker + D1 implementation remains local and
-  canary-only in code. Its checked-in template is disabled, contains
-  unprovisioned identifiers, has no route or Cron Trigger, disables observability
-  and previews, and accepts no production mode. External provider metadata and
-  control behavior still require canary evidence before any production claim.
+- The current fail-closed `/subscribe.html` state collects no address and has
+  no provider endpoint. Local retention strategy and product-integration
+  prototypes may proceed, but no drafting, sending test, provider operation,
+  list operation, credentialing, address collection, activation, or sending is
+  authorized.
+- The Supabase reader-store foundation may be implemented and tested locally.
+  No project, resource, link, remote migration, Edge Function, canary, traffic,
+  or deployment is authorized without David's scoped approval of the exact
+  external step and a reconciled repository decision.
+- Cloudflare Workers + D1 audience measurement remains local and unprovisioned.
+  No account, resource, endpoint, route, credential, canary, deployment,
+  collection, baseline, or spend is authorized.
 
 ### Accounts, prayer, and community
 
-The 2026-08-04 founder decision authorizes architecture, local implementation,
-and testing across the roadmap. Before any external account or community
-activation, the exact release must prove all applicable controls below:
+Local architecture, implementation, and testing are authorized. Before any
+external account or community activation, the exact release must prove all
+applicable controls below:
 
 - Guest access remains available for canonical public reading. Account-required
   features collect only fields required for their stated purpose.
-- Personal notes, saved material, prayer journals, answered-prayer markers,
-  service reflections, and relationship data are private by default. Public is
-  never a preselected audience.
+- Notes, saved material, prayer journals, answered-prayer markers, service
+  reflections, and relationship data are private by default. Public is never a
+  preselected audience.
 - Every shared item records the reader-selected audience and enforces it at the
-  server boundary. A client-side hidden state is not authorization.
-- Readers can export their personal data, delete eligible private data, revoke
-  other sessions, leave a circle, and understand what cannot be removed from an
-  already published public record.
-- Passwords, recovery secrets, session tokens, invitation tokens, encryption
-  keys, and raw deletion tokens never enter logs, analytics, prompts, URLs,
+  server boundary. Client-side hiding is not authorization.
+- Readers can export personal data, delete eligible private data, revoke other
+  sessions, leave a circle, and understand any public-record boundary.
+- Passwords, sessions, recovery secrets, invitation tokens, encryption keys,
+  prayer text, and deletion tokens never enter logs, analytics, prompts, URLs,
   repository history, or ordinary artifacts.
-- Prayer and spiritual data may not be sold, licensed, used for behavioral
-  advertising, joined to a cross-site identity graph, or included in general
-  product analytics.
-- Notifications use opaque event identifiers where practical and exclude
-  sensitive prayer text from lock-screen payloads by default.
-- Every relationship surface has report, block, leave, remove, invitation,
-  rate-limit, audit, and kill-switch behavior. Public contribution surfaces
-  also require moderator queues, appeals, and anti-evasion controls.
-- Community rules prohibit identifying details about other people, financial
-  solicitation, romantic recruitment, coercion, targeted harassment,
-  political campaigning disguised as prayer, and medical claims that replace
-  professional care.
-- The service never promises continuous monitoring or emergency response.
-  Crisis flows provide reviewed routes to immediate help, minimize disclosure,
-  and do not present volunteers or the product as clinicians or emergency
-  services.
-- Age eligibility, guardian consent where applicable, grooming prevention,
-  moderator access, evidence preservation, law-enforcement request handling,
-  and jurisdictional obligations require a dedicated review before trusted
-  circles or direct messaging can activate.
-- Private/direct messaging requires a separate abuse, age-safety, encryption,
-  retention, moderation-access, reporting, and incident-response decision. It
-  is not required to ship the network.
-
-Every live release needs a named operator, data map, retention schedule,
-deletion and export tests, authorization tests, abuse and rate-limit tests,
-backup and restore evidence, rollback, incident path, cost ceiling, reader
-notice, and David's approval of the exact reviewed package.
+- Every relationship surface has report, block, leave, remove, rate-limit,
+  audit, and kill-switch behavior. Public contributions also require moderator
+  queues, appeals, and anti-evasion controls.
+- The service never promises continuous monitoring or emergency care. Direct
+  messaging requires a separate abuse, age-safety, encryption, retention,
+  reporting, and incident-response decision and may remain omitted.
 
 ### Distribution
 
@@ -170,10 +140,10 @@ notice, and David's approval of the exact reviewed package.
 
 1. `main` is not protected even though repository policy calls CI the merge
    gate. Its approved identity/ruleset design is not yet provisioned.
-2. The Counter sheet and committed `counter.csv` expose the reader queue beyond
-   what the product needs to publish. A local interim closure is prepared, but
-   it is not deployed, the external form and Sheet remain unchanged, and the
-   approved private-store design is not provisioned.
+2. The external legacy Counter sheet and repository history retain more reader
+   queue exposure than the target design permits. The tip copy is removed and
+   public site intake is closed, but the private store remains unprovisioned and
+   external form, Sheet, migration, deletion, and history actions remain gated.
 3. The repository-owned X canonical-broadcast adapter is implemented with a
    separate read-only post-bake job, durable receipt artifacts, read-back, and
    a kill switch. It remains production-disabled pending environment and
@@ -182,9 +152,9 @@ notice, and David's approval of the exact reviewed package.
    strong Content Security Policy or fully local assets.
 5. Repository-level Dependabot alerts are disabled. Version-update PRs are
    configured, but the owner must enable vulnerability alerts in GitHub.
-6. The current public-repository diagnostic artifact can include `content.json`
-   and a raw model log. Treat both as unpublished reader data during the private
-   store cutover; the target design prohibits this transfer.
+6. The approved publisher identity and protected-branch ruleset are designed
+   but not provisioned; the current workflow still writes `main` with the
+   built-in token under the existing exception.
 
 Exceptions are tracked work, not accepted permanent architecture.
 

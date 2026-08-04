@@ -1,25 +1,35 @@
 # Private reader store specification
 
-Status: active Phase 2 implementation prerequisite, not provisioned
+Status: active Phase 2 local implementation prerequisite, not provisioned
 Machine-readable contract: `operations/reader-store.contract.json`
 
-The 2026-08-04 durable-moat decision authorizes continued local implementation,
-testing, and reopening preparation for this private boundary. New public reader
-submissions remain closed. The approved local site change removes the current
-form controls and makes Counter sync a no-op, but no deployment, provider
-provisioning, live-data migration, external Google form or Sheet change, frozen
-queue deletion, or repository history rewrite is authorized. See
-`operations/reader-intake-pause.contract.json`.
+## Authority boundary
+
+The 2026-08-04 durable-moat decision authorizes local implementation, testing,
+and reopening preparation for this private boundary. New public submissions
+remain closed. This document does not authorize creating or linking a Supabase
+project, accepting provider terms, adding credentials, applying a remote
+migration, deploying an Edge Function, running a canary, moving traffic,
+reactivating intake, altering external providers, deleting the frozen queue, or
+rewriting repository history. Each external step requires David's scoped
+approval and reconciliation of the doctrine, operating documents, machine
+contract, and tests.
 
 ## Decision
 
-Reader submissions move to a dedicated Supabase project. They live in a
+This is the selected local implementation lane. It does not authorize a
+Supabase project, remote migration, deployment, canary, or traffic. Public
+reader intake is closed under `operations/reader-intake-pause.contract.json`.
+
+If the exact external cutover is later approved, reader submissions move to a
+dedicated Supabase project. They live in a
 `reader_private` Postgres schema that is not exposed through the Data API. The
 browser submits through a narrow Edge Function; it never receives a Supabase
 secret or direct table access. Row-level security remains enabled as defense in
 depth, with no `anon` or `authenticated` table grants or policies.
 
-This store replaces the published Google Sheet, committed `counter.csv`, the
+The proposed store would replace the published Google Sheet, the removed
+`counter.csv` tip copy, the
 reader-specific keys in `bakery-state.json`, and the `counter-sync` writer. It
 also owns a short-lived private handoff bucket so unpublished content never has
 to cross GitHub Actions' public logs or artifacts.
@@ -184,11 +194,12 @@ bucket listing.
 
 The local foundation lives under `supabase/` and is reproducible with the
 pinned CLI and runtime dependencies in `package-lock.json`. It remains
-unprovisioned. Deployment, canaries, and public-form cutover are blocked until
-there is both an actually dedicated Supabase project and a verified
-privacy-contact address. Neither value is represented by a guessed placeholder
-in this repository. See `docs/READER_STORE_RUNBOOK.md` for verification and
-operator sequencing.
+unprovisioned. A dedicated project and verified privacy contact were former
+technical prerequisites, not standing authority to proceed. Provisioning,
+deployment, canaries, and public-form cutover are now blocked first by the
+founder pause. Neither a project value nor a privacy-contact placeholder belongs
+in this repository. See `docs/READER_STORE_RUNBOOK.md` for local verification
+and preserved historical operator sequencing.
 
 ## Retention and deletion
 
@@ -226,16 +237,19 @@ The deployed migration is incomplete until tests prove:
 - no response, error, log, or handoff metadata contains a body or byline; and
 - retention jobs erase payloads without breaking non-personal receipts.
 
-Run Supabase's security advisors, performance advisors, RLS tests, and a clean
-local migration before linking production. Pull the live schema after deploy
-and require an empty diff. The Supabase changelog and API-security guidance were
-rechecked on 2026-08-04 for this roadmap decision: do not pin extension versions,
-require current Node/TypeScript for future tooling, treat Data API exposure as
-explicit and opt-in, and preserve grants plus RLS as separate controls. The
-private schema, empty exposed-schema list, and zero browser-role table grants
-remain deliberate even when platform defaults become safer.
+Local tests do not authorize a remote link or deployment. Before any separately
+approved external step, a future reviewed plan must still run Supabase's
+security advisors, performance advisors, RLS tests, and a clean local migration
+before any approved remote step. The July 2026 Supabase changelog was reviewed
+for this design: do not pin extension versions, require current Node/TypeScript
+for future tooling, and rely on explicit schema exposure rather than old
+automatic Data API behavior.
 
-## Cutover, rollback, and history
+## Gated cutover design
+
+The sequence below may be prepared locally but is not an active external
+checklist. Do not perform any provider, data, traffic, or production step until
+David approves the exact reconciled execution plan.
 
 1. Create the dedicated project, private schema, functions, bucket, retention
    jobs, staging origins, alerts, and tests. No site traffic moves yet.

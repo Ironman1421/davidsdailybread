@@ -43,6 +43,11 @@ mechanism for transferring control away from David.
 ## Current operating model
 
 - The website, archive, and RSS are the permanent canonical home.
+- The publication's governing product distinction is news and Scripture each
+  morning, an evening Field Guide with useful tools and workflows, and the
+  exact public brand statement **Loved by God**. The installable web app is the
+  website made installable and mobile-capable, not a separate editorial product
+  or a generic Christian feature suite.
 - X and other individually approved social channels are for discovery,
   discussion, and audience growth. They point people back to durable work on
   the website and do not replace it.
@@ -57,6 +62,10 @@ mechanism for transferring control away from David.
 - The first 1,000 genuinely engaged people who return for faith, technology,
   prayer, and service remain the first proof gate, not the ceiling of the
   mission or the end of the roadmap.
+- The evening Field Guide should be a force multiplier for ordinary readers.
+  Tools and workflows earn space by offering broad, recurring or compounding
+  usefulness. Trend strength validates a candidate but does not make a narrow
+  novelty eligible.
 
 ## Work authorized by the 2026-08-04 decision
 
@@ -97,11 +106,14 @@ Until David explicitly records a different decision in the repository:
   subject to David's moderation and removal decisions.
 - New Ask the Baker, Letters to the King, and Crumb Board submissions are
   closed to the public until the private intake boundary is verified and David
-  explicitly approves the cutover. Local implementation and reopening plans
-  are authorized. Deployment, external form changes, deletion, history
-  rewriting, and live data migration remain separate decisions. Existing
-  reviewed reader material remains an editorial queue, not a community feed or
-  private messaging surface.
+  explicitly approves the cutover. The site-side closure is deployed: public
+  submission controls and active intake endpoints are absent, Counter sync is a
+  retained no-op, `counter.csv` is absent at the repository tip, and the four
+  Chronicles exports remain. Local implementation and reopening plans are
+  authorized. External provider changes, private-store provisioning, deletion,
+  history rewriting, and live data migration remain separate decisions.
+  Existing reviewed reader material remains an editorial queue, not a community
+  feed or private messaging surface.
 - Newsletter strategy and local integration prototypes may proceed, but no
   issue drafting, test send, sending-address configuration, list operation,
   credential installation, scheduling, provider mutation, or production send

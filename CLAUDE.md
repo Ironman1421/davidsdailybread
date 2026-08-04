@@ -9,6 +9,26 @@ governing constraints and do exactly what `BAKE.md` says.
 Everything below is for *interactive* sessions: a human or an agent editing this
 repo outside a bake.
 
+## Deterministic program control
+
+`operations/program-control.json` is the sole source of truth for execution
+order and task state. `FOUNDER_DOCTRINE.md` remains authoritative above it for
+mission, ownership, strategy, authorized local work, and production boundaries.
+
+Only the designated program controller may activate an item, change task state,
+or select the next item. Every other agent is a worker: execute only the assigned
+item, return the required evidence, and stop. Newly discovered work is a
+finding, not authorization to add or start work. At most one item may be
+`in_progress` at a time.
+
+Every completed action or task, pause, blocked state, approval boundary, or
+end-of-turn handoff must end with a `Recommended next step` section. Choose one
+primary action, explain why it is next, give exact approval wording when
+required, identify the item, PR, and immutable commit SHA when applicable, state
+the boundaries that remain in force, and describe the next verification. When
+the user has nothing to do, say `No action required` and name the next automatic
+verification or wake condition.
+
 ## This is production
 
 `main` is served by GitHub Pages and read by the next bake. There is no staging
@@ -59,10 +79,12 @@ Treat every change accordingly.
     change. Do not draft an issue, test a send, schedule, send, configure the
     provider, operate on a list, or install a newsletter credential.
 11. **Reader-intake implementation is active; public intake remains closed.**
-    Continue the private-boundary work locally. Do not deploy a submission
-    path, fetch or recommit new Counter rows, alter the external Google form or
-    Sheet, migrate or delete the queue, or rewrite history without the scoped
-    approval named in `operations/reader-intake-pause.contract.json`.
+    The deployed site closure, retired Counter writer, removed tip-level
+    `counter.csv`, and preserved Chronicles exports are current production
+    truth. Continue private-boundary work locally. Do not deploy a submission
+    path, fetch or recommit reader rows, alter external intake providers,
+    migrate or delete the queue, or rewrite history without the scoped approval
+    named in `operations/reader-intake-pause.contract.json`.
 12. **Audience provider scope is local only** (2026-07-31). Cloudflare Workers
     + D1 may be implemented in `audience/cloudflare/`, and the unprovisioned
     canary may be planned. Do not create an account or resource, accept terms,
@@ -78,5 +100,5 @@ Treat every change accordingly.
 - `tests/` — brand law, archive integrity, standing pages, and the two-slot
   render contract.
 - `.github/workflows/ddb-bake.yml` — the twice-daily bake.
-  `.github/workflows/counter-sync.yml` — paused reader-intake no-op.
+  `.github/workflows/counter-sync.yml` — retained paused reader-intake no-op.
   `.github/workflows/ci.yml` — the merge gate.

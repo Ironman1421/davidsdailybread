@@ -66,7 +66,7 @@ def parse_porcelain_z(payload: bytes) -> list[Change]:
             raise GuardError("malformed or multi-path git status record")
         status, path = text[:2], text[3:]
         if "R" in status or "C" in status:
-            raise GuardError(f"rename/copy status is forbidden: {status!r} {path}")
+            raise GuardError("rename/copy status is forbidden")
         changes.append(Change(status=status, path=path))
     return changes
 
@@ -83,7 +83,7 @@ def validate_changes(changes: list[Change], date: str, slot: str) -> list[str]:
 
     for change in changes:
         if change.path in seen:
-            raise GuardError(f"duplicate changed path: {change.path}")
+            raise GuardError("duplicate changed path is forbidden")
         seen.add(change.path)
 
         if change.path == expected_edition:
@@ -95,7 +95,7 @@ def validate_changes(changes: list[Change], date: str, slot: str) -> list[str]:
             continue
 
         if change.path not in standing:
-            raise GuardError(f"changed path not on {slot} allowlist: {change.path}")
+            raise GuardError(f"changed path not on {slot} allowlist")
         if change.status != " M":
             raise GuardError(
                 f"standing file must be an unstaged modification, got "

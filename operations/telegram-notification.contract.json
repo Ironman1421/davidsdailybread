@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "deploymentStatus": "production-active",
+  "repository": "Ironman1421/davidsdailybread",
+  "owner": "David Friedhof",
+  "scope": "one private Telegram receipt for each exact newly published daily morning and evening edition",
+  "trigger": {
+    "workflow": ".github/workflows/ddb-bake.yml",
+    "job": "telegram-publication-receipt",
+    "afterSuccessfulBakeJob": true,
+    "dailySlots": ["morning", "evening"],
+    "backfillAllowed": false
+  },
+  "sourceContract": {
+    "path": "archive.json",
+    "requiresExactDateSlotAndFile": true,
+    "messageIncludesDirectCanonicalEditionUrl": true,
+    "latestOlderFallbackAllowed": false,
+    "modelGeneratedSelectionOrSummaryAllowed": false
+  },
+  "publicReadiness": {
+    "requiredBeforeReservationAndCredentials": true,
+    "requiresHttpStatus": 200,
+    "requiresExactEditionHtmlTitle": true,
+    "attempts": 20,
+    "delaySeconds": 10,
+    "failureCreatesReservation": false
+  },
+  "authorityBoundary": {
+    "freshRunner": true,
+    "bakeJobReceivesTelegramCredentials": false,
+    "environment": "telegram-notification-production",
+    "jobPermissions": {
+      "actions": "read",
+      "contents": "read"
+    }
+  },
+  "githubSecrets": [
+    "TELEGRAM_BOT_TOKEN",
+    "TELEGRAM_CHAT_ID"
+  ],
+  "githubVariables": [
+    "DDB_TELEGRAM_NOTIFY_ENABLED",
+    "DDB_TELEGRAM_NOTIFY_KILL_SWITCH"
+  ],
+  "enablement": {
+    "killSwitchDefaultOn": true,
+    "liveRequiresExactEnabledValue": "true",
+    "liveRequiresExactKillSwitchValue": "false",
+    "secretsLoadedOnlyByLiveStep": true
+  },
+  "idempotency": {
+    "key": "ddb:telegram:{slot}-receipt:{editionId}:v1",
+    "cutoverAfterEditionId": "2026-08-01-morning",
+    "durableReservationArtifact": "telegram-notification-reservation-{editionId}",
+    "durableReceiptArtifact": "telegram-notification-receipt-{editionId}",
+    "reservationPersistsBeforeCredentialsLoad": true,
+    "ambiguousMutationBlocksRetry": true,
+    "workflowConcurrency": "ddb-main-writers",
+    "artifactRetentionDays": 90
+  },
+  "provider": {
+    "interface": "Telegram Bot API sendMessage",
+    "successRequiresReadback": [
+      "message_id",
+      "exact chat id",
+      "exact message text"
+    ],
+    "automaticPostRetryCount": 0
+  },
+  "failureNotification": "failed Daily bake workflow run in GitHub Actions; Spark watchdogs separately send a truthful not-ready alert when the exact morning or evening edition is absent"
+}

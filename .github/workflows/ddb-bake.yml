@@ -1,24 +1,26 @@
 name: Daily bake
 # Bakes and publishes davidsdailybread.com unattended, twice daily:
-# the MORNING edition (news: tech, markets, science) and the EVENING edition
+# the MORNING edition (politics-free news and Scripture: tech, markets, science)
+# and the EVENING edition
 # (trends: what's trending, new tools, workflows; spec: BAKE.md).
 # Runs inside GitHub Actions so the publish can push with the built-in
 # GITHUB_TOKEN; a Claude cloud session carries no repository write credential
 # and dies on `git push` with HTTP 403, which is why the bake lives here.
 on:
   schedule:
-    # Morning: 12:05 UTC = 5:05 AM Pacific during PDT, 20 minutes after
-    # counter-sync (11:45 UTC). Evening: 22:35 UTC = 3:35 PM Pacific during PDT.
-    # GitHub cron fires LATE, not never (observed lag up to ~2-3h); treat these
-    # as "no earlier than". When US daylight time ends (early November) BOTH
-    # bake crons AND counter-sync's cron need a +1 hour nudge to stay at their
-    # Pacific times. The slot is resolved from which cron fired (see cfg step).
-    - cron: '5 12 * * *'
-    - cron: '35 22 * * *'
+    # GitHub is the backup clock behind Spark's zone-aware 4:40 AM and 2:40 PM
+    # Pacific triggers. Those starts target reader-ready publication near
+    # 5:00 AM and 3:00 PM Pacific. Each slot has PDT and PST cron candidates;
+    # cfg activates only the candidate matching the current Pacific UTC offset. This removes
+    # the manual daylight-saving edit without trusting delayed execution time.
+    - cron: '45 11 * * *'
+    - cron: '45 12 * * *'
+    - cron: '45 21 * * *'
+    - cron: '45 22 * * *'
   workflow_dispatch:
     inputs:
       date:
-        description: 'edition date YYYY-MM-DD, blank means today in New York'
+        description: 'edition date YYYY-MM-DD, blank means today in Pacific time'
         required: false
         default: ''
       slot:
@@ -34,8 +36,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  # Serializes every workflow that can write main. Keep this group in sync
-  # with counter-sync.yml so a late Counter refresh cannot race a bake push.
+  # Serializes writes to main so morning and evening bakes cannot race.
   group: ddb-main-writers
   queue: max
   cancel-in-progress: false
@@ -45,11 +46,13 @@ jobs:
       date: ${{ steps.cfg.outputs.date }}
       slot: ${{ steps.cfg.outputs.slot }}
       mode: ${{ steps.cfg.outputs.mode }}
+      already_exists: ${{ steps.existing.outputs.exists }}
+      active: ${{ steps.cfg.outputs.active }}
     runs-on: ubuntu-latest
     timeout-minutes: 75
     steps:
       - name: Checkout
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # persist-credentials: false is load bearing. It strips the checkout
           # token from the local git config so the Claude bake step CANNOT push,
@@ -69,15 +72,27 @@ jobs:
         run: |
           set -euo pipefail
           IN="${IN_DATE:-}"
-          TODAY="$(TZ=America/New_York date +%F)"
+          TODAY="$(TZ=America/Los_Angeles date +%F)"
           D="${IN:-$TODAY}"
           if ! echo "$D" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
             echo "::error::Invalid edition date '$D'; expected YYYY-MM-DD"
             exit 1
           fi
           # Scheduled runs infer the slot from which cron fired; dispatches say.
+          ACTIVE=true
           if [ "${EVENT_NAME}" = "schedule" ]; then
-            if [ "${EVENT_SCHEDULE}" = "5 12 * * *" ]; then SLOT=morning; else SLOT=evening; fi
+            case "${EVENT_SCHEDULE}" in
+              '45 11 * * *'|'45 12 * * *') SLOT=morning; TARGET_CLOCK=04:45:00 ;;
+              '45 21 * * *'|'45 22 * * *') SLOT=evening; TARGET_CLOCK=14:45:00 ;;
+              *) echo "::error::Unknown bake schedule '${EVENT_SCHEDULE}'"; exit 1 ;;
+            esac
+            # Gate on the nominal backup time. GitHub can start a queued run
+            # after a DST boundary, when the runner's current offset differs.
+            PACIFIC_OFFSET="$(TZ=America/Los_Angeles date -d "$TODAY $TARGET_CLOCK" +%z)"
+            case "${PACIFIC_OFFSET}:${EVENT_SCHEDULE}" in
+              '-0700:45 11 * * *'|'-0800:45 12 * * *'|'-0700:45 21 * * *'|'-0800:45 22 * * *') ;;
+              *) ACTIVE=false ;;
+            esac
           else
             SLOT="${IN_SLOT:-morning}"
           fi
@@ -96,21 +111,111 @@ jobs:
             echo "mode=$MODE"
             echo "human=$HUMAN"
             echo "model=$MODEL"
+            echo "active=$ACTIVE"
           } >> "$GITHUB_OUTPUT"
-          echo "Baking $D $SLOT ($MODE) with $MODEL"
+          echo "Resolved $D $SLOT ($MODE) with $MODEL; active=$ACTIVE"
 
-      - name: Refuse to double-bake
+      - name: Treat an existing edition as a successful no-op
+        id: existing
         env:
           EDITION_DATE: ${{ steps.cfg.outputs.date }}
           SLOT: ${{ steps.cfg.outputs.slot }}
+          ACTIVE: ${{ steps.cfg.outputs.active }}
         run: |
           set -euo pipefail
+          if [ "${ACTIVE}" != "true" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Inactive daylight-saving backup candidate; successful no-op"
+            exit 0
+          fi
           if [ -f "editions/${EDITION_DATE}-${SLOT}.html" ]; then
-            echo "::error::editions/${EDITION_DATE}-${SLOT}.html already exists on main; refusing to double-bake"
-            exit 1
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "editions/${EDITION_DATE}-${SLOT}.html already exists on main; bake is a successful no-op"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Prepare X Monitor discovery snapshot
+        if: steps.existing.outputs.exists != 'true' && steps.cfg.outputs.slot == 'evening' && steps.cfg.outputs.mode == 'daily'
+        env:
+          X_MONITOR_BASE_URL: https://signal-ai-radar.fluxcognition.chatgpt.site
+          X_MONITOR_SITES_BYPASS_TOKEN: ${{ secrets.X_MONITOR_SITES_BYPASS_TOKEN }}
+        run: |
+          set -euo pipefail
+          snapshot="$RUNNER_TEMP/x-monitor-discovery.json"
+          refresh_receipt="$RUNNER_TEMP/x-monitor-refresh.json"
+
+          write_fallback() {
+            python3 - "$snapshot" "$1" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          Path(sys.argv[1]).write_text(
+              json.dumps({
+                  "schemaVersion": "x-monitor-discovery-v1",
+                  "available": False,
+                  "reason": sys.argv[2],
+                  "sections": {"tools": [], "workflows": []},
+              }, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+          }
+
+          if [ -z "${X_MONITOR_SITES_BYPASS_TOKEN:-}" ]; then
+            echo "::warning::X Monitor machine credential is unavailable; continuing with the normal source ladder."
+            write_fallback "credential-unavailable"
+            exit 0
+          fi
+
+          auth_header="OAI-Sites-Authorization: Bearer ${X_MONITOR_SITES_BYPASS_TOKEN}"
+          window_end="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          if ! curl --fail --silent --show-error --retry 2 --retry-all-errors \
+            --connect-timeout 10 --max-time 60 \
+            -H "$auth_header" \
+            "${X_MONITOR_BASE_URL}/api/trends?windowEnd=${window_end}" \
+            -o "$refresh_receipt"; then
+            echo "::warning::X Monitor refresh was unavailable; trying its last durable snapshot."
+          fi
+
+          if ! curl --fail --silent --show-error --retry 2 --retry-all-errors \
+            --connect-timeout 10 --max-time 30 \
+            -H "$auth_header" \
+            "${X_MONITOR_BASE_URL}/api/discovery-export?hours=48&limit=12" \
+            -o "$snapshot"; then
+            echo "::warning::X Monitor export was unavailable; continuing with the normal source ladder."
+            write_fallback "export-unavailable"
+            exit 0
+          fi
+
+          if ! python3 - "$snapshot" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          payload = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          if payload.get("schemaVersion") != "x-monitor-discovery-v1":
+              raise SystemExit("unexpected X Monitor schema")
+          sections = payload.get("sections")
+          if not isinstance(sections, dict):
+              raise SystemExit("missing X Monitor sections")
+          for name in ("tools", "workflows"):
+              if not isinstance(sections.get(name), list):
+                  raise SystemExit(f"invalid X Monitor {name} section")
+          print(
+              "X Monitor snapshot ready: "
+              f"{len(sections['tools'])} tool candidates, "
+              f"{len(sections['workflows'])} workflow candidates"
+          )
+          PY
+          then
+            echo "::warning::X Monitor returned an invalid snapshot; continuing with the normal source ladder."
+            write_fallback "invalid-export"
           fi
 
       - name: Install Claude Code
+        if: steps.existing.outputs.exists != 'true'
         run: |
           set -euo pipefail
           # Keep the verified installer outside the checkout. The bake guard
@@ -121,6 +226,7 @@ jobs:
           npm install -g "${package_path}"
 
       - name: Bake (research, write, render)
+        if: steps.existing.outputs.exists != 'true'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -128,32 +234,39 @@ jobs:
           DDB_SLOT: ${{ steps.cfg.outputs.slot }}
           DDB_MODE: ${{ steps.cfg.outputs.mode }}
           BAKE_MODEL: ${{ steps.cfg.outputs.model }}
+          X_MONITOR_DISCOVERY_PATH: ${{ runner.temp }}/x-monitor-discovery.json
         run: |
           set -euo pipefail
           if [ -z "${CLAUDE_CODE_OAUTH_TOKEN}" ] && [ -z "${ANTHROPIC_API_KEY}" ]; then
             echo "::error::No Claude credential. Add repository secret CLAUDE_CODE_OAUTH_TOKEN (from 'claude setup-token'), or ANTHROPIC_API_KEY."
             exit 1
           fi
-          # Unquoted heredoc delimiter so the three run variables ($DDB_DATE,
-          # $DDB_SLOT and $DDB_MODE, the only variables in the prompt) expand into the file.
+          # Unquoted heredoc delimiter lets the resolved run values and the
+          # runner-local discovery path expand into the prompt file.
           cat > "$RUNNER_TEMP/bake-prompt.txt" <<PROMPT
           You are the editor baking the $DDB_SLOT edition of davidsdailybread.com for $DDB_DATE. You are working inside a GitHub Actions runner, in a full checkout of the site repo at the current working directory, on branch main.
-          Read /BAKE.md in this checkout and follow it exactly. BRAND.md wins all conflicts. BAKE.md is the complete editorial spec for both edition slots: research, content.json, render, editorial review, and (morning only) the reader plan and satchel restock.
+          Read /FOUNDER_DOCTRINE.md and /BAKE.md in this checkout and follow them exactly. BRAND.md governs reader-visible copy. BAKE.md is the complete editorial spec for both edition slots: research, content.json, render, editorial review, and (morning only) the reviewed house-satchel plan and restock.
           Notes for this run, which take precedence over BAKE.md where they differ:
           1. Setup is already done. The repo is checked out right here, so BAKE.md step 0 needs nothing from you: there is nothing to clone and no git identity to configure.
           2. Edition date: use exactly $DDB_DATE, verbatim, as --date. The runner already resolved it; no need to work it out yourself.
           3. Publishing belongs to the workflow, which commits, pushes, and verifies after you finish; BAKE.md steps 6 and 7 are its job, and git is its tool rather than yours. Your job ends when the render is clean and you have reviewed it like an editor.
-          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. The daily morning bake is BAKE.md steps 1-8 as written, reader sections per the --plan output. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and its own content.json keys, rendered with --slot evening --mode $DDB_MODE; the reader plan and reader sections belong to the morning paper only. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
+          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. New reader intake and newsletter activation are paused. The daily morning bake is BAKE.md steps 1-8 as written; --plan may select only reviewed house-satchel material and must return no Ask the Baker question, reader Letter, or Crumb Board pin. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and content.json keys, rendered with --slot evening --mode $DDB_MODE, with no reader key. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
           5. Honesty: every fact traces to a source link you actually fetched. Work through BAKE.md step 5A, the accuracy pass, before you hand off, and say in your report what it changed. If a section cannot reach the 2-story minimum with verified stories, stop and report that plainly rather than padding; a failed bake that says so is a good outcome. In the evening edition, an item counts as trending only when a cited source shows where it is trending.
-          6. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
-          Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, which reader sections ran (morning only), and the render result.
+          6. Evening X discovery: for a daily evening bake, the workflow writes its approved X Monitor snapshot to $X_MONITOR_DISCOVERY_PATH. Read it before web research. Treat every entry as a discovery lead only. Never use an X post as the factual source or trend source in content.json; independently fetch the official factual source and a citable trend source required by BAKE.md. If the snapshot says it is unavailable, is empty, or does not help, continue with BAKE.md's normal source ladder without padding.
+          7. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
+          Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, whether a reviewed house letter ran (morning only), and the render result.
           PROMPT
-          claude -p "$(cat "$RUNNER_TEMP/bake-prompt.txt")" \
+          if ! claude -p "$(cat "$RUNNER_TEMP/bake-prompt.txt")" \
             --model "${BAKE_MODEL}" \
             --dangerously-skip-permissions \
-            2>&1 | tee "$RUNNER_TEMP/bake-log.txt"
+            > "$RUNNER_TEMP/bake-log.txt" 2>&1; then
+            echo "::error::The bake session failed; raw model output is withheld from logs and artifacts."
+            exit 1
+          fi
+          echo "Bake session completed; raw model output remains ephemeral."
 
       - name: Guard the changed files
+        if: steps.existing.outputs.exists != 'true'
         id: guard
         env:
           EDITION_DATE: ${{ steps.cfg.outputs.date }}
@@ -174,7 +287,7 @@ jobs:
           # (c) every changed path and git status must match this exact run.
           # The helper is byte-pinned in this already-loaded workflow because
           # the untrusted author process can modify files in the checkout.
-          echo "cdb05086f9e8fa242098298e2502406f064311a07eb5d76b47324af6bacbfbb4  ddb_workflow_guard.py" | sha256sum --check
+          echo "dce98022e1914babb56fa47ac441caa7c6743014ba0148dfb73c9a8acaabeaa1  ddb_workflow_guard.py" | sha256sum --check
           python3 ddb_workflow_guard.py --date "$D" --slot "$SLOT" \
             | tee "$RUNNER_TEMP/changed-files.txt"
           # (d) archive.json must carry this edition's entry
@@ -196,6 +309,7 @@ jobs:
           fi
 
       - name: Publish
+        if: steps.existing.outputs.exists != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           EDITION_DATE: ${{ steps.cfg.outputs.date }}
@@ -222,53 +336,104 @@ jobs:
           fi
           git add archive.html archive.json feed.xml
           git -c core.hooksPath=/dev/null commit -m "Archive: ${HUMAN} ${LABEL}"
-          # counter-sync may have pushed while we baked
           git -c core.hooksPath=/dev/null pull --rebase --no-edit origin main
           git -c core.hooksPath=/dev/null push origin main
 
       - name: Verify the publish
+        if: steps.existing.outputs.exists != 'true'
         env:
           EDITION_DATE: ${{ steps.cfg.outputs.date }}
           SLOT: ${{ steps.cfg.outputs.slot }}
         run: |
           set -euo pipefail
           D="${EDITION_DATE}"
-          # Grep for the slot's edition file, not just the date: on an evening
-          # bake the date alone would already match the morning entry.
-          needle="editions/${D}-${SLOT}.html"
-          url="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/archive.json"
-          for i in $(seq 1 10); do
-            if curl -sSL --fail "$url" | grep -qF "\"${needle}\""; then
-              echo "Verified: ${needle} is live in archive.json"
-              exit 0
-            fi
-            echo "Attempt ${i}/10: ${needle} not visible yet, sleeping 20s"
-            sleep 20
-          done
-          echo "::warning::Push succeeded but ${needle} is not yet visible on raw.githubusercontent.com; this is CDN lag, not a failure."
+          published_sha="$(git rev-parse HEAD)"
+          remote_sha="$(git ls-remote --exit-code origin refs/heads/main | awk 'NR == 1 {print $1}')"
+          if [ "$remote_sha" != "$published_sha" ]; then
+            echo "::error::Authoritative main ref is ${remote_sha:-missing}, expected ${published_sha}"
+            exit 1
+          fi
+          echo "Verified authoritative main ref at ${published_sha}"
 
-      - name: Collect diagnostics
-        if: always()
+          public_url="https://davidsdailybread.com/editions/${D}-${SLOT}.html"
+          if python3 distribution/telegram_notification.py verify-live \
+            --archive archive.json --date "$D" --slot "$SLOT" \
+            --attempts 12 --delay-seconds 5; then
+            echo "Verified exact public edition: ${public_url}"
+          else
+            echo "::warning::Authoritative main is correct, but the exact public edition is not ready yet: ${public_url}"
+          fi
+
+      - name: Collect failure diagnostics
+        if: failure()
+        env:
+          EDITION_DATE: ${{ steps.cfg.outputs.date }}
+          SLOT: ${{ steps.cfg.outputs.slot }}
+          MODE: ${{ steps.cfg.outputs.mode }}
         run: |
           set -euo pipefail
           mkdir -p "$RUNNER_TEMP/bake-artifacts"
-          cp -f "$RUNNER_TEMP/bake-log.txt" "$RUNNER_TEMP/bake-artifacts/" 2>/dev/null || true
-          cp -f content.json "$RUNNER_TEMP/bake-artifacts/" 2>/dev/null || true
-          cp -f "$RUNNER_TEMP/changed-files.txt" "$RUNNER_TEMP/bake-artifacts/" 2>/dev/null || true
+          python3 - "$RUNNER_TEMP/bake-artifacts/content-summary.json" <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import sys
 
-      - name: Upload diagnostics
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+          source = Path("content.json")
+          summary = {
+              "version": 1,
+              "date": os.environ.get("EDITION_DATE") or None,
+              "slot": os.environ.get("SLOT") or None,
+              "mode": os.environ.get("MODE") or None,
+              "contentStatus": "absent",
+              "leadSection": None,
+              "cardCounts": {},
+              "readerSectionsPresent": [],
+          }
+          if source.is_file():
+              try:
+                  content = json.loads(source.read_text(encoding="utf-8"))
+              except (OSError, json.JSONDecodeError):
+                  summary["contentStatus"] = "invalid"
+              else:
+                  summary["contentStatus"] = "valid" if isinstance(content, dict) else "invalid"
+                  if isinstance(content, dict):
+                      allowed_sections = ("tech", "markets", "science", "tools", "workflows")
+                      lead = content.get("lead")
+                      if isinstance(lead, dict) and lead.get("section") in allowed_sections:
+                          summary["leadSection"] = lead["section"]
+                      cards = content.get("cards")
+                      if isinstance(cards, dict):
+                          summary["cardCounts"] = {
+                              section: len(cards[section])
+                              for section in allowed_sections
+                              if isinstance(cards.get(section), list)
+                          }
+                      reader = content.get("reader")
+                      if isinstance(reader, dict):
+                          summary["readerSectionsPresent"] = [
+                              section for section in ("ask", "king", "pin")
+                              if bool(reader.get(section))
+                          ]
+          Path(sys.argv[1]).write_text(
+              json.dumps(summary, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: bake-${{ steps.cfg.outputs.date }}-${{ steps.cfg.outputs.slot }}-${{ github.run_id }}
-          path: ${{ runner.temp }}/bake-artifacts
+          path: ${{ runner.temp }}/bake-artifacts/content-summary.json
           retention-days: 14
-          if-no-files-found: ignore
+          if-no-files-found: error
 
   x-broadcast:
     name: Canonical X broadcast
     needs: bake
-    if: needs.bake.result == 'success' && needs.bake.outputs.mode == 'daily'
+    if: needs.bake.result == 'success' && needs.bake.outputs.active == 'true' && needs.bake.outputs.mode == 'daily' && needs.bake.outputs.already_exists != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: x-broadcast-production
@@ -277,14 +442,14 @@ jobs:
       contents: read
     steps:
       - name: Checkout published main without credentials
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
           persist-credentials: false
           fetch-depth: 1
 
       - name: Set up Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
 
@@ -336,7 +501,7 @@ jobs:
 
       - name: Persist mutation reservation before loading X credentials
         if: vars.DDB_X_BROADCAST_KILL_SWITCH == 'false' && vars.DDB_X_BROADCAST_ENABLED == 'true'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: x-broadcast-reservation-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
           path: ${{ runner.temp }}/x-broadcast/reservation/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
@@ -399,7 +564,7 @@ jobs:
 
       - name: Upload redacted broadcast attempt
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: x-broadcast-attempt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
@@ -410,7 +575,7 @@ jobs:
 
       - name: Upload blocking broadcast receipt
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: x-broadcast-receipt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
           path: ${{ runner.temp }}/x-broadcast/receipts/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
@@ -421,4 +586,179 @@ jobs:
         if: steps.x_broadcast_live.outcome == 'failure'
         run: |
           echo "::error::Canonical site publish succeeded, but the X broadcast failed. Review the redacted attempt and any blocking receipt before retrying."
+          exit 1
+
+  telegram-publication-receipt:
+    name: Exact edition Telegram receipt
+    needs: bake
+    if: needs.bake.result == 'success' && needs.bake.outputs.active == 'true' && needs.bake.outputs.mode == 'daily' && needs.bake.outputs.already_exists != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: telegram-notification-production
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Checkout published main without credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Prepare private receipt workspace
+        run: |
+          set -euo pipefail
+          mkdir -p \
+            "$RUNNER_TEMP/telegram-notification/attempts" \
+            "$RUNNER_TEMP/telegram-notification/receipts" \
+            "$RUNNER_TEMP/telegram-notification/reservation"
+
+      - name: Preview exact edition package
+        env:
+          EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
+        run: |
+          set -euo pipefail
+          python3 distribution/telegram_notification.py preview \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
+            > "$RUNNER_TEMP/telegram-notification/preview.json"
+          cat "$RUNNER_TEMP/telegram-notification/preview.json"
+
+      - name: Hydrate durable duplicate receipt
+        id: telegram_duplicate
+        if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
+        run: |
+          set -euo pipefail
+          result="$(python3 distribution/telegram_notification.py hydrate-github-receipt \
+            --repository "$GITHUB_REPOSITORY" \
+            --edition-id "${EDITION_DATE}-${SLOT}" \
+            --state distribution/telegram-notification-state.json \
+            --output-dir "$RUNNER_TEMP/telegram-notification/receipts")"
+          if [ "$result" = "found" ]; then
+            echo "duplicate=true" >> "$GITHUB_OUTPUT"
+            echo "A durable Telegram receipt or reservation already blocks this edition; notification is a successful no-op."
+          else
+            echo "duplicate=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Wait for exact public edition URL
+        if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
+        env:
+          EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
+        run: |
+          set -euo pipefail
+          python3 distribution/telegram_notification.py verify-live \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
+            --attempts 20 --delay-seconds 10
+
+      - name: Prepare duplicate-blocking mutation reservation
+        if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
+        env:
+          EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
+        run: |
+          set -euo pipefail
+          python3 distribution/telegram_notification.py reserve \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
+            --state distribution/telegram-notification-state.json \
+            --receipt-dir "$RUNNER_TEMP/telegram-notification/receipts" \
+            --output "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-${SLOT}.json"
+
+      - name: Persist mutation reservation before loading Telegram credentials
+        if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: telegram-notification-reservation-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
+          path: ${{ runner.temp }}/telegram-notification/reservation/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Honor default-on kill switch without loading credentials
+        if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH != 'false'
+        env:
+          DDB_TELEGRAM_NOTIFY_ENABLED: ${{ vars.DDB_TELEGRAM_NOTIFY_ENABLED }}
+          DDB_TELEGRAM_NOTIFY_KILL_SWITCH: 'true'
+          EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
+        run: |
+          set -euo pipefail
+          python3 distribution/telegram_notification.py run \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
+            --state distribution/telegram-notification-state.json \
+            --attempt-dir "$RUNNER_TEMP/telegram-notification/attempts" \
+            --receipt-dir "$RUNNER_TEMP/telegram-notification/receipts" \
+            --reservation "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-${SLOT}.json"
+
+      - name: Dry-run exact edition notification without loading credentials
+        if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED != 'true'
+        env:
+          DDB_TELEGRAM_NOTIFY_ENABLED: 'false'
+          DDB_TELEGRAM_NOTIFY_KILL_SWITCH: 'false'
+          EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
+        run: |
+          set -euo pipefail
+          python3 distribution/telegram_notification.py run \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
+            --state distribution/telegram-notification-state.json \
+            --attempt-dir "$RUNNER_TEMP/telegram-notification/attempts" \
+            --receipt-dir "$RUNNER_TEMP/telegram-notification/receipts" \
+            --reservation "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-${SLOT}.json" \
+            --dry-run
+
+      - name: Run live exact edition notification
+        id: telegram_notification_live
+        if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
+        continue-on-error: true
+        env:
+          DDB_TELEGRAM_NOTIFY_ENABLED: ${{ vars.DDB_TELEGRAM_NOTIFY_ENABLED }}
+          DDB_TELEGRAM_NOTIFY_KILL_SWITCH: ${{ vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          EDITION_DATE: ${{ needs.bake.outputs.date }}
+          SLOT: ${{ needs.bake.outputs.slot }}
+        run: |
+          set -euo pipefail
+          python3 distribution/telegram_notification.py run \
+            --archive archive.json --date "$EDITION_DATE" --slot "$SLOT" \
+            --state distribution/telegram-notification-state.json \
+            --attempt-dir "$RUNNER_TEMP/telegram-notification/attempts" \
+            --receipt-dir "$RUNNER_TEMP/telegram-notification/receipts" \
+            --reservation "$RUNNER_TEMP/telegram-notification/reservation/${EDITION_DATE}-${SLOT}.json"
+
+      - name: Upload redacted Telegram attempt
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: telegram-notification-attempt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/telegram-notification/preview.json
+            ${{ runner.temp }}/telegram-notification/attempts/*.json
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Upload blocking Telegram receipt
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: telegram-notification-receipt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
+          path: ${{ runner.temp }}/telegram-notification/receipts/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
+          retention-days: 90
+          if-no-files-found: ignore
+
+      - name: Fail visibly after preserving notification evidence
+        if: steps.telegram_notification_live.outcome == 'failure'
+        run: |
+          echo "::error::Canonical site publish succeeded, but the exact Telegram notification failed. Review the redacted attempt and any blocking receipt before retrying."
           exit 1

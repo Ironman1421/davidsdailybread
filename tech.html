@@ -33,10 +33,12 @@
   .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   .tagline a.active { color: var(--gold); border-bottom-color: var(--gold); }
   .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .format-line { margin-top: 7px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
   .cat-hero { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 18px 0 16px; margin-top: 18px; text-align: center; }
   .cat-hero::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
   .cat-hero h1 { font-family: 'Newsreader', Georgia, serif; font-size: 30px; font-weight: 600; margin: 0; letter-spacing: -0.3px; }
   .cat-hero p { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 16px; color: var(--muted); margin: 6px 0 0; }
+  .scripture-scope { max-width: 720px; margin: 13px auto 0; color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; font-style: italic; line-height: 1.45; text-align: center; }
   .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
   .card { position: relative; background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border: 1px solid rgba(255,255,255,0.09); border-radius: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
   .card:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10); border-color: rgba(200,162,74,0.35); }
@@ -47,6 +49,14 @@
   .story-card:hover h3 { color: var(--gold); }
   .story-card p { font-size: 13.5px; line-height: 1.58; color: var(--muted); margin: 0; }
   .story-card p b { color: var(--ink); font-weight: 600; }
+  .scripture-inline { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--gold-soft); }
+  .scripture-label { margin: 0 0 6px; color: var(--gold); font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.7px; text-transform: uppercase; }
+  .scripture-inline blockquote { margin: 0; padding: 0; }
+  .verse-text { margin: 0; color: var(--ink); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; font-weight: 500; line-height: 1.42; }
+  .verse-reference { display: block; margin-top: 3px; color: var(--steel); font-family: 'Inter', sans-serif; font-size: 9.5px; font-style: normal; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .verse-reference a { color: inherit; text-decoration-color: var(--steel-soft); text-underline-offset: 3px; }
+  .external-mark { margin-left: 4px; font-size: 0.9em; }
+  .scripture-connection { margin: 6px 0 0; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; line-height: 1.45; }
   .stack { display: flex; flex-direction: column; }
   .stack .card { flex: 1; }
   .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
@@ -100,19 +110,64 @@
   <header class="masthead">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
     <div class="tagline"><a href="/tech.html" class="active">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
+    <div class="format-line">News and Scripture, paired story by story.</div>
     <div class="cat-hero">
       <h1>Technology</h1>
       <p>AI, chips, and the machines reshaping the world.</p>
     </div>
   </header>
 
+  <p class="scripture-scope">Scripture accompanies each story for the reader's reflection. It is not presented as God's judgment on the people or events reported.</p>
+
   <div class="card-grid">
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.militarytimes.com/industry/techwatch/2026/07/31/chinese-military-researchers-tap-us-ai-models-to-train-defense-systems/"><span class="num">01</span><h3>Chinese military researchers used US AI outputs to train defense systems, Reuters finds</h3><p><b>More than 80 papers and patents</b> show PLA-linked researchers distilling outputs from OpenAI's GPT-3.5 and Anthropic's Claude 3 Haiku into domestic models for military code analysis, drone image processing, and social media monitoring.</p></a></article><div class="notes" data-note-key="https://www.militarytimes.com/industry/techwatch/2026/07/31/chinese-military-researchers-tap-us-ai-models-to-train-defense-systems/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.theregister.com/systems/2026/07/30/samsung-warns-memory-crunch-will-last-through-2028-as-profit-rises-19-fold/5281142"><span class="num">02</span><h3>Samsung says the memory shortage will run through 2028</h3><p><b>Operating profit rose more than 19-fold</b> to 89.5 trillion won on revenue of 171.5 trillion won, and executives told analysts supply constraints will be more severe in 2027 than in 2026.</p></a></article><div class="notes" data-note-key="https://www.theregister.com/systems/2026/07/30/samsung-warns-memory-crunch-will-last-through-2028-as-profit-rises-19-fold/5281142"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://gigazine.net/gsc_news/en/20260730-qualcomm-earnings-report-q3-2026/"><span class="num">03</span><h3>Qualcomm will raise chip prices from September 1 as costs climb</h3><p><b>Smartphone chip sales fell 20 percent</b> to $5.1 billion in a $9.95 billion quarter, and chief executive Cristiano Amon said product prices go up on September 1 to cover rising manufacturing, packaging, and materials costs.</p></a></article><div class="notes" data-note-key="https://gigazine.net/gsc_news/en/20260730-qualcomm-earnings-report-q3-2026/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.news4jax.com/business/2026/07/30/eu-lays-out-114-billion-for-7-ai-gigafactories-as-it-aims-to-catch-up-with-us-and-china/"><span class="num">04</span><h3>EU puts 10 billion euros behind seven AI gigafactories</h3><p><b>Seven sites</b> would each carry at least 100,000 cutting-edge AI chips, and Brussels hopes its $11.4 billion in public money draws 20 billion euros more from private investors.</p></a></article><div class="notes" data-note-key="https://www.news4jax.com/business/2026/07/30/eu-lays-out-114-billion-for-7-ai-gigafactories-as-it-aims-to-catch-up-with-us-and-china/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://futurescot.com/department-for-education-and-police-national-legal-database-targeted-by-hackers/"><span class="num">05</span><h3>Hackers claim files from the UK education department and a police legal database</h3><p><b>A new group calling itself ExfilSquad</b> claimed more than 600,000 files from the Department for Education and over 135,000 records from the Police National Legal Database, and both bodies have referred themselves to the Information Commissioner's Office.</p></a></article><div class="notes" data-note-key="https://futurescot.com/department-for-education-and-police-national-legal-database-targeted-by-hackers/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/03/sequoias-shaun-maguire-leads-1b-round-for-nuclear-startup-valar-atomics/"><span class="num">01</span><h3>Nuclear startup Valar Atomics raises $1 billion at a $6 billion valuation</h3><p><b>Small modular reactors</b> Sequoia led the equity round alongside a $200 million credit line, weeks after the company powered an Nvidia Blackwell system with its Ward 250 reactor in June.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-1-label">
+      <h2 class="scripture-label" id="tech-scripture-1-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/GEN.2.15.BSB">
+        <p class="verse-text">&ldquo;Then the LORD God took the man and placed him in the Garden of Eden to cultivate and keep it.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/GEN.2.15.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Genesis 2:15 in the Berean Standard Bible, opens in a new tab">Genesis 2:15 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can treat the power we build as something to tend carefully, not simply to spend.</p>
+    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/03/sequoias-shaun-maguire-leads-1b-round-for-nuclear-startup-valar-atomics/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/03/base-power-raises-another-1b-to-save-the-grid-using-backyard-batteries/"><span class="num">02</span><h3>Base Power raises $1 billion for home batteries that also feed the grid</h3><p><b>Subscription batteries</b> The company, valued at $13 billion, installs roughly 100 units a day and has deployed more than 500 megawatt hours across Texas and Illinois.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-2-label">
+      <h2 class="scripture-label" id="tech-scripture-2-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PHP.2.4.BSB">
+        <p class="verse-text">&ldquo;Each of you should look not only to your own interests, but also to the interests of others.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PHP.2.4.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Philippians 2:4 in the Berean Standard Bible, opens in a new tab">Philippians 2:4 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can consider how our own preparations might also serve the neighbors around us.</p>
+    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/03/base-power-raises-another-1b-to-save-the-grid-using-backyard-batteries/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/03/samsung-bans-smart-tv-apps-that-share-users-internet-connections-with-strangers/"><span class="num">03</span><h3>Samsung bans smart TV apps that route strangers' web traffic</h3><p><b>Residential proxy ban</b> Samsung said it has restricted new app registrations carrying proxy code and is working to remove existing ones, after Norwegian security firm Mnemonic found televisions being used as exit nodes.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-3-label">
+      <h2 class="scripture-label" id="tech-scripture-3-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PRO.14.15.BSB">
+        <p class="verse-text">&ldquo;The simple man believes every word, but the prudent man watches his steps.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.14.15.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 14:15 in the Berean Standard Bible, opens in a new tab">Proverbs 14:15 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can watch our steps with the software we invite into our homes.</p>
+    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/03/samsung-bans-smart-tv-apps-that-share-users-internet-connections-with-strangers/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/03/horizon3-hits-2-billion-valuation-with-250m-series-e-as-ai-threats-escalate/"><span class="num">04</span><h3>Security testing firm Horizon3 raises $250 million at a $2 billion valuation</h3><p><b>Automated penetration testing</b> The company says its NodeZero platform has run 310,000 production security tests without disruption and approached $100 million in annual recurring revenue last year.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-4-label">
+      <h2 class="scripture-label" id="tech-scripture-4-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/1TH.5.21.BSB">
+        <p class="verse-text">&ldquo;but test all things. Hold fast to what is good.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/1TH.5.21.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read 1 Thessalonians 5:21 in the Berean Standard Bible, opens in a new tab">1 Thessalonians 5:21 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can test what we are asked to trust, and hold fast to what proves good.</p>
+    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/03/horizon3-hits-2-billion-valuation-with-250m-series-e-as-ai-threats-escalate/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/03/aws-is-helping-vibe-coding-startup-superblocks-and-the-implications-are-big/"><span class="num">05</span><h3>AWS backs Superblocks to keep app building inside customers' own clouds</h3><p><b>Data stays put</b> Under a multiyear joint marketing agreement, Superblocks apps will run on Amazon Aurora and Bedrock inside enterprise AWS accounts, which chief executive Brad Menezes said means data never leaves.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-5-label">
+      <h2 class="scripture-label" id="tech-scripture-5-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PRO.8.12.BSB">
+        <p class="verse-text">&ldquo;I, wisdom, dwell together with prudence, and I find knowledge and discretion.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.8.12.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 8:12 in the Berean Standard Bible, opens in a new tab">Proverbs 8:12 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can pair new capability with prudence in how we handle what others entrust to us.</p>
+    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/03/aws-is-helping-vibe-coding-startup-superblocks-and-the-implications-are-big/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/03/whatsapp-says-it-is-is-fixing-an-issue-that-disabled-several-accounts/"><span class="num">06</span><h3>WhatsApp says it is restoring accounts locked by a review error</h3><p><b>Accounts under review</b> Users reported being told their activity was being checked against the terms of service, and Meta said it had taken action to restore affected accounts without explaining the cause.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-6-label">
+      <h2 class="scripture-label" id="tech-scripture-6-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/ROM.12.12.BSB">
+        <p class="verse-text">&ldquo;Be joyful in hope, patient in affliction, persistent in prayer.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/ROM.12.12.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Romans 12:12 in the Berean Standard Bible, opens in a new tab">Romans 12:12 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can practice patience when the systems we depend on quietly fail us.</p>
+    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/03/whatsapp-says-it-is-is-fixing-an-issue-that-disabled-several-accounts/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
   </div>
 
   <div class="page-notes">
@@ -124,11 +179,11 @@
     <div class="foot-grid">
       <div class="foot-cell">
         <div class="foot-head">Notes &amp; Letters</div>
-        <p class="foot-copy">Selah &ndash; anything to set down?</p>
-        <a class="gf-btn" href="/chronicles.html">the chronicles</a>
+        <p class="foot-copy">Selah. Your private notes remain on this device.</p>
+        <a class="gf-btn" href="/chronicles.html">open the chronicles</a>
       </div>
       </div>
-    <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a></div>
+    <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Email paused</a></div>
   </footer>
 </div>
 <script>

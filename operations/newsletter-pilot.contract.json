@@ -9,10 +9,11 @@
     "newsletterSendingAuthorized": false,
     "activationWorkAuthorized": false,
     "scopedOperationalApprovalRequired": true,
-    "preserveLiveSignupPageState": true
+    "preserveCurrentFailClosedSignupPageState": true
   },
   "provider": {
     "name": "Buttondown",
+    "status": "historical-provider-no-operations-authorized",
     "account": "davidsdailybread",
     "subscribeEndpoint": "https://buttondown.com/api/emails/embed-subscribe/davidsdailybread",
     "systemOfRecordForSubscriberAddresses": true,
@@ -46,8 +47,8 @@
     "unsubscribeRequiredEveryIssue": true
   },
   "privacy": {
-    "publicContact": "privacy@davidsdailybread.com",
-    "contactVerified": true,
+    "publicContact": null,
+    "verifiedContactRequiredBeforeReopen": true,
     "forwardingDestinationStoredInRepository": false,
     "subscriberAddressesAllowedInRepository": false,
     "subscriberAddressesAllowedInGitHubActions": false,
@@ -62,7 +63,9 @@
   },
   "signup": {
     "page": "/subscribe.html",
-    "currentLiveStatePreserved": true,
+    "currentFailClosedStatePreserved": true,
+    "collectsAddresses": false,
+    "providerEndpointPresent": false,
     "changesAuthorized": false,
     "presenceAuthorizesSending": false
   },

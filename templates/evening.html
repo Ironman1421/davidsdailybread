@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>David's Daily Bread – EDITION, DATELINE_DATE</title>
-<meta name="description" content="Faith, technology, prayer, and service, with practical tools, workflows, and quiet reflection. Loved by God. Baked fresh twice daily.">
+<meta name="description" content="David's Daily Bread evening edition – trending tools and trending workflows for everyday people. No news after dark. Loved by God. Baked fresh twice daily.">
 <link rel="canonical" href="https://davidsdailybread.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
 <meta property="og:title" content="David's Daily Bread – EDITION, DATELINE_DATE">
-<meta property="og:description" content="Faith, technology, prayer, and service, with practical tools, workflows, and quiet reflection. Loved by God. Baked fresh twice daily.">
+<meta property="og:description" content="The evening edition: trending tools and trending workflows for everyday people. Loved by God. Baked fresh twice daily.">
 <meta property="og:url" content="https://davidsdailybread.com/">
 <meta property="og:image" content="https://davidsdailybread.com/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; --marker:#b9772a; }
+  :root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; --marker:#b9772a; --rose:#d98c9d; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.6; background-image: radial-gradient(90% 55% at 50% 0%, rgba(200,162,74,0.08), transparent 60%); }
   #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--marker)); z-index: 10; transition: width 0.08s linear; }
@@ -37,12 +37,15 @@
   .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
   .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .masthead.next-format .masthead-art-link { width: 100%; max-width: 640px; aspect-ratio: 1124 / 330; margin: 0 auto; overflow: hidden; }
+  .masthead.next-format .masthead-art { max-width: none; transform: translateX(3.4%); }
+  .masthead.next-format .tagline { margin-top: 18px; }
+  .format-line { margin-top: 4px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 15px; font-style: italic; font-weight: 400; letter-spacing: 0.2px; text-align: center; }
   .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
   .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
   .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
   .dateline .edition { color: var(--marker); font-weight: 600; }
   .dateline .read { color: var(--gold); }
-  .mission-statement { max-width: 740px; margin: 20px auto 0; padding: 0 16px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; line-height: 1.5; text-align: center; }
   .glance { margin: 24px 0 4px; padding: 15px 22px 13px; background: rgba(200,162,74,0.05); border: 1px dashed var(--gold-soft); border-radius: 12px; }
   .glance-head { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
   .glance ul { list-style: none; margin: 10px 0 0; padding: 0; }
@@ -53,6 +56,7 @@
   .lead-card:hover { transform: translateY(-3px); border-color: rgba(200,162,74,0.5); }
   .lead-card a.card-link { display: block; color: inherit; text-decoration: none; }
   .lead-card .badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--marker); }
+  .lead-card .lead-seen { margin-left: 8px; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); }
   .lead-card h1 { font-family: 'Newsreader', Georgia, serif; font-size: 29px; line-height: 1.16; margin: 8px 0 12px; font-weight: 600; letter-spacing: -0.2px; }
   .lead-card:hover h1 { color: var(--gold); }
   .lead-card .standfirst { font-family: 'Newsreader', Georgia, serif; font-size: 18px; font-style: italic; line-height: 1.5; color: #cfc7b4; margin: 0 0 10px; }
@@ -77,15 +81,15 @@
   .recipe { background: rgba(255,255,255,0.035); border: 1px solid var(--line-strong); border-radius: 16px; padding: 20px 24px 16px; transition: border-color 0.15s, transform 0.15s; }
   .recipe:hover { border-color: var(--gold-soft); transform: translateY(-2px); }
   .recipe a.card-link { color: inherit; text-decoration: none; display: block; }
-  .recipe .r-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  .recipe h3 { font-family: 'Newsreader', Georgia, serif; font-size: 19px; line-height: 1.28; margin: 0 0 8px; font-weight: 600; }
+  .recipe .r-top { display: flex; flex-direction: column; align-items: stretch; gap: 7px; margin-bottom: 9px; }
+  .recipe .r-meta { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 5px; }
+  .recipe h3 { font-family: 'Newsreader', Georgia, serif; font-size: 19px; line-height: 1.28; margin: 0; font-weight: 600; }
   .recipe:hover h3 { color: var(--gold); }
-  .recipe .time { flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--marker); border: 1px solid rgba(185,119,42,0.45); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+  .recipe .time { flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--steel); border: 1px solid rgba(111,159,206,0.4); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+  .recipe .trend { flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+  .recipe .requirement { flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
   .recipe p.dek { font-size: 13.5px; line-height: 1.6; color: var(--muted); margin: 0; }
   .recipe p.dek b { color: var(--ink); font-weight: 600; }
-  .recipe .needs { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line-strong); font-size: 12.5px; color: var(--muted); }
-  .recipe .needs b { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-right: 8px; }
-  .recipe .needs .dot { color: var(--line-strong); margin: 0 7px; }
   .recipes .notes { margin: 0 0 10px; }
   .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
   .notes:focus-within, .notes.open { border-style: solid; border-color: var(--gold-soft); background: rgba(200,162,74,0.05); }
@@ -130,10 +134,20 @@
     .lead-card h1 { font-size: 24px; }
     .margin-note { position: static; display: inline-block; margin-bottom: 6px; transform: rotate(-2deg); }
   }
-  .mary-section { margin-top:32px; }
-  .mary-evening { padding:26px 28px; border:1px solid rgba(200,162,74,0.32); border-radius:18px; background:radial-gradient(80% 110% at 0 100%,rgba(111,159,206,0.1),transparent 65%),var(--panel); }
+  .mary-section { margin-top:42px; padding:18px 12px; }
+  .mary-evening { position:relative; padding:32px 34px 30px; border:1px solid rgba(217,140,157,0.34); border-radius:18px; background:radial-gradient(80% 110% at 0 100%,rgba(217,140,157,0.07),transparent 65%),var(--panel); box-shadow:0 16px 34px rgba(0,0,0,0.24); }
+  .mary-evening > :not(.mary-flower):not(.mary-sprig) { position:relative; z-index:2; }
+  .mary-flower, .mary-sprig { position:absolute; z-index:3; display:block; pointer-events:none; background-repeat:no-repeat; background-size:contain; filter:drop-shadow(0 3px 5px rgba(0,0,0,0.22)); }
+  .mary-flower { width:132px; height:104px; }
+  .mary-flower-tl { top:-31px; left:-20px; background-image:url('/mary-floral-blush.png'); background-position:left top; }
+  .mary-flower-tr { top:-31px; right:-20px; background-image:url('/mary-floral-ivory.png'); background-position:right top; }
+  .mary-flower-bl { bottom:-31px; left:-20px; background-image:url('/mary-floral-blush.png'); background-position:left top; transform:scaleY(-1); }
+  .mary-flower-br { right:-20px; bottom:-31px; background-image:url('/mary-floral-ivory.png'); background-position:right top; transform:scaleY(-1); }
+  .mary-sprig { width:84px; height:35px; background-image:url('/mary-floral-sprig.png'); opacity:0.86; }
+  .mary-sprig-top { top:-17px; left:57%; }
+  .mary-sprig-bottom { bottom:-17px; left:39%; transform:scaleY(-1); }
   .ponder-heading { display:grid; grid-template-columns:.8fr 1.2fr; gap:30px; align-items:end; margin-bottom:24px; }
-  .mary-name { color:var(--steel); font-family:'Cormorant Garamond',Georgia,serif; font-size:19px; font-weight:600; line-height:1.1; }
+  .mary-name { color:var(--rose); font-family:'Cormorant Garamond',Georgia,serif; font-size:19px; font-weight:600; line-height:1.1; }
   .ponder-heading h2 { margin:5px 0 0; font-family:'Newsreader',Georgia,serif; font-size:34px; line-height:1; font-weight:500; }
   .ponder-heading p { margin:8px 0 0; max-width:560px; color:var(--muted); font-family:'Newsreader',Georgia,serif; font-size:17px; font-style:italic; }
   .ponder-movements { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -145,9 +159,17 @@
   .ponder-movement blockquote { font-style:italic; }
   .ponder-movement cite { display:block; margin-top:8px; color:var(--faint); font-size:9px; font-style:normal; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; }
   .mary-foot { display:flex; justify-content:space-between; gap:20px; margin-top:24px; padding-top:14px; border-top:1px solid var(--line); }
-  .mary-posture { color:var(--steel); font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
+  .mary-posture { color:var(--rose); font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
   .mary-witness { color:var(--faint); font-family:'Newsreader',Georgia,serif; font-size:12.5px; font-style:italic; line-height:1.5; }
   @media (max-width: 760px) {
+    .mary-section { padding:14px 5px; }
+    .mary-evening { padding:34px 26px 30px; }
+    .mary-flower { width:104px; height:82px; }
+    .mary-flower-tl { top:-24px; left:-16px; }
+    .mary-flower-tr { top:-24px; right:-16px; }
+    .mary-flower-bl { bottom:-24px; left:-16px; }
+    .mary-flower-br { right:-16px; bottom:-24px; }
+    .mary-sprig { display:none; }
     .ponder-movements, .ponder-heading { grid-template-columns:1fr; }
     .ponder-movement { padding:18px 0; }
     .ponder-movement + .ponder-movement { border-left:0; border-top:1px solid var(--line-strong); }
@@ -158,8 +180,9 @@
 <body>
 <div id="progress"></div>
 <div class="paper">
-  <header class="masthead">
+  <header class="mastheadMASTHEAD_FORMAT">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+    MASTHEAD_SUBTITLE
     <div class="tagline"><a href="/tools.html">The tool shelf</a><span class="sep">&middot;</span><a href="/workflows.html">The workflows</a><span class="sep">&middot;</span><a href="/archive.html">Past editions</a></div>
     <div class="dateline">
       <div class="dateline-row">
@@ -169,8 +192,6 @@
       </div>
     </div>
   </header>
-
-  <p class="mission-statement">Grow in faith. Understand technology wisely. Pray for one another. Use what you learn in service to others.</p>
 
   <aside class="glance">
     <div class="glance-head">Tonight, in one look</div>
@@ -184,7 +205,7 @@
   <article class="lead-card">
     <!--LEAD_NOTE_START--><span class="margin-note">LEAD_NOTE</span><!--LEAD_NOTE_END-->
     <a class="card-link" href="LEAD_URL">
-      <span class="badge">LEAD_BADGE</span>
+      <span class="badge">LEAD_BADGE</span><span class="lead-seen">LEAD_SEEN</span>
       <h1>LEAD_HEADLINE</h1>
       <p class="standfirst">LEAD_STANDFIRST</p>
       <p class="lead-body">LEAD_BODY</p>
@@ -212,6 +233,12 @@ RECIPE_ITEMS
 
   <section class="mary-section" id="keep-and-ponder">
     <div class="mary-evening">
+      <span class="mary-flower mary-flower-tl" aria-hidden="true"></span>
+      <span class="mary-flower mary-flower-tr" aria-hidden="true"></span>
+      <span class="mary-flower mary-flower-bl" aria-hidden="true"></span>
+      <span class="mary-flower mary-flower-br" aria-hidden="true"></span>
+      <span class="mary-sprig mary-sprig-top" aria-hidden="true"></span>
+      <span class="mary-sprig mary-sprig-bottom" aria-hidden="true"></span>
       <div class="ponder-heading">
         <div><div class="mary-name">Mary of Nazareth</div><h2>Keep and Ponder</h2></div>
         <p>The useful work is finished. Keep what is true, ponder what matters, and entrust the rest to God.</p>
@@ -238,7 +265,7 @@ RECIPE_ITEMS
         <a class="gf-btn" href="/chronicles.html">open the chronicles</a>
       </div>
       </div>
-    <div class="colophon">David's Daily Bread &middot; compiled TIMESTAMP &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Weekly email</a></div>
+    <div class="colophon">David's Daily Bread &middot; compiled TIMESTAMP &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Email paused</a></div>
   </footer>
 </div>
 <script>
