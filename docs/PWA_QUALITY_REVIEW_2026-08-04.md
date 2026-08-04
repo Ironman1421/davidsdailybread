@@ -1,8 +1,9 @@
 # Phase 1 PWA quality review
 
-Status: local browser, physical iPhone install/launch/update/correction/offline,
-and isolated normal-bake preview completed; generated-home bootstrap, Android,
-full screen-reader, and release gates remain
+Status: local browser, generated-home bootstrap, physical iPhone
+install/launch/update/correction/offline, isolated normal-bake preview, native
+keyboard activation, and 200-percent zoom completed; clean first-route iPhone
+offline, Android, full auditory screen-reader, and release gates remain
 
 Reviewed: 2026-08-04, beginning at PR #48 head `6cbe9a8`
 
@@ -131,9 +132,44 @@ suite, rewrite a real edition, or modify the working tree.
 - Tracked-file hashes and targeted canonical-output hashes matched before and
   after the preview. The real working tree remained clean.
 
-This satisfies the normal non-publishing bake gate. It does not substitute for
-CI and does not make the current generated homepage PWA-enabled before a future
-authorized bake or release.
+This satisfied the normal non-publishing bake gate at that exact head. It did
+not substitute for CI or, by itself, make the then-current generated homepage
+PWA-enabled; the later bootstrap follow-up below addresses that separate gap.
+
+## Generated-home bootstrap and native local follow-up
+
+Reviewed on 2026-08-04 beginning from PR #48 head
+`0d8835853a766c949c2fe035948c728dfcfcf9eb`. The current morning renderer input
+was mechanically rehydrated in an isolated repository copy from the canonical
+August 4 morning edition and category pages, with Scripture verified against
+the repository dataset. The normal daily renderer then produced the current
+morning output. No editorial text was hand-edited.
+
+The first isolated render changed only the five expected current-morning
+surfaces: the homepage, August 4 morning edition, and Tech & AI, Markets, and
+Science pages. Archive HTML and JSON, RSS, bakery state, and the evening catalog
+remained byte-identical. The generated-page diff was limited to the reviewed
+PWA metadata, styles, script, product-rhythm language, and an existing
+production-template category-card height rule. Those five generated files were
+then adopted mechanically from a final isolated render. No historical edition,
+archive contract, feed, reader-intake state, or production evidence changed.
+
+Native keyboard review in Chrome exposed one material focus defect: after the
+collapsed **More** control, Tab could still enter links in its visually hidden
+panel. The panel now uses `inert` with synchronized `aria-hidden` state while
+collapsed. Native Tab, Enter, and Space then passed: Enter expanded the panel,
+Space collapsed it, and the next Tab bypassed the hidden links for the lead
+story. An executable PWA contract records the collapsed-state requirement.
+
+Safari was reviewed at its native 200-percent page-zoom level from masthead
+through footer. The product distinction, At a Glance panel, dense lead-story
+copy, cards, Scripture blocks, notes, buttons, and footer all reflowed without
+horizontal scrolling, clipping, overlap, or loss of controls. Safari was
+restored to actual size after the review, and the loopback preview was stopped.
+
+This follow-up clears the generated-home bootstrap, native-keyboard, and
+200-percent zoom gates locally. It does not substitute for exact-head CI or the
+remaining physical-device and auditory checks.
 
 ## Private HTTPS physical follow-up
 
@@ -171,14 +207,12 @@ Passed on the physical iPhone:
   freshness, the waiting-worker handoff, and offline retention on physical
   iPhone Safari.
 
-One material bootstrap gap remains. Immediately after installation, before the
-standalone app visited any PWA-wired page, the first route-down cold start
-received Safari's unable-to-connect screen. The preserved August 4 generated
-homepage predates this branch's PWA template wiring, so it cannot register the
-worker by itself. The normal non-publishing bake proved that newly generated
-home, category, edition, and archive pages carry the wiring, but an authorized
-bake or release must produce that generated output before first-launch offline
-behavior can pass end to end.
+One material bootstrap gap was observed on this exact head. Immediately after
+installation, before the standalone app visited any PWA-wired page, the first
+route-down cold start received Safari's unable-to-connect screen. The generated
+homepage bootstrap has since been repaired locally through the normal renderer,
+but a clean exact-head HTTPS reinstall must still prove first-route worker
+registration and offline startup end to end.
 
 VoiceOver was already enabled on the handset during this HTTPS follow-up and
 was left unchanged. The installed publication, update action, and corrected
@@ -195,17 +229,17 @@ hostname remain enabled, but no Serve route remains.
 
 ## Remaining release gates
 
-- Generate PWA-wired canonical home output through an authorized bake or release,
-  then repeat immediate post-install route-down cold start. Physical iPhone
-  update, correction, and offline recovery passed after a PWA-wired page
-  bootstrapped the worker.
-- Physical Android Chrome install, launch, update, and offline review when an
-  Android handset is available.
-- Native VoiceOver and TalkBack reading order, control names, focus, and rotor
-  review. Mirroring is not a substitute for on-device screen-reader gestures and
-  spoken output.
-- Manual keyboard activation and 200-percent text/zoom review in a shipping
-  browser. The automation harness verified focus but did not dispatch native
-  Enter or Space button activation reliably.
-- CI on the exact follow-up commit and David's separate approval of the exact
-  release and rollback. This record does not authorize merge or deployment.
+- After exact-head CI passes, remove both test Home Screen installs and obtain
+  fresh, exact-head approval for one private HTTPS rehearsal. Install cleanly,
+  take the first route offline before visiting another page, and prove immediate
+  post-install cold start. Then repeat the bounded update and correction checks.
+- Complete a short physical, on-device VoiceOver checklist with David operating
+  native gestures and confirming the spoken announcements. Mirroring is not a
+  substitute for auditory evidence.
+- Physical Android Chrome install, launch, update, offline, and TalkBack review
+  is explicitly deferred as an evidence gap until a borrowed physical Android
+  is available. It is not a pass; this phase does not justify buying a handset or
+  provisioning a device-testing service.
+- CI on the exact follow-up commit and David's separate ready-for-review
+  decision. The PR remains draft, and this record does not authorize merge or
+  deployment.

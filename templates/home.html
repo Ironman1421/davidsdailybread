@@ -213,7 +213,7 @@
       <li><span class="tag">Markets</span><span>GLANCE_MARKETS</span></li>
       <li><span class="tag">Science</span><span>GLANCE_SCIENCE</span></li>
     </ul>
-    <div class="glance-more" id="glanceMore">
+    <div class="glance-more" id="glanceMore" aria-hidden="true" inert>
       <div class="glance-more-inner">
         <div class="glance-grp">
           <div class="glance-grp-head">Tech &amp; AI</div>
@@ -333,8 +333,16 @@ LEAD_SCRIPTURE
     btn.addEventListener('click', function () {
       var open = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', String(!open));
-      if (open) { panel.style.maxHeight = '0px'; }
-      else { panel.style.maxHeight = panel.scrollHeight + 'px'; }
+      if (open) {
+        panel.style.maxHeight = '0px';
+        panel.setAttribute('aria-hidden', 'true');
+        panel.setAttribute('inert', '');
+      }
+      else {
+        panel.removeAttribute('inert');
+        panel.setAttribute('aria-hidden', 'false');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
     });
     window.addEventListener('resize', function () {
       if (btn.getAttribute('aria-expanded') === 'true') { panel.style.maxHeight = panel.scrollHeight + 'px'; }

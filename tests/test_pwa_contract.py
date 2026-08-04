@@ -112,6 +112,17 @@ class PwaContractTest(unittest.TestCase):
         self.assertIn("Add to Home Screen", script)
         self.assertIn("ACTIVATE_UPDATE", script)
 
+    def test_collapsed_glance_links_stay_out_of_the_keyboard_and_a11y_tree(self):
+        template = (ROOT / "templates" / "home.html").read_text(encoding="utf-8")
+        self.assertIn(
+            '<div class="glance-more" id="glanceMore" aria-hidden="true" inert>',
+            template,
+        )
+        self.assertIn("panel.setAttribute('inert', '')", template)
+        self.assertIn("panel.removeAttribute('inert')", template)
+        self.assertIn("panel.setAttribute('aria-hidden', 'true')", template)
+        self.assertIn("panel.setAttribute('aria-hidden', 'false')", template)
+
     def test_machine_contract_fails_closed(self):
         self.assertEqual(1, CONTRACT["version"])
         self.assertEqual("phase-1-local-ready-not-published", CONTRACT["status"])
