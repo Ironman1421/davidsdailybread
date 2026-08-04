@@ -33,10 +33,12 @@
   .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   .tagline a.active { color: var(--gold); border-bottom-color: var(--gold); }
   .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .format-line { margin-top: 7px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
   .cat-hero { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 18px 0 16px; margin-top: 18px; text-align: center; }
   .cat-hero::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
   .cat-hero h1 { font-family: 'Newsreader', Georgia, serif; font-size: 30px; font-weight: 600; margin: 0; letter-spacing: -0.3px; }
   .cat-hero p { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 16px; color: var(--muted); margin: 6px 0 0; }
+  .scripture-scope { max-width: 720px; margin: 13px auto 0; color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; font-style: italic; line-height: 1.45; text-align: center; }
   .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
   .card { position: relative; background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border: 1px solid rgba(255,255,255,0.09); border-radius: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
   .card:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10); border-color: rgba(200,162,74,0.35); }
@@ -47,6 +49,14 @@
   .story-card:hover h3 { color: var(--gold); }
   .story-card p { font-size: 13.5px; line-height: 1.58; color: var(--muted); margin: 0; }
   .story-card p b { color: var(--ink); font-weight: 600; }
+  .scripture-inline { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--gold-soft); }
+  .scripture-label { margin: 0 0 6px; color: var(--gold); font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.7px; text-transform: uppercase; }
+  .scripture-inline blockquote { margin: 0; padding: 0; }
+  .verse-text { margin: 0; color: var(--ink); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; font-weight: 500; line-height: 1.42; }
+  .verse-reference { display: block; margin-top: 3px; color: var(--steel); font-family: 'Inter', sans-serif; font-size: 9.5px; font-style: normal; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .verse-reference a { color: inherit; text-decoration-color: var(--steel-soft); text-underline-offset: 3px; }
+  .external-mark { margin-left: 4px; font-size: 0.9em; }
+  .scripture-connection { margin: 6px 0 0; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; line-height: 1.45; }
   .stack { display: flex; flex-direction: column; }
   .stack .card { flex: 1; }
   .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
@@ -100,19 +110,64 @@
   <header class="masthead">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
     <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html" class="active">Science</a></div>
+    <div class="format-line">News and Scripture, paired story by story.</div>
     <div class="cat-hero">
       <h1>Science</h1>
       <p>Space, physics, and the frontiers of discovery.</p>
     </div>
   </header>
 
+  <p class="scripture-scope">Scripture accompanies each story for the reader's reflection. It is not presented as God's judgment on the people or events reported.</p>
+
   <div class="card-grid">
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260801042822.htm"><span class="num">01</span><h3>A hidden force between dark matter particles would slow the cosmos down</h3><p><b>Counterintuitive result</b> Writing in the Journal of Cosmology and Astroparticle Physics, Zachary Weiner of the Perimeter Institute and colleagues found that an extra attractive force makes dark matter clump more efficiently but also shrinks its effective mass as the universe expands, so structure growth is suppressed rather than sped up.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260801042822.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260801093239.htm"><span class="num">02</span><h3>Global warming has measurably accelerated since 2015, Potsdam team reports</h3><p><b>0.35 degrees a decade</b> Stefan Rahmstorf and Grant Foster filtered El Nino, volcanoes and the solar cycle out of five temperature datasets and found warming running at about 0.35C per decade against just under 0.2C from 1970 to 2015, with statistical certainty above 98%.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260801093239.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260801042812.htm"><span class="num">03</span><h3>Mathematicians prove a perfectly fair election system cannot exist</h3><p><b>Three rules, pick two</b> Frederik Ravn Klausen and Sebastian Tim Holdum show in Annals of Operations Research that once enough parties compete, no system can hold local winners in their seats, match national vote shares, and keep a fixed parliament size all at once.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260801042812.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260801042814.htm"><span class="num">04</span><h3>A telomere protein turns out to govern whether damaged muscle heals</h3><p><b>Fat and scar instead</b> Penn Medicine researchers led by Foteini Mourkioti report in Science Advances that muscle stem cells stripped of TRF2 lose their identity and let injured tissue fill with fat and scar, and that removing it in mice with Duchenne muscular dystrophy shortened their lives.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260801042814.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260801042811.htm"><span class="num">05</span><h3>A review of more than 350 studies links lower protein intake to slower aging</h3><p><b>Amino acids matter</b> Dudley Lamming's team at the University of Wisconsin-Madison points to methionine, isoleucine and valine as the levers and to the hormone FGF21 as the mechanism, while stressing that the benefits of protein for muscle growth remain crystal clear for active people.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260801042811.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/07/260731034150.htm"><span class="num">06</span><h3>Astronomers confirm a proton PeVatron hiding in the constellation Aquila</h3><p><b>A quadrillion volts</b> A Hiroshima University team led by Tsunefumi Mizuno reports in The Astrophysical Journal that LHAASO J1912+1014u accelerates protons past one peta electron volt, tracing gamma rays from 400 million up to more than 100 trillion electron volts.</p></a></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/07/260731034150.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260802223420.htm"><span class="num">01</span><h3>Moonquakes could map buried ice for future lunar landings</h3><p><b>Seismic echoes</b> Writing in Science Advances, researchers report that seismic waves move two to three times faster through ice-rich lunar material and reflect off deposits, offering a way to estimate how much is there.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-1-label">
+      <h2 class="scripture-label" id="science-scripture-1-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PSA.111.2.BSB">
+        <p class="verse-text">&ldquo;Great are the works of the LORD; they are pondered by all who delight in them.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.111.2.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 111:2 in the Berean Standard Bible, opens in a new tab">Psalm 111:2 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can delight in works that reward long, patient looking.</p>
+    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260802223420.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260802223431.htm"><span class="num">02</span><h3>Surveyors record an 84.1 meter Taiwania fir in Taiwan's mountains</h3><p><b>Lidar and volunteers</b> The Taiwan tree seekers group has documented 941 trees taller than 65 meters, using laser mapping checked by more than 400 volunteers because software misidentified most candidates.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-2-label">
+      <h2 class="scripture-label" id="science-scripture-2-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PSA.104.24.BSB">
+        <p class="verse-text">&ldquo;How many are Your works, O LORD! In wisdom You have made them all; the earth is full of Your creatures.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.104.24.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 104:24 in the Berean Standard Bible, opens in a new tab">Psalm 104:24 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can let the scale of living things move us to gratitude.</p>
+    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260802223431.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260802223417.htm"><span class="num">03</span><h3>Low arginine weakened immune defenses in mice, Rockefeller study finds</h3><p><b>Amino acid link</b> Reporting in Cell, the team found that scarce arginine cut production of the MHC-1 alert protein, and that mice on arginine-rich diets developed fewer colon tumors and milder viral infections.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-3-label">
+      <h2 class="scripture-label" id="science-scripture-3-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/JER.17.14.BSB">
+        <p class="verse-text">&ldquo;Heal me, O LORD, and I will be healed; save me, and I will be saved, for You are my praise.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/JER.17.14.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Jeremiah 17:14 in the Berean Standard Bible, opens in a new tab">Jeremiah 17:14 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can pray for the sick while patient work toward better treatment continues.</p>
+    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260802223417.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260802223437.htm"><span class="num">04</span><h3>Vanderbilt chemists build a first selective inhibitor of an Alzheimer's protein</h3><p><b>Tool compounds</b> Reported in ACS Chemical Neuroscience, VU6083859 selectively blocks TAOK-1 while a second compound unexpectedly activates all three TAOK proteins, giving researchers new ways to probe the family.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-4-label">
+      <h2 class="scripture-label" id="science-scripture-4-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PSA.90.12.BSB">
+        <p class="verse-text">&ldquo;So teach us to number our days, that we may present a heart of wisdom.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.90.12.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 90:12 in the Berean Standard Bible, opens in a new tab">Psalm 90:12 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can number our days with gratitude and pray for families walking through dementia.</p>
+    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260802223437.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260802223422.htm"><span class="num">05</span><h3>Physicists say extreme acceleration shapes the universe's hottest matter</h3><p><b>Quark gluon plasma</b> A Fudan University team reported in Nuclear Science and Techniques that peak proper acceleration at the plasma's edges can reach several hundred MeV, enough to act as a control parameter rather than a detail.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-5-label">
+      <h2 class="scripture-label" id="science-scripture-5-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/ISA.40.26.BSB">
+        <p class="verse-text">&ldquo;Lift up your eyes on high: Who created all these? He leads forth the starry host by number; He calls each one by name. Because of His great power and mighty strength, not one of them is missing.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/ISA.40.26.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Isaiah 40:26 in the Berean Standard Bible, opens in a new tab">Isaiah 40:26 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can look up from the smallest measurements and remember who numbers the stars.</p>
+    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260802223422.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.nasa.gov/technology/space-comms/nasa-delivers-navigation-system-for-commercial-lunar-relay/"><span class="num">06</span><h3>NASA delivers a 3.5-pound navigation payload for a lunar relay satellite</h3><p><b>GPS at the Moon</b> The NavCube3-mini receiver draws under 20 watts and will fly on Intuitive Machines' Altus-1 relay, testing navigation at lunar distance using signals from Earth's GPS and Galileo satellites.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-6-label">
+      <h2 class="scripture-label" id="science-scripture-6-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PSA.119.105.BSB">
+        <p class="verse-text">&ldquo;Your word is a lamp to my feet and a light to my path.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.119.105.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 119:105 in the Berean Standard Bible, opens in a new tab">Psalm 119:105 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can ask for light on our own path as we watch others chart theirs.</p>
+    </section></article><div class="notes" data-note-key="https://www.nasa.gov/technology/space-comms/nasa-delivers-navigation-system-for-commercial-lunar-relay/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
   </div>
 
   <div class="page-notes">
@@ -124,11 +179,11 @@
     <div class="foot-grid">
       <div class="foot-cell">
         <div class="foot-head">Notes &amp; Letters</div>
-        <p class="foot-copy">Selah &ndash; anything to set down?</p>
-        <a class="gf-btn" href="/chronicles.html">the chronicles</a>
+        <p class="foot-copy">Selah. Your private notes remain on this device.</p>
+        <a class="gf-btn" href="/chronicles.html">open the chronicles</a>
       </div>
       </div>
-    <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Weekly email</a></div>
+    <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Email paused</a></div>
   </footer>
 </div>
 <script>

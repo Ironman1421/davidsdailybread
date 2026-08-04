@@ -33,10 +33,12 @@
   .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   .tagline a.active { color: var(--gold); border-bottom-color: var(--gold); }
   .tagline .sep { color: var(--line-strong); margin: 0 6px; }
+  .format-line { margin-top: 7px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
   .cat-hero { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 18px 0 16px; margin-top: 18px; text-align: center; }
   .cat-hero::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
   .cat-hero h1 { font-family: 'Newsreader', Georgia, serif; font-size: 30px; font-weight: 600; margin: 0; letter-spacing: -0.3px; }
   .cat-hero p { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 16px; color: var(--muted); margin: 6px 0 0; }
+  .scripture-scope { max-width: 720px; margin: 13px auto 0; color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; font-style: italic; line-height: 1.45; text-align: center; }
   .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
   .card { position: relative; background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border: 1px solid rgba(255,255,255,0.09); border-radius: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
   .card:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10); border-color: rgba(200,162,74,0.35); }
@@ -47,6 +49,14 @@
   .story-card:hover h3 { color: var(--gold); }
   .story-card p { font-size: 13.5px; line-height: 1.58; color: var(--muted); margin: 0; }
   .story-card p b { color: var(--ink); font-weight: 600; }
+  .scripture-inline { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--gold-soft); }
+  .scripture-label { margin: 0 0 6px; color: var(--gold); font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.7px; text-transform: uppercase; }
+  .scripture-inline blockquote { margin: 0; padding: 0; }
+  .verse-text { margin: 0; color: var(--ink); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; font-weight: 500; line-height: 1.42; }
+  .verse-reference { display: block; margin-top: 3px; color: var(--steel); font-family: 'Inter', sans-serif; font-size: 9.5px; font-style: normal; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .verse-reference a { color: inherit; text-decoration-color: var(--steel-soft); text-underline-offset: 3px; }
+  .external-mark { margin-left: 4px; font-size: 0.9em; }
+  .scripture-connection { margin: 6px 0 0; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; line-height: 1.45; }
   .stack { display: flex; flex-direction: column; }
   .stack .card { flex: 1; }
   .notes { margin-top: 10px; display: flex; align-items: flex-start; gap: 9px; background: rgba(255,255,255,0.025); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 8px 12px; transition: border-color 0.15s, background 0.15s; }
@@ -100,19 +110,50 @@
   <header class="masthead">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
     <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html" class="active">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
+    <div class="format-line">News and Scripture, paired story by story.</div>
     <div class="cat-hero">
       <h1>Business &amp; Markets</h1>
       <p>Stocks, deals, and the forces moving the economy.</p>
     </div>
   </header>
 
+  <p class="scripture-scope">Scripture accompanies each story for the reader's reflection. It is not presented as God's judgment on the people or events reported.</p>
+
   <div class="card-grid">
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://finance.yahoo.com/healthcare/articles/astrazeneca-bristol-myers-squibb-talks-211432405.html"><span class="num">01</span><h3>AstraZeneca slides on a report of merger talks with Bristol Myers Squibb</h3><p><b>Nearly $400 billion</b> The Financial Times reported that a roughly $264 billion AstraZeneca and a roughly $133 billion Bristol Myers Squibb had talked over recent months, sending the London listing down 6.7% to 11,804 pence while Jefferies analysts said they were a bit perplexed by the logic.</p></a></article><div class="notes" data-note-key="https://finance.yahoo.com/healthcare/articles/astrazeneca-bristol-myers-squibb-talks-211432405.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.stocktitan.net/news/PLTR/palantir-announces-date-of-second-quarter-2026-earnings-release-and-pb0p9gl5pf2d.html"><span class="num">02</span><h3>Palantir reports second quarter results after Monday's close</h3><p><b>Five o'clock webcast</b> Palantir said results for the quarter ended June 30 will be released on Monday, August 3 following the close of U.S. markets, with a webcast to discuss them at 5:00 PM ET.</p></a></article><div class="notes" data-note-key="https://www.stocktitan.net/news/PLTR/palantir-announces-date-of-second-quarter-2026-earnings-release-and-pb0p9gl5pf2d.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://finance.yahoo.com/markets/stocks/articles/spacex-sets-date-maiden-earnings-204821563.html"><span class="num">03</span><h3>SpaceX faces its first earnings report and a vast insider unlock</h3><p><b>Two days later</b> The company reports on Tuesday, August 4 after the close with a 4:30 p.m. ET call, and two trading days after that up to 911.5 million insider and rank-and-file employee shares become tradeable, against an IPO priced at $135.</p></a></article><div class="notes" data-note-key="https://finance.yahoo.com/markets/stocks/articles/spacex-sets-date-maiden-earnings-204821563.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://finance.yahoo.com/markets/stocks/articles/amazon-q2-2026-earnings-aws-204411872.html"><span class="num">04</span><h3>Amazon's AWS grew 36.7% as quarterly revenue topped $200 billion</h3><p><b>Cloud at $42.2 billion</b> Second quarter revenue reached $200.6 billion with earnings of $5.75 a share as Amazon Web Services grew 36.7% and operating income rose 43% to $27.5 billion, lifting the shares more than 9% after hours.</p></a></article><div class="notes" data-note-key="https://finance.yahoo.com/markets/stocks/articles/amazon-q2-2026-earnings-aws-204411872.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://finance.yahoo.com/technology/article/apple-stock-falls-on-weak-revenue-forecast-as-ceo-tim-cook-flags-increasing-impact-from-memory-shortage-130428410.html"><span class="num">05</span><h3>Apple fell 7% as Tim Cook warned that memory prices keep climbing</h3><p><b>Guidance disappoints</b> Apple beat with $109.4 billion of revenue, up 16%, and record June quarter iPhone sales, but Services came in at $30.7 billion and Greater China at $18.8 billion, and the company guided to 9% to 11% growth against consensus near 12.1%.</p></a></article><div class="notes" data-note-key="https://finance.yahoo.com/technology/article/apple-stock-falls-on-weak-revenue-forecast-as-ceo-tim-cook-flags-increasing-impact-from-memory-shortage-130428410.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://finance.yahoo.com/markets/stocks/articles/warren-schiff-urge-sec-probe-170458488.html"><span class="num">06</span><h3>Senators ask the SEC to examine Trump Media's paid Truth Social feed</h3><p><b>Millisecond access</b> Elizabeth Warren and Adam Schiff asked regulators to review Truth API, a licensed feed of posts from the platform's most-followed accounts priced at up to $100,000 a month that was set to start on August 1, in a company the president holds about 41% of through a revocable trust.</p></a></article><div class="notes" data-note-key="https://finance.yahoo.com/markets/stocks/articles/warren-schiff-urge-sec-probe-170458488.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.stocktitan.net/news/PLTR/palantir-reports-q2-2026-u-s-comm-revenue-growth-of-149-y-y-and-c8762wptyyap.html"><span class="num">01</span><h3>Palantir revenue jumps 93 percent as U.S. commercial sales lead</h3><p><b>Second quarter results</b> Revenue reached $1.935 billion with U.S. commercial revenue up 149 percent to $764 million, GAAP net income of $1.062 billion, and full-year guidance raised to about $8.15 billion.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-1-label">
+      <h2 class="scripture-label" id="markets-scripture-1-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PSA.37.5.BSB">
+        <p class="verse-text">&ldquo;Commit your way to the LORD; trust in Him, and He will do it.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.37.5.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 37:5 in the Berean Standard Bible, opens in a new tab">Psalm 37:5 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can commit our own plans to God rather than to a growth curve.</p>
+    </section></article><div class="notes" data-note-key="https://www.stocktitan.net/news/PLTR/palantir-reports-q2-2026-u-s-comm-revenue-growth-of-149-y-y-and-c8762wptyyap.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.globenewswire.com/news-release/2026/08/03/3337312/0/en/Integer-to-Be-Acquired-by-KKR-in-Transaction-Valued-at-Approximately-5-7-Billion.html"><span class="num">02</span><h3>KKR to buy medical device maker Integer for about $5.7 billion</h3><p><b>All-cash agreement</b> Integer stockholders will receive $127 per share, a 51.8 percent premium to the April 29 close, in a deal the companies expect to close by the end of 2026.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-2-label">
+      <h2 class="scripture-label" id="markets-scripture-2-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/LUK.16.10.BSB">
+        <p class="verse-text">&ldquo;Whoever is faithful with very little will also be faithful with much, and whoever is dishonest with very little will also be dishonest with much.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/LUK.16.10.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Luke 16:10 in the Berean Standard Bible, opens in a new tab">Luke 16:10 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can ask where we are being asked to be faithful with the small things entrusted to us.</p>
+    </section></article><div class="notes" data-note-key="https://www.globenewswire.com/news-release/2026/08/03/3337312/0/en/Integer-to-Be-Acquired-by-KKR-in-Transaction-Valued-at-Approximately-5-7-Billion.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://investor.visa.com/news/news-details/2026/Visa-to-Acquire-BioCatch/default.aspx"><span class="num">03</span><h3>Visa agrees to buy fraud detection firm BioCatch for $2.4 billion</h3><p><b>Behavioral signals</b> BioCatch reads keystrokes, touch gestures and device handling across 1.8 billion devices for more than 350 banking clients, and Visa expects the cash deal to close in its fiscal second quarter of 2027.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-3-label">
+      <h2 class="scripture-label" id="markets-scripture-3-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PRO.11.1.BSB">
+        <p class="verse-text">&ldquo;Dishonest scales are an abomination to the LORD, but an accurate weight is His delight.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.11.1.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 11:1 in the Berean Standard Bible, opens in a new tab">Proverbs 11:1 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can pray for honest dealing in the systems that handle other people&#x27;s money.</p>
+    </section></article><div class="notes" data-note-key="https://investor.visa.com/news/news-details/2026/Visa-to-Acquire-BioCatch/default.aspx"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.prnewswire.com/news-releases/manufacturing-pmi-at-55-6-july-2026-ism-manufacturing-pmi-report-302840669.html"><span class="num">04</span><h3>U.S. factory activity grew in July at its fastest pace since 2022</h3><p><b>Manufacturing PMI 55.6</b> The index rose 2.3 points from June to its highest reading since May 2022, with new orders at 56.7 and production at 58.5, and only chemical products contracting.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-4-label">
+      <h2 class="scripture-label" id="markets-scripture-4-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PRO.22.29.BSB">
+        <p class="verse-text">&ldquo;Do you see a man skilled in his work? He will be stationed in the presence of kings; he will not stand before obscure men.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.22.29.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 22:29 in the Berean Standard Bible, opens in a new tab">Proverbs 22:29 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">We can honor the skilled, ordinary work that sits behind a number like this.</p>
+    </section></article><div class="notes" data-note-key="https://www.prnewswire.com/news-releases/manufacturing-pmi-at-55-6-july-2026-ism-manufacturing-pmi-report-302840669.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    
+    
   </div>
 
   <div class="page-notes">
@@ -124,11 +165,11 @@
     <div class="foot-grid">
       <div class="foot-cell">
         <div class="foot-head">Notes &amp; Letters</div>
-        <p class="foot-copy">Selah &ndash; anything to set down?</p>
-        <a class="gf-btn" href="/chronicles.html">the chronicles</a>
+        <p class="foot-copy">Selah. Your private notes remain on this device.</p>
+        <a class="gf-btn" href="/chronicles.html">open the chronicles</a>
       </div>
       </div>
-    <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Weekly email</a></div>
+    <div class="colophon"><a href="/">&larr; Latest edition</a> &middot; <a href="/archive.html">Past editions</a> &middot; <a href="/feed.xml">RSS</a> &middot; <a href="/subscribe.html">Email paused</a></div>
   </footer>
 </div>
 <script>
