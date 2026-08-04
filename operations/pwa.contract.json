@@ -22,6 +22,7 @@
     "sameOriginOnly": true,
     "navigationStrategy": "network-first-last-successful-offline-fallback",
     "canonicalDataStrategy": "network-first-last-successful",
+    "canonicalNetworkFetchCacheMode": "no-store",
     "staticShellStrategy": "versioned-cache-first",
     "crossOriginCaching": false,
     "queryStringsPersisted": false,
@@ -49,6 +50,8 @@
     "accessibleStatusRegion": true
   },
   "updates": {
+    "cacheGeneration": "v2",
+    "staticAssetInstallFetchCacheMode": "reload",
     "skipWaitingDuringInstall": false,
     "readerRefreshActionRequiredForWaitingWorker": true,
     "cacheCleanupLimitedToOwnedPrefix": true

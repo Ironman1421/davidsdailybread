@@ -84,11 +84,13 @@ class PwaContractTest(unittest.TestCase):
         self.assertIn('request.mode === "navigate"', worker)
         self.assertIn("networkFirst(event, PAGE_CACHE", worker)
         self.assertIn("networkFirst(event, DATA_CACHE", worker)
+        self.assertIn('fetch(request, { cache: "no-store" })', worker)
         for canonical_data in ("/archive.json", "/feed.xml", "/evening-catalog.json"):
             self.assertIn(canonical_data, worker)
         self.assertIn("MAX_PAGE_ENTRIES = 80", worker)
         self.assertIn("MAX_DATA_ENTRIES = 8", worker)
         self.assertIn("if (url.search || !canCache(response)) return", worker)
+        self.assertIn('new Request(path, { cache: "reload" })', worker)
         self.assertIn('name.startsWith("ddb-pwa-")', worker)
         self.assertNotIn("skipWaiting", install_block)
         self.assertNotIn('addEventListener("push"', worker)
@@ -116,10 +118,17 @@ class PwaContractTest(unittest.TestCase):
         self.assertTrue(CONTRACT["canonical"]["websiteRemainsCanonical"])
         self.assertFalse(CONTRACT["canonical"]["separateEditorialProductCreated"])
         self.assertTrue(CONTRACT["cachePolicy"]["correctionsCheckedOnEveryOnlineNavigation"])
+        self.assertEqual(
+            "no-store", CONTRACT["cachePolicy"]["canonicalNetworkFetchCacheMode"]
+        )
         self.assertFalse(CONTRACT["personalData"]["notesReadByPwaLayer"])
         self.assertFalse(CONTRACT["personalData"]["notesDeletedByPwaLayer"])
         self.assertFalse(CONTRACT["personalData"]["savedItemSchemaAdded"])
         self.assertTrue(CONTRACT["install"]["readerInitiated"])
+        self.assertEqual("v2", CONTRACT["updates"]["cacheGeneration"])
+        self.assertEqual(
+            "reload", CONTRACT["updates"]["staticAssetInstallFetchCacheMode"]
+        )
         self.assertFalse(CONTRACT["updates"]["skipWaitingDuringInstall"])
         for field, value in CONTRACT["activation"].items():
             with self.subTest(field=field):

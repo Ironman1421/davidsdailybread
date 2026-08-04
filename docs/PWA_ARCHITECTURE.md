@@ -33,9 +33,9 @@ credentials, external services, or app-store metadata.
 
 | Resource | Online behavior | Offline behavior | Correction rule |
 |---|---|---|---|
-| HTML navigations, including dated editions | Network first | Last successful same-origin response, then `/offline.html` | Every revisit checks the canonical network copy before cache |
-| `archive.json`, `feed.xml`, `evening-catalog.json` | Network first | Last successful response | Successful network responses replace prior cached data |
-| Versioned app shell and approved brand assets | Cache first | Cached shell asset | A service-worker version change replaces the shell cache |
+| HTML navigations, including dated editions | Network first, bypassing the browser HTTP cache | Last successful same-origin response, then `/offline.html` | Every revisit checks the canonical network copy before Cache Storage |
+| `archive.json`, `feed.xml`, `evening-catalog.json` | Network first, bypassing the browser HTTP cache | Last successful response | Successful network responses replace prior cached data |
+| Versioned app shell and approved brand assets | Cache first after a revalidated install fetch | Cached shell asset | A service-worker version change creates a fresh shell cache |
 | Cross-origin sources and fonts | Browser network behavior | No service-worker copy | The app never mirrors third-party content |
 | URLs with query strings | Fetched but never written to Cache Storage | Clean-path fallback only | Query values and fragments are never persisted |
 
@@ -47,9 +47,11 @@ cleanup is limited to cache names owned by this app.
 
 The worker does not call `skipWaiting()` during install. A waiting update is
 shown to the reader with a refresh action, preventing an unannounced shell swap
-mid-read. Canonical pages and data remain network-first even when the shell is
-old, so a service-worker update is not required to receive an edition
-correction. The app never deletes or rewrites canonical history.
+mid-read. A new cache generation installs shell assets with browser-cache
+revalidation before it can wait for activation. Canonical pages and data bypass
+the browser HTTP cache and remain network-first even when the shell is old, so
+a service-worker update is not required to receive an edition correction. The
+app never deletes or rewrites canonical history.
 
 ## Notes and saved material
 
@@ -87,3 +89,7 @@ service-worker scope and correction behavior must be inspected, and David must
 approve the exact commit and rollback. The generated home and category pages
 must receive their PWA links through the normal bake templates, never by hand
 editing rendered output.
+
+The local Chromium and responsive-viewport evidence is recorded in
+`docs/PWA_QUALITY_REVIEW_2026-08-04.md`. Native iPhone, native Android,
+screen-reader, and normal-bake output checks remain release gates.

@@ -1,4 +1,4 @@
-const CACHE_PREFIX = "ddb-pwa-v1-";
+const CACHE_PREFIX = "ddb-pwa-v2-";
 const STATIC_CACHE = `${CACHE_PREFIX}static`;
 const PAGE_CACHE = `${CACHE_PREFIX}pages`;
 const DATA_CACHE = `${CACHE_PREFIX}data`;
@@ -32,7 +32,10 @@ const CANONICAL_DATA_PATHS = new Set([
 ]);
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS)));
+  const freshAssets = STATIC_ASSETS.map(
+    (path) => new Request(path, { cache: "reload" })
+  );
+  event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(freshAssets)));
 });
 
 self.addEventListener("activate", (event) => {
@@ -106,7 +109,7 @@ async function storeSuccessfulResponse(cacheName, request, response, maximumEntr
 async function networkFirst(event, cacheName, fallbackUrl, maximumEntries) {
   const request = event.request;
   try {
-    const response = await fetch(request);
+    const response = await fetch(request, { cache: "no-store" });
     event.waitUntil(
       storeSuccessfulResponse(cacheName, request, response, maximumEntries).catch(() => {})
     );

@@ -62,8 +62,9 @@ the website count and is never added to it.
   history or create a second source of truth.
 - Its manifest starts at `/` and all installed navigation uses the same public
   URLs. HTML, dated editions, the archive manifest, RSS, and the evening catalog
-  check the network first so corrections remain canonical; only the last
-  successful same-origin response is available offline.
+  check the network first with the browser HTTP cache bypassed so corrections
+  remain canonical; only the last successful same-origin response is available
+  offline.
 - The service worker does not cache cross-origin sources or persist query
   strings, and its upgrade path does not read, migrate, upload, or clear
   existing browser-local notes.
