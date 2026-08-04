@@ -22,6 +22,10 @@ def story(section: str, number: int) -> dict:
         "title": f"{section} story {number}",
         "url": f"https://example.com/{section}/{number}",
         "dek": f"<b>Verified detail</b> plain factual sentence {number}.",
+        "scripture": {
+            "id": "PRO.18.15",
+            "connection": "We can seek knowledge carefully as we consider this story.",
+        },
     }
 
 
@@ -35,6 +39,10 @@ def morning_content() -> dict:
             "badge": "Technology",
             "standfirst": "A factual fixture standfirst.",
             "body": "A factual fixture body grounded in the linked source.",
+            "scripture": {
+                "id": "PRO.18.15",
+                "connection": "We can give learning a faithful direction through discernment.",
+            },
         },
         "cards": {
             section: [story(section, 1), story(section, 2)]

@@ -9,6 +9,14 @@ mission, ownership, strategic direction, and paused initiatives.
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
+- The exact home masthead subtitle in both the morning and evening editions is:
+  **News and Scripture each morning. Practical tools each evening. Loved by
+  God.** It appears in the original masthead's italic serif treatment and muted
+  color, centered beneath the untouched basket, crown, and David's Daily Bread
+  wordmark. The evening edition adopts it beginning August 4, 2026, preserving
+  the already-planned August 3 evening edition.
+- The exact morning category format descriptor is: **News and Scripture, paired
+  story by story.**
 - The exact public mission line is: **Grow in faith. Understand technology
   wisely. Pray for one another. Use what you learn in service to others.** It
   complements **Loved by God** and does not replace the tagline.
@@ -17,11 +25,15 @@ mission, ownership, strategic direction, and paused initiatives.
   with DST-safe GitHub backup schedules (spec: `/BAKE.md`, deployment evidence:
   `/docs/OPERATIONS_EVIDENCE_2026-08-01.md`). The **morning
   edition** targets reader-ready publication near 5:00 AM Pacific (8:00 AM
-  Eastern). It is straight news on technology, markets, and science, and carries
-  the reader sections. The **evening edition** targets reader-ready publication
-  near 3:00 PM Pacific (6:00 PM Eastern). It is the Field Guide: trending tools
-  and practical workflows for everyday people, and NO news of any kind (news is
-  the morning's job). Its
+  Eastern). It pairs politics-free news and Scripture story by story across
+  technology, markets, and science, and carries the reader sections. The
+  **evening edition** targets reader-ready publication
+  near 3:00 PM Pacific (6:00 PM Eastern). It is the Field Guide: broadly useful
+  productivity tools and repeatable workflows for everyday people, and NO news
+  of any kind (news is the morning's job). Its editorial promise is leverage:
+  help ordinary readers save time, improve work, communicate better, earn, or
+  reduce mental load. Trend evidence confirms interest but never substitutes
+  for that practical value. Its
   presentation uses the **July 31 Field Guide** format: one useful lead, a
   two-column tool shelf and workflow lane, then Keep and Ponder with Mary of
   Nazareth below the actionable material. It carries no reader submissions or
@@ -61,7 +73,8 @@ mission, ownership, strategic direction, and paused initiatives.
 
 > Note (2026-07-09): `#c8a24a` gold / `#0e0e12` bg is the canonical palette (the live
 > site's). The older `#d2a53f` / `#121116` / Georgia-serif palette from early drafts
-> and the og-card is deprecated for interfaces — the og-card image itself stays as-is.
+> and the og-card is deprecated for interfaces. The og-card remains a social-only
+> asset and uses the current public subtitle defined below.
 
 ## Typography
 
@@ -96,8 +109,17 @@ mission, ownership, strategic direction, and paused initiatives.
   appear at the very top of EVERY web page (`<img class="masthead-art" src="/header-art.png">`).
   No other art at the top of any page, ever, unless David explicitly says so.
   Never regenerate, rename, or re-upload it — just reference it.
+- On the morning home page only, preserve the official image pixels while the
+  layout crops its superseded baked-in subtitle, optically centers the basket,
+  crown, and wordmark, and renders the approved live subtitle beneath them. The
+  original image file remains untouched.
 - **`/og-card.png`** (1200×630) is the social/share card (`og:image`). Web pages use
-  header-art; social previews use og-card. Never substitute other art.
+  header-art; social previews use og-card. Its exact subtitle is **News and Scripture
+  each morning. Practical tools each evening. Loved by God.** Never substitute other
+  art.
+- **`/x-banner.png`** (1500×500) is the official X profile banner. It carries the
+  same exact subtitle as `og-card.png` and preserves the masthead mark, wordmark,
+  palette, and typographic hierarchy.
 
 ## Voice
 
@@ -136,6 +158,21 @@ mission, ownership, strategic direction, and paused initiatives.
   edit chronicles.html only from the current live/main version.
 - **Notes boxes:** every story card and every page carries localStorage notes with
   the Aa personalization toolbar.
+- **Politics-free morning news:** morning coverage excludes politicians,
+  parties, elections, campaigns, polling, partisan disputes, culture-war
+  disputes, war, diplomacy, sanctions, tariffs, and geopolitical maneuvering.
+  A completed government rule may run only for its direct practical effect on
+  technology, markets, or science, without centering a political contest or
+  personality.
+- **Morning Scripture pairings:** every morning story, including cards and their
+  category-page versions, ends with the approved compact inline "Scripture for
+  Reflection" treatment. The verse is exact, verified Berean Standard Bible
+  text selected by repository identifier, followed by a linked reference and a
+  required brief, reader-directed editorial connection. Scripture guides the
+  reader's response. It never blesses, condemns, diagnoses, or assigns biblical
+  meaning to a person, company, government, or news event. Data-only material,
+  navigation, and the evening edition are excluded. The evening's Keep and
+  Ponder passage remains KJV.
 - **Reader features:** Ask the Baker, Letters to the King, and The Crumb Board
   remain editorial features, but new public submissions are temporarily paused
   until a private intake boundary is verified and David explicitly approves

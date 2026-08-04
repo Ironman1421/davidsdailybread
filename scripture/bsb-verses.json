@@ -1,0 +1,905 @@
+{
+  "version": 1,
+  "translation": {
+    "name": "Berean Standard Bible",
+    "label": "BSB",
+    "sourceUrl": "https://bereanbible.com/bsb.txt",
+    "sourceSha256": "2ac3af1de52d4e68261cba91d85c320b7eadc6560e830d99e591767b8ff5ca96",
+    "license": "Public domain",
+    "licenseUrl": "https://berean.bible/licensing.htm",
+    "verifiedAt": "2026-08-03"
+  },
+  "verses": [
+    {
+      "id": "GEN.2.15",
+      "reference": "Genesis 2:15",
+      "text": "Then the LORD God took the man and placed him in the Garden of Eden to cultivate and keep it.",
+      "url": "https://www.bible.com/bible/3034/GEN.2.15.BSB",
+      "themes": [
+        "creation",
+        "stewardship",
+        "work"
+      ]
+    },
+    {
+      "id": "JOB.12.7",
+      "reference": "Job 12:7",
+      "text": "But ask the animals, and they will instruct you; ask the birds of the air, and they will tell you.",
+      "url": "https://www.bible.com/bible/3034/JOB.12.7.BSB",
+      "themes": [
+        "creation",
+        "learning",
+        "nature"
+      ]
+    },
+    {
+      "id": "PSA.19.1",
+      "reference": "Psalm 19:1",
+      "text": "For the choirmaster. A Psalm of David. The heavens declare the glory of God; the skies proclaim the work of His hands.",
+      "url": "https://www.bible.com/bible/3034/PSA.19.1.BSB",
+      "themes": [
+        "creation",
+        "science",
+        "wonder"
+      ]
+    },
+    {
+      "id": "PSA.24.1",
+      "reference": "Psalm 24:1",
+      "text": "A Psalm of David. The earth is the LORD’s, and the fullness thereof, the world and all who dwell therein.",
+      "url": "https://www.bible.com/bible/3034/PSA.24.1.BSB",
+      "themes": [
+        "creation",
+        "earth",
+        "stewardship"
+      ]
+    },
+    {
+      "id": "PSA.34.18",
+      "reference": "Psalm 34:18",
+      "text": "The LORD is near to the brokenhearted; He saves the contrite in spirit.",
+      "url": "https://www.bible.com/bible/3034/PSA.34.18.BSB",
+      "themes": [
+        "comfort",
+        "grief",
+        "presence"
+      ]
+    },
+    {
+      "id": "PSA.37.5",
+      "reference": "Psalm 37:5",
+      "text": "Commit your way to the LORD; trust in Him, and He will do it.",
+      "url": "https://www.bible.com/bible/3034/PSA.37.5.BSB",
+      "themes": [
+        "plans",
+        "trust",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "PSA.46.1",
+      "reference": "Psalm 46:1",
+      "text": "For the choirmaster. Of the sons of Korah. According to Alamoth. A song. God is our refuge and strength, an ever-present help in times of trouble.",
+      "url": "https://www.bible.com/bible/3034/PSA.46.1.BSB",
+      "themes": [
+        "crisis",
+        "refuge",
+        "strength"
+      ]
+    },
+    {
+      "id": "PSA.46.10",
+      "reference": "Psalm 46:10",
+      "text": "“Be still and know that I am God; I will be exalted among the nations, I will be exalted over the earth.”",
+      "url": "https://www.bible.com/bible/3034/PSA.46.10.BSB",
+      "themes": [
+        "peace",
+        "sovereignty",
+        "stillness"
+      ]
+    },
+    {
+      "id": "PSA.56.3",
+      "reference": "Psalm 56:3",
+      "text": "When I am afraid, I put my trust in You.",
+      "url": "https://www.bible.com/bible/3034/PSA.56.3.BSB",
+      "themes": [
+        "courage",
+        "fear",
+        "trust"
+      ]
+    },
+    {
+      "id": "PSA.90.12",
+      "reference": "Psalm 90:12",
+      "text": "So teach us to number our days, that we may present a heart of wisdom.",
+      "url": "https://www.bible.com/bible/3034/PSA.90.12.BSB",
+      "themes": [
+        "priorities",
+        "time",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "PSA.104.24",
+      "reference": "Psalm 104:24",
+      "text": "How many are Your works, O LORD! In wisdom You have made them all; the earth is full of Your creatures.",
+      "url": "https://www.bible.com/bible/3034/PSA.104.24.BSB",
+      "themes": [
+        "creation",
+        "nature",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "PSA.111.2",
+      "reference": "Psalm 111:2",
+      "text": "Great are the works of the LORD; they are pondered by all who delight in them.",
+      "url": "https://www.bible.com/bible/3034/PSA.111.2.BSB",
+      "themes": [
+        "discovery",
+        "research",
+        "wonder"
+      ]
+    },
+    {
+      "id": "PSA.119.105",
+      "reference": "Psalm 119:105",
+      "text": "Your word is a lamp to my feet and a light to my path.",
+      "url": "https://www.bible.com/bible/3034/PSA.119.105.BSB",
+      "themes": [
+        "guidance",
+        "path",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "PSA.121.2",
+      "reference": "Psalm 121:2",
+      "text": "My help comes from the LORD, the Maker of heaven and earth.",
+      "url": "https://www.bible.com/bible/3034/PSA.121.2.BSB",
+      "themes": [
+        "creation",
+        "help",
+        "hope"
+      ]
+    },
+    {
+      "id": "PRO.2.6",
+      "reference": "Proverbs 2:6",
+      "text": "For the LORD gives wisdom; from His mouth come knowledge and understanding.",
+      "url": "https://www.bible.com/bible/3034/PRO.2.6.BSB",
+      "themes": [
+        "knowledge",
+        "learning",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "PRO.4.7",
+      "reference": "Proverbs 4:7",
+      "text": "Wisdom is supreme; so acquire wisdom. And whatever you may acquire, gain understanding.",
+      "url": "https://www.bible.com/bible/3034/PRO.4.7.BSB",
+      "themes": [
+        "knowledge",
+        "learning",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "PRO.8.12",
+      "reference": "Proverbs 8:12",
+      "text": "I, wisdom, dwell together with prudence, and I find knowledge and discretion.",
+      "url": "https://www.bible.com/bible/3034/PRO.8.12.BSB",
+      "themes": [
+        "discernment",
+        "knowledge",
+        "prudence"
+      ]
+    },
+    {
+      "id": "PRO.11.1",
+      "reference": "Proverbs 11:1",
+      "text": "Dishonest scales are an abomination to the LORD, but an accurate weight is His delight.",
+      "url": "https://www.bible.com/bible/3034/PRO.11.1.BSB",
+      "themes": [
+        "fairness",
+        "honesty",
+        "markets"
+      ]
+    },
+    {
+      "id": "PRO.11.2",
+      "reference": "Proverbs 11:2",
+      "text": "When pride comes, disgrace follows, but with humility comes wisdom.",
+      "url": "https://www.bible.com/bible/3034/PRO.11.2.BSB",
+      "themes": [
+        "humility",
+        "pride",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "PRO.11.14",
+      "reference": "Proverbs 11:14",
+      "text": "For lack of guidance, a nation falls, but with many counselors comes deliverance.",
+      "url": "https://www.bible.com/bible/3034/PRO.11.14.BSB",
+      "themes": [
+        "counsel",
+        "leadership",
+        "planning"
+      ]
+    },
+    {
+      "id": "PRO.12.10",
+      "reference": "Proverbs 12:10",
+      "text": "A righteous man regards the life of his animal, but the tender mercies of the wicked are only cruelty.",
+      "url": "https://www.bible.com/bible/3034/PRO.12.10.BSB",
+      "themes": [
+        "animals",
+        "care",
+        "stewardship"
+      ]
+    },
+    {
+      "id": "PRO.12.22",
+      "reference": "Proverbs 12:22",
+      "text": "Lying lips are detestable to the LORD, but those who deal faithfully are His delight.",
+      "url": "https://www.bible.com/bible/3034/PRO.12.22.BSB",
+      "themes": [
+        "honesty",
+        "integrity",
+        "truth"
+      ]
+    },
+    {
+      "id": "PRO.14.15",
+      "reference": "Proverbs 14:15",
+      "text": "The simple man believes every word, but the prudent man watches his steps.",
+      "url": "https://www.bible.com/bible/3034/PRO.14.15.BSB",
+      "themes": [
+        "discernment",
+        "misinformation",
+        "prudence"
+      ]
+    },
+    {
+      "id": "PRO.14.31",
+      "reference": "Proverbs 14:31",
+      "text": "Whoever oppresses the poor taunts their Maker, but whoever is kind to the needy honors Him.",
+      "url": "https://www.bible.com/bible/3034/PRO.14.31.BSB",
+      "themes": [
+        "justice",
+        "poverty",
+        "vulnerable"
+      ]
+    },
+    {
+      "id": "PRO.15.1",
+      "reference": "Proverbs 15:1",
+      "text": "A gentle answer turns away wrath, but a harsh word stirs up anger.",
+      "url": "https://www.bible.com/bible/3034/PRO.15.1.BSB",
+      "themes": [
+        "conflict",
+        "peace",
+        "speech"
+      ]
+    },
+    {
+      "id": "PRO.15.22",
+      "reference": "Proverbs 15:22",
+      "text": "Plans fail for lack of counsel, but with many advisers they succeed.",
+      "url": "https://www.bible.com/bible/3034/PRO.15.22.BSB",
+      "themes": [
+        "counsel",
+        "planning",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "PRO.16.3",
+      "reference": "Proverbs 16:3",
+      "text": "Commit your works to the LORD and your plans will be achieved.",
+      "url": "https://www.bible.com/bible/3034/PRO.16.3.BSB",
+      "themes": [
+        "plans",
+        "purpose",
+        "work"
+      ]
+    },
+    {
+      "id": "PRO.16.11",
+      "reference": "Proverbs 16:11",
+      "text": "Honest scales and balances are from the LORD; all the weights in the bag are His concern.",
+      "url": "https://www.bible.com/bible/3034/PRO.16.11.BSB",
+      "themes": [
+        "fairness",
+        "integrity",
+        "markets"
+      ]
+    },
+    {
+      "id": "PRO.17.17",
+      "reference": "Proverbs 17:17",
+      "text": "A friend loves at all times, and a brother is born for adversity.",
+      "url": "https://www.bible.com/bible/3034/PRO.17.17.BSB",
+      "themes": [
+        "adversity",
+        "community",
+        "friendship"
+      ]
+    },
+    {
+      "id": "PRO.17.22",
+      "reference": "Proverbs 17:22",
+      "text": "A joyful heart is good medicine, but a broken spirit dries up the bones.",
+      "url": "https://www.bible.com/bible/3034/PRO.17.22.BSB",
+      "themes": [
+        "encouragement",
+        "health",
+        "hope"
+      ]
+    },
+    {
+      "id": "PRO.17.28",
+      "reference": "Proverbs 17:28",
+      "text": "Even a fool is considered wise if he keeps silent, and discerning when he holds his tongue.",
+      "url": "https://www.bible.com/bible/3034/PRO.17.28.BSB",
+      "themes": [
+        "discernment",
+        "listening",
+        "speech"
+      ]
+    },
+    {
+      "id": "PRO.18.15",
+      "reference": "Proverbs 18:15",
+      "text": "The heart of the discerning acquires knowledge, and the ear of the wise seeks it out.",
+      "url": "https://www.bible.com/bible/3034/PRO.18.15.BSB",
+      "themes": [
+        "discernment",
+        "knowledge",
+        "learning"
+      ]
+    },
+    {
+      "id": "PRO.19.20",
+      "reference": "Proverbs 19:20",
+      "text": "Listen to counsel and accept discipline, that you may be wise the rest of your days.",
+      "url": "https://www.bible.com/bible/3034/PRO.19.20.BSB",
+      "themes": [
+        "advice",
+        "learning",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "PRO.21.3",
+      "reference": "Proverbs 21:3",
+      "text": "To do righteousness and justice is more desirable to the LORD than sacrifice.",
+      "url": "https://www.bible.com/bible/3034/PRO.21.3.BSB",
+      "themes": [
+        "justice",
+        "morality",
+        "righteousness"
+      ]
+    },
+    {
+      "id": "PRO.22.9",
+      "reference": "Proverbs 22:9",
+      "text": "A generous man will be blessed, for he shares his bread with the poor.",
+      "url": "https://www.bible.com/bible/3034/PRO.22.9.BSB",
+      "themes": [
+        "generosity",
+        "poverty",
+        "provision"
+      ]
+    },
+    {
+      "id": "PRO.22.29",
+      "reference": "Proverbs 22:29",
+      "text": "Do you see a man skilled in his work? He will be stationed in the presence of kings; he will not stand before obscure men.",
+      "url": "https://www.bible.com/bible/3034/PRO.22.29.BSB",
+      "themes": [
+        "excellence",
+        "skill",
+        "work"
+      ]
+    },
+    {
+      "id": "PRO.27.17",
+      "reference": "Proverbs 27:17",
+      "text": "As iron sharpens iron, so one man sharpens another.",
+      "url": "https://www.bible.com/bible/3034/PRO.27.17.BSB",
+      "themes": [
+        "collaboration",
+        "community",
+        "growth"
+      ]
+    },
+    {
+      "id": "PRO.28.27",
+      "reference": "Proverbs 28:27",
+      "text": "Whoever gives to the poor will not be in need, but he who hides his eyes will receive many curses.",
+      "url": "https://www.bible.com/bible/3034/PRO.28.27.BSB",
+      "themes": [
+        "generosity",
+        "poverty",
+        "provision"
+      ]
+    },
+    {
+      "id": "ECC.3.11",
+      "reference": "Ecclesiastes 3:11",
+      "text": "He has made everything beautiful in its time. He has also set eternity in the hearts of men, yet they cannot fathom the work that God has done from beginning to end.",
+      "url": "https://www.bible.com/bible/3034/ECC.3.11.BSB",
+      "themes": [
+        "change",
+        "purpose",
+        "timing"
+      ]
+    },
+    {
+      "id": "ECC.7.8",
+      "reference": "Ecclesiastes 7:8",
+      "text": "The end of a matter is better than the beginning, and a patient spirit is better than a proud one.",
+      "url": "https://www.bible.com/bible/3034/ECC.7.8.BSB",
+      "themes": [
+        "humility",
+        "outcomes",
+        "patience"
+      ]
+    },
+    {
+      "id": "ISA.1.17",
+      "reference": "Isaiah 1:17",
+      "text": "Learn to do right; seek justice and correct the oppressor. Defend the fatherless and plead the case of the widow.”",
+      "url": "https://www.bible.com/bible/3034/ISA.1.17.BSB",
+      "themes": [
+        "justice",
+        "service",
+        "vulnerable"
+      ]
+    },
+    {
+      "id": "ISA.40.26",
+      "reference": "Isaiah 40:26",
+      "text": "Lift up your eyes on high: Who created all these? He leads forth the starry host by number; He calls each one by name. Because of His great power and mighty strength, not one of them is missing.",
+      "url": "https://www.bible.com/bible/3034/ISA.40.26.BSB",
+      "themes": [
+        "astronomy",
+        "creation",
+        "science"
+      ]
+    },
+    {
+      "id": "ISA.41.10",
+      "reference": "Isaiah 41:10",
+      "text": "Do not fear, for I am with you; do not be afraid, for I am your God. I will strengthen you; I will surely help you; I will uphold you with My righteous right hand.",
+      "url": "https://www.bible.com/bible/3034/ISA.41.10.BSB",
+      "themes": [
+        "comfort",
+        "courage",
+        "strength"
+      ]
+    },
+    {
+      "id": "JER.17.14",
+      "reference": "Jeremiah 17:14",
+      "text": "Heal me, O LORD, and I will be healed; save me, and I will be saved, for You are my praise.",
+      "url": "https://www.bible.com/bible/3034/JER.17.14.BSB",
+      "themes": [
+        "health",
+        "healing",
+        "hope"
+      ]
+    },
+    {
+      "id": "AMO.5.24",
+      "reference": "Amos 5:24",
+      "text": "But let justice roll on like a river, and righteousness like an ever-flowing stream.",
+      "url": "https://www.bible.com/bible/3034/AMO.5.24.BSB",
+      "themes": [
+        "justice",
+        "righteousness",
+        "society"
+      ]
+    },
+    {
+      "id": "MIC.6.8",
+      "reference": "Micah 6:8",
+      "text": "He has shown you, O man, what is good. And what does the LORD require of you but to act justly, to love mercy, and to walk humbly with your God?",
+      "url": "https://www.bible.com/bible/3034/MIC.6.8.BSB",
+      "themes": [
+        "humility",
+        "justice",
+        "mercy"
+      ]
+    },
+    {
+      "id": "MAT.5.9",
+      "reference": "Matthew 5:9",
+      "text": "Blessed are the peacemakers, for they will be called sons of God.",
+      "url": "https://www.bible.com/bible/3034/MAT.5.9.BSB",
+      "themes": [
+        "conflict",
+        "peace",
+        "reconciliation"
+      ]
+    },
+    {
+      "id": "MAT.6.21",
+      "reference": "Matthew 6:21",
+      "text": "For where your treasure is, there your heart will be also.",
+      "url": "https://www.bible.com/bible/3034/MAT.6.21.BSB",
+      "themes": [
+        "markets",
+        "priorities",
+        "wealth"
+      ]
+    },
+    {
+      "id": "MAT.6.34",
+      "reference": "Matthew 6:34",
+      "text": "Therefore do not worry about tomorrow, for tomorrow will worry about itself. Today has enough trouble of its own.",
+      "url": "https://www.bible.com/bible/3034/MAT.6.34.BSB",
+      "themes": [
+        "anxiety",
+        "present",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "LUK.12.15",
+      "reference": "Luke 12:15",
+      "text": "And He said to them, “Watch out! Guard yourselves against every form of greed, for one’s life does not consist in the abundance of his possessions.”",
+      "url": "https://www.bible.com/bible/3034/LUK.12.15.BSB",
+      "themes": [
+        "greed",
+        "markets",
+        "wealth"
+      ]
+    },
+    {
+      "id": "LUK.16.10",
+      "reference": "Luke 16:10",
+      "text": "Whoever is faithful with very little will also be faithful with much, and whoever is dishonest with very little will also be dishonest with much.",
+      "url": "https://www.bible.com/bible/3034/LUK.16.10.BSB",
+      "themes": [
+        "integrity",
+        "responsibility",
+        "stewardship"
+      ]
+    },
+    {
+      "id": "JHN.8.32",
+      "reference": "John 8:32",
+      "text": "Then you will know the truth, and the truth will set you free.”",
+      "url": "https://www.bible.com/bible/3034/JHN.8.32.BSB",
+      "themes": [
+        "freedom",
+        "knowledge",
+        "truth"
+      ]
+    },
+    {
+      "id": "JHN.14.27",
+      "reference": "John 14:27",
+      "text": "Peace I leave with you; My peace I give to you. I do not give to you as the world gives. Do not let your hearts be troubled; do not be afraid.",
+      "url": "https://www.bible.com/bible/3034/JHN.14.27.BSB",
+      "themes": [
+        "anxiety",
+        "comfort",
+        "peace"
+      ]
+    },
+    {
+      "id": "ACT.17.11",
+      "reference": "Acts 17:11",
+      "text": "Now the Bereans were more noble-minded than the Thessalonians, for they received the message with great eagerness and examined the Scriptures every day to see if these teachings were true.",
+      "url": "https://www.bible.com/bible/3034/ACT.17.11.BSB",
+      "themes": [
+        "discernment",
+        "research",
+        "truth"
+      ]
+    },
+    {
+      "id": "ROM.8.28",
+      "reference": "Romans 8:28",
+      "text": "And we know that God works all things together for the good of those who love Him, who are called according to His purpose.",
+      "url": "https://www.bible.com/bible/3034/ROM.8.28.BSB",
+      "themes": [
+        "adversity",
+        "hope",
+        "purpose"
+      ]
+    },
+    {
+      "id": "ROM.12.3",
+      "reference": "Romans 12:3",
+      "text": "For by the grace given me I say to every one of you: Do not think of yourself more highly than you ought, but think of yourself with sober judgment, according to the measure of faith God has given you.",
+      "url": "https://www.bible.com/bible/3034/ROM.12.3.BSB",
+      "themes": [
+        "humility",
+        "judgment",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "ROM.12.10",
+      "reference": "Romans 12:10",
+      "text": "Be devoted to one another in brotherly love. Outdo yourselves in honoring one another.",
+      "url": "https://www.bible.com/bible/3034/ROM.12.10.BSB",
+      "themes": [
+        "community",
+        "honor",
+        "love"
+      ]
+    },
+    {
+      "id": "ROM.12.12",
+      "reference": "Romans 12:12",
+      "text": "Be joyful in hope, patient in affliction, persistent in prayer.",
+      "url": "https://www.bible.com/bible/3034/ROM.12.12.BSB",
+      "themes": [
+        "hope",
+        "patience",
+        "prayer"
+      ]
+    },
+    {
+      "id": "ROM.12.15",
+      "reference": "Romans 12:15",
+      "text": "Rejoice with those who rejoice; weep with those who weep.",
+      "url": "https://www.bible.com/bible/3034/ROM.12.15.BSB",
+      "themes": [
+        "empathy",
+        "grief",
+        "joy"
+      ]
+    },
+    {
+      "id": "ROM.12.18",
+      "reference": "Romans 12:18",
+      "text": "If it is possible on your part, live at peace with everyone.",
+      "url": "https://www.bible.com/bible/3034/ROM.12.18.BSB",
+      "themes": [
+        "conflict",
+        "peace",
+        "reconciliation"
+      ]
+    },
+    {
+      "id": "ROM.12.21",
+      "reference": "Romans 12:21",
+      "text": "Do not be overcome by evil, but overcome evil with good.",
+      "url": "https://www.bible.com/bible/3034/ROM.12.21.BSB",
+      "themes": [
+        "courage",
+        "good",
+        "morality"
+      ]
+    },
+    {
+      "id": "ROM.15.13",
+      "reference": "Romans 15:13",
+      "text": "Now may the God of hope fill you with all joy and peace as you believe in Him, so that you may overflow with hope by the power of the Holy Spirit.",
+      "url": "https://www.bible.com/bible/3034/ROM.15.13.BSB",
+      "themes": [
+        "hope",
+        "joy",
+        "peace"
+      ]
+    },
+    {
+      "id": "1CO.10.31",
+      "reference": "1 Corinthians 10:31",
+      "text": "So whether you eat or drink or whatever you do, do it all to the glory of God.",
+      "url": "https://www.bible.com/bible/3034/1CO.10.31.BSB",
+      "themes": [
+        "purpose",
+        "service",
+        "work"
+      ]
+    },
+    {
+      "id": "GAL.5.13",
+      "reference": "Galatians 5:13",
+      "text": "For you, brothers, were called to freedom; but do not use your freedom as an opportunity for the flesh. Rather, serve one another in love.",
+      "url": "https://www.bible.com/bible/3034/GAL.5.13.BSB",
+      "themes": [
+        "freedom",
+        "love",
+        "service"
+      ]
+    },
+    {
+      "id": "GAL.6.9",
+      "reference": "Galatians 6:9",
+      "text": "Let us not grow weary in well-doing, for in due time we will reap a harvest if we do not give up.",
+      "url": "https://www.bible.com/bible/3034/GAL.6.9.BSB",
+      "themes": [
+        "perseverance",
+        "service",
+        "work"
+      ]
+    },
+    {
+      "id": "EPH.2.10",
+      "reference": "Ephesians 2:10",
+      "text": "For we are God’s workmanship, created in Christ Jesus to do good works, which God prepared in advance as our way of life.",
+      "url": "https://www.bible.com/bible/3034/EPH.2.10.BSB",
+      "themes": [
+        "purpose",
+        "service",
+        "work"
+      ]
+    },
+    {
+      "id": "EPH.4.25",
+      "reference": "Ephesians 4:25",
+      "text": "Therefore each of you must put off falsehood and speak truthfully to his neighbor, for we are all members of one another.",
+      "url": "https://www.bible.com/bible/3034/EPH.4.25.BSB",
+      "themes": [
+        "community",
+        "honesty",
+        "truth"
+      ]
+    },
+    {
+      "id": "PHP.2.4",
+      "reference": "Philippians 2:4",
+      "text": "Each of you should look not only to your own interests, but also to the interests of others.",
+      "url": "https://www.bible.com/bible/3034/PHP.2.4.BSB",
+      "themes": [
+        "community",
+        "service",
+        "selflessness"
+      ]
+    },
+    {
+      "id": "PHP.4.6",
+      "reference": "Philippians 4:6",
+      "text": "Be anxious for nothing, but in everything, by prayer and petition, with thanksgiving, present your requests to God.",
+      "url": "https://www.bible.com/bible/3034/PHP.4.6.BSB",
+      "themes": [
+        "anxiety",
+        "prayer",
+        "thanksgiving"
+      ]
+    },
+    {
+      "id": "PHP.4.7",
+      "reference": "Philippians 4:7",
+      "text": "And the peace of God, which surpasses all understanding, will guard your hearts and your minds in Christ Jesus.",
+      "url": "https://www.bible.com/bible/3034/PHP.4.7.BSB",
+      "themes": [
+        "comfort",
+        "peace",
+        "understanding"
+      ]
+    },
+    {
+      "id": "PHP.4.13",
+      "reference": "Philippians 4:13",
+      "text": "I can do all things through Christ who gives me strength.",
+      "url": "https://www.bible.com/bible/3034/PHP.4.13.BSB",
+      "themes": [
+        "courage",
+        "perseverance",
+        "strength"
+      ]
+    },
+    {
+      "id": "1TH.5.21",
+      "reference": "1 Thessalonians 5:21",
+      "text": "but test all things. Hold fast to what is good.",
+      "url": "https://www.bible.com/bible/3034/1TH.5.21.BSB",
+      "themes": [
+        "discernment",
+        "testing",
+        "truth"
+      ]
+    },
+    {
+      "id": "1TI.6.17",
+      "reference": "1 Timothy 6:17",
+      "text": "Instruct those who are rich in the present age not to be conceited and not to put their hope in the uncertainty of wealth, but in God, who richly provides all things for us to enjoy.",
+      "url": "https://www.bible.com/bible/3034/1TI.6.17.BSB",
+      "themes": [
+        "humility",
+        "uncertainty",
+        "wealth"
+      ]
+    },
+    {
+      "id": "2TI.1.7",
+      "reference": "2 Timothy 1:7",
+      "text": "For God has not given us a spirit of fear, but of power, love, and self-control.",
+      "url": "https://www.bible.com/bible/3034/2TI.1.7.BSB",
+      "themes": [
+        "courage",
+        "love",
+        "self-control"
+      ]
+    },
+    {
+      "id": "HEB.10.24",
+      "reference": "Hebrews 10:24",
+      "text": "And let us consider how to spur one another on to love and good deeds.",
+      "url": "https://www.bible.com/bible/3034/HEB.10.24.BSB",
+      "themes": [
+        "encouragement",
+        "love",
+        "service"
+      ]
+    },
+    {
+      "id": "HEB.13.5",
+      "reference": "Hebrews 13:5",
+      "text": "Keep your lives free from the love of money and be content with what you have, for God has said: “Never will I leave you, never will I forsake you.”",
+      "url": "https://www.bible.com/bible/3034/HEB.13.5.BSB",
+      "themes": [
+        "contentment",
+        "provision",
+        "wealth"
+      ]
+    },
+    {
+      "id": "JAS.1.5",
+      "reference": "James 1:5",
+      "text": "Now if any of you lacks wisdom, he should ask God, who gives generously to all without finding fault, and it will be given to him.",
+      "url": "https://www.bible.com/bible/3034/JAS.1.5.BSB",
+      "themes": [
+        "prayer",
+        "understanding",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "JAS.3.17",
+      "reference": "James 3:17",
+      "text": "But the wisdom from above is first of all pure, then peace-loving, gentle, accommodating, full of mercy and good fruit, impartial, and sincere.",
+      "url": "https://www.bible.com/bible/3034/JAS.3.17.BSB",
+      "themes": [
+        "peace",
+        "reason",
+        "wisdom"
+      ]
+    },
+    {
+      "id": "1PE.5.7",
+      "reference": "1 Peter 5:7",
+      "text": "Cast all your anxiety on Him, because He cares for you.",
+      "url": "https://www.bible.com/bible/3034/1PE.5.7.BSB",
+      "themes": [
+        "anxiety",
+        "care",
+        "comfort"
+      ]
+    },
+    {
+      "id": "1JN.3.18",
+      "reference": "1 John 3:18",
+      "text": "Little children, let us love not in word and speech, but in action and truth.",
+      "url": "https://www.bible.com/bible/3034/1JN.3.18.BSB",
+      "themes": [
+        "action",
+        "love",
+        "service"
+      ]
+    },
+    {
+      "id": "3JN.1.2",
+      "reference": "3 John 1:2",
+      "text": "Beloved, I pray that in every way you may prosper and enjoy good health, as your soul also prospers.",
+      "url": "https://www.bible.com/bible/3034/3JN.1.2.BSB",
+      "themes": [
+        "health",
+        "prayer",
+        "wellbeing"
+      ]
+    }
+  ]
+}

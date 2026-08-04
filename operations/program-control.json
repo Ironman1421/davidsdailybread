@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-04T17:03:47Z",
+  "updatedAt": "2026-08-04T17:19:18Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -425,8 +425,92 @@
       ]
     },
     {
-      "id": "DDB-PC-012",
+      "id": "DDB-PC-021",
       "sequence": 12,
+      "title": "Add Morning Scripture Pairings using approved Option A",
+      "status": "complete",
+      "dependencies": [
+        "DDB-PC-011"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-03T17:03:40Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task messages: Okay, I approve option A. Let's have it ready for tomorrow's morning edition. I authorize the program controller to interrupt DDB-PC-012's task sequence without changing its network configuration or scheduled observation, add and activate Morning Scripture Pairings as the sole active item, and return control to DDB-PC-012 after the Scripture PR is merged and verified",
+        "scope": "Implement and release the approved compact inline Option A after every full morning-edition story for the 2026-08-04 morning edition. Use exact verified Berean Standard Bible text and linked references. Keep the evening KJV format and all unrelated systems unchanged."
+      },
+      "externalMutation": true,
+      "releaseTarget": "2026-08-04-morning",
+      "completionGate": [
+        "The morning content contract selects Scripture by repository-owned identifier and cannot supply or rewrite verse text",
+        "Exact BSB wording, reference, translation label, and Bible link come from a verified repository-owned source",
+        "Option A appears compactly after every full morning story with responsive and accessible markup",
+        "Briefs, data-only sections, navigation pages, category pages, and the evening edition remain outside the feature",
+        "The exact feature head passes the x86_64 Merge gate and CodeQL",
+        "The feature PR is merged, GitHub Pages deploys, and main is verified before the 2026-08-04 morning bake",
+        "DDB-PC-012 is restored as the active item without changing its network configuration or scheduled observation"
+      ],
+      "progressEvidence": [
+        "David approved Option A and release readiness for the 2026-08-04 morning edition",
+        "David authorized this queue insertion and interruption of DDB-PC-012 while its existing network observation continues unchanged"
+      ],
+      "completedAt": "2026-08-03T17:24:35Z",
+      "evidence": [
+        "David's exact design, release, queue-interruption, and return-to-DDB-PC-012 approvals are recorded; controller activation PR 34 merged as 72ee64db7f0c5051ff10556a3b302d0ac58a326c",
+        "the morning content contract accepts only a repository-owned Scripture id and optional plain-text connection; model-authored verse text, reference, translation label, URL, unknown ids, and Scripture on briefs are rejected",
+        "scripture/bsb-verses.json contains 81 exact single verses mechanically extracted from the official Berean Standard Bible source with verified SHA-256 2ac3af1de52d4e68261cba91d85c320b7eadc6560e830d99e591767b8ff5ca96 and recorded public-domain provenance",
+        "templates/home.html implements the approved compact inline Option A after the full morning lead story with semantic blockquote markup, a linked BSB reference, visible keyboard focus, an external-link label, and responsive typography",
+        "morning cards remain briefs and category templates contain no Scripture treatment; templates/evening.html and the reviewed KJV Keep and Ponder renderer are unchanged",
+        "all 81 generated Bible.com verse links returned HTTP 200 before release",
+        "PR 35 exact head f6f5533be026f8cf98a6d54c9baee8c63424fab5 passed x86_64 Merge gate run 30836229573 and CodeQL run 30836229590, including the full suite, explicit two-slot render, reader source, database, and concurrency gates",
+        "PR 35 was squash-merged into main as db45888e4e9569ce2bf54ff86315bc64f1e3a668 at 2026-08-03T17:22:58Z",
+        "GitHub Pages deployment run 30836490711 passed for exact main commit db45888e4e9569ce2bf54ff86315bc64f1e3a668; the public homepage returned HTTP 200",
+        "raw main template SHA-256 c1e615102555a7cd84944fb9c9e730a43a4870b103fd0ffa5506ef3b51c5d661 and catalog SHA-256 39a429f619f52ed4e61019eda7da31beb510f2d427bd6ec7ba94d20fe23ca960 matched the merged repository bytes",
+        "post-merge CodeQL run 30836492434 passed for Python and JavaScript/TypeScript on exact main commit db45888e4e9569ce2bf54ff86315bc64f1e3a668",
+        "DDB-PC-012 is restored as the sole active item; its network configuration and scheduled observation remain unchanged"
+      ]
+    },
+    {
+      "id": "DDB-PC-022",
+      "sequence": 13,
+      "title": "Rotate the exposed X Monitor Sites bypass credential",
+      "status": "complete",
+      "dependencies": [
+        "DDB-PC-004"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-04T02:21:23Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: I approve temporarily interrupting DDB-PC-012 solely to record and execute an emergency rotation of the X Monitor Sites bypass credential, update the GitHub secret X_MONITOR_SITES_BYPASS_TOKEN, verify the read-only discovery bridge, and then resume DDB-PC-012 without changing its network configuration or scheduled observation",
+        "scope": "Rotate and immediately invalidate the exposed private Sites bypass credential, update only the matching GitHub Actions secret, verify only the read-only X Monitor discovery bridge, and return control to DDB-PC-012."
+      },
+      "externalMutation": true,
+      "completionGate": [
+        "David's exact authorization and the temporary interruption of DDB-PC-012 are recorded on main before credential mutation",
+        "The Sites bypass credential is rotated and the exposed credential is immediately invalidated",
+        "The GitHub Actions secret X_MONITOR_SITES_BYPASS_TOKEN is updated without disclosing the replacement credential",
+        "The replacement credential returns a valid read-only discovery export from the private X Monitor",
+        "DDB-PC-012 is restored as the sole active item without changing its network configuration or scheduled observation"
+      ],
+      "progressEvidence": [
+        "David explicitly authorized the emergency credential rotation, GitHub secret update, read-only bridge verification, temporary interruption, and return to DDB-PC-012",
+        "The approved boundaries prohibit publishing, X posting, paid refresh beyond the normal monitor schedule, networking changes, and unrelated checkout cleanup"
+      ],
+      "completedAt": "2026-08-04T02:34:34Z",
+      "evidence": [
+        "PR 44 activated DDB-PC-022 and was squash-merged into main as 81255a87bf1eb2f7eb906cca6a125ea2e559c0f1 before the credential mutation; exact head 1015666e1f939c616921bb1ed70c1d41038ab533 passed Merge gate run 30871759053 and CodeQL run 30871759045",
+        "The Sites SIWC bypass-token rotation completed at 2026-08-04T02:31:36.737350Z for the existing private X Monitor project; the provider operation immediately invalidated the prior credential and no credential value was recorded",
+        "GitHub Actions secret X_MONITOR_SITES_BYPASS_TOKEN was updated at 2026-08-04T02:33:02Z without printing or storing the replacement credential in the repository",
+        "The replacement credential returned HTTP 200 from the read-only /api/discovery-export endpoint with schema x-monitor-discovery-v1, monitor status live, valid tools and workflows arrays, and zero current candidates; /api/trends was not called",
+        "DDB-PC-012 returned as the sole active item with its network configuration untouched and its 2026-08-04T08:15:00-07:00 observation unchanged"
+      ]
+    },
+    {
+      "id": "DDB-PC-012",
+      "sequence": 14,
       "title": "Repair Ethernet and configure Wi-Fi failover",
       "status": "complete",
       "dependencies": [
@@ -462,7 +546,10 @@
         "replacement-cable baseline is sealed at /home/david/.local/state/ddb-pc-012/20260803T151441Z-cable-baseline with 19 mode-0600 files and SHA256SUMS hash c144f168b393d65a5f1edf199c2ff261b3b087d28456a80d14fc984f1bcb9afd",
         "the replacement link negotiated 2500 Mb/s full duplex and kept Ethernet preferred at metric 100 with Wi-Fi at metric 600; router, public-IP, router DNS, MagicDNS, SSH, Tailscale, all seven DDB timers, and zero failed user units passed",
         "the cable baseline records one accumulated transmit error, 89 transmit drops, and an rx_mac_missed lifetime counter of 1418819 after the deliberate unplug interval while receive, carrier, collision, alignment, MAC-error, and TCAM-drop counters remain zero; the 24-hour check must measure exact deltas from this baseline",
-        "the physical-repair gate is satisfied; the observation restarted from replacement-link activation at 2026-08-03T15:09:49Z and DDB-PC-012 remains in progress until that 24-hour gate completes"
+        "the physical-repair gate is satisfied; the observation restarted from replacement-link activation at 2026-08-03T15:09:49Z and DDB-PC-012 remains in progress until that 24-hour gate completes",
+        "program control returned from completed DDB-PC-021 at 2026-08-03T17:24:35Z without changing the network configuration or scheduled observation",
+        "program control temporarily interrupted DDB-PC-012 for authorized emergency credential rotation DDB-PC-022 at 2026-08-04T02:21:23Z without changing the network configuration or scheduled observation",
+        "program control returned from completed DDB-PC-022 at 2026-08-04T02:34:34Z without changing the network configuration or scheduled observation"
       ],
       "completedAt": "2026-08-04T15:38:56Z",
       "evidence": [
@@ -482,11 +569,31 @@
         "automationId": "complete-ddb-spark-24h-network-observation",
         "status": "complete",
         "completedAt": "2026-08-04T15:38:56Z"
+      },
+      "interruption": {
+        "authorizedBy": "David Friedhof",
+        "authorizedAt": "2026-08-03T17:03:40Z",
+        "decisionEvidence": "Task message: I authorize the program controller to interrupt DDB-PC-012's task sequence without changing its network configuration or scheduled observation, add and activate Morning Scripture Pairings as the sole active item, and return control to DDB-PC-012 after the Scripture PR is merged and verified",
+        "networkConfigurationChanged": false,
+        "scheduledObservationChanged": false,
+        "resumeAfter": "DDB-PC-021",
+        "resumedAt": "2026-08-03T17:24:35Z",
+        "resumeEvidence": "DDB-PC-021 completed after PR 35 merged as db45888e4e9569ce2bf54ff86315bc64f1e3a668, Pages run 30836490711 passed, and main verification succeeded"
+      },
+      "credentialRotationInterruption": {
+        "authorizedBy": "David Friedhof",
+        "authorizedAt": "2026-08-04T02:21:23Z",
+        "decisionEvidence": "Task message: I approve temporarily interrupting DDB-PC-012 solely to record and execute an emergency rotation of the X Monitor Sites bypass credential, update the GitHub secret X_MONITOR_SITES_BYPASS_TOKEN, verify the read-only discovery bridge, and then resume DDB-PC-012 without changing its network configuration or scheduled observation",
+        "networkConfigurationChanged": false,
+        "scheduledObservationChanged": false,
+        "resumeAfter": "DDB-PC-022",
+        "resumedAt": "2026-08-04T02:34:34Z",
+        "resumeEvidence": "DDB-PC-022 completed after the exposed Sites bypass credential was invalidated, the matching GitHub Actions secret was updated, and the read-only discovery export verified with the replacement credential"
       }
     },
     {
       "id": "DDB-PC-013",
-      "sequence": 13,
+      "sequence": 15,
       "title": "Reconcile the dirty Spark and local checkouts",
       "status": "complete",
       "dependencies": [
@@ -520,12 +627,13 @@
         "exact-edition trigger and watchdog canaries for 2026-08-04-morning and 2026-08-03-evening returned successful no-ops without a workflow dispatch or Telegram alert",
         "the immediate tripwire check and scheduled runs at 2026-08-04T09:52:16-07:00 and 2026-08-04T10:02:21-07:00 passed with a valid 50-entry manifest, no drift signature, and zero failed user units; the Counter timer remained disabled and inactive",
         "final restricted post-state /home/david/.local/state/ddb-pc-013/20260804T170236Z-post has verified manifest SHA-256 f488557e74f5bd1d3e9cc424213bfce4dc9cbd55c30ac451ef8cf9d22df885c1",
-        "29 targeted Mac governance, intake-pause, renderer-security, and brand-cadence tests passed; no pre-existing user-owned branch, worktree, or file was deleted, and no public merge, site deployment, publication, send, provisioning, credential change, network change, or service restart occurred"
+        "29 targeted Mac governance, intake-pause, renderer-security, and brand-cadence tests passed; no pre-existing user-owned branch, worktree, or file was deleted, and no public merge, site deployment, publication, send, provisioning, credential change, network change, or service restart occurred",
+        "PR #33 conflict-reconciliation pass at 2026-08-04T17:19:18Z retained completed DDB-PC-021 and DDB-PC-022, their DDB-PC-012 interruption history, completed DDB-PC-012 through DDB-PC-014, and the no-merge/no-deploy boundary"
       ]
     },
     {
       "id": "DDB-PC-014",
-      "sequence": 14,
+      "sequence": 16,
       "title": "Clean up scheduled controls and documentation",
       "status": "complete",
       "dependencies": [
@@ -562,7 +670,7 @@
     },
     {
       "id": "DDB-PC-015",
-      "sequence": 15,
+      "sequence": 17,
       "title": "Implement the publisher App and protect main",
       "status": "pending",
       "dependencies": [
@@ -585,7 +693,7 @@
     },
     {
       "id": "DDB-PC-016",
-      "sequence": 16,
+      "sequence": 18,
       "title": "External reader-intake account cutover",
       "status": "paused_by_doctrine",
       "dependencies": [
@@ -601,7 +709,7 @@
     },
     {
       "id": "DDB-PC-017",
-      "sequence": 17,
+      "sequence": 19,
       "title": "Cloudflare and D1 canary or activation",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -615,7 +723,7 @@
     },
     {
       "id": "DDB-PC-018",
-      "sequence": 18,
+      "sequence": 20,
       "title": "Supabase reader-store provisioning or activation",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -629,7 +737,7 @@
     },
     {
       "id": "DDB-PC-019",
-      "sequence": 19,
+      "sequence": 21,
       "title": "Newsletter activation or sending",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -643,7 +751,7 @@
     },
     {
       "id": "DDB-PC-020",
-      "sequence": 20,
+      "sequence": 22,
       "title": "Close the current reliability and governance program",
       "status": "pending",
       "dependencies": [

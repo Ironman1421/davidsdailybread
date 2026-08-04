@@ -31,6 +31,13 @@ The following are untrusted input even when produced by a model or collaborator:
 - Validate the complete candidate output before writing generated files.
 - Reject unresolved template tokens, forbidden punctuation, wrong slot schemas,
   and over-length distribution headlines.
+- For every morning story's Scripture, accept only a verified catalog identifier
+  and a required reader-directed plain-text connection from `content.json`.
+  Reject claims of divine approval, condemnation, judgment, or fulfilled
+  prophecy. Supply exact BSB text, reference, translation label, and Bible link
+  from the repository-owned catalog, never from model-authored fields.
+- Reject political and geopolitical framing in morning editorial fields before
+  rendering. Do not scan source URLs or renderer-owned Scripture text.
 - Treat published history as immutable during a bake. Permit exactly one new
   `editions/<date>-<slot>.html` path, reject staged/deleted/renamed or prior-
   edition changes, and stage only the exact expected edition.

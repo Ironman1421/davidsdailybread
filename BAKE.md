@@ -3,13 +3,14 @@
 This file is the complete operating spec for baking davidsdailybread.com,
 which is baked twice daily:
 
-- the **morning edition** (Spark dispatch at 4:40 AM Pacific): straight news
-  on tech, markets, and science, plus reviewed house-satchel material when the
-  plan selects it. New reader intake is paused. Steps 1-9 below.
+- the **morning edition** (Spark dispatch at 4:40 AM Pacific): politics-free
+  news and Scripture, paired story by story across tech, markets, and science,
+  plus reviewed house-satchel material when the plan selects it.
+  New reader intake is paused. Steps 1-9 below.
 - the **evening edition** (Spark dispatch at 2:40 PM Pacific): the Field Guide.
-  Trending tools, practical workflows, and a short Keep and Ponder closing for
-  everyday people, with no news after dark (news belongs to the morning). See
-  "The evening bake" below.
+  Broadly useful productivity tools, repeatable practical workflows, and a
+  short Keep and Ponder closing for everyday people, with no news after dark
+  (news belongs to the morning). See "The evening bake" below.
 
 The production starts target reader-ready publication near 5:00 AM Pacific
 (8:00 AM Eastern) and 3:00 PM Pacific (6:00 PM Eastern). GitHub also carries
@@ -66,6 +67,22 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    **130 characters or fewer**. An over-length lead is skipped, never truncated
    (the evening template tops out around a 146-character lead); an em dash also
    fails the gate, but rule 1 already bans those.
+8. **Morning Scripture is renderer-owned BSB text.** Every morning story gets
+   one identifier from the verified repository catalog and one required,
+   reader-directed connection sentence. Never type, generate, rewrite, combine,
+   simplify, or paraphrase the verse, reference, translation label, or Bible
+   link. Scripture guides the reader's response. It never blesses, condemns,
+   diagnoses, or assigns biblical meaning to a person, company, government, or
+   news event. Never claim divine endorsement, judgment, or fulfilled prophecy.
+   If a pairing feels forced or risky, reject the story. The evening's reviewed
+   KJV Keep and Ponder format remains unchanged.
+9. **Morning news is politics-free.** Exclude stories centered on politicians,
+   parties, elections, campaigns, polling, partisan disputes, culture-war
+   disputes, war, diplomacy, sanctions, tariffs, or geopolitical maneuvering.
+   Political personalities never lead. A completed government rule may run only
+   when it directly changes technology, markets, or science, and the story is
+   framed around the practical effect rather than the political contest or
+   personality.
 
 ## The bake, step by step
 
@@ -111,15 +128,37 @@ letter or null. The plan reads only `kings-satchel.json` and
 `bakery-state.json`; it has no Counter, network, or public-submission input and
 never mutates state. Never invent a submission or add submission-derived fields.
 
-**2. Research.** Using web search, gather TODAY'S real news (last ~24 hours,
-reputable primary sources) for the three sections: **tech** (AI, chips, software,
-the industry), **markets** (stocks, deals, earnings, macro), **science** (space,
-physics, medicine, discovery). You need up to 6 stories per section, ranked by
-substance. For each story capture the real article URL and fetch the article
+**2. Research.** Using web search, gather TODAY'S real, politics-free news (last ~24 hours)
+for the three sections: **tech** (AI, chips, software, the industry), **markets**
+(stocks, deals, earnings, macro), **science** (space, physics, medicine,
+discovery). Use this source order: the original primary source or first-party
+announcement first; original reporting with named evidence second; reputable
+secondary coverage only when it adds necessary verification or context. An
+aggregator may help discovery but is not the preferred final source when the
+underlying report is available. You need up to 6 stories per section, ranked by
+substance, source authority, verification depth, freshness, and reader relevance,
+in that order. For each story capture the real article URL and fetch the article
 text to ground your writing. Drop stories you cannot verify. Fewer than 6 solid
 stories in a section is fine (minimum 2); never pad with weak or stale items.
+Apply hard rule 9 before ranking. A political or geopolitical story remains
+excluded even when it moves markets.
 
-**3. Write the edition** into `content.json`:
+**3. Select Scripture pairings and write the edition** into `content.json`.
+The lead and every card receive a pairing. For each story, search the verified
+catalog with a few themes from the reader's appropriate response, for example:
+
+```sh
+python3 ddb_session_bake.py --scripture-catalog --scripture-query "wisdom discernment learning"
+```
+
+Choose the most meaningful candidate and copy only its `id` into that story's
+`scripture.id`. The renderer supplies the exact BSB wording, reference,
+translation label, and Bible.com link from `scripture/bsb-verses.json`. Add one
+required brief plain-text `connection` sentence using readers, we, us, or our.
+The sentence must guide the reader's reflection, not interpret the news event as
+an act or judgment of God. Do not force a pairing. Reject the story instead.
+
+Then write `content.json`:
 
 ```json
 {
@@ -127,9 +166,13 @@ stories in a section is fine (minimum 2); never pad with weak or stale items.
   "lead":   {"section": "tech|markets|science", "title": "...", "url": "https://...",
              "badge": "Technology|Business & markets|Science",
              "standfirst": "one punchy editorial sentence",
-             "body": "2-4 sentences of real synthesized news writing, grounded facts"},
+             "body": "2-4 sentences of real synthesized news writing, grounded facts",
+             "scripture": {"id": "PRO.18.15",
+                            "connection": "We can seek wisdom as we consider this story."}},
   "cards":  {"tech": [{"title": "...", "url": "https://...",
-                       "dek": "<b>Two-to-four-word lead-in</b> rest of one factual sentence."},
+                       "dek": "<b>Two-to-four-word lead-in</b> rest of one factual sentence.",
+                       "scripture": {"id": "PRO.18.15",
+                                     "connection": "We can seek wisdom as we consider this story."}},
                       "... up to 6 per section, best first"],
              "markets": ["..."], "science": ["..."]},
   "glance": {"tech": "one <=20-word roundup sentence", "markets": "...", "science": "..."},
@@ -154,7 +197,9 @@ and re-run; never hand-patch output.
 
 **5. Review like an editor.** Open the rendered `index.html` and read it. Check:
 the lead reads like front-page news, deks are grounded and non-generic, links
-point where they claim, the date is right. Fix content.json and re-render if not.
+point where they claim, the date is right, every story has Scripture for
+Reflection, and no political or geopolitical framing slipped through. Fix
+content.json and re-render if not.
 
 **5A. Accuracy pass.** This step is required before handoff and applies to both
 slots. Go back through the edition one item at a time and check each claim
@@ -166,8 +211,15 @@ text rather than from memory:
 - every number, quote, date, name, and price appears in that fetched text. Where
   you only had the headline, the item stays at headline level and carries no
   specifics;
-- evening only: each item shows WHERE it is trending, read from the cited page,
-  and any popularity figure (stars, upvotes, views) is read from that page too;
+- morning only: every story's Scripture identifier came from the verified
+  catalog, every rendered wording and reference matches that catalog exactly,
+  every connection is reader-directed and respectful, and no pairing assigns
+  biblical meaning or divine approval, condemnation, or judgment to the event;
+- morning only: every story passes the politics-free rule, including the ban on
+  war and diplomacy even when either is market-moving;
+- evening only: fetch each item's factual `url` and separate `trend_url`; verify
+  product facts, pricing, and availability from the factual source, and verify
+  the `seen` label plus every popularity figure from the trend source;
 - the lead title is self-contained and about 130 characters or fewer, so the X
   gate passes;
 - nothing reader-visible contains an em dash.
@@ -218,15 +270,34 @@ push a partial or unverified edition, and never mark a failed bake as success.
 
 The evening edition is a different loaf, and since 2026-07-30 (per David) it
 carries NO NEWS AT ALL. News is the morning's job, full stop. The evening is
-the Field Guide: exactly two sections, the trending TOOLS people started
-using today and the trending WORKFLOWS people are following along with. An
+the Field Guide: exactly two sections, broadly useful productivity TOOLS and
+repeatable WORKFLOWS that multiply what an everyday person can get done. An
 announcement, a launch story, a price change, a policy fight, or an industry
 debate is news; it belongs to the morning even if it is trending everywhere.
 The evening test for every item: could a regular person ACT on this tonight,
-by installing the tool or following the workflow? If not, it does not run.
+by installing the tool or following the workflow, and then reuse the value in
+ordinary life or work? If not, it does not run.
 The reader to serve is the average person, not the insider: if an item only
 matters to an ML engineer, it loses its slot to one that helps everyone. All
 hard rules above apply unchanged.
+
+**Force-multiplier gate.** Apply this before trend ranking. Every candidate
+must satisfy all four tests:
+
+1. **Broad utility:** it helps a substantial share of ordinary readers rather
+   than one location, device hack, specialist role, or niche hobby.
+2. **Repeatability:** it is useful daily or weekly, establishes a reusable
+   operating routine, or creates compounding value after setup.
+3. **Concrete leverage:** it saves time, improves output, supports earning,
+   strengthens communication, or reduces mental load.
+4. **Actionability:** it is available now and can be adopted with a reasonable
+   amount of setup by a non-expert.
+
+Reject one-off crafts and builds, amusements, games, art experiments, demos,
+novelty websites, location-specific curiosities, and clever tricks with no
+recurring payoff. Trend evidence validates present interest; it never makes a
+candidate pass this gate. If fewer than two candidates in a section pass, keep
+researching or stop the bake. Never lower the gate to fill the page.
 
 The approved presentation is the July 31 Field Guide format: one useful lead,
 the tool shelf and workflows in two lanes, then Keep and Ponder with Mary of
@@ -239,33 +310,55 @@ and Entrust, and is not reader mail. The masthead links to the standing
 
 **E1. Research.** Using web search and fetches, gather TODAY'S trend material
 (last ~24 hours preferred; ~48 is acceptable when something is clearly still
-rising) from the open web: tech press, blogs and newsletters, Hacker News,
-Reddit, GitHub trending, product announcement pages, video/tutorial writeups,
-and press coverage OF viral X/social posts. You have no X/Twitter access and
-that is deliberate: a viral post reaches you through coverage about it, and
-that coverage is your citable source. The two sections:
+rising). Use this source ladder:
 
-- **tools** (the shelf) — new or newly upgraded tools, apps, and features an
-  everyday person could start using TONIGHT, and that people are actually
-  picking up right now. Each shelf item must show WHERE it is trending in
-  the cited source (GitHub trending, Hacker News front page, a subreddit
-  lighting up, press coverage of a viral post); if you cannot show where,
-  it is not trending and it does not go on the shelf. Capture what it does,
-  what it costs (say if there is a free tier), where it runs, and one honest
-  caveat, which the blurb must carry. Real availability only: never present
-  waitlist-only vaporware as usable, never invent pricing. The shelf-foot
-  line "no waitlists, no vaporware" is a standing promise; keep it true.
-- **workflows** (the recipes) — concrete ways people are using tools to do
-  something better, written up so a non-expert could follow along: a how-to,
-  a recipe, a clever pipeline from a blog or video that is making the
-  rounds. Say what it accomplishes, list the 2-4 things you need in order
-  to try it, and give an honest time estimate.
+1. Discover and prove the trend with a citable Hacker News, GitHub Trending,
+   Product Hunt, Reddit, or reputable press page.
+2. Verify a tool's capabilities, pricing, platform, and present availability on
+   its official product, repository, or documentation page.
+3. Ground a workflow in a substantive, followable tutorial, blog, newsletter,
+   video write-up, or reputable technology report.
 
-Up to 6 items per section, best first, minimum 2, never pad. Fetch each
-source's text before writing about it; the morning's rule holds here with
+Keep the factual source and trend source separate in `content.json`, and fetch
+both. You have no direct X/Twitter access. Do not scrape X through unofficial
+tools, mirrors, search snippets, or workarounds. David's approved X Monitor is
+connected for daily evening runs. The workflow provides its ephemeral,
+read-only snapshot at the path named in the run prompt when it is available.
+Use its candidates only to decide what to investigate. An X post never satisfies
+the factual `url` or citable `trend_url`: independently fetch and verify both
+sources required by the ladder above. If the snapshot is unavailable, empty,
+stale, or unhelpful, continue with the normal source ladder. Never fail or pad
+an edition merely because X Monitor supplied no usable lead. The two sections:
+
+- **tools** (the shelf) — productivity tools, apps, and features an everyday
+  person could start using TONIGHT, and that people are actually picking up
+  right now. Favor research, writing, communication,
+  planning, automation, knowledge capture, sales, marketing, finance, and
+  recurring administration. Its `url` is the official product, repository, or
+  documentation page used for factual verification. Its `trend_url` is the
+  citable page proving the `seen` label. If you cannot prove where it is
+  trending, it does not go on the shelf. Capture what it does, what it costs
+  (say if there is a free tier), where it runs, and one honest caveat, which the
+  blurb must carry. Real availability only: never present waitlist-only vaporware
+  as usable, never invent pricing. The shelf-foot line "no waitlists, no
+  vaporware" is a standing promise; keep it true.
+- **workflows** (the recipes) — repeatable ways people are using tools to do
+  recurring work better, written up so a non-expert could follow along: an
+  operating routine, a reusable recipe, or a durable pipeline from a blog or
+  video that is making the rounds. One-time projects do not qualify. Its `url`
+  is the substantive how-to or tutorial, and its `trend_url`
+  proves the reader-visible `seen` label. Say what it accomplishes, list the 2-4
+  things you need in order to try it, put the primary requirement first for the
+  gray card pill, and give an honest time estimate.
+
+Up to 6 items per section, minimum 2, never pad. Among candidates that pass the
+force-multiplier gate and factual verification, rank by force-multiplying
+utility, broad applicability, repeatability, verified trend strength, and ease
+of adoption, in that order. Novelty is not a ranking benefit. Fetch both URLs
+for every item before writing about it; the morning's rule holds here with
 extra force: no figure survives that was not read in the article itself, and
-popularity numbers (stars, upvotes, views) only as read from the cited page,
-never from memory.
+popularity numbers (stars, upvotes, views) only as read from the cited trend
+page, never from memory.
 
 **E2. Write the edition** into `content.json`. The evening schema is its own
 (NOT the morning card shape), and there is NO `reader` key (the renderer
@@ -275,17 +368,21 @@ refuses an evening `reader`):
 {
   "date": "YYYY-MM-DD",
   "lead":   {"section": "tools|workflows", "title": "...", "url": "https://...",
+             "trend_url": "https://...", "seen": "verified trend source, <=32 chars",
              "badge": "Trending tool|Trending workflow",
              "standfirst": "one punchy editorial sentence",
              "body": "2-4 sentences of grounded, factual writing",
              "note": "OPTIONAL handwritten margin aside, <=40 chars, e.g. worth an evening"},
   "cards":  {"tools":     [{"name": "short shelf name, <=60 chars", "url": "https://...",
+                            "trend_url": "https://...",
                             "cost": "Free | Free tier | $N/mo (as read, <=32 chars)",
                             "kind": "what/where it runs, <=32 chars",
                             "seen": "where it is trending, <=32 chars",
                             "blurb": "one factual sentence; must carry the honest caveat"},
                            "... 2-6, best first"],
              "workflows": [{"title": "...", "url": "https://...",
+                            "trend_url": "https://...",
+                            "seen": "where it is trending, <=32 chars",
                             "dek": "<b>Two-to-four-word lead-in</b> rest of one factual sentence.",
                             "needs": ["2-4 short items, <=40 chars each"],
                             "time": "honest estimate chip, <=24 chars"},
@@ -295,8 +392,8 @@ refuses an evening `reader`):
 ```
 
 Lead ("Start here tonight"): the single most useful-to-everyone item of the
-day; usefulness beats hype. It is one of the two sections' items promoted to
-the top, and its `title` doubles as the archive lead (X rules apply, hard
+day; durable leverage beats hype. It is one of the two sections' items promoted
+to the top, and its `title` doubles as the archive lead (X rules apply, hard
 rule 7). `lead.note` is the only handwritten aside on the page: use it when
 a short warm nudge fits (worth an evening, try this first); omit it freely.
 Voice: the same straight factual journalism as the morning, no bread

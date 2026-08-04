@@ -13,6 +13,10 @@ model calls anywhere:
       Baker and Crumb Board are always empty and Letters to the King may select
       only a reviewed house-satchel letter. Never mutates state.
 
+  --scripture-catalog [--scripture-query WORDS]
+      Print verified Berean Standard Bible candidates for a morning story.
+      The editor selects an identifier; the renderer owns the exact verse text.
+
   --render --content content.json --date YYYY-MM-DD [--slot morning|evening]
       Render the edition from the session-authored content JSON: home page,
       editions/ file, archive.json, archive.html (marked list only), feed.xml,
@@ -48,6 +52,7 @@ os.environ.setdefault("DDB_SITE_DIR", str(REPO))
 
 import ddb_bake      # noqa: E402  (needs DDB_SITE_DIR set first)
 import ddb_satchel   # noqa: E402
+import ddb_scripture # noqa: E402
 
 # Sections per edition slot. The MORNING template keeps the positional token
 # machinery (CARD_T/M/S, EXP_T/M/S, GLANCE_TECH/MARKETS/SCIENCE mapping onto
@@ -61,6 +66,7 @@ SLOT_SECTIONS = {
 }
 SLOT_LABEL = {"morning": "Morning edition", "evening": "Evening edition"}
 SLOT_TEMPLATE = {"morning": "home.html", "evening": "evening.html"}
+UNIFIED_MASTHEAD_START = "2026-08-04"
 MORNING_BADGES = {
     "tech": "Technology",
     "markets": "Business & markets",
@@ -72,19 +78,36 @@ _PREFIXES = ("T", "M", "S")
 _GLANCE_TOKENS = ("GLANCE_TECH", "GLANCE_MARKETS", "GLANCE_SCIENCE")
 EM_DASH_RE = re.compile(r"—|&mdash;|&#0*8212;|&#x0*2014;", re.IGNORECASE)
 DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
+DIRECT_X_RE = re.compile(
+    r"^https://(?:[a-z0-9-]+\.)*(?:x\.com|twitter\.com)/", re.IGNORECASE
+)
 
 # Every token family the templates carry. Post-render, none may survive.
 LEFTOVER_TOKEN_RE = re.compile(
-    r"\b(LEAD_(URL|BADGE|HEADLINE|STANDFIRST|BODY)"
-    r"|CARD_[TMS][12]_(URL|HEADLINE|DEK)"
-    r"|CAT_[1-6]_(URL|HEADLINE|DEK)"
+    r"\b(LEAD_(URL|BADGE|SEEN|HEADLINE|STANDFIRST|BODY|SCRIPTURE)"
+    r"|CARD_[TMS][12]_(URL|HEADLINE|DEK|SCRIPTURE)"
+    r"|CAT_[1-6]_(URL|HEADLINE|DEK|SCRIPTURE)"
     r"|EXP_[TMS][123]_(URL|TEXT)"
     r"|GLANCE_(TECH|MARKETS|SCIENCE|TOOLS|WORKFLOWS)"
-    r"|SHELF_ITEMS|RECIPE_ITEMS|LEAD_NOTE"
+    r"|SHELF_ITEMS|RECIPE_ITEMS|LEAD_NOTE|MASTHEAD_FORMAT|MASTHEAD_SUBTITLE"
     r"|REST_(RECEIVE|REFERENCE|RELEASE|PRAYER)"
     r"|RQ1_[QA]|KQ1_(Q|A|FROM)|PIN1_(TEXT|SIG)"
     r"|DATELINE_DATE|READTIME|TIMESTAMP"
     r"|__ACTIVE_(TECH|MKT|SCI)__)\b"
+)
+
+POLITICS_RE = re.compile(
+    r"\b(?:"
+    r"president|vice\s+president|prime\s+minister|senator|congress(?:man|woman)?|"
+    r"governor|mayor|candidate|campaign|election|polling|republican|democrat(?:ic)?|"
+    r"GOP|white\s+house|congress|parliament|partisan|culture\s+war|"
+    r"Trump|Biden|Harris|Vance|Obama|Putin|Zelenskyy?|Netanyahu|Khamenei|"
+    r"Xi\s+Jinping|Modi|Macron|Starmer|"
+    r"war|ceasefire|troops?|military|missiles?|airstrikes?|sanctions?|tariffs?|"
+    r"NATO|diploma(?:cy|t|ts|tic)|geopolit(?:ic|ics|ical)|invasion|bombing|hostages?|"
+    r"supreme\s+court|SCOTUS"
+    r")\b",
+    re.IGNORECASE,
 )
 
 
@@ -120,6 +143,11 @@ def cmd_plan() -> None:
     print(json.dumps(plan, indent=2, ensure_ascii=False))
 
 
+def cmd_scripture_catalog(query: str | None) -> None:
+    """Print a small, searchable set of exact verified BSB candidates."""
+    print(json.dumps(ddb_scripture.search_catalog(query), indent=2, ensure_ascii=False))
+
+
 # ---------------------------------------------------------------------------
 # --render
 # ---------------------------------------------------------------------------
@@ -127,6 +155,35 @@ def cmd_plan() -> None:
 def _require(cond: bool, msg: str) -> None:
     if not cond:
         fail(msg)
+
+
+def _reject_political_framing(c: dict) -> None:
+    """Fail closed on political or geopolitical framing in morning editorial copy.
+
+    URLs and Scripture are deliberately excluded. Completed rules may still be
+    covered for their practical effects when the copy itself is nonpartisan.
+    """
+    fields: list[tuple[str, object]] = [
+        ("lead.title", c["lead"]["title"]),
+        ("lead.standfirst", c["lead"]["standfirst"]),
+        ("lead.body", c["lead"]["body"]),
+    ]
+    for section, cards in c["cards"].items():
+        for index, card in enumerate(cards):
+            fields.extend((
+                (f"cards.{section}[{index}].title", card.get("title")),
+                (f"cards.{section}[{index}].dek", card.get("dek")),
+            ))
+    fields.extend((f"glance.{section}", value) for section, value in c["glance"].items())
+    for path, value in fields:
+        if not isinstance(value, str):
+            continue
+        match = POLITICS_RE.search(value)
+        if match is not None:
+            fail(
+                f"politics-free morning policy rejects {path}: "
+                f"matched {match.group(0)!r}"
+            )
 
 
 def validate_content(c: dict, date: str, slot: str) -> None:
@@ -154,6 +211,13 @@ def validate_content(c: dict, date: str, slot: str) -> None:
     cards = c.get("cards") or {}
     _require(isinstance(cards, dict), "cards must be an object")
     if slot == "evening":
+        _require("scripture" not in lead,
+                 "evening lead must not contain scripture; Keep and Ponder remains unchanged")
+        lead_required = {
+            "section", "title", "url", "trend_url", "seen", "badge", "standfirst", "body"
+        }
+        _require(set(lead) in (lead_required, lead_required | {"note"}),
+                 "evening lead must contain only the approved factual and trend fields")
         _require(lead["badge"] in ("Trending tool", "Trending workflow"),
                  f"evening lead.badge must be 'Trending tool' or 'Trending workflow', "
                  f"got {lead['badge']!r}")
@@ -161,6 +225,19 @@ def validate_content(c: dict, date: str, slot: str) -> None:
                  "lead.note must be a string when present")
         note = (lead.get("note") or "").strip()
         _require(len(note) <= 40, "lead.note is a short handwritten aside; keep it under 40 chars")
+        for k in ("trend_url", "seen"):
+            _require(isinstance(lead.get(k), str) and bool(lead[k].strip()),
+                     f"evening lead.{k} must be a non-empty string")
+        _require(ddb_bake.is_safe_source_url(lead["trend_url"]),
+                 "evening lead.trend_url must be an absolute credential-free https link")
+        _require(not DIRECT_X_RE.search(lead["url"]),
+                 "evening lead.url: direct X/Twitter sources are closed")
+        _require(not DIRECT_X_RE.search(lead["trend_url"]),
+                 "direct X/Twitter sources are closed until the approved monitor is connected")
+        _require(lead["trend_url"] != lead["url"],
+                 "evening lead must use separate factual and trend URLs")
+        _require(len(lead["seen"]) <= 32,
+                 "evening lead.seen too long for a trend label")
         _require(set(cards) == set(sections),
                  f"evening cards must be exactly {set(sections)}, got {set(cards)} "
                  "(news has no evening slot; the trending stories section is retired)")
@@ -169,11 +246,21 @@ def validate_content(c: dict, date: str, slot: str) -> None:
         _require(2 <= len(tools) <= 6, f"cards.tools: need 2-6 items, got {len(tools)}")
         for i, t in enumerate(tools):
             _require(isinstance(t, dict), f"cards.tools[{i}] must be an object")
-            for k in ("name", "url", "cost", "kind", "seen", "blurb"):
+            for k in ("name", "url", "trend_url", "cost", "kind", "seen", "blurb"):
                 _require(isinstance(t.get(k), str) and bool(t[k].strip()),
                          f"cards.tools[{i}].{k} must be a non-empty string")
+            _require(set(t) == {"name", "url", "trend_url", "cost", "kind", "seen", "blurb"},
+                     f"cards.tools[{i}] must contain only the approved evidence fields")
             _require(ddb_bake.is_safe_source_url(t["url"]),
                      f"cards.tools[{i}].url must be an absolute credential-free https link")
+            _require(ddb_bake.is_safe_source_url(t["trend_url"]),
+                     f"cards.tools[{i}].trend_url must be an absolute credential-free https link")
+            _require(not DIRECT_X_RE.search(t["url"]),
+                     f"cards.tools[{i}].url: direct X/Twitter sources are closed")
+            _require(not DIRECT_X_RE.search(t["trend_url"]),
+                     f"cards.tools[{i}].trend_url: direct X/Twitter sources are closed")
+            _require(t["trend_url"] != t["url"],
+                     f"cards.tools[{i}] must use separate factual and trend URLs")
             _require(len(t["name"]) <= 60, f"cards.tools[{i}].name too long for a shelf tile")
             for k in ("cost", "kind", "seen"):
                 _require(len(t[k]) <= 32, f"cards.tools[{i}].{k} too long for a tag chip")
@@ -182,13 +269,25 @@ def validate_content(c: dict, date: str, slot: str) -> None:
         _require(2 <= len(flows) <= 6, f"cards.workflows: need 2-6 items, got {len(flows)}")
         for i, w in enumerate(flows):
             _require(isinstance(w, dict), f"cards.workflows[{i}] must be an object")
-            for k in ("title", "url", "dek", "time"):
+            for k in ("title", "url", "trend_url", "seen", "dek", "time"):
                 _require(isinstance(w.get(k), str) and bool(w[k].strip()),
                          f"cards.workflows[{i}].{k} must be a non-empty string")
+            _require(set(w) == {"title", "url", "trend_url", "seen", "dek", "needs", "time"},
+                     f"cards.workflows[{i}] must contain only the approved evidence fields")
             _require(ddb_bake.is_safe_source_url(w["url"]),
                      f"cards.workflows[{i}].url must be an absolute credential-free https link")
+            _require(ddb_bake.is_safe_source_url(w["trend_url"]),
+                     f"cards.workflows[{i}].trend_url must be an absolute credential-free https link")
+            _require(not DIRECT_X_RE.search(w["url"]),
+                     f"cards.workflows[{i}].url: direct X/Twitter sources are closed")
+            _require(not DIRECT_X_RE.search(w["trend_url"]),
+                     f"cards.workflows[{i}].trend_url: direct X/Twitter sources are closed")
+            _require(w["trend_url"] != w["url"],
+                     f"cards.workflows[{i}] must use separate factual and trend URLs")
             require_dek(w["dek"], f"cards.workflows[{i}].dek")
             _require(len(w["time"]) <= 24, f"cards.workflows[{i}].time too long for a chip")
+            _require(len(w["seen"]) <= 32,
+                     f"cards.workflows[{i}].seen too long for a trend chip")
             needs = w.get("needs") or []
             _require(isinstance(needs, list),
                      f"cards.workflows[{i}].needs must be a list")
@@ -201,6 +300,10 @@ def validate_content(c: dict, date: str, slot: str) -> None:
         _require(lead["badge"] == MORNING_BADGES[lead["section"]],
                  f"morning lead.badge for {lead['section']!r} must be "
                  f"{MORNING_BADGES[lead['section']]!r}")
+        try:
+            ddb_scripture.validate_selection(lead.get("scripture"), "lead.scripture")
+        except ddb_scripture.ScriptureError as exc:
+            fail(str(exc))
         _require(set(cards) == set(sections),
                  f"morning cards must be exactly {set(sections)}, got {set(cards)}")
         for s in sections:
@@ -209,12 +312,20 @@ def validate_content(c: dict, date: str, slot: str) -> None:
             _require(2 <= len(items) <= 6, f"cards.{s}: need 2-6 items, got {len(items)}")
             for i, item in enumerate(items):
                 _require(isinstance(item, dict), f"cards.{s}[{i}] must be an object")
+                _require(set(item) == {"title", "url", "dek", "scripture"},
+                         f"cards.{s}[{i}] must contain only title, url, dek, and scripture")
                 for k in ("title", "url", "dek"):
                     _require(isinstance(item.get(k), str) and bool(item[k].strip()),
                              f"cards.{s}[{i}].{k} must be a non-empty string")
                 _require(ddb_bake.is_safe_source_url(item["url"]),
                          f"cards.{s}[{i}].url must be an absolute credential-free https link")
                 require_dek(item["dek"], f"cards.{s}[{i}].dek")
+                try:
+                    ddb_scripture.validate_selection(
+                        item.get("scripture"), f"cards.{s}[{i}].scripture"
+                    )
+                except ddb_scripture.ScriptureError as exc:
+                    fail(str(exc))
 
     glance = c.get("glance") or {}
     _require(isinstance(glance, dict), "glance must be an object")
@@ -238,6 +349,9 @@ def validate_content(c: dict, date: str, slot: str) -> None:
             for i, v in enumerate(obj):
                 scan(v, f"{path}[{i}]")
     scan(c)
+
+    if slot == "morning":
+        _reject_political_framing(c)
 
     if slot == "evening":
         _require(not (c.get("reader") or {}),
@@ -327,22 +441,22 @@ def _evening_recipes_html(flows: list[dict]) -> str:
     esc, esc_text = ddb_bake._esc, ddb_bake._esc_text
     out = []
     for w in flows:
-        needs = '<span class="dot">&middot;</span>'.join(
-            esc_text(str(n)) for n in w["needs"])
         out.append(
             '        <div class="recipe-stack">\n'
             '        <article class="recipe"><a class="card-link" href="{u}">\n'
-            '          <div class="r-top"><h3>{t}</h3><span class="time">{tm}</span></div>\n'
+            '          <div class="r-top"><h3>{t}</h3><div class="r-meta">'
+            '<span class="time">{tm}</span><span class="requirement">{rq}</span>'
+            '<span class="trend">{s}</span></div></div>\n'
             '          <p class="dek">{d}</p>\n'
-            '          <div class="needs"><b>You need</b>{nd}</div>\n'
             '        </a></article>\n'
             '        <div class="notes" data-note-key="{u}"><span class="pen">&#9998;</span>'
             '<textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story">'
             '</textarea><button class="notes-close" type="button" title="Close notes" '
             'aria-label="Close notes">&times;</button></div>\n'
             '        </div>'.format(
-                u=esc(w["url"]), t=esc_text(w["title"]), tm=esc_text(w["time"]),
-                d=ddb_bake.render_dek(w["dek"]), nd=needs))
+                u=esc(w["url"]), t=esc_text(w["title"]), s=esc_text(w["seen"]),
+                tm=esc_text(w["time"]), rq=esc_text(str(w["needs"][0])),
+                d=ddb_bake.render_dek(w["dek"])))
     return "\n".join(out)
 
 
@@ -378,20 +492,34 @@ def _read_evening_catalog() -> dict:
         seen: set[str] = set()
         for index, item in enumerate(data[section]):
             _require(isinstance(item, dict), f"catalog {section}[{index}] must be an object")
-            required = (
-                ("date", "name", "url", "cost", "kind", "seen", "blurb")
+            legacy_required = (
+                {"date", "name", "url", "cost", "kind", "seen", "blurb"}
                 if section == "tools"
-                else ("date", "title", "url", "dek", "needs", "time")
+                else {"date", "title", "url", "dek", "needs", "time"}
             )
-            _require(set(item) == set(required),
-                     f"catalog {section}[{index}] must contain exactly {set(required)}")
+            current_required = (
+                legacy_required | {"trend_url"}
+                if section == "tools"
+                else legacy_required | {"trend_url", "seen"}
+            )
+            _require(set(item) in (legacy_required, current_required),
+                     f"catalog {section}[{index}] has an unsupported evidence schema")
             _require(DATE_RE.fullmatch(str(item.get("date") or "")) is not None,
                      f"catalog {section}[{index}].date must be YYYY-MM-DD")
             url = item.get("url")
             _require(isinstance(url, str) and ddb_bake.is_safe_source_url(url),
                      f"catalog {section}[{index}].url must be safe https")
+            _require(not DIRECT_X_RE.search(url),
+                     f"catalog {section}[{index}].url cannot use direct X/Twitter")
             _require(url not in seen, f"catalog {section} contains duplicate URL {url}")
             seen.add(url)
+            if "trend_url" in item:
+                _require(ddb_bake.is_safe_source_url(item["trend_url"]),
+                         f"catalog {section}[{index}].trend_url must be safe https")
+                _require(not DIRECT_X_RE.search(item["trend_url"]),
+                         f"catalog {section}[{index}].trend_url cannot use direct X/Twitter")
+                _require(item["trend_url"] != url,
+                         f"catalog {section}[{index}] must keep factual and trend URLs separate")
             if section == "tools":
                 for key in ("name", "cost", "kind", "seen", "blurb"):
                     _require(isinstance(item[key], str) and item[key].strip(),
@@ -416,6 +544,11 @@ def _read_evening_catalog() -> dict:
                          f"catalog {section}[{index}].needs must be 2-4 short strings")
                 _require(len(item["time"]) <= 24,
                          f"catalog {section}[{index}].time exceeds 24 characters")
+                if "seen" in item:
+                    _require(isinstance(item["seen"], str) and item["seen"].strip(),
+                             f"catalog {section}[{index}].seen must be non-empty text")
+                    _require(len(item["seen"]) <= 32,
+                             f"catalog {section}[{index}].seen exceeds 32 characters")
             for key, value in item.items():
                 values = value if isinstance(value, list) else [value]
                 for nested in values:
@@ -457,10 +590,21 @@ def render_evening_from_content(
     html = template.replace("EDITION, DATELINE_DATE", f"{label}, {hd}")
     html = html.replace("DATELINE_DATE", hd)
     html = html.replace("EDITION", label)
+    if date >= UNIFIED_MASTHEAD_START:
+        html = html.replace("MASTHEAD_FORMAT", " next-format")
+        html = html.replace(
+            "MASTHEAD_SUBTITLE",
+            '<div class="format-line">News and Scripture each morning. '
+            'Practical tools each evening. Loved by God.</div>',
+        )
+    else:
+        html = html.replace("MASTHEAD_FORMAT", "")
+        html = html.replace("MASTHEAD_SUBTITLE", "")
 
     lead = c["lead"]
     html = html.replace("LEAD_URL", esc(lead["url"]))
     html = html.replace("LEAD_BADGE", esc_text(lead["badge"]))
+    html = html.replace("LEAD_SEEN", esc_text(lead["seen"]))
     html = html.replace("LEAD_HEADLINE", esc_text(lead["title"]))
     html = html.replace("LEAD_STANDFIRST", esc_text(lead["standfirst"]))
     html = html.replace("LEAD_BODY", esc_text(lead["body"]))
@@ -517,6 +661,12 @@ def render_home_from_content(
     html = html.replace("LEAD_HEADLINE", esc_text(lead["title"]))
     html = html.replace("LEAD_STANDFIRST", esc_text(lead["standfirst"]))
     html = html.replace("LEAD_BODY", esc_text(lead["body"]))
+    html = html.replace(
+        "LEAD_SCRIPTURE",
+        ddb_scripture.render_pairing(
+            lead["scripture"], "lead-scripture-label", "lead.scripture"
+        ),
+    )
 
     for pos, s in enumerate(sections):
         p = _PREFIXES[pos]
@@ -527,6 +677,14 @@ def render_home_from_content(
                 html = html.replace(f"CARD_{p}{i}_URL", esc(card["url"]))
                 html = html.replace(f"CARD_{p}{i}_HEADLINE", esc_text(card["title"]))
                 html = html.replace(f"CARD_{p}{i}_DEK", ddb_bake.render_dek(card["dek"]))
+                html = html.replace(
+                    f"CARD_{p}{i}_SCRIPTURE",
+                    ddb_scripture.render_pairing(
+                        card["scripture"],
+                        f"card-{p.lower()}{i}-scripture-label",
+                        f"cards.{s}[{i - 1}].scripture",
+                    ),
+                )
             else:
                 pattern = re.compile(
                     r'<div class="stack"><article class="card story-card"><a class="card-link" href="CARD_'
@@ -575,8 +733,19 @@ def render_home_from_content(
     html = ddb_bake.fill_or_strip_section(html, "<!--CRUMB_BOARD_START-->", "<!--CRUMB_BOARD_END-->",
                                           tokens, ["PIN1_TEXT", "PIN1_SIG"])
 
+    pairings = [
+        ddb_scripture.validate_selection(lead["scripture"], "lead.scripture"),
+        *[
+            ddb_scripture.validate_selection(
+                card["scripture"], f"cards.{section}[{index}].scripture"
+            )
+            for section in sections
+            for index, card in enumerate(c["cards"][section])
+        ],
+    ]
     readtime = ddb_bake.compute_readtime(
         lead["standfirst"], lead["body"],
+        *[text for verse, connection in pairings for text in (verse["text"], connection)],
         *[card["dek"] for s in sections for card in c["cards"][s]],
     )
     html = html.replace("READTIME", readtime)
@@ -733,9 +902,17 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
         # (trends) edition never rewrites tech/markets/science.
         for s in SLOT_SECTIONS["morning"]:
             cards = [
-                {"title": card["title"], "url": card["url"],
-                 "dek": ddb_satchel.strip_em_dashes(card["dek"])}
-                for card in content["cards"][s]
+                {
+                    "title": card["title"],
+                    "url": card["url"],
+                    "dek": ddb_satchel.strip_em_dashes(card["dek"]),
+                    "scripture_html": ddb_scripture.render_pairing(
+                        card["scripture"],
+                        f"{s}-scripture-{index + 1}-label",
+                        f"cards.{s}[{index}].scripture",
+                    ),
+                }
+                for index, card in enumerate(content["cards"][s])
             ]
             cat_html = ddb_bake.render_category(s, cards)
             cat_path = REPO / f"{s}.html"
@@ -779,6 +956,40 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
             ensure_ascii=False,
         ) + "\n"
 
+    if slot == "morning" or date >= UNIFIED_MASTHEAD_START:
+        for path in (REPO / "index.html", edition_path):
+            _require(
+                "News and Scripture each morning. Practical tools each evening. "
+                "Loved by God." in outputs[path],
+                f"{path.name}: home masthead subtitle is missing",
+            )
+
+    if slot == "morning":
+        expected_home_pairings = 1 + sum(
+            min(2, len(content["cards"][section])) for section in SLOT_SECTIONS["morning"]
+        )
+        for path in (REPO / "index.html", edition_path):
+            _require(
+                outputs[path].count('class="scripture-inline"') == expected_home_pairings,
+                f"{path.name}: every rendered morning story must have Scripture for Reflection",
+            )
+            _require(
+                "Scripture accompanies each story for the reader's reflection." in outputs[path],
+                f"{path.name}: morning Scripture clarification is missing",
+            )
+        if bake_mode == "daily":
+            for section in SLOT_SECTIONS["morning"]:
+                category_path = REPO / f"{section}.html"
+                _require(
+                    outputs[category_path].count('class="scripture-inline"')
+                    == len(content["cards"][section]),
+                    f"{category_path.name}: every category story must have Scripture for Reflection",
+                )
+                _require(
+                    "News and Scripture, paired story by story." in outputs[category_path],
+                    f"{category_path.name}: morning format descriptor is missing",
+                )
+
     # All validation happens before the first replace.  Each destination is
     # then installed from a fully written sibling temp file.
     verify_rendered_outputs({
@@ -800,6 +1011,9 @@ def main() -> None:
     mode = ap.add_mutually_exclusive_group(required=True)
     mode.add_argument("--plan", action="store_true")
     mode.add_argument("--render", action="store_true")
+    mode.add_argument("--scripture-catalog", action="store_true")
+    ap.add_argument("--scripture-query",
+                    help="optional words used to search the verified BSB catalog")
     ap.add_argument("--content", type=Path, help="content JSON (render mode)")
     ap.add_argument("--date", help="YYYY-MM-DD edition date (render mode)")
     ap.add_argument("--slot", choices=SLOTS, default="morning",
@@ -814,6 +1028,8 @@ def main() -> None:
 
     if args.plan:
         cmd_plan()
+    elif args.scripture_catalog:
+        cmd_scripture_catalog(args.scripture_query)
     else:
         if not args.content or not args.date:
             fail("--render requires --content and --date")
