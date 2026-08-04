@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-04T15:38:56Z",
+  "updatedAt": "2026-08-04T15:54:40Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,13 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
-  "halt": {
-    "type": "no_eligible_item",
-    "recordedAt": "2026-08-04T15:38:56Z",
-    "eligibleItemIds": [],
-    "reason": "DDB-PC-012 is complete. The next pending items, beginning with DDB-PC-013, require explicit approval from David, and the reader-intake, Cloudflare, Supabase, and newsletter items remain paused by doctrine."
-  },
+  "activeItemId": "DDB-PC-014",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -514,21 +508,26 @@
     {
       "id": "DDB-PC-014",
       "sequence": 14,
-      "title": "Remove redundant Codex automations",
-      "status": "pending",
+      "title": "Clean up scheduled controls and documentation",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-004"
       ],
       "authorization": {
         "type": "explicit_david",
-        "granted": false,
-        "scope": "Update or delete the audited duplicate and exhausted automation records."
+        "granted": true,
+        "grantedAt": "2026-08-04T15:54:40Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Move future research to noon and review to 2 p.m., and clean up, and fix the two cleanup discrepancies that remain.",
+        "scope": "Make the research and review automations recurring at noon and 2:00 PM Pacific, remove exhausted DDB Codex automations, disable the unnecessary Spark Counter no-op timer, and reconcile the house-satchel documentation with the morning bake's threshold-based restock. Preserve the founder pauses and do not merge the draft pull request."
       },
       "externalMutation": true,
       "completionGate": [
-        "Keep, update, and delete decisions match the audit",
-        "Duplicate and exhausted records are removed",
-        "Two long-lived controls plus approved temporary monitors remain"
+        "Research and review recur at noon and 2:00 PM Pacific with daylight-saving-safe schedules",
+        "Exhausted DDB Codex automation records are removed while active long-lived controls remain",
+        "The Spark Counter no-op timer is disabled and verified without reactivating reader intake",
+        "House-satchel documentation matches the morning bake's threshold-based restock",
+        "Repository and external-state evidence is validated and recorded"
       ]
     },
     {
