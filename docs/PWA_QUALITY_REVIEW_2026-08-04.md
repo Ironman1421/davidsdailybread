@@ -1,8 +1,8 @@
 # Phase 1 PWA quality review
 
-Status: local browser, physical iPhone install/launch, and isolated normal-bake
-preview completed; secure-origin, Android, full screen-reader, and release gates
-remain
+Status: local browser, physical iPhone install/launch/update/correction/offline,
+and isolated normal-bake preview completed; generated-home bootstrap, Android,
+full screen-reader, and release gates remain
 
 Reviewed: 2026-08-04, beginning at PR #48 head `6cbe9a8`
 
@@ -135,38 +135,70 @@ This satisfies the normal non-publishing bake gate. It does not substitute for
 CI and does not make the current generated homepage PWA-enabled before a future
 authorized bake or release.
 
-## Private HTTPS preview decision
+## Private HTTPS physical follow-up
 
-A narrowly scoped Tailscale Serve preview is the preferred remaining physical
-iPhone path, but it is not authorized by this review. Read-only checks found
-the paired Mac and iPhone online in the same existing tailnet and an empty Serve
-configuration on the Mac. Tailscale Serve can proxy a loopback-only local HTTP
-server over tailnet-only HTTPS in the foreground; Tailscale Funnel is not
-needed and must remain unused.
+Reviewed on 2026-08-04 at exact PR head
+`a9ff2bf36abf247fccc842a3e177adc8ca55ed26` after its pull-request Merge gate
+passed. David separately approved a one-time Tailscale Serve preview and
+accepted disclosure of the Mac's certificate hostname in the public
+Certificate Transparency ledger. The exact commit was extracted to a temporary
+directory and its complete 258-file hash inventory was verified before use.
 
-The tailnet does not currently advertise certificate domains. Enabling HTTPS
-is therefore a provider mutation and requires David's separate approval.
-Tailscale also documents that the device and tailnet certificate hostname is
-recorded in the public Certificate Transparency ledger. Preview content and
-access remain tailnet-private, but that hostname disclosure is not temporary.
-No HTTPS feature, certificate, Serve route, or preview server was enabled as
-part of this decision.
+The backend bound only to `127.0.0.1:8787`. Tailscale Serve proxied it over
+tailnet-only HTTPS in the foreground. The optional Funnel consent was explicitly
+cleared before HTTPS was enabled, and Funnel was never configured or used. No
+deployment, production write, public reader intake, notification activation,
+credential installation, or live-data collection occurred.
 
-References: [Tailscale Serve](https://tailscale.com/docs/features/tailscale-serve)
-and [Enabling HTTPS](https://tailscale.com/docs/how-to/set-up-https-certificates).
+Passed on the physical iPhone:
 
-If approved, the review must use only exact head
-`93ce1574da29b7a7865143d50b6aa42bece712a4`, bind the backend to loopback, run
-Serve in the foreground, verify install/update/correction/offline behavior on
-the physical iPhone, and then stop both processes and confirm the Serve
-configuration is empty. It must not use Funnel, the Spark, background serving,
-deployment, public intake, production data, or repository writes.
+- Safari trusted the HTTPS certificate and loaded the exact manifest, worker,
+  approved icons, and PWA assets. Manifest and worker hashes matched the exact
+  extracted commit.
+- Add to Home Screen used the `Daily Bread` name, approved icon, root start URL,
+  and **Open as Web App** mode. The exact HTTPS install launched the canonical
+  August 4 homepage in standalone mode.
+- After the standalone app visited the PWA-wired Chronicles page, that app's own
+  storage registered and activated the service worker.
+- A temporary, visibly labeled correction marker and cache-generation change
+  were made only in the extracted preview. The corrected page replaced the
+  prior page, and the installed app presented the reader-controlled **A fresher
+  app shell is ready** panel with **Refresh now** and the notes-preservation
+  statement.
+- Activating the update reloaded the page. With both Serve and the loopback
+  backend stopped, an offline reload in the exact HTTPS app retained the revised
+  page and visible correction marker. This exercises network-first correction
+  freshness, the waiting-worker handoff, and offline retention on physical
+  iPhone Safari.
+
+One material bootstrap gap remains. Immediately after installation, before the
+standalone app visited any PWA-wired page, the first route-down cold start
+received Safari's unable-to-connect screen. The preserved August 4 generated
+homepage predates this branch's PWA template wiring, so it cannot register the
+worker by itself. The normal non-publishing bake proved that newly generated
+home, category, edition, and archive pages carry the wiring, but an authorized
+bake or release must produce that generated output before first-launch offline
+behavior can pass end to end.
+
+VoiceOver was already enabled on the handset during this HTTPS follow-up and
+was left unchanged. The installed publication, update action, and corrected
+offline page remained visually stable and operable through iPhone Mirroring.
+Mirroring still did not expose dependable spoken announcements or native touch
+exploration, so a full auditory label, reading-order, focus, and rotor audit is
+not claimed.
+
+After the rehearsal, the temporary correction and worker change were removed;
+all 258 extracted-file hashes again matched the exact commit. Both foreground
+processes were stopped, port 8787 had no listener, and `tailscale serve status
+--json` returned `{}`. The approved tailnet HTTPS feature and its certificate
+hostname remain enabled, but no Serve route remains.
 
 ## Remaining release gates
 
-- Physical iPhone Safari service-worker update, correction, and offline recovery
-  on an approved trustworthy non-production origin. Install and standalone
-  launch have passed on the exact reviewed build.
+- Generate PWA-wired canonical home output through an authorized bake or release,
+  then repeat immediate post-install route-down cold start. Physical iPhone
+  update, correction, and offline recovery passed after a PWA-wired page
+  bootstrapped the worker.
 - Physical Android Chrome install, launch, update, and offline review when an
   Android handset is available.
 - Native VoiceOver and TalkBack reading order, control names, focus, and rotor
