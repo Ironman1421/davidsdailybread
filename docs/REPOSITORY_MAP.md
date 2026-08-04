@@ -46,15 +46,16 @@ The canonical bake and publish remain in `Ironman1421/davidsdailybread`.
 Spark's reviewed components in `Ironman1421/davids-ai-command-center` may invoke
 the public repository's Daily bake `workflow_dispatch` endpoint and inspect the
 exact-date archive contract. While reader intake is paused, they must not invoke
-Counter Sync. Existing Counter scheduling is implementation state to reconcile,
-not authority to fetch or commit new reader rows. They
+Counter Sync. The former Spark Counter timer was disabled on 2026-08-04; the
+retained GitHub workflow is a manual, read-only pause confirmation with no data
+endpoint or write permission. They
 may not compose editions, choose the latest available edition, push site
 content, or receive the editorial model secret. The Pacific schedule is morning
 at 4:40 AM, morning watchdog at 5:15 AM, evening at
 2:40 PM, and evening watchdog at 3:30 PM. These starts target reader-ready
 publication near 5:00 AM and 3:00 PM Pacific. GitHub's paired PDT/PST schedules
-remain delayed backups for both bakes. The existing Counter Sync schedule is
-not an approved backup while the founder pause is active.
+remain delayed backups for both bakes. No Counter Sync schedule remains while
+the founder pause is active.
 The merged commit, installed-unit verification, and no-op canaries are recorded
 in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 

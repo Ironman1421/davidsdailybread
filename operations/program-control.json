@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-04T15:54:40Z",
+  "updatedAt": "2026-08-04T16:03:40Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-014",
+  "activeItemId": null,
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -509,7 +509,7 @@
       "id": "DDB-PC-014",
       "sequence": 14,
       "title": "Clean up scheduled controls and documentation",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-004"
       ],
@@ -528,6 +528,18 @@
         "The Spark Counter no-op timer is disabled and verified without reactivating reader intake",
         "House-satchel documentation matches the morning bake's threshold-based restock",
         "Repository and external-state evidence is validated and recorded"
+      ],
+      "completedAt": "2026-08-04T16:03:40Z",
+      "evidence": [
+        "Codex automations research-tools-and-workflows-for-ddb-evening-edition and review-x-manager-research-for-ddb-evening-edition are active daily at 12:00 PM and 2:00 PM America/Los_Angeles, respectively, using timezone-aware recurring schedules",
+        "the research handoff is due by 1:45 PM and the review is due before the 2:40 PM bake, leaving a 40-minute review window",
+        "exhausted automations complete-ddb-spark-24h-network-observation, observe-pr-7-natural-artifact-upload, review-x-monitor-daily-eligibility, and update-ddb-x-bio-after-scripture-edition were deleted",
+        "the X bio one-shot verified the August 4 morning edition and its seven paired Scripture sections but made no profile change because signed-in browser control was unavailable; the correct account could not be verified safely",
+        "Spark user timer daicc-ddb-counter-sync.timer was disabled and stopped; it is disabled, inactive, has no scheduled entry, leaves zero failed user units, and did not alter the manual read-only GitHub intake-pause confirmation",
+        "BRAND.md, ddb_satchel.py, and kings-satchel.json now describe the actual bake-time satchel behavior: when fewer than three unused timeless letters remain, the morning bake replenishes the unused pool to sixteen; no separate weekly steward exists",
+        "operations/tools-workflows-research-handoff.contract.json and the local X Manager coordination artifacts use the current Pacific date with noon research, 1:45 PM handoff, 2:00 PM review, and 2:40 PM bake times",
+        "twenty-nine targeted governance, intake-pause, renderer-security, and brand-cadence tests passed with DDB_SITE_DIR set to the checkout; JSON parsing and git diff --check passed",
+        "reader intake, newsletter sending, Cloudflare and Supabase activation, publication, deployment, and draft-PR merge state remain unchanged"
       ]
     },
     {
@@ -637,5 +649,10 @@
         "Final evidence report is delivered to David"
       ]
     }
-  ]
+  ],
+  "halt": {
+    "type": "no_eligible_item",
+    "eligibleItemIds": [],
+    "reason": "DDB-PC-013 and DDB-PC-015 require explicit approval from David; DDB-PC-020 depends on both, and DDB-PC-016 through DDB-PC-019 remain paused by doctrine."
+  }
 }
