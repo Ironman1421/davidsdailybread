@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-04T16:28:59Z",
+  "updatedAt": "2026-08-04T17:03:47Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-013",
+  "activeItemId": null,
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -488,7 +488,7 @@
       "id": "DDB-PC-013",
       "sequence": 13,
       "title": "Reconcile the dirty Spark and local checkouts",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-004"
       ],
@@ -506,6 +506,21 @@
         "Canonical private checkout is clean and current",
         "Deployed files match the approved source",
         "Services and exact-edition no-op canaries verify"
+      ],
+      "completedAt": "2026-08-04T17:03:47Z",
+      "evidence": [
+        "David's exact DDB-PC-013 approval, no-delete boundary, and no-merge/no-deploy boundary are recorded before checkout reconciliation",
+        "four dirty Mac worktrees were preserved without reset or deletion at /Users/davidfriedhof/Documents/DDB-preservation/DDB-PC-013/20260804T163244Z with an all-refs Git bundle and verified manifest SHA-256 88c226d31c56f55803095cee3ff0447957529bc3d776730253d9c7911a8941a3",
+        "the primary Mac worktree's two later X-profile image changes and then-current 78-path state were preserved at /Users/davidfriedhof/Documents/DDB-preservation/DDB-PC-013/20260804T165400Z-supplemental-primary with verified manifest SHA-256 5afa8665ac5d93fa591e36ac8fe34cf6f0e25a78ab9f6bdb74323d48d47dca3b",
+        "the dirty Spark private checkout, dirty historical scratch mirror, and clean stale public mirror were preserved at /home/david/.local/state/ddb-pc-013/20260804T163244Z with verified manifest SHA-256 bc65b3003cf5b14e4d98a321113a30c2ff951b543621c42760d259aae1828dd2; the original private checkout also remains intact at /home/david/daicc-phase1.preserved-ddb-pc-013-20260804T163244Z",
+        "Spark's canonical /home/david/daicc-phase1 checkout is clean on main at 13334a89112cc9dd084ba5168d836bed4e8ef4c8, exactly equal to private remote main, with 1,737 nonconflicting runtime-only files preserved locally",
+        "the active Telegram bridge retained its local credential-path behavior through a tripwire-covered runtime copy and systemd drop-in; PID 1257868 remained active across reconciliation and no service was restarted",
+        "the tracked non-executable autopost shell entry point is invoked through a local /usr/bin/bash systemd drop-in; the exact reviewed script bytes, posting logic, timer schedule, and inactive service state were unchanged",
+        "independent Git-blob verification found all 23 audited DDB config, script, service, and timer files equal to private source; systemd verification passed, 44 private-repository tests passed, both X self-test layers passed, and shell syntax checks passed",
+        "exact-edition trigger and watchdog canaries for 2026-08-04-morning and 2026-08-03-evening returned successful no-ops without a workflow dispatch or Telegram alert",
+        "the immediate tripwire check and scheduled runs at 2026-08-04T09:52:16-07:00 and 2026-08-04T10:02:21-07:00 passed with a valid 50-entry manifest, no drift signature, and zero failed user units; the Counter timer remained disabled and inactive",
+        "final restricted post-state /home/david/.local/state/ddb-pc-013/20260804T170236Z-post has verified manifest SHA-256 f488557e74f5bd1d3e9cc424213bfce4dc9cbd55c30ac451ef8cf9d22df885c1",
+        "29 targeted Mac governance, intake-pause, renderer-security, and brand-cadence tests passed; no pre-existing user-owned branch, worktree, or file was deleted, and no public merge, site deployment, publication, send, provisioning, credential change, network change, or service restart occurred"
       ]
     },
     {
@@ -653,5 +668,9 @@
       ]
     }
   ],
-  "halt": null
+  "halt": {
+    "type": "no_eligible_item",
+    "eligibleItemIds": [],
+    "reason": "DDB-PC-015 requires explicit approval from David; DDB-PC-020 depends on it, and DDB-PC-016 through DDB-PC-019 remain paused by doctrine."
+  }
 }

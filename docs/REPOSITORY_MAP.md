@@ -1,6 +1,6 @@
 # Repository and ownership map
 
-Last reconciled: 2026-08-01
+Last reconciled: 2026-08-04
 
 `FOUNDER_DOCTRINE.md` governs mission, ownership, strategic direction, and
 paused initiatives. Repository ownership never transfers David's final control.
@@ -16,6 +16,24 @@ paused initiatives. Repository ownership never transfers David's final control.
 Claude Cowork is not a repository and is no longer an authority for this
 project. Useful ideas from old conversations must be deliberately reconstructed
 in version-controlled specs, code, and tests before use.
+
+## Checkout authority
+
+Spark's canonical private checkout is `/home/david/daicc-phase1`, clean on the
+private repository's `main` commit
+`13334a89112cc9dd084ba5168d836bed4e8ef4c8`. Runtime-only files remain local,
+ignored, and tripwire-covered; the audited DDB deployment files match that
+source. The former dirty checkout and checksummed recovery artifacts are
+preserved as recorded in `docs/CHECKOUT_RECONCILIATION_2026-08-04.md`.
+
+Spark's `/home/david/hq/daily-bread`, DDB scratch mirrors, and Cowork imports are
+historical, noncanonical checkouts. No active DDB unit references the public
+mirror. They remain preserved and must not be used as deployment or editorial
+authority.
+
+Local Mac worktrees other than an explicitly assigned clean branch are also
+noncanonical working state. Dirty worktrees have recoverable snapshots and
+remain untouched; their existence is not approval to merge or deploy them.
 
 ## Known ownership gaps
 
