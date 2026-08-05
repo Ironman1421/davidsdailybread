@@ -82,14 +82,21 @@ provider is used.
 
 ## Release gate
 
-Local completion is not publication approval. Before release, CI must pass for
-the exact branch head, installability and offline behavior must be reviewed on
-desktop, iPhone, and Android, accessibility and mobile quality must pass, the
-service-worker scope and correction behavior must be inspected, and David must
-approve the exact commit and rollback. The generated home and category pages
-must receive their PWA links through the normal bake templates, never by hand
-editing rendered output.
+The normal renderer, desktop keyboard and zoom behavior, physical iPhone
+install/offline/update/correction flow, short physical VoiceOver check,
+service-worker correction boundary, and independent review are recorded in
+`docs/PWA_QUALITY_REVIEW_2026-08-04.md`. Physical Android/TalkBack, a
+comprehensive auditory review, and the heading-hierarchy follow-up remain
+explicit evidence gaps rather than passes.
 
-The local Chromium and responsive-viewport evidence is recorded in
-`docs/PWA_QUALITY_REVIEW_2026-08-04.md`. Native iPhone, native Android,
-screen-reader, and normal-bake output checks remain release gates.
+The service-worker install-path repair at
+`ba23154ece0c31d820687c181cacc0b615db2bdc` passed targeted contracts, the full
+suite, exact-head CI, CodeQL, and independent review. David accepted the lack of
+a repeated physical-device cycle after that repair on 2026-08-04. He authorized
+publication and GitHub Pages deployment in principle, subject to a separate
+approval naming the final immutable release-record SHA. Merge remains
+unauthorized until that decision. Any runtime change after the reviewed
+implementation head reopens only the affected evidence gate.
+
+The generated home and category pages must continue to receive their PWA links
+through the normal bake templates, never by hand editing rendered output.

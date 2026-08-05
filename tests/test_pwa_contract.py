@@ -135,9 +135,12 @@ class PwaContractTest(unittest.TestCase):
         self.assertIn("panel.setAttribute('aria-hidden', 'true')", template)
         self.assertIn("panel.setAttribute('aria-hidden', 'false')", template)
 
-    def test_machine_contract_fails_closed(self):
-        self.assertEqual(1, CONTRACT["version"])
-        self.assertEqual("phase-1-local-ready-not-published", CONTRACT["status"])
+    def test_machine_contract_records_bounded_release_authorization(self):
+        self.assertEqual(2, CONTRACT["version"])
+        self.assertEqual(
+            "phase-1-release-authorized-awaiting-exact-sha-merge-approval",
+            CONTRACT["status"],
+        )
         self.assertTrue(CONTRACT["canonical"]["websiteRemainsCanonical"])
         self.assertFalse(CONTRACT["canonical"]["separateEditorialProductCreated"])
         self.assertTrue(CONTRACT["cachePolicy"]["correctionsCheckedOnEveryOnlineNavigation"])
@@ -153,12 +156,33 @@ class PwaContractTest(unittest.TestCase):
             "reload", CONTRACT["updates"]["staticAssetInstallFetchCacheMode"]
         )
         self.assertFalse(CONTRACT["updates"]["skipWaitingDuringInstall"])
-        for field, value in CONTRACT["activation"].items():
+        decision = CONTRACT["releaseDecision"]
+        self.assertEqual(
+            "ba23154ece0c31d820687c181cacc0b615db2bdc",
+            decision["reviewedImplementationHead"],
+        )
+        self.assertEqual(
+            "accepted-evidence-gap-not-repeated",
+            decision["postRepairPhysicalDeviceRerun"],
+        )
+        self.assertTrue(decision["requiresSeparateExactShaMergeApproval"])
+
+        activation = CONTRACT["activation"]
+        self.assertTrue(activation["publicationAuthorized"])
+        self.assertTrue(activation["deploymentAuthorized"])
+        self.assertFalse(activation["mergeAuthorized"])
+        self.assertTrue(activation["exactShaMergeApprovalRequired"])
+        for field in (
+            "appStoreListingAuthorized",
+            "externalServiceProvisioningAuthorized",
+            "credentialsAuthorized",
+            "notificationsAuthorized",
+            "pushProviderAuthorized",
+            "livePersonalDataCollectionAuthorized",
+        ):
             with self.subTest(field=field):
-                if field == "spendAuthorizedUsd":
-                    self.assertEqual(0, value)
-                else:
-                    self.assertFalse(value)
+                self.assertFalse(activation[field])
+        self.assertEqual(0, activation["spendAuthorizedUsd"])
 
     def test_offline_page_obeys_reader_visible_brand_law(self):
         page = (ROOT / "offline.html").read_text(encoding="utf-8")

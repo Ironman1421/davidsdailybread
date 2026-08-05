@@ -328,7 +328,37 @@ draft branch was reconciled onto that production head without mutating `main`.
   physical smoke check above does not claim continuous-reading, every control,
   every route, all rotor categories, or full focus-management coverage. The
   heading hierarchy should be addressed as part of that complete review.
-- Exact-head CI is verified separately by the draft PR checks. David must make a
-  separate ready-for-review decision after those checks pass. Ready status would
-  still not authorize merge, deployment, publication, production changes,
+- Exact-head CI is verified separately by the PR checks. David made the
+  separate ready-for-review decision after those checks passed. Ready status
+  did not itself authorize merge, deployment, publication, production changes,
   reader intake, or notifications.
+
+## Release authorization record
+
+An independent complete-diff review at implementation head
+`ba23154ece0c31d820687c181cacc0b615db2bdc` reported no material defects. That
+head tightened install-time service-worker cache validation and moved the
+offline font preference outside the Chronicles note-content namespace. Targeted
+PWA contracts, the full suite, exact-head pull-request CI, and CodeQL passed.
+
+The physical iPhone install/offline/update/correction evidence remains tied to
+the earlier reviewed PWA shell. A fresh physical cycle after the install-path
+repair was started as a bounded private preview but cancelled before any iPhone
+page loaded, installation began, or local app data was deleted. The loopback
+backend and Tailscale Serve were stopped, Funnel remained disabled, and final
+Serve and Funnel configurations were empty.
+
+On 2026-08-04, David accepted the missing repeat physical-device cycle as an
+evidence gap and authorized publication and GitHub Pages deployment of the PWA
+in principle. Physical Android/TalkBack, a comprehensive VoiceOver audit, and
+the heading-hierarchy follow-up remain deferred evidence gaps, not passes. This
+decision does not authorize an app-store listing, external service, credential,
+notification, push provider, live personal-data collection, spending, reader
+intake, newsletter operation, audience-measurement activation, Cloudflare, or
+Supabase.
+
+Merge remains unauthorized. The non-behavioral release-record head must pass
+pull-request CI, after which David must separately approve that exact immutable
+SHA and acknowledge that merging to `main` automatically deploys through
+GitHub Pages. The rollback is to revert the approved release and verify Pages,
+the canonical homepage, archive, feed, edition paths, and normal bake behavior.
