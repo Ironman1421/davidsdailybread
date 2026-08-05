@@ -1,5 +1,5 @@
 {
-  "note": "The King's satchel: house letters for the Letters to the King section, drawn ONLY when no reader letters are waiting, at most ONE per bake, and always credited 'From the Baker's own shelf' (never presented as reader mail). Used ids are tracked in bakery-state.json under usedSatchelLetters and NEVER repeat. Restocked weekly by the satchel-steward scheduled task, which prunes used entries and tops the shelf back up to 16 unused letters. Ids run KS-### and are never reused, even after pruning.",
+  "note": "The King's satchel: house letters for the Letters to the King section, drawn ONLY when no reader letters are waiting, at most ONE per bake, and always credited 'From the Baker's own shelf' (never presented as reader mail). Used ids are tracked in bakery-state.json under usedSatchelLetters and NEVER repeat. When a morning bake finds fewer than 3 unused letters, that bake adds reviewed timeless letters until 16 are unused. There is no separate satchel-steward schedule. Ids run KS-### and are never reused.",
   "letters": [
     {
       "id": "KS-001",

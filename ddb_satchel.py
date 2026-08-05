@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """DDB satchel helpers for reviewed house material and frozen legacy records.
 
-Subsumes satchel-steward's draw/bookkeeping logic for bake time (selecting
-and marking used). Weekly restock of kings-satchel.json back up to 16 unused
-letters is a separate, larger job (satchel-steward proper, APR-005 sec 4) and
-is NOT done here.
+Provides the draw and bookkeeping helpers used at bake time. The approved
+morning bake restocks kings-satchel.json when fewer than three unused letters
+remain, adding reviewed timeless letters until sixteen are unused. There is no
+separate satchel-steward schedule.
 
 Network reader intake and the legacy all-in-one reader renderer are disabled
 while the founder pause is active. The current session renderer may select only

@@ -8,6 +8,7 @@ single-morning-cadence claims from the 2026-07-17..07-29 era.
 
 from html.parser import HTMLParser
 from pathlib import Path
+import json
 import re
 import unittest
 import xml.etree.ElementTree as ET
@@ -177,6 +178,25 @@ class BrandCadenceTest(unittest.TestCase):
         )
         self.assertNotIn("David, King in Jerusalem", home)
         self.assertIn("– David, son of Jesse", brand)
+
+    def test_satchel_restock_truth_matches_the_morning_bake(self):
+        brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
+        helper = (ROOT / "ddb_satchel.py").read_text(encoding="utf-8")
+        bake = (ROOT / "BAKE.md").read_text(encoding="utf-8")
+        satchel = json.loads(
+            (ROOT / "kings-satchel.json").read_text(encoding="utf-8")
+        )
+        helper_normalized = " ".join(helper.split())
+
+        self.assertIn("fewer than three unused", brand)
+        self.assertIn("fewer than three unused", helper)
+        self.assertIn("satchel_unused` < 3", bake)
+        self.assertIn("fewer than 3 unused", satchel["note"])
+        self.assertIn("no separate satchel-steward schedule", helper_normalized)
+        self.assertIn("no separate satchel-steward schedule", satchel["note"])
+        for text in (brand, helper, satchel["note"]):
+            self.assertNotIn("Restocked weekly by", text)
+            self.assertNotIn("restocked weekly by", text)
 
 
 if __name__ == "__main__":
