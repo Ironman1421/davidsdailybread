@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "status": "branch-implemented-pending-production-approval",
   "owner": "David Friedhof",
   "purpose": "Combine X Manager advisory research and DDB independent research into one final evening selection before the bake, without transferring publication authority.",
@@ -12,7 +12,9 @@
       "coordination/ddb/research-latest.json"
     ],
     "researchSchema": "operations/schemas/x-manager-noon-research-v2.schema.json",
-    "blockedRule": "If current X Pro or X Radar proof is unavailable, emit status blocked rather than a completed advisory packet."
+    "blockedRule": "If current X Pro or X Radar proof is unavailable, emit status blocked rather than a completed advisory packet.",
+    "closingDeltaCheckRequired": true,
+    "closingDeltaRule": "Immediately before closing the handoff, recheck both X Pro and X Radar, reconcile late changes into the candidate set, and record closingDeltaCheck proof."
   },
   "targetEdition": {
     "dateRule": "current date in America/Los_Angeles at execution time",
@@ -20,15 +22,30 @@
     "timeZone": "America/Los_Angeles"
   },
   "coordination": {
-    "xManagerResearchStartsLocal": "12:00:00",
-    "ddbCombinedReviewStartsLocal": "14:00:00",
-    "reviewedPacketReadyByLocal": "14:35:00",
+    "xManagerResearchStartsLocal": "12:45:00",
+    "xManagerPacketReadyByLocal": "13:35:00",
+    "ddbCombinedReviewStartsLocal": "13:40:00",
+    "reviewedPacketReadyByLocal": "14:25:00",
     "bakeStartsLocal": "14:40:00",
     "selectionPasses": 1
   },
+  "automationBindings": {
+    "updateExistingOnly": true,
+    "duplicatesAllowed": false,
+    "xManager": {
+      "id": "research-tools-and-workflows-for-ddb-evening-edition",
+      "repositoryPath": "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows",
+      "startsLocal": "12:45:00"
+    },
+    "ddb": {
+      "id": "review-x-manager-research-for-ddb-evening-edition",
+      "repositoryPath": "/Users/davidfriedhof/Documents/David's Daily Bread",
+      "startsLocal": "13:40:00"
+    }
+  },
   "ddbCombinedReview": {
     "inputs": [
-      "X Manager's exact noon JSON artifact and SHA-256",
+      "X Manager's exact 12:45 PM JSON artifact and SHA-256",
       "DDB's independent broader web research",
       "official factual sources",
       "non-X citable trend sources"
@@ -79,6 +96,8 @@
     "requiresSeparateMergeApproval": true,
     "requiresSeparateDeploymentAndMigrationApproval": true,
     "requiresSeparateCredentialProvisioningApproval": true,
+    "requiresLiveAutomationTargetAudit": true,
+    "liveAutomationScheduleChangeAuthorized": false,
     "liveBakeChangeAuthorized": false
   }
 }

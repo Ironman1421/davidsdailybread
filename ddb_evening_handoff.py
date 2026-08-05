@@ -118,6 +118,56 @@ def _require_string(value: Any, path: str, errors: list[str]) -> None:
         errors.append(f"{path} must be a non-empty string")
 
 
+def _validate_closing_delta(
+    delta: Any,
+    path: str,
+    errors: list[str],
+    *,
+    require_completed: bool,
+    source_observations: list[datetime],
+    handoff_completed_at: datetime | None,
+) -> None:
+    if not isinstance(delta, dict):
+        errors.append(f"{path} is required")
+        return
+    if delta.get("attempted") is not True:
+        errors.append(f"{path}.attempted must be true")
+    if delta.get("sources") != ["xPro", "xRadar"]:
+        errors.append(f"{path}.sources must be xPro and xRadar")
+    _require_string(delta.get("context"), f"{path}.context", errors)
+
+    completed = delta.get("completed")
+    observed_at = _timestamp(delta.get("observedAt"))
+    changes_found = delta.get("changesFound")
+    if require_completed and completed is not True:
+        errors.append(f"{path}.completed must be true")
+    if completed is True:
+        if observed_at is None:
+            errors.append(f"{path}.observedAt must be an ISO UTC timestamp")
+        if not isinstance(changes_found, bool):
+            errors.append(f"{path}.changesFound must be boolean")
+    elif completed is False:
+        if delta.get("observedAt") is not None:
+            errors.append(f"{path}.observedAt must be null when incomplete")
+        if changes_found is not None:
+            errors.append(f"{path}.changesFound must be null when incomplete")
+    else:
+        errors.append(f"{path}.completed must be boolean")
+
+    if observed_at is None:
+        return
+    if source_observations and observed_at < max(source_observations):
+        errors.append(
+            f"{path} must occur after the initial X Pro and X Radar observations"
+        )
+    if handoff_completed_at is not None:
+        age_seconds = (handoff_completed_at - observed_at).total_seconds()
+        if age_seconds < 0 or age_seconds > 30 * 60:
+            errors.append(
+                f"{path} must occur within 30 minutes before handoff closure"
+            )
+
+
 def _validate_research(research: Any, errors: list[str]) -> None:
     if not isinstance(research, dict):
         errors.append("research must be an object")
@@ -127,22 +177,35 @@ def _validate_research(research: Any, errors: list[str]) -> None:
     if not isinstance(manager, dict):
         errors.append("research.xManager is required")
     else:
-        if _timestamp(manager.get("completedAt")) is None:
+        manager_completed_at = _timestamp(manager.get("completedAt"))
+        if manager_completed_at is None:
             errors.append("research.xManager.completedAt must be an ISO UTC timestamp")
         if not SHA256_RE.fullmatch(str(manager.get("artifactSha256", ""))):
             errors.append("research.xManager.artifactSha256 must be a lowercase SHA-256")
+        source_observations: list[datetime] = []
         for input_name in ("xPro", "xRadar"):
             source = manager.get(input_name)
             if not isinstance(source, dict) or source.get("used") is not True:
                 errors.append(f"research.xManager.{input_name}.used must be true")
                 continue
-            if _timestamp(source.get("observedAt")) is None:
+            observed_at = _timestamp(source.get("observedAt"))
+            if observed_at is None:
                 errors.append(
                     f"research.xManager.{input_name}.observedAt must be an ISO UTC timestamp"
                 )
+            else:
+                source_observations.append(observed_at)
             _require_string(
                 source.get("context"), f"research.xManager.{input_name}.context", errors
             )
+        _validate_closing_delta(
+            manager.get("closingDeltaCheck"),
+            "research.xManager.closingDeltaCheck",
+            errors,
+            require_completed=True,
+            source_observations=source_observations,
+            handoff_completed_at=manager_completed_at,
+        )
     if not isinstance(ddb, dict):
         errors.append("research.ddb is required")
     else:
@@ -470,6 +533,7 @@ def validate_noon_packet(packet: Any, *, expected_date: str | None = None) -> No
         errors.append("noon authority must remain advisory and non-publishing")
 
     inputs = packet.get("researchInputs")
+    signed_in_observations: list[datetime] = []
     if not isinstance(inputs, dict):
         errors.append("researchInputs is required")
     else:
@@ -490,6 +554,7 @@ def validate_noon_packet(packet: Any, *, expected_date: str | None = None) -> No
                     )
                 else:
                     completed_observations.append(observed_at)
+                    signed_in_observations.append(observed_at)
         monitor = inputs.get("xMonitor")
         if not isinstance(monitor, dict):
             errors.append("researchInputs.xMonitor is required")
@@ -516,6 +581,15 @@ def validate_noon_packet(packet: Any, *, expected_date: str | None = None) -> No
                         "within six hours before createdAt"
                     )
                     break
+
+    _validate_closing_delta(
+        packet.get("closingDeltaCheck"),
+        "closingDeltaCheck",
+        errors,
+        require_completed=status == "completed",
+        source_observations=signed_in_observations,
+        handoff_completed_at=created_at,
+    )
 
     candidates = packet.get("candidates")
     if not isinstance(candidates, dict):

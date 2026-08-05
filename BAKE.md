@@ -311,9 +311,9 @@ and Entrust, and is not reader mail. The masthead links to the standing
 
 **E1. Reviewed handoff or fallback research.** The normal daily-evening path
 starts from the runner-local `ddb-reviewed-evening-handoff-v1` packet named in
-the run prompt. That packet is the output of one 2:00 PM editorial pass in
-which DDB reads X Manager's noon research, performs its own broader web
-research, independently verifies every candidate, and makes the final
+the run prompt. That packet is the output of one 1:40 PM editorial pass in
+which DDB reads X Manager's 12:45 PM research and final X delta proof, performs
+its own broader web research, independently verifies every candidate, and makes the final
 selected/hold/reject decision. DDB applies this exact Editorial Fit rule:
 40% leverage, 30% broad applicability, 20% repeatability, and 10% trend
 strength. A selected item must also clear the standing force-multiplier gates.

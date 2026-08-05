@@ -58,28 +58,36 @@ def noon_packet():
             "slot": "evening",
             "timeZone": "America/Los_Angeles",
         },
-        "createdAt": "2026-08-04T19:40:00Z",
+        "createdAt": "2026-08-04T20:35:00Z",
         "producer": "X Manager, Tools and Workflows",
         "researchInputs": {
             "xPro": {
                 "requested": True,
                 "used": True,
-                "observedAt": "2026-08-04T19:10:00Z",
+                "observedAt": "2026-08-04T19:50:00Z",
                 "context": "Tools + workflows watch columns",
             },
             "xRadar": {
                 "requested": True,
                 "used": True,
-                "observedAt": "2026-08-04T19:15:00Z",
+                "observedAt": "2026-08-04T20:00:00Z",
                 "context": "Focused Radar searches",
             },
             "xMonitor": {
                 "used": True,
-                "observedAt": "2026-08-04T19:18:00Z",
+                "observedAt": "2026-08-04T20:05:00Z",
                 "newPaidRunTriggered": False,
                 "context": "Read the guarded durable export",
             },
             "primarySourcesChecked": True,
+        },
+        "closingDeltaCheck": {
+            "attempted": True,
+            "completed": True,
+            "observedAt": "2026-08-04T20:30:00Z",
+            "sources": ["xPro", "xRadar"],
+            "changesFound": True,
+            "context": "Final X Pro and Radar pass added one late candidate.",
         },
         "candidates": {
             "tools": [candidate("tools")],
@@ -142,6 +150,17 @@ class UnifiedEveningHandoffTest(unittest.TestCase):
         with self.assertRaisesRegex(HandoffValidationError, "xRadar.used"):
             validate_noon_packet(invalid, expected_date="2026-08-04")
 
+        missing_delta = deepcopy(completed)
+        del missing_delta["closingDeltaCheck"]
+        self.assertNotEqual([], list(validator.iter_errors(missing_delta)))
+        with self.assertRaisesRegex(HandoffValidationError, "closingDeltaCheck"):
+            validate_noon_packet(missing_delta, expected_date="2026-08-04")
+
+        stale_delta = deepcopy(completed)
+        stale_delta["closingDeltaCheck"]["observedAt"] = "2026-08-04T19:45:00Z"
+        with self.assertRaisesRegex(HandoffValidationError, "after the initial X Pro"):
+            validate_noon_packet(stale_delta, expected_date="2026-08-04")
+
         blocked = deepcopy(completed)
         blocked["status"] = "blocked"
         blocked["blockedReasons"] = ["Signed-in X Radar was unavailable."]
@@ -152,8 +171,56 @@ class UnifiedEveningHandoffTest(unittest.TestCase):
             blocked["researchInputs"][name]["observedAt"] = None
         blocked["researchInputs"]["xMonitor"]["used"] = False
         blocked["researchInputs"]["xMonitor"]["observedAt"] = None
+        blocked["closingDeltaCheck"]["completed"] = False
+        blocked["closingDeltaCheck"]["observedAt"] = None
+        blocked["closingDeltaCheck"]["changesFound"] = None
+        blocked["closingDeltaCheck"]["context"] = (
+            "Final X Pro and Radar delta check could not complete because Radar was unavailable."
+        )
         self.assertEqual([], list(validator.iter_errors(blocked)))
         validate_noon_packet(blocked, expected_date="2026-08-04")
+
+    def test_schedule_contract_keeps_the_pipeline_close_to_the_bake(self):
+        contract = json.loads(
+            (
+                ROOT / "operations/tools-workflows-research-handoff.contract.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        self.assertEqual("America/Los_Angeles", contract["targetEdition"]["timeZone"])
+        self.assertEqual(
+            {
+                "xManagerResearchStartsLocal": "12:45:00",
+                "xManagerPacketReadyByLocal": "13:35:00",
+                "ddbCombinedReviewStartsLocal": "13:40:00",
+                "reviewedPacketReadyByLocal": "14:25:00",
+                "bakeStartsLocal": "14:40:00",
+                "selectionPasses": 1,
+            },
+            contract["coordination"],
+        )
+        self.assertTrue(contract["producer"]["closingDeltaCheckRequired"])
+        self.assertEqual(
+            "research-tools-and-workflows-for-ddb-evening-edition",
+            contract["automationBindings"]["xManager"]["id"],
+        )
+        self.assertEqual(
+            "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows",
+            contract["automationBindings"]["xManager"]["repositoryPath"],
+        )
+        self.assertEqual(
+            "review-x-manager-research-for-ddb-evening-edition",
+            contract["automationBindings"]["ddb"]["id"],
+        )
+        self.assertTrue(contract["automationBindings"]["updateExistingOnly"])
+        self.assertFalse(contract["automationBindings"]["duplicatesAllowed"])
+
+        prompt = (
+            ROOT / "operations/prompts/ddb-140pm-combined-evening-review.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("1:40 PM", prompt)
+        self.assertIn("2:25 PM", prompt)
+        self.assertIn("closingDeltaCheck", prompt)
 
     def test_validator_rejects_wrong_date_expiry_x_sources_and_failed_gates(self):
         wrong_date = deepcopy(self.packet)
@@ -182,6 +249,11 @@ class UnifiedEveningHandoffTest(unittest.TestCase):
         unbounded["expiresAt"] = "2026-08-06T21:20:00Z"
         with self.assertRaisesRegex(HandoffValidationError, "18 hours"):
             validate_packet(unbounded, now=NOW)
+
+        missing_delta = deepcopy(self.packet)
+        del missing_delta["research"]["xManager"]["closingDeltaCheck"]
+        with self.assertRaisesRegex(HandoffValidationError, "closingDeltaCheck"):
+            validate_packet(missing_delta, now=NOW)
 
     def test_fetch_writes_valid_packet_or_explicit_nonblocking_fallback(self):
         with tempfile.TemporaryDirectory() as directory:

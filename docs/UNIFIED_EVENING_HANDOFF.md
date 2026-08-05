@@ -6,21 +6,23 @@ authorized.
 ## Why this replaces the old 2:40 flow
 
 The old bake refreshed X Manager and fetched a discovery export at 2:40 PM.
-That reopened research after DDB's intended 2:00 PM review. The unified path
+That reopened research after DDB's intended combined review. The unified path
 makes one editorial decision and hands that decision—not the raw candidate
 queue—to the bake.
 
 ## Daily mechanics (Pacific time)
 
-1. **12:00 PM — X Manager.** Research X Pro, X Radar, the budget-guarded
-   monitor, and primary sources. Save one JSON candidate record and one Markdown
-   audit memo. Neither file decides what runs.
-2. **2:00 PM — DDB.** Read the exact X Manager artifact and hash while doing
+1. **12:45 PM — X Manager.** Research X Pro, X Radar, the budget-guarded
+   monitor, and primary sources. Immediately before closing the handoff, run
+   one final X Pro and X Radar delta check, reconcile late additions into the
+   candidate decisions, and record timestamped proof. Close the JSON candidate
+   record and Markdown audit memo by 1:35 PM. Neither file decides what runs.
+2. **1:40 PM — DDB.** Read the exact X Manager artifact and hash while doing
    DDB's own broader web research. Independently verify official and trend
    sources. In this same pass, score every candidate at 40% leverage, 30% broad
    applicability, 20% repeatability, and 10% trend strength and record the
    final selected/hold/reject set.
-3. **By 2:35 PM — private handoff.** Validate the
+3. **By 2:25 PM — private handoff.** Validate the
    `ddb-reviewed-evening-handoff-v1` JSON and upload it to X Manager's private
    `/api/ddb-handoff` store. The packet is bound to one date, expires, and says
    `publicationApproved: false`.
@@ -30,7 +32,7 @@ queue—to the bake.
    selected set.
 
 The handoff is a durable D1 record rather than a direct task-to-task message.
-The noon X research remains a JSON-plus-Markdown local audit artifact; DDB's
+The X Manager research remains a JSON-plus-Markdown local audit artifact; DDB's
 final reviewed JSON is the only artifact the cloud bake consumes.
 
 ## Failure behavior
@@ -68,5 +70,10 @@ The helper reads `DDB_HANDOFF_WRITE_TOKEN` and
 Activation requires separate approval of the exact reviewed DDB and X Manager
 heads. After that approval, the ordered live work is: merge both reviewed
 heads, apply the X Manager D1 migration, deploy X Manager, provision the
-handoff write secret and DDB-side secret bindings, then enable the changed DDB
-bake workflow. Those actions are deliberately absent from branch testing.
+handoff write secret and DDB-side secret bindings, update the existing X
+Manager automation to 12:45 PM and the existing DDB automation to 1:40 PM with
+their reviewed prompts and audited repository targets, then enable the changed
+DDB bake workflow. Update the two named automations in place; do not create
+duplicates. The X Manager task must run in the X Manager repository, and the
+DDB task must run in the DDB repository. The 2:40 PM bake schedule remains
+unchanged. Those actions are deliberately absent from branch testing.

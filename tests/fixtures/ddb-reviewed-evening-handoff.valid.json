@@ -11,17 +11,25 @@
   "expiresAt": "2026-08-05T07:00:00Z",
   "research": {
     "xManager": {
-      "completedAt": "2026-08-04T19:40:00Z",
+      "completedAt": "2026-08-04T20:35:00Z",
       "artifactSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "xPro": {
         "used": true,
-        "observedAt": "2026-08-04T19:10:00Z",
+        "observedAt": "2026-08-04T19:50:00Z",
         "context": "Tools + workflows watch columns"
       },
       "xRadar": {
         "used": true,
-        "observedAt": "2026-08-04T19:20:00Z",
+        "observedAt": "2026-08-04T20:00:00Z",
         "context": "Focused workflow and tool searches"
+      },
+      "closingDeltaCheck": {
+        "attempted": true,
+        "completed": true,
+        "observedAt": "2026-08-04T20:30:00Z",
+        "sources": ["xPro", "xRadar"],
+        "changesFound": true,
+        "context": "Final X Pro and Radar pass added one late candidate before closure."
       }
     },
     "ddb": {

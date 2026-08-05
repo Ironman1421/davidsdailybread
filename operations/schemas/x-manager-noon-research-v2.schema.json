@@ -11,6 +11,7 @@
     "createdAt",
     "producer",
     "researchInputs",
+    "closingDeltaCheck",
     "candidates",
     "holds",
     "rejections",
@@ -82,6 +83,40 @@
         },
         "primarySourcesChecked": {
           "type": "boolean"
+        }
+      }
+    },
+    "closingDeltaCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempted",
+        "completed",
+        "observedAt",
+        "sources",
+        "changesFound",
+        "context"
+      ],
+      "properties": {
+        "attempted": {
+          "const": true
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "observedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "sources": {
+          "const": ["xPro", "xRadar"]
+        },
+        "changesFound": {
+          "type": ["boolean", "null"]
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -198,6 +233,19 @@
               },
               "primarySourcesChecked": {
                 "const": true
+              }
+            }
+          },
+          "closingDeltaCheck": {
+            "properties": {
+              "completed": {
+                "const": true
+              },
+              "observedAt": {
+                "type": "string"
+              },
+              "changesFound": {
+                "type": "boolean"
               }
             }
           },
