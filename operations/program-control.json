@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T10:56:00Z",
+  "updatedAt": "2026-08-05T10:58:00Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -825,7 +825,8 @@
         "Draft PR #53 opened from commit 4a236d14efcbb5859d816a125819163aff1b3084; both CodeQL analyses passed, and the first authoritative x86_64 Merge gate reached 232 passing tests with one stale single-job workflow-output assertion that was repaired before rerunning the gate",
         "PR #53 exact repaired head ff1b46d466c58c737d7d7ee4cc15cb7cc8734381 passed 233 x86_64 tests and both CodeQL analyses, then merged to main as b60c6f2c865bf3a0004ce8bf1ac143f8fc335334",
         "Repository ruleset 20451115 is active for refs/heads/main with PR, resolved-conversation, strict gate plus both CodeQL status checks, linear-history, deletion, and non-fast-forward rules; App integration 4494424 is its sole always-bypass actor and the owner reports current_user_can_bypass=never",
-        "Live owner canaries proved direct push, force push, and main deletion were rejected while main remained exactly b60c6f2c865bf3a0004ce8bf1ac143f8fc335334"
+        "Live owner canaries proved direct push, force push, and main deletion were rejected while main remained exactly b60c6f2c865bf3a0004ce8bf1ac143f8fc335334",
+        "The active ruleset correctly refused PR #54 because the legacy Merge gate emitted a cancelled branch-push gate beside its successful PR gate; the branch fix removes the contradictory feature-branch trigger while retaining the complete required pull-request gate and manual dispatch"
       ],
       "completionGate": [
         "Publisher identity is approved and provisioned",
