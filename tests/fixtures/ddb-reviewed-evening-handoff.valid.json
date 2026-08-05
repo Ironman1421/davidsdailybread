@@ -1,0 +1,248 @@
+{
+  "schemaVersion": "ddb-reviewed-evening-handoff-v1",
+  "packetId": "2026-08-04-evening",
+  "status": "ready",
+  "targetEdition": {
+    "date": "2026-08-04",
+    "slot": "evening",
+    "timeZone": "America/Los_Angeles"
+  },
+  "reviewedAt": "2026-08-04T21:20:00Z",
+  "expiresAt": "2026-08-05T07:00:00Z",
+  "research": {
+    "xManager": {
+      "completedAt": "2026-08-04T19:40:00Z",
+      "artifactSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "xPro": {
+        "used": true,
+        "observedAt": "2026-08-04T19:10:00Z",
+        "context": "Tools + workflows watch columns"
+      },
+      "xRadar": {
+        "used": true,
+        "observedAt": "2026-08-04T19:20:00Z",
+        "context": "Focused workflow and tool searches"
+      }
+    },
+    "ddb": {
+      "completedAt": "2026-08-04T21:20:00Z",
+      "independentWebResearch": true,
+      "primarySourcesChecked": true,
+      "trendEvidenceChecked": true
+    }
+  },
+  "editorialRule": {
+    "version": "editorial-fit-v1",
+    "weights": {
+      "leverage": 0.4,
+      "broadApplicability": 0.3,
+      "repeatability": 0.2,
+      "trendStrength": 0.1
+    },
+    "gates": {
+      "leverage": 65,
+      "broadApplicability": 60,
+      "repeatability": 50,
+      "trendStrength": 45,
+      "total": 60
+    }
+  },
+  "selection": {
+    "tools": [
+      {
+        "id": "tool-one",
+        "section": "tools",
+        "title": "Example planning tool",
+        "summary": "A verified example tool for contract tests.",
+        "officialUrl": "https://example.com/tool-one",
+        "trendUrl": "https://example.org/trends/tool-one",
+        "seen": "Trending in a verified index",
+        "action": "Use it to plan a recurring weekly review.",
+        "caveat": "The free tier has limits.",
+        "uncertainty": ["Long-term free-tier limits may change."],
+        "price": "Free tier",
+        "platform": "Web",
+        "editorialScores": {
+          "leverage": 80,
+          "broadApplicability": 80,
+          "repeatability": 70,
+          "trendStrength": 60,
+          "total": 76,
+          "shelfEligible": true,
+          "ruleVersion": "editorial-fit-v1"
+        },
+        "verification": {
+          "officialSourceCheckedAt": "2026-08-04T21:00:00Z",
+          "trendSourceCheckedAt": "2026-08-04T21:02:00Z",
+          "claimsVerified": ["Availability and free-tier limit"]
+        },
+        "sourceLineage": {
+          "xManagerCandidateIds": ["x-tool-one"],
+          "ddbSourceUrls": [
+            "https://example.com/tool-one",
+            "https://example.org/trends/tool-one"
+          ]
+        }
+      },
+      {
+        "id": "tool-two",
+        "section": "tools",
+        "title": "Example capture tool",
+        "summary": "A second verified example tool for minimum-card testing.",
+        "officialUrl": "https://example.com/tool-two",
+        "trendUrl": "https://example.org/trends/tool-two",
+        "seen": "Rising in a verified list",
+        "action": "Capture reusable notes after each meeting.",
+        "caveat": "Desktop sync requires setup.",
+        "uncertainty": ["No hands-on sync test was performed."],
+        "price": "Free",
+        "platform": "Web and desktop",
+        "editorialScores": {
+          "leverage": 75,
+          "broadApplicability": 70,
+          "repeatability": 65,
+          "trendStrength": 60,
+          "total": 70,
+          "shelfEligible": true,
+          "ruleVersion": "editorial-fit-v1"
+        },
+        "verification": {
+          "officialSourceCheckedAt": "2026-08-04T21:04:00Z",
+          "trendSourceCheckedAt": "2026-08-04T21:06:00Z",
+          "claimsVerified": ["Supported platforms"]
+        },
+        "sourceLineage": {
+          "xManagerCandidateIds": ["x-tool-two"],
+          "ddbSourceUrls": [
+            "https://example.com/tool-two",
+            "https://example.org/trends/tool-two"
+          ]
+        }
+      }
+    ],
+    "workflows": [
+      {
+        "id": "workflow-one",
+        "section": "workflows",
+        "title": "Weekly source review",
+        "summary": "A reusable example workflow for contract tests.",
+        "officialUrl": "https://example.com/workflow-one",
+        "trendUrl": "https://example.org/trends/workflow-one",
+        "seen": "Shared in a verified roundup",
+        "action": "Review and rank source notes every Friday.",
+        "caveat": "Initial tagging takes time.",
+        "uncertainty": ["Adoption effort varies with the existing note system."],
+        "requirements": ["Notes", "Calendar", "30 minutes"],
+        "timeEstimate": "30 minutes weekly",
+        "editorialScores": {
+          "leverage": 85,
+          "broadApplicability": 80,
+          "repeatability": 80,
+          "trendStrength": 70,
+          "total": 81,
+          "shelfEligible": true,
+          "ruleVersion": "editorial-fit-v1"
+        },
+        "verification": {
+          "officialSourceCheckedAt": "2026-08-04T21:08:00Z",
+          "trendSourceCheckedAt": "2026-08-04T21:10:00Z",
+          "claimsVerified": ["The tutorial contains repeatable steps"]
+        },
+        "sourceLineage": {
+          "xManagerCandidateIds": ["x-workflow-one"],
+          "ddbSourceUrls": [
+            "https://example.com/workflow-one",
+            "https://example.org/trends/workflow-one"
+          ]
+        }
+      },
+      {
+        "id": "workflow-two",
+        "section": "workflows",
+        "title": "Recurring meeting brief",
+        "summary": "A second reusable example workflow for minimum-card testing.",
+        "officialUrl": "https://example.com/workflow-two",
+        "trendUrl": "https://example.org/trends/workflow-two",
+        "seen": "Discussed in a verified forum",
+        "action": "Prepare the same evidence brief before each meeting.",
+        "caveat": "Someone must maintain the template.",
+        "uncertainty": ["No team adoption study was reviewed."],
+        "requirements": ["Template", "Source links"],
+        "timeEstimate": "20 minutes weekly",
+        "editorialScores": {
+          "leverage": 70,
+          "broadApplicability": 75,
+          "repeatability": 70,
+          "trendStrength": 65,
+          "total": 71,
+          "shelfEligible": true,
+          "ruleVersion": "editorial-fit-v1"
+        },
+        "verification": {
+          "officialSourceCheckedAt": "2026-08-04T21:12:00Z",
+          "trendSourceCheckedAt": "2026-08-04T21:14:00Z",
+          "claimsVerified": ["The workflow is repeatable"]
+        },
+        "sourceLineage": {
+          "xManagerCandidateIds": [],
+          "ddbSourceUrls": [
+            "https://example.com/workflow-two",
+            "https://example.org/trends/workflow-two"
+          ]
+        }
+      }
+    ]
+  },
+  "holds": [
+    {
+      "id": "held-tool",
+      "section": "tools",
+      "title": "Example held tool",
+      "decision": "hold",
+      "reason": "Trend strength is below the gate.",
+      "editorialScores": {
+        "leverage": 70,
+        "broadApplicability": 60,
+        "repeatability": 55,
+        "trendStrength": 30,
+        "total": 60,
+        "shelfEligible": false,
+        "ruleVersion": "editorial-fit-v1"
+      },
+      "uncertainty": ["Trend evidence may strengthen later."],
+      "sourceLineage": {
+        "xManagerCandidateIds": ["x-held-tool"],
+        "ddbSourceUrls": ["https://example.com/held-tool"]
+      }
+    }
+  ],
+  "rejections": [
+    {
+      "id": "rejected-workflow",
+      "section": "workflows",
+      "title": "Example rejected workflow",
+      "decision": "reject",
+      "reason": "It is novelty rather than a repeatable force multiplier.",
+      "editorialScores": {
+        "leverage": 30,
+        "broadApplicability": 40,
+        "repeatability": 20,
+        "trendStrength": 80,
+        "total": 36,
+        "shelfEligible": false,
+        "ruleVersion": "editorial-fit-v1"
+      },
+      "uncertainty": ["Popularity does not establish recurring value."],
+      "sourceLineage": {
+        "xManagerCandidateIds": ["x-rejected-workflow"],
+        "ddbSourceUrls": []
+      }
+    }
+  ],
+  "authority": {
+    "editorialSelectionFinal": true,
+    "publicationApproved": false,
+    "selectionOwner": "David's Daily Bread",
+    "publicationOwner": "existing-bake-workflow"
+  }
+}

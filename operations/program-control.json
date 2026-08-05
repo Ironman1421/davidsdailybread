@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T02:10:07Z",
+  "updatedAt": "2026-08-05T02:50:49Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
+  "activeItemId": "DDB-PC-023",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -638,7 +638,7 @@
       "id": "DDB-PC-023",
       "sequence": 15,
       "title": "Unify X Manager research and DDB evening editorial handoff",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-012"
       ],
@@ -651,10 +651,20 @@
       },
       "authorization": {
         "type": "explicit_david",
-        "granted": false,
-        "scope": "Implement and test the unified X Manager-to-DDB evening handoff. Production merge, deployment, private-store provisioning, and credential changes require separately scoped approval."
+        "granted": true,
+        "grantedAt": "2026-08-05T02:24:45Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-023: implement and test the unified X Manager-to-DDB evening handoff on branches. Do not merge, deploy, provision or rotate credentials, publish, or change the live bake until I approve the exact reviewed heads.",
+        "scope": "Implement and test the unified X Manager-to-DDB evening handoff on branches. Do not merge, deploy, provision or rotate credentials, publish, or change the live bake until David approves the exact reviewed heads."
       },
       "externalMutation": true,
+      "progressEvidence": [
+        "David authorized branch-only implementation and testing of DDB-PC-023",
+        "The authorization explicitly excludes merge, deployment, provider provisioning or mutation, credential provisioning or rotation, publication, and any change to the live bake before exact reviewed-head approval",
+        "Branch implementation defines mirrored noon and reviewed-packet schemas, completed-or-blocked X proof, one DDB combined review pass, authenticated D1 transport, date and freshness validation, explicit authority boundaries, and non-blocking bake fallback",
+        "DDB full suite passed 227 tests; X Manager production build, 12 tests, ESLint, and TypeScript checks passed; mirrored schemas and fixtures are byte-identical",
+        "DDB-PC-023 remains in progress pending David's review and approval of the exact immutable DDB and X Manager implementation heads; no live automation or provider state changed"
+      ],
       "targetFlow": [
         "At 12:00 PM Pacific, X Manager researches X Pro, X Radar, its cost-guarded monitor, and primary sources, then produces one advisory candidate packet",
         "At 2:00 PM Pacific, DDB reads that packet, performs its own broader web research, independently verifies candidates, applies the 40/30/20/10 Editorial Fit rule, and records one selected, hold, and reject decision set",
@@ -821,11 +831,5 @@
         "Final evidence report is delivered to David"
       ]
     }
-  ],
-  "halt": {
-    "type": "no_eligible_item",
-    "eligibleItemIds": [],
-    "nextItemId": "DDB-PC-023",
-    "reason": "DDB-PC-023 is queued next by David but requires explicit approval before implementation; later external-mutation items also lack approval, and DDB-PC-016 through DDB-PC-019 remain paused by doctrine."
-  }
+  ]
 }
