@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T10:58:00Z",
+  "updatedAt": "2026-08-05T11:03:00Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -826,7 +826,9 @@
         "PR #53 exact repaired head ff1b46d466c58c737d7d7ee4cc15cb7cc8734381 passed 233 x86_64 tests and both CodeQL analyses, then merged to main as b60c6f2c865bf3a0004ce8bf1ac143f8fc335334",
         "Repository ruleset 20451115 is active for refs/heads/main with PR, resolved-conversation, strict gate plus both CodeQL status checks, linear-history, deletion, and non-fast-forward rules; App integration 4494424 is its sole always-bypass actor and the owner reports current_user_can_bypass=never",
         "Live owner canaries proved direct push, force push, and main deletion were rejected while main remained exactly b60c6f2c865bf3a0004ce8bf1ac143f8fc335334",
-        "The active ruleset correctly refused PR #54 because the legacy Merge gate emitted a cancelled branch-push gate beside its successful PR gate; the branch fix removes the contradictory feature-branch trigger while retaining the complete required pull-request gate and manual dispatch"
+        "The active ruleset correctly refused PR #54 because the legacy Merge gate emitted a cancelled branch-push gate beside its successful PR gate; the branch fix removes the contradictory feature-branch trigger while retaining the complete required pull-request gate and manual dispatch",
+        "PR #54 repaired head c1ab399cc4ab74049c8e7d73f39781a50b1ce47a passed every required check with no duplicate gate and merged through the active ruleset without admin bypass as linear squash eaea67123ade69cb37af9382f8c159e118e710df",
+        "Workflow run 30999807268 gave the built-in GITHUB_TOKEN Contents write only for the rejection canary; GitHub returned HTTP 422 for the protected main update, all three ruleset checks were expected, and main remained eaea67123ade69cb37af9382f8c159e118e710df"
       ],
       "completionGate": [
         "Publisher identity is approved and provisioned",
