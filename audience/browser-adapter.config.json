@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "enabled": false,
+  "endpoint": null,
+  "reportingTimeZone": "America/Los_Angeles",
+  "idleAfterSeconds": 30,
+  "tickSeconds": 5,
+  "tokenRandomBits": 128,
+  "persistentStateKey": "ddb.audience.v1",
+  "sessionKey": "ddb.audience.session.v1",
+  "optOutKey": "ddb.audience.optout.v1"
+}

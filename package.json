@@ -7,6 +7,8 @@
   },
   "scripts": {
     "supabase": "supabase",
+    "test:audience-qualifier": "node --test audience/qualifier.test.mjs",
+    "test:audience": "node --test audience/*.test.mjs audience/cloudflare/*.test.mjs",
     "supabase:start": "supabase start",
     "supabase:reset": "supabase db reset --local",
     "test:reader-edge": "node --experimental-strip-types --test supabase/functions/tests/*.test.ts",

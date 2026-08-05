@@ -173,7 +173,7 @@ class IntakePauseTest(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        self.assertEqual("approved-local-change-not-deployed", contract["status"])
+        self.assertEqual("roadmap-active-public-intake-closed", contract["status"])
         self.assertFalse(contract["deploymentAuthorized"])
         self.assertFalse(contract["deployed"])
         self.assertTrue(all(value is False for value in contract["externalCutover"].values()))

@@ -1,15 +1,23 @@
 {
-  "version": 1,
-  "deploymentStatus": "design-approved-not-provisioned",
+  "version": 2,
+  "roadmapPhase": 2,
+  "deploymentStatus": "local-implementation-authorized-not-provisioned",
+  "localImplementationAuthorized": true,
+  "externalProvisioningAuthorized": false,
+  "deploymentAuthorized": false,
+  "liveDataMigrationAuthorized": false,
+  "publicIntakeActivationAuthorized": false,
   "provider": "supabase",
   "projectIsolation": "dedicated-reader-project",
   "founderDecision": {
-    "effectiveDate": "2026-07-31",
+    "effectiveDate": "2026-08-04",
+    "localImplementationAuthorized": true,
     "newReaderIntakeAuthorized": false,
     "provisioningAuthorized": false,
     "deploymentAuthorized": false,
     "canaryAuthorized": false,
     "activationAuthorized": false,
+    "scopedExternalApprovalRequired": true,
     "explicitReversalRequired": true
   },
   "launchBlockers": [

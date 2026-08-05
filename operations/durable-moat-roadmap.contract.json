@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "status": "active-local-work-external-activation-gated",
+  "owner": "David Friedhof",
+  "effectiveDate": "2026-08-04",
+  "objective": "trusted-christian-learning-prayer-and-service-network",
+  "firstProofGate": {
+    "qualifiedEngagedReturningPeople": 1000,
+    "isCeiling": false,
+    "measurementSpec": "docs/AUDIENCE_MEASUREMENT_SPEC.md"
+  },
+  "moatAssets": [
+    "trust",
+    "daily-ritual",
+    "personal-history",
+    "relationships",
+    "contributions-and-reputation",
+    "distribution"
+  ],
+  "authorization": {
+    "research": true,
+    "strategy": true,
+    "architecture": true,
+    "design": true,
+    "localPrototyping": true,
+    "localImplementation": true,
+    "localTesting": true,
+    "publishing": false,
+    "externalDeployment": false,
+    "providerMutation": false,
+    "accountOrResourceCreation": false,
+    "providerTermsAcceptance": false,
+    "credentialInstallation": false,
+    "livePersonalDataCollection": false,
+    "communitySurfaceActivation": false,
+    "newsletterSending": false,
+    "spendAuthorizedUsd": 0
+  },
+  "reversedPlanningPauses": [
+    "custom-community-software",
+    "member-accounts",
+    "social-feed",
+    "open-member-posting",
+    "private-direct-messaging",
+    "installable-web-app",
+    "native-mobile-apps",
+    "desktop-app-evaluation",
+    "newsletter-product-integration"
+  ],
+  "productionPausesStillActive": [
+    "public-reader-intake-before-private-cutover",
+    "hosted-community-activation",
+    "open-member-posting-activation",
+    "private-direct-messaging-activation",
+    "newsletter-drafting-testing-configuration-and-sending",
+    "external-provider-provisioning",
+    "unapproved-spend",
+    "nonprofit-board-and-external-governance"
+  ],
+  "phases": [
+    {
+      "id": 0,
+      "name": "govern-and-measure",
+      "localWorkAuthorized": true,
+      "externalActivationAuthorized": false
+    },
+    {
+      "id": 1,
+      "name": "strengthen-ritual-and-discovery",
+      "localWorkAuthorized": true,
+      "externalActivationAuthorized": false
+    },
+    {
+      "id": 2,
+      "name": "accounts-and-private-personal-value",
+      "localWorkAuthorized": true,
+      "externalActivationAuthorized": false
+    },
+    {
+      "id": 3,
+      "name": "moderated-participation-and-prayer-network",
+      "localWorkAuthorized": true,
+      "externalActivationAuthorized": false
+    },
+    {
+      "id": 4,
+      "name": "native-mobile-and-expanded-network",
+      "localWorkAuthorized": true,
+      "externalActivationAuthorized": false
+    },
+    {
+      "id": 5,
+      "name": "durable-institutions-and-desktop-decision",
+      "localWorkAuthorized": true,
+      "externalActivationAuthorized": false
+    }
+  ],
+  "privacy": {
+    "personalAndSpiritualDataPrivateByDefault": true,
+    "publicSharingDefault": false,
+    "readerExportRequired": true,
+    "readerDeletionRequired": true,
+    "saleOrLicenseOfPersonalOrSpiritualDataAllowed": false,
+    "behavioralAdvertisingFromPersonalOrSpiritualDataAllowed": false,
+    "crossSiteIdentityGraphAllowed": false
+  },
+  "moderation": {
+    "namedOwnerRequiredBeforeActivation": true,
+    "reportingRequired": true,
+    "blockingRequiredWhereRelationshipsExist": true,
+    "rateLimitsRequired": true,
+    "incidentPathRequired": true,
+    "killSwitchRequired": true,
+    "privateMessagingIsLaunchRequirement": false,
+    "continuousMonitoringPromised": false
+  }
+}

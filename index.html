@@ -13,7 +13,13 @@
 <link rel="canonical" href="https://davidsdailybread.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
 <link rel="alternate" type="application/rss+xml" title="David's Daily Bread" href="/feed.xml">
+<meta name="theme-color" content="#0e0e12">
+<meta name="application-name" content="David's Daily Bread">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Daily Bread">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David's Daily Bread">
 <meta property="og:title" content="David's Daily Bread – Evening edition, Tuesday, August 4, 2026">
@@ -24,6 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/pwa.css">
 <style>
   :root { --bg:#0e0e12; --panel:#16151a; --ink:#ece7db; --muted:#a7a08f; --faint:#6f6a60; --line:#28272e; --line-strong:#3a3941; --gold:#c8a24a; --gold-soft:#8f7538; --steel:#6f9fce; --marker:#b9772a; --rose:#d98c9d; }
   * { box-sizing: border-box; }
@@ -41,6 +48,7 @@
   .masthead.next-format .masthead-art { max-width: none; transform: translateX(3.4%); }
   .masthead.next-format .tagline { margin-top: 18px; }
   .format-line { margin-top: 4px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 15px; font-style: italic; font-weight: 400; letter-spacing: 0.2px; text-align: center; }
+  .product-rhythm { max-width: 720px; margin: 18px auto 0; padding: 0 16px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 15px; line-height: 1.5; text-align: center; }
   .dateline { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 8px 0; margin-top: 16px; }
   .dateline::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
   .dateline-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
@@ -192,6 +200,8 @@
       </div>
     </div>
   </header>
+
+  <p class="product-rhythm">News and Scripture each morning. An evening Field Guide with useful tools and workflows. Loved by God.</p>
 
   <aside class="glance">
     <div class="glance-head">Tonight, in one look</div>
@@ -402,5 +412,6 @@
     })(blocks[i]);
   })();
 </script>
+<script src="/pwa.js" defer></script>
 </body>
 </html>

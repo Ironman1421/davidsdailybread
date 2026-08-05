@@ -184,6 +184,61 @@ class C3BrandPagesTest(unittest.TestCase):
         for behavior in ("buildExport", "text/markdown", "window.jspdf", "clipboard"):
             self.assertIn(behavior, text)
 
+    def test_standing_pages_and_templates_expose_the_permanent_rss_feed(self):
+        surfaces = sorted(ROOT.glob("*.html")) + sorted(
+            (ROOT / "templates").glob("*.html")
+        )
+        failures = [
+            str(path.relative_to(ROOT))
+            for path in surfaces
+            if 'rel="alternate" type="application/rss+xml"' not in path.read_text(
+                encoding="utf-8"
+            )
+        ]
+        self.assertEqual([], failures)
+
+    def test_chronicles_accepts_no_new_reader_submissions(self):
+        text = (ROOT / "chronicles.html").read_text(encoding="utf-8")
+        self.assertIn("Reader slips are resting", text)
+        self.assertIn("The Counter is temporarily closed", text)
+        self.assertIn("Please do not send reader slips through an old form link.", text)
+        for forbidden in (
+            "docs.google.com/forms",
+            "formResponse",
+            "application/x-www-form-urlencoded",
+            'id="askText"',
+            'id="kingText"',
+            'id="pinText"',
+            'id="askBtn"',
+            'id="kingBtn"',
+            'id="pinBtn"',
+        ):
+            self.assertNotIn(forbidden, text)
+
+    def test_counter_sync_is_a_read_only_unscheduled_no_op(self):
+        workflow = (ROOT / ".github" / "workflows" / "counter-sync.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("Counter sync (paused)", workflow)
+        self.assertIn("contents: read", workflow)
+        self.assertIn("No reader data was fetched or written", workflow)
+        for forbidden in (
+            "schedule:",
+            "contents: write",
+            "curl ",
+            "docs.google.com",
+            "git add",
+            "git commit",
+            "git push",
+        ):
+            self.assertNotIn(forbidden, workflow)
+
+    def test_every_bake_template_points_to_chronicles_as_private_notes(self):
+        for name in ("home.html", "evening.html", "category.html"):
+            template = (ROOT / "templates" / name).read_text(encoding="utf-8")
+            self.assertIn("Your private notes remain on this device.", template)
+            self.assertIn('href="/chronicles.html">open the chronicles</a>', template)
+
 
 if __name__ == "__main__":
     unittest.main()

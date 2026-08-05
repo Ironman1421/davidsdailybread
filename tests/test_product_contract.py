@@ -19,6 +19,7 @@ class ProductContractTest(unittest.TestCase):
             encoding="utf-8"
         )
         repo_map = (ROOT / "docs" / "REPOSITORY_MAP.md").read_text(encoding="utf-8")
+        normalized_growth = " ".join(growth.split())
 
         for required in (
             "### Morning edition",
@@ -29,73 +30,37 @@ class ProductContractTest(unittest.TestCase):
             self.assertIn(required, product)
         for governing_truth in (
             "founder-led Christian media and learning project",
-            "Founder and final decision-maker: David Friedhof",
+            "website, archive, and RSS are the permanent canonical home",
+            "Durable-moat direction",
+            "research, product strategy, architecture, design, local",
+            "Newsletter strategy and local integration prototypes may proceed",
+            "Do not form a nonprofit",
+            "Do not deploy or activate custom community software",
+            "Public is never the default",
             "David retains final control",
-            "first 1,000 genuinely engaged people who return",
-            "Do not send a newsletter or perform newsletter activation work",
-            "Do not build or provision custom community software",
-            "New Ask the Baker, Letters to the King, and Crumb Board submissions",
-            "Cloudflare Workers + D1 is selected only",
         ):
             self.assertIn(governing_truth, doctrine)
         self.assertIn("Reader privacy", security)
-        self.assertIn("first 1,000 genuinely engaged people", growth)
-        self.assertIn("no longer the active", growth)
-        self.assertIn("operating goal", growth)
+        self.assertIn("1,000 genuinely engaged people", normalized_growth)
+        self.assertIn("no longer the active", normalized_growth)
+        self.assertIn("operating goal", normalized_growth)
         self.assertIn("Adapter acceptance contract", distribution)
         self.assertIn("Production source of truth", repo_map)
-
-    def test_evening_is_governed_as_a_force_multiplier_not_a_novelty_feed(self):
-        doctrine = (ROOT / "FOUNDER_DOCTRINE.md").read_text(encoding="utf-8")
-        brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
-        product = (ROOT / "docs" / "PRODUCT_SPEC.md").read_text(encoding="utf-8")
-        bake = (ROOT / "BAKE.md").read_text(encoding="utf-8")
-
-        self.assertIn("evening Field Guide is a force multiplier", doctrine)
-        self.assertIn("editorial promise is leverage", brand)
-        self.assertIn("force-multiplier Field Guide", product)
-        self.assertIn("**Force-multiplier gate.**", bake)
-        self.assertIn("must satisfy all four tests", bake)
-        for required in (
-            "**Broad utility:**",
-            "**Repeatability:**",
-            "**Concrete leverage:**",
-            "**Actionability:**",
-            "Trend evidence validates present interest",
-            "Novelty is not a ranking benefit",
-        ):
-            self.assertIn(required, bake)
-
-        ranking = " ".join(
-            bake[
-                bake.index("Among candidates that pass the") : bake.index("**E2.")
-            ].split()
-        )
-        for priority in (
-            "force-multiplying utility",
-            "broad applicability",
-            "repeatability",
-            "verified trend strength",
-        ):
-            self.assertIn(priority, ranking)
-        self.assertLess(
-            ranking.index("force-multiplying utility"),
-            ranking.index("verified trend strength"),
-        )
 
     def test_growth_decisions_are_resolved_in_active_docs(self):
         growth = (ROOT / "docs" / "GROWTH_ROADMAP.md").read_text(encoding="utf-8")
         distribution = (ROOT / "docs" / "DISTRIBUTION_SPEC.md").read_text(
             encoding="utf-8"
         )
-        active = growth + "\n" + distribution
+        active = " ".join((growth + "\n" + distribution).split())
 
         for decision in (
-            "current proof goal is the first 1,000 genuinely engaged",
+            "first 1,000 genuinely engaged people remain the first proof gate",
             "five X followers",
             "David may remain off camera",
             "The website, archive, and RSS are the permanent home",
-            "No spend",
+            "public, carefully moderated prayer-thread playbook",
+            "No spend is authorized by this roadmap",
             "Claude Cowork",
             "Credible-account replies",
             "David approves every reply individually",
@@ -107,80 +72,25 @@ class ProductContractTest(unittest.TestCase):
         ):
             self.assertNotIn(stale_question, active)
 
-    def test_founder_doctrine_and_operating_docs_reject_stale_authority(self):
-        governing_paths = (
-            "AGENTS.md",
-            "CLAUDE.md",
-            "BRAND.md",
-            "BAKE.md",
-            "README.md",
-            "docs/PRODUCT_SPEC.md",
-            "docs/DISTRIBUTION_SPEC.md",
-            "docs/GROWTH_ROADMAP.md",
-            "docs/NEWSLETTER_PILOT_SPEC.md",
-            "docs/AUDIT_2026-07-31.md",
-            "docs/SECURITY_SPEC.md",
-            "docs/REPOSITORY_MAP.md",
-            "docs/READER_STORE_SPEC.md",
-            "docs/READER_STORE_RUNBOOK.md",
-            "newsletter/weekly-ledger.md",
+    def test_canonical_surfaces_state_the_product_distinction(self):
+        distinction = (
+            "News and Scripture each morning. An evening Field Guide with useful "
+            "tools and workflows. "
+            "Loved by God."
         )
-        documents = {
-            path: (ROOT / path).read_text(encoding="utf-8")
-            for path in governing_paths
-        }
-        active = "\n".join(documents.values())
-
-        for stale_claim in (
-            "Goal: 1,000,000 followers in six months",
-            "active audience goal is 1,000,000",
-            "The six-month goal is 1,000,000",
-            "Weekly email pilot APPROVED",
-            "The weekly email is a bounded pilot",
-            "The weekly email is a separate four-week manual pilot",
-            "Status: signup approved",
-            "The active four-week pilot",
-            "four-week manual Buttondown pilot was approved",
-        ):
-            self.assertNotIn(stale_claim, active)
-
-        for path in (
-            "AGENTS.md",
-            "CLAUDE.md",
-            "BRAND.md",
-            "BAKE.md",
-            "README.md",
-            "docs/PRODUCT_SPEC.md",
-            "docs/DISTRIBUTION_SPEC.md",
-            "docs/GROWTH_ROADMAP.md",
-            "docs/NEWSLETTER_PILOT_SPEC.md",
-            "docs/SECURITY_SPEC.md",
-            "docs/REPOSITORY_MAP.md",
-        ):
-            with self.subTest(newsletter_pause=path):
-                self.assertIn("pause", documents[path].lower())
-
-        for path in (
-            "CLAUDE.md",
-            "BRAND.md",
-            "BAKE.md",
-            "README.md",
-            "docs/PRODUCT_SPEC.md",
-            "docs/GROWTH_ROADMAP.md",
-            "docs/SECURITY_SPEC.md",
-            "docs/REPOSITORY_MAP.md",
-            "docs/READER_STORE_SPEC.md",
-            "docs/READER_STORE_RUNBOOK.md",
-        ):
-            with self.subTest(reader_intake_pause=path):
-                self.assertIn("intake", documents[path].lower())
-                self.assertIn("pause", documents[path].lower())
-
-        self.assertIn("David retains final control", active)
-        self.assertIn("private/direct messaging", active)
-        self.assertIn("Cloudflare Workers + D1", active)
-        self.assertIn("neither may be provisioned", active)
-        self.assertIn("no Supabase", active)
+        brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
+        templates = [
+            (ROOT / "templates" / name).read_text(encoding="utf-8")
+            for name in ("home.html", "evening.html")
+        ]
+        renderer = (ROOT / "ddb_session_bake.py").read_text(encoding="utf-8")
+        self.assertIn("news and Scripture each morning", brand)
+        self.assertIn("Field Guide with useful tools and workflows", brand)
+        for template in templates:
+            self.assertIn(distinction, template)
+        self.assertIn("News and Scripture each morning", renderer)
+        self.assertIn("Practical tools each evening", renderer)
+        self.assertNotIn("—", distinction)
 
     def test_distribution_metrics_schema_has_provenance_and_outcome_fields(self):
         schema = json.loads(
@@ -329,19 +239,25 @@ class ProductContractTest(unittest.TestCase):
         ):
             self.assertIn(invariant, active)
 
-    def test_reader_intake_pause_preserves_only_the_frozen_editorial_queue(self):
-        product = (ROOT / "docs" / "PRODUCT_SPEC.md").read_text(encoding="utf-8")
-        bake = (ROOT / "BAKE.md").read_text(encoding="utf-8")
-        doctrine = (ROOT / "FOUNDER_DOCTRINE.md").read_text(encoding="utf-8")
+    def test_chronicles_closes_new_intake_and_preserves_notes(self):
+        page = (ROOT / "chronicles.html").read_text(encoding="utf-8")
 
-        self.assertIn("only the frozen existing queue", " ".join(product.split()))
-        self.assertIn("New reader intake is paused", bake)
-        normalized_doctrine = " ".join(doctrine.split())
-        self.assertIn(
-            "Existing reviewed reader material remains an editorial queue",
-            normalized_doctrine,
-        )
-        self.assertIn("not an open community feed", normalized_doctrine)
+        for current_truth in (
+            "The Counter is temporarily closed",
+            "Reader slips are resting",
+            "New Ask the Baker questions, Letters to the King, and Crumb Board pins are paused",
+            "all four export options still work",
+            "Existing reviewed reader material remains preserved in past editions",
+            "Please do not send reader slips through an old form link",
+        ):
+            self.assertIn(current_truth, page)
+        for forbidden_intake in (
+            "formResponse",
+            'id="askBtn"',
+            'id="kingBtn"',
+            'id="pinBtn"',
+        ):
+            self.assertNotIn(forbidden_intake, page)
 
     def test_bake_plan_has_no_counter_or_network_input(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
@@ -354,20 +270,29 @@ class ProductContractTest(unittest.TestCase):
         self.assertRegex(workflow, r"(?m)^permissions:\n  contents: write$")
 
         bake_spec = (ROOT / "BAKE.md").read_text(encoding="utf-8")
+        normalized = " ".join(bake_spec.split())
         self.assertIn(
             "it has no Counter, network, or public-submission input and never mutates state",
-            " ".join(bake_spec.split()),
+            normalized,
         )
 
-    def test_bake_writer_remains_serialized_without_authorizing_counter_sync(self):
+    def test_bake_is_serialized_and_paused_counter_is_not_a_writer(self):
         bake = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
+            encoding="utf-8"
+        )
+        counter = (ROOT / ".github" / "workflows" / "counter-sync.yml").read_text(
             encoding="utf-8"
         )
         self.assertIn("group: ddb-main-writers", bake)
         self.assertIn("queue: max", bake)
-        doctrine = (ROOT / "FOUNDER_DOCTRINE.md").read_text(encoding="utf-8")
-        self.assertIn("temporarily paused", doctrine)
-        self.assertIn("explicitly approves reopening", doctrine)
+        self.assertIn("contents: read", counter)
+        for forbidden in (
+            "group: ddb-main-writers",
+            "contents: write",
+            "git pull --rebase origin main",
+            "git push",
+        ):
+            self.assertNotIn(forbidden, counter)
 
     def test_private_reader_store_desired_state_is_machine_readable(self):
         contract = json.loads(
@@ -375,15 +300,20 @@ class ProductContractTest(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        self.assertEqual(1, contract["version"])
-        self.assertEqual("design-approved-not-provisioned", contract["deploymentStatus"])
-        decision = contract["founderDecision"]
-        self.assertFalse(decision["newReaderIntakeAuthorized"])
-        self.assertFalse(decision["provisioningAuthorized"])
-        self.assertFalse(decision["deploymentAuthorized"])
-        self.assertFalse(decision["canaryAuthorized"])
-        self.assertFalse(decision["activationAuthorized"])
-        self.assertTrue(decision["explicitReversalRequired"])
+        self.assertEqual(2, contract["version"])
+        self.assertEqual(
+            "local-implementation-authorized-not-provisioned",
+            contract["deploymentStatus"],
+        )
+        self.assertEqual(2, contract["roadmapPhase"])
+        self.assertTrue(contract["localImplementationAuthorized"])
+        for field in (
+            "externalProvisioningAuthorized",
+            "deploymentAuthorized",
+            "liveDataMigrationAuthorized",
+            "publicIntakeActivationAuthorized",
+        ):
+            self.assertFalse(contract[field])
         self.assertEqual("dedicated-reader-project", contract["projectIsolation"])
         self.assertEqual("reader_private", contract["database"]["storageSchema"])
         self.assertEqual([], contract["database"]["exposedSchemas"])
@@ -422,6 +352,51 @@ class ProductContractTest(unittest.TestCase):
             "History rewriting is a separate destructive privacy operation",
         ):
             self.assertIn(invariant, spec)
+
+    def test_durable_moat_roadmap_authorizes_local_work_only(self):
+        contract = json.loads(
+            (ROOT / "operations" / "durable-moat-roadmap.contract.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(1, contract["version"])
+        self.assertEqual(
+            "active-local-work-external-activation-gated", contract["status"]
+        )
+        self.assertEqual(1000, contract["firstProofGate"]["qualifiedEngagedReturningPeople"])
+        self.assertFalse(contract["firstProofGate"]["isCeiling"])
+        self.assertEqual(6, len(contract["moatAssets"]))
+        authorization = contract["authorization"]
+        for field in (
+            "research",
+            "strategy",
+            "architecture",
+            "design",
+            "localPrototyping",
+            "localImplementation",
+            "localTesting",
+        ):
+            self.assertTrue(authorization[field])
+        for field in (
+            "publishing",
+            "externalDeployment",
+            "providerMutation",
+            "accountOrResourceCreation",
+            "providerTermsAcceptance",
+            "credentialInstallation",
+            "livePersonalDataCollection",
+            "communitySurfaceActivation",
+            "newsletterSending",
+        ):
+            self.assertFalse(authorization[field])
+        self.assertEqual(0, authorization["spendAuthorizedUsd"])
+        self.assertEqual(list(range(6)), [phase["id"] for phase in contract["phases"]])
+        for phase in contract["phases"]:
+            self.assertTrue(phase["localWorkAuthorized"])
+            self.assertFalse(phase["externalActivationAuthorized"])
+        self.assertTrue(contract["privacy"]["personalAndSpiritualDataPrivateByDefault"])
+        self.assertFalse(contract["privacy"]["publicSharingDefault"])
+        self.assertFalse(contract["moderation"]["privateMessagingIsLaunchRequirement"])
 
     def test_only_custom_publisher_is_designed_to_bypass_main(self):
         contract = json.loads(

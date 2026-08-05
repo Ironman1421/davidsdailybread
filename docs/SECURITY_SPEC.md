@@ -1,13 +1,15 @@
 # Security and privacy specification
 
 Status: active
-Last threat-model review: 2026-07-31
+Last threat-model review: 2026-08-04
 
 ## Assets
 
 - integrity of published journalism and archives;
 - GitHub, Anthropic, Google Forms/Sheets, domain, and social credentials;
 - unpublished reader submissions and signatures;
+- future account credentials, sessions, personal archives, prayer content,
+  relationship graphs, safety reports, and moderation records;
 - availability of both daily editions;
 - downstream distribution state, including deduplication and analytics.
 
@@ -18,6 +20,8 @@ The following are untrusted input even when produced by a model or collaborator:
 - fetched pages, headlines, source URLs, and social trend material;
 - every field in model-authored `content.json`;
 - reader questions, letters, pins, and signatures;
+- account profile fields, personal-history imports, prayers, invitations,
+  reports, blocks, appeals, and community contributions;
 - repository issues, commit messages, pull-request text, and workflow inputs;
 - third-party packages, GitHub Actions, CDNs, and remote scripts.
 
@@ -69,11 +73,12 @@ The following are untrusted input even when produced by a model or collaborator:
 
 ### Reader privacy
 
-- New Ask the Baker, Letters to the King, and Crumb Board intake is paused until
-  a private boundary is verified and David explicitly reopens it. Do not invoke
-  Counter sync, deploy or reactivate submission controls, alter the external
-  Google form or Sheet, delete the frozen queue, or rewrite history while the
-  pause is active.
+- New Ask the Baker, Letters to the King, and Crumb Board intake is closed until
+  a private boundary is verified and David explicitly reopens it. The deployed
+  site closure, retired Counter writer, removed tip-level `counter.csv`, and
+  preserved Chronicles exports remain production truth. Do not reactivate
+  submission controls, alter external intake providers, delete the frozen
+  queue, or rewrite history while the pause is active.
 - Tell submitters that their text and signature may be public and prohibit
   sensitive information.
 - Do not expose the full unpublished queue in a public repository or a
@@ -84,20 +89,61 @@ The following are untrusted input even when produced by a model or collaborator:
   `docs/READER_STORE_SPEC.md`.
 - Define retention and deletion behavior before collecting email addresses,
   account identifiers, or analytics tied to a person.
-- The existing `/subscribe.html` state is preserved while newsletter work is
-  paused. Any address submitted there posts directly to Buttondown with double
-  opt-in; subscriber addresses remain in Buttondown and may not enter this
-  repository, GitHub Actions, Supabase, logs, or public metrics. No drafting,
-  testing, configuration, credentialing, activation, or sending is authorized.
-  Privacy requests use the verified
-  `privacy@davidsdailybread.com` contact and complete within seven days.
-- The Supabase reader-store foundation may be tested locally only. No project,
-  resource, link, remote migration, Edge Function, canary, traffic, or
-  deployment is authorized without David's explicit reversal of the intake
-  pause and a reconciled repository decision.
+- The current fail-closed `/subscribe.html` state collects no address and has
+  no provider endpoint. Local retention strategy and product-integration
+  prototypes may proceed, but no drafting, sending test, provider operation,
+  list operation, credentialing, address collection, activation, or sending is
+  authorized.
+- The Supabase reader-store foundation may be implemented and tested locally.
+  No project, resource, link, remote migration, Edge Function, canary, traffic,
+  or deployment is authorized without David's scoped approval of the exact
+  external step and a reconciled repository decision.
 - Cloudflare Workers + D1 audience measurement remains local and unprovisioned.
   No account, resource, endpoint, route, credential, canary, deployment,
   collection, baseline, or spend is authorized.
+
+### Accounts, prayer, and community
+
+Local architecture, implementation, and testing are authorized. Before any
+external account or community activation, the exact release must prove all
+applicable controls below:
+
+- Guest access remains available for canonical public reading. Account-required
+  features collect only fields required for their stated purpose.
+- Notes, saved material, prayer journals, answered-prayer markers, service
+  reflections, and relationship data are private by default. Public is never a
+  preselected audience.
+- Every shared item records the reader-selected audience and enforces it at the
+  server boundary. Client-side hiding is not authorization.
+- Readers can export personal data, delete eligible private data, revoke other
+  sessions, leave a circle, and understand any public-record boundary.
+- Passwords, sessions, recovery secrets, invitation tokens, encryption keys,
+  prayer text, and deletion tokens never enter logs, analytics, prompts, URLs,
+  repository history, or ordinary artifacts.
+- Every relationship surface has report, block, leave, remove, rate-limit,
+  audit, and kill-switch behavior. Public contributions also require moderator
+  queues, appeals, and anti-evasion controls.
+- The service never promises continuous monitoring or emergency care. Direct
+  messaging requires a separate abuse, age-safety, encryption, retention,
+  reporting, and incident-response decision and may remain omitted.
+
+### Installable web app
+
+- The manifest, service worker, and install layer reuse canonical URLs. They do
+  not create an app-only edition, archive, correction record, or account path.
+- The service worker handles only same-origin GET requests. HTML navigations and
+  canonical data use network-first behavior with the browser HTTP cache bypassed
+  so online corrections replace prior cached responses before display.
+- Only successful, non-redirected, same-origin basic responses without
+  `no-store` may be cached. Query strings and fragments are not persisted, and
+  runtime caches are bounded.
+- Cache cleanup deletes only cache names owned by the `ddb-pwa-` prefix. It does
+  not touch browser `localStorage`, existing `ddb-note:*` or
+  `ddb-note-style:*` keys, Chronicles exports, or other origins.
+- A new worker waits until the reader chooses refresh. Install prompts are
+  reader-initiated. Each new cache generation revalidates shell assets before
+  activation. Push, notification, background-sync, analytics, and
+  external-provider APIs remain absent and unauthorized in this package.
 
 ### Distribution
 
@@ -112,9 +158,10 @@ The following are untrusted input even when produced by a model or collaborator:
 
 1. `main` is not protected even though repository policy calls CI the merge
    gate. Its approved identity/ruleset design is not yet provisioned.
-2. The Counter sheet and committed `counter.csv` expose the reader queue beyond
-   what the product needs to publish. New intake is paused; the private-store
-   design remains unprovisioned and is not authorized for deployment.
+2. The external legacy Counter sheet and repository history retain more reader
+   queue exposure than the target design permits. The tip copy is removed and
+   public site intake is closed, but the private store remains unprovisioned and
+   external form, Sheet, migration, deletion, and history actions remain gated.
 3. The repository-owned X canonical-broadcast adapter is implemented with a
    separate read-only post-bake job, durable receipt artifacts, read-back, and
    a kill switch. It remains production-disabled pending environment and
@@ -123,10 +170,9 @@ The following are untrusted input even when produced by a model or collaborator:
    strong Content Security Policy or fully local assets.
 5. Repository-level Dependabot alerts are disabled. Version-update PRs are
    configured, but the owner must enable vulnerability alerts in GitHub.
-6. Production remains on the pre-integration workflow until the exact release
-   is approved and deployed. That workflow may retain `content.json` and raw
-   model output after a failed bake; the proposed local workflow replaces this
-   with a payload-free failure summary, but the live risk remains until release.
+6. The approved publisher identity and protected-branch ruleset are designed
+   but not provisioned; the current workflow still writes `main` with the
+   built-in token under the existing exception.
 
 Exceptions are tracked work, not accepted permanent architecture.
 

@@ -1,8 +1,9 @@
 # The Weekly Loaf
 
-Status: frozen historical template. Do not draft, test, schedule, or send from
-this file unless David explicitly reverses the newsletter pause and the
-governing documents and machine contract are reconciled.
+Status: historical format, not an active pilot. Strategy and local product
+integration planning are active, but do not draft, test, schedule, or send from
+this file until David approves a scoped operational pilot and the governing
+documents and machine contract are reconciled.
 
 Issue [1-4] | [SEND DATE] | Four-week pilot
 

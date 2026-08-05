@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "status": "designed-disabled",
+  "owner": "David Friedhof",
+  "systemOfRecord": "Ironman1421/davidsdailybread",
+  "consumer": "Trending X Manager and Radar",
+  "purpose": "Give David's Daily Bread and its read-only operations dashboard a complete, reconcilable view of DDB activity on X without transferring publishing authority.",
+  "authoritativeSources": {
+    "canonicalEditions": "archive.json",
+    "canonicalBroadcastBootstrap": "distribution/x-broadcast-state.json",
+    "editionDistributionLedger": "distribution/ledger.json",
+    "publishedReplyLedger": "distribution/x-replies.json",
+    "broadcastPolicy": "operations/x-broadcast.contract.json"
+  },
+  "activityClasses": [
+    "canonical_edition_broadcast",
+    "edition_derived_manual_post",
+    "approved_manual_reply",
+    "other_owner_post"
+  ],
+  "requiredRecordedFields": [
+    "activityClass",
+    "exactText",
+    "platformPostId",
+    "platformPostUrl",
+    "publishedAt",
+    "sourceRecord",
+    "operator",
+    "recordedAt"
+  ],
+  "authorityBoundary": {
+    "ddbOwnsBrandAndEditorialRules": true,
+    "ddbOwnsWriteCredentials": true,
+    "ddbOwnsPublicationReceipts": true,
+    "consumerAccess": "read-only",
+    "consumerMayPublish": false,
+    "consumerMayEditDdbLedgers": false,
+    "radarCandidateMayAutoPublish": false,
+    "humanReviewRequiredForRadarCandidate": true
+  },
+  "credentialBoundary": {
+    "ddbWriteCredentialLocation": "protected x-broadcast-production GitHub environment",
+    "consumerReceivesDdbWriteCredential": false,
+    "futureReconciliationCredential": "separate official X API read-only authorization",
+    "futureReconciliationCredentialInstalled": false
+  },
+  "reconciliation": {
+    "status": "not-activated",
+    "providerInterface": "official X API only",
+    "plannedComparison": "compare recent @DavidDailyBread posts with all authoritative DDB ledgers",
+    "unmatchedProviderPostDisposition": "flag for owner review; never delete or rewrite automatically",
+    "missingProviderPostDisposition": "flag for reconciliation; never retry a write automatically",
+    "activationRequires": [
+      "reviewed read-only API authorization",
+      "verified @DavidDailyBread account identity",
+      "documented cost and data handling",
+      "tested no-mutation credential boundary",
+      "David's explicit activation approval"
+    ]
+  },
+  "dashboard": {
+    "mayCacheAuthoritativeRecords": true,
+    "cacheIsAuthoritative": false,
+    "mustLabelSourceAndFreshness": true,
+    "mustSurfaceLedgerCoverageGaps": true
+  }
+}

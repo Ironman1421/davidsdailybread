@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "status": "proposed-not-active",
+  "owner": "David Friedhof",
+  "experimentWeeks": 4,
+  "staffedDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+  "windows": [
+    {
+      "id": "morning",
+      "timeZone": "America/Los_Angeles",
+      "startsAt": "07:00",
+      "endsAt": "08:00",
+      "maximumApprovedReplies": 2
+    },
+    {
+      "id": "late_afternoon",
+      "timeZone": "America/Los_Angeles",
+      "startsAt": "16:00",
+      "endsAt": "17:00",
+      "maximumApprovedReplies": 2
+    }
+  ],
+  "dailyPublishedReplyCap": 4,
+  "weeklyMaximum": 20,
+  "fourWeekMaximum": 80,
+  "quotaPolicy": "ceilings-not-targets",
+  "initialComparisonShapes": [
+    "practical_application",
+    "plain_language_translation"
+  ],
+  "minimumMeasuredObservationsPerComparedShape": 8,
+  "humanApprovalRequired": true,
+  "manualOfficialXUiPostingOnly": true,
+  "automatedRepliesAuthorized": false,
+  "activationRequires": [
+    "profile conversion readiness",
+    "confirmed authorized operator",
+    "correct account and MFA readiness",
+    "recorded Premium and analytics availability",
+    "David's explicit activation approval"
+  ],
+  "reviewPoints": [16, 50, 100],
+  "stopSignals": [
+    "account warning or policy notice",
+    "credential concern",
+    "factual correction involving a reply",
+    "hidden reply",
+    "probable-spam placement",
+    "repeated low-quality traffic"
+  ]
+}

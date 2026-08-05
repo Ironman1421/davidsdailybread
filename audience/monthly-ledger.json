@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-01T05:12:21Z",
+  "operatingState": "implementation-selected",
+  "milestoneDefinition": {
+    "name": "first-1000-genuinely-engaged-returning-people",
+    "definitionVersion": 1,
+    "officialCountSurface": "canonical-website",
+    "targetQualifiedReaders": 1000,
+    "reportingTimeZone": "America/Los_Angeles",
+    "reportingWindow": "calendar-month",
+    "minimumDistinctVisitDays": 3,
+    "minimumEngagedSessions": 2,
+    "minimumActiveReadingSeconds": 60,
+    "engagedSessionQualifiers": [
+      "active-reading-threshold",
+      "meaningful-action"
+    ],
+    "meaningfulActions": [
+      "archive-edition-opened",
+      "library-item-opened",
+      "reviewed-source-opened",
+      "rss-opened",
+      "local-note-used",
+      "editorial-slip-submitted"
+    ],
+    "consecutiveQualifyingMonthsRequired": 2,
+    "crossChannelCountPolicy": "supporting-evidence-only-not-added-to-website-total"
+  },
+  "privacy": {
+    "aggregateOnlyRepositoryLedger": true,
+    "participantLevelRowsAllowedInRepository": false,
+    "namesCollected": false,
+    "emailAddressesCollected": false,
+    "noteTextCollected": false,
+    "readerSubmissionContentCollected": false,
+    "rawIpAddressRetentionAllowed": false,
+    "preciseLocationCollected": false,
+    "advertisingIdentifiersCollected": false,
+    "crossSiteTrackingAllowed": false,
+    "fingerprintingAllowed": false,
+    "pseudonymousIdentifierMaximumLifetimeDays": 35,
+    "queryStringsOrFragmentsStored": false,
+    "readerVisibleNoticeRequired": true,
+    "optOutRequired": true,
+    "unknownIsNullNeverZero": true
+  },
+  "instrumentation": {
+    "status": "selected-not-installed",
+    "provider": "cloudflare-workers-d1",
+    "providerApprovedByDavid": true,
+    "externalProvisioningAuthorized": false,
+    "productionCollectionEnabled": false,
+    "spendAuthorizedUsd": 0,
+    "activationDate": null,
+    "sourceReceipt": "founder-decision-2026-07-31-cloudflare-local-and-plan-only"
+  },
+  "milestoneEvidence": {
+    "status": "not-measured",
+    "achievedAt": null,
+    "qualifyingMonths": []
+  },
+  "months": []
+}

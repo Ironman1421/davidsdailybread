@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/audience-cloudflare-canary-plan-v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "status",
+    "approvalReceipt",
+    "provider",
+    "implementationDirectory",
+    "reviewedCommit",
+    "externalProvisioningAuthorized",
+    "canaryExecutionAuthorized",
+    "deploymentAuthorized",
+    "activationAuthorized",
+    "productionCollectionAuthorized",
+    "baselineStartAuthorized",
+    "spendAuthorizedUsd",
+    "accountOwner",
+    "operator",
+    "cloudflareAccountId",
+    "workerName",
+    "d1DatabaseId",
+    "rateLimitNamespaceId",
+    "endpoint",
+    "routeProposal",
+    "proposedOrigins",
+    "preconditions",
+    "testCases",
+    "requiredEvidence"
+  ],
+  "properties": {
+    "$schema": {"const": "./canary-plan.schema.json"},
+    "version": {"const": 1},
+    "status": {"const": "approved-plan-only-unprovisioned"},
+    "approvalReceipt": {"const": "founder-decision-2026-07-31-cloudflare-local-and-plan-only"},
+    "provider": {"const": "cloudflare-workers-d1"},
+    "implementationDirectory": {"const": "audience/cloudflare"},
+    "reviewedCommit": {"const": null},
+    "externalProvisioningAuthorized": {"const": false},
+    "canaryExecutionAuthorized": {"const": false},
+    "deploymentAuthorized": {"const": false},
+    "activationAuthorized": {"const": false},
+    "productionCollectionAuthorized": {"const": false},
+    "baselineStartAuthorized": {"const": false},
+    "spendAuthorizedUsd": {"const": 0},
+    "accountOwner": {"const": null},
+    "operator": {"const": null},
+    "cloudflareAccountId": {"const": null},
+    "workerName": {"const": null},
+    "d1DatabaseId": {"const": null},
+    "rateLimitNamespaceId": {"const": null},
+    "endpoint": {"const": null},
+    "routeProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "hostname", "websiteDnsChangeRequired", "productionEligible"],
+      "properties": {
+        "kind": {"const": "workers.dev-diagnostic-only"},
+        "hostname": {"const": null},
+        "websiteDnsChangeRequired": {"const": false},
+        "productionEligible": {"const": false}
+      }
+    },
+    "proposedOrigins": {
+      "const": [
+        "https://davidsdailybread.com",
+        "https://www.davidsdailybread.com"
+      ]
+    },
+    "preconditions": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "testCases": {
+      "type": "array",
+      "minItems": 12,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "requiredEvidence": {
+      "type": "array",
+      "minItems": 7,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

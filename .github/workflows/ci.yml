@@ -86,6 +86,9 @@ jobs:
             exit 1
           fi
 
+      - name: Audience measurement contracts
+        run: npm run test:audience
+
       - name: Render check
         # tests/test_evening_render.py asserts at MODULE level and defines no
         # test_* functions. pytest does execute it on import, but it reports

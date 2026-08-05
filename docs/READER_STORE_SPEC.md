@@ -1,25 +1,28 @@
 # Private reader store specification
 
-Status: historical approved design, paused and not provisioned
+Status: active Phase 2 local implementation prerequisite, not provisioned
 Machine-readable contract: `operations/reader-store.contract.json`
 
-## Founder pause and authority boundary
+## Authority boundary
 
-New public reader submissions are paused. This document is a local design, not
-authorization to create or link a Supabase project, accept provider terms, add
-credentials, apply a remote migration, deploy an Edge Function, run a canary,
-move traffic, reactivate intake, alter the external Google form or Sheet, delete
-the frozen queue, or rewrite repository history. Any such step requires David's
-new explicit approval and reconciliation of the founder doctrine, operating
-documents, machine contract, and tests.
+The 2026-08-04 durable-moat decision authorizes local implementation, testing,
+and reopening preparation for this private boundary. New public submissions
+remain closed. This document does not authorize creating or linking a Supabase
+project, accepting provider terms, adding credentials, applying a remote
+migration, deploying an Edge Function, running a canary, moving traffic,
+reactivating intake, altering external providers, deleting the frozen queue, or
+rewriting repository history. Each external step requires David's scoped
+approval and reconciliation of the doctrine, operating documents, machine
+contract, and tests.
 
 ## Decision
 
-This design is not the active implementation lane and does not authorize a
-Supabase project, migration, deployment, canary, or traffic. Public reader
-intake is closed under `operations/reader-intake-pause.contract.json`.
+This is the selected local implementation lane. It does not authorize a
+Supabase project, remote migration, deployment, canary, or traffic. Public
+reader intake is closed under `operations/reader-intake-pause.contract.json`.
 
-If David later reopens this design, reader submissions would move to a dedicated Supabase project. They live in a
+If the exact external cutover is later approved, reader submissions move to a
+dedicated Supabase project. They live in a
 `reader_private` Postgres schema that is not exposed through the Data API. The
 browser submits through a narrow Edge Function; it never receives a Supabase
 secret or direct table access. Row-level security remains enabled as defense in
@@ -234,19 +237,19 @@ The deployed migration is incomplete until tests prove:
 - no response, error, log, or handoff metadata contains a body or byline; and
 - retention jobs erase payloads without breaking non-personal receipts.
 
-Local tests do not authorize a remote link or deployment. If David explicitly
-reopens the initiative, a future reviewed plan must still run Supabase's
+Local tests do not authorize a remote link or deployment. Before any separately
+approved external step, a future reviewed plan must still run Supabase's
 security advisors, performance advisors, RLS tests, and a clean local migration
 before any approved remote step. The July 2026 Supabase changelog was reviewed
 for this design: do not pin extension versions, require current Node/TypeScript
 for future tooling, and rely on explicit schema exposure rather than old
 automatic Data API behavior.
 
-## Frozen historical cutover design
+## Gated cutover design
 
-The sequence below records the former design and is not an active checklist.
-Do not perform any step unless David explicitly reverses the pause and approves
-a reconciled execution plan.
+The sequence below may be prepared locally but is not an active external
+checklist. Do not perform any provider, data, traffic, or production step until
+David approves the exact reconciled execution plan.
 
 1. Create the dedicated project, private schema, functions, bucket, retention
    jobs, staging origins, alerts, and tests. No site traffic moves yet.

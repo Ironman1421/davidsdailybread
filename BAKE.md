@@ -52,10 +52,11 @@ state). Do not hand-edit rendered pages; do not bypass the script.
    Backfills do not update `evening-catalog.json`.
 5. **Work from the fresh clone only.** Never read site state from the live
    davidsdailybread.com (the CDN serves stale files for hours).
-6. Newsletter work is paused by the founder. The templates may preserve their
-   current link to `/subscribe.html`, but a bake never drafts, tests, schedules,
-   sends, imports, configures, credentials, or receives newsletter data. No
-   activation work proceeds outside the bake without David's explicit reversal.
+6. Newsletter strategy and local product-integration prototypes may proceed
+   outside a bake, but operations remain disabled. The templates preserve their
+   current link to the fail-closed `/subscribe.html`; a bake never drafts,
+   tests, schedules, sends, imports, configures, credentials, or receives
+   newsletter data.
 7. **The lead title is the X distribution contract.** Each edition's archive
    `lead` (= the lead story's title) is eligible for a canonical post to
    @DavidDailyBread. Spark's guarded `daicc-ddb-autopost` service is the sole

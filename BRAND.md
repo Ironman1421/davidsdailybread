@@ -4,11 +4,16 @@ This file is the canonical brand definition for **all** David's Daily Bread surf
 the website (davidsdailybread.com), Chronicles, and any future page or tool. If a color, font, or rule here
 disagrees with anything else, **this file wins**. Change the brand by editing this
 file (and `brand.css`) — nowhere else. `FOUNDER_DOCTRINE.md` separately governs
-mission, ownership, strategic direction, and paused initiatives.
+mission, ownership, strategic direction, authorized local work, and production
+boundaries.
 
 ## Brand statement and current cadence
 
 - **Loved by God** is the exact current public brand statement and tagline.
+- The governing product distinction is: news and Scripture each morning, an
+  evening Field Guide with useful tools and workflows, and **Loved by God**.
+  The installable app presents this same canonical publication and does not add
+  a separate editorial identity.
 - The exact home masthead subtitle in both the morning and evening editions is:
   **News and Scripture each morning. Practical tools each evening. Loved by
   God.** It appears in the original masthead's italic serif treatment and muted
@@ -40,11 +45,12 @@ mission, ownership, strategic direction, and paused initiatives.
   reader-state interaction.
   A delayed trigger is safe because an exact edition is published at most once.
   The website and `/feed.xml` remain the complete, canonical delivery surfaces.
-- **Newsletter sending PAUSED (2026-07-31, per David):** preserve the current
-  live `/subscribe.html` state, but do not draft, test, schedule, send,
-  configure, credential, or advance the former pilot. A new explicit founder
-  decision is required before activation work resumes. The website and
-  `/feed.xml` remain the complete, canonical delivery surfaces.
+- **Newsletter operations remain disabled (updated 2026-08-04, per David):**
+  preserve the current fail-closed `/subscribe.html` state. Strategy and local
+  product-integration prototypes may proceed, but do not collect addresses,
+  draft, test, schedule, send, configure, credential, operate on a list, or
+  activate the former pilot. The website and `/feed.xml` remain the complete,
+  canonical delivery surfaces.
 - Edition history: evening editions ran 2026-07-07 through 2026-07-14, were
   retired in the 2026-07-17 simplification (one morning edition), and were
   restored 2026-07-30 with the trends identity; later that same day the
@@ -120,6 +126,10 @@ mission, ownership, strategic direction, and paused initiatives.
 - **`/x-banner.png`** (1500×500) is the official X profile banner. It carries the
   same exact subtitle as `og-card.png` and preserves the masthead mark, wordmark,
   palette, and typographic hierarchy.
+- **Installable app icons:** `/icons/icon-192.png` and
+  `/icons/icon-512.png` are raster exports of the approved `/favicon.svg`
+  basket mark. They identify the same website and never replace header art at
+  the top of a page or `og-card.png` in social previews.
 
 ## Voice
 
@@ -174,10 +184,11 @@ mission, ownership, strategic direction, and paused initiatives.
   navigation, and the evening edition are excluded. The evening's Keep and
   Ponder passage remains KJV.
 - **Reader features:** Ask the Baker, Letters to the King, and The Crumb Board
-  remain editorial features, but new public submissions are temporarily paused
-  until a private intake boundary is verified and David explicitly approves
-  reopening. Existing reviewed reader material may still appear. Letters to the
-  King is backstopped by the house satchel (`/kings-satchel.json`), restocked
+  remain editorial features, but public submissions are closed until a private
+  intake boundary is verified and David explicitly approves reopening. Current
+  morning bakes reject submission-derived material; only a reviewed house
+  letter may run. Letters to the King is backstopped by the house satchel
+  (`/kings-satchel.json`), restocked
   weekly by the satchel-steward scheduled task; used letters are tracked in
   `bakery-state.json` (`usedSatchelLetters`) and never repeat.
 - **RSS:** `/feed.xml`, prepended every bake; the RSS `<link rel="alternate">` tag
@@ -215,3 +226,5 @@ mission, ownership, strategic direction, and paused initiatives.
 4. Links/accents in gold; secondary accents steel; badges copper.
 5. Baker's voice on public-facing chrome; straight news in content.
 6. No em dashes anywhere readers can see (House style above).
+7. Installable surfaces point to `/manifest.webmanifest`, use canonical URLs,
+   and preserve the same morning, evening, and **Loved by God** distinction.

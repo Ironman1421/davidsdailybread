@@ -1,16 +1,17 @@
 # Repository and ownership map
 
-Last reconciled: 2026-08-01
+Last reconciled: 2026-08-04
 
-`FOUNDER_DOCTRINE.md` governs mission, ownership, strategic direction, and
-paused initiatives. Repository ownership never transfers David's final control.
+`FOUNDER_DOCTRINE.md` governs mission, ownership, strategic direction,
+authorized local work, and production boundaries. Repository ownership never
+transfers David's final control.
 
 | Repository | Current role | Authority |
 |---|---|---|
 | `Ironman1421/davidsdailybread` | Live site, renderer, templates, workflows, archive, RSS | Production source of truth |
 | `Ironman1421/ddb-ops` | July 9 to 14 strategy, approvals, experiments, migration history | Historical context; materially stale |
 | `Ironman1421/ddb-engineering` | Retired Spark pipeline, Buttondown path, acceptance harness, handoff log | Preserved engineering history; no deployment authority |
-| `Ironman1421/davids-ai-command-center` | Spark-owned edition workflow triggers, both-slot watchdogs, active guarded X autoposter, plus general multi-agent bootstrap and profiles | Operational timing and the current X adapter; never editorial or site-publishing authority. Counter dispatch is retired while intake is paused. |
+| `Ironman1421/davids-ai-command-center` | Spark-owned edition workflow triggers, both-slot watchdogs, active guarded X autoposter and X Monitor, plus general multi-agent bootstrap and profiles | Operational timing and the current X adapter; never editorial or site-publishing authority. Counter dispatch is retired while intake is closed. |
 | `Ironman1421/hermes-canonical` | Hermes profiles and general skills | Platform configuration, not the active bake |
 
 Claude Cowork is not a repository and is no longer an authority for this
@@ -24,12 +25,12 @@ in version-controlled specs, code, and tests before use.
   main-only environment remains disabled and kill-switched. Activating it is a
   separately reviewed credential migration that must first disable Spark's
   lane so the two publishers can never duplicate an edition.
-- Social analytics now have a checked-in schema, but no live ledger, automated
-  snapshots, or weekly scorecard.
+- Social analytics and the aggregate operating scorecard are checked in, but
+  there is no activated reader measurement or complete audience baseline.
 - Branch protection and workflow bypass ownership are not documented as code.
 - Reader-submission storage has an approved private design but no provisioned
-  project or named operator. New intake is paused, and the design has no
-  provisioning or deployment authority.
+  project or named operator. Site-side intake closure is deployed; external
+  provider state, migration, deletion, and history work remain gated.
 - YouTube now has repository-owned pilot specifications, templates, schemas,
   baseline ledgers, validation, and a named owner in this repository. It still
   has no live upload adapter or credential boundary. TikTok, Instagram, and
@@ -60,27 +61,71 @@ in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 
 ## Standing evening surfaces
 
-- `templates/evening.html`: approved July 31 Field Guide edition, with Keep and
-  Ponder below the tool shelf and workflows.
+- `templates/evening.html`: approved July 31 Field Guide edition with Mary of
+  Nazareth below the tool shelf and workflows.
 - `evening-rest.json`: reviewed Keep and Ponder material, selected by date.
 - `evening-catalog.json`: bounded tools and workflows catalog updated only by a
   successful daily evening render.
 - `tools.html` and `workflows.html`: standing searchable library pages.
 
-## Paused weekly email plan
+## Installable web app surfaces
 
-The former four-week pilot is paused by the founder. Its live signup page is
-preserved, but drafting, testing, configuration, credentialing, activation, and
-sending are not authorized. `docs/NEWSLETTER_PILOT_SPEC.md`,
+- `manifest.webmanifest`: same-origin app identity and approved brand icons.
+- `service-worker.js`: bounded same-origin offline and correction policy.
+- `pwa.js` and `pwa.css`: accessible install, connectivity, and waiting-update
+  behavior without notification or personal-data APIs.
+- `offline.html`: branded fallback with a browser-local page note.
+- `operations/pwa.contract.json` and `docs/PWA_ARCHITECTURE.md`: local-only
+  activation boundary and cache contract.
+
+Generated home, category, and edition pages receive these links from
+`templates/` during the normal bake. Historical rendered editions are not
+rewritten.
+
+## Durable-moat product direction
+
+`docs/GROWTH_ROADMAP.md` and
+`operations/durable-moat-roadmap.contract.json` govern the phased expansion
+from canonical publication to an installable web app, accounts, personal
+history, moderated prayer and participation, native mobile, and later
+institutional or desktop decisions. All phases are authorized for local work.
+No phase is authorized for external deployment or activation by that decision
+alone.
+
+## Newsletter retention option
+
+Strategy and local product-integration prototypes are active. The former
+four-week pilot is not an active send plan. Its fail-closed signup page is preserved,
+and issue drafting, testing, configuration, credentialing, list operations,
+activation, and sending remain unauthorized. `docs/NEWSLETTER_PILOT_SPEC.md`,
 `operations/newsletter-pilot.contract.json`, and
-`newsletter/weekly-ledger.md` retain the guarded historical design. The retired
-`ddb-engineering` Buttondown automation is not authority and is not being
-restored.
+`newsletter/weekly-ledger.md` retain the guarded plan and historical template.
+The retired `ddb-engineering` Buttondown automation is not authority and is not
+being restored.
 
-## Unprovisioned provider designs
+## First 1,000 audience measurement
 
-Cloudflare Workers + D1 audience measurement and the Supabase reader store may
-be implemented and verified locally only. No account, project, resource,
-credential, endpoint, link, canary, deployment, activation, production
-collection, intake, baseline, DNS change, or spend is authorized without a new
-explicit decision from David.
+`docs/AUDIENCE_MEASUREMENT_SPEC.md` defines the official privacy-safe website
+return milestone. `audience/measurement.schema.json`,
+`audience/monthly-ledger.json`, and `audience/validate_ledger.py` enforce the
+aggregate record. `audience/qualifier.mjs`, `audience/collector.mjs`, and
+`audience/reporting.mjs` are pure local reference state machines.
+`audience/browser-adapter.mjs` is a bounded, disabled-by-default adapter with a
+checked-in `enabled: false`, `endpoint: null` configuration and no built-in
+transport or public-template integration. `docs/AUDIENCE_MEASUREMENT_RUNBOOK.md`
+owns canary, monthly close, purge, and stop procedures. Cloudflare Workers + D1
+is selected for provider-specific local implementation and an unprovisioned
+canary plan. `audience/cloudflare/` contains the canary-only wrapper, D1 schema,
+disabled placeholder configuration, tests, and plan. The current state is
+`implementation-selected`: no account, endpoint, operator, resource ID,
+credential, route, trigger, canary execution, deployment, production script,
+external provisioning, baseline, or spend is authorized.
+`docs/AUDIENCE_ANALYTICS_DECISION.md` owns the separate founder gates for any
+future external implementation and activation.
+
+## Unprovisioned reader-store design
+
+The Supabase reader store may be implemented and verified locally. No account,
+project, resource, credential, endpoint, link, canary, deployment, activation,
+live migration, DNS change, or spend is authorized without a scoped decision
+from David.

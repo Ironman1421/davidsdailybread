@@ -1,0 +1,87 @@
+{
+  "version": 2,
+  "status": "phase-1-release-authorized-awaiting-exact-sha-merge-approval",
+  "owner": "David Friedhof",
+  "canonical": {
+    "origin": "https://davidsdailybread.com",
+    "startUrl": "/",
+    "scope": "/",
+    "websiteRemainsCanonical": true,
+    "archiveJsonRemainsCanonical": true,
+    "rssRemainsCanonical": true,
+    "editionPathsRemainCanonical": true,
+    "correctionsRemainCanonical": true,
+    "separateEditorialProductCreated": false
+  },
+  "productDistinction": [
+    "news-and-scripture-each-morning",
+    "evening-field-guide-with-useful-tools-and-workflows",
+    "loved-by-god"
+  ],
+  "cachePolicy": {
+    "sameOriginOnly": true,
+    "navigationStrategy": "network-first-last-successful-offline-fallback",
+    "canonicalDataStrategy": "network-first-last-successful",
+    "canonicalNetworkFetchCacheMode": "no-store",
+    "staticShellStrategy": "versioned-cache-first",
+    "crossOriginCaching": false,
+    "queryStringsPersisted": false,
+    "fragmentsPersisted": false,
+    "failedResponsesCached": false,
+    "redirectedResponsesCached": false,
+    "noStoreResponsesCached": false,
+    "correctionsCheckedOnEveryOnlineNavigation": true
+  },
+  "personalData": {
+    "existingNotePrefixes": [
+      "ddb-note:",
+      "ddb-note-style:"
+    ],
+    "notesReadByPwaLayer": false,
+    "notesMigratedByPwaLayer": false,
+    "notesDeletedByPwaLayer": false,
+    "notesUploaded": false,
+    "savedItemSchemaAdded": false
+  },
+  "install": {
+    "readerInitiated": true,
+    "nativePromptRequiresReaderAction": true,
+    "iosGuidanceProvided": true,
+    "accessibleStatusRegion": true
+  },
+  "updates": {
+    "cacheGeneration": "v2",
+    "staticAssetInstallFetchCacheMode": "reload",
+    "skipWaitingDuringInstall": false,
+    "readerRefreshActionRequiredForWaitingWorker": true,
+    "cacheCleanupLimitedToOwnedPrefix": true
+  },
+  "releaseDecision": {
+    "authorizedBy": "David Friedhof",
+    "authorizedAt": "2026-08-04",
+    "decisionEvidence": "Task message: Approve one final non-behavioral release-record commit on PR #48 documenting acceptance of the remaining device evidence gap and authorizing PWA publication/deployment subject to a separate exact-SHA merge approval. Push it and run CI. Do not repeat physical-device testing, merge, or deploy yet.",
+    "reviewedImplementationHead": "ba23154ece0c31d820687c181cacc0b615db2bdc",
+    "reviewedBase": "14b99fb0aefbac5811368a0fe389a12db875e6e7",
+    "independentReview": "complete-no-material-defects",
+    "postRepairPhysicalDeviceRerun": "accepted-evidence-gap-not-repeated",
+    "physicalAndroidTalkBack": "deferred-evidence-gap-not-pass",
+    "comprehensiveVoiceOver": "deferred-evidence-gap-not-pass",
+    "headingHierarchy": "deferred-evidence-gap-not-pass",
+    "scope": "existing-canonical-github-pages-pwa-only",
+    "requiresSeparateExactShaMergeApproval": true,
+    "rollback": "revert-the-approved-release-and-verify-github-pages-and-canonical-publication-paths"
+  },
+  "activation": {
+    "publicationAuthorized": true,
+    "deploymentAuthorized": true,
+    "mergeAuthorized": false,
+    "exactShaMergeApprovalRequired": true,
+    "appStoreListingAuthorized": false,
+    "externalServiceProvisioningAuthorized": false,
+    "credentialsAuthorized": false,
+    "notificationsAuthorized": false,
+    "pushProviderAuthorized": false,
+    "livePersonalDataCollectionAuthorized": false,
+    "spendAuthorizedUsd": 0
+  }
+}

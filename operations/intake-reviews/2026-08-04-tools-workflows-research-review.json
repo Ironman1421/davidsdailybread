@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "ddb-tools-workflows-intake-review-v1",
+  "reviewStatus": "blocked-no-content-decision",
+  "targetEdition": "2026-08-04-evening",
+  "editionIdentity": "Field Guide: trending tools and practical workflows",
+  "timeZone": "America/Los_Angeles",
+  "scheduledReviewAt": "2026-08-04T14:30:00-07:00",
+  "reviewAttemptedAt": "2026-08-04T07:31:45-07:00",
+  "bakeNotBefore": "2026-08-04T15:35:00-07:00",
+  "decision": "no-content-decision",
+  "blocker": {
+    "code": "scheduled-handoff-window-not-satisfied",
+    "summary": "The available handoff was completed before its scheduled research window and the intake ran before its scheduled review time.",
+    "exactFacts": [
+      "The contract schedules research to start at 2026-08-04T12:30:00-07:00.",
+      "The handoff reports completedAt 2026-08-04T05:36:47-07:00, 6 hours 53 minutes 13 seconds before the scheduled research start.",
+      "The handoff explicitly says its evidence is current only through 5:36 AM Pacific.",
+      "The intake attempt occurred at 2026-08-04T07:31:45-07:00, 6 hours 58 minutes 15 seconds before the contract's 2:30 PM review start."
+    ],
+    "requiredResolution": "Produce or refresh the completed handoff during the scheduled research window, then rerun program-control intake at or after 2026-08-04T14:30:00-07:00 and before the 3:35 PM bake start."
+  },
+  "handoffValidation": {
+    "expectedRecordsPresent": true,
+    "datedJsonSyntaxValid": true,
+    "markdownCompanionPresent": true,
+    "latestPointerSyntaxValid": true,
+    "datedJsonMatchesLatestPointer": true,
+    "statusCompleted": true,
+    "targetEditionMatches": true,
+    "authorityBoundaryPreserved": true,
+    "scheduledResearchWindowSatisfied": false,
+    "freshnessAtScheduledReviewEstablished": false,
+    "validForContentDecision": false,
+    "datedJsonSha256": "7aad68f4e65ab8498b8fdddb0a53f22d5a9117e634869d099f00a34058d1c68b",
+    "latestPointerSha256": "7aad68f4e65ab8498b8fdddb0a53f22d5a9117e634869d099f00a34058d1c68b"
+  },
+  "editorialReview": {
+    "primarySourcesIndependentlyChecked": false,
+    "trendEvidenceIndependentlyChecked": false,
+    "eveningNoNewsRuleAppliedToCandidates": false,
+    "candidateDecisions": [],
+    "reason": "The intake contract requires no content decision when the scheduled handoff is stale or invalid. Source verification and candidate classification therefore did not begin."
+  },
+  "authority": {
+    "advisoryOnly": true,
+    "recommendationIsPublicationApproval": false,
+    "finalDecisionOwner": "David Friedhof",
+    "publicationControlledByExistingBake": true,
+    "bakeDispatched": false
+  },
+  "scopeGuard": {
+    "editionFilesEdited": false,
+    "contentJsonEdited": false,
+    "renderedPagesEdited": false,
+    "templatesEdited": false,
+    "archiveEdited": false,
+    "eveningCatalogEdited": false,
+    "workflowsEdited": false,
+    "credentialsEdited": false,
+    "publishedOrSent": false,
+    "committedOrPushed": false,
+    "servicesProvisioned": false,
+    "moneySpent": false,
+    "testSuiteRun": false
+  }
+}

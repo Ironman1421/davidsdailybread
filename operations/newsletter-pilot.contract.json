@@ -1,23 +1,26 @@
 {
-  "version": 2,
-  "status": "founder-paused-no-activation",
+  "version": 3,
+  "status": "strategy-active-operations-disabled",
   "owner": "David Friedhof",
   "founderDecision": {
-    "effectiveDate": "2026-07-31",
+    "effectiveDate": "2026-08-04",
+    "strategyWorkAuthorized": true,
+    "localProductIntegrationPrototypesAuthorized": true,
     "newsletterSendingAuthorized": false,
     "activationWorkAuthorized": false,
-    "explicitReversalRequired": true,
-    "preserveLiveSignupPageState": true
+    "scopedOperationalApprovalRequired": true,
+    "preserveCurrentFailClosedSignupPageState": true
   },
   "provider": {
     "name": "Buttondown",
-    "systemOfRecordForExistingSubscriberAddresses": true,
-    "publicSubscribeEndpointStoredInRepository": false,
-    "externalMutationAuthorized": false,
-    "privateModeVerified": false
+    "status": "historical-provider-no-operations-authorized",
+    "account": "davidsdailybread",
+    "subscribeEndpoint": "https://buttondown.com/api/emails/embed-subscribe/davidsdailybread",
+    "systemOfRecordForSubscriberAddresses": true,
+    "doubleOptInRequired": true
   },
   "pilot": {
-    "status": "frozen-historical-plan",
+    "status": "historical-format-not-active-pilot",
     "workingTitle": "The Weekly Loaf",
     "issueCount": 4,
     "frequency": "weekly",
@@ -30,31 +33,39 @@
     "timeZone": "America/Los_Angeles",
     "pauseAfterIssue": 4
   },
-  "activation": {
-    "authorized": false,
-    "draftAllowed": false,
-    "testSendAllowed": false,
-    "scheduleAllowed": false,
-    "sendAllowed": false,
-    "sendingAddressConfigurationAllowed": false,
-    "credentialInstallationAllowed": false,
-    "listImportAllowed": false,
-    "listReactivationAllowed": false
+  "editorialFlow": [
+    "Start",
+    "Browse",
+    "Do",
+    "Rest"
+  ],
+  "consent": {
+    "freshSignupsOnly": true,
+    "importRetiredList": false,
+    "reactivateRetiredList": false,
+    "confirmationRequiredBeforeActive": true,
+    "unsubscribeRequiredEveryIssue": true
   },
   "privacy": {
+    "publicContact": null,
+    "verifiedContactRequiredBeforeReopen": true,
+    "forwardingDestinationStoredInRepository": false,
     "subscriberAddressesAllowedInRepository": false,
     "subscriberAddressesAllowedInGitHubActions": false,
     "subscriberAddressesAllowedInSupabase": false,
-    "recipientLevelDataMayBeCommitted": false
+    "requestCompletionDays": 7
   },
   "budget": {
     "maximumMonthlyUsd": 0,
+    "maximumActiveSubscribersOnFreePlan": 100,
     "paidAddOnsAllowed": false,
     "stopBeforeCharge": true
   },
   "signup": {
     "page": "/subscribe.html",
-    "currentLiveStatePreserved": true,
+    "currentFailClosedStatePreserved": true,
+    "collectsAddresses": false,
+    "providerEndpointPresent": false,
     "changesAuthorized": false,
     "presenceAuthorizesSending": false
   },
@@ -64,11 +75,11 @@
     "draftingEnabled": false,
     "testSendsEnabled": false,
     "providerConfigurationEnabled": false,
-    "explicitFounderReversalRequired": true,
+    "scopedFounderOperationalApprovalRequired": true,
     "dailyBakeMaySend": false,
     "githubActionsMaySend": false,
     "blockedBy": [
-      "founder-direction-no-newsletter-or-activation-work"
+      "founder-direction-strategy-only-no-operational-pilot"
     ]
   },
   "measurement": {

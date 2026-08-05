@@ -10,6 +10,11 @@ published at
 [davidsdailybread.com](https://davidsdailybread.com) via GitHub Pages. See
 `FOUNDER_DOCTRINE.md` for the governing direction.
 
+The first app target is this responsive website made installable and
+mobile-capable. The website, archive, RSS, edition paths, source receipts, and
+corrections remain the canonical record; app capabilities support the
+publication rather than fork it.
+
 ## How it works
 
 Spark is the Pacific-time clock and dispatches **GitHub Actions**
@@ -32,8 +37,12 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
 - `editions/` — every past edition, dated. `archive.html` / `archive.json` — the bread box.
 - `tools.html` / `workflows.html` — searchable evening libraries backed by
   `evening-catalog.json`.
-- `feed.xml` — complete RSS delivery. The current `subscribe.html` state is
-  preserved, but newsletter activation and sending are paused by the founder.
+- `manifest.webmanifest` / `service-worker.js` / `pwa.js` / `pwa.css` — the
+  local Phase 1 installable-web-app shell over canonical site URLs;
+  `offline.html` is its branded fallback.
+- `feed.xml` — complete RSS delivery. The current fail-closed `subscribe.html`
+  state is preserved. Newsletter strategy may proceed locally, but address
+  collection, provider operations, activation, and sending remain disabled.
 - `counter.csv` — removed from the current tip and ignored. Its git history is
   preserved; Counter sync is a read-only no-op while public intake is paused.
 - `bakery-state.json` / `kings-satchel.json` — historical reader bookkeeping and
@@ -41,11 +50,14 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   satchel while public intake is paused.
 - `BRAND.md` — brand source of truth; `brand.css` — design tokens.
 - `FOUNDER_DOCTRINE.md` — source of truth for mission, founder authority,
-  strategic direction, and paused initiatives.
+  strategic direction, authorized local work, and production boundaries.
 - `docs/PRODUCT_SPEC.md` — current product and distribution contract;
   `docs/SECURITY_SPEC.md` — trust boundaries and required controls;
   `docs/DISTRIBUTION_SPEC.md` — channel, adapter, voice, rights, and measurement law;
-  `docs/GROWTH_ROADMAP.md` — the founder-led audience validation roadmap;
+  `docs/GROWTH_ROADMAP.md` — the active durable-moat roadmap and phase gates;
+  `docs/PWA_ARCHITECTURE.md` — install, offline, update, and correction policy;
+  `docs/PHASE_0_READINESS_2026-08-04.md` — satisfied Phase 0 prerequisites and
+  material remaining gaps;
   `docs/X_REPLY_PLAYBOOK.md` — manually approved, reply-led X growth law;
   `docs/READER_STORE_SPEC.md` — approved private reader-store and cutover design;
   `docs/PUBLISHER_IDENTITY_SPEC.md` — approved scheduled identity and `main`
@@ -62,6 +74,8 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
 - `docs/MEASUREMENT_SCORECARD.md` / `measurement/` — the repository-owned,
   aggregate-only daily and weekly operating scorecard, metric dictionary,
   normalized observations, and seven-day experiment template.
+- `docs/AUDIENCE_MEASUREMENT_SPEC.md` / `audience/` — the privacy-safe first
+  1,000 return milestone and disabled, local-only reference implementation.
 - `distribution/x-reply-approval-card.schema.json` — the private, transient
   per-candidate approval-card contract; no real draft cards are committed.
 - `distribution/x-replies.schema.json` / `distribution/x-replies.json` — the

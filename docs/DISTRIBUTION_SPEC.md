@@ -1,18 +1,18 @@
 # Distribution and measurement specification
 
 Status: active; canonical X adapter implementation ready but production disabled
-Last reconciled: 2026-08-01
+Last reconciled: 2026-08-04
 
 ## Decisions and authority
 
-- `FOUNDER_DOCTRINE.md` governs channel roles, founder authority, and paused
-  initiatives. The current proof goal is the first 1,000 genuinely engaged
-  people who return for faith, technology, prayer, and service; growth must
-  preserve trust, moderation capacity, and David's direction.
+- `FOUNDER_DOCTRINE.md` governs channel roles, founder authority, authorized
+  local work, and production boundaries. The first proof goal is 1,000
+  genuinely engaged people; it is not the ceiling. Growth must preserve trust,
+  moderation capacity, and David's direction.
 - The documented starting floor is five X followers. Unknown platform baselines
   are recorded as unknown and treated as zero only for planning math.
-- The publisher is faceless. Voice-led output is permitted as an experiment;
-  David does not need to appear on camera.
+- The publisher may remain faceless. Voice-led output is permitted as an
+  experiment; David does not need to appear on camera.
 - Budget is flexible but value-gated. No spend is implied or authorized by this
   specification.
 - Claude Cowork conversations and artifacts are historical context, not
@@ -35,34 +35,62 @@ documented in `docs/REPOSITORY_MAP.md`.
 
 The website, archive, and RSS are the canonical record. Social posts are derived
 packages and never become the only copy of an edition or correction.
+The official first-1,000 audience count follows
+`docs/AUDIENCE_MEASUREMENT_SPEC.md`; social and RSS evidence is reported beside
+the website count and is never added to it.
 
 ### Owner Telegram receipts
 
 - Role: private, post-publication receipts telling David that the exact current
   morning or evening edition is live. They are not a reader distribution
   channel or a second edition.
-- The receipt is derived deterministically from the exact date, slot, file, and
-  lead in `archive.json`. It never asks a model to choose or summarize an
-  edition and never substitutes the latest older edition.
-- Each receipt includes the direct HTTPS URL for its exact live edition so the
-  destination is clickable from Telegram.
+- Receipts are derived deterministically from the exact date, slot, file, and
+  lead in `archive.json`; they never ask a model to choose or summarize an
+  edition or substitute an older edition.
+- Each receipt includes the direct HTTPS URL for its exact canonical edition so
+  the destination remains clickable from Telegram.
 - Before any reservation or credential load, the adapter requires the exact
-  public URL to return HTTP 200 with the edition's exact expected HTML title.
-  If the exact slot is not publicly live, the receipt fails closed. Spark's
-  separate morning and evening watchdogs may send truthful not-ready alerts
-  after their deadlines, but those alerts contain no older story content.
+  public URL to return HTTP 200 with the expected edition title. If the exact
+  slot is not live, it fails closed.
 - The repository adapter is `distribution/telegram_notification.py`; its
-  operating and recovery boundary is `docs/TELEGRAM_NOTIFICATION_RUNBOOK.md`.
+  operating boundary is `docs/TELEGRAM_NOTIFICATION_RUNBOOK.md`.
+
+### Installable app and hosted community
+
+- The installable web app remains a presentation and return layer over the
+  canonical site, archive, and account model. It does not fork editorial
+  history or create a second source of truth.
+- Its manifest starts at `/` and all installed navigation uses the same public
+  URLs. HTML, dated editions, the archive manifest, RSS, and the evening catalog
+  check the network first with the browser HTTP cache bypassed so corrections
+  remain canonical; only the last successful same-origin response is available
+  offline.
+- The service worker does not cache cross-origin sources or persist query
+  strings, and its upgrade path does not read, migrate, upload, or clear
+  existing browser-local notes.
+- Native mobile packages, if later approved, consume the same canonical content
+  and correction records.
+- Hosted community invitations and notifications are distribution events with
+  consent, preference, rate, quiet-hours, idempotency, receipt, unsubscribe or
+  leave, and kill-switch requirements.
+- Sensitive prayer text is excluded from lock-screen notification payloads by
+  default.
+- Local implementation is authorized. No app listing, push provider, invite,
+  community activation, credential, or external distribution is authorized by
+  this specification.
 
 ### Newsletter
 
-- Newsletter sending and activation work are paused by the founder.
-- Preserve the existing live signup page state, but do not draft, test,
-  schedule, send, configure, credential, import, or advance activation gates.
+- Role under evaluation: an owned retention path back to canonical work, not a
+  replacement archive or a transfer of subscriber data into this repository.
+- Strategy and local product-integration prototypes are authorized. Preserve
+  the existing live signup page state, but do not draft an issue, test a send,
+  schedule, send, configure the provider, operate on a list, or install a
+  credential.
 - The daily bake and GitHub Actions cannot send email or receive subscriber
   addresses.
-- Resumption requires David's explicit reversal plus reconciliation of the
-  doctrine, specification, machine-readable contract, and tests.
+- Any operational pilot requires a scoped founder activation decision plus
+  reconciliation of the specification, machine-readable contract, and tests.
 
 ### X
 
@@ -87,8 +115,9 @@ packages and never become the only copy of an edition or correction.
   `docs/X_BROADCAST_RUNBOOK.md`. Its named GitHub environment exists with a
   main-only policy, publishing disabled, and the kill switch engaged. A future
   migration must verify account identity, least-privilege credentials, and a
-  canary, then disable Spark before enabling GitHub. The active Spark observation
-  is recorded in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
+  canary, then disable Spark before enabling GitHub so duplicate publication is
+  impossible. The active Spark observation is recorded in
+  `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 
 ### X reply approval contract
 
@@ -223,8 +252,8 @@ not authorize reply posting through an API.
   viewers, and returning viewers.
 - Contractors are purchased for measurable throughput or specialist quality,
   not follower promises.
-- David approves every new spending band. See `docs/GROWTH_ROADMAP.md` for the
-  proposed bands and release evidence.
+- No spend is authorized by the roadmap. David must approve the exact maximum,
+  owner, evidence window, and kill rule for every future spending band.
 
 ## Failure and correction behavior
 

@@ -2,15 +2,17 @@
 
 Status: active production contract
 Owner: David Friedhof
-Last reconciled: 2026-08-01
+Last reconciled: 2026-08-04
 
 ## Purpose and source precedence
 
 David's Daily Bread is a founder-led Christian media and learning project. Its
-current product is a twice-daily, source-linked website for everyday readers,
-combining trustworthy technology coverage, practical learning, and quiet
-Christian reflection. It earns attention through useful compression and earns
-trust by making every factual item traceable.
+current product is a twice-daily, source-linked website for everyday readers:
+news and Scripture each morning, an evening Field Guide with useful tools and
+workflows, and the exact public brand statement **Loved by God**. The active
+roadmap grows it into a carefully moderated Christian learning, prayer, and
+service network. It earns attention through useful compression and earns trust
+by making every factual item traceable.
 
 David retains final control over mission, theology, editorial direction,
 partnerships, product direction, channels, and monetization. The publisher may
@@ -22,7 +24,7 @@ instruction to outrun trust, moderation, or founder direction.
 When sources disagree, use this order:
 
 1. `FOUNDER_DOCTRINE.md` for mission, founder authority, strategic direction,
-   and paused initiatives.
+   authorized local work, and production boundaries.
 2. `BRAND.md` for brand, voice, art, typography, and reader-visible house law.
 3. This file for the product shape and public promises.
 4. `docs/DISTRIBUTION_SPEC.md` for channel, adapter, rights, and measurement law.
@@ -34,8 +36,35 @@ The public `Ironman1421/davidsdailybread` repository is the active production
 source. The private `ddb-ops` and `ddb-engineering` repositories preserve useful
 history, but their Mac, Spark, Buttondown, and once-daily plans are not current
 operating authority unless deliberately migrated into this repository. The
-former weekly email pilot is paused and guarded by
+former weekly email pilot is not an active send plan. Local retention strategy
+and product-integration prototypes may proceed, while issue drafting, provider
+operations, address collection, activation, and sending remain disabled under
 `docs/NEWSLETTER_PILOT_SPEC.md`.
+
+## Durable-moat product contract
+
+`docs/GROWTH_ROADMAP.md` is the active phased roadmap. Product decisions should
+strengthen trust, daily ritual, reader-owned personal history, relationships,
+useful contributions, or distribution back to the canonical home without
+weakening another asset.
+
+The installable web app is the first app target. It is the existing responsive
+website made installable and mobile-capable, not a separate editorial product
+or a generic Christian feature suite. The website, archive, RSS, edition paths,
+source receipts, and corrections remain canonical. Native iOS and Android work
+is evidence-gated by a platform capability the web app cannot adequately
+provide; a desktop app is a later evidence-gated decision.
+
+Accounts are optional infrastructure for durable personal value, not a wall
+around canonical journalism. Guest reading remains available. Personal notes,
+prayer journals, saved material, and spiritual history are private by default,
+portable, and deletable within any plainly disclosed public-record boundary.
+
+Social features release from private to broader scope: personal value, trusted
+circles, bounded moderated cohorts, then any wider surface. Open posting and
+private or direct messaging may be built and tested locally, but remain
+production-disabled until their specific roadmap gates are approved. Private
+messaging is optional and may be omitted permanently.
 
 ## Edition contracts
 
@@ -58,11 +87,10 @@ former weekly email pilot is paused and guarded by
   divine approval, condemnation, judgment, prophecy, or biblical meaning to the
   people or event. Data-only sections, navigation, and the evening edition are
   excluded.
-- Reader features: at most one Ask the Baker question, one Letter to the King,
-  and one Crumb Board pin. While new intake is paused, only the frozen existing
-  queue may supply reader material, selected oldest first; a house letter may
-  fill the King slot only when no reader letter waits. Reopening submissions
-  requires a verified private boundary and David's explicit approval.
+- Reader features: while public intake is closed, Ask the Baker and Crumb Board
+  are empty and reader letters are rejected. At most one reviewed house-satchel
+  Letter to the King may run. Reopening reader submissions requires a verified
+  private boundary and David's explicit approval.
 - Category pages are morning-owned and must not be changed by an evening bake.
 
 ### Evening edition
@@ -137,15 +165,34 @@ former weekly email pilot is paused and guarded by
   `distribution/metrics.schema.json`; unknown metrics are null, never zero.
 - Published X replies validate separately against
   `distribution/x-replies.schema.json`; unposted drafts are not committed.
-- Email: newsletter sending and all activation work are paused. Preserve the
-  current `/subscribe.html` state, but do not draft, test, schedule, send,
-  configure, credential, import, or advance the former pilot's gates. Work may
-  resume only after David explicitly reverses the decision and the governing
-  documents, machine-readable contract, and tests are reconciled.
-- Reader intake: do not reactivate a public submission path, fetch new Counter
-  rows, provision or deploy the Supabase reader store, alter the external Google
-  form or Sheet, delete the frozen queue, or rewrite history. Reopening requires
-  a verified private boundary and David's explicit approval.
+- Email: local retention strategy and product-integration prototypes are
+  authorized. Preserve the current fail-closed `/subscribe.html` state, but do
+  not collect addresses, draft an issue, test a send, schedule, send, configure
+  a provider, operate on a list, install a credential, or activate the former
+  pilot. External operations require a scoped founder decision and reconciled
+  contract.
+- Reader intake: the site-side closure is deployed and must remain fail-closed.
+  Private-boundary implementation and reopening preparation are authorized
+  locally. Do not reactivate a public submission path, fetch or recommit Counter
+  rows, provision or deploy the Supabase reader store, alter external intake
+  providers, delete the frozen queue, or rewrite history. Reopening requires a
+  verified private boundary and David's explicit approval.
+
+## Community and app release contract
+
+- Local research, design, implementation, and testing are authorized across all
+  roadmap phases. A completed local feature is not production approval.
+- Every external release names the exact reviewed commit or package, provider,
+  operator, data classes, retention and deletion behavior, moderation coverage,
+  cost ceiling, measurement window, kill switch, rollback, and incident path.
+- Public is never the default audience for a prayer, journal entry, personal
+  history item, or trusted-circle contribution.
+- Participation surfaces require clear rules, consent, report and removal paths,
+  rate limits, and blocking wherever relationships exist.
+- Personal or spiritual data may not be sold, licensed, used for behavioral
+  advertising, or joined into a cross-site identity graph.
+- Notifications exclude sensitive prayer text from lock-screen payloads by
+  default. The product never promises continuous moderation or emergency care.
 
 ## Reliability and release contract
 
@@ -165,6 +212,12 @@ former weekly email pilot is paused and guarded by
 
 ## Product measures
 
+The official first-1,000 milestone is measured on the canonical website under
+`docs/AUDIENCE_MEASUREMENT_SPEC.md`. Social, RSS, and participation signals are
+supporting evidence and are not added to that total. Until approved
+instrumentation produces a complete month, the audience baseline is unknown,
+not zero.
+
 Track separately for morning and evening:
 
 - on-time publish rate and failed-bake reason;
@@ -177,5 +230,12 @@ Track separately for morning and evening:
   interactions, approval latency, profile-visit windows, and follower deltas;
 - impressions, shares, profile visits, follows, and site visits per edition.
 
+As roadmap features become separately activated, also track account export,
+deletion, recovery, session revocation, saved personal value without inspecting
+private content, relationship health, moderation workload, privacy requests,
+incidents, and voluntarily shared prayer or service outcomes in aggregate.
+
 Follower count is a reach metric, not a quality substitute. Corrections,
 retention, shares per impression, and returning readers are guardrail metrics.
+Raw time-on-site, posting volume, streaks, and notification opens are not
+success when they reduce well-being, privacy, trust, or mission value.
