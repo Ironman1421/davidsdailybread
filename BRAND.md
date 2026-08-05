@@ -188,9 +188,10 @@ boundaries.
   intake boundary is verified and David explicitly approves reopening. Current
   morning bakes reject submission-derived material; only a reviewed house
   letter may run. Letters to the King is backstopped by the house satchel
-  (`/kings-satchel.json`), restocked
-  weekly by the satchel-steward scheduled task; used letters are tracked in
-  `bakery-state.json` (`usedSatchelLetters`) and never repeat.
+  (`/kings-satchel.json`). When a morning bake finds fewer than three unused
+  letters, that approved bake adds reviewed timeless letters until sixteen are
+  unused. Used letters are tracked in `bakery-state.json`
+  (`usedSatchelLetters`) and never repeat.
 - **RSS:** `/feed.xml`, prepended every bake; the RSS `<link rel="alternate">` tag
   stays in every page head.
 - **Evening libraries:** `/tools.html` and `/workflows.html` are standing,

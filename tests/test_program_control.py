@@ -93,6 +93,31 @@ class ProgramControlTest(unittest.TestCase):
                 )
                 self.assertIn("granted", item["authorization"])
 
+    def test_completed_checkout_and_control_cleanup_stay_closed(self):
+        by_id = {item["id"]: item for item in self.control["items"]}
+
+        for item_id in ("DDB-PC-013", "DDB-PC-014"):
+            item = by_id[item_id]
+            self.assertEqual("complete", item["status"])
+            self.assertTrue(item["authorization"]["granted"])
+            self.assertTrue(item["completedAt"])
+            self.assertTrue(item["evidence"])
+            self.assertNotIn(item_id, self.control["halt"]["reason"])
+
+        checkout_record = (
+            ROOT / "docs" / "CHECKOUT_RECONCILIATION_2026-08-04.md"
+        ).read_text(encoding="utf-8")
+        repository_map = (ROOT / "docs" / "REPOSITORY_MAP.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("DDB-PC-013 checkout reconciliation", checkout_record)
+        self.assertIn(
+            "f488557e74f5bd1d3e9cc424213bfce4dc9cbd55c30ac451ef8cf9d22df885c1",
+            checkout_record,
+        )
+        self.assertIn("CHECKOUT_RECONCILIATION_2026-08-04.md", repository_map)
+        self.assertIn("former Spark Counter timer was disabled", repository_map)
+
     def test_instruction_files_point_to_the_canonical_state_source(self):
         for relative_path in ("AGENTS.md", "CLAUDE.md"):
             text = (ROOT / relative_path).read_text(encoding="utf-8")

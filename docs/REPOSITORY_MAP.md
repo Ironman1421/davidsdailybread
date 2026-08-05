@@ -18,6 +18,25 @@ Claude Cowork is not a repository and is no longer an authority for this
 project. Useful ideas from old conversations must be deliberately reconstructed
 in version-controlled specs, code, and tests before use.
 
+## Checkout authority
+
+Spark's canonical private checkout is `/home/david/daicc-phase1`. The
+2026-08-04 reconciliation established a clean private-`main` source, preserved
+runtime-only files locally under tripwire coverage, and independently matched
+the audited DDB deployment files to that source. The former dirty checkout and
+checksummed recovery artifacts are recorded in
+`docs/CHECKOUT_RECONCILIATION_2026-08-04.md`.
+
+Spark's `/home/david/hq/daily-bread`, DDB scratch mirrors, and Cowork imports
+are historical, noncanonical checkouts. No active DDB unit uses the public
+mirror as source authority.
+
+Local Mac worktrees other than an explicitly assigned clean branch are also
+noncanonical working state. The dirty worktrees identified in the 2026-08-04
+reconciliation have recoverable snapshots; later cleanup may remove only
+independently verified clean temporary worktrees while preserving their Git
+refs.
+
 ## Known ownership gaps
 
 - Spark's guarded `daicc-ddb-autopost` service is the current canonical X lane.
@@ -47,15 +66,16 @@ The canonical bake and publish remain in `Ironman1421/davidsdailybread`.
 Spark's reviewed components in `Ironman1421/davids-ai-command-center` may invoke
 the public repository's Daily bake `workflow_dispatch` endpoint and inspect the
 exact-date archive contract. While reader intake is paused, they must not invoke
-Counter Sync. Existing Counter scheduling is implementation state to reconcile,
-not authority to fetch or commit new reader rows. They
+Counter Sync. The former Spark Counter timer was disabled on 2026-08-04; the
+retained GitHub workflow is a manual, read-only pause confirmation with no data
+endpoint or write permission. They
 may not compose editions, choose the latest available edition, push site
 content, or receive the editorial model secret. The Pacific schedule is morning
 at 4:40 AM, morning watchdog at 5:15 AM, evening at
 2:40 PM, and evening watchdog at 3:30 PM. These starts target reader-ready
 publication near 5:00 AM and 3:00 PM Pacific. GitHub's paired PDT/PST schedules
-remain delayed backups for both bakes. The existing Counter Sync schedule is
-not an approved backup while the founder pause is active.
+remain delayed backups for both bakes. No Counter Sync schedule remains while
+the founder pause is active.
 The merged commit, installed-unit verification, and no-op canaries are recorded
 in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 
