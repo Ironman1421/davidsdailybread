@@ -50,7 +50,7 @@
     "accessibleStatusRegion": true
   },
   "updates": {
-    "cacheGeneration": "v2",
+    "cacheGeneration": "v3",
     "staticAssetInstallFetchCacheMode": "reload",
     "skipWaitingDuringInstall": false,
     "readerRefreshActionRequiredForWaitingWorker": true,

@@ -1,4 +1,4 @@
-const CACHE_PREFIX = "ddb-pwa-v2-";
+const CACHE_PREFIX = "ddb-pwa-v3-";
 const STATIC_CACHE = `${CACHE_PREFIX}static`;
 const PAGE_CACHE = `${CACHE_PREFIX}pages`;
 const DATA_CACHE = `${CACHE_PREFIX}data`;
