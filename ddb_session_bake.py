@@ -766,6 +766,11 @@ def verify_rendered_outputs(outputs: dict[Path, str]) -> None:
                      f"{p.name}: masthead art missing")
 
 
+def _normalize_generated_output(text: str) -> str:
+    """Remove renderer-created horizontal whitespace at line endings."""
+    return "\n".join(line.rstrip(" \t") for line in text.split("\n"))
+
+
 def verify_output(paths: list[Path]) -> None:
     """Compatibility wrapper for callers validating files already on disk."""
     verify_rendered_outputs({p: p.read_text(encoding="utf-8") for p in paths})
@@ -955,6 +960,14 @@ def cmd_render(content_path: Path, date: str, slot: str, bake_mode: str = "daily
             indent=2,
             ensure_ascii=False,
         ) + "\n"
+
+    # Removing optional template blocks can leave indentation on otherwise
+    # blank lines when an edition legitimately carries fewer than six cards.
+    # Normalize generated reader-visible text before validation and the atomic
+    # writes so the publisher's `git diff --check` remains a meaningful gate.
+    for path, text in tuple(outputs.items()):
+        if path.suffix in (".html", ".xml"):
+            outputs[path] = _normalize_generated_output(text)
 
     if slot == "morning" or date >= UNIFIED_MASTHEAD_START:
         for path in (REPO / "index.html", edition_path):

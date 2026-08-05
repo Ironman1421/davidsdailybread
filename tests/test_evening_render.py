@@ -365,6 +365,19 @@ with tempfile.TemporaryDirectory() as td:
     for section in ("tech", "markets", "science"):
         category_html = (repo / f"{section}.html").read_text(encoding="utf-8")
         assert category_html.count('class="scripture-inline"') == 2
+    for generated in (
+        repo / "index.html",
+        repo / "editions" / f"{DATE}-morning.html",
+        repo / "tech.html",
+        repo / "markets.html",
+        repo / "science.html",
+        repo / "archive.html",
+        repo / "feed.xml",
+    ):
+        assert not any(
+            line.endswith((" ", "\t"))
+            for line in generated.read_text(encoding="utf-8").splitlines()
+        ), f"generated trailing whitespace in {generated.name}"
 
     # --- same-edition daily retries survive advanced reader state -----------
     retry = content_for(("tech", "markets", "science"), "tech", "Technology")

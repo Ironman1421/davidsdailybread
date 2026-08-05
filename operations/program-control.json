@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T11:03:00Z",
+  "updatedAt": "2026-08-05T11:23:00Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -828,7 +828,10 @@
         "Live owner canaries proved direct push, force push, and main deletion were rejected while main remained exactly b60c6f2c865bf3a0004ce8bf1ac143f8fc335334",
         "The active ruleset correctly refused PR #54 because the legacy Merge gate emitted a cancelled branch-push gate beside its successful PR gate; the branch fix removes the contradictory feature-branch trigger while retaining the complete required pull-request gate and manual dispatch",
         "PR #54 repaired head c1ab399cc4ab74049c8e7d73f39781a50b1ce47a passed every required check with no duplicate gate and merged through the active ruleset without admin bypass as linear squash eaea67123ade69cb37af9382f8c159e118e710df",
-        "Workflow run 30999807268 gave the built-in GITHUB_TOKEN Contents write only for the rejection canary; GitHub returned HTTP 422 for the protected main update, all three ruleset checks were expected, and main remained eaea67123ade69cb37af9382f8c159e118e710df"
+        "Workflow run 30999807268 gave the built-in GITHUB_TOKEN Contents write only for the rejection canary; GitHub returned HTTP 422 for the protected main update, all three ruleset checks were expected, and main remained eaea67123ade69cb37af9382f8c159e118e710df",
+        "Cleanup PR #55 exact head f02562a516cbf274918ff71632b2e92853578217 passed all required checks and merged through the ruleset as b46c86a9cf10e49f40cf5979aea8447cd6246d7a, removing the temporary writable-token workflow",
+        "Intentional failing PR #56 produced failed Merge gate run 30999908222, was prohibited from normal merge by the active base policy, closed unmerged, and had its disposable branch deleted while main remained unchanged",
+        "Morning canary run 31000178263 completed preparation, uncredentialed authoring, allowlist guard, sealed-envelope construction, upload, download, decryption, manifest verification, and application; it then failed closed on renderer-created trailing whitespace before any App token mint or push, the runner-local key was erased with the job, and main remained b46c86a9cf10e49f40cf5979aea8447cd6246d7a"
       ],
       "completionGate": [
         "Publisher identity is approved and provisioned",

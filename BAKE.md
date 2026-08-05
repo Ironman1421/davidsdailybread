@@ -246,9 +246,10 @@ over and guards the result before it ships:
   and `editions/<date>-morning|evening.html`. Evening (tighter):
   ONLY `index.html`, `archive.html`, `archive.json`, `feed.xml`, and
   `editions/<date>-evening.html`.
-- It confirms `archive.json` carries this slot's entry, then commits in the
-  house style (edition commit, then the `Archive:` commit), rebases on `main`
-  to incorporate any newer published edition, and pushes.
+- It confirms `archive.json` carries this slot's entry, transfers only a sealed
+  publisher envelope to a fresh runner, revalidates it, and aborts if remote
+  `main` changed. Only then does it mint a one-repository `ddb-publisher` App
+  token, create one atomic commit without rebasing, and push.
 
 **7. Verify — also the workflow's job.** After pushing, the workflow compares
 the pushed commit with GitHub's authoritative `refs/heads/main`, then checks the
@@ -438,13 +439,15 @@ evening allowlist enforces this.
   Never change their shape or paths without David's sign-off BEFORE deploying.
   `edition` values are `morning` and `evening`; every replacement adapter must
   ground a post in its exact slot and canonical URL.
-- **Publishing runs in GitHub Actions**, not in a Claude session, and the push
-  authenticates with the workflow's built-in `GITHUB_TOKEN`. There is no
-  personal access token in the publishing path. Spark holds a separate,
-  fine-grained dispatch-only token for the clock and watchdog path; it cannot
-  push site content. A Claude session has no repository write credential and
-  cannot push (it 403s); that is why the bake lives in
-  `.github/workflows/ddb-bake.yml`.
+- **Publishing runs in GitHub Actions**, not in a Claude session. The built-in
+  `GITHUB_TOKEN` is read-only and cannot bypass protected `main`. After every
+  uncredentialed validation passes, the fresh publisher job mints a short-lived
+  `ddb-publisher` GitHub App installation token scoped to this repository and
+  Contents write; the action revokes it at job end. There is no personal access
+  token in the publishing path. Spark holds a separate, fine-grained
+  dispatch-only token for the clock and watchdog path; it cannot push site
+  content. A Claude session has no repository write credential and cannot push
+  (it 403s); that is why the bake lives in `.github/workflows/ddb-bake.yml`.
 - **Claude authenticates** inside the runner from the repository secret
   `CLAUDE_CODE_OAUTH_TOKEN` (created with `claude setup-token`), with
   `ANTHROPIC_API_KEY` as a fallback. If neither secret is set the bake step

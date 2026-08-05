@@ -62,6 +62,13 @@ class RendererSecurityTest(unittest.TestCase):
             ddb_session_bake.validate_content(content, DATE, "morning")
         self.assertIn(message, stderr.getvalue())
 
+    def test_generated_output_normalizes_trailing_horizontal_whitespace(self):
+        source = "first  \n  second\t\n\n"
+        self.assertEqual(
+            "first\n  second\n\n",
+            ddb_session_bake._normalize_generated_output(source),
+        )
+
     def test_source_urls_are_https_absolute_and_credential_free(self):
         accepted = (
             "https://example.com/story",
