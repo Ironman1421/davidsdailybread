@@ -1,0 +1,53 @@
+name: DDB protection canary
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ddb-protection-canary
+  cancel-in-progress: false
+jobs:
+  github-token-rejection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Prove the built-in token cannot update protected main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EXPECTED_MAIN: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          before="$(gh api "repos/${REPOSITORY}/git/ref/heads/main" --jq .object.sha)"
+          if [ "$before" != "$EXPECTED_MAIN" ]; then
+            echo "::error::main changed before the rejection canary"
+            exit 1
+          fi
+
+          tree="$(gh api "repos/${REPOSITORY}/git/commits/${EXPECTED_MAIN}" --jq .tree.sha)"
+          canary_commit="$({
+            jq -n \
+              --arg message "DDB-PC-015 built-in token rejection canary" \
+              --arg tree "$tree" \
+              --arg parent "$EXPECTED_MAIN" \
+              '{message: $message, tree: $tree, parents: [$parent]}'
+          } | gh api --method POST "repos/${REPOSITORY}/git/commits" --input - --jq .sha)"
+
+          set +e
+          rejection="$({
+            jq -n --arg sha "$canary_commit" '{sha: $sha, force: false}'
+          } | gh api --method PATCH "repos/${REPOSITORY}/git/refs/heads/main" --input - 2>&1)"
+          rejection_status=$?
+          set -e
+          if [ "$rejection_status" -eq 0 ]; then
+            echo "::error::built-in GITHUB_TOKEN unexpectedly updated main"
+            exit 1
+          fi
+          printf '%s\n' "$rejection"
+
+          after="$(gh api "repos/${REPOSITORY}/git/ref/heads/main" --jq .object.sha)"
+          if [ "$after" != "$EXPECTED_MAIN" ]; then
+            echo "::error::main changed during the rejection canary"
+            exit 1
+          fi
+          echo "Built-in GITHUB_TOKEN update rejected; main remained $after."
