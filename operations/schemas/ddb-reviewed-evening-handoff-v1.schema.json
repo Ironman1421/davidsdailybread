@@ -1,0 +1,587 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/contracts/ddb-reviewed-evening-handoff-v1.schema.json",
+  "title": "DDB reviewed evening handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "packetId",
+    "status",
+    "targetEdition",
+    "reviewedAt",
+    "expiresAt",
+    "research",
+    "editorialRule",
+    "selection",
+    "holds",
+    "rejections",
+    "authority"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ddb-reviewed-evening-handoff-v1"
+    },
+    "packetId": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-evening$"
+    },
+    "status": {
+      "const": "ready"
+    },
+    "targetEdition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "slot", "timeZone"],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "slot": {
+          "const": "evening"
+        },
+        "timeZone": {
+          "const": "America/Los_Angeles"
+        }
+      }
+    },
+    "reviewedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "research": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["xManager", "ddb"],
+      "properties": {
+        "xManager": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "completedAt",
+            "artifactSha256",
+            "xPro",
+            "xRadar",
+            "closingDeltaCheck"
+          ],
+          "properties": {
+            "completedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "artifactSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "xPro": {
+              "$ref": "#/$defs/xResearchInput"
+            },
+            "xRadar": {
+              "$ref": "#/$defs/xResearchInput"
+            },
+            "closingDeltaCheck": {
+              "$ref": "#/$defs/closingDeltaCheck"
+            }
+          }
+        },
+        "ddb": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "completedAt",
+            "independentWebResearch",
+            "primarySourcesChecked",
+            "trendEvidenceChecked"
+          ],
+          "properties": {
+            "completedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "independentWebResearch": {
+              "const": true
+            },
+            "primarySourcesChecked": {
+              "const": true
+            },
+            "trendEvidenceChecked": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "editorialRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "weights", "gates"],
+      "properties": {
+        "version": {
+          "const": "editorial-fit-v1"
+        },
+        "weights": {
+          "const": {
+            "leverage": 0.4,
+            "broadApplicability": 0.3,
+            "repeatability": 0.2,
+            "trendStrength": 0.1
+          }
+        },
+        "gates": {
+          "const": {
+            "leverage": 65,
+            "broadApplicability": 60,
+            "repeatability": 50,
+            "trendStrength": 45,
+            "total": 60
+          }
+        }
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tools", "workflows"],
+      "properties": {
+        "tools": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/selectedItem"
+              },
+              {
+                "properties": {
+                  "section": {
+                    "const": "tools"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "workflows": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/selectedItem"
+              },
+              {
+                "properties": {
+                  "section": {
+                    "const": "workflows"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "holds": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/editorialDecision"
+          },
+          {
+            "properties": {
+              "decision": {
+                "const": "hold"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "rejections": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/editorialDecision"
+          },
+          {
+            "properties": {
+              "decision": {
+                "const": "reject"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "authority": {
+      "const": {
+        "editorialSelectionFinal": true,
+        "publicationApproved": false,
+        "selectionOwner": "David's Daily Bread",
+        "publicationOwner": "existing-bake-workflow"
+      }
+    }
+  },
+  "$defs": {
+    "xResearchInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["used", "observedAt", "context"],
+      "properties": {
+        "used": {
+          "const": true
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "closingDeltaCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempted",
+        "completed",
+        "observedAt",
+        "sources",
+        "changesFound",
+        "context"
+      ],
+      "properties": {
+        "attempted": {
+          "const": true
+        },
+        "completed": {
+          "const": true
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sources": {
+          "const": ["xPro", "xRadar"]
+        },
+        "changesFound": {
+          "type": "boolean"
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "editorialScores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "leverage",
+        "broadApplicability",
+        "repeatability",
+        "trendStrength",
+        "total",
+        "shelfEligible",
+        "ruleVersion"
+      ],
+      "properties": {
+        "leverage": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "broadApplicability": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "repeatability": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "trendStrength": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "shelfEligible": {
+          "const": true
+        },
+        "ruleVersion": {
+          "const": "editorial-fit-v1"
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "officialSourceCheckedAt",
+        "trendSourceCheckedAt",
+        "claimsVerified"
+      ],
+      "properties": {
+        "officialSourceCheckedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "trendSourceCheckedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "claimsVerified": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "selectedItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "section",
+        "title",
+        "summary",
+        "officialUrl",
+        "trendUrl",
+        "seen",
+        "action",
+        "caveat",
+        "uncertainty",
+        "editorialScores",
+        "verification",
+        "sourceLineage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "section": {
+          "enum": ["tools", "workflows"]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "officialUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://(?!(?:[a-z0-9-]+\\.)*(?:x\\.com|twitter\\.com)(?:/|$))"
+        },
+        "trendUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://(?!(?:[a-z0-9-]+\\.)*(?:x\\.com|twitter\\.com)(?:/|$))"
+        },
+        "seen": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "caveat": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uncertainty": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "price": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        },
+        "requirements": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "timeEstimate": {
+          "type": "string"
+        },
+        "editorialScores": {
+          "$ref": "#/$defs/editorialScores"
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
+        },
+        "sourceLineage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["xManagerCandidateIds", "ddbSourceUrls"],
+          "properties": {
+            "xManagerCandidateIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "ddbSourceUrls": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://(?!(?:[a-z0-9-]+\\.)*(?:x\\.com|twitter\\.com)(?:/|$))"
+              }
+            }
+          }
+        }
+      }
+    },
+    "editorialDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "section",
+        "title",
+        "decision",
+        "reason",
+        "editorialScores",
+        "uncertainty",
+        "sourceLineage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "section": {
+          "enum": ["tools", "workflows"]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "enum": ["hold", "reject"]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "editorialScores": {
+          "$ref": "#/$defs/decisionScores"
+        },
+        "uncertainty": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "sourceLineage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["xManagerCandidateIds", "ddbSourceUrls"],
+          "properties": {
+            "xManagerCandidateIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "ddbSourceUrls": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://(?!(?:[a-z0-9-]+\\.)*(?:x\\.com|twitter\\.com)(?:/|$))"
+              }
+            }
+          }
+        }
+      }
+    },
+    "decisionScores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "leverage",
+        "broadApplicability",
+        "repeatability",
+        "trendStrength",
+        "total",
+        "shelfEligible",
+        "ruleVersion"
+      ],
+      "properties": {
+        "leverage": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "broadApplicability": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "repeatability": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "trendStrength": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "shelfEligible": {
+          "type": "boolean"
+        },
+        "ruleVersion": {
+          "const": "editorial-fit-v1"
+        }
+      }
+    }
+  }
+}

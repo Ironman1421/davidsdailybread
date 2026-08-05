@@ -309,9 +309,29 @@ and Entrust, and is not reader mail. The masthead links to the standing
 `/tools.html` and `/workflows.html` libraries, which read the bounded
 `evening-catalog.json`; the links do not scroll to sections in the edition.
 
-**E1. Research.** Using web search and fetches, gather TODAY'S trend material
-(last ~24 hours preferred; ~48 is acceptable when something is clearly still
-rising). Use this source ladder:
+**E1. Reviewed handoff or fallback research.** The normal daily-evening path
+starts from the runner-local `ddb-reviewed-evening-handoff-v1` packet named in
+the run prompt. That packet is the output of one 1:40 PM editorial pass in
+which DDB reads X Manager's 12:45 PM research and final X delta proof, performs
+its own broader web research, independently verifies every candidate, and makes the final
+selected/hold/reject decision. DDB applies this exact Editorial Fit rule:
+40% leverage, 30% broad applicability, 20% repeatability, and 10% trend
+strength. A selected item must also clear the standing force-multiplier gates.
+
+When the packet has `status: ready`, its `selection.tools` and
+`selection.workflows` arrays are editorially final for this edition. Do not
+search for additional candidates, refresh X Manager, call `/api/trends` or
+`/api/discovery-export`, substitute an item, or rerank the set. Fetch each
+selected item's non-X `officialUrl` and `trendUrl` for the final accuracy pass,
+correct unsupported copy without changing the selection, then map the packet
+into `content.json`. The packet explicitly has
+`authority.publicationApproved: false`; it supplies editorial selection, never
+publication authority.
+
+If the local handoff explicitly reports `available: false` because the packet
+was missing, stale, invalid, or unreachable, use the following normal non-X
+source ladder as a fail-open exception. Gather TODAY'S trend material (last ~24 hours preferred;
+~48 is acceptable when something is clearly still rising):
 
 1. Discover and prove the trend with a citable Hacker News, GitHub Trending,
    Product Hunt, Reddit, or reputable press page.
@@ -322,14 +342,12 @@ rising). Use this source ladder:
 
 Keep the factual source and trend source separate in `content.json`, and fetch
 both. You have no direct X/Twitter access. Do not scrape X through unofficial
-tools, mirrors, search snippets, or workarounds. David's approved X Monitor is
-connected for daily evening runs. The workflow provides its ephemeral,
-read-only snapshot at the path named in the run prompt when it is available.
-Use its candidates only to decide what to investigate. An X post never satisfies
-the factual `url` or citable `trend_url`: independently fetch and verify both
-sources required by the ladder above. If the snapshot is unavailable, empty,
-stale, or unhelpful, continue with the normal source ladder. Never fail or pad
-an edition merely because X Monitor supplied no usable lead. The two sections:
+tools, mirrors, search snippets, or workarounds. The 2:40 bake never asks X
+Manager to research again: X Manager's contribution is already represented in
+the reviewed packet, or the bake uses the non-X fallback ladder without it. An
+X post never satisfies the factual `url` or citable `trend_url`. Never fail or
+pad an edition merely because the reviewed packet was unavailable. The two
+sections:
 
 - **tools** (the shelf) — productivity tools, apps, and features an everyday
   person could start using TONIGHT, and that people are actually picking up

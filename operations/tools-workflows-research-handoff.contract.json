@@ -1,52 +1,103 @@
 {
-  "version": 1,
-  "status": "scheduled-advisory-research",
+  "version": 3,
+  "status": "branch-implemented-pending-production-approval",
   "owner": "David Friedhof",
-  "purpose": "Give DDB program control a reviewed daily discovery handoff for the evening Field Guide without transferring editorial or publishing authority.",
+  "purpose": "Combine X Manager advisory research and DDB independent research into one final evening selection before the bake, without transferring publication authority.",
   "producer": {
     "name": "X Manager, Tools and Workflows",
     "repositoryPath": "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows",
-    "projectAlias": "/Users/davidfriedhof/Documents/Trending"
+    "researchRecords": [
+      "coordination/ddb/YYYY-MM-DD-tools-workflows-research.json",
+      "coordination/ddb/YYYY-MM-DD-tools-workflows-research.md",
+      "coordination/ddb/research-latest.json"
+    ],
+    "researchSchema": "operations/schemas/x-manager-noon-research-v2.schema.json",
+    "blockedRule": "If current X Pro or X Radar proof is unavailable, emit status blocked rather than a completed advisory packet.",
+    "closingDeltaCheckRequired": true,
+    "closingDeltaRule": "Immediately before closing the handoff, recheck both X Pro and X Radar, reconcile late changes into the candidate set, and record closingDeltaCheck proof."
   },
-  "sourceRecords": [
-    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/coordination/ddb/tools-workflows-handoff.json",
-    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/docs/DDB_RESEARCH_COORDINATION_2026-08-03.md"
-  ],
   "targetEdition": {
     "dateRule": "current date in America/Los_Angeles at execution time",
     "slot": "evening",
-    "timeZone": "America/Los_Angeles",
-    "bakeStartsLocal": "14:40:00"
+    "timeZone": "America/Los_Angeles"
   },
   "coordination": {
-    "timeZone": "America/Los_Angeles",
-    "researchStartsLocal": "12:00:00",
-    "handoffReadyByLocal": "13:45:00",
-    "ddbReviewStartsLocal": "14:00:00",
+    "xManagerResearchStartsLocal": "12:45:00",
+    "xManagerPacketReadyByLocal": "13:35:00",
+    "ddbCombinedReviewStartsLocal": "13:40:00",
+    "reviewedPacketReadyByLocal": "14:25:00",
     "bakeStartsLocal": "14:40:00",
-    "reviewBufferMinutesBeforeBake": 40
+    "selectionPasses": 1
   },
-  "expectedResearchRecords": [
-    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/coordination/ddb/YYYY-MM-DD-tools-workflows-research.json",
-    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/coordination/ddb/YYYY-MM-DD-tools-workflows-research.md",
-    "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows/coordination/ddb/research-latest.json"
-  ],
-  "expectedReviewRecords": [
-    "operations/intake-reviews/YYYY-MM-DD-tools-workflows-research-review.json",
-    "operations/intake-reviews/YYYY-MM-DD-tools-workflows-research-review.md"
-  ],
-  "intakeRules": [
-    "Treat every candidate as advisory discovery evidence",
-    "Independently verify every factual and trend claim",
-    "Use only practical tools and workflows suitable for the evening Field Guide",
-    "Do not include news in the evening edition",
-    "David's Daily Bread makes the final include, hold, or reject decision"
-  ],
-  "authority": {
-    "researchMayPublish": false,
-    "researchMayEditEdition": false,
-    "ddbSelectionRequired": true,
-    "ddbVerificationRequired": true,
+  "automationBindings": {
+    "updateExistingOnly": true,
+    "duplicatesAllowed": false,
+    "xManager": {
+      "id": "research-tools-and-workflows-for-ddb-evening-edition",
+      "repositoryPath": "/Users/davidfriedhof/Documents/X Manager, Tools and Workflows",
+      "startsLocal": "12:45:00"
+    },
+    "ddb": {
+      "id": "review-x-manager-research-for-ddb-evening-edition",
+      "repositoryPath": "/Users/davidfriedhof/Documents/David's Daily Bread",
+      "startsLocal": "13:40:00"
+    }
+  },
+  "ddbCombinedReview": {
+    "inputs": [
+      "X Manager's exact 12:45 PM JSON artifact and SHA-256",
+      "DDB's independent broader web research",
+      "official factual sources",
+      "non-X citable trend sources"
+    ],
+    "editorialFit": {
+      "version": "editorial-fit-v1",
+      "weights": {
+        "leverage": 0.4,
+        "broadApplicability": 0.3,
+        "repeatability": 0.2,
+        "trendStrength": 0.1
+      },
+      "gates": {
+        "leverage": 65,
+        "broadApplicability": 60,
+        "repeatability": 50,
+        "trendStrength": 45,
+        "total": 60
+      }
+    },
+    "outputSchema": "operations/schemas/ddb-reviewed-evening-handoff-v1.schema.json",
+    "decisions": ["selected", "hold", "reject"]
+  },
+  "privateTransport": {
+    "storeOwner": "X Manager, Tools and Workflows",
+    "writeEndpoint": "POST /api/ddb-handoff",
+    "readEndpoint": "GET /api/ddb-handoff?date=YYYY-MM-DD&slot=evening",
+    "writeCredentialEnv": "DDB_HANDOFF_WRITE_TOKEN",
+    "sitesCredentialEnv": "X_MONITOR_SITES_BYPASS_TOKEN",
+    "durableStore": "Cloudflare D1",
+    "provisioningAuthorized": false
+  },
+  "bakeConsumption": {
+    "normalPath": "Read and accuracy-check the date-bound reviewed packet; do not discover, add, substitute, or rerank candidates.",
+    "prohibitedCalls": ["/api/trends", "/api/discovery-export"],
+    "fallback": "If the reviewed packet is missing, stale, invalid, or unreachable, use BAKE.md's normal non-X source ladder.",
     "publicationControlledByExistingBake": true
+  },
+  "authority": {
+    "xManagerResearchMayPublish": false,
+    "xManagerResearchMaySelect": false,
+    "ddbSelectionFinalForBake": true,
+    "reviewedPacketMayPublish": false,
+    "publicationControlledByExistingBake": true
+  },
+  "activationGate": {
+    "requiresExactReviewedHeads": true,
+    "requiresSeparateMergeApproval": true,
+    "requiresSeparateDeploymentAndMigrationApproval": true,
+    "requiresSeparateCredentialProvisioningApproval": true,
+    "requiresLiveAutomationTargetAudit": true,
+    "liveAutomationScheduleChangeAuthorized": false,
+    "liveBakeChangeAuthorized": false
   }
 }
