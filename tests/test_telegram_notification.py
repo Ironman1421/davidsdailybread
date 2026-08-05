@@ -516,7 +516,7 @@ class WorkflowContractTest(unittest.TestCase):
                 self.assertIn(active[0], active_schedules)
 
         self.assertIn("active: ${{ steps.cfg.outputs.active }}", bake)
-        self.assertIn("needs.bake.outputs.active == 'true'", bake)
+        self.assertIn("needs.prepare-reader-plan.outputs.active == 'true'", bake)
         self.assertNotIn("schedule:", counter)
         self.assertNotIn("cron:", counter)
 
@@ -531,30 +531,38 @@ class WorkflowContractTest(unittest.TestCase):
 
     def test_workflow_is_duplicate_safe_and_credentials_are_isolated(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
-        bake = workflow.split("\n  bake:\n", 1)[1].split("\n  x-broadcast:\n", 1)[0]
+        prepare = workflow.split("\n  prepare-reader-plan:\n", 1)[1].split(
+            "\n  author-edition:\n", 1
+        )[0]
+        author = workflow.split("\n  author-edition:\n", 1)[1].split(
+            "\n  validate-and-publish:\n", 1
+        )[0]
+        publisher = workflow.split("\n  validate-and-publish:\n", 1)[1].split(
+            "\n  x-broadcast:\n", 1
+        )[0]
         telegram = workflow.split("\n  telegram-publication-receipt:\n", 1)[1]
-        self.assertIn("Treat an existing edition as a successful no-op", bake)
-        self.assertIn("already_exists: ${{ steps.existing.outputs.exists }}", bake)
+        self.assertIn("Treat an existing edition as a successful no-op", prepare)
+        self.assertIn("already_exists: ${{ steps.existing.outputs.exists }}", prepare)
         for name in (
             "Install Claude Code",
             "Bake (research, write, render)",
             "Guard the changed files",
-            "Publish",
-            "Verify the publish",
         ):
-            following = bake.split(f"- name: {name}", 1)[1].split("\n      - name:", 1)[0]
-            self.assertIn("if: steps.existing.outputs.exists != 'true'", following)
+            self.assertIn(f"- name: {name}", author)
+        self.assertIn("Mint one repository-scoped publisher token", publisher)
+        self.assertIn("Create and push one atomic publisher commit", publisher)
+        self.assertIn("Verify the publish", publisher)
         self.assertIn("environment: telegram-notification-production", telegram)
         self.assertIn("actions: read", telegram)
         self.assertIn("contents: read", telegram)
         self.assertIn("persist-credentials: false", telegram)
         self.assertIn("hydrate-github-receipt", telegram)
-        self.assertNotIn("needs.bake.outputs.slot == 'morning'", telegram)
-        self.assertIn('SLOT: ${{ needs.bake.outputs.slot }}', telegram)
+        self.assertNotIn("needs.prepare-reader-plan.outputs.slot == 'morning'", telegram)
+        self.assertIn('SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}', telegram)
         self.assertIn('--slot "$SLOT"', telegram)
         self.assertIn("${EDITION_DATE}-${SLOT}", telegram)
         self.assertIn(
-            "telegram-notification-receipt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}",
+            "telegram-notification-receipt-${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}",
             telegram,
         )
         before_live = telegram.split("- name: Run live exact edition notification", 1)[0]
@@ -577,7 +585,7 @@ class WorkflowContractTest(unittest.TestCase):
             "\n  telegram-publication-receipt:\n", 1
         )[0]
         telegram = workflow.split("\n  telegram-publication-receipt:\n", 1)[1]
-        guard = "needs.bake.outputs.already_exists != 'true'"
+        guard = "needs.prepare-reader-plan.outputs.already_exists != 'true'"
 
         self.assertIn(guard, x_job.split("\n    runs-on:", 1)[0])
         self.assertIn(guard, telegram.split("\n    runs-on:", 1)[0])

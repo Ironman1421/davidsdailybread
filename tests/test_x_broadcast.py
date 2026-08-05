@@ -510,8 +510,8 @@ class ReceiptHydrationAndWorkflowTest(BroadcastFixture):
     def test_workflow_keeps_credentials_in_separate_read_only_job(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
         x_job = workflow.split("\n  x-broadcast:\n", 1)[1]
-        bake_job = workflow.split("\n  bake:\n", 1)[1].split("\n  x-broadcast:\n", 1)[0]
-        self.assertIn("needs: bake", x_job)
+        bake_job = workflow.split("\n  author-edition:\n", 1)[1].split("\n  x-broadcast:\n", 1)[0]
+        self.assertIn("needs: [prepare-reader-plan, author-edition, validate-and-publish]", x_job)
         self.assertIn("environment: x-broadcast-production", x_job)
         self.assertIn("actions: read", x_job)
         self.assertIn("contents: read", x_job)
@@ -520,8 +520,8 @@ class ReceiptHydrationAndWorkflowTest(BroadcastFixture):
         self.assertIn("continue-on-error: true", x_job)
         self.assertIn("X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}", x_job)
         self.assertNotIn("X_ACCESS_TOKEN", bake_job)
-        self.assertIn("needs.bake.outputs.date", x_job)
-        self.assertIn("needs.bake.outputs.slot", x_job)
+        self.assertIn("needs.prepare-reader-plan.outputs.date", x_job)
+        self.assertIn("needs.prepare-reader-plan.outputs.slot", x_job)
         before_live = x_job.split("- name: Run live canonical X broadcast", 1)[0]
         self.assertNotIn("secrets.X_", before_live)
         self.assertIn("KILL_SWITCH != 'false'", before_live)

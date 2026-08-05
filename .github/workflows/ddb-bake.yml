@@ -3,9 +3,9 @@ name: Daily bake
 # the MORNING edition (politics-free news and Scripture: tech, markets, science)
 # and the EVENING edition
 # (trends: what's trending, new tools, workflows; spec: BAKE.md).
-# Runs inside GitHub Actions so the publish can push with the built-in
-# GITHUB_TOKEN; a Claude cloud session carries no repository write credential
-# and dies on `git push` with HTTP 403, which is why the bake lives here.
+# Runs inside GitHub Actions. The untrusted author job has read-only repository
+# access. A separate fresh runner validates the sealed result before minting a
+# one-hour ddb-publisher GitHub App token for one atomic push.
 on:
   schedule:
     # GitHub is the backup clock behind Spark's zone-aware 4:40 AM and 2:40 PM
@@ -34,32 +34,37 @@ on:
         required: false
         default: claude-opus-5
 permissions:
-  contents: write
+  contents: read
 concurrency:
   # Serializes writes to main so morning and evening bakes cannot race.
-  group: ddb-main-writers
+  group: ddb-main-publisher
   queue: max
   cancel-in-progress: false
 jobs:
-  bake:
+  prepare-reader-plan:
     outputs:
       date: ${{ steps.cfg.outputs.date }}
       slot: ${{ steps.cfg.outputs.slot }}
       mode: ${{ steps.cfg.outputs.mode }}
       already_exists: ${{ steps.existing.outputs.exists }}
       active: ${{ steps.cfg.outputs.active }}
+      label: ${{ steps.cfg.outputs.label }}
+      human: ${{ steps.cfg.outputs.human }}
+      model: ${{ steps.cfg.outputs.model }}
+      base_sha: ${{ steps.base.outputs.sha }}
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 10
     steps:
-      - name: Checkout
+      - name: Checkout captured main without credentials
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          # persist-credentials: false is load bearing. It strips the checkout
-          # token from the local git config so the Claude bake step CANNOT push,
-          # even if it tried. Only the Publish step (below) rewrites the remote
-          # with GITHUB_TOKEN. Do not drop this line.
+          ref: ${{ github.sha }}
           persist-credentials: false
           fetch-depth: 0
+
+      - name: Capture immutable base commit
+        id: base
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Resolve edition date, slot and mode
         id: cfg
@@ -135,12 +140,41 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Record paused reader-plan receipt
+        if: steps.existing.outputs.exists != 'true'
+        env:
+          EDITION_DATE: ${{ steps.cfg.outputs.date }}
+          SLOT: ${{ steps.cfg.outputs.slot }}
+        run: |
+          set -euo pipefail
+          if [ "$SLOT" = "morning" ]; then
+            echo "Reader intake remains paused; the author may use reviewed house-satchel material only."
+          else
+            echo "No reader plan is permitted for an evening edition."
+          fi
+          echo "Prepared no-reader reservation receipt for ${EDITION_DATE}-${SLOT}."
+
+  author-edition:
+    needs: prepare-reader-plan
+    if: needs.prepare-reader-plan.outputs.already_exists != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout captured base without credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.prepare-reader-plan.outputs.base_sha }}
+          persist-credentials: false
+          fetch-depth: 0
+
       - name: Prepare DDB-reviewed evening handoff
-        if: steps.existing.outputs.exists != 'true' && steps.cfg.outputs.slot == 'evening' && steps.cfg.outputs.mode == 'daily'
+        if: needs.prepare-reader-plan.outputs.slot == 'evening' && needs.prepare-reader-plan.outputs.mode == 'daily'
         env:
           X_MONITOR_BASE_URL: https://signal-ai-radar.fluxcognition.chatgpt.site
           X_MONITOR_SITES_BYPASS_TOKEN: ${{ secrets.X_MONITOR_SITES_BYPASS_TOKEN }}
-          EDITION_DATE: ${{ steps.cfg.outputs.date }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
         run: |
           set -euo pipefail
           python3 ddb_evening_handoff.py fetch \
@@ -149,7 +183,6 @@ jobs:
             --output "$RUNNER_TEMP/ddb-reviewed-evening-handoff.json"
 
       - name: Install Claude Code
-        if: steps.existing.outputs.exists != 'true'
         run: |
           set -euo pipefail
           # Keep the verified installer outside the checkout. The bake guard
@@ -160,14 +193,13 @@ jobs:
           npm install -g "${package_path}"
 
       - name: Bake (research, write, render)
-        if: steps.existing.outputs.exists != 'true'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          DDB_DATE: ${{ steps.cfg.outputs.date }}
-          DDB_SLOT: ${{ steps.cfg.outputs.slot }}
-          DDB_MODE: ${{ steps.cfg.outputs.mode }}
-          BAKE_MODEL: ${{ steps.cfg.outputs.model }}
+          DDB_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          DDB_SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
+          DDB_MODE: ${{ needs.prepare-reader-plan.outputs.mode }}
+          BAKE_MODEL: ${{ needs.prepare-reader-plan.outputs.model }}
           DDB_REVIEWED_HANDOFF_PATH: ${{ runner.temp }}/ddb-reviewed-evening-handoff.json
         run: |
           set -euo pipefail
@@ -200,12 +232,11 @@ jobs:
           echo "Bake session completed; raw model output remains ephemeral."
 
       - name: Guard the changed files
-        if: steps.existing.outputs.exists != 'true'
         id: guard
         env:
-          EDITION_DATE: ${{ steps.cfg.outputs.date }}
-          SLOT: ${{ steps.cfg.outputs.slot }}
-          MODE: ${{ steps.cfg.outputs.mode }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
+          MODE: ${{ needs.prepare-reader-plan.outputs.mode }}
         run: |
           set -euo pipefail
           D="${EDITION_DATE}"
@@ -242,68 +273,50 @@ jobs:
             exit 1
           fi
 
-      - name: Publish
-        if: steps.existing.outputs.exists != 'true'
+      - name: Build and seal the publisher envelope
         env:
-          GH_TOKEN: ${{ github.token }}
-          EDITION_DATE: ${{ steps.cfg.outputs.date }}
-          SLOT: ${{ steps.cfg.outputs.slot }}
-          LABEL: ${{ steps.cfg.outputs.label }}
-          MODE: ${{ steps.cfg.outputs.mode }}
-          HUMAN: ${{ steps.cfg.outputs.human }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
+          MODE: ${{ needs.prepare-reader-plan.outputs.mode }}
+          BASE_SHA: ${{ needs.prepare-reader-plan.outputs.base_sha }}
         run: |
           set -euo pipefail
-          git config user.name "DDB Baker"
-          git config user.email "bake@davidsdailybread.com"
-          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          D="${EDITION_DATE}"
-          EXPECTED_EDITION="editions/${D}-${SLOT}.html"
-          if [ "${MODE}" = "backfill" ]; then
-            git add "$EXPECTED_EDITION"
-            git -c core.hooksPath=/dev/null commit -m "${LABEL} ${HUMAN} (backfill)"
-          elif [ "${SLOT}" = "morning" ]; then
-            git add index.html tech.html markets.html science.html "$EXPECTED_EDITION" bakery-state.json kings-satchel.json
-            git -c core.hooksPath=/dev/null commit -m "${LABEL} ${HUMAN}"
-          else
-            git add index.html evening-catalog.json "$EXPECTED_EDITION"
-            git -c core.hooksPath=/dev/null commit -m "${LABEL} ${HUMAN}"
-          fi
-          git add archive.html archive.json feed.xml
-          git -c core.hooksPath=/dev/null commit -m "Archive: ${HUMAN} ${LABEL}"
-          git -c core.hooksPath=/dev/null pull --rebase --no-edit origin main
-          git -c core.hooksPath=/dev/null push origin main
+          echo "cc4aa0dab58e34e2d5afbee8e44c789f9a4588cb945d1d28d5b2431b622a266b  ddb_publish_bundle.py" | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/publisher-envelope"
+          python3 ddb_publish_bundle.py create \
+            --date "$EDITION_DATE" --slot "$SLOT" --mode "$MODE" \
+            --base-sha "$BASE_SHA" \
+            --output "$RUNNER_TEMP/publisher-envelope/bundle.tar.gz" \
+            > "$RUNNER_TEMP/publisher-envelope/manifest-summary.json"
+          openssl cms -encrypt -binary -aes-256-gcm \
+            -in "$RUNNER_TEMP/publisher-envelope/bundle.tar.gz" \
+            -out "$RUNNER_TEMP/publisher-envelope/bundle.cms" \
+            -outform DER operations/ddb-publisher-envelope.crt
+          python3 - "$RUNNER_TEMP/publisher-envelope" <<'PY'
+          from pathlib import Path
+          import sys
+          root = Path(sys.argv[1])
+          (root / "bundle.tar.gz").unlink()
+          (root / "manifest-summary.json").unlink()
+          envelope = root / "bundle.cms"
+          if envelope.is_symlink() or not envelope.is_file() or envelope.stat().st_size > 40 * 1024 * 1024:
+              raise SystemExit("sealed publisher envelope is missing or oversized")
+          PY
 
-      - name: Verify the publish
-        if: steps.existing.outputs.exists != 'true'
-        env:
-          EDITION_DATE: ${{ steps.cfg.outputs.date }}
-          SLOT: ${{ steps.cfg.outputs.slot }}
-        run: |
-          set -euo pipefail
-          D="${EDITION_DATE}"
-          published_sha="$(git rev-parse HEAD)"
-          remote_sha="$(git ls-remote --exit-code origin refs/heads/main | awk 'NR == 1 {print $1}')"
-          if [ "$remote_sha" != "$published_sha" ]; then
-            echo "::error::Authoritative main ref is ${remote_sha:-missing}, expected ${published_sha}"
-            exit 1
-          fi
-          echo "Verified authoritative main ref at ${published_sha}"
-
-          public_url="https://davidsdailybread.com/editions/${D}-${SLOT}.html"
-          if python3 distribution/telegram_notification.py verify-live \
-            --archive archive.json --date "$D" --slot "$SLOT" \
-            --attempts 12 --delay-seconds 5; then
-            echo "Verified exact public edition: ${public_url}"
-          else
-            echo "::warning::Authoritative main is correct, but the exact public edition is not ready yet: ${public_url}"
-          fi
+      - name: Upload sealed publisher envelope
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ddb-publisher-envelope-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/publisher-envelope/bundle.cms
+          retention-days: 1
+          if-no-files-found: error
 
       - name: Collect failure diagnostics
         if: failure()
         env:
-          EDITION_DATE: ${{ steps.cfg.outputs.date }}
-          SLOT: ${{ steps.cfg.outputs.slot }}
-          MODE: ${{ steps.cfg.outputs.mode }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
+          MODE: ${{ needs.prepare-reader-plan.outputs.mode }}
         run: |
           set -euo pipefail
           mkdir -p "$RUNNER_TEMP/bake-artifacts"
@@ -359,15 +372,194 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: bake-${{ steps.cfg.outputs.date }}-${{ steps.cfg.outputs.slot }}-${{ github.run_id }}
+          name: bake-${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}-${{ github.run_id }}
           path: ${{ runner.temp }}/bake-artifacts/content-summary.json
           retention-days: 14
           if-no-files-found: error
 
+  validate-and-publish:
+    needs: [prepare-reader-plan, author-edition]
+    if: needs.author-edition.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: production-publish
+    permissions:
+      contents: read
+    outputs:
+      published_sha: ${{ steps.publish.outputs.sha }}
+    steps:
+      - name: Checkout captured base without credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.prepare-reader-plan.outputs.base_sha }}
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Download sealed publisher envelope
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: ddb-publisher-envelope-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/publisher-envelope
+
+      - name: Decrypt publisher envelope on the fresh runner
+        env:
+          DDB_PUBLISHER_PRIVATE_KEY: ${{ secrets.DDB_PUBLISHER_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          key_file="$RUNNER_TEMP/ddb-publisher-private-key.pem"
+          cleanup_key() {
+            if [ -f "$key_file" ]; then
+              shred -u "$key_file"
+            fi
+          }
+          trap cleanup_key EXIT
+          printf '%s' "$DDB_PUBLISHER_PRIVATE_KEY" > "$key_file"
+          chmod 600 "$key_file"
+          openssl pkey -in "$key_file" -check -noout
+          openssl cms -decrypt -binary -inform DER \
+            -in "$RUNNER_TEMP/publisher-envelope/bundle.cms" \
+            -inkey "$key_file" \
+            -recip operations/ddb-publisher-envelope.crt \
+            -out "$RUNNER_TEMP/publisher-envelope/bundle.tar.gz"
+
+      - name: Apply and validate the exact publisher bundle without credentials
+        env:
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
+          MODE: ${{ needs.prepare-reader-plan.outputs.mode }}
+          BASE_SHA: ${{ needs.prepare-reader-plan.outputs.base_sha }}
+        run: |
+          set -euo pipefail
+          echo "cc4aa0dab58e34e2d5afbee8e44c789f9a4588cb945d1d28d5b2431b622a266b  ddb_publish_bundle.py" | sha256sum --check
+          echo "dce98022e1914babb56fa47ac441caa7c6743014ba0148dfb73c9a8acaabeaa1  ddb_workflow_guard.py" | sha256sum --check
+          python3 ddb_publish_bundle.py apply \
+            --date "$EDITION_DATE" --slot "$SLOT" --mode "$MODE" \
+            --base-sha "$BASE_SHA" \
+            --bundle "$RUNNER_TEMP/publisher-envelope/bundle.tar.gz" \
+            > "$RUNNER_TEMP/publisher-envelope/verified-manifest.json"
+          python3 ddb_workflow_guard.py --date "$EDITION_DATE" --slot "$SLOT" \
+            | tee "$RUNNER_TEMP/publisher-envelope/changed-files.txt"
+          python3 - "$EDITION_DATE" "$SLOT" <<'PY'
+          import json, sys
+          date, slot = sys.argv[1:]
+          expected = f"editions/{date}-{slot}.html"
+          archive = json.load(open("archive.json", encoding="utf-8"))
+          if not any(
+              item.get("date") == date
+              and item.get("edition") == slot
+              and item.get("file") == expected
+              for item in archive.get("editions", [])
+          ):
+              raise SystemExit("archive contract does not contain the exact edition")
+          PY
+          git diff --check
+
+      - name: Run publisher trust-boundary checks before loading credentials
+        run: |
+          set -euo pipefail
+          python3 -m pytest \
+            tests/test_workflow_guard.py \
+            tests/test_publisher_bundle.py \
+            tests/test_c3_integrity.py -q
+          python3 tests/test_evening_render.py
+          python3 ddb_workflow_guard.py \
+            --date "${{ needs.prepare-reader-plan.outputs.date }}" \
+            --slot "${{ needs.prepare-reader-plan.outputs.slot }}" \
+            | diff -u "$RUNNER_TEMP/publisher-envelope/changed-files.txt" -
+          git diff --check
+
+      - name: Prove the captured base is still authoritative
+        env:
+          BASE_SHA: ${{ needs.prepare-reader-plan.outputs.base_sha }}
+        run: |
+          set -euo pipefail
+          remote_sha="$(git ls-remote --exit-code origin refs/heads/main | awk 'NR == 1 {print $1}')"
+          if [ "$remote_sha" != "$BASE_SHA" ]; then
+            echo "::error::Authoritative main changed to ${remote_sha:-missing}; refusing a stale publish from $BASE_SHA"
+            exit 1
+          fi
+
+      - name: Mint one repository-scoped publisher token
+        id: publisher-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.0.0
+        with:
+          client-id: ${{ vars.DDB_PUBLISHER_CLIENT_ID }}
+          private-key: ${{ secrets.DDB_PUBLISHER_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: davidsdailybread
+          permission-contents: write
+
+      - name: Create and push one atomic publisher commit
+        id: publish
+        env:
+          PUBLISHER_TOKEN: ${{ steps.publisher-token.outputs.token }}
+          APP_SLUG: ${{ steps.publisher-token.outputs.app-slug }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
+          MODE: ${{ needs.prepare-reader-plan.outputs.mode }}
+          LABEL: ${{ needs.prepare-reader-plan.outputs.label }}
+          HUMAN: ${{ needs.prepare-reader-plan.outputs.human }}
+          BASE_SHA: ${{ needs.prepare-reader-plan.outputs.base_sha }}
+        run: |
+          set -euo pipefail
+          credential_helper='!f() { if [ "$1" = get ]; then echo username=x-access-token; echo "password=$PUBLISHER_TOKEN"; fi; }; f'
+          cleanup_credentials() {
+            git config --local --unset-all credential.helper >/dev/null 2>&1 || true
+          }
+          trap cleanup_credentials EXIT
+          git config --local credential.helper "$credential_helper"
+
+          bot_id="$(GH_TOKEN="$PUBLISHER_TOKEN" gh api "users/${APP_SLUG}%5Bbot%5D" --jq .id)"
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${bot_id}+${APP_SLUG}[bot]@users.noreply.github.com"
+          while IFS= read -r path; do
+            git add -- "$path"
+          done < "$RUNNER_TEMP/publisher-envelope/changed-files.txt"
+          git diff --cached --check
+          if [ "$MODE" = "backfill" ]; then
+            message="${LABEL} ${HUMAN} (backfill)"
+          else
+            message="${LABEL} ${HUMAN}"
+          fi
+          git -c core.hooksPath=/dev/null commit -m "$message"
+          published_sha="$(git rev-parse HEAD)"
+          remote_sha="$(git ls-remote --exit-code origin refs/heads/main | awk 'NR == 1 {print $1}')"
+          if [ "$remote_sha" != "$BASE_SHA" ]; then
+            echo "::error::Authoritative main changed before push; refusing to rebase publisher output"
+            exit 1
+          fi
+          git push origin HEAD:main
+          echo "sha=$published_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Verify the publish
+        env:
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
+          PUBLISHED_SHA: ${{ steps.publish.outputs.sha }}
+        run: |
+          set -euo pipefail
+          D="${EDITION_DATE}"
+          published_sha="$PUBLISHED_SHA"
+          remote_sha="$(git ls-remote --exit-code origin refs/heads/main | awk 'NR == 1 {print $1}')"
+          if [ "$remote_sha" != "$published_sha" ]; then
+            echo "::error::Authoritative main ref is ${remote_sha:-missing}, expected ${published_sha}"
+            exit 1
+          fi
+          echo "Verified authoritative main ref at ${published_sha}"
+
+          public_url="https://davidsdailybread.com/editions/${D}-${SLOT}.html"
+          if python3 distribution/telegram_notification.py verify-live \
+            --archive archive.json --date "$D" --slot "$SLOT" \
+            --attempts 12 --delay-seconds 5; then
+            echo "Verified exact public edition: ${public_url}"
+          else
+            echo "::warning::Authoritative main is correct, but the exact public edition is not ready yet: ${public_url}"
+          fi
+
   x-broadcast:
     name: Canonical X broadcast
-    needs: bake
-    if: needs.bake.result == 'success' && needs.bake.outputs.active == 'true' && needs.bake.outputs.mode == 'daily' && needs.bake.outputs.already_exists != 'true'
+    needs: [prepare-reader-plan, author-edition, validate-and-publish]
+    if: needs.validate-and-publish.result == 'success' && needs.prepare-reader-plan.outputs.active == 'true' && needs.prepare-reader-plan.outputs.mode == 'daily' && needs.prepare-reader-plan.outputs.already_exists != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: x-broadcast-production
@@ -397,8 +589,8 @@ jobs:
 
       - name: Preview exact canonical package
         env:
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/x_broadcast.py preview \
@@ -410,8 +602,8 @@ jobs:
         if: vars.DDB_X_BROADCAST_KILL_SWITCH == 'false'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/x_broadcast.py hydrate-github-receipt \
@@ -423,8 +615,8 @@ jobs:
       - name: Prepare duplicate-blocking mutation reservation
         if: vars.DDB_X_BROADCAST_KILL_SWITCH == 'false' && vars.DDB_X_BROADCAST_ENABLED == 'true'
         env:
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/x_broadcast.py reserve \
@@ -437,8 +629,8 @@ jobs:
         if: vars.DDB_X_BROADCAST_KILL_SWITCH == 'false' && vars.DDB_X_BROADCAST_ENABLED == 'true'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: x-broadcast-reservation-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
-          path: ${{ runner.temp }}/x-broadcast/reservation/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
+          name: x-broadcast-reservation-${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}
+          path: ${{ runner.temp }}/x-broadcast/reservation/${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}.json
           retention-days: 90
           if-no-files-found: error
 
@@ -447,8 +639,8 @@ jobs:
         env:
           DDB_X_BROADCAST_ENABLED: ${{ vars.DDB_X_BROADCAST_ENABLED }}
           DDB_X_BROADCAST_KILL_SWITCH: 'true'
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/x_broadcast.py run \
@@ -462,8 +654,8 @@ jobs:
         env:
           DDB_X_BROADCAST_ENABLED: 'false'
           DDB_X_BROADCAST_KILL_SWITCH: 'false'
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/x_broadcast.py run \
@@ -486,8 +678,8 @@ jobs:
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/x_broadcast.py run \
@@ -500,7 +692,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: x-broadcast-attempt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}-${{ github.run_id }}-${{ github.run_attempt }}
+          name: x-broadcast-attempt-${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/x-broadcast/preview.json
             ${{ runner.temp }}/x-broadcast/attempts/*.json
@@ -511,8 +703,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: x-broadcast-receipt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
-          path: ${{ runner.temp }}/x-broadcast/receipts/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
+          name: x-broadcast-receipt-${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}
+          path: ${{ runner.temp }}/x-broadcast/receipts/${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}.json
           retention-days: 90
           if-no-files-found: ignore
 
@@ -524,8 +716,8 @@ jobs:
 
   telegram-publication-receipt:
     name: Exact edition Telegram receipt
-    needs: bake
-    if: needs.bake.result == 'success' && needs.bake.outputs.active == 'true' && needs.bake.outputs.mode == 'daily' && needs.bake.outputs.already_exists != 'true'
+    needs: [prepare-reader-plan, author-edition, validate-and-publish]
+    if: needs.validate-and-publish.result == 'success' && needs.prepare-reader-plan.outputs.active == 'true' && needs.prepare-reader-plan.outputs.mode == 'daily' && needs.prepare-reader-plan.outputs.already_exists != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: telegram-notification-production
@@ -555,8 +747,8 @@ jobs:
 
       - name: Preview exact edition package
         env:
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py preview \
@@ -569,8 +761,8 @@ jobs:
         if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           result="$(python3 distribution/telegram_notification.py hydrate-github-receipt \
@@ -588,8 +780,8 @@ jobs:
       - name: Wait for exact public edition URL
         if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
         env:
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py verify-live \
@@ -599,8 +791,8 @@ jobs:
       - name: Prepare duplicate-blocking mutation reservation
         if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
         env:
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py reserve \
@@ -613,8 +805,8 @@ jobs:
         if: vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH == 'false' && vars.DDB_TELEGRAM_NOTIFY_ENABLED == 'true' && steps.telegram_duplicate.outputs.duplicate != 'true'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: telegram-notification-reservation-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
-          path: ${{ runner.temp }}/telegram-notification/reservation/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
+          name: telegram-notification-reservation-${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}
+          path: ${{ runner.temp }}/telegram-notification/reservation/${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}.json
           retention-days: 90
           if-no-files-found: error
 
@@ -623,8 +815,8 @@ jobs:
         env:
           DDB_TELEGRAM_NOTIFY_ENABLED: ${{ vars.DDB_TELEGRAM_NOTIFY_ENABLED }}
           DDB_TELEGRAM_NOTIFY_KILL_SWITCH: 'true'
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py run \
@@ -639,8 +831,8 @@ jobs:
         env:
           DDB_TELEGRAM_NOTIFY_ENABLED: 'false'
           DDB_TELEGRAM_NOTIFY_KILL_SWITCH: 'false'
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py run \
@@ -660,8 +852,8 @@ jobs:
           DDB_TELEGRAM_NOTIFY_KILL_SWITCH: ${{ vars.DDB_TELEGRAM_NOTIFY_KILL_SWITCH }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          EDITION_DATE: ${{ needs.bake.outputs.date }}
-          SLOT: ${{ needs.bake.outputs.slot }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+          SLOT: ${{ needs.prepare-reader-plan.outputs.slot }}
         run: |
           set -euo pipefail
           python3 distribution/telegram_notification.py run \
@@ -675,7 +867,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: telegram-notification-attempt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}-${{ github.run_id }}-${{ github.run_attempt }}
+          name: telegram-notification-attempt-${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/telegram-notification/preview.json
             ${{ runner.temp }}/telegram-notification/attempts/*.json
@@ -686,8 +878,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: telegram-notification-receipt-${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}
-          path: ${{ runner.temp }}/telegram-notification/receipts/${{ needs.bake.outputs.date }}-${{ needs.bake.outputs.slot }}.json
+          name: telegram-notification-receipt-${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}
+          path: ${{ runner.temp }}/telegram-notification/receipts/${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}.json
           retention-days: 90
           if-no-files-found: ignore
 

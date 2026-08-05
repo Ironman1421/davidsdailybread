@@ -82,7 +82,8 @@ class WorkflowGuardTest(unittest.TestCase):
             encoding="utf-8"
         )
         self.assertIn(f"{digest}  ddb_workflow_guard.py", workflow)
-        self.assertIn('git add "$EXPECTED_EDITION"', workflow)
+        self.assertIn('git add -- "$path"', workflow)
+        self.assertIn('changed-files.txt', workflow)
         self.assertNotIn(
             "git add index.html tech.html markets.html science.html editions ",
             workflow,
@@ -121,12 +122,14 @@ class WorkflowGuardTest(unittest.TestCase):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
             encoding="utf-8"
         )
-        bake = workflow.split("\n  bake:\n", 1)[1].split("\n  x-broadcast:\n", 1)[0]
-        collect = bake.split("- name: Collect failure diagnostics", 1)[1].split(
+        author = workflow.split("\n  author-edition:\n", 1)[1].split(
+            "\n  validate-and-publish:\n", 1
+        )[0]
+        collect = author.split("- name: Collect failure diagnostics", 1)[1].split(
             "\n      - name:", 1
         )[0]
-        upload = bake.split("- name: Upload failure diagnostics", 1)[1].split(
-            "\n\n  x-broadcast:", 1
+        upload = author.split("- name: Upload failure diagnostics", 1)[1].split(
+            "\n\n  validate-and-publish:", 1
         )[0]
 
         for step in (collect, upload):
@@ -134,7 +137,7 @@ class WorkflowGuardTest(unittest.TestCase):
         self.assertIn("content-summary.json", collect)
         self.assertNotIn("cp -f content.json", collect)
         self.assertNotIn("bake-log.txt", collect)
-        self.assertNotIn('tee "$RUNNER_TEMP/bake-log.txt"', bake)
+        self.assertNotIn('tee "$RUNNER_TEMP/bake-log.txt"', author)
         self.assertNotIn("content.json\n", upload)
         self.assertNotIn("bake-log", upload)
 

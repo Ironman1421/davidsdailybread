@@ -376,8 +376,8 @@ def test_evening_bake_consumes_only_the_final_reviewed_packet():
         "- name: Guard the changed files", 1
     )[0]
 
-    assert "steps.cfg.outputs.slot == 'evening'" in handoff_step
-    assert "steps.cfg.outputs.mode == 'daily'" in handoff_step
+    assert "needs.prepare-reader-plan.outputs.slot == 'evening'" in handoff_step
+    assert "needs.prepare-reader-plan.outputs.mode == 'daily'" in handoff_step
     assert "ddb_evening_handoff.py fetch" in handoff_step
     assert "--date \"$EDITION_DATE\"" in handoff_step
     assert "secrets.X_MONITOR_SITES_BYPASS_TOKEN" in handoff_step

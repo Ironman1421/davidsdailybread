@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "deploymentStatus": "design-approved-not-provisioned",
+  "deploymentStatus": "provisioning-in-progress",
   "repository": "Ironman1421/davidsdailybread",
   "protectedRef": "refs/heads/main",
   "workflow": {
@@ -19,6 +19,17 @@
     "publicActionsArtifactsMayContainUnpublishedContent": false,
     "publisherRequiresUnchangedBaseSha": true,
     "publisherCreatesOneAtomicCommit": true
+  },
+  "sealedArtifactEnvelope": {
+    "authorizedOnlyWhileReaderIntakePaused": true,
+    "publicArtifactContainsPlaintextUnpublishedContent": false,
+    "format": "CMS-enveloped-data-DER",
+    "contentCipher": "AES-256-GCM",
+    "certificate": "operations/ddb-publisher-envelope.crt",
+    "certificateSha256Fingerprint": "30:A1:57:23:17:E6:01:AC:D0:28:B3:FB:09:69:2B:29:F8:4A:D3:1D:AD:7B:25:12:11:75:44:63:36:2C:16:55",
+    "privateKeyEnvironment": "production-publish",
+    "decryptOnFreshPublisherRunnerOnly": true,
+    "privateReaderStoreMustReplaceBeforeReaderIntakeActivation": true
   },
   "identities": [
     {
