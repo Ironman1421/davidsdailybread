@@ -9,15 +9,14 @@ name: Merge gate
 on:
   pull_request:
     branches: [main]
-  push:
-    branches-ignore: [main]
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  # A branch push and its pull_request event target the same commit. Key both
-  # events by the source branch so they do not pull and start two full local
-  # Supabase stacks concurrently.
+  # A pull request can be synchronized again while its prior gate still runs.
+  # Key by the source branch so only the latest reviewed head keeps a local
+  # Supabase stack. Feature-branch push runs are intentionally absent: their
+  # cancelled duplicate `gate` check would block the same SHA under the ruleset.
   group: merge-gate-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
