@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-05",
+      "edition": "morning",
+      "dateHuman": "Wednesday, August 5, 2026",
+      "file": "editions/2026-08-05-morning.html",
+      "lead": "SpaceX revenue nearly doubles to $7.8 billion in its first earnings report as a public company",
+      "pubDate": "Wed, 05 Aug 2026 08:22:57 -0400"
+    },
+    {
       "date": "2026-08-04",
       "edition": "evening",
       "dateHuman": "Tuesday, August 4, 2026",
