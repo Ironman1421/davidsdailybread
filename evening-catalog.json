@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-05",
+      "name": "Wispr Flow Notetaker",
+      "url": "https://wisprflow.ai/notetaker",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/5",
+      "cost": "Free tier, Pro $15 a month",
+      "kind": "Mac now, Windows coming soon",
+      "seen": "Product Hunt No. 1, 431 votes",
+      "blurb": "Captures a meeting locally through your Mac rather than joining the call as a visible bot, then names the speakers and returns a summary organized around decisions and next steps that you can search later, and its own page states the limits: Mac only with Windows listed as coming soon, English only for now, and free-plan use that becomes unlimited on Flow Pro, which the same site's plans page prices at $15 a user each month, or $12 billed yearly."
+    },
+    {
+      "date": "2026-08-05",
+      "name": "Wondering, learn anything",
+      "url": "https://apps.apple.com/us/app/wondering-learn-anything/id6754904253",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/4",
+      "cost": "Free, Pro $14.99 a month",
+      "kind": "iPhone, iPad, M1 Mac or later",
+      "seen": "Product Hunt No. 2, 368 votes",
+      "blurb": "Turns a subject you have been meaning to learn into a course of short lessons, podcasts, and exercises pitched at what you already know, with the App Store listing naming the limits: it is English only, it wants iOS 14 or later or a Mac with an M1 chip, and unlimited daily lessons plus up to 15 new courses a month sit behind Pro at $14.99 a month or $107.99 a year."
+    },
+    {
+      "date": "2026-08-05",
+      "name": "Screen Awesome",
+      "url": "https://screenawesome.com/",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/4",
+      "cost": "Free, no account",
+      "kind": "Chrome 116 or later",
+      "seen": "Product Hunt No. 7, 143 votes",
+      "blurb": "Records a tab, a screen, or your camera to MP4 from inside Chrome, glides a zoom to every click, and leaves the arrows, blur, redaction, and step numbers unlocked with no watermark and no sign-in, and the honest catch is where the files live: recordings stay in the browser's own storage on the machine that made them, and removing the extension deletes them with it."
+    },
+    {
+      "date": "2026-08-05",
+      "name": "Wispr Flow Notetaker",
+      "url": "https://wisprflow.ai/pricing",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/5",
+      "cost": "Free tier, Pro $15 a month",
+      "kind": "Notetaker on Mac only for now",
+      "seen": "Product Hunt No. 1, 431 votes",
+      "blurb": "Listens to a meeting through your Mac's own audio instead of joining the call, then hands back a cleaned transcript, a summary, and action items you can search later, and the plan page is plain about the limits: the notetaker runs on Mac only for now with other platforms listed as coming soon, and unlimited dictation plus more meetings kept for longer costs $15 a user each month, or $12 billed yearly."
+    },
+    {
       "date": "2026-08-04",
       "name": "Pandoc",
       "url": "https://pandoc.org/",
@@ -225,6 +265,34 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-05",
+      "title": "Make an aging Android phone feel new again without a factory reset",
+      "url": "https://www.howtogeek.com/stop-factory-resetting-your-android-heres-what-actually-works/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek Popular News",
+      "dek": "<b>Four fixes, no reset</b> Ismar Hrnjicevic frees up storage, keeps Android and its apps updated, strips away widgets and the background activity of apps that abuse it, and replaces a tired battery, while warning that memory cleaner apps do more harm than good and that a phone can feel slower for a while after an update as it rebuilds app caches.",
+      "needs": [
+        "An Android phone",
+        "Its Storage and Battery settings",
+        "A replacement battery if it is old"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-08-05",
+      "title": "Build a live Excel dashboard with the Camera button hidden in the toolbar",
+      "url": "https://www.makeuseof.com/excel-camera-tool-for-live-dashboards/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf Trending Now",
+      "dek": "<b>File, then Options</b> Adaeze Uche adds the Camera command to the Quick Access Toolbar from the Commands Not in the Ribbon list, then snaps ranges off any sheet into one dashboard where every snapshot redraws itself as its source data changes, and she names the catches: it will not capture a chart object directly, the image degrades below about half size, and the live link does not survive a paste into another program.",
+      "needs": [
+        "Excel on the desktop",
+        "A workbook with a few sheets",
+        "Five minutes to add the button"
+      ],
+      "time": "About 20 minutes"
+    },
     {
       "date": "2026-08-04",
       "title": "Retire the Adobe subscription with four free apps for photos, video, design, and PDFs",

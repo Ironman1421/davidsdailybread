@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-05",
+      "edition": "evening",
+      "dateHuman": "Wednesday, August 5, 2026",
+      "file": "editions/2026-08-05-evening.html",
+      "lead": "Move big files between your own devices over Wi-Fi with LocalSend, free and with no cloud account",
+      "pubDate": "Wed, 05 Aug 2026 17:50:56 -0400"
+    },
+    {
+      "date": "2026-08-05",
       "edition": "morning",
       "dateHuman": "Wednesday, August 5, 2026",
       "file": "editions/2026-08-05-morning.html",
