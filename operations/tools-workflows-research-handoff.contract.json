@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "status": "branch-implemented-pending-production-approval",
+  "status": "production-active",
   "owner": "David Friedhof",
   "purpose": "Combine X Manager advisory research and DDB independent research into one final evening selection before the bake, without transferring publication authority.",
   "producer": {
@@ -76,7 +76,7 @@
     "writeCredentialEnv": "DDB_HANDOFF_WRITE_TOKEN",
     "sitesCredentialEnv": "X_MONITOR_SITES_BYPASS_TOKEN",
     "durableStore": "Cloudflare D1",
-    "provisioningAuthorized": false
+    "provisioningAuthorized": true
   },
   "bakeConsumption": {
     "normalPath": "Read and accuracy-check the date-bound reviewed packet; do not discover, add, substitute, or rerank candidates.",
@@ -97,7 +97,22 @@
     "requiresSeparateDeploymentAndMigrationApproval": true,
     "requiresSeparateCredentialProvisioningApproval": true,
     "requiresLiveAutomationTargetAudit": true,
-    "liveAutomationScheduleChangeAuthorized": false,
+    "liveAutomationScheduleChangeAuthorized": true,
     "liveBakeChangeAuthorized": false
+  },
+  "productionActivation": {
+    "authorizedAt": "2026-08-05T04:14:43Z",
+    "ddbReviewedHead": "b7016408daeda0f2eabbfb91a43c20470df9311c",
+    "ddbMergeCommit": "5e040b8a8dd6228b9bbe2f968b5889d51bee9db8",
+    "xManagerReviewedHead": "089adafa114789f940b929d8549f9da4f30a6098",
+    "xManagerDeployedIntegrationHead": "ac1581aceb7bcef5aefa357b6ac8275d287612c2",
+    "siteVersion": 16,
+    "siteDeploymentId": "appgdep_6a72b6fa163481918e867328e9c0e36c",
+    "siteEnvironmentRevision": 3,
+    "migration": "drizzle/0001_skinny_ben_urich.sql",
+    "xManagerAutomationId": "research-tools-and-workflows-for-ddb-evening-edition",
+    "ddbAutomationId": "review-x-manager-research-for-ddb-evening-edition",
+    "privateCanary": "POST 201, GET 200, schema-valid and semantically identical",
+    "bakeScheduleChanged": false
   }
 }
