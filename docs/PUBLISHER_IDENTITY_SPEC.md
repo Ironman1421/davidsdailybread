@@ -1,6 +1,6 @@
 # Scheduled publisher identity and main-protection specification
 
-Status: approved design, not provisioned
+Status: active in production, provisioned and verified 2026-08-05
 Machine-readable contract: `operations/publishing.contract.json`
 
 ## Decision
@@ -171,6 +171,37 @@ If the publisher App is unavailable, fail closed and alert. Do not weaken the
 ruleset or fall back to a PAT or writable `GITHUB_TOKEN`. A missed edition is
 safer and recoverable through supervised `workflow_dispatch` using the same
 App identity.
+
+## Production activation record
+
+- GitHub App `ddb-publisher` is App and Integration ID `4494424`.
+  Installation `151421744` uses selected-repository access and contains
+  exactly `Ironman1421/davidsdailybread`, with Contents read/write, required
+  Metadata read, and no events.
+- The `production-publish` Environment is restricted to `main`. It holds the
+  App private key, while `DDB_PUBLISHER_CLIENT_ID` is the only publisher
+  repository variable. The bootstrap key downloaded during provisioning was
+  removed from the operator workstation after acceptance.
+- Repository ruleset `20451115` is active only for `refs/heads/main`.
+  Integration `4494424` is its sole always-bypass actor; the owner has no
+  routine bypass.
+- Supervised morning run `31004721690` published
+  `6a55cffc4c1a2c9b7a2ccc8594c0be96e2a6c3f2` as one App-authored commit and
+  completed Pages deployment `31005504028`.
+- Supervised non-reader evening run `31049630259` published
+  `d7979a373c981d1ec16d85737a9754fae1b19f22` as one App-authored commit
+  directly on captured base `9e419f4f7bf6b5655e8282188265ecd8650544ba`.
+  Its exact evening allowlist contained no category page, reader state, or
+  satchel path, and Pages deployment `31050554709` passed.
+- Both live token-action post steps logged `Token revoked`. An independent
+  one-repository no-push token revoked with HTTP 204 and returned HTTP 401 on
+  subsequent use.
+- Rollback restoration was verified without a protection gap: the exact active
+  ruleset snapshot was round-tripped through GitHub's audited update API,
+  retained SHA-256
+  `0747245eef9505c31768919bf696b144dec4fa230bdbfe178ec345005f5bf919`,
+  left `main` unchanged, and a fresh owner direct-push probe was rejected with
+  GH013 afterward.
 
 ## Primary references
 

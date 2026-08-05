@@ -1,8 +1,57 @@
 {
   "version": 1,
-  "deploymentStatus": "provisioning-in-progress",
+  "deploymentStatus": "active",
   "repository": "Ironman1421/davidsdailybread",
   "protectedRef": "refs/heads/main",
+  "activation": {
+    "verifiedAt": "2026-08-05T21:58:37Z",
+    "designCommit": "1739e706bf95641bcb09f7f0548ff57ce8c1a79e",
+    "app": {
+      "appId": 4494424,
+      "installationId": 151421744,
+      "slug": "ddb-publisher",
+      "repositorySelection": "selected",
+      "repositories": [
+        "Ironman1421/davidsdailybread"
+      ],
+      "events": []
+    },
+    "ruleset": {
+      "id": 20451115,
+      "integrationActorId": 4494424,
+      "soleBypassActor": true
+    },
+    "canaries": {
+      "morning": {
+        "workflowRun": 31004721690,
+        "baseSha": "4db1f77e1873cf32740ec9b2addb2b7488fda96e",
+        "publishSha": "6a55cffc4c1a2c9b7a2ccc8594c0be96e2a6c3f2",
+        "pagesRun": 31005504028,
+        "tokenRevoked": true
+      },
+      "evening": {
+        "workflowRun": 31049630259,
+        "baseSha": "9e419f4f7bf6b5655e8282188265ecd8650544ba",
+        "publishSha": "d7979a373c981d1ec16d85737a9754fae1b19f22",
+        "pagesRun": 31050554709,
+        "tokenRevoked": true,
+        "nonReaderWriteSetVerified": true
+      }
+    },
+    "rollback": {
+      "method": "audited-active-snapshot-round-trip-without-protection-gap",
+      "rulesetSha256": "0747245eef9505c31768919bf696b144dec4fa230bdbfe178ec345005f5bf919",
+      "mainShaBeforeAndAfter": "d7979a373c981d1ec16d85737a9754fae1b19f22",
+      "postRestoreOwnerDirectPushRejected": true,
+      "probeCommit": "bb527ea035e45187067d516ad5ac7c438c85d4dc"
+    },
+    "tokenRevocation": {
+      "morningActionPostStep": true,
+      "eveningActionPostStep": true,
+      "independentRevokeHttp": 204,
+      "postRevokeUseHttp": 401
+    }
+  },
   "workflow": {
     "name": "Daily bake",
     "concurrencyGroup": "ddb-main-publisher",
