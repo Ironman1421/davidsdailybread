@@ -475,6 +475,7 @@ class ProductContractTest(unittest.TestCase):
         self.assertIn("@anthropic-ai/claude-code@2.1.220", workflows)
         self.assertIn("sha512sum --check", workflows)
         self.assertIn("pytest==8.4.2", workflows)
+        self.assertIn("DDB_SITE_DIR: ${{ github.workspace }}", workflows)
 
     def test_security_scanning_is_wired(self):
         codeql = (ROOT / ".github" / "workflows" / "codeql.yml").read_text(

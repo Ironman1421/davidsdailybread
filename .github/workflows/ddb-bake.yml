@@ -465,6 +465,8 @@ jobs:
           git diff --check
 
       - name: Run publisher trust-boundary checks before loading credentials
+        env:
+          DDB_SITE_DIR: ${{ github.workspace }}
         run: |
           set -euo pipefail
           python3 -m pytest \

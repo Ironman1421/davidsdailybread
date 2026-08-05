@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T11:42:00Z",
+  "updatedAt": "2026-08-05T12:09:15Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -833,7 +833,9 @@
         "Intentional failing PR #56 produced failed Merge gate run 30999908222, was prohibited from normal merge by the active base policy, closed unmerged, and had its disposable branch deleted while main remained unchanged",
         "Morning canary run 31000178263 completed preparation, uncredentialed authoring, allowlist guard, sealed-envelope construction, upload, download, decryption, manifest verification, and application; it then failed closed on renderer-created trailing whitespace before any App token mint or push, the runner-local key was erased with the job, and main remained b46c86a9cf10e49f40cf5979aea8447cd6246d7a",
         "PR #57 exact head 37eabc5f795aa6fbdc94ff4190043d0ed7d054cd passed every required check and merged through the ruleset as 9aabe2156043abfc99e176c4edbfa1716c41c529, normalizing generated HTML and XML before validation",
-        "Morning rerun 31001517987 proved the whitespace repair: bundle application, archive validation, changed-file equality, and git diff checks passed; the fresh runner then failed closed because pytest was absent, before authoritative-base verification, App token mint, or push, and main remained 9aabe2156043abfc99e176c4edbfa1716c41c529"
+        "Morning rerun 31001517987 proved the whitespace repair: bundle application, archive validation, changed-file equality, and git diff checks passed; the fresh runner then failed closed because pytest was absent, before authoritative-base verification, App token mint, or push, and main remained 9aabe2156043abfc99e176c4edbfa1716c41c529",
+        "PR #58 exact head 639225be251f52cc2c13e56d23dc46acae2f7647 passed every required check and merged through the ruleset as 256e27b4cdb8e34dedf3215d7a67d7f874db1116, provisioning Python 3.12 and pinned pytest before the publisher key or decrypted output is exposed",
+        "Morning rerun 31002984183 completed the sealed author-to-publisher handoff, Python setup, decryption, bundle application, archive validation, and diff checks; trust-test collection then failed closed because the fresh runner lacked DDB_SITE_DIR, before authoritative-base verification, App token mint, or push, and main remained 256e27b4cdb8e34dedf3215d7a67d7f874db1116"
       ],
       "completionGate": [
         "Publisher identity is approved and provisioned",
