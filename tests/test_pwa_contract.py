@@ -123,6 +123,11 @@ class PwaContractTest(unittest.TestCase):
         self.assertIn('aria-live', script)
         self.assertIn("Add to Home Screen", script)
         self.assertIn("ACTIVATE_UPDATE", script)
+        self.assertIn('document.querySelector(".colophon") ||', script)
+        self.assertNotIn(
+            'document.querySelector(".colophon, footer.foot, .foot, footer")',
+            script,
+        )
 
     def test_collapsed_glance_links_stay_out_of_the_keyboard_and_a11y_tree(self):
         template = (ROOT / "templates" / "home.html").read_text(encoding="utf-8")
