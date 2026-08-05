@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T11:23:00Z",
+  "updatedAt": "2026-08-05T11:42:00Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -831,7 +831,9 @@
         "Workflow run 30999807268 gave the built-in GITHUB_TOKEN Contents write only for the rejection canary; GitHub returned HTTP 422 for the protected main update, all three ruleset checks were expected, and main remained eaea67123ade69cb37af9382f8c159e118e710df",
         "Cleanup PR #55 exact head f02562a516cbf274918ff71632b2e92853578217 passed all required checks and merged through the ruleset as b46c86a9cf10e49f40cf5979aea8447cd6246d7a, removing the temporary writable-token workflow",
         "Intentional failing PR #56 produced failed Merge gate run 30999908222, was prohibited from normal merge by the active base policy, closed unmerged, and had its disposable branch deleted while main remained unchanged",
-        "Morning canary run 31000178263 completed preparation, uncredentialed authoring, allowlist guard, sealed-envelope construction, upload, download, decryption, manifest verification, and application; it then failed closed on renderer-created trailing whitespace before any App token mint or push, the runner-local key was erased with the job, and main remained b46c86a9cf10e49f40cf5979aea8447cd6246d7a"
+        "Morning canary run 31000178263 completed preparation, uncredentialed authoring, allowlist guard, sealed-envelope construction, upload, download, decryption, manifest verification, and application; it then failed closed on renderer-created trailing whitespace before any App token mint or push, the runner-local key was erased with the job, and main remained b46c86a9cf10e49f40cf5979aea8447cd6246d7a",
+        "PR #57 exact head 37eabc5f795aa6fbdc94ff4190043d0ed7d054cd passed every required check and merged through the ruleset as 9aabe2156043abfc99e176c4edbfa1716c41c529, normalizing generated HTML and XML before validation",
+        "Morning rerun 31001517987 proved the whitespace repair: bundle application, archive validation, changed-file equality, and git diff checks passed; the fresh runner then failed closed because pytest was absent, before authoritative-base verification, App token mint, or push, and main remained 9aabe2156043abfc99e176c4edbfa1716c41c529"
       ],
       "completionGate": [
         "Publisher identity is approved and provisioned",
