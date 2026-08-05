@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T12:09:15Z",
+  "updatedAt": "2026-08-05T21:58:37Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-015",
+  "activeItemId": "DDB-PC-020",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -799,7 +799,7 @@
       "id": "DDB-PC-015",
       "sequence": 18,
       "title": "Implement the publisher App and protect main",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-008",
         "DDB-PC-009"
@@ -843,6 +843,16 @@
         "Ruleset blocks unauthorized main writes",
         "Approved publisher and green PR paths remain functional",
         "Rollback and token revocation verify"
+      ],
+      "completedAt": "2026-08-05T21:58:37Z",
+      "evidence": [
+        "Publisher identity gate: App and Integration ID 4494424, selected-repository installation 151421744, production-publish Environment, and DDB_PUBLISHER_CLIENT_ID are provisioned exactly for Ironman1421/davidsdailybread with Contents write, Metadata read, and no events",
+        "Morning canary gate: workflow 31004721690 passed every job, published App-authored one-parent commit 6a55cffc4c1a2c9b7a2ccc8594c0be96e2a6c3f2, completed Pages run 31005504028, exposed only the encrypted publisher envelope plus redacted receipts, and logged Token revoked",
+        "Evening canary gate: Spark dispatched workflow 31049630259 at 2026-08-05T21:40:19Z on exact base 9e419f4f7bf6b5655e8282188265ecd8650544ba; it passed every job, published App-authored one-parent commit d7979a373c981d1ec16d85737a9754fae1b19f22, completed Pages run 31050554709, used only the six-path evening allowlist with no reader state, and logged Token revoked",
+        "Unauthorized-write gate: owner direct push, owner force push, main deletion, built-in GITHUB_TOKEN, and a failing PR were rejected; Counter writer remains absent and current_user_can_bypass remains never",
+        "Functional-path gate: repaired PRs 53, 54, 55, 57, 58, and 59 passed required x86_64 and CodeQL checks through the normal protected path; green PRs and both App publisher canaries were accepted while the App remained the sole bypass actor",
+        "Rollback gate: the exact active ruleset snapshot round-tripped through GitHub's audited update API without disabling protection, retained SHA-256 0747245eef9505c31768919bf696b144dec4fa230bdbfe178ec345005f5bf919, left main at d7979a373c981d1ec16d85737a9754fae1b19f22, and post-restore probe bb527ea035e45187067d516ad5ac7c438c85d4dc was rejected with GH013",
+        "Revocation gate: both live action post steps logged Token revoked; an independent one-repository no-push token revoked with HTTP 204 and returned HTTP 401 afterward; the plaintext provisioning key copy was removed from the operator Downloads directory"
       ]
     },
     {
@@ -907,7 +917,7 @@
       "id": "DDB-PC-020",
       "sequence": 23,
       "title": "Close the current reliability and governance program",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-008",
         "DDB-PC-009",
@@ -922,6 +932,11 @@
         "type": "none"
       },
       "externalMutation": false,
+      "startedAt": "2026-08-05T21:58:37Z",
+      "progressEvidence": [
+        "DDB-PC-015 satisfied every completion gate and deterministically activated DDB-PC-020 as the lowest-sequence eligible non-paused successor",
+        "DDB-PC-016 through DDB-PC-019 remain paused_by_doctrine with no activation, provider mutation, credential change, intake reopening, audience collection, Supabase provisioning, or newsletter operation"
+      ],
       "completionGate": [
         "Every non-paused queue item is complete or explicitly cancelled by David",
         "Production verification is green",

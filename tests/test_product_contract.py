@@ -414,7 +414,29 @@ class ProductContractTest(unittest.TestCase):
             )
         )
         self.assertEqual(1, contract["version"])
-        self.assertEqual("provisioning-in-progress", contract["deploymentStatus"])
+        self.assertEqual("active", contract["deploymentStatus"])
+        activation = contract["activation"]
+        self.assertEqual(
+            "1739e706bf95641bcb09f7f0548ff57ce8c1a79e",
+            activation["designCommit"],
+        )
+        self.assertEqual(4494424, activation["app"]["appId"])
+        self.assertEqual(151421744, activation["app"]["installationId"])
+        self.assertEqual(
+            ["Ironman1421/davidsdailybread"],
+            activation["app"]["repositories"],
+        )
+        self.assertEqual([], activation["app"]["events"])
+        self.assertEqual(20451115, activation["ruleset"]["id"])
+        self.assertTrue(activation["ruleset"]["soleBypassActor"])
+        self.assertTrue(activation["canaries"]["morning"]["tokenRevoked"])
+        self.assertTrue(activation["canaries"]["evening"]["tokenRevoked"])
+        self.assertTrue(
+            activation["canaries"]["evening"]["nonReaderWriteSetVerified"]
+        )
+        self.assertEqual(
+            401, activation["tokenRevocation"]["postRevokeUseHttp"]
+        )
         self.assertEqual({"contents": "read"}, contract["workflow"]["topLevelPermissions"])
         self.assertEqual("max", contract["workflow"]["concurrencyQueue"])
         self.assertTrue(contract["workflow"]["freshRunnerBoundaryBeforePublisherCredential"])
