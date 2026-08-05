@@ -156,7 +156,12 @@ class PwaContractTest(unittest.TestCase):
         self.assertFalse(CONTRACT["personalData"]["notesDeletedByPwaLayer"])
         self.assertFalse(CONTRACT["personalData"]["savedItemSchemaAdded"])
         self.assertTrue(CONTRACT["install"]["readerInitiated"])
-        self.assertEqual("v2", CONTRACT["updates"]["cacheGeneration"])
+        self.assertEqual("v3", CONTRACT["updates"]["cacheGeneration"])
+        worker = (ROOT / "service-worker.js").read_text(encoding="utf-8")
+        self.assertIn(
+            f'const CACHE_PREFIX = "ddb-pwa-{CONTRACT["updates"]["cacheGeneration"]}-";',
+            worker,
+        )
         self.assertEqual(
             "reload", CONTRACT["updates"]["staticAssetInstallFetchCacheMode"]
         )
