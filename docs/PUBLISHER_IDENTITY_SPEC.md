@@ -60,6 +60,19 @@ logs, creates diagnostics only on failure, and uploads only a whitelist-built
 summary with no reader or model payload. The private-store cutover must preserve
 that boundary.
 
+While reader intake and the private reader store remain disabled, the split
+workflow may transfer only a CMS authenticated-encrypted publisher envelope
+through Actions.
+The AES-256-GCM artifact contains authenticated ciphertext, not readable
+unpublished content. The author
+runner has only the checked-in public certificate. The fresh publisher runner
+alone receives the App private key through `production-publish`, decrypts the
+envelope, erases the runner-local key file, and revalidates every path, digest,
+size, base SHA, edition identity, renderer contract, and archive entry before
+minting an installation token. This interim envelope carries no public-intake
+or reader-store data and does not authorize either surface. The reviewed
+private handoff replaces it before any reader intake is activated.
+
 ## GitHub App setup
 
 Create the App under the `Ironman1421` account:

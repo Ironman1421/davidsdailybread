@@ -102,7 +102,8 @@ class ProgramControlTest(unittest.TestCase):
             self.assertTrue(item["authorization"]["granted"])
             self.assertTrue(item["completedAt"])
             self.assertTrue(item["evidence"])
-            self.assertNotIn(item_id, self.control["halt"]["reason"])
+            halt_reason = self.control["halt"]["reason"] if self.control["halt"] else ""
+            self.assertNotIn(item_id, halt_reason)
 
         checkout_record = (
             ROOT / "docs" / "CHECKOUT_RECONCILIATION_2026-08-04.md"

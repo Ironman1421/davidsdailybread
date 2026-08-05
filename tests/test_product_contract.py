@@ -267,7 +267,10 @@ class ProductContractTest(unittest.TestCase):
         self.assertNotIn('"counter.csv"', guard)
         self.assertIn("python3 ddb_workflow_guard.py", workflow)
         self.assertIn("persist-credentials: false", workflow)
-        self.assertRegex(workflow, r"(?m)^permissions:\n  contents: write$")
+        self.assertRegex(workflow, r"(?m)^permissions:\n  contents: read$")
+        self.assertIn("  prepare-reader-plan:", workflow)
+        self.assertIn("  author-edition:", workflow)
+        self.assertIn("  validate-and-publish:", workflow)
 
         bake_spec = (ROOT / "BAKE.md").read_text(encoding="utf-8")
         normalized = " ".join(bake_spec.split())
@@ -283,11 +286,11 @@ class ProductContractTest(unittest.TestCase):
         counter = (ROOT / ".github" / "workflows" / "counter-sync.yml").read_text(
             encoding="utf-8"
         )
-        self.assertIn("group: ddb-main-writers", bake)
+        self.assertIn("group: ddb-main-publisher", bake)
         self.assertIn("queue: max", bake)
         self.assertIn("contents: read", counter)
         for forbidden in (
-            "group: ddb-main-writers",
+            "group: ddb-main-publisher",
             "contents: write",
             "git pull --rebase origin main",
             "git push",
@@ -405,7 +408,7 @@ class ProductContractTest(unittest.TestCase):
             )
         )
         self.assertEqual(1, contract["version"])
-        self.assertEqual("design-approved-not-provisioned", contract["deploymentStatus"])
+        self.assertEqual("provisioning-in-progress", contract["deploymentStatus"])
         self.assertEqual({"contents": "read"}, contract["workflow"]["topLevelPermissions"])
         self.assertEqual("max", contract["workflow"]["concurrencyQueue"])
         self.assertTrue(contract["workflow"]["freshRunnerBoundaryBeforePublisherCredential"])
