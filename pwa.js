@@ -5,7 +5,9 @@
   var refreshingForUpdate = false;
   var standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
   var host = document.querySelector(".paper, .page, .not-found") || document.body;
-  var footer = document.querySelector(".colophon, footer.foot, .foot, footer");
+  var footer = document.querySelector(".colophon") ||
+    document.querySelector("footer.foot") ||
+    document.querySelector(".site-foot");
 
   var panel = document.createElement("section");
   panel.className = "ddb-pwa-panel";

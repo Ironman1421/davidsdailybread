@@ -14,7 +14,7 @@ boundaries.
   evening Field Guide with useful tools and workflows, and **Loved by God**.
   The installable app presents this same canonical publication and does not add
   a separate editorial identity.
-- The exact home masthead subtitle in both the morning and evening editions is:
+- The exact masthead subtitle on the current home, category, and evening pages is:
   **News and Scripture each morning. Practical tools each evening. Loved by
   God.** It appears in the original masthead's italic serif treatment and muted
   color, centered beneath the untouched basket, crown, and David's Daily Bread
@@ -115,7 +115,7 @@ boundaries.
   appear at the very top of EVERY web page (`<img class="masthead-art" src="/header-art.png">`).
   No other art at the top of any page, ever, unless David explicitly says so.
   Never regenerate, rename, or re-upload it — just reference it.
-- On the morning home page only, preserve the official image pixels while the
+- On current generated pages, preserve the official image pixels while the
   layout crops its superseded baked-in subtitle, optically centers the basket,
   crown, and wordmark, and renders the approved live subtitle beneath them. The
   original image file remains untouched.

@@ -233,6 +233,7 @@ with tempfile.TemporaryDirectory() as td:
         "News and Scripture each morning. Practical tools each evening. Loved by God."
         in html
     )
+    assert 'class="product-rhythm"' not in html
     assert "aspect-ratio: 1124 / 330" in html
     assert "transform: translateX(3.4%)" in html
     assert 'class="masthead next-format"' in html
@@ -362,9 +363,17 @@ with tempfile.TemporaryDirectory() as td:
         "News and Scripture each morning. Practical tools each evening. Loved by God."
         in morning_html
     )
+    assert 'class="product-rhythm"' not in morning_html
     for section in ("tech", "markets", "science"):
         category_html = (repo / f"{section}.html").read_text(encoding="utf-8")
         assert category_html.count('class="scripture-inline"') == 2
+        assert (
+            "News and Scripture each morning. Practical tools each evening. Loved by God."
+            in category_html
+        )
+        assert "aspect-ratio: 1124 / 330" in category_html
+        assert "transform: translateX(3.4%)" in category_html
+        assert "News and Scripture, paired story by story." in category_html
     for generated in (
         repo / "index.html",
         repo / "editions" / f"{DATE}-morning.html",

@@ -78,16 +78,22 @@ class ProductContractTest(unittest.TestCase):
             "tools and workflows. "
             "Loved by God."
         )
+        masthead_subtitle = (
+            "News and Scripture each morning. Practical tools each evening. "
+            "Loved by God."
+        )
         brand = (ROOT / "BRAND.md").read_text(encoding="utf-8")
-        templates = [
-            (ROOT / "templates" / name).read_text(encoding="utf-8")
-            for name in ("home.html", "evening.html")
-        ]
+        home = (ROOT / "templates" / "home.html").read_text(encoding="utf-8")
+        evening = (ROOT / "templates" / "evening.html").read_text(encoding="utf-8")
+        category = (ROOT / "templates" / "category.html").read_text(encoding="utf-8")
         renderer = (ROOT / "ddb_session_bake.py").read_text(encoding="utf-8")
         self.assertIn("news and Scripture each morning", brand)
         self.assertIn("Field Guide with useful tools and workflows", brand)
-        for template in templates:
-            self.assertIn(distinction, template)
+        self.assertIn(masthead_subtitle, home)
+        self.assertIn(masthead_subtitle, category)
+        self.assertIn("MASTHEAD_SUBTITLE", evening)
+        for template in (home, evening, category):
+            self.assertNotIn('class="product-rhythm"', template)
         self.assertIn("News and Scripture each morning", renderer)
         self.assertIn("Practical tools each evening", renderer)
         self.assertNotIn("—", distinction)

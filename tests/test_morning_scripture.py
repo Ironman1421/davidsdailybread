@@ -111,6 +111,7 @@ class MorningScriptureTest(unittest.TestCase):
             "News and Scripture each morning. Practical tools each evening. Loved by God.",
             html,
         )
+        self.assertNotIn('class="product-rhythm"', html)
         self.assertIn("aspect-ratio: 1124 / 330", html)
         self.assertIn("transform: translateX(3.4%)", html)
         self.assertIn(".story-card a.card-link { height: auto; }", html)
