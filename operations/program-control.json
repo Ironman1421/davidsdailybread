@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-04T02:34:34Z",
+  "updatedAt": "2026-08-05T02:10:07Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-012",
+  "activeItemId": null,
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -552,7 +552,7 @@
       "id": "DDB-PC-012",
       "sequence": 14,
       "title": "Repair Ethernet and configure Wi-Fi failover",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-004"
       ],
@@ -591,6 +591,20 @@
         "program control temporarily interrupted DDB-PC-012 for authorized emergency credential rotation DDB-PC-022 at 2026-08-04T02:21:23Z without changing the network configuration or scheduled observation",
         "program control returned from completed DDB-PC-022 at 2026-08-04T02:34:34Z without changing the network configuration or scheduled observation"
       ],
+      "completedAt": "2026-08-04T15:38:56Z",
+      "evidence": [
+        "the final read-only check at 2026-08-04T15:38:56Z occurred 24 hours 29 minutes 7 seconds after replacement-link activation at 2026-08-03T15:09:49Z",
+        "all three sealed evidence directories remained mode 0700 with mode-0600 files; their SHA256SUMS manifests verified and retained hashes c453a087f9a5e15d0414dd739b0baf981e52a1588054056f3cb891ae1c7ff644, 91dc884e94cf2bf8571c1aa62038d6ae6a69dd8de3008f664fc814b99996bbda, and c144f168b393d65a5f1edf199c2ff261b3b087d28456a80d14fc984f1bcb9afd",
+        "NetworkManager journal evidence after 2026-08-03T15:09:49Z contained zero Ethernet carrier-down, disconnect, unavailable, link-loss, or activation-failure events",
+        "Ethernet and Wi-Fi were connected; Ethernet remained preferred at metric 100, DDB Wi-Fi Failover remained connected with autoconnect enabled and IPv4 and IPv6 metric 600, and the Ethernet link remained 2500 Mb/s full duplex with autonegotiation and link detected",
+        "router DNS, MagicDNS, public-IP reachability, SSH over the existing Tailscale route, Tailscale Running and online state, all seven then-enabled DDB timers, successful last service results, and zero failed user units passed",
+        "Tailscale retained the previously documented DNS-forward health warning while router DNS, MagicDNS, internet reachability, SSH, and Tailscale connectivity passed; accept-dns was not changed",
+        "exact cable-baseline deltas at 2026-08-04T15:38:56Z were RX +439582481 bytes, +835678 packets, +101480 multicast; TX +109472825 bytes and +512986 packets; RX errors, RX drops, RX missed errors, TX errors, TX drops, carrier errors, collisions, alignment errors, MAC errors, and TCAM drops each changed by zero",
+        "the separate rx_mac_missed lifetime counter increased by 95185 from 1418819 to 1514004 while interface RX missed errors and drops remained zero",
+        "a fresh independent read-only verification at 2026-08-05T02:10:07Z, 35 hours 18 seconds after link activation, reconfirmed all three manifests, zero suspect carrier events, Ethernet metric 100 at 2500 Mb/s, Wi-Fi autoconnect with IPv4 and IPv6 metric 600, router DNS, MagicDNS, public reachability, Tailscale, six currently enabled DDB timers, zero failed units, and zero new interface error or drop deltas",
+        "at the fresh verification, traffic deltas from the replacement-cable baseline were RX +593569762 bytes, +1161308 packets, +151104 multicast and TX +156569436 bytes, +721278 packets; the separate rx_mac_missed lifetime counter was +141259 while interface RX missed errors and drops remained zero",
+        "the completion and fresh verification inspections made no network, credential, service, timer, DNS, Tailscale, publication, or production configuration change"
+      ],
       "interruption": {
         "authorizedBy": "David Friedhof",
         "authorizedAt": "2026-08-03T17:03:40Z",
@@ -615,12 +629,53 @@
         "startedAt": "2026-08-03T15:09:49Z",
         "scheduledFollowUpLocal": "2026-08-04T08:15:00-07:00",
         "automationId": "complete-ddb-spark-24h-network-observation",
-        "status": "in_progress"
+        "status": "complete",
+        "completedAt": "2026-08-04T15:38:56Z",
+        "verifiedAgainAt": "2026-08-05T02:10:07Z"
       }
     },
     {
-      "id": "DDB-PC-013",
+      "id": "DDB-PC-023",
       "sequence": 15,
+      "title": "Unify X Manager research and DDB evening editorial handoff",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-012"
+      ],
+      "queueAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-05T02:10:07Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Finish the overdue DDB-PC-012 verification now; if it passes, close it and queue the unified X Manager-to-DDB evening handoff pipeline next",
+        "scope": "Place the unified evening handoff immediately after DDB-PC-012 in deterministic program order. Queueing does not authorize implementation, deployment, publication, credential changes, or provider mutation."
+      },
+      "authorization": {
+        "type": "explicit_david",
+        "granted": false,
+        "scope": "Implement and test the unified X Manager-to-DDB evening handoff. Production merge, deployment, private-store provisioning, and credential changes require separately scoped approval."
+      },
+      "externalMutation": true,
+      "targetFlow": [
+        "At 12:00 PM Pacific, X Manager researches X Pro, X Radar, its cost-guarded monitor, and primary sources, then produces one advisory candidate packet",
+        "At 2:00 PM Pacific, DDB reads that packet, performs its own broader web research, independently verifies candidates, applies the 40/30/20/10 Editorial Fit rule, and records one selected, hold, and reject decision set",
+        "DDB uploads one private bake-ready reviewed packet without transferring publication authority or exposing an X bearer token",
+        "At 2:40 PM Pacific, the evening bake consumes the reviewed packet and does not refresh or reopen X Manager research during the normal path",
+        "If the reviewed packet is missing, stale, invalid, or unavailable, the bake fails open to BAKE.md's normal independent source ladder"
+      ],
+      "completionGate": [
+        "A versioned private packet contract preserves source lineage, verification state, Editorial Fit scores, selection decisions, uncertainty, and authority boundaries",
+        "The noon X Manager automation produces the advisory packet with current X Pro and X Radar proof or marks the handoff blocked",
+        "The 2:00 PM DDB session reads X Manager research and performs its own research in one combined editorial pass",
+        "The DDB session emits exactly one reviewed selected, hold, and reject packet for the target evening edition",
+        "The private transport makes that reviewed packet available to the cloud bake without exposing X credentials or granting publication authority",
+        "The 2:40 PM bake consumes the reviewed packet as its primary research input and does not call /api/trends in the normal path",
+        "Missing, stale, invalid, or unavailable packets fail open to the normal BAKE.md source ladder without padding or automatic inclusion",
+        "Timezone, freshness, schema, authentication, authority, fallback, and end-to-end handoff tests pass on the exact implementation head"
+      ]
+    },
+    {
+      "id": "DDB-PC-013",
+      "sequence": 16,
       "title": "Reconcile the dirty Spark and local checkouts",
       "status": "pending",
       "dependencies": [
@@ -641,7 +696,7 @@
     },
     {
       "id": "DDB-PC-014",
-      "sequence": 16,
+      "sequence": 17,
       "title": "Remove redundant Codex automations",
       "status": "pending",
       "dependencies": [
@@ -661,7 +716,7 @@
     },
     {
       "id": "DDB-PC-015",
-      "sequence": 17,
+      "sequence": 18,
       "title": "Implement the publisher App and protect main",
       "status": "pending",
       "dependencies": [
@@ -684,7 +739,7 @@
     },
     {
       "id": "DDB-PC-016",
-      "sequence": 18,
+      "sequence": 19,
       "title": "External reader-intake account cutover",
       "status": "paused_by_doctrine",
       "dependencies": [
@@ -700,7 +755,7 @@
     },
     {
       "id": "DDB-PC-017",
-      "sequence": 19,
+      "sequence": 20,
       "title": "Cloudflare and D1 canary or activation",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -714,7 +769,7 @@
     },
     {
       "id": "DDB-PC-018",
-      "sequence": 20,
+      "sequence": 21,
       "title": "Supabase reader-store provisioning or activation",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -728,7 +783,7 @@
     },
     {
       "id": "DDB-PC-019",
-      "sequence": 21,
+      "sequence": 22,
       "title": "Newsletter activation or sending",
       "status": "paused_by_doctrine",
       "dependencies": [],
@@ -742,7 +797,7 @@
     },
     {
       "id": "DDB-PC-020",
-      "sequence": 22,
+      "sequence": 23,
       "title": "Close the current reliability and governance program",
       "status": "pending",
       "dependencies": [
@@ -766,5 +821,11 @@
         "Final evidence report is delivered to David"
       ]
     }
-  ]
+  ],
+  "halt": {
+    "type": "no_eligible_item",
+    "eligibleItemIds": [],
+    "nextItemId": "DDB-PC-023",
+    "reason": "DDB-PC-023 is queued next by David but requires explicit approval before implementation; later external-mutation items also lack approval, and DDB-PC-016 through DDB-PC-019 remain paused by doctrine."
+  }
 }
