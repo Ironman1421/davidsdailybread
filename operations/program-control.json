@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T02:50:49Z",
+  "updatedAt": "2026-08-05T04:14:43Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-023",
+  "activeItemId": null,
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -44,6 +44,11 @@
       "approvedAt": "2026-08-03T14:03:22Z",
       "decisionEvidence": "Task message: Okay. Add this persistent deterministic handoff rule to agents.md, and CLAD.md, and program control."
     }
+  },
+  "halt": {
+    "type": "no_eligible_item",
+    "eligibleItemIds": [],
+    "reason": "DDB-PC-013, DDB-PC-014, and DDB-PC-015 require explicit approval from David; DDB-PC-020 depends on them, and DDB-PC-016 through DDB-PC-019 remain paused by doctrine."
   },
   "states": [
     "pending",
@@ -638,7 +643,7 @@
       "id": "DDB-PC-023",
       "sequence": 15,
       "title": "Unify X Manager research and DDB evening editorial handoff",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-012"
       ],
@@ -663,6 +668,13 @@
         "grantedBy": "David Friedhof",
         "decisionEvidence": "Task message: Revise DDB-PC-023 on branches to schedule X Manager at 12:45 PM, DDB’s combined review at 1:40 PM, reviewed-packet readiness by 2:25 PM, and retain the 2:40 PM bake. Include one final X delta check before X Manager closes its handoff.",
         "scope": "Revise only the DDB-PC-023 branches and tests for the 12:45 PM X Manager start, final X Pro and X Radar delta check, 1:40 PM DDB combined review, 2:25 PM reviewed-packet readiness target, and unchanged 2:40 PM bake. Live automation and production changes remain excluded pending exact-head approval."
+      },
+      "productionActivationAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-05T04:14:43Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-023 production activation for DDB PR #50 head b7016408daeda0f2eabbfb91a43c20470df9311c and X Manager head 089adafa114789f940b929d8549f9da4f30a6098: merge and deploy those exact heads, apply only the reviewed D1 migration, provision only the dedicated handoff credential and matching DDB binding, update the two existing automations in place to 12:45 PM and 1:40 PM with the reviewed prompts and correct repository targets, retain the 2:40 PM bake, and verify one private handoff canary.",
+        "scope": "Merge DDB PR #50 at exact head b7016408daeda0f2eabbfb91a43c20470df9311c; deploy the X Manager implementation containing exact reviewed head 089adafa114789f940b929d8549f9da4f30a6098; apply only drizzle/0001_skinny_ben_urich.sql; provision only DDB_HANDOFF_WRITE_TOKEN and its matching DDB bindings; update only the two existing research automations to 12:45 PM and 1:40 PM; retain the 2:40 PM bake; and verify one private canary."
       },
       "externalMutation": true,
       "progressEvidence": [
@@ -696,6 +708,18 @@
         "The 2:40 PM bake consumes the reviewed packet as its primary research input and does not call /api/trends in the normal path",
         "Missing, stale, invalid, or unavailable packets fail open to the normal BAKE.md source ladder without padding or automatic inclusion",
         "Timezone, freshness, schema, authentication, authority, fallback, and end-to-end handoff tests pass on the exact implementation head"
+      ],
+      "completedAt": "2026-08-05T04:14:43Z",
+      "evidence": [
+        "David explicitly approved production activation for DDB PR #50 exact head b7016408daeda0f2eabbfb91a43c20470df9311c and X Manager exact reviewed head 089adafa114789f940b929d8549f9da4f30a6098 with the stated migration, credential, automation, bake, and private-canary boundaries",
+        "DDB PR #50 exact head b7016408daeda0f2eabbfb91a43c20470df9311c passed x86_64 Merge gate run 30972902870 and CodeQL run 30972902836, then squash-merged as 5e040b8a8dd6228b9bbe2f968b5889d51bee9db8 at 2026-08-05T04:02:12Z",
+        "X Manager production integration ac1581aceb7bcef5aefa357b6ac8275d287612c2 contains approved head 089adafa114789f940b929d8549f9da4f30a6098 and hosted-source main 5153215ea9128bc924e530380d48ed0e2078a54d; its production build, all 13 tests, TypeScript check, and ESLint passed before push",
+        "Private Sites version 16 packaged source ac1581aceb7bcef5aefa357b6ac8275d287612c2 and only reviewed migration drizzle/0001_skinny_ben_urich.sql, then deployed successfully as appgdep_6a72b6fa163481918e867328e9c0e36c with environment revision 3",
+        "Dedicated DDB_HANDOFF_WRITE_TOKEN exists only as a redacted Sites secret, the matching GitHub repository secret, and two non-printing local Keychain lookups for the write token and unchanged Sites bypass credential; X_BEARER_TOKEN and the existing Sites bypass token were not rotated",
+        "The two existing Codex automations were updated in place with no duplicates: research-tools-and-workflows-for-ddb-evening-edition is active at 12:45 PM on local-8293eb75af2e5cc93944147dafc6720c, and review-x-manager-research-for-ddb-evening-edition is active at 1:40 PM on local-f8ac1b929d287bf8889813656b4f2ba8",
+        "The reviewed automation prompts require a final X Pro and X Radar closing delta check, current completed-or-blocked proof, one DDB combined research and selection pass, exact 40/30/20/10 scoring, validated private upload, and no second X Manager pass",
+        "The private canary stored fixture 2026-08-04-evening with HTTP 201, fetched it with HTTP 200, validated schema ddb-reviewed-evening-handoff-v1, and matched the uploaded JSON semantically; this proves endpoint routing, authentication, D1 migration, persistence, and private read access",
+        "The existing Spark evening bake remains at 2:40 PM Pacific and the GitHub backup clocks remain at 2:45 PM Pacific; no bake schedule, publication authority, X credential, edition, or reader-visible content changed during activation"
       ]
     },
     {
