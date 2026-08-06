@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T21:58:37Z",
+  "updatedAt": "2026-08-05T23:40:55Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-020",
+  "activeItemId": null,
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -45,7 +45,11 @@
       "decisionEvidence": "Task message: Okay. Add this persistent deterministic handoff rule to agents.md, and CLAD.md, and program control."
     }
   },
-  "halt": null,
+  "halt": {
+    "type": "no_eligible_item",
+    "eligibleItemIds": [],
+    "reason": "The current reliability and governance program is complete; DDB-PC-016 through DDB-PC-019 remain paused by doctrine and require explicit approval from David before any activation."
+  },
   "states": [
     "pending",
     "in_progress",
@@ -917,7 +921,7 @@
       "id": "DDB-PC-020",
       "sequence": 23,
       "title": "Close the current reliability and governance program",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-008",
         "DDB-PC-009",
@@ -942,6 +946,16 @@
         "Production verification is green",
         "Remaining doctrine-paused items are documented without activation",
         "Final evidence report is delivered to David"
+      ],
+      "completedAt": "2026-08-05T23:40:55Z",
+      "evidence": [
+        "Queue gate: all 18 preceding non-paused items are complete; DDB-PC-020 closes the sole remaining active item, leaving no pending or in-progress work and no eligible successor",
+        "Production gate: PR 62 exact head bc1df9be4b012ec79c7c372c5fa7e2a8653e6b06 passed x86_64 Merge gate run 31051083044 and both CodeQL analyses in run 31051083042, then merged as current main dbf20f14300061fd8f1f4cce4e1663089c14eb7a; Pages run 31051306298 and post-merge CodeQL run 31051308228 passed",
+        "Publisher gate: DDB-PC-015 records successful supervised morning and evening App-publisher canaries, protected-PR and unauthorized-write paths, ruleset rollback, and token revocation; read-only verification at 2026-08-05T23:40:21Z confirmed ruleset 20451115 active with App integration 4494424 as its sole bypass actor and current_user_can_bypass=never",
+        "Operations gate: scheduled Daily bake run 31057103997 completed successfully on exact main dbf20f14300061fd8f1f4cce4e1663089c14eb7a at 2026-08-05T23:39:24Z and treated the existing edition as the expected no-op without authoring or publishing",
+        "Public boundary gate: read-only checks at 2026-08-05T23:40:21Z returned HTTP 200 for the homepage, archive, RSS, and subscribe page while counter.csv remained HTTP 404",
+        "Doctrine gate: DDB-PC-016 through DDB-PC-019 remain paused_by_doctrine with no intake reopening, provider mutation, Cloudflare or D1 audience collection, Supabase provisioning, newsletter operation, credential change, or activation",
+        "Final-report gate: David received the evidence-backed status report in the task immediately before directing the controller to continue DDB-PC-020; this closeout record preserves the same verified result without a push, merge, deployment, publication, or provider mutation"
       ]
     }
   ]
