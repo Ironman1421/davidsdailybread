@@ -729,7 +729,18 @@ jobs:
   telegram-publication-receipt:
     name: Exact edition Telegram receipt
     needs: [prepare-reader-plan, author-edition, validate-and-publish]
-    if: needs.validate-and-publish.result == 'success' && needs.prepare-reader-plan.outputs.active == 'true' && needs.prepare-reader-plan.outputs.mode == 'daily' && needs.prepare-reader-plan.outputs.already_exists != 'true'
+    # A newly published edition follows validate-and-publish. A later active
+    # same-edition run skips authoring but may safely recover a missing receipt.
+    # `always()` lets this condition inspect the intentionally skipped jobs.
+    if: >-
+      always() &&
+      needs.prepare-reader-plan.result == 'success' &&
+      needs.prepare-reader-plan.outputs.active == 'true' &&
+      needs.prepare-reader-plan.outputs.mode == 'daily' &&
+      (
+        needs.prepare-reader-plan.outputs.already_exists == 'true' ||
+        needs.validate-and-publish.result == 'success'
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: telegram-notification-production

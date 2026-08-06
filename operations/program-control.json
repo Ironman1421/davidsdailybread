@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T23:40:55Z",
+  "updatedAt": "2026-08-06T15:17:59Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
+  "activeItemId": "DDB-PC-024",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -45,11 +45,7 @@
       "decisionEvidence": "Task message: Okay. Add this persistent deterministic handoff rule to agents.md, and CLAD.md, and program control."
     }
   },
-  "halt": {
-    "type": "no_eligible_item",
-    "eligibleItemIds": [],
-    "reason": "The current reliability and governance program is complete; DDB-PC-016 through DDB-PC-019 remain paused by doctrine and require explicit approval from David before any activation."
-  },
+  "halt": null,
   "states": [
     "pending",
     "in_progress",
@@ -956,6 +952,43 @@
         "Public boundary gate: read-only checks at 2026-08-05T23:40:21Z returned HTTP 200 for the homepage, archive, RSS, and subscribe page while counter.csv remained HTTP 404",
         "Doctrine gate: DDB-PC-016 through DDB-PC-019 remain paused_by_doctrine with no intake reopening, provider mutation, Cloudflare or D1 audience collection, Supabase provisioning, newsletter operation, credential change, or activation",
         "Final-report gate: David received the evidence-backed status report in the task immediately before directing the controller to continue DDB-PC-020; this closeout record preserves the same verified result without a push, merge, deployment, publication, or provider mutation"
+      ]
+    },
+    {
+      "id": "DDB-PC-024",
+      "sequence": 24,
+      "title": "Repair post-publish Pages and Telegram readiness",
+      "status": "in_progress",
+      "dependencies": [
+        "DDB-PC-020"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T15:12:33Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-024: add and activate a program-control item to diagnose and repair the post-publish Pages and Telegram readiness race exposed by Daily bake run 31105362012 and Pages run 31106599001. Implement and test the smallest branch-only fix, open a draft PR, and observe the x86_64 Merge gate and CodeQL. Do not merge, rerun a bake, send a Telegram message, change X, deploy, provision, rotate credentials, or alter today’s schedules without my separate approval",
+        "scope": "Diagnose and repair the post-publish Pages and Telegram readiness race on a branch, open a draft PR, and observe x86_64 Merge gate and CodeQL. Do not merge, rerun a bake, send a Telegram message, change X, deploy, provision, rotate credentials, or alter today's schedules without separate approval."
+      },
+      "externalMutation": true,
+      "startedAt": "2026-08-06T15:12:33Z",
+      "progressEvidence": [
+        "David authorized DDB-PC-024 as the sole active item after the completed reliability and governance program",
+        "Daily bake run 31105362012 published the morning edition to main, then its Telegram receipt failed closed because the exact public URL remained unavailable for all 20 readiness attempts",
+        "Pages run 31106599001 remained deployment_queued until the provider action reached its ten-minute timeout and cancelled deployment bbe38c83a328a4c9b68bf2031770ef50283e6406",
+        "A later successful Pages deployment made the homepage, archive, feed, subscribe page, and exact 2026-08-06 morning edition available; verified public bytes matched origin/main and counter.csv remained HTTP 404",
+        "Root cause in repository control flow: the Telegram job required validate-and-publish success and excluded already-existing editions, so an active same-edition backup could not recover a readiness failure even though no reservation or notification attempt existed",
+        "The branch repair leaves authoring, publishing, and X guarded off for existing editions while allowing only the Telegram job to run after either a successful fresh publish or an active daily same-edition no-op",
+        "The recovery hydrates durable receipt and reservation artifacts before public verification or credential loading; any existing block remains a successful no-op, while an unavailable exact page still fails closed without a reservation or send",
+        "Eighty-seven focused program-control, Telegram, product-contract, workflow-guard, X-broadcast, and evening-handoff tests passed; both JSON contracts and workflow YAML parsed, and git diff --check passed"
+      ],
+      "completionGate": [
+        "The exact Pages and Telegram readiness failure is captured in a regression test",
+        "The smallest branch-only repair preserves fail-closed notification and duplicate-send safety",
+        "Permitted local static and targeted checks pass",
+        "A draft PR exists at an immutable head",
+        "The exact head passes the x86_64 Merge gate and both CodeQL analyses",
+        "No merge, bake rerun, message send, X change, deploy, provisioning, credential rotation, or schedule change occurs"
       ]
     }
   ]

@@ -3,11 +3,12 @@
   "deploymentStatus": "production-active",
   "repository": "Ironman1421/davidsdailybread",
   "owner": "David Friedhof",
-  "scope": "one private Telegram receipt for each exact newly published daily morning and evening edition",
+  "scope": "one private Telegram receipt for each exact daily morning and evening edition, including safe same-edition recovery after transient public-readiness failure",
   "trigger": {
     "workflow": ".github/workflows/ddb-bake.yml",
     "job": "telegram-publication-receipt",
     "afterSuccessfulBakeJob": true,
+    "sameEditionRecoveryOnActiveNoOp": true,
     "dailySlots": ["morning", "evening"],
     "backfillAllowed": false
   },
@@ -55,6 +56,7 @@
     "durableReservationArtifact": "telegram-notification-reservation-{editionId}",
     "durableReceiptArtifact": "telegram-notification-receipt-{editionId}",
     "reservationPersistsBeforeCredentialsLoad": true,
+    "sameEditionRecoveryRequiresNoDurableReceiptOrReservation": true,
     "ambiguousMutationBlocksRetry": true,
     "workflowConcurrency": "ddb-main-writers",
     "artifactRetentionDays": 90
