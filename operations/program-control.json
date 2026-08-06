@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-06T15:17:59Z",
+  "updatedAt": "2026-08-06T15:22:31Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-024",
+  "activeItemId": null,
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -45,7 +45,11 @@
       "decisionEvidence": "Task message: Okay. Add this persistent deterministic handoff rule to agents.md, and CLAD.md, and program control."
     }
   },
-  "halt": null,
+  "halt": {
+    "type": "no_eligible_item",
+    "eligibleItemIds": [],
+    "reason": "DDB-PC-024 completed its authorized branch-only repair and hosted verification at draft PR 64; merging that PR requires separate explicit approval from David, and DDB-PC-016 through DDB-PC-019 remain paused by doctrine."
+  },
   "states": [
     "pending",
     "in_progress",
@@ -958,7 +962,7 @@
       "id": "DDB-PC-024",
       "sequence": 24,
       "title": "Repair post-publish Pages and Telegram readiness",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-020"
       ],
@@ -989,6 +993,16 @@
         "A draft PR exists at an immutable head",
         "The exact head passes the x86_64 Merge gate and both CodeQL analyses",
         "No merge, bake rerun, message send, X change, deploy, provisioning, credential rotation, or schedule change occurs"
+      ],
+      "completedAt": "2026-08-06T15:22:31Z",
+      "evidence": [
+        "Regression gate: tests/test_telegram_notification.py now proves an existing-edition backup keeps authoring and X disabled while permitting only the Telegram receipt recovery condition after skipped publisher jobs",
+        "Repair gate: the workflow admits Telegram only after a successful fresh publish or an active daily same-edition no-op; inactive daylight-saving candidates, backfills, author failures, publisher failures, and X remain excluded",
+        "Safety gate: durable receipt or reservation hydration still precedes live-page verification and all credential-bearing steps, so prior success or ambiguous mutation blocks a retry and an unavailable page creates no reservation or send",
+        "Local gate: 87 focused tests passed; operations/program-control.json and operations/telegram-notification.contract.json parsed; .github/workflows/ddb-bake.yml parsed; git diff --check passed",
+        "Hosted gate: draft PR 64 exact implementation head cf00f05cd26cb65de356320a564652ebf91df5a3 passed x86_64 Merge gate run 31115224961 with 234 Python tests, the explicit two-slot render check, pgTAP 96/96, database lint, and concurrency and locking checks",
+        "CodeQL gate: run 31115225916 passed both Python and JavaScript/TypeScript analyses on exact implementation head cf00f05cd26cb65de356320a564652ebf91df5a3",
+        "Boundary gate: PR 64 remains draft and unmerged; no bake rerun, Telegram message, X change, deploy, provisioning, credential rotation, or schedule change occurred"
       ]
     }
   ]
