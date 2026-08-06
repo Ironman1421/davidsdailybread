@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-06",
+      "edition": "morning",
+      "dateHuman": "Thursday, August 6, 2026",
+      "file": "editions/2026-08-06-morning.html",
+      "lead": "Demis Hassabis steps down as Google DeepMind CEO in a sweeping Alphabet AI leadership change",
+      "pubDate": "Thu, 06 Aug 2026 09:31:20 -0400"
+    },
+    {
       "date": "2026-08-05",
       "edition": "evening",
       "dateHuman": "Wednesday, August 5, 2026",

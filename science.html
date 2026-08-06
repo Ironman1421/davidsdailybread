@@ -33,16 +33,17 @@
   #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--steel)); z-index: 10; transition: width 0.08s linear; }
   .paper { max-width: 900px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
   .masthead { text-align: center; }
-  .masthead-art-link { display: block; }
-  .masthead-art { display: block; width: 100%; max-width: 560px; margin: 0 auto; height: auto; }
-  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 10px; }
+  .masthead-art-link { display: block; width: 100%; max-width: 640px; aspect-ratio: 1124 / 330; margin: 0 auto; overflow: hidden; }
+  .masthead-art { display: block; width: 100%; max-width: none; margin: 0 auto; height: auto; transform: translateX(3.4%); }
+  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 18px; }
   .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
   .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   .tagline a.active { color: var(--gold); border-bottom-color: var(--gold); }
   .tagline .sep { color: var(--line-strong); margin: 0 6px; }
-  .format-line { margin-top: 7px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
+  .format-line { margin-top: 4px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 15px; font-style: italic; font-weight: 400; letter-spacing: 0.2px; text-align: center; }
   .cat-hero { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 18px 0 16px; margin-top: 18px; text-align: center; }
   .cat-hero::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .category-format { margin: 0 0 8px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
   .cat-hero h1 { font-family: 'Newsreader', Georgia, serif; font-size: 30px; font-weight: 600; margin: 0; letter-spacing: -0.3px; }
   .cat-hero p { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 16px; color: var(--muted); margin: 6px 0 0; }
   .scripture-scope { max-width: 720px; margin: 13px auto 0; color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; font-style: italic; line-height: 1.45; text-align: center; }
@@ -117,57 +118,52 @@
 <div class="paper">
   <header class="masthead">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+    <div class="format-line">News and Scripture each morning. Practical tools each evening. Loved by God.</div>
     <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html" class="active">Science</a></div>
-    <div class="format-line">News and Scripture, paired story by story.</div>
-    <div class="cat-hero">
-      <h1>Science</h1>
-      <p>Space, physics, and the frontiers of discovery.</p>
-    </div>
   </header>
+
+  <section class="cat-hero" aria-labelledby="category-title">
+    <div class="category-format">News and Scripture, paired story by story.</div>
+    <h1 id="category-title">Science</h1>
+    <p>Space, physics, and the frontiers of discovery.</p>
+  </section>
 
   <p class="scripture-scope">Scripture accompanies each story for the reader's reflection. It is not presented as God's judgment on the people or events reported.</p>
 
   <div class="card-grid">
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260803080906.htm"><span class="num">01</span><h3>A 518-million-year-old fossil shows where spider fangs began</h3><p><b>Pincers before spiders</b> Researchers from the University of Leicester and Yunnan University describe Urokodia, a two to three centimeter Cambrian animal from China's Chengjiang site whose pincer-like limbs sit just behind its eyes, in a paper published in Nature.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-1-label">
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://newspaceeconomy.ca/2026/08/05/spacex-falcon-9-upper-stage-impacts-the-moon-near-einstein-crater/"><span class="num">01</span><h3>A spent Falcon 9 upper stage hit the Moon near Einstein crater</h3><p><b>Impact at dawn</b> The roughly four-tonne stage cataloged as 2025-010D struck the lunar surface at about 2:35 a.m. Eastern on August 5 at some 5,400 mph, releasing energy equivalent to about three tonnes of TNT, and NASA's Lunar Reconnaissance Orbiter and South Korea's Danuri are now imaging the new crater and its dust plume.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-1-label">
       <h2 class="scripture-label" id="science-scripture-1-label">Scripture for Reflection</h2>
-      <blockquote cite="https://www.bible.com/bible/3034/PSA.104.24.BSB">
-        <p class="verse-text">&ldquo;How many are Your works, O LORD! In wisdom You have made them all; the earth is full of Your creatures.&rdquo;</p>
-        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.104.24.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 104:24 in the Berean Standard Bible, opens in a new tab">Psalm 104:24 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      <blockquote cite="https://www.bible.com/bible/3034/ISA.40.26.BSB">
+        <p class="verse-text">&ldquo;Lift up your eyes on high: Who created all these? He leads forth the starry host by number; He calls each one by name. Because of His great power and mighty strength, not one of them is missing.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/ISA.40.26.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Isaiah 40:26 in the Berean Standard Bible, opens in a new tab">Isaiah 40:26 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">A creature this old and this strange can widen our wonder at a world we have only partly seen.</p>
-    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260803080906.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260803080917.htm"><span class="num">02</span><h3>Engineered chewing gum cut HPV levels by 93 percent in laboratory saliva tests</h3><p><b>Laboratory results only</b> A University of Pennsylvania dental team reports in Scientific Reports that extracts from a gum engineered from lablab beans lowered HPV by 93 percent in saliva samples and 80 percent in oral rinses, in ex vivo testing of patient samples rather than a clinical trial.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-2-label">
+      <p class="scripture-connection">The same sky we measure so precisely can still draw us up into wonder tonight.</p>
+    </section></article><div class="notes" data-note-key="https://newspaceeconomy.ca/2026/08/05/spacex-falcon-9-upper-stage-impacts-the-moon-near-einstein-crater/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://medicalxpress.com/news/2026-08-severe-covid-reactivates-dormant-viruses.html"><span class="num">02</span><h3>Severe COVID reactivates dormant viruses, and one virus family tracks with long COVID</h3><p><b>Sleeping viruses wake</b> In a Nature study of 1,154 hospitalized patients across 20 U.S. research hospitals, researchers detected 11 reactivated viruses within 40 days of admission, most often Epstein-Barr and cytomegalovirus, and found that reactivated anelloviruses tracked with the physical disability reported by long COVID patients.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-2-label">
       <h2 class="scripture-label" id="science-scripture-2-label">Scripture for Reflection</h2>
       <blockquote cite="https://www.bible.com/bible/3034/JER.17.14.BSB">
         <p class="verse-text">&ldquo;Heal me, O LORD, and I will be healed; save me, and I will be saved, for You are my praise.&rdquo;</p>
         <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/JER.17.14.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Jeremiah 17:14 in the Berean Standard Bible, opens in a new tab">Jeremiah 17:14 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">We can pray for those waiting on treatments that are still years from reaching a clinic.</p>
-    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260803080917.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260803080919.htm"><span class="num">03</span><h3>A hydrogen turbine ran 303 seconds without a mechanical compressor</h3><p><b>Detonation instead of compression</b> Karlsruhe Institute of Technology researchers generated electricity from a compressorless hydrogen turbine for 303 seconds, past NASA's previous 250-second mark, raising pressure through wave and vortex patterns in the flowing gases instead.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-3-label">
+      <p class="scripture-connection">We can pray for the people still carrying fatigue and weakness long after an illness was declared over.</p>
+    </section></article><div class="notes" data-note-key="https://medicalxpress.com/news/2026-08-severe-covid-reactivates-dormant-viruses.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.genomeweb.com/sequencing/rare-gene-variants-linked-metabolic-benefits-cardiometabolic-disease-protection"><span class="num">03</span><h3>A study of more than a million genomes finds a gene tied to healthier metabolism</h3><p><b>One gene, a million people</b> Reporting in Nature, researchers who examined 1,032,116 participants across 11 international cohorts found that rare protein-truncating variants in the FNIP1 gene were associated with lower triglyceride-to-HDL ratios and protection against coronary artery disease and type 2 diabetes.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-3-label">
       <h2 class="scripture-label" id="science-scripture-3-label">Scripture for Reflection</h2>
-      <blockquote cite="https://www.bible.com/bible/3034/GEN.2.15.BSB">
-        <p class="verse-text">&ldquo;Then the LORD God took the man and placed him in the Garden of Eden to cultivate and keep it.&rdquo;</p>
-        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/GEN.2.15.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Genesis 2:15 in the Berean Standard Bible, opens in a new tab">Genesis 2:15 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      <blockquote cite="https://www.bible.com/bible/3034/PSA.104.24.BSB">
+        <p class="verse-text">&ldquo;How many are Your works, O LORD! In wisdom You have made them all; the earth is full of Your creatures.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.104.24.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 104:24 in the Berean Standard Bible, opens in a new tab">Psalm 104:24 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">Patient engineering can be one honest way of tending and keeping the world we were given.</p>
-    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260803080919.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260803080904.htm"><span class="num">04</span><h3>Physicists confirm that photons can spend negative time inside a cloud of atoms</h3><p><b>Measured, not inferred</b> University of Toronto researchers used weak measurements of rubidium atoms to confirm that an effect first noticed in 1993 is physically real rather than an artifact, and report in Physical Review Letters that it does not break standard physics.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-4-label">
+      <p class="scripture-connection">The more we learn about how the body works, the more room we have for gratitude rather than pride.</p>
+    </section></article><div class="notes" data-note-key="https://www.genomeweb.com/sequencing/rare-gene-variants-linked-metabolic-benefits-cardiometabolic-disease-protection"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://nyulangone.org/news/avoiding-3-things-during-middle-age-linked-13-more-years-without-dementia"><span class="num">04</span><h3>Avoiding three midlife risks is linked to nearly 13 more years without dementia</h3><p><b>Blood pressure, diabetes, smoking</b> Following 12,409 people of average age 56 for an average of 26 years, researchers reported in Neurology Open Access that those with none of the three risk factors lived about 30 years free of dementia, against 17 years for those carrying all three.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-4-label">
       <h2 class="scripture-label" id="science-scripture-4-label">Scripture for Reflection</h2>
-      <blockquote cite="https://www.bible.com/bible/3034/PSA.111.2.BSB">
-        <p class="verse-text">&ldquo;Great are the works of the LORD; they are pondered by all who delight in them.&rdquo;</p>
-        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.111.2.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 111:2 in the Berean Standard Bible, opens in a new tab">Psalm 111:2 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      <blockquote cite="https://www.bible.com/bible/3034/PSA.90.12.BSB">
+        <p class="verse-text">&ldquo;So teach us to number our days, that we may present a heart of wisdom.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.90.12.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 90:12 in the Berean Standard Bible, opens in a new tab">Psalm 90:12 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">We can delight in questions that stretch past our understanding instead of hurrying to settle them.</p>
-    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260803080904.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.sciencedaily.com/releases/2026/08/260803080859.htm"><span class="num">05</span><h3>DNA analysis of the Shroud of Turin maps centuries of handling, not its origin</h3><p><b>Biological history only</b> University of Lancashire researchers sequenced official samples taken in 1978 and found many human mitochondrial lineages alongside traces of wheat, maize, cattle and Mediterranean red coral, stating the findings are not intended to establish the cloth's age or authenticity.</p></a>    <section class="scripture-inline" aria-labelledby="science-scripture-5-label">
-      <h2 class="scripture-label" id="science-scripture-5-label">Scripture for Reflection</h2>
-      <blockquote cite="https://www.bible.com/bible/3034/ACT.17.11.BSB">
-        <p class="verse-text">&ldquo;Now the Bereans were more noble-minded than the Thessalonians, for they received the message with great eagerness and examined the Scriptures every day to see if these teachings were true.&rdquo;</p>
-        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/ACT.17.11.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Acts 17:11 in the Berean Standard Bible, opens in a new tab">Acts 17:11 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
-      </blockquote>
-      <p class="scripture-connection">We can examine claims eagerly and carefully at once, holding curiosity and caution together.</p>
-    </section></article><div class="notes" data-note-key="https://www.sciencedaily.com/releases/2026/08/260803080859.htm"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <p class="scripture-connection">Ordinary care of the body is one way we number our days and use them well.</p>
+    </section></article><div class="notes" data-note-key="https://nyulangone.org/news/avoiding-3-things-during-middle-age-linked-13-more-years-without-dementia"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+
 
   </div>
 

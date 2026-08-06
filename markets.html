@@ -33,16 +33,17 @@
   #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--steel)); z-index: 10; transition: width 0.08s linear; }
   .paper { max-width: 900px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
   .masthead { text-align: center; }
-  .masthead-art-link { display: block; }
-  .masthead-art { display: block; width: 100%; max-width: 560px; margin: 0 auto; height: auto; }
-  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 10px; }
+  .masthead-art-link { display: block; width: 100%; max-width: 640px; aspect-ratio: 1124 / 330; margin: 0 auto; overflow: hidden; }
+  .masthead-art { display: block; width: 100%; max-width: none; margin: 0 auto; height: auto; transform: translateX(3.4%); }
+  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 18px; }
   .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
   .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   .tagline a.active { color: var(--gold); border-bottom-color: var(--gold); }
   .tagline .sep { color: var(--line-strong); margin: 0 6px; }
-  .format-line { margin-top: 7px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
+  .format-line { margin-top: 4px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 15px; font-style: italic; font-weight: 400; letter-spacing: 0.2px; text-align: center; }
   .cat-hero { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 18px 0 16px; margin-top: 18px; text-align: center; }
   .cat-hero::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .category-format { margin: 0 0 8px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
   .cat-hero h1 { font-family: 'Newsreader', Georgia, serif; font-size: 30px; font-weight: 600; margin: 0; letter-spacing: -0.3px; }
   .cat-hero p { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 16px; color: var(--muted); margin: 6px 0 0; }
   .scripture-scope { max-width: 720px; margin: 13px auto 0; color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; font-style: italic; line-height: 1.45; text-align: center; }
@@ -117,43 +118,59 @@
 <div class="paper">
   <header class="masthead">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+    <div class="format-line">News and Scripture each morning. Practical tools each evening. Loved by God.</div>
     <div class="tagline"><a href="/tech.html">Technology</a><span class="sep">&middot;</span><a href="/markets.html" class="active">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
-    <div class="format-line">News and Scripture, paired story by story.</div>
-    <div class="cat-hero">
-      <h1>Business &amp; Markets</h1>
-      <p>Stocks, deals, and the forces moving the economy.</p>
-    </div>
   </header>
+
+  <section class="cat-hero" aria-labelledby="category-title">
+    <div class="category-format">News and Scripture, paired story by story.</div>
+    <h1 id="category-title">Business &amp; Markets</h1>
+    <p>Stocks, deals, and the forces moving the economy.</p>
+  </section>
 
   <p class="scripture-scope">Scripture accompanies each story for the reader's reflection. It is not presented as God's judgment on the people or events reported.</p>
 
   <div class="card-grid">
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"><span class="num">01</span><h3>AMD posts a record $11.5 billion quarter as data center revenue more than doubles</h3><p><b>Data center leads</b> AMD's data center segment brought in $6.718 billion, up 107 percent and 58 percent of company revenue, on total sales of $11.536 billion and non-GAAP diluted earnings of $1.66 a share.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-1-label">
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://fortune.com/2026/08/04/spacex-revenue-surges-92-to-7-8-billion-blowing-past-wall-street-expectations-by-nearly-1-billion/"><span class="num">01</span><h3>SpaceX's first public quarter: revenue up 92%, capital spending up sharply</h3><p><b>Revenue beat, spending shock</b> SpaceX reported $7.8 billion in second-quarter revenue, up 92% and nearly $1 billion above Wall Street's estimate, with the net loss narrowing to $541 million, but $18.4 billion of capital spending, $15.8 billion of it on AI, sent the shares down more than 7% after hours.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-1-label">
       <h2 class="scripture-label" id="markets-scripture-1-label">Scripture for Reflection</h2>
-      <blockquote cite="https://www.bible.com/bible/3034/PRO.22.29.BSB">
-        <p class="verse-text">&ldquo;Do you see a man skilled in his work? He will be stationed in the presence of kings; he will not stand before obscure men.&rdquo;</p>
-        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.22.29.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 22:29 in the Berean Standard Bible, opens in a new tab">Proverbs 22:29 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      <blockquote cite="https://www.bible.com/bible/3034/PSA.37.5.BSB">
+        <p class="verse-text">&ldquo;Commit your way to the LORD; trust in Him, and He will do it.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PSA.37.5.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Psalm 37:5 in the Berean Standard Bible, opens in a new tab">Psalm 37:5 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">We can give ourselves to skilled work steadily, whether or not the result is applauded on the day it lands.</p>
-    </section></article><div class="notes" data-note-key="https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/04/lucids-turnaround-plan-hinges-on-1-4b-in-cash-savings-robotaxis/"><span class="num">02</span><h3>Lucid stakes its turnaround on $1.4 billion in cash savings and robotaxis</h3><p><b>Costs cut deeply</b> Chief executive Silvio Napoli said the company has disappointed on several fronts and for far too long, as Lucid targets $1.4 billion in cash reductions on a $1.26 billion quarterly loss and pushes its mid-sized Cosmos model to 2027.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-2-label">
+      <p class="scripture-connection">When the numbers around us swing hard, we can commit our own way to God and keep a steady heart.</p>
+    </section></article><div class="notes" data-note-key="https://fortune.com/2026/08/04/spacex-revenue-surges-92-to-7-8-billion-blowing-past-wall-street-expectations-by-nearly-1-billion/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Second-Quarter-2026/default.aspx"><span class="num">02</span><h3>Uber posts $58 billion in quarterly bookings and 3.9 billion trips</h3><p><b>Bookings up 24%</b> Uber said second-quarter gross bookings rose 24% to $58.0 billion on 3.9 billion trips and 208 million monthly active platform consumers, with revenue up 12% to $14.2 billion, as chief executive Dara Khosrowshahi described building the world's largest platform for autonomous vehicles.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-2-label">
       <h2 class="scripture-label" id="markets-scripture-2-label">Scripture for Reflection</h2>
       <blockquote cite="https://www.bible.com/bible/3034/ECC.7.8.BSB">
         <p class="verse-text">&ldquo;The end of a matter is better than the beginning, and a patient spirit is better than a proud one.&rdquo;</p>
         <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/ECC.7.8.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Ecclesiastes 7:8 in the Berean Standard Bible, opens in a new tab">Ecclesiastes 7:8 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">Slow repair asks patience of us too, in the projects we are rebuilding and in the habits we are trying to change.</p>
-    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/04/lucids-turnaround-plan-hinges-on-1-4b-in-cash-savings-robotaxis/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://247wallst.com/investing/2026/08/04/bezos-sells-4-billion-in-amazon-stock-as-it-hits-3-trillion-for-first-time-cramer-calls-it-a-buzzkill/"><span class="num">03</span><h3>Amazon closes above $3 trillion for the first time as Bezos files to sell $4 billion in stock</h3><p><b>Milestone meets filing</b> Amazon closed at $284.02 on Monday to become the fifth company worth $3 trillion, and shares slipped about 2 percent after hours when a filing showed Jeff Bezos selling roughly 15 million shares under a trading plan adopted in November 2025.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-3-label">
+      <p class="scripture-connection">Long projects test our patience, and we can let ours grow while we wait for results we cannot rush.</p>
+    </section></article><div class="notes" data-note-key="https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Second-Quarter-2026/default.aspx"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.valuethemarkets.com/news/disney-nyse-dis-reports-7-rise-in-q3-revenue"><span class="num">03</span><h3>Disney's streaming profit more than doubles as Toy Story 5 lifts the quarter</h3><p><b>Parks and streaming carry it</b> Disney reported fiscal third-quarter revenue of $25.2 billion, up 7%, with segment operating income up 21% to $5.6 billion, adjusted earnings per share up 28% to $2.06, and entertainment streaming operating income more than doubling to $712 million from $329 million.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-3-label">
       <h2 class="scripture-label" id="markets-scripture-3-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/HEB.13.5.BSB">
+        <p class="verse-text">&ldquo;Keep your lives free from the love of money and be content with what you have, for God has said: “Never will I leave you, never will I forsake you.”&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/HEB.13.5.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Hebrews 13:5 in the Berean Standard Bible, opens in a new tab">Hebrews 13:5 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">Good quarters and bad ones both pass, so we can practice a contentment that does not rise and fall with them.</p>
+    </section></article><div class="notes" data-note-key="https://www.valuethemarkets.com/news/disney-nyse-dis-reports-7-rise-in-q3-revenue"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.adn.com/business-economy/2026/08/05/stocks-waver-on-wall-street-and-hover-around-records-as-oil-prices-hold-steady/"><span class="num">04</span><h3>The Dow closes at a record while the S&amp;P 500 and Nasdaq slip</h3><p><b>Indexes split</b> The Dow rose 263.24 points, or 0.5%, to a record 54,349.12 on Wednesday while the S&amp;P 500 fell 12.97 points to 7,723.55 and the Nasdaq lost 221.55 points to 26,363.44, with SpaceX down 13.6%, Advanced Micro Devices down 7%, and Alphabet down 4%.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-4-label">
+      <h2 class="scripture-label" id="markets-scripture-4-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/1TI.6.17.BSB">
+        <p class="verse-text">&ldquo;Instruct those who are rich in the present age not to be conceited and not to put their hope in the uncertainty of wealth, but in God, who richly provides all things for us to enjoy.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/1TI.6.17.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read 1 Timothy 6:17 in the Berean Standard Bible, opens in a new tab">1 Timothy 6:17 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">Records and selloffs both come and go, so we can hold what we own loosely and hopefully.</p>
+    </section></article><div class="notes" data-note-key="https://www.adn.com/business-economy/2026/08/05/stocks-waver-on-wall-street-and-hover-around-records-as-oil-prices-hold-steady/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.caixinglobal.com/2026-08-06/unitree-ipo-opens-with-bids-implying-up-to-55-billion-yuan-valuation-102471618.html"><span class="num">05</span><h3>Unitree opens book-building for its Shanghai robot listing</h3><p><b>Bids above the target</b> The humanoid and quadruped robot maker began taking institutional orders on Thursday for a STAR Market listing meant to raise about 4.2 billion yuan at roughly a 42 billion yuan valuation, with early indications pointing as high as 55 billion yuan.</p></a>    <section class="scripture-inline" aria-labelledby="markets-scripture-5-label">
+      <h2 class="scripture-label" id="markets-scripture-5-label">Scripture for Reflection</h2>
       <blockquote cite="https://www.bible.com/bible/3034/MAT.6.21.BSB">
         <p class="verse-text">&ldquo;For where your treasure is, there your heart will be also.&rdquo;</p>
         <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/MAT.6.21.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Matthew 6:21 in the Berean Standard Bible, opens in a new tab">Matthew 6:21 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">Record valuations are a good moment to ask quietly where our own treasure is stored.</p>
-    </section></article><div class="notes" data-note-key="https://247wallst.com/investing/2026/08/04/bezos-sells-4-billion-in-amazon-stock-as-it-hits-3-trillion-for-first-time-cramer-calls-it-a-buzzkill/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-
-
+      <p class="scripture-connection">A hot new listing pulls at our attention, and we can pause to ask where our own treasure is set.</p>
+    </section></article><div class="notes" data-note-key="https://www.caixinglobal.com/2026-08-06/unitree-ipo-opens-with-bids-implying-up-to-55-billion-yuan-valuation-102471618.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
 
   </div>
 

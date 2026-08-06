@@ -33,16 +33,17 @@
   #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--steel)); z-index: 10; transition: width 0.08s linear; }
   .paper { max-width: 900px; margin: 30px auto; background: var(--panel); padding: 44px 52px 34px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
   .masthead { text-align: center; }
-  .masthead-art-link { display: block; }
-  .masthead-art { display: block; width: 100%; max-width: 560px; margin: 0 auto; height: auto; }
-  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 10px; }
+  .masthead-art-link { display: block; width: 100%; max-width: 640px; aspect-ratio: 1124 / 330; margin: 0 auto; overflow: hidden; }
+  .masthead-art { display: block; width: 100%; max-width: none; margin: 0 auto; height: auto; transform: translateX(3.4%); }
+  .tagline { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); margin-top: 18px; }
   .tagline a { color: var(--muted); text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
   .tagline a:hover { color: var(--gold); border-bottom-color: var(--gold-soft); }
   .tagline a.active { color: var(--gold); border-bottom-color: var(--gold); }
   .tagline .sep { color: var(--line-strong); margin: 0 6px; }
-  .format-line { margin-top: 7px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
+  .format-line { margin-top: 4px; color: var(--muted); font-family: 'Newsreader', Georgia, serif; font-size: 15px; font-style: italic; font-weight: 400; letter-spacing: 0.2px; text-align: center; }
   .cat-hero { position: relative; border-top: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); padding: 18px 0 16px; margin-top: 18px; text-align: center; }
   .cat-hero::before { content:""; position:absolute; left:0; right:0; top:5px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+  .category-format { margin: 0 0 8px; color: var(--gold); font-family: 'Newsreader', Georgia, serif; font-size: 14px; font-style: italic; letter-spacing: 0.2px; }
   .cat-hero h1 { font-family: 'Newsreader', Georgia, serif; font-size: 30px; font-weight: 600; margin: 0; letter-spacing: -0.3px; }
   .cat-hero p { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 16px; color: var(--muted); margin: 6px 0 0; }
   .scripture-scope { max-width: 720px; margin: 13px auto 0; color: var(--faint); font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; font-style: italic; line-height: 1.45; text-align: center; }
@@ -117,57 +118,59 @@
 <div class="paper">
   <header class="masthead">
     <a class="masthead-art-link" href="/"><img class="masthead-art" src="/header-art.png" alt="David's Daily Bread" width="1124" height="418"></a>
+    <div class="format-line">News and Scripture each morning. Practical tools each evening. Loved by God.</div>
     <div class="tagline"><a href="/tech.html" class="active">Technology</a><span class="sep">&middot;</span><a href="/markets.html">Markets</a><span class="sep">&middot;</span><a href="/science.html">Science</a></div>
-    <div class="format-line">News and Scripture, paired story by story.</div>
-    <div class="cat-hero">
-      <h1>Technology</h1>
-      <p>AI, chips, and the machines reshaping the world.</p>
-    </div>
   </header>
+
+  <section class="cat-hero" aria-labelledby="category-title">
+    <div class="category-format">News and Scripture, paired story by story.</div>
+    <h1 id="category-title">Technology</h1>
+    <p>AI, chips, and the machines reshaping the world.</p>
+  </section>
 
   <p class="scripture-scope">Scripture accompanies each story for the reader's reflection. It is not presented as God's judgment on the people or events reported.</p>
 
   <div class="card-grid">
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/04/anthropic-signs-10-billion-deal-with-ai-cloud-startup-volta/"><span class="num">01</span><h3>Anthropic signs a $10 billion, six-year compute deal with AI cloud startup Volta</h3><p><b>Six-year commitment</b> Anthropic will buy $10 billion of capacity from Volta, a cloud provider founded this year whose 133-megawatt data center in Norway is being developed with crypto-mining firm Bitdeer and will run Nvidia's Vera Rubin architecture.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-1-label">
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://finance.yahoo.com/technology/article/elon-musk-says-spacex-will-build-exclusively-with-nvidia-touts-space-based-ai-servers-211803293.html"><span class="num">01</span><h3>Musk says SpaceX will build its AI systems exclusively on Nvidia</h3><p><b>Exclusive to Nvidia</b> On SpaceX's first earnings call, Elon Musk said the company will build its ground and orbital AI infrastructure on Nvidia's Vera Rubin NVL72 rackscale systems, including the Starmind compute satellites, and is targeting more than 2 gigawatts of compute by the end of 2026.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-1-label">
       <h2 class="scripture-label" id="tech-scripture-1-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PRO.16.3.BSB">
+        <p class="verse-text">&ldquo;Commit your works to the LORD and your plans will be achieved.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.16.3.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 16:3 in the Berean Standard Bible, opens in a new tab">Proverbs 16:3 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">Large commitments deserve unhurried thought, and we can bring our own before God before we lock them in.</p>
+    </section></article><div class="notes" data-note-key="https://finance.yahoo.com/technology/article/elon-musk-says-spacex-will-build-exclusively-with-nvidia-touts-space-based-ai-servers-211803293.html"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://www.trendforce.com/news/2026/08/05/news-samsung-unveils-industry-first-400-layer-v10-bv-nand-memory-density-up-58-vs-v9/"><span class="num">02</span><h3>Samsung unveils a 400-layer flash chip and a faster memory design for AI accelerators</h3><p><b>Four hundred layers</b> At the Future of Memory and Storage conference in Santa Clara, Samsung introduced V10 BV-NAND, a wafer-bonded design it calls the first V-NAND stacked more than 400 layers high and says carries about 58% more memory density than V9, alongside a zHBM concept it expects to deliver up to eight times the performance of HBM5.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-2-label">
+      <h2 class="scripture-label" id="tech-scripture-2-label">Scripture for Reflection</h2>
+      <blockquote cite="https://www.bible.com/bible/3034/PRO.22.29.BSB">
+        <p class="verse-text">&ldquo;Do you see a man skilled in his work? He will be stationed in the presence of kings; he will not stand before obscure men.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.22.29.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 22:29 in the Berean Standard Bible, opens in a new tab">Proverbs 22:29 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      </blockquote>
+      <p class="scripture-connection">Careful, skilled work is worth honoring wherever we find it, including in our own trade.</p>
+    </section></article><div class="notes" data-note-key="https://www.trendforce.com/news/2026/08/05/news-samsung-unveils-industry-first-400-layer-v10-bv-nand-memory-density-up-58-vs-v9/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/05/anthropic-is-hiring-an-ai-chip-design-team/"><span class="num">03</span><h3>Anthropic starts hiring engineers to design its own AI chips</h3><p><b>A custom silicon team</b> Anthropic confirmed it is assembling in-house chip designers to develop hardware and its Claude models together, while continuing to buy compute through its existing arrangements with AWS, Google, Nvidia, and AMD.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-3-label">
+      <h2 class="scripture-label" id="tech-scripture-3-label">Scripture for Reflection</h2>
       <blockquote cite="https://www.bible.com/bible/3034/PRO.15.22.BSB">
         <p class="verse-text">&ldquo;Plans fail for lack of counsel, but with many advisers they succeed.&rdquo;</p>
         <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.15.22.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 15:22 in the Berean Standard Bible, opens in a new tab">Proverbs 15:22 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">Before we make long commitments of our own, we can gather counsel rather than deciding alone.</p>
-    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/04/anthropic-signs-10-billion-deal-with-ai-cloud-startup-volta/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/04/android-app-developers-may-be-unwittingly-sharing-their-users-location-data-with-advertisers/"><span class="num">02</span><h3>Android apps may be sharing precise location data with advertisers without developers realizing</h3><p><b>Permissions inherited by default</b> The Electronic Frontier Foundation found advertising code kits inside two Android apps with 60 million combined downloads passing precise location histories to data brokers, because there are no separate permissions for the kits themselves.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-2-label">
-      <h2 class="scripture-label" id="tech-scripture-2-label">Scripture for Reflection</h2>
-      <blockquote cite="https://www.bible.com/bible/3034/PRO.14.15.BSB">
-        <p class="verse-text">&ldquo;The simple man believes every word, but the prudent man watches his steps.&rdquo;</p>
-        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.14.15.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 14:15 in the Berean Standard Bible, opens in a new tab">Proverbs 14:15 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
-      </blockquote>
-      <p class="scripture-connection">We can watch our steps with what we install and what we agree to share, rather than accepting every request at face value.</p>
-    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/04/android-app-developers-may-be-unwittingly-sharing-their-users-location-data-with-advertisers/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/04/open-weight-ai-models-are-catching-up-to-the-frontier-the-safety-gap-remains/"><span class="num">03</span><h3>Open-weight AI models are closing on the frontier while their safeguards lag behind</h3><p><b>Capability without refusal</b> A SaferAI evaluation released Tuesday found Z.ai's GLM-5.2 only a few months behind GPT-5.5 and Claude Opus 4.7 on cyber and biology tasks while refusing none of them, and safeguards on hosted models cannot be enforced once weights are downloaded.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-3-label">
-      <h2 class="scripture-label" id="tech-scripture-3-label">Scripture for Reflection</h2>
-      <blockquote cite="https://www.bible.com/bible/3034/2TI.1.7.BSB">
-        <p class="verse-text">&ldquo;For God has not given us a spirit of fear, but of power, love, and self-control.&rdquo;</p>
-        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/2TI.1.7.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read 2 Timothy 1:7 in the Berean Standard Bible, opens in a new tab">2 Timothy 1:7 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
-      </blockquote>
-      <p class="scripture-connection">We can ask that our own self-control keep pace with our growing power, in the tools we build and in the way we use them.</p>
-    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/04/open-weight-ai-models-are-catching-up-to-the-frontier-the-safety-gap-remains/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/04/apple-says-more-ex-employees-may-have-taken-confidential-data-to-openai"><span class="num">04</span><h3>Apple tells a court that more former employees may have carried confidential data to OpenAI</h3><p><b>Expedited discovery sought</b> Apple's filing for a preliminary injunction names three OpenAI staff and says 11 other former Apple employees may have been witnesses or otherwise involved, while OpenAI says it does not have and does not want Apple's trade secrets.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-4-label">
+      <p class="scripture-connection">Before we begin something ambitious, we can gather counsel instead of leaning only on ourselves.</p>
+    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/05/anthropic-is-hiring-an-ai-chip-design-team/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://9to5google.com/2026/08/04/google-assistant-september-2026-shutdown/"><span class="num">04</span><h3>Google will start removing Assistant from Android phones on September 4</h3><p><b>Assistant gives way</b> Google told users that Gemini replaces Google Assistant on phones, tablets, Wear OS watches, headphones, and projected Android Auto beginning September 4, with no option to switch back once the change reaches a device.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-4-label">
       <h2 class="scripture-label" id="tech-scripture-4-label">Scripture for Reflection</h2>
-      <blockquote cite="https://www.bible.com/bible/3034/EPH.4.25.BSB">
-        <p class="verse-text">&ldquo;Therefore each of you must put off falsehood and speak truthfully to his neighbor, for we are all members of one another.&rdquo;</p>
-        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/EPH.4.25.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Ephesians 4:25 in the Berean Standard Bible, opens in a new tab">Ephesians 4:25 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      <blockquote cite="https://www.bible.com/bible/3034/MAT.6.34.BSB">
+        <p class="verse-text">&ldquo;Therefore do not worry about tomorrow, for tomorrow will worry about itself. Today has enough trouble of its own.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/MAT.6.34.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Matthew 6:34 in the Berean Standard Bible, opens in a new tab">Matthew 6:34 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">We can speak plainly and keep faith with the people we work beside, whatever the outcome of a dispute like this.</p>
-    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/04/apple-says-more-ex-employees-may-have-taken-confidential-data-to-openai"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
-    <div class="stack"><article class="card story-card"><a class="card-link" href="https://techcrunch.com/2026/08/05/wispr-flow-is-preparing-to-launch-a-meeting-notetaker-updated-terms-suggest/"><span class="num">05</span><h3>Wispr Flow adds a Mac meeting notetaker that never joins the call</h3><p><b>System audio capture</b> The dictation startup's new tool transcribes meetings from a Mac's own audio and produces summaries and action items without appearing as a participant, following updated terms that reference meeting data.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-5-label">
+      <p class="scripture-connection">A changed tool can unsettle a familiar routine, and we can meet those small adjustments one day at a time.</p>
+    </section></article><div class="notes" data-note-key="https://9to5google.com/2026/08/04/google-assistant-september-2026-shutdown/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+    <div class="stack"><article class="card story-card"><a class="card-link" href="https://mistral.ai/news/shieldstral/"><span class="num">05</span><h3>Mistral releases an open-weight safety model that runs on a single GPU</h3><p><b>Policies written in plain words</b> Shieldstral is a 3-billion-parameter Apache 2.0 classifier that scores text and images against moderation rules supplied as natural language at inference time, and Mistral says it runs on one 16GB Nvidia GPU.</p></a>    <section class="scripture-inline" aria-labelledby="tech-scripture-5-label">
       <h2 class="scripture-label" id="tech-scripture-5-label">Scripture for Reflection</h2>
-      <blockquote cite="https://www.bible.com/bible/3034/PRO.17.28.BSB">
-        <p class="verse-text">&ldquo;Even a fool is considered wise if he keeps silent, and discerning when he holds his tongue.&rdquo;</p>
-        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/PRO.17.28.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read Proverbs 17:28 in the Berean Standard Bible, opens in a new tab">Proverbs 17:28 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
+      <blockquote cite="https://www.bible.com/bible/3034/1TH.5.21.BSB">
+        <p class="verse-text">&ldquo;but test all things. Hold fast to what is good.&rdquo;</p>
+        <footer><cite class="verse-reference"><a href="https://www.bible.com/bible/3034/1TH.5.21.BSB" target="_blank" rel="noopener noreferrer" aria-label="Read 1 Thessalonians 5:21 in the Berean Standard Bible, opens in a new tab">1 Thessalonians 5:21 &middot; BSB <span class="external-mark" aria-hidden="true">&#8599;</span></a></cite></footer>
       </blockquote>
-      <p class="scripture-connection">When every word can be captured and replayed, we can choose to listen longer before we speak.</p>
-    </section></article><div class="notes" data-note-key="https://techcrunch.com/2026/08/05/wispr-flow-is-preparing-to-launch-a-meeting-notetaker-updated-terms-suggest/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
+      <p class="scripture-connection">We can test what we take in and pass along, holding on to whatever is genuinely good.</p>
+    </section></article><div class="notes" data-note-key="https://mistral.ai/news/shieldstral/"><span class="pen">&#9998;</span><textarea rows="1" placeholder="Notes&hellip;" aria-label="Notes on this story"></textarea><button class="notes-close" type="button" title="Close notes" aria-label="Close notes">&times;</button></div></div>
 
   </div>
 
