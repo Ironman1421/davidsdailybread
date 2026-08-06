@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-06T17:55:15Z",
+  "updatedAt": "2026-08-06T20:47:23Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1038,12 +1038,41 @@
       ]
     },
     {
-      "id": "DDB-PC-026",
+      "id": "DDB-PC-027",
       "sequence": 26,
-      "title": "Implement Morning Scripture Freshness v1",
+      "title": "Morning Reviewed Research Handoff v1",
       "status": "pending",
       "dependencies": [
         "DDB-PC-025"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T20:47:23Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the controller to add DDB-PC-027, Morning Reviewed Research Handoff v1, immediately after DDB-PC-025 and ahead of DDB-PC-026. Implement on clean branches only a two-stage morning research pipeline: X Manager performs deterministic X and source-manifest discovery and produces an advisory candidate ledger; David’s Daily Bread independently verifies candidates, performs a controlled technology, markets, and science gap sweep, records selected, hold, and reject decisions, and produces a reviewed morning packet before the 4:40 AM bake. Change the bake to consume that packet for writing, Scripture pairing, rendering, and accuracy review instead of performing open-ended discovery. Preserve separate morning-news and evening-Field-Guide scoring. Add deterministic Muse Code regression coverage. Do not change live automation schedules, deploy, change credentials, trigger paid X reads, alter or rerun an edition, publish, post, send, merge, provision, or spend money. Report the exact X Manager and DDB implementation heads for separate release and activation approval.",
+        "scope": "On clean local branches, implement and test a two-stage morning pipeline: X Manager deterministic X and source-manifest discovery into an advisory candidate ledger, followed by DDB independent verification, a controlled technology, markets, and science gap sweep, complete selected/hold/reject decisions, and a reviewed morning packet before the 4:40 AM bake. Make the bake consume the reviewed packet for writing, Scripture pairing, rendering, and accuracy review without open-ended discovery. Preserve separate morning-news and evening-Field-Guide scoring and add deterministic Muse Code regression coverage. Do not change live schedules, deploy, change credentials, trigger paid X reads, alter or rerun an edition, publish, post, send, merge, provision, or spend money. Report both exact implementation heads for separate release and activation approval."
+      },
+      "externalMutation": false,
+      "completionGate": [
+        "DDB-PC-025 is complete before DDB-PC-027 activates or implementation begins",
+        "The X Manager implementation branch is clean and produces a deterministic, advisory-only morning candidate ledger from bounded X and versioned source-manifest discovery without triggering paid reads",
+        "The DDB implementation branch is clean and independently verifies X Manager candidates, completes bounded technology, markets, and science gap sweeps, and records every candidate as selected, hold, or reject",
+        "A date-bound reviewed morning packet is ready before the 4:40 AM bake and withholds publication authority",
+        "The daily morning bake consumes the reviewed packet for writing, Scripture pairing, rendering, and accuracy review and performs no open-ended candidate discovery",
+        "Morning news uses its own scoring contract and the evening Field Guide retains editorial-fit-v1 unchanged",
+        "Deterministic regression coverage proves the August 5 Muse Code signal becomes a must-review candidate and receives an explicit morning disposition",
+        "Exact local X Manager and DDB implementation heads and validation evidence are reported for separate release and activation approval",
+        "No live automation schedule, deployment, credential, paid X read, edition, publication, post, send, merge, provisioning, or spend changes occur"
+      ]
+    },
+    {
+      "id": "DDB-PC-026",
+      "sequence": 27,
+      "title": "Implement Morning Scripture Freshness v1",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-027"
       ],
       "authorization": {
         "type": "explicit_david",
