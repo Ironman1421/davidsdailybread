@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-06T15:22:31Z",
+  "updatedAt": "2026-08-06T15:39:13Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
+  "activeItemId": "DDB-PC-025",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -45,11 +45,7 @@
       "decisionEvidence": "Task message: Okay. Add this persistent deterministic handoff rule to agents.md, and CLAD.md, and program control."
     }
   },
-  "halt": {
-    "type": "no_eligible_item",
-    "eligibleItemIds": [],
-    "reason": "DDB-PC-024 completed its authorized branch-only repair and hosted verification at draft PR 64; merging that PR requires separate explicit approval from David, and DDB-PC-016 through DDB-PC-019 remain paused by doctrine."
-  },
+  "halt": null,
   "states": [
     "pending",
     "in_progress",
@@ -1003,6 +999,42 @@
         "Hosted gate: draft PR 64 exact implementation head cf00f05cd26cb65de356320a564652ebf91df5a3 passed x86_64 Merge gate run 31115224961 with 234 Python tests, the explicit two-slot render check, pgTAP 96/96, database lint, and concurrency and locking checks",
         "CodeQL gate: run 31115225916 passed both Python and JavaScript/TypeScript analyses on exact implementation head cf00f05cd26cb65de356320a564652ebf91df5a3",
         "Boundary gate: PR 64 remains draft and unmerged; no bake rerun, Telegram message, X change, deploy, provisioning, credential rotation, or schedule change occurred"
+      ]
+    },
+    {
+      "id": "DDB-PC-025",
+      "sequence": 25,
+      "title": "Release the Pages and Telegram readiness repair",
+      "status": "in_progress",
+      "dependencies": [
+        "DDB-PC-024"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T15:39:13Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-025 release of PR #64 exact reviewed head 6ed585bfebfb7a43cff54216330500727b43d78b: record this approval in program control, reobserve the required checks after the record-only commit, mark the PR ready, squash-merge only if the implementation diff remains unchanged, and verify main and Pages. Do not rerun a bake, send Telegram or X, change credentials, provision anything, or alter today’s schedules",
+        "scope": "Record the release approval on PR 64, reobserve required checks after the record-only commit, mark the PR ready, squash-merge only with an unchanged implementation diff, and verify main and Pages. Do not rerun a bake, send Telegram or X, change credentials, provision anything, or alter today's schedules."
+      },
+      "externalMutation": true,
+      "startedAt": "2026-08-06T15:39:13Z",
+      "approvedPullRequest": 64,
+      "approvedImplementationHead": "6ed585bfebfb7a43cff54216330500727b43d78b",
+      "approvedImplementationDiffSha256": "59e92d2186d56bfd4b906b99dfb736d62f45201c1ea85704326340cd2dd6d1b5",
+      "progressEvidence": [
+        "David approved release of PR 64 exact reviewed head 6ed585bfebfb7a43cff54216330500727b43d78b with a record-only commit and required fresh checks before merge",
+        "The approved implementation diff contains only .github/workflows/ddb-bake.yml, docs/TELEGRAM_NOTIFICATION_RUNBOOK.md, operations/telegram-notification.contract.json, and tests/test_telegram_notification.py and has SHA-256 59e92d2186d56bfd4b906b99dfb736d62f45201c1ea85704326340cd2dd6d1b5",
+        "The only permitted additional PR change before merge is this program-control release record"
+      ],
+      "completionGate": [
+        "David's exact PR and implementation-head approval is recorded",
+        "The record-only PR head passes the x86_64 Merge gate and both CodeQL analyses",
+        "The approved implementation diff is unchanged before merge",
+        "PR 64 is marked ready and squash-merges through the protected path",
+        "The immutable main commit and Pages deployment verify",
+        "Public boundaries and the active main ruleset verify",
+        "No bake rerun, Telegram or X send, credential change, provisioning, or schedule change occurs"
       ]
     }
   ]
