@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-06T15:39:13Z",
+  "updatedAt": "2026-08-06T17:55:15Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1025,7 +1025,7 @@
       "progressEvidence": [
         "David approved release of PR 64 exact reviewed head 6ed585bfebfb7a43cff54216330500727b43d78b with a record-only commit and required fresh checks before merge",
         "The approved implementation diff contains only .github/workflows/ddb-bake.yml, docs/TELEGRAM_NOTIFICATION_RUNBOOK.md, operations/telegram-notification.contract.json, and tests/test_telegram_notification.py and has SHA-256 59e92d2186d56bfd4b906b99dfb736d62f45201c1ea85704326340cd2dd6d1b5",
-        "The only permitted additional PR change before merge is this program-control release record"
+        "David's 2026-08-06T17:55:15Z decision separately authorizes one additional program-control-only record for pending successor DDB-PC-026; it does not change the approved PR 64 implementation diff or activate the successor"
       ],
       "completionGate": [
         "David's exact PR and implementation-head approval is recorded",
@@ -1035,6 +1035,33 @@
         "The immutable main commit and Pages deployment verify",
         "Public boundaries and the active main ruleset verify",
         "No bake rerun, Telegram or X send, credential change, provisioning, or schedule change occurs"
+      ]
+    },
+    {
+      "id": "DDB-PC-026",
+      "sequence": 26,
+      "title": "Implement Morning Scripture Freshness v1",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-025"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T17:55:15Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to add, but not activate until DDB-PC-025 is complete, a Morning Scripture Freshness v1 item: expand the reviewed BSB catalog toward 600 verses, add repository-owned usage history, enforce a 30-published-morning verse cooldown, improve freshness-aware candidate ranking, and add deterministic CI coverage. Do not publish or rerun a bake, change translations, loosen Scripture safety rules, change archive.json's public shape, provision services, or merge the new work without a separate exact-head approval.",
+        "scope": "After DDB-PC-025 completes, expand the reviewed BSB catalog toward 600 verses, add repository-owned Scripture usage history, enforce a 30-published-morning exact-verse cooldown, improve freshness-aware candidate ranking, and add deterministic test coverage. Do not publish, rerun a bake, change translations, loosen Scripture safety rules, change archive.json's public shape, provision services, or merge without separate exact-head approval."
+      },
+      "externalMutation": false,
+      "completionGate": [
+        "DDB-PC-025 is complete before DDB-PC-026 activates or implementation begins",
+        "The reviewed BSB catalog expands toward 600 exact renderer-owned verses without changing translation, provenance verification, or Scripture safety rules",
+        "Repository-owned usage history records published morning selections deterministically without changing archive.json's public shape",
+        "Selection rejects within-edition duplicates and exact-verse reuse within the prior 30 published morning editions while preserving meaningful editorial pairing",
+        "Candidate ranking accounts for topical relevance, prior use, and book or genre diversity without authoring or paraphrasing Scripture",
+        "Deterministic tests cover catalog integrity, usage-history idempotence, cooldown enforcement, freshness ranking, and backfill behavior",
+        "The exact implementation head is reported for separate review and no merge, publication, bake rerun, service provisioning, or other prohibited external mutation occurs"
       ]
     }
   ]
