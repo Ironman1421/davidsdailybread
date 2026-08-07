@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-07T02:23:14Z",
+  "updatedAt": "2026-08-07T16:09:59Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1108,8 +1108,36 @@
       ]
     },
     {
-      "id": "DDB-PC-027",
+      "id": "DDB-PC-029",
       "sequence": 27,
+      "title": "Repair the Chronicles masthead and notes metadata boundary",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-028"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-07T16:09:59Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to add DDB-PC-029, Chronicles masthead and notes-metadata repair, immediately after DDB-PC-028 and ahead of DDB-PC-027. When DDB-PC-028 completes, implement on a clean branch: align Chronicles with the current official cropped masthead and exact subtitle; move Archive and Subscribe font preferences outside the ddb-note: namespace; safely ignore or migrate legacy :font metadata without altering genuine notes; preserve all four Chronicles export controls; add deterministic regression tests; and report the exact commit head. Do not interrupt DDB-PC-028, merge, deploy, delete real notes, change newsletter or intake state, or alter generated editions without separate exact-head approval",
+        "scope": "After DDB-PC-028 completes, use a clean branch to align Chronicles with the current official cropped masthead and exact subtitle, move Archive and Subscribe font preferences outside the ddb-note: namespace, safely ignore or migrate legacy :font metadata without altering genuine notes, preserve all four Chronicles export controls, add deterministic regression tests, and report the exact implementation head. Do not interrupt DDB-PC-028, merge, deploy, delete real notes, change newsletter or intake state, or alter generated editions without separate exact-head approval."
+      },
+      "externalMutation": false,
+      "completionGate": [
+        "DDB-PC-028 is complete before DDB-PC-029 activates or implementation begins",
+        "The implementation branch is clean and based on then-current main",
+        "Chronicles uses the official masthead image with the current cropped treatment and exact approved live subtitle",
+        "Archive and Subscribe font preferences use a style-metadata namespace outside ddb-note:",
+        "Chronicles safely ignores or migrates legacy :font metadata without altering genuine reader-note values",
+        "All four hardwired Chronicles export controls remain present and functional",
+        "Deterministic regression tests cover masthead parity, metadata exclusion or migration, genuine-note preservation, and export preservation",
+        "The exact implementation head and validation evidence are reported for separate release approval, and no merge, deploy, real-note deletion, newsletter or intake change, or generated-edition change occurs"
+      ]
+    },
+    {
+      "id": "DDB-PC-027",
+      "sequence": 28,
       "title": "Morning Reviewed Research Handoff v1",
       "status": "pending",
       "dependencies": [
@@ -1138,7 +1166,7 @@
     },
     {
       "id": "DDB-PC-026",
-      "sequence": 28,
+      "sequence": 29,
       "title": "Implement Scripture Freshness v1 for both editions",
       "status": "pending",
       "dependencies": [
