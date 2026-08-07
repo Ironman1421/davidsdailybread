@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-06T20:47:23Z",
+  "updatedAt": "2026-08-06T23:58:34Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1025,7 +1025,8 @@
       "progressEvidence": [
         "David approved release of PR 64 exact reviewed head 6ed585bfebfb7a43cff54216330500727b43d78b with a record-only commit and required fresh checks before merge",
         "The approved implementation diff contains only .github/workflows/ddb-bake.yml, docs/TELEGRAM_NOTIFICATION_RUNBOOK.md, operations/telegram-notification.contract.json, and tests/test_telegram_notification.py and has SHA-256 59e92d2186d56bfd4b906b99dfb736d62f45201c1ea85704326340cd2dd6d1b5",
-        "David's 2026-08-06T17:55:15Z decision separately authorizes one additional program-control-only record for pending successor DDB-PC-026; it does not change the approved PR 64 implementation diff or activate the successor"
+        "David's 2026-08-06T17:55:15Z decision separately authorizes one additional program-control-only record for pending successor DDB-PC-026; it does not change the approved PR 64 implementation diff or activate the successor",
+        "David's 2026-08-06T23:58:34Z decision separately authorizes the program controller to add pending DDB-PC-028 immediately after DDB-PC-025 and ahead of DDB-PC-027 and DDB-PC-026; it changes no approved PR 64 implementation byte and activates no campaign or external action"
       ],
       "completionGate": [
         "David's exact PR and implementation-head approval is recorded",
@@ -1038,12 +1039,42 @@
       ]
     },
     {
-      "id": "DDB-PC-027",
+      "id": "DDB-PC-028",
       "sequence": 26,
-      "title": "Morning Reviewed Research Handoff v1",
+      "title": "48-hour outreach readiness and campaign reconciliation",
       "status": "pending",
       "dependencies": [
         "DDB-PC-025"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T23:58:34Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to add DDB-PC-028, 48-hour outreach readiness and campaign reconciliation, immediately after DDB-PC-025 and ahead of DDB-PC-027 and DDB-PC-026, under the scope and boundaries recorded in the campaign reconciliation audit.",
+        "scope": "After DDB-PC-025 completes, use clean branches to reconcile the approved zero-dollar 30-day campaign; within a maximum 48-hour readiness window select fresh email signup or the RSS fallback, select minimal privacy-safe campaign diagnostics or the documented aggregate fallback, complete read-only X account and operator readiness, add the Gemini Omni provider, rights, disclosure, provenance, approval, correction, and removal boundary, and reconcile the governing documents, contracts, ledgers, schemas, and tests identified by the 2026-08-06 campaign audit. Do not start public outreach, collect email, activate analytics, post or reply on X, generate or publish an Omni piece, change the active X broadcaster, send a newsletter, provision a paid service, merge, deploy, or spend money without the exact activation or release approval required by the reconciled contract."
+      },
+      "externalMutation": false,
+      "completionGate": [
+        "DDB-PC-025 is complete before DDB-PC-028 activates or implementation begins",
+        "The governing prose and a machine-readable outreach campaign contract agree on the 30-day window, zero-dollar ceiling, one original X post daily, qualified replies on staffed operating days, two Gemini Omni pieces weekly, exact-item approvals, stop rules, and rollback",
+        "One owned-return decision is recorded as fresh email signup or RSS fallback; any email path names its provider, operator, consent, privacy contact, retention, deletion, kill switch, rollback, and zero-dollar boundary without collecting an address",
+        "One campaign-diagnostics decision is recorded as a minimal privacy-safe implementation or the safe aggregate fallback, remains separate from the official first-1,000 collector, and preserves unavailable site-return values as unknown",
+        "A dated read-only X readiness receipt records the correct account, human operator, MFA and recovery readiness without secrets, profile and pinned conversion path, active immutable broadcast permalinks, Premium tier, and analytics availability",
+        "The existing four-reply hard ceiling remains enforced unless the staffed fifth-reply expansion, machine baseline, ledger, schema, and tests are separately reconciled and approved",
+        "The exact Gemini Omni product and account boundary, current terms review, public-input rule, asset and claim provenance, rights, disclosure, human final approval, provider receipt, correction, removal, and restricted-information controls are recorded without uploading or generating a public asset",
+        "PWA, protected-publisher, one-atomic-commit bake, repository-map, unified-evening-handoff, X Manager coordination, marketing handoff, and YouTube experiment status drift identified by the audit is reconciled without changing runtime behavior outside the approved scope",
+        "Applicable local validation and deterministic regression checks pass, and exact implementation heads are reported for separate release and activation approval",
+        "No public outreach, email collection, analytics activation, X post or reply, Omni generation or publication, broadcaster change, newsletter operation, paid-service provisioning, merge, deployment, or spend occurs"
+      ]
+    },
+    {
+      "id": "DDB-PC-027",
+      "sequence": 27,
+      "title": "Morning Reviewed Research Handoff v1",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-028"
       ],
       "authorization": {
         "type": "explicit_david",
@@ -1055,7 +1086,7 @@
       },
       "externalMutation": false,
       "completionGate": [
-        "DDB-PC-025 is complete before DDB-PC-027 activates or implementation begins",
+        "DDB-PC-028 is complete before DDB-PC-027 activates or implementation begins",
         "The X Manager implementation branch is clean and produces a deterministic, advisory-only morning candidate ledger from bounded X and versioned source-manifest discovery without triggering paid reads",
         "The DDB implementation branch is clean and independently verifies X Manager candidates, completes bounded technology, markets, and science gap sweeps, and records every candidate as selected, hold, or reject",
         "A date-bound reviewed morning packet is ready before the 4:40 AM bake and withholds publication authority",
@@ -1068,7 +1099,7 @@
     },
     {
       "id": "DDB-PC-026",
-      "sequence": 27,
+      "sequence": 28,
       "title": "Implement Morning Scripture Freshness v1",
       "status": "pending",
       "dependencies": [
@@ -1084,7 +1115,7 @@
       },
       "externalMutation": false,
       "completionGate": [
-        "DDB-PC-025 is complete before DDB-PC-026 activates or implementation begins",
+        "DDB-PC-027 is complete before DDB-PC-026 activates or implementation begins",
         "The reviewed BSB catalog expands toward 600 exact renderer-owned verses without changing translation, provenance verification, or Scripture safety rules",
         "Repository-owned usage history records published morning selections deterministically without changing archive.json's public shape",
         "Selection rejects within-edition duplicates and exact-verse reuse within the prior 30 published morning editions while preserving meaningful editorial pairing",
