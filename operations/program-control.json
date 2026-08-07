@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-07T01:38:13Z",
+  "updatedAt": "2026-08-07T01:52:52Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1081,7 +1081,10 @@
         "The canonical private Spark source was clean on main at 13334a89112cc9dd084ba5168d836bed4e8ef4c8; inspection found both active autopost tails hard-coded the mutable homepage while the date and slot were already fail-closed",
         "Private command-center draft PR 11 exact implementation head 1198df52561da481bb02815f9353faeb73950859 derives one https://davidsdailybread.com/editions/YYYY-MM-DD-{morning|evening}.html URL from the validated date and slot and rejects mutable-homepage, cross-slot, extra-URL, missing-URL, and duplicate-host variants",
         "The private implementation passed make check with 45 tests, the OAuth/parser self-test, all 13 autoposter self-tests, shell syntax and git diff checks, plus a final bounded cross-model VERDICT: PASS",
-        "The Spark checkout, installed script, timer, service, credentials, ledgers, tripwire, X account, and GitHub backup broadcaster were unchanged; no dry-run poll, live poll, send, post, merge, deployment, reload, restart, or campaign activation occurred",
+        "David approved private PR 11 release at exact implementation head 1198df52561da481bb02815f9353faeb73950859 and explicitly withheld pulling or installing on Spark, tripwire mutation, polling, service reload or restart, X send, and campaign activation",
+        "Private PR 11 was marked ready and squash-merged at 2026-08-07T01:52:10Z as private main commit 1335841e9bda3c38e67c2c7b53ba996935942a83; remote source read-back verified the exact immutable-link constructor and mutable, cross-slot, missing, extra, and duplicate-host gates",
+        "The canonical Spark checkout was not contacted or updated during the private source release; installed production bytes and all runtime state remain at the pre-activation baseline",
+        "Across implementation and private source release, the Spark checkout, installed script, timer, service, credentials, ledgers, tripwire, X account, and GitHub backup broadcaster remained unchanged; the only merge was private PR 11 source, and no dry-run poll, live poll, send, post, deployment, reload, restart, or campaign activation occurred",
         "Campaign reconciliation PR 65 merged as main d1b8cc8abb878c758c21f50871372ab6e2c34727 and passwordless X security receipt PR 66 merged as main d55003a28a099b56b2412aaf27b35e98fea4329e; no public outreach, email collection, analytics activation, X post or reply, Omni upload or generation, broadcaster activation, newsletter operation, paid provisioning, or spend occurred"
       ],
       "completionGate": [
