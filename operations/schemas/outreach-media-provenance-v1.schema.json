@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/contracts/outreach-media-provenance-v1.schema.json",
+  "title": "Private outreach media provenance record",
+  "description": "Validate privately. Completed records, prompts, and provider receipts must not be committed to the public repository.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "packageId", "createdAt", "operator", "provider", "product", "feature", "accountBoundaryReceipt", "sourceEditionId", "sourceEditionUrl", "inputAssets", "promptClass", "fullPromptStorage", "generationCount", "selectedGenerationReceipt", "humanWork", "rights", "claims", "disclosure", "finalFileSha256", "providerReceipt", "correctionOrRemoval", "finalDisposition"],
+  "properties": {
+    "version": {"const": 1},
+    "packageId": {"type": "string", "pattern": "^OMNI-[0-9]{8}-[0-9]{3}$"},
+    "createdAt": {"type": "string", "format": "date-time"},
+    "operator": {"const": "David Friedhof"},
+    "provider": {"const": "Google LLC"},
+    "product": {"const": "Gemini Apps"},
+    "feature": {"const": "Gemini Omni video generation"},
+    "accountBoundaryReceipt": {"type": "string", "minLength": 1},
+    "sourceEditionId": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"},
+    "sourceEditionUrl": {"type": "string", "pattern": "^https://davidsdailybread\\.com/editions/[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)\\.html$"},
+    "inputAssets": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/asset"}},
+    "promptClass": {"type": "string", "minLength": 1},
+    "fullPromptStorage": {"const": "restricted-outside-public-repository"},
+    "generationCount": {"type": "integer", "minimum": 1},
+    "selectedGenerationReceipt": {"type": "string", "minLength": 1},
+    "humanWork": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "rights": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/right"}},
+    "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+    "disclosure": {"$ref": "#/$defs/disclosure"},
+    "finalFileSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "providerReceipt": {"type": "string", "minLength": 1},
+    "correctionOrRemoval": {"type": ["string", "null"]},
+    "finalDisposition": {"enum": ["local_only", "approved", "published", "rejected", "stopped", "removed"]}
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assetId", "publicCanonical", "sourceUrl", "rightsBasis", "containsRestrictedInformation"],
+      "properties": {
+        "assetId": {"type": "string", "minLength": 1},
+        "publicCanonical": {"const": true},
+        "sourceUrl": {"type": "string", "format": "uri"},
+        "rightsBasis": {"type": "string", "minLength": 1},
+        "containsRestrictedInformation": {"const": false}
+      }
+    },
+    "right": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assetId", "status", "basis"],
+      "properties": {
+        "assetId": {"type": "string", "minLength": 1},
+        "status": {"const": "cleared"},
+        "basis": {"type": "string", "minLength": 1}
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim", "sourceUrl", "humanVerified"],
+      "properties": {
+        "claim": {"type": "string", "minLength": 1},
+        "sourceUrl": {"type": "string", "format": "uri"},
+        "humanVerified": {"const": true}
+      }
+    },
+    "disclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["materialAiGenerationDisclosed", "destinationLabelApplied", "watermarkAltered"],
+      "properties": {
+        "materialAiGenerationDisclosed": {"const": true},
+        "destinationLabelApplied": {"const": true},
+        "watermarkAltered": {"const": false}
+      }
+    }
+  }
+}

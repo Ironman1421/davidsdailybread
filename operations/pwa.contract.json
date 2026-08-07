@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "status": "phase-1-release-authorized-awaiting-exact-sha-merge-approval",
+  "status": "production-active",
   "owner": "David Friedhof",
   "canonical": {
     "origin": "https://davidsdailybread.com",
@@ -71,11 +71,23 @@
     "requiresSeparateExactShaMergeApproval": true,
     "rollback": "revert-the-approved-release-and-verify-github-pages-and-canonical-publication-paths"
   },
+  "deploymentReceipt": {
+    "initialPullRequest": 48,
+    "initialHead": "17967c5b494a9cf94cfa7d0549851ec19d5b4807",
+    "initialMainCommit": "40df44b9fa68a5721cb20473d859ca76d76eb628",
+    "initialMergedAt": "2026-08-05T00:37:11Z",
+    "initialPagesBuild": 1132904965,
+    "currentShellRefreshPullRequest": 61,
+    "currentShellRefreshHead": "7e4ce3ed7e43a63860ae97d8b3553dcb67236678",
+    "currentShellMainCommit": "9e419f4f7bf6b5655e8282188265ecd8650544ba",
+    "currentShellMergedAt": "2026-08-05T14:09:07Z",
+    "currentShellPagesBuild": 1133942429
+  },
   "activation": {
     "publicationAuthorized": true,
     "deploymentAuthorized": true,
-    "mergeAuthorized": false,
-    "exactShaMergeApprovalRequired": true,
+    "mergeAuthorized": true,
+    "exactShaMergeApprovalRequired": false,
     "appStoreListingAuthorized": false,
     "externalServiceProvisioningAuthorized": false,
     "credentialsAuthorized": false,

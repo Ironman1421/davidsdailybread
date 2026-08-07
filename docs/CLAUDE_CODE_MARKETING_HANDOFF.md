@@ -1,19 +1,24 @@
-# Claude Code marketing handoff
+# Outreach and marketing operating handoff
 
-Status: ready for local research, strategy, and draft production
+Status: DDB-PC-028 readiness active; public campaign blocked
 
 Owner and final approver: David Friedhof
 
-Assigned agent: Claude Code
+Assigned role: campaign preparation operator (tool-neutral)
 
-Effective: 2026-08-02
+Effective: 2026-08-07
+
+The 2026-08-02 seven-day, YouTube-first sprint is superseded. The active work is
+the 48-hour readiness reconciliation and separately activated 30-day outreach
+campaign in `docs/OUTREACH_CAMPAIGN.md` and
+`operations/outreach-campaign.contract.json`.
 
 ## Your assignment
 
-Own the marketing lane for David's Daily Bread. Build a measurable discovery
-system around the twice-daily publication while Codex owns the publishing
-pipeline, infrastructure, security, reliability, deployment, and production
-operations.
+Operate the marketing lane for David's Daily Bread without assigning authority
+to a particular model or tool. Build a measurable discovery system around the
+twice-daily publication while the production program controller owns pipeline,
+security, reliability, deployment, and repository releases.
 
 Your job is to turn canonical editions into useful, native marketing packages,
 learn which formats earn durable attention, and report honest evidence. Your
@@ -86,7 +91,7 @@ and hand it to Codex for repository reconciliation.
 
 ## Division of responsibility
 
-### Claude Code owns
+### Campaign preparation role owns
 
 - audience and competitor research using lawful, public sources;
 - channel positioning and native format strategy;
@@ -100,7 +105,7 @@ and hand it to Codex for repository reconciliation.
 - manual metric-entry preparation and marketing analysis;
 - a concise weekly marketing report with recommendations.
 
-### Codex owns
+### Production program controller owns
 
 - bake and publication pipeline code;
 - GitHub Actions, Pages, Spark, scheduling, watchdogs, and distribution adapters;
@@ -132,10 +137,12 @@ Do not implement work from the Codex lane yourself.
 
 Do not launch everywhere at once.
 
-### 1. X: active discovery channel
+### 1. X: gated discovery channel
 
-The automated canonical edition post belongs to the pipeline and is not part of
-your lane. Marketing work on X is the manually approved reply program.
+The automated canonical edition post belongs to the pipeline. After exact
+campaign activation, the marketing lane adds at most one approved original post
+per day plus qualified manually approved replies. Two weekly Gemini Omni pieces
+consume the one-original-post slot.
 
 - Do not scrape, script, automate, or use headless browsing against X.
 - A human may supply an exact public parent-post URL or scout through the
@@ -144,17 +151,31 @@ your lane. Marketing work on X is the manually approved reply program.
 - Each reply requires David's approval of the exact parent URL and exact text.
 - Approval expires after 60 minutes and becomes void if context changes.
 - Silence is rejection.
-- Default maximum: four published replies per day across two staffed windows.
+- Default and enforceable maximum: four published replies per day across two
+  staffed windows. The campaign may seek three to five on staffed days, but a
+  fifth remains unauthorized until the machine baseline and third staffed
+  window are separately reconciled and approved.
 - The cap is a ceiling, not a quota.
 - For the first 30 operating days, proactive replies carry no DDB link unless
   the parent author asks for the source or a factual claim requires it.
 - Do not like, follow, quote-post, message, or publish on David's behalf without
   exact separate approval.
 
-Claude may research supporting sources and prepare private approval cards. Do
+The preparation role may research supporting sources and prepare private approval cards. Do
 not commit unpublished reply drafts to the public repository.
 
-### 2. YouTube: first short-video laboratory
+### 2. Gemini Omni: gated X media lane
+
+Gemini Omni is a video-generation feature in Gemini Apps. It is not the
+YouTube experiment and does not authorize a Google account, plan upgrade,
+provider upload, generation, or publication. After its exact account and
+privacy boundary is verified and David approves the exact input package, it may
+produce two weekly pieces from already-published editions. Each consumes the
+day's one-original-X-post slot, validates a private provenance record, discloses
+material AI generation, preserves watermarks, and receives exact final-package
+approval before publication.
+
+### 3. YouTube: separate disabled short-video laboratory
 
 The official known channel is David's Daily Bread at `@DavidDailyBreadTV`.
 The channel is currently disabled for pilot operation. Subscriber and historical
@@ -195,7 +216,7 @@ if it remains inconsistent with the specific pilot contract.
 Do not start the 30-day experiment clock until an authoritative YouTube metrics
 baseline is captured and David authorizes the first exact private upload.
 
-### 3. Instagram Reels or TikTok: one platform after a YouTube winner
+### 4. Instagram Reels or TikTok: one platform after a YouTube winner
 
 Do not open or alter either account and do not prepare a launch campaign yet.
 First produce a current, source-linked comparison of Instagram Reels and TikTok
@@ -294,10 +315,31 @@ Unknown measurements are `null`, never zero. Do not infer causation from an
 account-level follower change. Do not declare a winning format before its
 predeclared sample and snapshots are complete.
 
-## First seven-day sprint
+## Active 48-hour and 30-day sequence
 
-This sprint begins immediately as local, draft-only work. It does not start the
-public YouTube experiment clock.
+1. Select RSS as the zero-cost return path and preserve email closure.
+2. Select X-native and manual aggregate diagnostics; leave RSS follows, site
+   return, and first-1,000 progress unknown.
+3. Record the read-only X account, operator, security, profile, pinned post,
+   broadcast permalink, Premium, and analytics receipt.
+4. Stop readiness when X MFA, password-reset protection, or immutable link
+   checks fail. Repairing an account or the Spark broadcaster requires its own
+   scoped approval.
+5. Verify the exact Gemini Omni account and plan without accepting terms,
+   upgrading, uploading, or generating. Record provider, privacy, rights,
+   disclosure, provenance, correction, and removal law.
+6. Reconcile governing documents, contract, ledgers, schema, and tests on a
+   clean branch. Report the exact head for separate release approval.
+7. After merge and exact activation, run 30 calendar days with one additional
+   original X post daily, up to four qualified replies on staffed days, and two
+   weekly Omni releases inside the original-post slot.
+8. Review on days 7, 14, and 21; decide continue, extend, modify, or stop on day
+   30. Change at most one declared variable at a time.
+
+## Superseded historical seven-day sprint (do not execute)
+
+This section preserves the 2026-08-02 handoff history. It is not current
+execution authority and does not start a public clock.
 
 ### Day 1: establish the board
 
@@ -371,7 +413,7 @@ Deliver a one-page founder report:
 - exact decisions requested from David;
 - exact engineering requests for Codex.
 
-## Definition of done for the initial handoff
+## Historical definition of done for the superseded handoff
 
 The marketing foundation is ready for David's first approval review when all of
 the following are true:
@@ -416,15 +458,14 @@ work needed, with measurable acceptance criteria.
 
 Give three concrete actions in priority order.
 
-## Start command for Claude Code
+## Current start command
 
 Use this instruction after opening Claude Code in the repository:
 
-> Read `docs/CLAUDE_CODE_MARKETING_HANDOFF.md` completely and execute the first
-> seven-day sprint as far as local, draft-only work permits. Start by verifying
-> repository state and reading every governing file in the specified order.
-> Use bounded parallel sub-agents for independent research and candidate
-> scoring when useful. Keep all edits in an isolated branch or worktree. Do not
-> publish, upload, post, follow, like, message, create or alter accounts, contact
-> vendors, install credentials, spend money, deploy, or push. Stop at every
-> approval boundary and finish with the required session report.
+> Read `docs/OUTREACH_CAMPAIGN.md`,
+> `operations/outreach-campaign.contract.json`, and this handoff completely.
+> Execute only the active DDB-PC-028 readiness work assigned by the program
+> controller on a clean branch. Do not publish, upload, generate, post, reply,
+> follow, like, message, alter accounts, accept provider terms, install
+> credentials, activate tracking, collect data, spend, deploy, or merge. Stop at
+> every exact approval boundary and report the immutable implementation head.

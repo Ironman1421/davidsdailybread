@@ -28,9 +28,8 @@ spec). The session does the editorial work: researching, choosing the lead, writ
 dek and glance line, and (mornings) answering reviewed house-satchel material
 when selected. `ddb_session_bake.py` does the mechanical work deterministically:
 template fill, category pages (morning only), the bounded evening catalog,
-archive, RSS, and state. Two
-commits per bake ("Morning edition ..." or "Evening edition ..." then
-"Archive: ..."), pushed to `main`; Pages redeploys.
+archive, RSS, and state. The protected publisher validates and publishes one
+atomic App-authored commit per successful bake; Pages then redeploys.
 
 - `templates/` — page templates; ALL design changes happen here, never at bake time.
 - `index.html` — the latest edition; `tech/markets/science.html` — category pages.
@@ -59,6 +58,8 @@ commits per bake ("Morning edition ..." or "Evening edition ..." then
   `docs/PHASE_0_READINESS_2026-08-04.md` — satisfied Phase 0 prerequisites and
   material remaining gaps;
   `docs/X_REPLY_PLAYBOOK.md` — manually approved, reply-led X growth law;
+  `docs/OUTREACH_CAMPAIGN.md` — zero-dollar 48-hour readiness and separately
+  activated 30-day outreach learning law;
   `docs/READER_STORE_SPEC.md` — approved private reader-store and cutover design;
   `docs/PUBLISHER_IDENTITY_SPEC.md` — approved scheduled identity and `main`
   ruleset design;

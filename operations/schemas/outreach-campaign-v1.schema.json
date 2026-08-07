@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/contracts/outreach-campaign-v1.schema.json",
+  "title": "David's Daily Bread outreach campaign contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "status",
+    "programItem",
+    "owner",
+    "approvedDirectionAt",
+    "readinessWindow",
+    "campaignWindow",
+    "primaryConversion",
+    "diagnostics",
+    "x",
+    "geminiOmni",
+    "approvals",
+    "stopRules",
+    "activationRequires",
+    "externalActions"
+  ],
+  "properties": {
+    "version": {"const": 1},
+    "status": {"enum": ["readiness-active-public-campaign-blocked", "ready-awaiting-exact-activation", "active", "stopped", "complete"]},
+    "programItem": {"const": "DDB-PC-028"},
+    "owner": {"const": "David Friedhof"},
+    "approvedDirectionAt": {"type": "string", "format": "date-time"},
+    "readinessWindow": {"$ref": "#/$defs/readinessWindow"},
+    "campaignWindow": {"$ref": "#/$defs/campaignWindow"},
+    "primaryConversion": {"$ref": "#/$defs/primaryConversion"},
+    "diagnostics": {"$ref": "#/$defs/diagnostics"},
+    "x": {"$ref": "#/$defs/x"},
+    "geminiOmni": {"$ref": "#/$defs/geminiOmni"},
+    "approvals": {"$ref": "#/$defs/approvals"},
+    "stopRules": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "activationRequires": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "externalActions": {"$ref": "#/$defs/externalActions"}
+  },
+  "$defs": {
+    "readinessWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["startedAt", "mustCompleteBy", "maximumElapsedHours", "cashBudgetUsd"],
+      "properties": {
+        "startedAt": {"type": "string", "format": "date-time"},
+        "mustCompleteBy": {"type": "string", "format": "date-time"},
+        "maximumElapsedHours": {"const": 48},
+        "cashBudgetUsd": {"const": 0}
+      }
+    },
+    "campaignWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "durationCalendarDays", "startsAt", "endsAt", "activationReceipt"],
+      "properties": {
+        "status": {"enum": ["not_started", "active", "stopped", "complete"]},
+        "durationCalendarDays": {"const": 30},
+        "startsAt": {"type": ["string", "null"], "format": "date-time"},
+        "endsAt": {"type": ["string", "null"], "format": "date-time"},
+        "activationReceipt": {"type": ["string", "null"]}
+      }
+    },
+    "primaryConversion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "returnPath", "canonicalUrl", "observable", "limitation", "emailSignupSelected", "emailCollectionAuthorized", "newsletterSendingAuthorized"],
+      "properties": {
+        "id": {"enum": ["rss_follow_intent", "confirmed_email_subscriber"]},
+        "returnPath": {"enum": ["rss", "email"]},
+        "canonicalUrl": {"type": "string", "format": "uri"},
+        "observable": {"type": "boolean"},
+        "limitation": {"type": "string", "minLength": 1},
+        "emailSignupSelected": {"type": "boolean"},
+        "emailCollectionAuthorized": {"type": "boolean"},
+        "newsletterSendingAuthorized": {"const": false}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"returnPath": {"const": "rss"}}, "required": ["returnPath"]},
+          "then": {"properties": {"id": {"const": "rss_follow_intent"}, "emailSignupSelected": {"const": false}, "emailCollectionAuthorized": {"const": false}}}
+        }
+      ]
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "siteInstrumentationActivated", "siteReturnStatus", "officialFirst1000CollectorSeparate", "officialFirst1000CollectorActivated", "personalDataCollected", "rawIpStored", "fingerprintingUsed", "crossSiteTrackingUsed", "availableSignals", "unavailableSignals", "retention", "killSwitch", "removal"],
+      "properties": {
+        "mode": {"enum": ["x-native-and-manual-aggregate-fallback", "approved-minimal-privacy-safe-site-diagnostics"]},
+        "siteInstrumentationActivated": {"type": "boolean"},
+        "siteReturnStatus": {"enum": ["unknown", "available"]},
+        "officialFirst1000CollectorSeparate": {"const": true},
+        "officialFirst1000CollectorActivated": {"type": "boolean"},
+        "personalDataCollected": {"const": false},
+        "rawIpStored": {"const": false},
+        "fingerprintingUsed": {"const": false},
+        "crossSiteTrackingUsed": {"const": false},
+        "availableSignals": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "unavailableSignals": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "retention": {"type": "string", "minLength": 1},
+        "killSwitch": {"type": "string", "minLength": 1},
+        "removal": {"type": "string", "minLength": 1}
+      }
+    },
+    "x": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["account", "humanOperator", "readinessReceipt", "readinessStatus", "blockers", "canonicalBroadcaster", "broadcasterChangeAuthorized", "originalPostsPerCalendarDay", "originalPostRequiresImmutableEditionUrl", "omniReleaseConsumesOriginalPostSlot", "replyPlanMinimumOnStaffedDay", "replyPlanMaximumOnStaffedDay", "enforcedPublishedReplyCap", "staffedApprovalWindows", "fifthReplyAuthorized", "weekendQuota", "qualityClearingCanProduceZero", "exactParentAndTextApprovalRequired", "manualOfficialUiPostingOnly", "automatedPostingAuthorized", "browserScriptingAuthorized", "scrapingAuthorized", "paidReadAuthorized"],
+      "properties": {
+        "account": {"const": "@DavidDailyBread"},
+        "humanOperator": {"const": "David Friedhof"},
+        "readinessReceipt": {"const": "operations/x-outreach-readiness-receipt.json"},
+        "readinessStatus": {"enum": ["blocked", "ready"]},
+        "blockers": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "canonicalBroadcaster": {"const": "Spark daicc-ddb-autopost"},
+        "broadcasterChangeAuthorized": {"const": false},
+        "originalPostsPerCalendarDay": {"const": 1},
+        "originalPostRequiresImmutableEditionUrl": {"const": true},
+        "omniReleaseConsumesOriginalPostSlot": {"const": true},
+        "replyPlanMinimumOnStaffedDay": {"const": 3},
+        "replyPlanMaximumOnStaffedDay": {"const": 5},
+        "enforcedPublishedReplyCap": {"const": 4},
+        "staffedApprovalWindows": {"const": 2},
+        "fifthReplyAuthorized": {"const": false},
+        "weekendQuota": {"const": 0},
+        "qualityClearingCanProduceZero": {"const": true},
+        "exactParentAndTextApprovalRequired": {"const": true},
+        "manualOfficialUiPostingOnly": {"const": true},
+        "automatedPostingAuthorized": {"const": false},
+        "browserScriptingAuthorized": {"const": false},
+        "scrapingAuthorized": {"const": false},
+        "paidReadAuthorized": {"const": false}
+      }
+    },
+    "geminiOmni": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "product", "feature", "productStatusReviewedAt", "officialProductUrl", "termsUrl", "privacyUrl", "prohibitedUseUrl", "accountBoundary", "privacyBoundary", "rightsBoundary", "provenanceBoundary", "disclosureBoundary", "correctionAndRemoval", "generationAuthorized", "publicationAuthorized", "piecesPerWeekAfterActivation"],
+      "properties": {
+        "provider": {"const": "Google LLC"},
+        "product": {"const": "Gemini Apps"},
+        "feature": {"const": "Gemini Omni video generation"},
+        "productStatusReviewedAt": {"type": "string", "format": "date-time"},
+        "officialProductUrl": {"type": "string", "format": "uri"},
+        "termsUrl": {"type": "string", "format": "uri"},
+        "privacyUrl": {"type": "string", "format": "uri"},
+        "prohibitedUseUrl": {"type": "string", "format": "uri"},
+        "accountBoundary": {"$ref": "#/$defs/omniAccount"},
+        "privacyBoundary": {"$ref": "#/$defs/omniPrivacy"},
+        "rightsBoundary": {"$ref": "#/$defs/omniRights"},
+        "provenanceBoundary": {"$ref": "#/$defs/omniProvenance"},
+        "disclosureBoundary": {"$ref": "#/$defs/omniDisclosure"},
+        "correctionAndRemoval": {"$ref": "#/$defs/omniCorrection"},
+        "generationAuthorized": {"type": "boolean"},
+        "publicationAuthorized": {"type": "boolean"},
+        "piecesPerWeekAfterActivation": {"const": 2}
+      }
+    },
+    "omniAccount": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "requiredAccountType", "verifiedAccount", "incrementalSpendAuthorizedUsd", "providerTermsAcceptanceAuthorized", "providerUploadAuthorized"],
+      "properties": {
+        "status": {"enum": ["blocked_pending_exact_account_and_plan_verification", "verified"]},
+        "requiredAccountType": {"type": "string", "minLength": 1},
+        "verifiedAccount": {"type": ["string", "null"]},
+        "incrementalSpendAuthorizedUsd": {"const": 0},
+        "providerTermsAcceptanceAuthorized": {"type": "boolean"},
+        "providerUploadAuthorized": {"type": "boolean"}
+      }
+    },
+    "omniPrivacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publicCanonicalInputsOnly", "temporaryChatOrKeepActivityOffRequired", "feedbackSubmissionProhibited", "restrictedInformationProhibited", "credentialsProhibited", "privateReaderMaterialProhibited", "unpublishedStrategyProhibited"],
+      "properties": {
+        "publicCanonicalInputsOnly": {"const": true},
+        "temporaryChatOrKeepActivityOffRequired": {"const": true},
+        "feedbackSubmissionProhibited": {"const": true},
+        "restrictedInformationProhibited": {"const": true},
+        "credentialsProhibited": {"const": true},
+        "privateReaderMaterialProhibited": {"const": true},
+        "unpublishedStrategyProhibited": {"const": true}
+      }
+    },
+    "omniRights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operatorMustOwnOrLicenseEveryUpload", "realPersonLikenessOrVoiceAuthorized", "voiceCloningAuthorized", "syntheticAnchorAuthorized", "fabricatedEventOrSourceArtifactAuthorized", "humanClaimVerificationRequired", "humanFinalEditAndSelectionRequired"],
+      "properties": {
+        "operatorMustOwnOrLicenseEveryUpload": {"const": true},
+        "realPersonLikenessOrVoiceAuthorized": {"const": false},
+        "voiceCloningAuthorized": {"const": false},
+        "syntheticAnchorAuthorized": {"const": false},
+        "fabricatedEventOrSourceArtifactAuthorized": {"const": false},
+        "humanClaimVerificationRequired": {"const": true},
+        "humanFinalEditAndSelectionRequired": {"const": true}
+      }
+    },
+    "omniProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recordRequiredPerGenerationPackage", "schema", "storageClass", "publicRepositoryStoresMasterPrompts", "publicRepositoryStoresPrivateProviderReceipts", "finalFileSha256Required", "providerReceiptRequired"],
+      "properties": {
+        "recordRequiredPerGenerationPackage": {"const": true},
+        "schema": {"const": "operations/schemas/outreach-media-provenance-v1.schema.json"},
+        "storageClass": {"const": "restricted-outside-public-repository"},
+        "publicRepositoryStoresMasterPrompts": {"const": false},
+        "publicRepositoryStoresPrivateProviderReceipts": {"const": false},
+        "finalFileSha256Required": {"const": true},
+        "providerReceiptRequired": {"const": true}
+      }
+    },
+    "omniDisclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["materialAiGenerationDisclosureRequired", "destinationLabelingControlsMustBeUsed", "watermarkMustNotBeRemovedOrObscured"],
+      "properties": {
+        "materialAiGenerationDisclosureRequired": {"const": true},
+        "destinationLabelingControlsMustBeUsed": {"const": true},
+        "watermarkMustNotBeRemovedOrObscured": {"const": true}
+      }
+    },
+    "omniCorrection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonicalCorrectionFirst", "derivativeCorrectionOrRemovalRequired", "providerRemovalWhenAvailableRequired", "preserveCorrectionReceipt"],
+      "properties": {
+        "canonicalCorrectionFirst": {"const": true},
+        "derivativeCorrectionOrRemovalRequired": {"const": true},
+        "providerRemovalWhenAvailableRequired": {"const": true},
+        "preserveCorrectionReceipt": {"const": true}
+      }
+    },
+    "approvals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exactOriginalPostTextAndAssetRequired", "exactReplyParentAndTextRequired", "exactOmniInputPackageRequiredBeforeGeneration", "exactOmniFinalPackageRequiredBeforePublication", "silenceMeansApproval", "approvalMayBeReusedForChangedItem"],
+      "properties": {
+        "exactOriginalPostTextAndAssetRequired": {"const": true},
+        "exactReplyParentAndTextRequired": {"const": true},
+        "exactOmniInputPackageRequiredBeforeGeneration": {"const": true},
+        "exactOmniFinalPackageRequiredBeforePublication": {"const": true},
+        "silenceMeansApproval": {"const": false},
+        "approvalMayBeReusedForChangedItem": {"const": false}
+      }
+    },
+    "externalActions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publicOutreachAuthorized", "emailCollectionAuthorized", "analyticsActivationAuthorized", "xOriginalPostAuthorized", "xReplyAuthorized", "omniGenerationAuthorized", "omniPublicationAuthorized", "newsletterOperationAuthorized", "paidProvisioningAuthorized", "deploymentAuthorized", "spendAuthorizedUsd"],
+      "properties": {
+        "publicOutreachAuthorized": {"type": "boolean"},
+        "emailCollectionAuthorized": {"type": "boolean"},
+        "analyticsActivationAuthorized": {"type": "boolean"},
+        "xOriginalPostAuthorized": {"type": "boolean"},
+        "xReplyAuthorized": {"type": "boolean"},
+        "omniGenerationAuthorized": {"type": "boolean"},
+        "omniPublicationAuthorized": {"type": "boolean"},
+        "newsletterOperationAuthorized": {"type": "boolean"},
+        "paidProvisioningAuthorized": {"type": "boolean"},
+        "deploymentAuthorized": {"type": "boolean"},
+        "spendAuthorizedUsd": {"minimum": 0, "type": "number"}
+      }
+    }
+  }
+}

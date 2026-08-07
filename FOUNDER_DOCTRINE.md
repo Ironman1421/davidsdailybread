@@ -51,6 +51,14 @@ mechanism for transferring control away from David.
 - X and other individually approved social channels are for discovery,
   discussion, and audience growth. They point people back to durable work on
   the website and do not replace it.
+- David approved a zero-dollar, 30-calendar-day outreach learning campaign in
+  direction on 2026-08-06. It may use one additional edition-derived X post per
+  day, qualified manually approved X replies on staffed operating days, and two
+  approved Gemini Omni pieces per week within the one-post slot. The campaign
+  clock starts only after the 48-hour readiness contract is reconciled and
+  David approves the exact activation receipt. Every post, reply, provider
+  input, final media package, account change, deployment, and spend remains
+  separately gated under `docs/OUTREACH_CAMPAIGN.md`.
 - The product may grow from a publication into a carefully moderated
   participation network with an installable web app, member accounts, personal
   archives, prayer, contribution, trusted-group, and later native-app
@@ -124,6 +132,10 @@ Until David explicitly records a different decision in the repository:
   account, resource, credential, endpoint, canary execution, deployment,
   activation, production collection, baseline start, or spend is authorized by
   that selection.
+- The outreach campaign selects RSS and manual X-native aggregate diagnostics
+  as its zero-cost pre-baseline fallback. This does not reopen email, activate
+  tracking, authorize Gemini provider upload, or satisfy the official first-
+  1,000 measurement definition. Site return and RSS follows remain unknown.
 
 ## Privacy and moderation law
 

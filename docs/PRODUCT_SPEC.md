@@ -2,7 +2,7 @@
 
 Status: active production contract
 Owner: David Friedhof
-Last reconciled: 2026-08-04
+Last reconciled: 2026-08-07
 
 ## Purpose and source precedence
 
@@ -40,6 +40,12 @@ former weekly email pilot is not an active send plan. Local retention strategy
 and product-integration prototypes may proceed, while issue drafting, provider
 operations, address collection, activation, and sending remain disabled under
 `docs/NEWSLETTER_PILOT_SPEC.md`.
+
+The zero-dollar outreach learning campaign is governed by
+`docs/OUTREACH_CAMPAIGN.md` and
+`operations/outreach-campaign.contract.json`. RSS is the selected return path;
+email collection, site analytics activation, public campaign actions, and
+Gemini provider upload remain closed until their exact gates are satisfied.
 
 ## Durable-moat product contract
 
@@ -158,6 +164,13 @@ messaging is optional and may be omitted permanently.
   Credible-account replies are
   the primary near-term X acquisition strategy; each is approved by David and
   manually posted under `docs/X_REPLY_PLAYBOOK.md`.
+- Outreach learning campaign: after exact activation, at most one additional
+  edition-derived X post may run per day. Two weekly Gemini Omni pieces consume
+  that slot. Qualified replies remain individually approved and manual; the
+  enforceable cap remains four per staffed day until a fifth-reply contract is
+  separately reconciled and approved. Every original item links to its exact
+  immutable edition. The 30-day campaign may report only declared proxy and
+  platform evidence, never the official first-1,000 milestone.
 - YouTube: the initial discovery channel is a faceless vertical-video format,
   tested voice-led against caption-led and always grounded in a canonical
   edition.

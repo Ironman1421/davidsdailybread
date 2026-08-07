@@ -160,7 +160,7 @@ class ProductContractTest(unittest.TestCase):
             schema["required"],
         )
         baseline = ledger["strategyBaseline"]
-        self.assertEqual(5, baseline["xFollowers"])
+        self.assertEqual(6, baseline["xFollowers"])
         self.assertEqual("credible-account-replies", baseline["primaryAcquisitionChannel"])
         self.assertEqual("manual-ui-per-reply-approval", baseline["mode"])
         self.assertEqual("2026-07-31T21:05:50Z", baseline["cadenceApprovedAt"])
@@ -173,10 +173,13 @@ class ProductContractTest(unittest.TestCase):
         self.assertEqual(75, baseline["opportunityPublishThreshold"])
         self.assertEqual(8, baseline["minimumComparedShapeObservations"])
         self.assertEqual(50, baseline["minimumMeasuredRepliesBeforeVolumeScaling"])
-        self.assertEqual(
-            "blocked_pending_readiness",
-            baseline["operationalReadiness"]["status"],
-        )
+        readiness = baseline["operationalReadiness"]
+        self.assertEqual("blocked_pending_readiness", readiness["status"])
+        self.assertEqual("ready", readiness["profileConversion"])
+        self.assertEqual("premium_plus", readiness["premiumTier"])
+        self.assertEqual("available", readiness["postActivityAnalytics"])
+        self.assertEqual("confirmed", readiness["authorizedOperators"])
+        self.assertEqual("blocked", readiness["accountSecurity"])
         self.assertEqual([], ledger["publishedReplies"])
 
         reply = schema["$defs"]["reply"]

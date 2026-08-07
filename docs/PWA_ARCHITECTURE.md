@@ -1,6 +1,6 @@
 # Installable web app architecture
 
-Status: Phase 1 local implementation, not published or activated
+Status: production active on the canonical website
 
 Owner and final decision-maker: David Friedhof
 
@@ -94,9 +94,12 @@ The service-worker install-path repair at
 suite, exact-head CI, CodeQL, and independent review. David accepted the lack of
 a repeated physical-device cycle after that repair on 2026-08-04. He authorized
 publication and GitHub Pages deployment in principle, subject to a separate
-approval naming the final immutable release-record SHA. Merge remains
-unauthorized until that decision. Any runtime change after the reviewed
-implementation head reopens only the affected evidence gate.
+approval naming the final immutable release-record SHA. That approval was later
+granted: PR 48 exact head `17967c5b494a9cf94cfa7d0549851ec19d5b4807`
+merged as `40df44b9fa68a5721cb20473d859ca76d76eb628`, and Pages build
+1132904965 completed. The current shell refresh in PR 61 merged as
+`9e419f4f7bf6b5655e8282188265ecd8650544ba`, and Pages build 1133942429
+completed. Any later runtime change reopens only the affected evidence gate.
 
 The generated home and category pages must continue to receive their PWA links
 through the normal bake templates, never by hand editing rendered output.

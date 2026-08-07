@@ -1,6 +1,7 @@
 # Phase 1 PWA quality review
 
-Status: local browser, generated-home bootstrap, clean physical iPhone
+Status: release review complete and production release later verified; local
+browser, generated-home bootstrap, clean physical iPhone
 install/first-route offline/update/correction, isolated normal-bake preview,
 native keyboard activation, 200-percent zoom, and a short physical VoiceOver
 check completed; Android/TalkBack, a full auditory accessibility review, and
@@ -9,7 +10,11 @@ release-decision gates remain
 Reviewed: 2026-08-04, beginning at PR #48 head `6cbe9a8`
 
 Publication, deployment, provider mutation, live personal-data collection,
-notification activation, and merge were outside this review and did not occur.
+notification activation, and merge were outside this review and did not occur
+during it. A later exact-head decision merged PR 48 as
+`40df44b9fa68a5721cb20473d859ca76d76eb628` and completed Pages build
+1132904965. PR 61 later refreshed the shell as
+`9e419f4f7bf6b5655e8282188265ecd8650544ba` with Pages build 1133942429.
 
 ## Review environment
 
