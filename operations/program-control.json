@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-05T23:40:55Z",
+  "updatedAt": "2026-08-06T23:58:34Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": null,
+  "activeItemId": "DDB-PC-025",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -45,11 +45,7 @@
       "decisionEvidence": "Task message: Okay. Add this persistent deterministic handoff rule to agents.md, and CLAD.md, and program control."
     }
   },
-  "halt": {
-    "type": "no_eligible_item",
-    "eligibleItemIds": [],
-    "reason": "The current reliability and governance program is complete; DDB-PC-016 through DDB-PC-019 remain paused by doctrine and require explicit approval from David before any activation."
-  },
+  "halt": null,
   "states": [
     "pending",
     "in_progress",
@@ -956,6 +952,176 @@
         "Public boundary gate: read-only checks at 2026-08-05T23:40:21Z returned HTTP 200 for the homepage, archive, RSS, and subscribe page while counter.csv remained HTTP 404",
         "Doctrine gate: DDB-PC-016 through DDB-PC-019 remain paused_by_doctrine with no intake reopening, provider mutation, Cloudflare or D1 audience collection, Supabase provisioning, newsletter operation, credential change, or activation",
         "Final-report gate: David received the evidence-backed status report in the task immediately before directing the controller to continue DDB-PC-020; this closeout record preserves the same verified result without a push, merge, deployment, publication, or provider mutation"
+      ]
+    },
+    {
+      "id": "DDB-PC-024",
+      "sequence": 24,
+      "title": "Repair post-publish Pages and Telegram readiness",
+      "status": "complete",
+      "dependencies": [
+        "DDB-PC-020"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T15:12:33Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-024: add and activate a program-control item to diagnose and repair the post-publish Pages and Telegram readiness race exposed by Daily bake run 31105362012 and Pages run 31106599001. Implement and test the smallest branch-only fix, open a draft PR, and observe the x86_64 Merge gate and CodeQL. Do not merge, rerun a bake, send a Telegram message, change X, deploy, provision, rotate credentials, or alter today’s schedules without my separate approval",
+        "scope": "Diagnose and repair the post-publish Pages and Telegram readiness race on a branch, open a draft PR, and observe x86_64 Merge gate and CodeQL. Do not merge, rerun a bake, send a Telegram message, change X, deploy, provision, rotate credentials, or alter today's schedules without separate approval."
+      },
+      "externalMutation": true,
+      "startedAt": "2026-08-06T15:12:33Z",
+      "progressEvidence": [
+        "David authorized DDB-PC-024 as the sole active item after the completed reliability and governance program",
+        "Daily bake run 31105362012 published the morning edition to main, then its Telegram receipt failed closed because the exact public URL remained unavailable for all 20 readiness attempts",
+        "Pages run 31106599001 remained deployment_queued until the provider action reached its ten-minute timeout and cancelled deployment bbe38c83a328a4c9b68bf2031770ef50283e6406",
+        "A later successful Pages deployment made the homepage, archive, feed, subscribe page, and exact 2026-08-06 morning edition available; verified public bytes matched origin/main and counter.csv remained HTTP 404",
+        "Root cause in repository control flow: the Telegram job required validate-and-publish success and excluded already-existing editions, so an active same-edition backup could not recover a readiness failure even though no reservation or notification attempt existed",
+        "The branch repair leaves authoring, publishing, and X guarded off for existing editions while allowing only the Telegram job to run after either a successful fresh publish or an active daily same-edition no-op",
+        "The recovery hydrates durable receipt and reservation artifacts before public verification or credential loading; any existing block remains a successful no-op, while an unavailable exact page still fails closed without a reservation or send",
+        "Eighty-seven focused program-control, Telegram, product-contract, workflow-guard, X-broadcast, and evening-handoff tests passed; both JSON contracts and workflow YAML parsed, and git diff --check passed"
+      ],
+      "completionGate": [
+        "The exact Pages and Telegram readiness failure is captured in a regression test",
+        "The smallest branch-only repair preserves fail-closed notification and duplicate-send safety",
+        "Permitted local static and targeted checks pass",
+        "A draft PR exists at an immutable head",
+        "The exact head passes the x86_64 Merge gate and both CodeQL analyses",
+        "No merge, bake rerun, message send, X change, deploy, provisioning, credential rotation, or schedule change occurs"
+      ],
+      "completedAt": "2026-08-06T15:22:31Z",
+      "evidence": [
+        "Regression gate: tests/test_telegram_notification.py now proves an existing-edition backup keeps authoring and X disabled while permitting only the Telegram receipt recovery condition after skipped publisher jobs",
+        "Repair gate: the workflow admits Telegram only after a successful fresh publish or an active daily same-edition no-op; inactive daylight-saving candidates, backfills, author failures, publisher failures, and X remain excluded",
+        "Safety gate: durable receipt or reservation hydration still precedes live-page verification and all credential-bearing steps, so prior success or ambiguous mutation blocks a retry and an unavailable page creates no reservation or send",
+        "Local gate: 87 focused tests passed; operations/program-control.json and operations/telegram-notification.contract.json parsed; .github/workflows/ddb-bake.yml parsed; git diff --check passed",
+        "Hosted gate: draft PR 64 exact implementation head cf00f05cd26cb65de356320a564652ebf91df5a3 passed x86_64 Merge gate run 31115224961 with 234 Python tests, the explicit two-slot render check, pgTAP 96/96, database lint, and concurrency and locking checks",
+        "CodeQL gate: run 31115225916 passed both Python and JavaScript/TypeScript analyses on exact implementation head cf00f05cd26cb65de356320a564652ebf91df5a3",
+        "Boundary gate: PR 64 remains draft and unmerged; no bake rerun, Telegram message, X change, deploy, provisioning, credential rotation, or schedule change occurred"
+      ]
+    },
+    {
+      "id": "DDB-PC-025",
+      "sequence": 25,
+      "title": "Release the Pages and Telegram readiness repair",
+      "status": "in_progress",
+      "dependencies": [
+        "DDB-PC-024"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T15:39:13Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-025 release of PR #64 exact reviewed head 6ed585bfebfb7a43cff54216330500727b43d78b: record this approval in program control, reobserve the required checks after the record-only commit, mark the PR ready, squash-merge only if the implementation diff remains unchanged, and verify main and Pages. Do not rerun a bake, send Telegram or X, change credentials, provision anything, or alter today’s schedules",
+        "scope": "Record the release approval on PR 64, reobserve required checks after the record-only commit, mark the PR ready, squash-merge only with an unchanged implementation diff, and verify main and Pages. Do not rerun a bake, send Telegram or X, change credentials, provision anything, or alter today's schedules."
+      },
+      "externalMutation": true,
+      "startedAt": "2026-08-06T15:39:13Z",
+      "approvedPullRequest": 64,
+      "approvedImplementationHead": "6ed585bfebfb7a43cff54216330500727b43d78b",
+      "approvedImplementationDiffSha256": "59e92d2186d56bfd4b906b99dfb736d62f45201c1ea85704326340cd2dd6d1b5",
+      "progressEvidence": [
+        "David approved release of PR 64 exact reviewed head 6ed585bfebfb7a43cff54216330500727b43d78b with a record-only commit and required fresh checks before merge",
+        "The approved implementation diff contains only .github/workflows/ddb-bake.yml, docs/TELEGRAM_NOTIFICATION_RUNBOOK.md, operations/telegram-notification.contract.json, and tests/test_telegram_notification.py and has SHA-256 59e92d2186d56bfd4b906b99dfb736d62f45201c1ea85704326340cd2dd6d1b5",
+        "David's 2026-08-06T17:55:15Z decision separately authorizes one additional program-control-only record for pending successor DDB-PC-026; it does not change the approved PR 64 implementation diff or activate the successor",
+        "David's 2026-08-06T23:58:34Z decision separately authorizes the program controller to add pending DDB-PC-028 immediately after DDB-PC-025 and ahead of DDB-PC-027 and DDB-PC-026; it changes no approved PR 64 implementation byte and activates no campaign or external action"
+      ],
+      "completionGate": [
+        "David's exact PR and implementation-head approval is recorded",
+        "The record-only PR head passes the x86_64 Merge gate and both CodeQL analyses",
+        "The approved implementation diff is unchanged before merge",
+        "PR 64 is marked ready and squash-merges through the protected path",
+        "The immutable main commit and Pages deployment verify",
+        "Public boundaries and the active main ruleset verify",
+        "No bake rerun, Telegram or X send, credential change, provisioning, or schedule change occurs"
+      ]
+    },
+    {
+      "id": "DDB-PC-028",
+      "sequence": 26,
+      "title": "48-hour outreach readiness and campaign reconciliation",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-025"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T23:58:34Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to add DDB-PC-028, 48-hour outreach readiness and campaign reconciliation, immediately after DDB-PC-025 and ahead of DDB-PC-027 and DDB-PC-026, under the scope and boundaries recorded in the campaign reconciliation audit.",
+        "scope": "After DDB-PC-025 completes, use clean branches to reconcile the approved zero-dollar 30-day campaign; within a maximum 48-hour readiness window select fresh email signup or the RSS fallback, select minimal privacy-safe campaign diagnostics or the documented aggregate fallback, complete read-only X account and operator readiness, add the Gemini Omni provider, rights, disclosure, provenance, approval, correction, and removal boundary, and reconcile the governing documents, contracts, ledgers, schemas, and tests identified by the 2026-08-06 campaign audit. Do not start public outreach, collect email, activate analytics, post or reply on X, generate or publish an Omni piece, change the active X broadcaster, send a newsletter, provision a paid service, merge, deploy, or spend money without the exact activation or release approval required by the reconciled contract."
+      },
+      "externalMutation": false,
+      "completionGate": [
+        "DDB-PC-025 is complete before DDB-PC-028 activates or implementation begins",
+        "The governing prose and a machine-readable outreach campaign contract agree on the 30-day window, zero-dollar ceiling, one original X post daily, qualified replies on staffed operating days, two Gemini Omni pieces weekly, exact-item approvals, stop rules, and rollback",
+        "One owned-return decision is recorded as fresh email signup or RSS fallback; any email path names its provider, operator, consent, privacy contact, retention, deletion, kill switch, rollback, and zero-dollar boundary without collecting an address",
+        "One campaign-diagnostics decision is recorded as a minimal privacy-safe implementation or the safe aggregate fallback, remains separate from the official first-1,000 collector, and preserves unavailable site-return values as unknown",
+        "A dated read-only X readiness receipt records the correct account, human operator, MFA and recovery readiness without secrets, profile and pinned conversion path, active immutable broadcast permalinks, Premium tier, and analytics availability",
+        "The existing four-reply hard ceiling remains enforced unless the staffed fifth-reply expansion, machine baseline, ledger, schema, and tests are separately reconciled and approved",
+        "The exact Gemini Omni product and account boundary, current terms review, public-input rule, asset and claim provenance, rights, disclosure, human final approval, provider receipt, correction, removal, and restricted-information controls are recorded without uploading or generating a public asset",
+        "PWA, protected-publisher, one-atomic-commit bake, repository-map, unified-evening-handoff, X Manager coordination, marketing handoff, and YouTube experiment status drift identified by the audit is reconciled without changing runtime behavior outside the approved scope",
+        "Applicable local validation and deterministic regression checks pass, and exact implementation heads are reported for separate release and activation approval",
+        "No public outreach, email collection, analytics activation, X post or reply, Omni generation or publication, broadcaster change, newsletter operation, paid-service provisioning, merge, deployment, or spend occurs"
+      ]
+    },
+    {
+      "id": "DDB-PC-027",
+      "sequence": 27,
+      "title": "Morning Reviewed Research Handoff v1",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-028"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T20:47:23Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the controller to add DDB-PC-027, Morning Reviewed Research Handoff v1, immediately after DDB-PC-025 and ahead of DDB-PC-026. Implement on clean branches only a two-stage morning research pipeline: X Manager performs deterministic X and source-manifest discovery and produces an advisory candidate ledger; David’s Daily Bread independently verifies candidates, performs a controlled technology, markets, and science gap sweep, records selected, hold, and reject decisions, and produces a reviewed morning packet before the 4:40 AM bake. Change the bake to consume that packet for writing, Scripture pairing, rendering, and accuracy review instead of performing open-ended discovery. Preserve separate morning-news and evening-Field-Guide scoring. Add deterministic Muse Code regression coverage. Do not change live automation schedules, deploy, change credentials, trigger paid X reads, alter or rerun an edition, publish, post, send, merge, provision, or spend money. Report the exact X Manager and DDB implementation heads for separate release and activation approval.",
+        "scope": "On clean local branches, implement and test a two-stage morning pipeline: X Manager deterministic X and source-manifest discovery into an advisory candidate ledger, followed by DDB independent verification, a controlled technology, markets, and science gap sweep, complete selected/hold/reject decisions, and a reviewed morning packet before the 4:40 AM bake. Make the bake consume the reviewed packet for writing, Scripture pairing, rendering, and accuracy review without open-ended discovery. Preserve separate morning-news and evening-Field-Guide scoring and add deterministic Muse Code regression coverage. Do not change live schedules, deploy, change credentials, trigger paid X reads, alter or rerun an edition, publish, post, send, merge, provision, or spend money. Report both exact implementation heads for separate release and activation approval."
+      },
+      "externalMutation": false,
+      "completionGate": [
+        "DDB-PC-028 is complete before DDB-PC-027 activates or implementation begins",
+        "The X Manager implementation branch is clean and produces a deterministic, advisory-only morning candidate ledger from bounded X and versioned source-manifest discovery without triggering paid reads",
+        "The DDB implementation branch is clean and independently verifies X Manager candidates, completes bounded technology, markets, and science gap sweeps, and records every candidate as selected, hold, or reject",
+        "A date-bound reviewed morning packet is ready before the 4:40 AM bake and withholds publication authority",
+        "The daily morning bake consumes the reviewed packet for writing, Scripture pairing, rendering, and accuracy review and performs no open-ended candidate discovery",
+        "Morning news uses its own scoring contract and the evening Field Guide retains editorial-fit-v1 unchanged",
+        "Deterministic regression coverage proves the August 5 Muse Code signal becomes a must-review candidate and receives an explicit morning disposition",
+        "Exact local X Manager and DDB implementation heads and validation evidence are reported for separate release and activation approval",
+        "No live automation schedule, deployment, credential, paid X read, edition, publication, post, send, merge, provisioning, or spend changes occur"
+      ]
+    },
+    {
+      "id": "DDB-PC-026",
+      "sequence": 28,
+      "title": "Implement Morning Scripture Freshness v1",
+      "status": "pending",
+      "dependencies": [
+        "DDB-PC-027"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-06T17:55:15Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to add, but not activate until DDB-PC-025 is complete, a Morning Scripture Freshness v1 item: expand the reviewed BSB catalog toward 600 verses, add repository-owned usage history, enforce a 30-published-morning verse cooldown, improve freshness-aware candidate ranking, and add deterministic CI coverage. Do not publish or rerun a bake, change translations, loosen Scripture safety rules, change archive.json's public shape, provision services, or merge the new work without a separate exact-head approval.",
+        "scope": "After DDB-PC-025 completes, expand the reviewed BSB catalog toward 600 verses, add repository-owned Scripture usage history, enforce a 30-published-morning exact-verse cooldown, improve freshness-aware candidate ranking, and add deterministic test coverage. Do not publish, rerun a bake, change translations, loosen Scripture safety rules, change archive.json's public shape, provision services, or merge without separate exact-head approval."
+      },
+      "externalMutation": false,
+      "completionGate": [
+        "DDB-PC-027 is complete before DDB-PC-026 activates or implementation begins",
+        "The reviewed BSB catalog expands toward 600 exact renderer-owned verses without changing translation, provenance verification, or Scripture safety rules",
+        "Repository-owned usage history records published morning selections deterministically without changing archive.json's public shape",
+        "Selection rejects within-edition duplicates and exact-verse reuse within the prior 30 published morning editions while preserving meaningful editorial pairing",
+        "Candidate ranking accounts for topical relevance, prior use, and book or genre diversity without authoring or paraphrasing Scripture",
+        "Deterministic tests cover catalog integrity, usage-history idempotence, cooldown enforcement, freshness ranking, and backfill behavior",
+        "The exact implementation head is reported for separate review and no merge, publication, bake rerun, service provisioning, or other prohibited external mutation occurs"
       ]
     }
   ]

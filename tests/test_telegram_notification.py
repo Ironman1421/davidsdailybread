@@ -579,16 +579,37 @@ class WorkflowContractTest(unittest.TestCase):
         self.assertIn("verify-live", readiness)
         self.assertNotIn("secrets.TELEGRAM_", readiness)
 
-    def test_existing_edition_backup_skips_telegram_job_and_artifacts(self):
+    def test_existing_edition_backup_retries_only_the_telegram_receipt(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text()
+        author_job = workflow.split("\n  author-edition:\n", 1)[1].split(
+            "\n  validate-and-publish:\n", 1
+        )[0]
         x_job = workflow.split("\n  x-broadcast:\n", 1)[1].split(
             "\n  telegram-publication-receipt:\n", 1
         )[0]
         telegram = workflow.split("\n  telegram-publication-receipt:\n", 1)[1]
         guard = "needs.prepare-reader-plan.outputs.already_exists != 'true'"
+        telegram_condition = telegram.split("\n    runs-on:", 1)[0]
 
+        self.assertIn(guard, author_job.split("\n    runs-on:", 1)[0])
         self.assertIn(guard, x_job.split("\n    runs-on:", 1)[0])
-        self.assertIn(guard, telegram.split("\n    runs-on:", 1)[0])
+        self.assertIn("always()", telegram_condition)
+        self.assertIn("needs.prepare-reader-plan.result == 'success'", telegram_condition)
+        self.assertIn(
+            "needs.prepare-reader-plan.outputs.already_exists == 'true'",
+            telegram_condition,
+        )
+        self.assertIn(
+            "needs.validate-and-publish.result == 'success'",
+            telegram_condition,
+        )
+        self.assertNotIn(guard, telegram_condition)
+        self.assertIn("Hydrate durable duplicate receipt", telegram)
+        self.assertIn("Wait for exact public edition URL", telegram)
+        self.assertLess(
+            telegram.index("Hydrate durable duplicate receipt"),
+            telegram.index("Run live exact edition notification"),
+        )
         self.assertIn("Run live exact edition notification", telegram)
         self.assertIn("Upload redacted Telegram attempt", telegram)
         self.assertIn("Upload blocking Telegram receipt", telegram)
@@ -598,6 +619,12 @@ class WorkflowContractTest(unittest.TestCase):
             (ROOT / "operations" / "telegram-notification.contract.json").read_text()
         )
         self.assertEqual(["morning", "evening"], contract["trigger"]["dailySlots"])
+        self.assertTrue(contract["trigger"]["sameEditionRecoveryOnActiveNoOp"])
+        self.assertTrue(
+            contract["idempotency"][
+                "sameEditionRecoveryRequiresNoDurableReceiptOrReservation"
+            ]
+        )
         self.assertTrue(
             contract["sourceContract"]["messageIncludesDirectCanonicalEditionUrl"]
         )
@@ -608,6 +635,7 @@ class WorkflowContractTest(unittest.TestCase):
         normalized_runbook = " ".join(runbook.split())
         self.assertIn("morning or evening publish", normalized_runbook)
         self.assertIn("direct canonical edition URL", normalized_runbook)
+        self.assertIn("active same-edition workflow attempt", normalized_runbook)
         self.assertIn("`--slot evening`", runbook)
         self.assertIn("direct HTTPS URL", distribution)
 

@@ -59,12 +59,16 @@ August 1 morning message but allows the later exact August 1 evening edition.
 
 ## Duplicate and failure behavior
 
-Before credentials load, the job verifies the exact public page, then checks
-committed reconciliation state and non-expired Actions receipt and reservation
-artifacts. A public-readiness failure creates no reservation and sends nothing,
-so a later workflow rerun remains safe. Once live, the job uploads a durable
-reservation before calling Telegram. A receipt is success only when Telegram
-returns a positive message ID, the configured chat ID, and the exact text.
+Before credentials load, the job checks committed reconciliation state and
+non-expired Actions receipt and reservation artifacts, then verifies the exact
+public page when no durable block exists. A public-readiness failure creates no
+reservation and sends nothing, so a later active same-edition workflow attempt
+remains safe. That attempt skips authoring and publishing, hydrates any durable
+receipt or reservation, and retries only the exact Telegram receipt after the
+public page verifies. An existing durable receipt or reservation makes the
+recovery a successful no-op. Once live, the job uploads a durable reservation
+before calling Telegram. A receipt is success only when Telegram returns a
+positive message ID, the configured chat ID, and the exact text.
 
 The adapter performs no automatic POST retries. A timeout, network loss, 5xx,
 unreadable success response, wrong recipient, or wrong text writes a blocking
