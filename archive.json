@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-07",
+      "edition": "evening",
+      "dateHuman": "Friday, August 7, 2026",
+      "file": "editions/2026-08-07-evening.html",
+      "lead": "DataBlur is a free browser extension that blurs emails, card numbers, and passwords before you share your screen",
+      "pubDate": "Fri, 07 Aug 2026 17:50:17 -0400"
+    },
+    {
+      "date": "2026-08-07",
       "edition": "morning",
       "dateHuman": "Friday, August 7, 2026",
       "file": "editions/2026-08-07-morning.html",

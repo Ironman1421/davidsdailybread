@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-07",
+      "name": "AndroMeld",
+      "url": "https://andromeld.catchingnow.com/",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/7",
+      "cost": "Free tier; $10.99/yr or $21.99",
+      "kind": "Mac app for an Android phone",
+      "seen": "Product Hunt, 95 upvotes",
+      "blurb": "It runs your Android apps in their own resizable Mac windows and handles phone files in Finder while syncing notifications and the clipboard over USB or Wi-Fi, with the honest catch that it needs macOS 15 or later and the free tier is capped by a weekly allowance that resets on its own."
+    },
+    {
+      "date": "2026-08-07",
+      "name": "Kaneo",
+      "url": "https://kaneo.app/",
+      "trend_url": "https://github.com/trending?since=weekly",
+      "cost": "Free self-hosted; $40/yr cloud",
+      "kind": "Web app, self-host or hosted",
+      "seen": "GitHub Trending this week",
+      "blurb": "Kaneo is an open-source project tracker with board and list views, owners, due dates, priorities, and GitHub issue sync, free forever under the MIT license when you self-host it, though the free path means running it yourself with Docker because the hosted Cloud Personal plan is $40 a year after a 14-day trial."
+    },
+    {
       "date": "2026-08-06",
       "name": "Glyphi: Speed Reader",
       "url": "https://apps.apple.com/us/app/glyphi-speed-reader/id6790872173",
@@ -295,6 +315,49 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-07",
+      "title": "Name every range in a spreadsheet at once with Ctrl+Shift+F3 instead of typing them one by one",
+      "url": "https://www.howtogeek.com/microsoft-excel-stopped-manually-naming-ranges-shortcut/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek Trending Now",
+      "dek": "<b>Create Names from Selection</b> Tony Phillips selects the labels along with the data they describe, presses Ctrl+Shift+F3, and Excel writes a named range for every label in a few seconds, and he names the catches: a blank row between the labels and the data stops it, duplicate labels fail, spaces in a label become underscores, and formulas you already wrote keep their cell references until you run Apply Names.",
+      "needs": [
+        "Excel with labels next to the data",
+        "One selection covering both",
+        "Apply Names for existing formulas"
+      ],
+      "time": "A few minutes"
+    },
+    {
+      "date": "2026-08-07",
+      "title": "Replace a paid remote-desktop subscription with self-hosted RustDesk and Tailscale",
+      "url": "https://www.makeuseof.com/teamviewer-alternative-remote-pc-access/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf Trending Now",
+      "dek": "<b>Docker, then Tailscale</b> Tashreef Shareef deploys the open-source RustDesk server in Docker containers, installs the free clients on Windows, Linux, macOS, and Android, then layers Tailscale on top so he can reach his home PC from a coffee shop, a hotel, or a phone hotspot without opening a single port on his router, and he is straight about the catches: self-hosted RustDesk on its own only works inside your local network, and the setup is fairly quick only if you are already comfortable with Docker.",
+      "needs": [
+        "Docker Desktop on the host PC",
+        "RustDesk clients on your devices",
+        "Tailscale, free for personal use",
+        "Comfort with PowerShell"
+      ],
+      "time": "An evening to set up"
+    },
+    {
+      "date": "2026-08-07",
+      "title": "Turn off what your Android keyboard remembers, or swap it for one that keeps everything on the phone",
+      "url": "https://www.makeuseof.com/android-keyboard-data-privacy/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf Trending Now",
+      "dek": "<b>Settings, then Privacy</b> Tashreef Shareef switches off usage-statistics sharing in Gboard's Privacy settings and in the Smart typing section of Samsung Keyboard, clears the stored data with the reset option, and revokes the contacts, camera, and microphone permissions, then offers LeanType, HeliBoard, FUTO Keyboard, and AnySoftKeyboard as on-device alternatives, while granting that they can mean sideloading an APK and predictions that are less sharp than the mainstream option.",
+      "needs": [
+        "An Android phone",
+        "Its keyboard settings screen",
+        "Optional: an alternative keyboard APK"
+      ],
+      "time": "About 15 minutes"
+    },
     {
       "date": "2026-08-06",
       "title": "Turn the file copies you have been calling backups into snapshots you can actually restore",
