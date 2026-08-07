@@ -194,6 +194,13 @@ boundaries.
   (`usedSatchelLetters`) and never repeat.
 - **RSS:** `/feed.xml`, prepended every bake; the RSS `<link rel="alternate">` tag
   stays in every page head.
+- **Campaign derivatives:** an approved original X item or Gemini Omni piece is
+  derived from one already-published edition, links to that exact dated edition,
+  uses the same visual system and product distinction, and never fabricates a
+  person, quote, event, demonstration, or source artifact. Material AI
+  generation is disclosed. The finished derivative may be public; prompts,
+  source weighting, watchlists, and unpublished strategy are not part of the
+  reader-visible brand.
 - **Evening libraries:** `/tools.html` and `/workflows.html` are standing,
   searchable pages backed by `/evening-catalog.json`. The evening masthead links
   open these pages; they never masquerade as in-page anchor links.

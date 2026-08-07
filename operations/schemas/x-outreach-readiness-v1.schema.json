@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/contracts/x-outreach-readiness-v1.schema.json",
+  "title": "David's Daily Bread X outreach readiness receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "observedAt", "status", "method", "account", "operator", "security", "profile", "accountCapabilities", "visibleBaseline", "canonicalBroadcasts", "blockers", "externalActionsPerformed"],
+  "properties": {
+    "version": {"const": 1},
+    "observedAt": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["blocked", "ready"]},
+    "method": {"type": "string", "minLength": 1},
+    "account": {"$ref": "#/$defs/account"},
+    "operator": {"$ref": "#/$defs/operator"},
+    "security": {"$ref": "#/$defs/security"},
+    "profile": {"$ref": "#/$defs/profile"},
+    "accountCapabilities": {"$ref": "#/$defs/capabilities"},
+    "visibleBaseline": {"$ref": "#/$defs/baseline"},
+    "canonicalBroadcasts": {"$ref": "#/$defs/broadcasts"},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "externalActionsPerformed": {"type": "array", "maxItems": 0}
+  },
+  "$defs": {
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["displayName", "handle", "verifiedBadgeVisible", "accountMenuMatchedProfile", "profileEditControlVisible"],
+      "properties": {
+        "displayName": {"const": "David's Daily Bread"},
+        "handle": {"const": "@DavidDailyBread"},
+        "verifiedBadgeVisible": {"type": "boolean"},
+        "accountMenuMatchedProfile": {"const": true},
+        "profileEditControlVisible": {"const": true}
+      }
+    },
+    "operator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "authorizedForManualOfficialUiOperation", "automatedOperationAuthorized"],
+      "properties": {
+        "name": {"const": "David Friedhof"},
+        "authorizedForManualOfficialUiOperation": {"const": true},
+        "automatedOperationAuthorized": {"const": false}
+      }
+    },
+    "security": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["textMessageMfaEnabled", "authenticationAppMfaEnabled", "securityKeyMfaEnabled", "passwordResetProtectionEnabled", "secretsOrRecoveryCodesRecorded", "status"],
+      "properties": {
+        "textMessageMfaEnabled": {"type": "boolean"},
+        "authenticationAppMfaEnabled": {"type": "boolean"},
+        "securityKeyMfaEnabled": {"type": "boolean"},
+        "passwordResetProtectionEnabled": {"type": "boolean"},
+        "secretsOrRecoveryCodesRecorded": {"const": false},
+        "status": {"enum": ["blocked", "ready"]}
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bio", "canonicalSiteLinkVisible", "canonicalSiteLinkResolvesTo", "bannerPresent", "avatarPresent", "pinnedPost"],
+      "properties": {
+        "bio": {"type": "string", "minLength": 1},
+        "canonicalSiteLinkVisible": {"const": true},
+        "canonicalSiteLinkResolvesTo": {"type": "string", "format": "uri"},
+        "bannerPresent": {"const": true},
+        "avatarPresent": {"const": true},
+        "pinnedPost": {"$ref": "#/$defs/postLink"}
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["premiumTier", "postActivityAnalytics", "analyticsEvidencePostUrl", "analyticsEvidenceImpressions", "analyticsEvidenceLinkClicks"],
+      "properties": {
+        "premiumTier": {"enum": ["none", "basic", "premium", "premium_plus"]},
+        "postActivityAnalytics": {"enum": ["available", "unavailable"]},
+        "analyticsEvidencePostUrl": {"type": "string", "format": "uri"},
+        "analyticsEvidenceImpressions": {"type": ["integer", "null"], "minimum": 0},
+        "analyticsEvidenceLinkClicks": {"type": ["integer", "null"], "minimum": 0}
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["posts", "followers", "following"],
+      "properties": {
+        "posts": {"type": "integer", "minimum": 0},
+        "followers": {"type": "integer", "minimum": 0},
+        "following": {"type": "integer", "minimum": 0}
+      }
+    },
+    "broadcasts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "broadcasterChanged", "latestMorning", "latestEvening"],
+      "properties": {
+        "owner": {"const": "Spark daicc-ddb-autopost"},
+        "broadcasterChanged": {"const": false},
+        "latestMorning": {"$ref": "#/$defs/broadcast"},
+        "latestEvening": {"$ref": "#/$defs/broadcast"}
+      }
+    },
+    "postLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["postUrl", "destinationUrl", "immutableEditionDestination"],
+      "properties": {
+        "postUrl": {"type": "string", "format": "uri"},
+        "destinationUrl": {"type": "string", "format": "uri"},
+        "immutableEditionDestination": {"type": "boolean"}
+      }
+    },
+    "broadcast": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["postUrl", "editionClaim", "resolvedDestinationUrl", "immutableEditionDestination"],
+      "properties": {
+        "postUrl": {"type": "string", "format": "uri"},
+        "editionClaim": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"},
+        "resolvedDestinationUrl": {"type": "string", "format": "uri"},
+        "immutableEditionDestination": {"type": "boolean"}
+      }
+    }
+  }
+}

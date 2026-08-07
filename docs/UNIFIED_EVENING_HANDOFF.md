@@ -1,7 +1,7 @@
 # Unified X Manager-to-DDB evening handoff
 
-Status: implemented and tested on branches; production activation is not
-authorized.
+Status: production active; daily packets remain fail-closed when readiness
+evidence is unavailable
 
 ## Why this replaces the old 2:40 flow
 
@@ -44,7 +44,7 @@ or invalid packet becomes an explicit runner-local `available: false` record.
 The bake then follows `BAKE.md`'s normal non-X source ladder. The fallback never
 calls X Manager and never pads an edition.
 
-## Operator commands after production activation
+## Operator commands
 
 Validate a proposed packet locally:
 
@@ -65,15 +65,16 @@ python3 ddb_evening_handoff.py upload \
 The helper reads `DDB_HANDOFF_WRITE_TOKEN` and
 `X_MONITOR_SITES_BYPASS_TOKEN`; it never prints either value.
 
-## Production gate
+## Production receipt and future-change gate
 
-Activation requires separate approval of the exact reviewed DDB and X Manager
-heads. After that approval, the ordered live work is: merge both reviewed
-heads, apply the X Manager D1 migration, deploy X Manager, provision the
-handoff write secret and DDB-side secret bindings, update the existing X
-Manager automation to 12:45 PM and the existing DDB automation to 1:40 PM with
-their reviewed prompts and audited repository targets, then enable the changed
-DDB bake workflow. Update the two named automations in place; do not create
-duplicates. The X Manager task must run in the X Manager repository, and the
-DDB task must run in the DDB repository. The 2:40 PM bake schedule remains
-unchanged. Those actions are deliberately absent from branch testing.
+David approved exact DDB head
+`b7016408daeda0f2eabbfb91a43c20470df9311c` and X Manager head
+`089adafa114789f940b929d8549f9da4f30a6098`. DDB PR 50 merged as
+`5e040b8a8dd6228b9bbe2f968b5889d51bee9db8`; the reviewed D1 migration,
+dedicated write credential, private canary, and the two in-place 12:45 PM and
+1:40 PM automations were verified. The 2:40 PM bake remained unchanged.
+
+This handoff is evening editorial discovery only. It grants no authority to
+reuse X Manager's API read budget, deck, monitor, scoring, or targets for
+outreach. A future change to deployment, migration, credentials, automation,
+timing, or bake behavior requires its own reviewed heads and approval.

@@ -1,6 +1,6 @@
 # Repository and ownership map
 
-Last reconciled: 2026-08-04
+Last reconciled: 2026-08-07
 
 `FOUNDER_DOCTRINE.md` governs mission, ownership, strategic direction,
 authorized local work, and production boundaries. Repository ownership never
@@ -46,7 +46,9 @@ refs.
   lane so the two publishers can never duplicate an edition.
 - Social analytics and the aggregate operating scorecard are checked in, but
   there is no activated reader measurement or complete audience baseline.
-- Branch protection and workflow bypass ownership are not documented as code.
+- Protected `main` is active under ruleset 20451115; the repository-only
+  `ddb-publisher` App is its sole bypass actor. The verified implementation and
+  canaries are recorded in `docs/PUBLISHER_IDENTITY_SPEC.md`.
 - Reader-submission storage has an approved private design but no provisioned
   project or named operator. Site-side intake closure is deployed; external
   provider state, migration, deletion, and history work remain gated.
@@ -95,8 +97,10 @@ in `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 - `pwa.js` and `pwa.css`: accessible install, connectivity, and waiting-update
   behavior without notification or personal-data APIs.
 - `offline.html`: branded fallback with a browser-local page note.
-- `operations/pwa.contract.json` and `docs/PWA_ARCHITECTURE.md`: local-only
-  activation boundary and cache contract.
+- `operations/pwa.contract.json` and `docs/PWA_ARCHITECTURE.md`: production-
+  active installable-site boundary and cache contract. PR 48 merged as
+  `40df44b9fa68a5721cb20473d859ca76d76eb628`; the current shell refresh merged
+  as `9e419f4f7bf6b5655e8282188265ecd8650544ba`.
 
 Generated home, category, and edition pages receive these links from
 `templates/` during the normal bake. Historical rendered editions are not

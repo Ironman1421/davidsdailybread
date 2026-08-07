@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-31T19:53:41Z",
+  "updatedAt": "2026-08-07T00:14:11Z",
   "baseline": [
     {
       "platform": "x",
@@ -13,6 +13,12 @@
       "capturedAt": "2026-07-31T19:53:41Z",
       "followers": null,
       "source": "Not yet measured"
+    },
+    {
+      "platform": "x",
+      "capturedAt": "2026-08-07T00:14:11Z",
+      "followers": 6,
+      "source": "Read-only official X profile observation recorded in operations/x-outreach-readiness-receipt.json"
     }
   ],
   "posts": []

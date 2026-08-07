@@ -140,10 +140,10 @@ class PwaContractTest(unittest.TestCase):
         self.assertIn("panel.setAttribute('aria-hidden', 'true')", template)
         self.assertIn("panel.setAttribute('aria-hidden', 'false')", template)
 
-    def test_machine_contract_records_bounded_release_authorization(self):
+    def test_machine_contract_records_bounded_active_release(self):
         self.assertEqual(2, CONTRACT["version"])
         self.assertEqual(
-            "phase-1-release-authorized-awaiting-exact-sha-merge-approval",
+            "production-active",
             CONTRACT["status"],
         )
         self.assertTrue(CONTRACT["canonical"]["websiteRemainsCanonical"])
@@ -180,8 +180,19 @@ class PwaContractTest(unittest.TestCase):
         activation = CONTRACT["activation"]
         self.assertTrue(activation["publicationAuthorized"])
         self.assertTrue(activation["deploymentAuthorized"])
-        self.assertFalse(activation["mergeAuthorized"])
-        self.assertTrue(activation["exactShaMergeApprovalRequired"])
+        self.assertTrue(activation["mergeAuthorized"])
+        self.assertFalse(activation["exactShaMergeApprovalRequired"])
+        receipt = CONTRACT["deploymentReceipt"]
+        self.assertEqual(
+            "40df44b9fa68a5721cb20473d859ca76d76eb628",
+            receipt["initialMainCommit"],
+        )
+        self.assertEqual(1132904965, receipt["initialPagesBuild"])
+        self.assertEqual(
+            "9e419f4f7bf6b5655e8282188265ecd8650544ba",
+            receipt["currentShellMainCommit"],
+        )
+        self.assertEqual(1133942429, receipt["currentShellPagesBuild"])
         for field in (
             "appStoreListingAuthorized",
             "externalServiceProvisioningAuthorized",

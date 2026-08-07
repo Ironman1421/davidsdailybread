@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-31T21:05:50Z",
+  "updatedAt": "2026-08-07T00:14:11Z",
   "strategyBaseline": {
     "approvedAt": "2026-07-31T20:16:37Z",
     "cadenceApprovedAt": "2026-07-31T21:05:50Z",
-    "xFollowers": 5,
+    "xFollowers": 6,
     "primaryAcquisitionChannel": "credible-account-replies",
     "mode": "manual-ui-per-reply-approval",
     "aiExternalInteractionAuthorized": false,
@@ -21,11 +21,11 @@
     "targetMaximumProactiveRepliesPer14Days": 2,
     "operationalReadiness": {
       "status": "blocked_pending_readiness",
-      "profileConversion": "not_assessed",
-      "premiumTier": "unknown",
-      "postActivityAnalytics": "not_assessed",
-      "authorizedOperators": "not_assessed",
-      "accountSecurity": "not_assessed"
+      "profileConversion": "ready",
+      "premiumTier": "premium_plus",
+      "postActivityAnalytics": "available",
+      "authorizedOperators": "confirmed",
+      "accountSecurity": "blocked"
     }
   },
   "publishedReplies": []

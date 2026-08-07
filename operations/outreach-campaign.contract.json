@@ -1,0 +1,188 @@
+{
+  "version": 1,
+  "status": "readiness-active-public-campaign-blocked",
+  "programItem": "DDB-PC-028",
+  "owner": "David Friedhof",
+  "approvedDirectionAt": "2026-08-06T23:58:34Z",
+  "readinessWindow": {
+    "startedAt": "2026-08-07T00:06:03Z",
+    "mustCompleteBy": "2026-08-09T00:06:03Z",
+    "maximumElapsedHours": 48,
+    "cashBudgetUsd": 0
+  },
+  "campaignWindow": {
+    "status": "not_started",
+    "durationCalendarDays": 30,
+    "startsAt": null,
+    "endsAt": null,
+    "activationReceipt": null
+  },
+  "primaryConversion": {
+    "id": "rss_follow_intent",
+    "returnPath": "rss",
+    "canonicalUrl": "https://davidsdailybread.com/feed.xml",
+    "observable": false,
+    "limitation": "The zero-tracking fallback cannot observe an RSS follow. An RSS open is not proof of subscription, and no open event is currently collected.",
+    "emailSignupSelected": false,
+    "emailCollectionAuthorized": false,
+    "newsletterSendingAuthorized": false
+  },
+  "diagnostics": {
+    "mode": "x-native-and-manual-aggregate-fallback",
+    "siteInstrumentationActivated": false,
+    "siteReturnStatus": "unknown",
+    "officialFirst1000CollectorSeparate": true,
+    "officialFirst1000CollectorActivated": false,
+    "personalDataCollected": false,
+    "rawIpStored": false,
+    "fingerprintingUsed": false,
+    "crossSiteTrackingUsed": false,
+    "availableSignals": [
+      "x-post-native-aggregates",
+      "x-reply-native-aggregates",
+      "x-account-follower-snapshots",
+      "manual-qualified-relationship-observations",
+      "manual-workload-and-guardrail-observations"
+    ],
+    "unavailableSignals": [
+      "rss-follow",
+      "rss-open",
+      "site-visit-attribution",
+      "qualified-returning-reader",
+      "first-1000-milestone-progress"
+    ],
+    "retention": "Aggregate campaign snapshots remain in repository ledgers; unpublished drafts, watchlists, and row-level exports remain private and are not committed.",
+    "killSwitch": "Stop campaign item preparation and publication; collect no new snapshot beyond preserving incident evidence.",
+    "removal": "Remove an invalid aggregate through a reviewed forward correction that preserves the correction receipt."
+  },
+  "x": {
+    "account": "@DavidDailyBread",
+    "humanOperator": "David Friedhof",
+    "readinessReceipt": "operations/x-outreach-readiness-receipt.json",
+    "readinessStatus": "blocked",
+    "blockers": [
+      "x-two-factor-authentication-disabled",
+      "x-password-reset-protection-disabled",
+      "latest-spark-morning-link-resolves-to-mutable-homepage",
+      "latest-spark-evening-link-resolves-to-mutable-homepage"
+    ],
+    "canonicalBroadcaster": "Spark daicc-ddb-autopost",
+    "broadcasterChangeAuthorized": false,
+    "originalPostsPerCalendarDay": 1,
+    "originalPostRequiresImmutableEditionUrl": true,
+    "omniReleaseConsumesOriginalPostSlot": true,
+    "replyPlanMinimumOnStaffedDay": 3,
+    "replyPlanMaximumOnStaffedDay": 5,
+    "enforcedPublishedReplyCap": 4,
+    "staffedApprovalWindows": 2,
+    "fifthReplyAuthorized": false,
+    "weekendQuota": 0,
+    "qualityClearingCanProduceZero": true,
+    "exactParentAndTextApprovalRequired": true,
+    "manualOfficialUiPostingOnly": true,
+    "automatedPostingAuthorized": false,
+    "browserScriptingAuthorized": false,
+    "scrapingAuthorized": false,
+    "paidReadAuthorized": false
+  },
+  "geminiOmni": {
+    "provider": "Google LLC",
+    "product": "Gemini Apps",
+    "feature": "Gemini Omni video generation",
+    "productStatusReviewedAt": "2026-08-07T00:14:11Z",
+    "officialProductUrl": "https://support.google.com/gemini/answer/16126339",
+    "termsUrl": "https://policies.google.com/terms",
+    "privacyUrl": "https://support.google.com/gemini/answer/13594961",
+    "prohibitedUseUrl": "https://policies.google.com/terms/generative-ai/use-policy",
+    "accountBoundary": {
+      "status": "blocked_pending_exact_account_and_plan_verification",
+      "requiredAccountType": "approved personal Google Account with a current Google AI plan, or an approved Workspace account with a qualifying license",
+      "verifiedAccount": null,
+      "incrementalSpendAuthorizedUsd": 0,
+      "providerTermsAcceptanceAuthorized": false,
+      "providerUploadAuthorized": false
+    },
+    "privacyBoundary": {
+      "publicCanonicalInputsOnly": true,
+      "temporaryChatOrKeepActivityOffRequired": true,
+      "feedbackSubmissionProhibited": true,
+      "restrictedInformationProhibited": true,
+      "credentialsProhibited": true,
+      "privateReaderMaterialProhibited": true,
+      "unpublishedStrategyProhibited": true
+    },
+    "rightsBoundary": {
+      "operatorMustOwnOrLicenseEveryUpload": true,
+      "realPersonLikenessOrVoiceAuthorized": false,
+      "voiceCloningAuthorized": false,
+      "syntheticAnchorAuthorized": false,
+      "fabricatedEventOrSourceArtifactAuthorized": false,
+      "humanClaimVerificationRequired": true,
+      "humanFinalEditAndSelectionRequired": true
+    },
+    "provenanceBoundary": {
+      "recordRequiredPerGenerationPackage": true,
+      "schema": "operations/schemas/outreach-media-provenance-v1.schema.json",
+      "storageClass": "restricted-outside-public-repository",
+      "publicRepositoryStoresMasterPrompts": false,
+      "publicRepositoryStoresPrivateProviderReceipts": false,
+      "finalFileSha256Required": true,
+      "providerReceiptRequired": true
+    },
+    "disclosureBoundary": {
+      "materialAiGenerationDisclosureRequired": true,
+      "destinationLabelingControlsMustBeUsed": true,
+      "watermarkMustNotBeRemovedOrObscured": true
+    },
+    "correctionAndRemoval": {
+      "canonicalCorrectionFirst": true,
+      "derivativeCorrectionOrRemovalRequired": true,
+      "providerRemovalWhenAvailableRequired": true,
+      "preserveCorrectionReceipt": true
+    },
+    "generationAuthorized": false,
+    "publicationAuthorized": false,
+    "piecesPerWeekAfterActivation": 2
+  },
+  "approvals": {
+    "exactOriginalPostTextAndAssetRequired": true,
+    "exactReplyParentAndTextRequired": true,
+    "exactOmniInputPackageRequiredBeforeGeneration": true,
+    "exactOmniFinalPackageRequiredBeforePublication": true,
+    "silenceMeansApproval": false,
+    "approvalMayBeReusedForChangedItem": false
+  },
+  "stopRules": [
+    "x-account-warning-or-policy-notice",
+    "credential-or-recovery-concern",
+    "hidden-reply-or-probable-spam-placement",
+    "unsupported-claim-or-material-correction",
+    "unknown-rights-or-provenance",
+    "private-data-or-restricted-information-exposure",
+    "provider-policy-or-terms-uncertainty",
+    "unapproved-spend-or-provider-upgrade",
+    "campaign-work-weakens-a-canonical-edition",
+    "duplicate-or-wrong-account-publication"
+  ],
+  "activationRequires": [
+    "x-account-security-ready",
+    "latest-canonical-x-broadcasts-resolve-to-immutable-edition-pages",
+    "exact-gemini-omni-account-and-zero-incremental-cost-boundary-verified",
+    "reviewed-campaign-head-passes-required-gates-and-merges-through-protected-main",
+    "exact-30-day-start-and-end-recorded",
+    "david-approves-the-exact-campaign-activation-receipt"
+  ],
+  "externalActions": {
+    "publicOutreachAuthorized": false,
+    "emailCollectionAuthorized": false,
+    "analyticsActivationAuthorized": false,
+    "xOriginalPostAuthorized": false,
+    "xReplyAuthorized": false,
+    "omniGenerationAuthorized": false,
+    "omniPublicationAuthorized": false,
+    "newsletterOperationAuthorized": false,
+    "paidProvisioningAuthorized": false,
+    "deploymentAuthorized": false,
+    "spendAuthorizedUsd": 0
+  }
+}

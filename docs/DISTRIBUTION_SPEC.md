@@ -1,7 +1,7 @@
 # Distribution and measurement specification
 
 Status: active; canonical X adapter implementation ready but production disabled
-Last reconciled: 2026-08-04
+Last reconciled: 2026-08-07
 
 ## Decisions and authority
 
@@ -9,8 +9,9 @@ Last reconciled: 2026-08-04
   local work, and production boundaries. The first proof goal is 1,000
   genuinely engaged people; it is not the ceiling. Growth must preserve trust,
   moderation capacity, and David's direction.
-- The documented starting floor is five X followers. Unknown platform baselines
-  are recorded as unknown and treated as zero only for planning math.
+- The dated 2026-07-31 starting floor is five X followers. A read-only
+  2026-08-07 campaign-readiness observation recorded six. Preserve both dated
+  observations; unknown platform baselines remain unknown.
 - The publisher may remain faceless. Voice-led output is permitted as an
   experiment; David does not need to appear on camera.
 - Budget is flexible but value-gated. No spend is implied or authorized by this
@@ -23,6 +24,10 @@ Last reconciled: 2026-08-04
 - X reply operations start with two manual approval/posting windows and a hard
   cap of four published replies per day. A third window and six/day are disabled
   unless David separately approves and staffs them.
+- The approved campaign direction seeks three to five qualified replies on
+  staffed operating days, but four remains the machine-enforced ceiling. A
+  fifth is not authorized until a staffed third window, contract, ledger,
+  schema, and tests are separately reconciled and approved.
 
 This repository owns the canonical edition and channel-neutral distribution
 contract. A separate private adapter repository is allowed only when its owner,
@@ -119,6 +124,13 @@ the website count and is never added to it.
   impossible. The active Spark observation is recorded in
   `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 
+The zero-dollar outreach campaign adds no more than one original,
+edition-derived X item per calendar day after exact activation. It must point
+to the exact dated edition and receive exact text and asset approval. Two
+weekly Gemini Omni releases consume this same slot. They are not extra posts.
+`docs/OUTREACH_CAMPAIGN.md` owns the campaign-specific readiness, diagnostics,
+provider, disclosure, and stop boundaries.
+
 ### X reply approval contract
 
 `docs/X_REPLY_PLAYBOOK.md` is the operating authority. Approval is bound to one
@@ -174,9 +186,11 @@ approval of one reply is not permission to automate another.
 - Role: initial discovery engine and later long-form trust engine.
 - Publish one morning and one evening vertical when the source package is ready;
   never delay or weaken the canonical edition to fill a video quota.
-- Initial format lab: ten archived stories, each cut once with consistent
-  off-camera narration and once as caption-led/no-narration. Hold hook, duration,
-  visuals, and publishing window as stable as practical.
+- Initial format lab: the specific `docs/YOUTUBE_PILOT_SPEC.md` four-cell design
+  governs. It requires five eligible public Shorts in each franchise-by-voice-
+  mode cell and releases no more than one public variant from a source package.
+  Gemini Omni pieces on X are outside that experiment and cannot satisfy its
+  cells or start its clock.
 - Select on engaged views, retention, subscribers per 1,000 engaged views,
   shares, and returning viewers. Raw Shorts starts are diagnostic, not the win
   condition.

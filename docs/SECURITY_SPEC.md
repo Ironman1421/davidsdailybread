@@ -1,7 +1,7 @@
 # Security and privacy specification
 
 Status: active
-Last threat-model review: 2026-08-04
+Last threat-model review: 2026-08-07
 
 ## Assets
 
@@ -153,28 +153,41 @@ applicable controls below:
 - Content generation and provider posting are separate authorities. A source
   page, model response, or repository issue must never be able to request a
   credentialed post directly.
+- Gemini Omni campaign generation accepts only already-public canonical DDB
+  inputs and rights-cleared assets. Master prompts, watchlists, unpublished
+  strategy, credentials, private analytics, reader material, and unpublished
+  editions never enter the consumer provider. Verify the exact approved Google
+  account and plan, use a temporary chat or Keep Activity off, submit no
+  feedback containing campaign material, preserve provider watermarking,
+  disclose material AI generation, and keep the full provenance record outside
+  the public repository. Provider upload and generation require separate exact
+  input-package approval; publication requires separate exact final-package
+  approval.
 
 ## Current exceptions requiring closure
 
-1. `main` is not protected even though repository policy calls CI the merge
-   gate. Its approved identity/ruleset design is not yet provisioned.
-2. The external legacy Counter sheet and repository history retain more reader
+1. The external legacy Counter sheet and repository history retain more reader
    queue exposure than the target design permits. The tip copy is removed and
    public site intake is closed, but the private store remains unprovisioned and
    external form, Sheet, migration, deletion, and history actions remain gated.
-3. The repository-owned X canonical-broadcast adapter is implemented with a
+2. The repository-owned X canonical-broadcast adapter is implemented with a
    separate read-only post-bake job, durable receipt artifacts, read-back, and
    a kill switch. It remains production-disabled pending environment and
    credential provisioning plus a reviewed canary.
-4. Public pages rely on inline JavaScript and third-party font/PDF CDNs without a
+3. Public pages rely on inline JavaScript and third-party font/PDF CDNs without a
    strong Content Security Policy or fully local assets.
-5. Repository-level Dependabot alerts are disabled. Version-update PRs are
+4. Repository-level Dependabot alerts are disabled. Version-update PRs are
    configured, but the owner must enable vulnerability alerts in GitHub.
-6. The approved publisher identity and protected-branch ruleset are designed
-   but not provisioned; the current workflow still writes `main` with the
-   built-in token under the existing exception.
+5. X campaign readiness is blocked because two-factor authentication and
+   password-reset protection were off in the 2026-08-07 read-only receipt, and
+   the latest observed morning and evening Spark post links resolved to the
+   mutable homepage instead of exact edition pages.
 
 Exceptions are tracked work, not accepted permanent architecture.
+
+Closed control: `main` is protected by active ruleset 20451115. The repository-
+only `ddb-publisher` App is the sole bypass actor; the built-in token, model,
+human owner, PATs, deploy keys, Dependabot, and Pages have no routine bypass.
 
 ## Incident response
 

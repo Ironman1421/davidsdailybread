@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "observedAt": "2026-08-07T00:14:11Z",
+  "status": "blocked",
+  "method": "read-only official X UI inspection and public HTTP redirect resolution",
+  "account": {
+    "displayName": "David's Daily Bread",
+    "handle": "@DavidDailyBread",
+    "verifiedBadgeVisible": true,
+    "accountMenuMatchedProfile": true,
+    "profileEditControlVisible": true
+  },
+  "operator": {
+    "name": "David Friedhof",
+    "authorizedForManualOfficialUiOperation": true,
+    "automatedOperationAuthorized": false
+  },
+  "security": {
+    "textMessageMfaEnabled": false,
+    "authenticationAppMfaEnabled": false,
+    "securityKeyMfaEnabled": false,
+    "passwordResetProtectionEnabled": false,
+    "secretsOrRecoveryCodesRecorded": false,
+    "status": "blocked"
+  },
+  "profile": {
+    "bio": "News and Scripture each morning. An evening Field Guide with useful tools and workflows. Grow in faith. Understand technology wisely. Loved by God.",
+    "canonicalSiteLinkVisible": true,
+    "canonicalSiteLinkResolvesTo": "https://davidsdailybread.com/",
+    "bannerPresent": true,
+    "avatarPresent": true,
+    "pinnedPost": {
+      "postUrl": "https://x.com/DavidDailyBread/status/2084678677217067269",
+      "destinationUrl": "https://davidsdailybread.com/editions/2026-08-04-morning.html",
+      "immutableEditionDestination": true
+    }
+  },
+  "accountCapabilities": {
+    "premiumTier": "premium_plus",
+    "postActivityAnalytics": "available",
+    "analyticsEvidencePostUrl": "https://x.com/DavidDailyBread/status/2084678677217067269",
+    "analyticsEvidenceImpressions": 10,
+    "analyticsEvidenceLinkClicks": 0
+  },
+  "visibleBaseline": {
+    "posts": 18,
+    "followers": 6,
+    "following": 169
+  },
+  "canonicalBroadcasts": {
+    "owner": "Spark daicc-ddb-autopost",
+    "broadcasterChanged": false,
+    "latestMorning": {
+      "postUrl": "https://x.com/DavidDailyBread/status/2085365283892625849",
+      "editionClaim": "2026-08-06-morning",
+      "resolvedDestinationUrl": "https://davidsdailybread.com/",
+      "immutableEditionDestination": false
+    },
+    "latestEvening": {
+      "postUrl": "https://x.com/DavidDailyBread/status/2085123713528393893",
+      "editionClaim": "2026-08-05-evening",
+      "resolvedDestinationUrl": "https://davidsdailybread.com/",
+      "immutableEditionDestination": false
+    }
+  },
+  "blockers": [
+    "Enable and verify at least one approved X two-factor method under a separately authorized account-security change.",
+    "Enable and verify X password-reset protection under a separately authorized account-security change.",
+    "Repair and verify the active Spark broadcaster so new morning and evening posts resolve to their exact immutable edition URLs."
+  ],
+  "externalActionsPerformed": []
+}

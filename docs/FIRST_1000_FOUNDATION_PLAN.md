@@ -4,7 +4,7 @@ Status: active local work package; external actions remain separately gated
 
 Owner and final decision-maker: David Friedhof
 
-Last reconciled: 2026-08-04
+Last reconciled: 2026-08-07
 
 ## Outcome
 
@@ -89,8 +89,14 @@ way back to canonical work.
 
 ## Workstream 5: one measured discovery loop
 
-After a complete measurement baseline begins, use one approved acquisition loop
-at a time. The current candidate is the existing X reply workflow:
+The normal rule is to begin one approved acquisition loop after a complete
+measurement baseline starts. David approved one narrow exception on 2026-08-06:
+a zero-dollar, 30-day pre-baseline learning campaign may run after its 48-hour
+readiness gates and exact activation receipt complete. It uses RSS plus X-native
+and manual aggregate diagnostics, leaves site return unknown, and cannot claim
+qualified returning readers or progress toward the first 1,000.
+
+The campaign's primary acquisition candidate is the existing X reply workflow:
 
 - research from canonical, source-linked editions;
 - prepare only replies that pass the existing quality and safety gates;
@@ -101,7 +107,8 @@ at a time. The current candidate is the existing X reply workflow:
 
 The existing daily reply cap is a ceiling, not a quota. No automated replies,
 new credential, new channel, paid amplification, or publishing action is
-authorized by this plan.
+authorized by this plan. Exact campaign actions remain item-gated by
+`docs/OUTREACH_CAMPAIGN.md`.
 
 Exit: at least one discovery format shows repeatable evidence of bringing people
 back to the canonical website without a safety, policy, correction, or
