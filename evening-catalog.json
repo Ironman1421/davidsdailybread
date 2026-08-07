@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-06",
+      "name": "Glyphi: Speed Reader",
+      "url": "https://apps.apple.com/us/app/glyphi-speed-reader/id6790872173",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/6",
+      "cost": "Free, Pro $4.99 a month",
+      "kind": "iPhone, Mac M1, Apple Vision",
+      "seen": "Product Hunt No. 16, 88 votes",
+      "blurb": "Flashes an imported book, PDF, article, or web page one word at a time so your eyes stay still, keeps your place across Apple devices through iCloud, and builds its summaries on the device itself, and the App Store listing is plain about the limits: the free tier stops at five saved readings, 550 words a minute, and the Endurance training mode, unlimited imports and speeds up to 1,200 words a minute cost $4.99 a month or $39.99 a year, and the listing warns that AI generated results may occasionally contain errors."
+    },
+    {
+      "date": "2026-08-06",
+      "name": "Legacy Notepad",
+      "url": "https://github.com/ForLoopCodes/legacy-notepad",
+      "trend_url": "https://www.makeuseof.com/developer-rebuilt-notepad-without-ai-now-its-exactly-what-original-was/",
+      "cost": "Free, MIT license",
+      "kind": "Windows 7 SP1 or newer",
+      "seen": "MakeUseOf, August 6",
+      "blurb": "Rebuilds the plain Windows Notepad in C++17 and the Win32 API with word wrap, font choice, zoom, find and replace, printing, an always-on-top window, and UTF-8, UTF-16, and ANSI encodings, and no AI anywhere, which is the whole point of it, and the project names its own trade-offs: it is a young, maintainer-led effort rather than an application tested at Microsoft's scale, its background image modes shift with DPI scaling, and Windows Defender has flagged an x86 build."
+    },
+    {
+      "date": "2026-08-06",
+      "name": "Zen Browser",
+      "url": "https://github.com/zen-browser/desktop",
+      "trend_url": "https://www.xda-developers.com/replaced-firefox-with-zen-browser/",
+      "cost": "Open source, MPL-2.0",
+      "kind": "Firefox-based desktop browser",
+      "seen": "XDA Developers, August 6",
+      "blurb": "A Firefox-based browser built on Firefox 153.0.3 that aims squarely at productivity, moving tabs into a vertical sidebar where long titles are actually readable and adding split view for two pages side by side, Glance previews for links, pinned tabs, and customizable layouts, and the XDA write-up that put it back in front of readers supplies the honest caveat: no single feature here is revolutionary, and Firefox has offered vertical tabs for a while now."
+    },
+    {
       "date": "2026-08-05",
       "name": "Wispr Flow Notetaker",
       "url": "https://wisprflow.ai/notetaker",
@@ -265,6 +295,34 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-06",
+      "title": "Turn the file copies you have been calling backups into snapshots you can actually restore",
+      "url": "https://www.makeuseof.com/called-file-copies-backups-for-years-restic-proved-me-wrong-in-a-weekend/",
+      "trend_url": "https://github.com/restic/restic",
+      "seen": "35.4k stars on GitHub",
+      "dek": "<b>Snapshots, not copies</b> Afam Onyimadu realized that his external drive, his cloud sync folder, and his internal drive all held the same current version of every file, so deleting or overwriting one wiped all three at once, and he replaced the habit with restic, a free and open-source backup program he installed on Windows with scoop install restic, which stores timestamped snapshots you can restore from a chosen date and can verify its own integrity, and he is candid that it is a command-line tool with a real learning curve and that you have to test a restore on another device before you trust it.",
+      "needs": [
+        "restic, free on Win, Mac, Linux",
+        "A storage destination, local or cloud",
+        "A terminal and a weekend"
+      ],
+      "time": "A weekend to learn"
+    },
+    {
+      "date": "2026-08-06",
+      "title": "Feed a year of Kindle highlights into Gemini Notebook and get a searchable reading archive",
+      "url": "https://www.makeuseof.com/gemini-notebook-kindle-highlights/",
+      "trend_url": "https://www.howtogeek.com/forget-chatbotsthese-4-ai-tools-actually-change-how-you-work/",
+      "seen": "How-To Geek, August 4",
+      "dek": "<b>Start with My Clippings</b> Saikat Basu pulls the My Clippings.txt file off the Kindle, optionally strips the metadata in a text editor, uploads it to Gemini Notebook as a source, and then asks it for the themes running across books, a commonplace book for a writing project, and citations back to the original titles, and he names the catches: the notebook will sometimes force a connection between unrelated highlights, attributions need checking by hand, there is no Readwise-style daily reminder email, and adopting a generated summary verbatim is plagiarism waiting to happen.",
+      "needs": [
+        "A Kindle and its My Clippings.txt",
+        "Gemini Notebook",
+        "A text editor for cleanup"
+      ],
+      "time": "About an hour"
+    },
     {
       "date": "2026-08-05",
       "title": "Make an aging Android phone feel new again without a factory reset",

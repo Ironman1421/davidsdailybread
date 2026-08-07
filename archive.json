@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-06",
+      "edition": "evening",
+      "dateHuman": "Thursday, August 6, 2026",
+      "file": "editions/2026-08-06-evening.html",
+      "lead": "Chrome's built-in Lighthouse audit will tell you which extensions are adding seconds to every page you open",
+      "pubDate": "Thu, 06 Aug 2026 20:53:34 -0400"
+    },
+    {
+      "date": "2026-08-06",
       "edition": "morning",
       "dateHuman": "Thursday, August 6, 2026",
       "file": "editions/2026-08-06-morning.html",
