@@ -35,8 +35,12 @@ reader or progress toward the official first-1,000 milestone.
 - The correct verified X account, `@DavidDailyBread`, is signed in; David is the
   named human operator; Premium+ and Post Analytics are available; the profile,
   site link, bio, and pinned conversion post are present.
-- X remains blocked for campaign operation because no two-factor method is
-  enabled and password-reset protection is off.
+- X account security is ready through a passkey verified in the official UI.
+  David reports that the account has always been passwordless. X's
+  password-reset-protection control requires a password to save, so DDB did not
+  create a weaker additional credential merely to enable that password-only
+  control. The unsaved change was discarded and no secret or recovery material
+  was recorded.
 - The pinned post resolves to an immutable August 4 morning edition. The latest
   observed morning and evening Spark broadcasts both resolve to the mutable
   homepage. The active broadcaster must be repaired and verified before the
@@ -207,8 +211,8 @@ It never rewrites the canonical archive to hide an error.
 
 ## Strategic sequence
 
-1. Close X MFA, password-reset, and immutable-broadcast-link blockers through
-   separately approved changes.
+1. Preserve the verified passwordless X passkey posture and close the remaining
+   immutable-broadcast-link blocker through a separately approved change.
 2. Verify the exact Gemini Omni account and existing plan with zero incremental
    cost; accept no new terms and upload nothing during the check.
 3. Pass repository tests and required hosted gates on the exact campaign head.

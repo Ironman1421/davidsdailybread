@@ -53,8 +53,10 @@ def semantic_errors(contract, receipt, reply_ledger):
         errors.append("fifth reply is authorized")
 
     security = receipt["security"]
-    security_ready = (
-        security["passwordResetProtectionEnabled"]
+    password_mfa_ready = (
+        security["passwordCredentialStatus"] == "present"
+        and security["passwordResetProtectionEnabled"]
+        and security["passwordResetProtectionDisposition"] == "enabled"
         and any(
             security[field]
             for field in (
@@ -64,6 +66,18 @@ def semantic_errors(contract, receipt, reply_ledger):
             )
         )
     )
+    passwordless_passkey_ready = (
+        security["passkeyEnabled"]
+        and security["passkeyVerifiedInOfficialUi"]
+        and security["passwordCredentialStatus"]
+        == "operator_reports_never_created"
+        and not security["passwordResetProtectionEnabled"]
+        and security["passwordResetProtectionDisposition"]
+        == "not_applicable_without_password"
+    )
+    security_ready = password_mfa_ready or passwordless_passkey_ready
+    if security["status"] == "ready" and not security_ready:
+        errors.append("X security claims ready without a valid credential posture")
     links_ready = all(
         receipt["canonicalBroadcasts"][slot]["immutableEditionDestination"]
         for slot in ("latestMorning", "latestEvening")
@@ -142,7 +156,23 @@ class OutreachCampaignContractTest(unittest.TestCase):
         self.assertFalse(security["authenticationAppMfaEnabled"])
         self.assertFalse(security["textMessageMfaEnabled"])
         self.assertFalse(security["securityKeyMfaEnabled"])
+        self.assertTrue(security["passkeyEnabled"])
+        self.assertTrue(security["passkeyVerifiedInOfficialUi"])
+        self.assertEqual(
+            "operator_reports_never_created", security["passwordCredentialStatus"]
+        )
         self.assertFalse(security["passwordResetProtectionEnabled"])
+        self.assertEqual(
+            "not_applicable_without_password",
+            security["passwordResetProtectionDisposition"],
+        )
+        self.assertEqual("ready", security["status"])
+        self.assertNotIn(
+            "x-two-factor-authentication-disabled", self.contract["x"]["blockers"]
+        )
+        self.assertNotIn(
+            "x-password-reset-protection-disabled", self.contract["x"]["blockers"]
+        )
         self.assertTrue(
             self.receipt["profile"]["pinnedPost"]["immutableEditionDestination"]
         )

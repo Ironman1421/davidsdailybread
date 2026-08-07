@@ -61,8 +61,6 @@
     "readinessReceipt": "operations/x-outreach-readiness-receipt.json",
     "readinessStatus": "blocked",
     "blockers": [
-      "x-two-factor-authentication-disabled",
-      "x-password-reset-protection-disabled",
       "latest-spark-morning-link-resolves-to-mutable-homepage",
       "latest-spark-evening-link-resolves-to-mutable-homepage"
     ],

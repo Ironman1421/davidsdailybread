@@ -179,7 +179,7 @@ class ProductContractTest(unittest.TestCase):
         self.assertEqual("premium_plus", readiness["premiumTier"])
         self.assertEqual("available", readiness["postActivityAnalytics"])
         self.assertEqual("confirmed", readiness["authorizedOperators"])
-        self.assertEqual("blocked", readiness["accountSecurity"])
+        self.assertEqual("ready", readiness["accountSecurity"])
         self.assertEqual([], ledger["publishedReplies"])
 
         reply = schema["$defs"]["reply"]

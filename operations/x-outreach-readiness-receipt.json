@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "observedAt": "2026-08-07T00:14:11Z",
+  "observedAt": "2026-08-07T01:06:33Z",
   "status": "blocked",
-  "method": "read-only official X UI inspection and public HTTP redirect resolution",
+  "method": "official X UI inspection, explicitly authorized manual passkey enrollment, security read-back, and public HTTP redirect resolution",
   "account": {
     "displayName": "David's Daily Bread",
     "handle": "@DavidDailyBread",
@@ -16,12 +16,16 @@
     "automatedOperationAuthorized": false
   },
   "security": {
+    "passkeyEnabled": true,
+    "passkeyVerifiedInOfficialUi": true,
     "textMessageMfaEnabled": false,
     "authenticationAppMfaEnabled": false,
     "securityKeyMfaEnabled": false,
+    "passwordCredentialStatus": "operator_reports_never_created",
     "passwordResetProtectionEnabled": false,
+    "passwordResetProtectionDisposition": "not_applicable_without_password",
     "secretsOrRecoveryCodesRecorded": false,
-    "status": "blocked"
+    "status": "ready"
   },
   "profile": {
     "bio": "News and Scripture each morning. An evening Field Guide with useful tools and workflows. Grow in faith. Understand technology wisely. Loved by God.",
@@ -64,9 +68,10 @@
     }
   },
   "blockers": [
-    "Enable and verify at least one approved X two-factor method under a separately authorized account-security change.",
-    "Enable and verify X password-reset protection under a separately authorized account-security change.",
     "Repair and verify the active Spark broadcaster so new morning and evening posts resolve to their exact immutable edition URLs."
   ],
-  "externalActionsPerformed": []
+  "externalActionsPerformed": [
+    "David created one X passkey through the official X UI under explicit DDB-PC-028 approval; Codex recorded no password, passkey material, biometric, recovery code, or other secret.",
+    "The password-reset-protection change was not saved because X required a password and David reported the account has always been passwordless; the unsaved change was discarded."
+  ]
 }

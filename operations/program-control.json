@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-07T00:27:00Z",
+  "updatedAt": "2026-08-07T01:18:10Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1063,16 +1063,20 @@
         "decisionEvidence": "Task message: Approve the program controller to add DDB-PC-028, 48-hour outreach readiness and campaign reconciliation, immediately after DDB-PC-025 and ahead of DDB-PC-027 and DDB-PC-026, under the scope and boundaries recorded in the campaign reconciliation audit.",
         "scope": "After DDB-PC-025 completes, use clean branches to reconcile the approved zero-dollar 30-day campaign; within a maximum 48-hour readiness window select fresh email signup or the RSS fallback, select minimal privacy-safe campaign diagnostics or the documented aggregate fallback, complete read-only X account and operator readiness, add the Gemini Omni provider, rights, disclosure, provenance, approval, correction, and removal boundary, and reconcile the governing documents, contracts, ledgers, schemas, and tests identified by the 2026-08-06 campaign audit. Do not start public outreach, collect email, activate analytics, post or reply on X, generate or publish an Omni piece, change the active X broadcaster, send a newsletter, provision a paid service, merge, deploy, or spend money without the exact activation or release approval required by the reconciled contract."
       },
-      "externalMutation": false,
+      "externalMutation": true,
       "startedAt": "2026-08-07T00:06:03Z",
       "progressEvidence": [
         "DDB-PC-025 completed every release gate and deterministically activated DDB-PC-028 as the lowest-sequence eligible non-paused successor",
         "The maximum 48-hour readiness window begins at 2026-08-07T00:06:03Z and preserves the audit's zero-dollar, no-outreach, no-collection, no-analytics-activation, no-X-action, no-Omni-generation, no-merge, no-deploy, and no-spend boundaries",
         "Implementation head 429c2d3af8e50587d8859c3052435f0dd16da42b selects RSS with unobservable rss_follow_intent, selects X-native plus manual aggregate diagnostics with site return and first-1,000 progress unknown, and activates no tracker or personal-data collection",
-        "Read-only X receipt operations/x-outreach-readiness-receipt.json verifies the correct @DavidDailyBread account, David as manual operator, profile and immutable pinned conversion post, Premium+, and Post Analytics; it blocks activation because all MFA methods and password-reset protection are off and the latest morning and evening Spark links resolve to the mutable homepage",
+        "David separately authorized the account-security mutation with the exact task message: Approve DDB-PC-028 X security readiness: enable a security key/passkey or authentication-app MFA and password-reset protection for @DavidDailyBread, storing no credentials or recovery codes",
+        "X receipt operations/x-outreach-readiness-receipt.json verifies the correct @DavidDailyBread account, David as manual operator, profile and immutable pinned conversion post, Premium+, Post Analytics, and a passwordless passkey created by David through the official X UI under explicit approval; no credential, passkey material, biometric, recovery code, or other secret was recorded",
+        "David confirmed the passkey creation and then reported that he never created an X password and has always used a passkey, including on the MacBook",
+        "X required a password to save password-reset protection; David reported that the account has always been passwordless, so the unsaved change was discarded rather than creating an additional password credential. Account security is ready through the verified passkey, while campaign activation remains blocked by the latest morning and evening Spark links resolving to the mutable homepage",
         "The campaign contract identifies Google Gemini Apps and Gemini Omni video generation, records the current official product, terms, privacy, input-rights, disclosure, provenance, correction, and removal boundary, and blocks upload or generation pending exact account, eligible existing plan, settings, and zero-incremental-cost verification",
         "The implementation reconciles campaign governance, the stale marketing handoff, PWA deployment, protected publishing, one-atomic-commit bake, repository map, unified evening handoff, X Manager separation, and the distinct YouTube experiment without changing runtime campaign behavior",
         "The complete local suite passed 241 tests and the explicit two-slot render check; JSON parsing and git diff checks passed",
+        "David's 2026-08-07T01:18:10Z decision separately authorizes a program-control-only amendment of pending DDB-PC-026 for distinct morning BSB and evening KJV freshness; it does not alter DDB-PC-028 implementation or activate either successor",
         "No public outreach, email collection, analytics activation, X post or reply, Omni upload or generation, broadcaster change, newsletter operation, paid provisioning, deployment, or spend occurred; implementation head 429c2d3af8e50587d8859c3052435f0dd16da42b awaits hosted gates and separate release approval"
       ],
       "completionGate": [
@@ -1120,7 +1124,7 @@
     {
       "id": "DDB-PC-026",
       "sequence": 28,
-      "title": "Implement Morning Scripture Freshness v1",
+      "title": "Implement Scripture Freshness v1 for both editions",
       "status": "pending",
       "dependencies": [
         "DDB-PC-027"
@@ -1133,14 +1137,23 @@
         "decisionEvidence": "Task message: Approve the program controller to add, but not activate until DDB-PC-025 is complete, a Morning Scripture Freshness v1 item: expand the reviewed BSB catalog toward 600 verses, add repository-owned usage history, enforce a 30-published-morning verse cooldown, improve freshness-aware candidate ranking, and add deterministic CI coverage. Do not publish or rerun a bake, change translations, loosen Scripture safety rules, change archive.json's public shape, provision services, or merge the new work without a separate exact-head approval.",
         "scope": "After DDB-PC-025 completes, expand the reviewed BSB catalog toward 600 verses, add repository-owned Scripture usage history, enforce a 30-published-morning exact-verse cooldown, improve freshness-aware candidate ranking, and add deterministic test coverage. Do not publish, rerun a bake, change translations, loosen Scripture safety rules, change archive.json's public shape, provision services, or merge without separate exact-head approval."
       },
+      "scopeAmendmentAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-07T01:18:10Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to amend pending DDB-PC-026, without activating it before DDB-PC-027 completes, into Scripture Freshness v1 for both editions: preserve the morning BSB expansion and 30-published-morning cooldown; expand evening-rest.json toward 90 reviewed KJV Keep and Ponder bundles; add stable identifiers, renderer-owned verified KJV text, repository-owned evening usage history, a 60-published-evening exact-bundle cooldown, motif diversity, and deterministic idempotence and backfill tests. Keep the evening's Mary of Nazareth and Keep, Ponder, Entrust format unchanged. Do not publish, rerun a bake, change either translation, blend the morning and evening Scripture roles, change archive.json's public shape, provision services, or merge without separate exact-head approval",
+        "scope": "After DDB-PC-027 completes, implement separate but infrastructure-sharing freshness systems for the morning BSB story pairings and evening KJV Keep and Ponder bundles. Preserve the morning catalog expansion toward 600 verses and 30-published-morning cooldown; expand evening-rest.json toward 90 reviewed KJV bundles with stable identifiers, renderer-owned verified KJV text, repository-owned evening usage history, a 60-published-evening exact-bundle cooldown, motif diversity, and deterministic idempotence and backfill coverage. Keep Mary of Nazareth and Keep, Ponder, Entrust unchanged. Do not publish, rerun a bake, change either translation, blend edition roles, change archive.json's public shape, provision services, or merge without separate exact-head approval."
+      },
       "externalMutation": false,
       "completionGate": [
         "DDB-PC-027 is complete before DDB-PC-026 activates or implementation begins",
         "The reviewed BSB catalog expands toward 600 exact renderer-owned verses without changing translation, provenance verification, or Scripture safety rules",
-        "Repository-owned usage history records published morning selections deterministically without changing archive.json's public shape",
-        "Selection rejects within-edition duplicates and exact-verse reuse within the prior 30 published morning editions while preserving meaningful editorial pairing",
-        "Candidate ranking accounts for topical relevance, prior use, and book or genre diversity without authoring or paraphrasing Scripture",
-        "Deterministic tests cover catalog integrity, usage-history idempotence, cooldown enforcement, freshness ranking, and backfill behavior",
+        "The reviewed evening library expands toward 90 stably identified Keep and Ponder bundles whose exact KJV text is renderer-owned and source-verified while Mary of Nazareth and the Keep, Ponder, Entrust format remain unchanged",
+        "Separate repository-owned usage histories record published morning selections and evening bundles deterministically without changing archive.json's public shape",
+        "Morning selection rejects within-edition duplicates and exact-verse reuse within the prior 30 published morning editions while preserving meaningful editorial pairing",
+        "Evening selection rejects exact-bundle reuse within the prior 60 published evening editions and promotes motif diversity without randomly recombining reviewed verses, prompts, and prayers",
+        "Candidate ranking preserves the distinct morning news-response and evening contemplative roles, their BSB and KJV translations, and renderer ownership without authoring or paraphrasing Scripture",
+        "Deterministic tests cover both catalog contracts, stable identifiers, usage-history idempotence, cooldown enforcement, motif and freshness ranking, same-date rerenders, and backfill behavior",
         "The exact implementation head is reported for separate review and no merge, publication, bake rerun, service provisioning, or other prohibited external mutation occurs"
       ]
     }

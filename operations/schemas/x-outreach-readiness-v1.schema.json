@@ -18,7 +18,11 @@
     "visibleBaseline": {"$ref": "#/$defs/baseline"},
     "canonicalBroadcasts": {"$ref": "#/$defs/broadcasts"},
     "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}},
-    "externalActionsPerformed": {"type": "array", "maxItems": 0}
+    "externalActionsPerformed": {
+      "type": "array",
+      "maxItems": 10,
+      "items": {"type": "string", "minLength": 1}
+    }
   },
   "$defs": {
     "account": {
@@ -46,12 +50,16 @@
     "security": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["textMessageMfaEnabled", "authenticationAppMfaEnabled", "securityKeyMfaEnabled", "passwordResetProtectionEnabled", "secretsOrRecoveryCodesRecorded", "status"],
+      "required": ["passkeyEnabled", "passkeyVerifiedInOfficialUi", "textMessageMfaEnabled", "authenticationAppMfaEnabled", "securityKeyMfaEnabled", "passwordCredentialStatus", "passwordResetProtectionEnabled", "passwordResetProtectionDisposition", "secretsOrRecoveryCodesRecorded", "status"],
       "properties": {
+        "passkeyEnabled": {"type": "boolean"},
+        "passkeyVerifiedInOfficialUi": {"type": "boolean"},
         "textMessageMfaEnabled": {"type": "boolean"},
         "authenticationAppMfaEnabled": {"type": "boolean"},
         "securityKeyMfaEnabled": {"type": "boolean"},
+        "passwordCredentialStatus": {"enum": ["present", "operator_reports_never_created", "unknown"]},
         "passwordResetProtectionEnabled": {"type": "boolean"},
+        "passwordResetProtectionDisposition": {"enum": ["enabled", "disabled", "not_applicable_without_password"]},
         "secretsOrRecoveryCodesRecorded": {"const": false},
         "status": {"enum": ["blocked", "ready"]}
       }
