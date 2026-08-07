@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-07T01:18:10Z",
+  "updatedAt": "2026-08-07T01:38:13Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1077,7 +1077,12 @@
         "The implementation reconciles campaign governance, the stale marketing handoff, PWA deployment, protected publishing, one-atomic-commit bake, repository map, unified evening handoff, X Manager separation, and the distinct YouTube experiment without changing runtime campaign behavior",
         "The complete local suite passed 241 tests and the explicit two-slot render check; JSON parsing and git diff checks passed",
         "David's 2026-08-07T01:18:10Z decision separately authorizes a program-control-only amendment of pending DDB-PC-026 for distinct morning BSB and evening KJV freshness; it does not alter DDB-PC-028 implementation or activate either successor",
-        "No public outreach, email collection, analytics activation, X post or reply, Omni upload or generation, broadcaster change, newsletter operation, paid provisioning, deployment, or spend occurred; implementation head 429c2d3af8e50587d8859c3052435f0dd16da42b awaits hosted gates and separate release approval"
+        "David separately authorized the Spark immutable-link implementation with the exact task message: Approve DDB-PC-028 Spark immutable-link repair: inspect and modify only the active daicc-ddb-autopost broadcaster so future morning and evening posts use their exact immutable edition URLs; validate without sending or posting, and report the implementation for separate activation approval",
+        "The canonical private Spark source was clean on main at 13334a89112cc9dd084ba5168d836bed4e8ef4c8; inspection found both active autopost tails hard-coded the mutable homepage while the date and slot were already fail-closed",
+        "Private command-center draft PR 11 exact implementation head 1198df52561da481bb02815f9353faeb73950859 derives one https://davidsdailybread.com/editions/YYYY-MM-DD-{morning|evening}.html URL from the validated date and slot and rejects mutable-homepage, cross-slot, extra-URL, missing-URL, and duplicate-host variants",
+        "The private implementation passed make check with 45 tests, the OAuth/parser self-test, all 13 autoposter self-tests, shell syntax and git diff checks, plus a final bounded cross-model VERDICT: PASS",
+        "The Spark checkout, installed script, timer, service, credentials, ledgers, tripwire, X account, and GitHub backup broadcaster were unchanged; no dry-run poll, live poll, send, post, merge, deployment, reload, restart, or campaign activation occurred",
+        "Campaign reconciliation PR 65 merged as main d1b8cc8abb878c758c21f50871372ab6e2c34727 and passwordless X security receipt PR 66 merged as main d55003a28a099b56b2412aaf27b35e98fea4329e; no public outreach, email collection, analytics activation, X post or reply, Omni upload or generation, broadcaster activation, newsletter operation, paid provisioning, or spend occurred"
       ],
       "completionGate": [
         "DDB-PC-025 is complete before DDB-PC-028 activates or implementation begins",
