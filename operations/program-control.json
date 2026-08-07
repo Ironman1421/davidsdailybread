@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-06T23:58:34Z",
+  "updatedAt": "2026-08-07T00:06:03Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-025",
+  "activeItemId": "DDB-PC-028",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -1005,7 +1005,7 @@
       "id": "DDB-PC-025",
       "sequence": 25,
       "title": "Release the Pages and Telegram readiness repair",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-024"
       ],
@@ -1036,13 +1036,22 @@
         "The immutable main commit and Pages deployment verify",
         "Public boundaries and the active main ruleset verify",
         "No bake rerun, Telegram or X send, credential change, provisioning, or schedule change occurs"
+      ],
+      "completedAt": "2026-08-07T00:06:03Z",
+      "evidence": [
+        "PR 64 exact record-only head f0cd8f4f980dfd0c3656e992e631d6ed153108c8 passed Merge gate run 31133057188 and CodeQL run 31133057183 for Python and JavaScript/TypeScript",
+        "Immediately before release, the four approved implementation files retained SHA-256 59e92d2186d56bfd4b906b99dfb736d62f45201c1ea85704326340cd2dd6d1b5, exactly matching the approved implementation head",
+        "PR 64 was marked ready and squash-merged through the protected path at 2026-08-07T00:04:49Z as immutable main commit 08c00e98f93fcbee4469f88b2f04db97a23e18d7",
+        "GitHub Pages build 1136520940 completed from exact commit 08c00e98f93fcbee4469f88b2f04db97a23e18d7; the HTTPS homepage, editions/2026-08-06-morning.html, and feed.xml each returned HTTP 200",
+        "Ruleset 20451115 remained active on refs/heads/main with pull-request, resolved-conversation, strict Merge gate plus both CodeQL checks, linear-history, deletion, and non-fast-forward rules; Integration 4494424 remained its sole bypass actor",
+        "No bake rerun, Telegram or X send, credential change, provisioning, schedule change, campaign activation, email collection, analytics activation, Omni generation, or paid action occurred"
       ]
     },
     {
       "id": "DDB-PC-028",
       "sequence": 26,
       "title": "48-hour outreach readiness and campaign reconciliation",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-025"
       ],
@@ -1055,6 +1064,11 @@
         "scope": "After DDB-PC-025 completes, use clean branches to reconcile the approved zero-dollar 30-day campaign; within a maximum 48-hour readiness window select fresh email signup or the RSS fallback, select minimal privacy-safe campaign diagnostics or the documented aggregate fallback, complete read-only X account and operator readiness, add the Gemini Omni provider, rights, disclosure, provenance, approval, correction, and removal boundary, and reconcile the governing documents, contracts, ledgers, schemas, and tests identified by the 2026-08-06 campaign audit. Do not start public outreach, collect email, activate analytics, post or reply on X, generate or publish an Omni piece, change the active X broadcaster, send a newsletter, provision a paid service, merge, deploy, or spend money without the exact activation or release approval required by the reconciled contract."
       },
       "externalMutation": false,
+      "startedAt": "2026-08-07T00:06:03Z",
+      "progressEvidence": [
+        "DDB-PC-025 completed every release gate and deterministically activated DDB-PC-028 as the lowest-sequence eligible non-paused successor",
+        "The maximum 48-hour readiness window begins at 2026-08-07T00:06:03Z and preserves the audit's zero-dollar, no-outreach, no-collection, no-analytics-activation, no-X-action, no-Omni-generation, no-merge, no-deploy, and no-spend boundaries"
+      ],
       "completionGate": [
         "DDB-PC-025 is complete before DDB-PC-028 activates or implementation begins",
         "The governing prose and a machine-readable outreach campaign contract agree on the 30-day window, zero-dollar ceiling, one original X post daily, qualified replies on staffed operating days, two Gemini Omni pieces weekly, exact-item approvals, stop rules, and rollback",
