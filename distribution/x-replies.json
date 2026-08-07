@@ -25,7 +25,7 @@
       "premiumTier": "premium_plus",
       "postActivityAnalytics": "available",
       "authorizedOperators": "confirmed",
-      "accountSecurity": "blocked"
+      "accountSecurity": "ready"
     }
   },
   "publishedReplies": []

@@ -322,9 +322,10 @@ predeclared sample and snapshots are complete.
    return, and first-1,000 progress unknown.
 3. Record the read-only X account, operator, security, profile, pinned post,
    broadcast permalink, Premium, and analytics receipt.
-4. Stop readiness when X MFA, password-reset protection, or immutable link
-   checks fail. Repairing an account or the Spark broadcaster requires its own
-   scoped approval.
+4. Treat the verified passwordless X passkey as the account-security control;
+   do not create a password solely to enable password-dependent reset
+   protection. Stop readiness when the passkey or immutable-link check fails.
+   Repairing the account or Spark broadcaster requires its own scoped approval.
 5. Verify the exact Gemini Omni account and plan without accepting terms,
    upgrading, uploading, or generating. Record provider, privacy, rights,
    disclosure, provenance, correction, and removal law.

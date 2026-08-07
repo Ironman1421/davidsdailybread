@@ -178,10 +178,13 @@ applicable controls below:
    strong Content Security Policy or fully local assets.
 4. Repository-level Dependabot alerts are disabled. Version-update PRs are
    configured, but the owner must enable vulnerability alerts in GitHub.
-5. X campaign readiness is blocked because two-factor authentication and
-   password-reset protection were off in the 2026-08-07 read-only receipt, and
-   the latest observed morning and evening Spark post links resolved to the
-   mutable homepage instead of exact edition pages.
+5. X account security is ready through a passkey verified in the official UI.
+   David reports that the account has always been passwordless, so the
+   password-dependent reset-protection control is not applicable without
+   creating an additional credential. The unsaved change was discarded. X
+   campaign readiness remains blocked because the latest observed morning and
+   evening Spark post links resolved to the mutable homepage instead of exact
+   edition pages.
 
 Exceptions are tracked work, not accepted permanent architecture.
 
