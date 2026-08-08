@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-08",
+      "name": "Craft",
+      "url": "https://www.craft.do/",
+      "trend_url": "https://www.xda-developers.com/",
+      "cost": "Free plan; Plus $8 a month",
+      "kind": "Mac, Windows, iOS, Android, web",
+      "seen": "XDA Trending Now",
+      "blurb": "A block-based editor for notes, tasks, and documents that lets you drag whole sections into a new order, nest subpages under a project, and keep daily notes, tasks, and a calendar in one place, and the free plan draws its lines clearly: 1,500 blocks, 1 GB of storage, 25 MB per upload, seven days of version history, and 15 AI credits, while XDA's Parth Shah grants it is not a complete replacement for Word on complex formatting, academic references, or heavily structured corporate documents."
+    },
+    {
+      "date": "2026-08-08",
+      "name": "Rembg",
+      "url": "https://github.com/danielgatis/rembg",
+      "trend_url": "https://www.howtogeek.com/i-replaced-photoshops-ai-background-remover-with-this-lightweight-foss-alternative/",
+      "cost": "Free, MIT license",
+      "kind": "Windows, macOS, Linux; Python",
+      "seen": "How-To Geek, August 8",
+      "blurb": "Cuts the background out of a photo and writes a transparent PNG, working on a single file, a whole folder, or a folder it watches, with more than fifteen models to choose from and a local server mode if you want one, and the catches are real: it installs through pip and wants Python 3.11 to 3.13, and How-To Geek's Nick Lewis warns that the lighter models struggle with fine detail like hair, that repairing a bad edge means opening GIMP or Krita, and that some downloadable model weights carry non-commercial licenses even though the software itself is free."
+    },
+    {
+      "date": "2026-08-08",
+      "name": "Buildin.AI",
+      "url": "https://buildin.ai/pricing",
+      "trend_url": "https://www.xda-developers.com/ai-note-taking-app-does-something-notion-and-onenote-cant-ditched-my-subscriptions/",
+      "cost": "Free plan; Plus $10 per member",
+      "kind": "Web and app workspace",
+      "seen": "XDA Developers, August 8",
+      "blurb": "A Notion-style workspace that treats a mind map as a native page type beside its pages and folders, and XDA's Nolen Jonker reports it also carries a timeline view and lets you choose GPT, Gemini, or DeepSeek as the model behind its writing and its questions about your own notes, with the free plan capped hard at 2 GB of storage, 5 MB per file, 300 mind-map nodes, and ten AI chat requests a month before the $10 add-on that raises it to 3,000."
+    },
+    {
       "date": "2026-08-07",
       "name": "AndroMeld",
       "url": "https://andromeld.catchingnow.com/",
@@ -315,6 +345,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-08",
+      "title": "Replace six separate apps with one browser's built-in mail, calendar, notes, and screenshot tools",
+      "url": "https://www.makeuseof.com/stopped-switching-6-apps-with-this-browser/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 8",
+      "dek": "<b>One window, six jobs</b> Shaheer Khan moved his browsing, note-taking, screenshots, email, calendar, and YouTube into Vivaldi, stacking and tiling tabs to keep related pages together, separating contexts with workspaces, writing in the markdown notepad, and running the built-in mail and calendar clients, and he is candid about the cost of it: Vivaldi will give a machine with less memory a run for its money, and the browser felt overwhelming to him at first even though it can import your Chrome or Edge data.",
+      "needs": [
+        "Vivaldi on desktop",
+        "An email account to add",
+        "Your Chrome or Edge data to import"
+      ],
+      "time": "An evening to set up"
+    },
+    {
+      "date": "2026-08-08",
+      "title": "Pick one clear Wi-Fi channel by hand instead of letting the router choose it for you",
+      "url": "https://www.makeuseof.com/locked-router-to-one-clear-wi-fi-channel-stopped-fighting-interference/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf Trending Now",
+      "dek": "<b>Analyzer first, then lock</b> Oluwaseun Bamisile checked the networks around him with a Wi-Fi analyzer app, then replaced his router's automatic channel selection with a fixed one, settling on channel 6 because 1, 6, and 11 are the only non-overlapping channels on 2.4GHz, and naming 36, 40, 44, and 48 as the best starting points on 5GHz, and he says his connection became more stable without claiming a number for it, adding that the picks are not set in stone: the right channel depends on your region and the congestion nearby, and which channels a router may legally use depends on your country, so its region setting has to be correct.",
+      "needs": [
+        "Router admin access",
+        "A Wi-Fi analyzer app",
+        "Your router's region set correctly"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-08-08",
+      "title": "Let a Samsung phone quiet itself, stretch its battery, and call out the time you lose to YouTube",
+      "url": "https://www.howtogeek.com/these-custom-android-automations-save-me-more-time/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page",
+      "dek": "<b>Settings, Modes and Routines</b> Zunaid Ali builds routines that switch on Do Not Disturb, power saving, and grayscale between midnight and 5 AM, run a thirty-minute nap timer that reads a message aloud, and tighten battery saving in two steps, first at 50 percent and again at 30 percent with data saver and dimmed brightness, then adds a Gmail filter on the desktop site that keeps chosen senders out of Spam and in Primary, and one loop in the free Automate app that tells him how long he has actually been sitting on YouTube; he estimates the set saves him about thirty minutes a day, and he grants that the schedules need adjusting every few months and that a nap timer cannot ring a real alarm sound.",
+      "needs": [
+        "A Samsung Galaxy phone",
+        "Modes and Routines, built in",
+        "The free Automate app, optional"
+      ],
+      "time": "About 30 minutes"
+    },
     {
       "date": "2026-08-07",
       "title": "Name every range in a spreadsheet at once with Ctrl+Shift+F3 instead of typing them one by one",
