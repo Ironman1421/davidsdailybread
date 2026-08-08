@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-08",
+      "edition": "morning",
+      "dateHuman": "Saturday, August 8, 2026",
+      "file": "editions/2026-08-08-morning.html",
+      "lead": "US employers cut 23,000 jobs in July, and revisions erased another 103,000 from May and June",
+      "pubDate": "Sat, 08 Aug 2026 07:56:19 -0400"
+    },
+    {
       "date": "2026-08-07",
       "edition": "evening",
       "dateHuman": "Friday, August 7, 2026",
