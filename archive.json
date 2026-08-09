@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-09",
+      "edition": "morning",
+      "dateHuman": "Sunday, August 9, 2026",
+      "file": "editions/2026-08-09-morning.html",
+      "lead": "Tesla and SpaceX commit $16.8 billion to Terafab, a Texas chip plant planned at more than 100 million square feet",
+      "pubDate": "Sun, 09 Aug 2026 07:52:18 -0400"
+    },
+    {
       "date": "2026-08-08",
       "edition": "evening",
       "dateHuman": "Saturday, August 8, 2026",
