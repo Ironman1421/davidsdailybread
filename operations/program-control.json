@@ -1,24 +1,46 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-10T20:08:18Z",
+  "updatedAt": "2026-08-10T20:16:04Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
     "stateSource": "operations/program-control.json",
     "controllerRole": "single-program-controller"
   },
-  "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-028",
+  "mode": "single-controller-laned-execution",
+  "activeItemIds": {
+    "local_work": [
+      "DDB-PC-031"
+    ],
+    "production_mutation": null
+  },
   "executionPolicy": {
-    "maximumInProgress": 1,
+    "contract": "operations/minimum-viable-safety.contract.json",
+    "lanes": {
+      "routine_operations": {
+        "queueParticipation": false,
+        "usesProductionMutationLock": true,
+        "priority": "preempts project work when the canonical publication cadence is at risk"
+      },
+      "local_work": {
+        "maximumInProgress": 3,
+        "cleanBranchRequired": true,
+        "productionMutationAllowed": false
+      },
+      "production_mutation": {
+        "maximumInProgress": 1,
+        "routineOperationsPreemptQueuedProjectRelease": true
+      }
+    },
     "workerMaySelectNext": false,
     "workerMayAddQueueItems": false,
     "discoveredWorkIsExecutionAuthority": false,
-    "selectionRule": "Select the lowest-sequence pending item whose dependencies are complete, whose doctrine state is not paused, and whose required approval is granted. Activate it immediately after the prior active item reaches complete or blocked.",
-    "noEligibleItemRule": "Stop execution and report the exact unresolved dependency, doctrine pause, or missing David approval. Do not invent substitute work.",
+    "selectionRule": "Within each project lane, select the lowest-sequence pending item whose dependencies are complete, whose doctrine state is not paused, and whose required approval is granted, until that lane reaches capacity. Routine operations remain outside the queue and preempt project work when cadence is at risk.",
+    "noEligibleItemRule": "Leave unused lane capacity empty and report the exact unresolved dependency, doctrine pause, or missing David approval. Do not invent substitute work.",
     "completionRule": "An item becomes complete only after every completionGate entry has recorded evidence in this file.",
     "queueChangeRule": "Only David may authorize adding, removing, reordering, or materially changing queue scope. The controller records his decision in this file before execution.",
-    "workerRule": "A worker executes only the item ID assigned by the controller, returns evidence, and stops without choosing a successor.",
+    "workerRule": "A worker executes only the item ID and lane assigned by the controller, returns proportional evidence, and stops without choosing a successor or crossing into another lane.",
+    "routineAuthorityRule": "Scheduled bakes, bounded stale-run cancellation, one exact-commit Pages rebuild, exact-edition canonical X broadcasts, and bounded low-risk releases use standing authority from the minimum-viable-safety contract. Record one concise receipt and escalate only when the bounded recovery or classification fails.",
     "handoffRule": {
       "required": true,
       "triggers": [
@@ -1052,6 +1074,7 @@
       "sequence": 26,
       "title": "Canonical publication recovery",
       "status": "complete",
+      "executionLane": "production_mutation",
       "dependencies": [
         "DDB-PC-025"
       ],
@@ -1083,6 +1106,19 @@
         "details": "Repository-level X and Telegram variables were absent before dispatch, but the existing production environments carried their own settings. The X job honored its kill switch and sent nothing. The morning Telegram job found its existing enabled environment and sent exactly one normal immutable-edition publication receipt; the evening backfill skipped both downstream jobs. No setting, credential, environment, schedule, or receipt was changed or retried.",
         "receiptEvidence": "Daily bake run 31426054855 job 93582306186 succeeded; durable receipt artifact 9077721254 is telegram-notification-receipt-2026-08-10-morning."
       },
+      "exceptionAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-10T20:16:04Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the controller to record the single 2026-08-10 Telegram notification from run 31426054855 as a disclosed DDB-PC-030 exception, set DDB_TELEGRAM_NOTIFY_KILL_SWITCH=true in the telegram-notification-production environment, close DDB-PC-030, and reconcile PR #76 onto main a51023d6b5842723da81478e863b458b2c93b73b while preserving DDB-PC-031’s substance and all PR #77 publication evidence. Return the new exact PR head for release approval. Keep X disabled and outreach inactive; send no further Telegram or X messages; do not activate DDB-PC-028 until DDB-PC-031 is merged and complete.",
+        "scope": "Treat only the single immutable-edition Telegram receipt from run 31426054855 as a disclosed DDB-PC-030 exception, engage the existing Telegram production kill switch, close DDB-PC-030, preserve X and outreach inactivity, reconcile PR 76 without sending another message, and keep DDB-PC-028 pending behind DDB-PC-031."
+      },
+      "telegramSafeguard": {
+        "environment": "telegram-notification-production",
+        "variable": "DDB_TELEGRAM_NOTIFY_KILL_SWITCH",
+        "value": "true",
+        "verifiedAt": "2026-08-10T20:15:01Z"
+      },
       "approvedPullRequest": 75,
       "approvedRecoveryHead": "29b9e28c4da4570f0ce326555ba1428ecd5b7e98",
       "approvedRecoveryDiffSha256": "f4d881ad97e09252790e71758b6f9e8561f1b77988036e3a4c3dc92340d7f4c4",
@@ -1111,15 +1147,18 @@
         "Morning commit a51023d6b5842723da81478e863b458b2c93b73b changed only the approved morning paths: archive.html, archive.json, bakery-state.json, editions/2026-08-10-morning.html, feed.xml, index.html, markets.html, science.html, and tech.html; Pages run 31427374280 succeeded",
         "The exact public August 10 morning edition and homepage each returned HTTP 200 and matched main at SHA-256 2d5e148b0391e6c68609aed2890b45184eaadd25e08e42b9d8079062062ec962; final archive.json and feed.xml matched main at SHA-256 18844a2e88ed3e036d2810014710f01004797a31fe87e165dbdf201d47c18731 and 163af8bb391579933fe1c1e11ef1cfe881208a73a1bea4f2de7f2be6eff19333",
         "The final morning edition contains seven politics-free stories with renderer-owned BSB pairings: two technology, three markets including the lead, and two science; one reviewed house-satchel letter ran. The evening Field Guide contains three tools including the lead and two workflows, followed by the reviewed Keep and Ponder closing",
-        "The X job in run 31426054855 honored its existing environment kill switch and sent nothing. The existing Telegram production environment was enabled and sent one normal exact-edition receipt for 2026-08-10 morning, preserved as artifact 9077721254; no second receipt, X post, credential, setting, schedule, environment, outreach, audience-collection, provider-account, or spend mutation occurred"
+        "The X job in run 31426054855 honored its existing environment kill switch and sent nothing. The existing Telegram production environment was enabled and sent one normal exact-edition receipt for 2026-08-10 morning, preserved as artifact 9077721254; no second receipt, X post, credential, setting, schedule, environment, outreach, audience-collection, provider-account, or spend mutation occurred",
+        "David explicitly accepted the single Telegram receipt as a disclosed DDB-PC-030 exception and authorized closure while preserving all other production boundaries",
+        "The telegram-notification-production environment variable DDB_TELEGRAM_NOTIFY_KILL_SWITCH was set to true and verified at 2026-08-10T20:15:01Z; X remained disabled and the outreach campaign remained inactive"
       ],
-      "completedAt": "2026-08-10T20:08:18Z",
+      "completedAt": "2026-08-10T20:16:04Z",
       "evidence": [
         "PR 77 authorization head 025c8df907405d2e643e922c1b03e9871d5aa86b passed Merge gate and CodeQL and merged as main 5b2fc4df86638a6c1ca20b722159fd1c35bf4f8e",
         "Daily bake run 31424346810 published the 2026-08-09 evening backfill as main 69c544c4f4f91f2ac133587152d567983f3aded1; Pages run 31425981792 passed and the exact live edition matched main",
         "Daily bake run 31426054855 published the 2026-08-10 morning edition as main a51023d6b5842723da81478e863b458b2c93b73b; Pages run 31427374280 passed and the exact live edition, homepage, archive, and feed matched main",
         "The X lane sent nothing; the existing Telegram environment emitted one normal exact-edition morning publication receipt, artifact 9077721254",
-        "No other edition, credential, schedule, environment, branch-protection, provider-account, outreach, audience-collection, or spend mutation occurred"
+        "No other edition, credential, schedule, environment, branch-protection, provider-account, outreach, audience-collection, or spend mutation occurred",
+        "David's explicit exception authorization accepted the single Telegram receipt, and the Telegram production kill switch then verified true before PR 76 reconciliation"
       ],
       "completionGate": [
         "David's exact DDB-PC-030 interruption and external-mutation approval is recorded before any run cancellation or Pages rebuild request",
@@ -1133,7 +1172,7 @@
         "The resulting immutable main commit and its Pages deployment verify",
         "The superseding publication decision is recorded through the protected branch and PR path before either manual bake is dispatched",
         "The canonical workflow publishes and verifies exactly 2026-08-09 evening as a backfill and 2026-08-10 morning as the current daily edition, in that order, with authoritative main commits, Pages deployments, exact public URLs, archive, feed, and final homepage verified",
-        "The X lane remains kill-switched and sends nothing; the unchanged existing Telegram environment may emit only its standard exact-edition morning publication receipt, and no other edition, credential, schedule, environment, branch-protection, provider-account, outreach, audience-collection, or spend mutation occurs"
+        "The X lane remains kill-switched and sends nothing; David records the single Telegram morning receipt as the disclosed exception, the Telegram production kill switch verifies true before DDB-PC-031 release, and no other edition, credential, schedule, environment, branch-protection, provider-account, outreach, audience-collection, or spend mutation occurs"
       ],
       "proposedMissedSlotDisposition": {
         "status": "superseded",
@@ -1154,12 +1193,54 @@
       }
     },
     {
-      "id": "DDB-PC-028",
+      "id": "DDB-PC-031",
       "sequence": 27,
-      "title": "48-hour outreach readiness and campaign reconciliation",
+      "title": "Minimum Viable Safety and Faster Delivery",
       "status": "in_progress",
+      "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-025"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-10T19:17:37Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to add DDB-PC-031, Minimum Viable Safety and Faster Delivery, immediately after DDB-PC-030 and ahead of DDB-PC-028. Replace global serial execution with parallel local work and one serialized production-mutation lane; give routine bakes, stale-run cancellation, one Pages rebuild, canonical X broadcasting, and bounded low-risk releases standing authorization subject to CI, health checks, and rollback. Preserve explicit approval for spending, credentials, provider terms, personal or spiritual data, email operations, community activation, context-sensitive public replies, generated-media publication, theology, and brand changes. Update the governing documents, contracts, and tests on a clean branch and open a PR. Do not activate outreach as part of this approval",
+        "scope": "On a clean branch, replace global serial execution with up to three parallel approved local-work items and one serialized production-mutation lane; give routine bakes, bounded stale-run cancellation, one exact-commit Pages rebuild, exact-edition canonical X broadcasting, and bounded low-risk releases standing authority subject to CI, health checks, idempotency, and rollback; preserve the named explicit approval boundaries; update governing documents, contracts, program control, and tests; push the branch and open a pull request without activating outreach or merging the governance change."
+      },
+      "externalMutation": true,
+      "startedAt": "2026-08-10T19:17:37Z",
+      "progressEvidence": [
+        "David authorized DDB-PC-031 immediately after DDB-PC-030 and ahead of DDB-PC-028, including clean-branch implementation, branch push, and pull-request creation",
+        "The implementation branch codex/ddb-pc-031-minimum-viable-safety was reconciled onto main 0a7f0d97a68133b66d28303934ad2f845a24f8b4, the protected-path successor to the authorized publication commit that records the complete DDB-PC-030 evidence",
+        "DDB-PC-030 is complete, DDB-PC-031 uses the sole active local-work slot, the production-mutation lane is idle, and DDB-PC-028 remains pending on DDB-PC-031; no outreach, provider, credential, data, public-send, schedule, or production mutation is included in the PR",
+        "Seventy-seven focused program-control, product-contract, outreach-blocking, X-broadcast, and Telegram tests passed on the original implementation; reconciliation validation reruns before the updated head is pushed",
+        "David authorized the single Telegram receipt as a disclosed DDB-PC-030 exception, engaged the Telegram production kill switch, required X and outreach to remain inactive, and prohibited DDB-PC-028 activation until DDB-PC-031 is merged and complete"
+      ],
+      "completionGate": [
+        "David's exact DDB-PC-031 authorization is recorded with sequence 27, immediately after DDB-PC-030 and ahead of DDB-PC-028",
+        "FOUNDER_DOCTRINE.md, AGENTS.md, and CLAUDE.md agree on routine operations outside the queue, up to three parallel local-work items, and one production-mutation item",
+        "The machine-readable minimum-viable-safety contract defines standing authority for scheduled bakes, bounded stale-run cancellation, one exact-commit Pages rebuild, exact-edition canonical X broadcasts, and bounded low-risk releases",
+        "Publishing and X contracts preserve idempotency, protected CI, exact-target health checks, rollback, the production lock, and escalation after bounded recovery fails",
+        "Explicit approval remains required for spending, credentials and account security, provider provisioning or terms, personal or spiritual data, email operations, community activation, context-sensitive public replies, generated media, theology, public brand changes, and destructive actions",
+        "The outreach campaign remains inactive and no campaign post, reply, provider upload, generation, activation, analytics, email operation, or spend occurs",
+        "Deterministic program-control and minimum-viable-safety tests pass, all changed JSON parses, and git diff --check passes",
+        "The clean implementation branch is pushed and a protected-path pull request is open with the exact implementation head and hosted validation status",
+        "No merge, deployment, schedule change, credential change, provider mutation, personal-data action, public send, or outreach activation occurs without the authority defined by the released contract"
+      ],
+      "completedAt": null,
+      "evidence": null
+    },
+    {
+      "id": "DDB-PC-028",
+      "sequence": 28,
+      "title": "48-hour outreach readiness and campaign reconciliation",
+      "status": "pending",
+      "executionLane": "local_work",
+      "dependencies": [
+        "DDB-PC-025",
+        "DDB-PC-031"
       ],
       "authorization": {
         "type": "explicit_david",
@@ -1199,7 +1280,8 @@
         "The classified 50-entry fleet tripwire was reblessed at 2026-08-06T19:11:07-07:00 and passed an immediate ordinary check plus quiet full checksum verification with no drift signature; ordinary scheduled runs at 2026-08-06T19:12:21-07:00 and 2026-08-06T19:22:22-07:00 both completed successfully and remained silent",
         "The exact target passed all 45 repository tests in its detached source-clean preflight; in the live checkout, the repository-hygiene assertion intentionally detected the required locally excluded secrets/x-api.env runtime artifact, so production validation preserved that credential and instead passed all six broadcaster code and unit contracts, both OAuth and parser checks, all 13 broadcaster self-tests, shell syntax, systemd verification, Git cleanliness, source and tripwire checks",
         "No X poll, send, post, reply, service start, reload, restart, schedule change, credential-content display, copy, or change, campaign activation, email collection, analytics activation, Omni action, newsletter operation, paid provisioning, public-site or unrelated deployment, or spend occurred; the broadcaster service's last trigger remained 2026-08-06T19:00:08-07:00 and its existing timer remained active and waiting",
-        "DDB-PC-030 completed at 2026-08-10T20:08:18Z after the two founder-requested editions published through the canonical protected workflow, both Pages deployments and live byte comparisons passed, the X lane sent nothing, and the standard morning Telegram publication receipt completed; DDB-PC-028 resumed without activating outreach or changing its prior scope"
+        "PR 78 recorded DDB-PC-030 complete at 2026-08-10T20:08:18Z after the two founder-requested editions published through the canonical protected workflow, both Pages deployments and live byte comparisons passed, the X lane sent nothing, and the standard morning Telegram publication receipt completed",
+        "David's subsequent exception decision accepted that single Telegram receipt, required the Telegram kill switch to be engaged, and deferred DDB-PC-028 again until DDB-PC-031 is merged and complete; no outreach activation occurred during the brief control-record resume"
       ],
       "completionGate": [
         "DDB-PC-025 is complete before DDB-PC-028 activates or implementation begins",
@@ -1220,14 +1302,18 @@
         "campaignActivated": false,
         "resumeAfter": "DDB-PC-030",
         "resumedAt": "2026-08-10T20:08:18Z",
-        "resumeEvidence": "DDB-PC-030 completed after Daily bake runs 31424346810 and 31426054855 published and verified exact main commits 69c544c4f4f91f2ac133587152d567983f3aded1 and a51023d6b5842723da81478e863b458b2c93b73b, with Pages runs 31425981792 and 31427374280 successful and both exact live editions matching main."
+        "resumeEvidence": "PR 78 recorded DDB-PC-030 complete after Daily bake runs 31424346810 and 31426054855 published and verified exact main commits 69c544c4f4f91f2ac133587152d567983f3aded1 and a51023d6b5842723da81478e863b458b2c93b73b, with Pages runs 31425981792 and 31427374280 successful and both exact live editions matching main.",
+        "deferredAgainAt": "2026-08-10T20:16:04Z",
+        "deferredBy": "David Friedhof",
+        "deferDecisionEvidence": "Task message: Do not activate DDB-PC-028 until DDB-PC-031 is merged and complete."
       }
     },
     {
       "id": "DDB-PC-029",
-      "sequence": 28,
+      "sequence": 29,
       "title": "Repair the Chronicles masthead and notes metadata boundary",
       "status": "pending",
+      "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-028"
       ],
@@ -1253,9 +1339,10 @@
     },
     {
       "id": "DDB-PC-027",
-      "sequence": 29,
+      "sequence": 30,
       "title": "Morning Reviewed Research Handoff v1",
       "status": "pending",
+      "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-028"
       ],
@@ -1282,9 +1369,10 @@
     },
     {
       "id": "DDB-PC-026",
-      "sequence": 30,
+      "sequence": 31,
       "title": "Implement Scripture Freshness v1 for both editions",
       "status": "pending",
+      "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-027"
       ],

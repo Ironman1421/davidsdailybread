@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Executable invariants for the single-controller execution queue."""
+"""Executable invariants for the single-controller execution lanes."""
 
 from pathlib import Path
 import json
@@ -8,6 +8,11 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTROL_PATH = ROOT / "operations" / "program-control.json"
+SAFETY_CONTRACT_PATH = (
+    ROOT / "operations" / "minimum-viable-safety.contract.json"
+)
+PUBLISHING_CONTRACT_PATH = ROOT / "operations" / "publishing.contract.json"
+X_BROADCAST_CONTRACT_PATH = ROOT / "operations" / "x-broadcast.contract.json"
 
 
 class ProgramControlTest(unittest.TestCase):
@@ -15,16 +20,23 @@ class ProgramControlTest(unittest.TestCase):
     def setUpClass(cls):
         cls.control = json.loads(CONTROL_PATH.read_text(encoding="utf-8"))
 
-    def test_single_controller_policy_is_explicit(self):
+    def test_single_controller_laned_policy_is_explicit(self):
         control = self.control
         policy = control["executionPolicy"]
+        lanes = policy["lanes"]
 
-        self.assertEqual("single-controller-serial-execution", control["mode"])
-        self.assertEqual(1, policy["maximumInProgress"])
+        self.assertEqual("single-controller-laned-execution", control["mode"])
+        self.assertNotIn("activeItemId", control)
+        self.assertEqual(3, lanes["local_work"]["maximumInProgress"])
+        self.assertFalse(lanes["local_work"]["productionMutationAllowed"])
+        self.assertEqual(1, lanes["production_mutation"]["maximumInProgress"])
+        self.assertFalse(lanes["routine_operations"]["queueParticipation"])
+        self.assertTrue(lanes["routine_operations"]["usesProductionMutationLock"])
         self.assertFalse(policy["workerMaySelectNext"])
         self.assertFalse(policy["workerMayAddQueueItems"])
         self.assertFalse(policy["discoveredWorkIsExecutionAuthority"])
-        self.assertIn("lowest-sequence pending item", policy["selectionRule"])
+        self.assertIn("Within each project lane", policy["selectionRule"])
+        self.assertIn("Routine operations remain outside", policy["selectionRule"])
         self.assertIn("Do not invent substitute work", policy["noEligibleItemRule"])
 
     def test_queue_has_contiguous_unique_order_and_valid_dependencies(self):
@@ -42,16 +54,28 @@ class ProgramControlTest(unittest.TestCase):
                 self.assertIn(dependency, by_id)
                 self.assertLess(by_id[dependency]["sequence"], item["sequence"])
 
-    def test_active_item_or_explicit_halt_matches_selection_rule(self):
+        self.assertEqual(27, by_id["DDB-PC-031"]["sequence"])
+        self.assertEqual(28, by_id["DDB-PC-028"]["sequence"])
+        self.assertIn("DDB-PC-031", by_id["DDB-PC-028"]["dependencies"])
+
+    def test_active_items_match_lane_capacity_and_selection_rule(self):
         items = self.control["items"]
         by_id = {item["id"]: item for item in items}
-        active = [
-            item for item in items if item["status"] == "in_progress"
-        ]
+        project_lanes = ("local_work", "production_mutation")
+        active_by_lane = {
+            lane: [
+                item
+                for item in items
+                if item["status"] == "in_progress"
+                and item.get("executionLane") == lane
+            ]
+            for lane in project_lanes
+        }
         eligible = [
             item
             for item in items
             if item["status"] == "pending"
+            and item.get("executionLane") in project_lanes
             and all(by_id[dependency]["status"] == "complete" for dependency in item["dependencies"])
             and (
                 item["authorization"]["type"] == "none"
@@ -59,23 +83,56 @@ class ProgramControlTest(unittest.TestCase):
             )
         ]
 
-        self.assertLessEqual(len(active), self.control["executionPolicy"]["maximumInProgress"])
-        if active:
-            self.assertEqual(self.control["activeItemId"], active[0]["id"])
-            later_eligible = [item for item in eligible if item["sequence"] < active[0]["sequence"]]
-            self.assertEqual([], later_eligible)
-        else:
-            self.assertIsNone(self.control["activeItemId"])
+        active_ids = self.control["activeItemIds"]
+        self.assertEqual(
+            active_ids["local_work"],
+            [item["id"] for item in active_by_lane["local_work"]],
+        )
+        production = active_by_lane["production_mutation"]
+        self.assertEqual(
+            active_ids["production_mutation"],
+            production[0]["id"] if production else None,
+        )
+
+        for lane in project_lanes:
+            capacity = self.control["executionPolicy"]["lanes"][lane][
+                "maximumInProgress"
+            ]
+            active = active_by_lane[lane]
+            lane_eligible = [
+                item for item in eligible if item["executionLane"] == lane
+            ]
+            self.assertLessEqual(len(active), capacity)
+            if active:
+                self.assertEqual(
+                    [],
+                    [
+                        item
+                        for item in lane_eligible
+                        if item["sequence"] < min(a["sequence"] for a in active)
+                    ],
+                )
+            if len(active) < capacity:
+                self.assertEqual([], lane_eligible)
+
+        if not any(active_by_lane.values()):
             self.assertEqual([], eligible)
             self.assertEqual("no_eligible_item", self.control["halt"]["type"])
             self.assertEqual([], self.control["halt"]["eligibleItemIds"])
             self.assertIn("explicit approval", self.control["halt"]["reason"])
+        else:
+            self.assertIsNone(self.control["halt"])
 
     def test_states_completion_evidence_and_pauses_are_valid(self):
         allowed = set(self.control["states"])
 
         for item in self.control["items"]:
             self.assertIn(item["status"], allowed)
+            if item["status"] in {"pending", "in_progress"}:
+                self.assertIn(
+                    item.get("executionLane"),
+                    {"local_work", "production_mutation"},
+                )
             if item["status"] == "complete":
                 self.assertTrue(item.get("completionGate"))
                 self.assertTrue(item.get("completedAt"))
@@ -92,6 +149,86 @@ class ProgramControlTest(unittest.TestCase):
                     {"explicit_david", "explicit_david_reversal"},
                 )
                 self.assertIn("granted", item["authorization"])
+
+    def test_minimum_viable_safety_contract_preserves_useful_boundaries(self):
+        contract = json.loads(SAFETY_CONTRACT_PATH.read_text(encoding="utf-8"))
+        standing = contract["standingAuthority"]
+
+        self.assertEqual("DDB-PC-031", contract["programItem"])
+        self.assertEqual(3, contract["lanes"]["local_work"]["maximumInProgress"])
+        self.assertEqual(
+            1,
+            contract["lanes"]["production_mutation"]["maximumInProgress"],
+        )
+        self.assertFalse(contract["lanes"]["routine_operations"]["queueParticipation"])
+        for operation in (
+            "scheduledBake",
+            "staleRunCancellation",
+            "pagesRebuild",
+            "canonicalXBroadcast",
+            "boundedLowRiskRelease",
+        ):
+            self.assertTrue(standing[operation]["authorized"])
+
+        self.assertEqual(1, standing["pagesRebuild"]["maximumPerExactCommit"])
+        self.assertEqual(15, standing["staleRunCancellation"]["staleAfterMinutes"])
+        self.assertTrue(
+            standing["staleRunCancellation"][
+                "requiresSupersededOrBlockingNewerNominalSlot"
+            ]
+        )
+        self.assertFalse(
+            standing["boundedLowRiskRelease"]["separateExactShaApprovalRequired"]
+        )
+        self.assertFalse(contract["outreachCampaignActivated"])
+
+        publishing = json.loads(
+            PUBLISHING_CONTRACT_PATH.read_text(encoding="utf-8")
+        )
+        x_broadcast = json.loads(
+            X_BROADCAST_CONTRACT_PATH.read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            "operations/minimum-viable-safety.contract.json",
+            publishing["routineAuthority"]["contract"],
+        )
+        self.assertTrue(
+            publishing["routineAuthority"]["scheduledBakesStandingAuthorized"]
+        )
+        self.assertEqual(
+            1,
+            publishing["routineAuthority"]["pagesRecovery"][
+                "maximumRebuildsPerExactCommit"
+            ],
+        )
+        self.assertTrue(
+            x_broadcast["authority"][
+                "activeCanonicalBroadcasterStandingAuthorized"
+            ]
+        )
+        self.assertFalse(x_broadcast["authority"]["outreachCampaignIncluded"])
+
+        explicit = set(contract["explicitApprovalRequired"])
+        expected_fragments = {
+            "spending",
+            "credential",
+            "provider",
+            "personal-or-spiritual-data",
+            "email",
+            "community",
+            "public-reply",
+            "generated-media",
+            "theology",
+            "destructive",
+        }
+        for fragment in expected_fragments:
+            self.assertTrue(any(fragment in value for value in explicit), fragment)
+
+        doctrine = (ROOT / "FOUNDER_DOCTRINE.md").read_text(encoding="utf-8")
+        self.assertIn("Minimum viable safety and delivery authority", doctrine)
+        self.assertIn(
+            "The outreach campaign remains inactive", " ".join(doctrine.split())
+        )
 
     def test_completed_checkout_and_control_cleanup_stay_closed(self):
         by_id = {item["id"]: item for item in self.control["items"]}
@@ -125,6 +262,9 @@ class ProgramControlTest(unittest.TestCase):
             normalized = " ".join(text.split())
             self.assertIn("operations/program-control.json", text)
             self.assertIn("sole source of truth", normalized)
+            self.assertIn("minimum-viable-safety.contract.json", text)
+            self.assertIn("production", normalized)
+            self.assertIn("local", normalized)
 
 
 if __name__ == "__main__":

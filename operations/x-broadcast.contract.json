@@ -5,6 +5,16 @@
   "owner": "David Friedhof",
   "runtime": "GitHub Actions ubuntu-latest with pinned Python 3.12 setup",
   "scope": "one canonical X broadcast per newly published edition; no replies, mentions, likes, follows, reposts, quotes, media, or deletion",
+  "authority": {
+    "contract": "operations/minimum-viable-safety.contract.json",
+    "activeCanonicalBroadcasterStandingAuthorized": true,
+    "requiresExactLiveEdition": true,
+    "requiresImmutableEditionUrl": true,
+    "maximumPostsPerEdition": 1,
+    "outreachCampaignIncluded": false,
+    "repliesIncluded": false,
+    "broadcasterMigrationIncluded": false
+  },
   "trigger": {
     "workflow": ".github/workflows/ddb-bake.yml",
     "afterJob": "bake",

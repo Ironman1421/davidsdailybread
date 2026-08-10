@@ -69,6 +69,39 @@
     "publisherRequiresUnchangedBaseSha": true,
     "publisherCreatesOneAtomicCommit": true
   },
+  "routineAuthority": {
+    "contract": "operations/minimum-viable-safety.contract.json",
+    "scheduledBakesStandingAuthorized": true,
+    "usesSharedProductionMutationLane": true,
+    "preemptsQueuedProjectRelease": true,
+    "staleRunCancellation": {
+      "standingAuthorized": true,
+      "staleAfterMinutes": 15,
+      "eligibleStates": [
+        "pending",
+        "queued"
+      ],
+      "requiresKnownExactTarget": true,
+      "requiresSupersededOrBlockingNewerNominalSlot": true,
+      "requiresNoActiveOrAmbiguousWrite": true,
+      "cancelOldestFirst": true
+    },
+    "pagesRecovery": {
+      "standingAuthorized": true,
+      "maximumRebuildsPerExactCommit": 1,
+      "requiresExactMainCommit": true,
+      "requiredHealthChecks": [
+        "exact-edition",
+        "homepage",
+        "archive.json",
+        "feed.xml"
+      ],
+      "failureDisposition": "stop-and-escalate"
+    },
+    "scheduleChangeStandingAuthorized": false,
+    "credentialChangeStandingAuthorized": false,
+    "backfillStandingAuthorized": false
+  },
   "sealedArtifactEnvelope": {
     "authorizedOnlyWhileReaderIntakePaused": true,
     "publicArtifactContainsPlaintextUnpublishedContent": false,

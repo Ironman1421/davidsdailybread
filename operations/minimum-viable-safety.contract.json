@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "status": "approved-pending-protected-main-release",
+  "programItem": "DDB-PC-031",
+  "owner": "David Friedhof",
+  "approvedAt": "2026-08-10T19:17:37Z",
+  "decisionEvidence": "Task message: Approve the program controller to add DDB-PC-031, Minimum Viable Safety and Faster Delivery, immediately after DDB-PC-030 and ahead of DDB-PC-028. Replace global serial execution with parallel local work and one serialized production-mutation lane; give routine bakes, stale-run cancellation, one Pages rebuild, canonical X broadcasting, and bounded low-risk releases standing authorization subject to CI, health checks, and rollback. Preserve explicit approval for spending, credentials, provider terms, personal or spiritual data, email operations, community activation, context-sensitive public replies, generated-media publication, theology, and brand changes. Update the governing documents, contracts, and tests on a clean branch and open a PR. Do not activate outreach as part of this approval",
+  "principles": {
+    "controlStandard": "least process that materially protects readers, mission integrity, credentials, privacy, money, and recoverability",
+    "availabilityIsSafety": true,
+    "routineRecoveryIsNewProgramWork": false,
+    "uncertainClassificationFailsClosed": true
+  },
+  "lanes": {
+    "routine_operations": {
+      "queueParticipation": false,
+      "priority": "preempts project work when the canonical publication cadence is at risk",
+      "usesProductionMutationLock": true
+    },
+    "local_work": {
+      "maximumInProgress": 3,
+      "cleanBranchRequired": true,
+      "allowed": [
+        "research",
+        "design",
+        "implementation",
+        "tests",
+        "branch-push",
+        "pull-request"
+      ],
+      "forbidden": [
+        "merge-to-main",
+        "live-deployment",
+        "provider-mutation",
+        "credential-mutation",
+        "live-data-collection",
+        "public-send-or-post"
+      ]
+    },
+    "production_mutation": {
+      "maximumInProgress": 1,
+      "sharedWithRoutineOperations": true,
+      "routineOperationsPreemptQueuedProjectRelease": true
+    }
+  },
+  "standingAuthority": {
+    "scheduledBake": {
+      "authorized": true,
+      "requires": [
+        "BAKE.md compliance",
+        "edition idempotency",
+        "existing deterministic validation",
+        "protected publisher path"
+      ]
+    },
+    "staleRunCancellation": {
+      "authorized": true,
+      "staleAfterMinutes": 15,
+      "eligibleStates": [
+        "pending",
+        "queued"
+      ],
+      "requiresKnownExactTarget": true,
+      "requiresSupersededOrBlockingNewerNominalSlot": true,
+      "requiresNoActiveOrAmbiguousWrite": true,
+      "cancelOldestFirst": true,
+      "backfillAuthorized": false
+    },
+    "pagesRebuild": {
+      "authorized": true,
+      "maximumPerExactCommit": 1,
+      "requiresExactMainCommit": true,
+      "healthChecks": [
+        "exact-edition",
+        "homepage",
+        "archive.json",
+        "feed.xml"
+      ],
+      "secondAttemptDisposition": "stop-and-escalate"
+    },
+    "canonicalXBroadcast": {
+      "authorized": true,
+      "maximumPerEdition": 1,
+      "requiresExactLiveEdition": true,
+      "requiresImmutableEditionUrl": true,
+      "requiresIdempotencyAndKillSwitch": true,
+      "excludes": [
+        "backfill",
+        "reply",
+        "quote",
+        "like",
+        "follow",
+        "campaign-original",
+        "generated-media",
+        "account-change",
+        "broadcaster-migration"
+      ]
+    },
+    "boundedLowRiskRelease": {
+      "authorized": true,
+      "requiresProtectedPullRequest": true,
+      "requiresMergeGate": true,
+      "requiresCodeQL": true,
+      "requiresProductionLaneIdle": true,
+      "requiresRollback": true,
+      "requiresPostMergeHealthCheck": true,
+      "separateExactShaApprovalRequired": false,
+      "mustPreserve": [
+        "existing-architecture",
+        "public-contracts",
+        "privacy-boundaries",
+        "credential-boundaries",
+        "publication-idempotency"
+      ]
+    }
+  },
+  "explicitApprovalRequired": [
+    "spending-or-paid-plan-change",
+    "credential-authentication-account-security-permission-or-recovery-change",
+    "new-provider-provisioning-or-provider-terms",
+    "personal-or-spiritual-data-collection-migration-exposure-retention-or-deletion",
+    "email-or-list-operation",
+    "community-account-prayer-contribution-or-private-message-activation",
+    "context-sensitive-public-reply-or-noncanonical-interaction",
+    "generated-media-input-generation-or-publication",
+    "theology-scripture-policy-or-public-brand-change",
+    "destructive-or-difficult-to-reverse-action"
+  ],
+  "evidence": {
+    "routineReceiptFields": [
+      "target",
+      "action",
+      "result",
+      "healthCheck",
+      "rollbackState"
+    ],
+    "approvalOnlyCommitRequired": false,
+    "duplicateEvidenceAcrossFilesRequired": false,
+    "expandedEvidenceOnlyFor": [
+      "incident",
+      "sensitive-decision",
+      "failed-bounded-recovery"
+    ]
+  },
+  "outreachCampaignActivated": false
+}

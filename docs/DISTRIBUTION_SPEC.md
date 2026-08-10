@@ -101,7 +101,11 @@ the website count and is never added to it.
 
 - Role: discovery, discussion, source receipts, and referral to the canonical
   website.
-- At most one automatic canonical broadcast per edition.
+- At most one automatic canonical broadcast per edition. The active canonical
+  broadcaster has standing authority after the exact edition is publicly live,
+  provided it uses the immutable dated URL, idempotency, and its kill switch.
+  This routine authority does not cover a backfill, campaign item, reply,
+  account change, or broadcaster migration.
 - At most one additional edition-derived source card, useful fact, or question;
   it requires human review and must add distinct value.
 - Replies are read-only scouted and AI-assisted drafted, then individually
