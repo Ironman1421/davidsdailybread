@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-07T16:09:59Z",
+  "updatedAt": "2026-08-10T17:48:00Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-028",
+  "activeItemId": "DDB-PC-030",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -1048,10 +1048,43 @@
       ]
     },
     {
-      "id": "DDB-PC-028",
+      "id": "DDB-PC-030",
       "sequence": 26,
-      "title": "48-hour outreach readiness and campaign reconciliation",
+      "title": "Canonical publication recovery",
       "status": "in_progress",
+      "dependencies": [
+        "DDB-PC-025"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-10T17:48:00Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to add and activate DDB-PC-030, Canonical publication recovery, temporarily interrupting DDB-PC-028. Verify the stuck Pages build for exact main commit 07d6c72e9120e91ba6537586ba9fa77ed305d4f4, queued Daily bake run 31312284374, and its seven pending successor runs. Cancel the pending successors first and run 31312284374 last, then request at most one Pages rebuild for that exact main commit and verify the August 9 morning edition publicly. Do not backfill or publish a missed edition, send Telegram or X, change code, merge, alter credentials, schedules, environments, branch protection, provider accounts, audience collection, or spend money without a separate exact approval. Return the immutable recovery evidence and proposed missed-slot disposition before resuming DDB-PC-028.",
+        "scope": "Temporarily interrupt DDB-PC-028, verify the stuck Pages build for exact main commit 07d6c72e9120e91ba6537586ba9fa77ed305d4f4 and the exact blocked Daily bake queue, cancel the seven pending successors before queued run 31312284374, request at most one Pages rebuild for that exact commit, verify the August 9 morning edition publicly, and return immutable recovery evidence plus a missed-slot disposition. Do not backfill or publish a missed edition, send Telegram or X, change code, merge, alter credentials, schedules, environments, branch protection, provider accounts, audience collection, or spend money."
+      },
+      "externalMutation": true,
+      "startedAt": "2026-08-10T17:48:00Z",
+      "progressEvidence": [
+        "David authorized DDB-PC-030 as the sole active item and temporarily interrupted DDB-PC-028 without authorizing campaign activation or any unrelated mutation",
+        "The immutable production target is main commit 07d6c72e9120e91ba6537586ba9fa77ed305d4f4; the approved queue targets are run 31312284374 and its seven pending successors",
+        "The approved recovery order is to reverify all exact targets, cancel the seven pending successors first and run 31312284374 last, request at most one Pages rebuild for the exact target commit, and verify the August 9 morning edition publicly"
+      ],
+      "completionGate": [
+        "David's exact DDB-PC-030 interruption and external-mutation approval is recorded before any run cancellation or Pages rebuild request",
+        "The Pages build for exact main commit 07d6c72e9120e91ba6537586ba9fa77ed305d4f4, queued run 31312284374, and all seven pending successors are reverified immediately before mutation",
+        "The seven pending successor runs are cancelled before queued run 31312284374",
+        "No more than one Pages rebuild is requested and it targets exact main commit 07d6c72e9120e91ba6537586ba9fa77ed305d4f4",
+        "The public August 9 morning edition returns HTTP 200 and matches the exact edition committed on main",
+        "Immutable recovery evidence and a proposed disposition for the missed publication slots are returned before DDB-PC-028 resumes",
+        "No missed edition is backfilled or published, no Telegram or X message is sent, and no code, merge, credential, schedule, environment, branch-protection, provider-account, audience-collection, or spend mutation occurs"
+      ]
+    },
+    {
+      "id": "DDB-PC-028",
+      "sequence": 27,
+      "title": "48-hour outreach readiness and campaign reconciliation",
+      "status": "pending",
       "dependencies": [
         "DDB-PC-025"
       ],
@@ -1105,11 +1138,20 @@
         "PWA, protected-publisher, one-atomic-commit bake, repository-map, unified-evening-handoff, X Manager coordination, marketing handoff, and YouTube experiment status drift identified by the audit is reconciled without changing runtime behavior outside the approved scope",
         "Applicable local validation and deterministic regression checks pass, and exact implementation heads are reported for separate release and activation approval",
         "No public outreach, email collection, analytics activation, X post or reply, Omni generation or publication, broadcaster change, newsletter operation, paid-service provisioning, merge, deployment, or spend occurs"
-      ]
+      ],
+      "publicationRecoveryInterruption": {
+        "authorizedBy": "David Friedhof",
+        "authorizedAt": "2026-08-10T17:48:00Z",
+        "decisionEvidence": "Task message: Approve the program controller to add and activate DDB-PC-030, Canonical publication recovery, temporarily interrupting DDB-PC-028.",
+        "campaignActivated": false,
+        "resumeAfter": "DDB-PC-030",
+        "resumedAt": null,
+        "resumeEvidence": null
+      }
     },
     {
       "id": "DDB-PC-029",
-      "sequence": 27,
+      "sequence": 28,
       "title": "Repair the Chronicles masthead and notes metadata boundary",
       "status": "pending",
       "dependencies": [
@@ -1137,7 +1179,7 @@
     },
     {
       "id": "DDB-PC-027",
-      "sequence": 28,
+      "sequence": 29,
       "title": "Morning Reviewed Research Handoff v1",
       "status": "pending",
       "dependencies": [
@@ -1166,7 +1208,7 @@
     },
     {
       "id": "DDB-PC-026",
-      "sequence": 29,
+      "sequence": 30,
       "title": "Implement Scripture Freshness v1 for both editions",
       "status": "pending",
       "dependencies": [
