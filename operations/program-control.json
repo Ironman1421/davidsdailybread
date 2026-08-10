@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-10T18:05:32Z",
+  "updatedAt": "2026-08-10T19:24:53Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1070,6 +1070,13 @@
         "decisionEvidence": "Task message: Approve DDB-PC-030 release of draft PR #75 at exact reviewed head 29b9e28c4da4570f0ce326555ba1428ecd5b7e98: record this approval and the adopted no-backfill disposition in program control as a record-only commit, reobserve Merge gate and CodeQL, mark the PR ready, and squash-merge only if the recovery diff remains unchanged. Verify the resulting main commit and Pages deployment, then wait for and verify the next normally scheduled edition before closing DDB-PC-030 and resuming DDB-PC-028. Do not manually dispatch a bake, backfill, send Telegram or X, change schedules or credentials, activate outreach, or spend money.",
         "scope": "Record the release approval and adopted no-backfill disposition for PR 75, reobserve Merge gate and CodeQL after the record-only commit, mark the PR ready, squash-merge only if the approved recovery diff remains unchanged, verify the resulting main commit and Pages deployment, and wait for the next normally scheduled edition to publish and verify before closing DDB-PC-030 or resuming DDB-PC-028. Do not manually dispatch a bake, backfill, send Telegram or X, change schedules or credentials, activate outreach, or spend money."
       },
+      "supersedingPublicationAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-10T19:24:53Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: The last edition on davidsdailybread.com is Sunday, August 9, morning edition. So I'm missing the evening edition of August 9, and the morning edition of this morning. Please publish this for me. I wanna read my news. Thank you.",
+        "scope": "Supersede only the adopted no-backfill disposition for the two named missing editions. Record this decision through the protected branch and PR path, then manually dispatch the canonical Daily bake workflow for 2026-08-09 evening as a backfill and 2026-08-10 morning as the current daily edition. Run them serially, preserve the workflow's exact-edition and one-atomic-commit gates, leave the default-on repository X and Telegram kill switches unchanged, and verify each authoritative main commit, Pages deployment, exact public edition URL, archive, feed, and final morning homepage. Do not publish any other edition, change schedules, credentials, environments, branch protection, provider accounts, outreach state, audience collection, or spend money."
+      },
       "approvedPullRequest": 75,
       "approvedRecoveryHead": "29b9e28c4da4570f0ce326555ba1428ecd5b7e98",
       "approvedRecoveryDiffSha256": "f4d881ad97e09252790e71758b6f9e8561f1b77988036e3a4c3dc92340d7f4c4",
@@ -1087,7 +1094,9 @@
         "The public August 9 morning edition returned HTTP 200 and matched exact commit SHA-256 ce48a67e771ee0ff21384f8f74b49c3b4a6ed37e1a86bbbc95176da070ab3273",
         "Public index.html, archive.json, and feed.xml matched the exact main bytes with SHA-256 ce48a67e771ee0ff21384f8f74b49c3b4a6ed37e1a86bbbc95176da070ab3273, 084470cd155a303199a05eb63525568bcd37873be7cac12ad56061309174c33f, and d8c640113bb86bf6710d014935eb9f1c4f864721149546c04070b4de43986bdc; homepage, archive, feed, and subscribe returned HTTP 200 while counter.csv remained HTTP 404",
         "No missed edition was backfilled or published, no Telegram or X message was sent, and no code, merge, credential, schedule, environment, branch-protection, provider-account, audience-collection, or spend mutation occurred",
-        "David approved release of PR 75 exact reviewed recovery head 29b9e28c4da4570f0ce326555ba1428ecd5b7e98, adopted the no-backfill disposition for the August 9 evening and August 10 morning slots, and required a record-only commit plus fresh Merge gate and CodeQL before squash merge"
+        "David approved release of PR 75 exact reviewed recovery head 29b9e28c4da4570f0ce326555ba1428ecd5b7e98, adopted the no-backfill disposition for the August 9 evening and August 10 morning slots, and required a record-only commit plus fresh Merge gate and CodeQL before squash merge",
+        "David's 2026-08-10T19:24:53Z task message supersedes only that no-backfill disposition and explicitly requests publication of the missing 2026-08-09 evening and 2026-08-10 morning editions through the canonical protected Daily bake path",
+        "Immediately before recording the superseding decision, origin/main was ee3d5577798319ffdc3ad756bfb7542417340f95, both exact edition files were absent, the Daily bake lane had zero pending runs, and the repository X and Telegram variables that would disable their default-on kill switches were absent"
       ],
       "completionGate": [
         "David's exact DDB-PC-030 interruption and external-mutation approval is recorded before any run cancellation or Pages rebuild request",
@@ -1099,11 +1108,12 @@
         "The record-only PR head passes Merge gate and both CodeQL analyses",
         "The approved recovery diff remains unchanged before PR 75 is marked ready and squash-merged through the protected path",
         "The resulting immutable main commit and its Pages deployment verify",
-        "The next normally scheduled edition and its Pages deployment verify before DDB-PC-030 closes or DDB-PC-028 resumes",
-        "No missed edition is backfilled or published, no manual bake is dispatched, no Telegram or X message is sent, and no credential, schedule, outreach, audience-collection, or spend mutation occurs"
+        "The superseding publication decision is recorded through the protected branch and PR path before either manual bake is dispatched",
+        "The canonical workflow publishes and verifies exactly 2026-08-09 evening as a backfill and 2026-08-10 morning as the current daily edition, in that order, with authoritative main commits, Pages deployments, exact public URLs, archive, feed, and final homepage verified",
+        "The repository X and Telegram kill switches remain default-on and no Telegram or X message is sent; no other edition, credential, schedule, environment, branch-protection, provider-account, outreach, audience-collection, or spend mutation occurs"
       ],
       "proposedMissedSlotDisposition": {
-        "status": "adopted",
+        "status": "superseded",
         "adoptedAt": "2026-08-10T18:05:32Z",
         "adoptedBy": "David Friedhof",
         "decisionEvidence": "Task message: Approve DDB-PC-030 release of draft PR #75 at exact reviewed head 29b9e28c4da4570f0ce326555ba1428ecd5b7e98: record this approval and the adopted no-backfill disposition in program control as a record-only commit.",
@@ -1113,7 +1123,11 @@
           "2026-08-10-morning"
         ],
         "proposal": "Do not backfill either missed edition. Preserve the archive gap and incident evidence, allow the next nominal edition to use the unchanged normal schedule, and verify that edition plus its Pages deployment before DDB-PC-028 resumes.",
-        "rationale": "Late news and Field Guide backfills would create stale reader-facing material and are outside the approved recovery scope; the durable trust promise is better served by an honest documented gap and a clean return to the current cadence."
+        "rationale": "Late news and Field Guide backfills would create stale reader-facing material and are outside the approved recovery scope; the durable trust promise is better served by an honest documented gap and a clean return to the current cadence.",
+        "supersededAt": "2026-08-10T19:24:53Z",
+        "supersededBy": "David Friedhof",
+        "supersedingDecisionEvidence": "Task message: The last edition on davidsdailybread.com is Sunday, August 9, morning edition. So I'm missing the evening edition of August 9, and the morning edition of this morning. Please publish this for me. I wanna read my news. Thank you.",
+        "replacementDisposition": "Publish exactly the 2026-08-09 evening backfill and 2026-08-10 morning daily edition through the canonical protected Daily bake workflow, then verify both live and preserve all unrelated production boundaries."
       }
     },
     {
