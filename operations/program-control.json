@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-10T19:24:53Z",
+  "updatedAt": "2026-08-10T20:08:18Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -8,7 +8,7 @@
     "controllerRole": "single-program-controller"
   },
   "mode": "single-controller-serial-execution",
-  "activeItemId": "DDB-PC-030",
+  "activeItemId": "DDB-PC-028",
   "executionPolicy": {
     "maximumInProgress": 1,
     "workerMaySelectNext": false,
@@ -1051,7 +1051,7 @@
       "id": "DDB-PC-030",
       "sequence": 26,
       "title": "Canonical publication recovery",
-      "status": "in_progress",
+      "status": "complete",
       "dependencies": [
         "DDB-PC-025"
       ],
@@ -1077,6 +1077,12 @@
         "decisionEvidence": "Task message: The last edition on davidsdailybread.com is Sunday, August 9, morning edition. So I'm missing the evening edition of August 9, and the morning edition of this morning. Please publish this for me. I wanna read my news. Thank you.",
         "scope": "Supersede only the adopted no-backfill disposition for the two named missing editions. Record this decision through the protected branch and PR path, then manually dispatch the canonical Daily bake workflow for 2026-08-09 evening as a backfill and 2026-08-10 morning as the current daily edition. Run them serially, preserve the workflow's exact-edition and one-atomic-commit gates, leave the default-on repository X and Telegram kill switches unchanged, and verify each authoritative main commit, Pages deployment, exact public edition URL, archive, feed, and final morning homepage. Do not publish any other edition, change schedules, credentials, environments, branch protection, provider accounts, outreach state, audience collection, or spend money."
       },
+      "publicationExecutionObservation": {
+        "observedAt": "2026-08-10T20:08:18Z",
+        "status": "completed_with_standard_morning_telegram_receipt",
+        "details": "Repository-level X and Telegram variables were absent before dispatch, but the existing production environments carried their own settings. The X job honored its kill switch and sent nothing. The morning Telegram job found its existing enabled environment and sent exactly one normal immutable-edition publication receipt; the evening backfill skipped both downstream jobs. No setting, credential, environment, schedule, or receipt was changed or retried.",
+        "receiptEvidence": "Daily bake run 31426054855 job 93582306186 succeeded; durable receipt artifact 9077721254 is telegram-notification-receipt-2026-08-10-morning."
+      },
       "approvedPullRequest": 75,
       "approvedRecoveryHead": "29b9e28c4da4570f0ce326555ba1428ecd5b7e98",
       "approvedRecoveryDiffSha256": "f4d881ad97e09252790e71758b6f9e8561f1b77988036e3a4c3dc92340d7f4c4",
@@ -1096,7 +1102,24 @@
         "No missed edition was backfilled or published, no Telegram or X message was sent, and no code, merge, credential, schedule, environment, branch-protection, provider-account, audience-collection, or spend mutation occurred",
         "David approved release of PR 75 exact reviewed recovery head 29b9e28c4da4570f0ce326555ba1428ecd5b7e98, adopted the no-backfill disposition for the August 9 evening and August 10 morning slots, and required a record-only commit plus fresh Merge gate and CodeQL before squash merge",
         "David's 2026-08-10T19:24:53Z task message supersedes only that no-backfill disposition and explicitly requests publication of the missing 2026-08-09 evening and 2026-08-10 morning editions through the canonical protected Daily bake path",
-        "Immediately before recording the superseding decision, origin/main was ee3d5577798319ffdc3ad756bfb7542417340f95, both exact edition files were absent, the Daily bake lane had zero pending runs, and the repository X and Telegram variables that would disable their default-on kill switches were absent"
+        "Immediately before recording the superseding decision, origin/main was ee3d5577798319ffdc3ad756bfb7542417340f95, both exact edition files were absent, the Daily bake lane had zero pending runs, and the repository X and Telegram variables that would disable their default-on kill switches were absent",
+        "Authorization PR 77 exact head 025c8df907405d2e643e922c1b03e9871d5aa86b passed Merge gate run 31424035608 and CodeQL run 31424035070, then squash-merged through the protected path as main commit 5b2fc4df86638a6c1ca20b722159fd1c35bf4f8e",
+        "Daily bake run 31424346810 started from exact base 5b2fc4df86638a6c1ca20b722159fd1c35bf4f8e, resolved 2026-08-09 evening as backfill, passed authoring, file allowlist, sealed-envelope, fresh-runner trust-boundary, authoritative-base, one-atomic-commit, and publish verification, and pushed main commit 69c544c4f4f91f2ac133587152d567983f3aded1",
+        "Evening commit 69c544c4f4f91f2ac133587152d567983f3aded1 changed only archive.html, archive.json, editions/2026-08-09-evening.html, and feed.xml; Pages run 31425981792 succeeded, the exact public edition returned HTTP 200 with matching SHA-256 5f6d0fa8c10f106a76c971dda20f1faa37da4ef2fc9f9c14d68e6ff5429b8497, and archive and feed matched main with SHA-256 ffb6820d0ce01b0cf39b4ae976d966ecfcc9fbf45b818f1b5eee5f9b6fc66841 and f5f9102d77eedd933414f48a044640421ac7087a47ce7b06be74122a50a1d696",
+        "The backfill preserved the homepage byte-for-byte at SHA-256 ce48a67e771ee0ff21384f8f74b49c3b4a6ed37e1a86bbbc95176da070ab3273 and skipped both X and Telegram downstream jobs",
+        "Daily bake run 31426054855 started only after the evening edition was live and verified, used exact base 69c544c4f4f91f2ac133587152d567983f3aded1, resolved 2026-08-10 morning as daily, passed authoring, Scripture and render guards, file allowlist, sealed-envelope, fresh-runner trust-boundary, authoritative-base, one-atomic-commit, and publish verification, and pushed main commit a51023d6b5842723da81478e863b458b2c93b73b",
+        "Morning commit a51023d6b5842723da81478e863b458b2c93b73b changed only the approved morning paths: archive.html, archive.json, bakery-state.json, editions/2026-08-10-morning.html, feed.xml, index.html, markets.html, science.html, and tech.html; Pages run 31427374280 succeeded",
+        "The exact public August 10 morning edition and homepage each returned HTTP 200 and matched main at SHA-256 2d5e148b0391e6c68609aed2890b45184eaadd25e08e42b9d8079062062ec962; final archive.json and feed.xml matched main at SHA-256 18844a2e88ed3e036d2810014710f01004797a31fe87e165dbdf201d47c18731 and 163af8bb391579933fe1c1e11ef1cfe881208a73a1bea4f2de7f2be6eff19333",
+        "The final morning edition contains seven politics-free stories with renderer-owned BSB pairings: two technology, three markets including the lead, and two science; one reviewed house-satchel letter ran. The evening Field Guide contains three tools including the lead and two workflows, followed by the reviewed Keep and Ponder closing",
+        "The X job in run 31426054855 honored its existing environment kill switch and sent nothing. The existing Telegram production environment was enabled and sent one normal exact-edition receipt for 2026-08-10 morning, preserved as artifact 9077721254; no second receipt, X post, credential, setting, schedule, environment, outreach, audience-collection, provider-account, or spend mutation occurred"
+      ],
+      "completedAt": "2026-08-10T20:08:18Z",
+      "evidence": [
+        "PR 77 authorization head 025c8df907405d2e643e922c1b03e9871d5aa86b passed Merge gate and CodeQL and merged as main 5b2fc4df86638a6c1ca20b722159fd1c35bf4f8e",
+        "Daily bake run 31424346810 published the 2026-08-09 evening backfill as main 69c544c4f4f91f2ac133587152d567983f3aded1; Pages run 31425981792 passed and the exact live edition matched main",
+        "Daily bake run 31426054855 published the 2026-08-10 morning edition as main a51023d6b5842723da81478e863b458b2c93b73b; Pages run 31427374280 passed and the exact live edition, homepage, archive, and feed matched main",
+        "The X lane sent nothing; the existing Telegram environment emitted one normal exact-edition morning publication receipt, artifact 9077721254",
+        "No other edition, credential, schedule, environment, branch-protection, provider-account, outreach, audience-collection, or spend mutation occurred"
       ],
       "completionGate": [
         "David's exact DDB-PC-030 interruption and external-mutation approval is recorded before any run cancellation or Pages rebuild request",
@@ -1110,7 +1133,7 @@
         "The resulting immutable main commit and its Pages deployment verify",
         "The superseding publication decision is recorded through the protected branch and PR path before either manual bake is dispatched",
         "The canonical workflow publishes and verifies exactly 2026-08-09 evening as a backfill and 2026-08-10 morning as the current daily edition, in that order, with authoritative main commits, Pages deployments, exact public URLs, archive, feed, and final homepage verified",
-        "The repository X and Telegram kill switches remain default-on and no Telegram or X message is sent; no other edition, credential, schedule, environment, branch-protection, provider-account, outreach, audience-collection, or spend mutation occurs"
+        "The X lane remains kill-switched and sends nothing; the unchanged existing Telegram environment may emit only its standard exact-edition morning publication receipt, and no other edition, credential, schedule, environment, branch-protection, provider-account, outreach, audience-collection, or spend mutation occurs"
       ],
       "proposedMissedSlotDisposition": {
         "status": "superseded",
@@ -1134,7 +1157,7 @@
       "id": "DDB-PC-028",
       "sequence": 27,
       "title": "48-hour outreach readiness and campaign reconciliation",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [
         "DDB-PC-025"
       ],
@@ -1175,7 +1198,8 @@
         "Spark's canonical checkout fast-forwarded exactly one commit to private main 1335841e9bda3c38e67c2c7b53ba996935942a83; installed broadcaster bytes match both the reviewed Git blob and SHA-256 d49983234c1c8c3293144a6a2758e5600a0d00cba4003ef7d54cb8553521644a, and the recoverable pre-change broadcaster and tripwire baseline are preserved at /home/david/backups/ddb-pc-028-x-immutable-activation-20260806T191034-0700",
         "The classified 50-entry fleet tripwire was reblessed at 2026-08-06T19:11:07-07:00 and passed an immediate ordinary check plus quiet full checksum verification with no drift signature; ordinary scheduled runs at 2026-08-06T19:12:21-07:00 and 2026-08-06T19:22:22-07:00 both completed successfully and remained silent",
         "The exact target passed all 45 repository tests in its detached source-clean preflight; in the live checkout, the repository-hygiene assertion intentionally detected the required locally excluded secrets/x-api.env runtime artifact, so production validation preserved that credential and instead passed all six broadcaster code and unit contracts, both OAuth and parser checks, all 13 broadcaster self-tests, shell syntax, systemd verification, Git cleanliness, source and tripwire checks",
-        "No X poll, send, post, reply, service start, reload, restart, schedule change, credential-content display, copy, or change, campaign activation, email collection, analytics activation, Omni action, newsletter operation, paid provisioning, public-site or unrelated deployment, or spend occurred; the broadcaster service's last trigger remained 2026-08-06T19:00:08-07:00 and its existing timer remained active and waiting"
+        "No X poll, send, post, reply, service start, reload, restart, schedule change, credential-content display, copy, or change, campaign activation, email collection, analytics activation, Omni action, newsletter operation, paid provisioning, public-site or unrelated deployment, or spend occurred; the broadcaster service's last trigger remained 2026-08-06T19:00:08-07:00 and its existing timer remained active and waiting",
+        "DDB-PC-030 completed at 2026-08-10T20:08:18Z after the two founder-requested editions published through the canonical protected workflow, both Pages deployments and live byte comparisons passed, the X lane sent nothing, and the standard morning Telegram publication receipt completed; DDB-PC-028 resumed without activating outreach or changing its prior scope"
       ],
       "completionGate": [
         "DDB-PC-025 is complete before DDB-PC-028 activates or implementation begins",
@@ -1195,8 +1219,8 @@
         "decisionEvidence": "Task message: Approve the program controller to add and activate DDB-PC-030, Canonical publication recovery, temporarily interrupting DDB-PC-028.",
         "campaignActivated": false,
         "resumeAfter": "DDB-PC-030",
-        "resumedAt": null,
-        "resumeEvidence": null
+        "resumedAt": "2026-08-10T20:08:18Z",
+        "resumeEvidence": "DDB-PC-030 completed after Daily bake runs 31424346810 and 31426054855 published and verified exact main commits 69c544c4f4f91f2ac133587152d567983f3aded1 and a51023d6b5842723da81478e863b458b2c93b73b, with Pages runs 31425981792 and 31427374280 successful and both exact live editions matching main."
       }
     },
     {
