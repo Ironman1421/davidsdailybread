@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-10T20:16:04Z",
+  "updatedAt": "2026-08-10T20:31:17Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -10,7 +10,7 @@
   "mode": "single-controller-laned-execution",
   "activeItemIds": {
     "local_work": [
-      "DDB-PC-031"
+      "DDB-PC-028"
     ],
     "production_mutation": null
   },
@@ -1196,7 +1196,7 @@
       "id": "DDB-PC-031",
       "sequence": 27,
       "title": "Minimum Viable Safety and Faster Delivery",
-      "status": "in_progress",
+      "status": "complete",
       "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-025"
@@ -1209,6 +1209,17 @@
         "decisionEvidence": "Task message: Approve the program controller to add DDB-PC-031, Minimum Viable Safety and Faster Delivery, immediately after DDB-PC-030 and ahead of DDB-PC-028. Replace global serial execution with parallel local work and one serialized production-mutation lane; give routine bakes, stale-run cancellation, one Pages rebuild, canonical X broadcasting, and bounded low-risk releases standing authorization subject to CI, health checks, and rollback. Preserve explicit approval for spending, credentials, provider terms, personal or spiritual data, email operations, community activation, context-sensitive public replies, generated-media publication, theology, and brand changes. Update the governing documents, contracts, and tests on a clean branch and open a PR. Do not activate outreach as part of this approval",
         "scope": "On a clean branch, replace global serial execution with up to three parallel approved local-work items and one serialized production-mutation lane; give routine bakes, bounded stale-run cancellation, one exact-commit Pages rebuild, exact-edition canonical X broadcasting, and bounded low-risk releases standing authority subject to CI, health checks, idempotency, and rollback; preserve the named explicit approval boundaries; update governing documents, contracts, program control, and tests; push the branch and open a pull request without activating outreach or merging the governance change."
       },
+      "releaseAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-10T20:31:17Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve DDB-PC-031 release of PR #76 at exact head e50298e9195c147153459f2216867b1f12193248 and diff SHA-256 9e4eba2370b0de60f9a3435a34e2fe3c25ac6b67fc4b64eeb577455f5d04d921. Reverify that the head, diff, base, Merge gate, and both CodeQL analyses remain unchanged and green, then squash-merge through the protected path. Verify resulting main and Pages, mark DDB-PC-031 complete, and activate DDB-PC-028 in the local-work lane. Keep Telegram and X disabled, keep outreach inactive, and send no Telegram or X messages.",
+        "approvedPullRequest": 76,
+        "approvedHead": "e50298e9195c147153459f2216867b1f12193248",
+        "approvedDiffSha256": "9e4eba2370b0de60f9a3435a34e2fe3c25ac6b67fc4b64eeb577455f5d04d921",
+        "approvedBase": "0a7f0d97a68133b66d28303934ad2f845a24f8b4",
+        "scope": "Reverify the exact approved PR 76 head, diff, base, and hosted checks; squash-merge through the protected path; verify resulting main and Pages; complete DDB-PC-031; activate only DDB-PC-028 local work; keep Telegram and X disabled and outreach inactive; send no Telegram or X message."
+      },
       "externalMutation": true,
       "startedAt": "2026-08-10T19:17:37Z",
       "progressEvidence": [
@@ -1216,7 +1227,11 @@
         "The implementation branch codex/ddb-pc-031-minimum-viable-safety was reconciled onto main 0a7f0d97a68133b66d28303934ad2f845a24f8b4, the protected-path successor to the authorized publication commit that records the complete DDB-PC-030 evidence",
         "DDB-PC-030 is complete, DDB-PC-031 uses the sole active local-work slot, the production-mutation lane is idle, and DDB-PC-028 remains pending on DDB-PC-031; no outreach, provider, credential, data, public-send, schedule, or production mutation is included in the PR",
         "Seventy-seven focused program-control, product-contract, outreach-blocking, X-broadcast, and Telegram tests passed on the original implementation; reconciliation validation reruns before the updated head is pushed",
-        "David authorized the single Telegram receipt as a disclosed DDB-PC-030 exception, engaged the Telegram production kill switch, required X and outreach to remain inactive, and prohibited DDB-PC-028 activation until DDB-PC-031 is merged and complete"
+        "David authorized the single Telegram receipt as a disclosed DDB-PC-030 exception, engaged the Telegram production kill switch, required X and outreach to remain inactive, and prohibited DDB-PC-028 activation until DDB-PC-031 is merged and complete",
+        "Immediately before release, PR 76 remained exact head e50298e9195c147153459f2216867b1f12193248 on base 0a7f0d97a68133b66d28303934ad2f845a24f8b4 with approved diff SHA-256 9e4eba2370b0de60f9a3435a34e2fe3c25ac6b67fc4b64eeb577455f5d04d921, clean mergeability, Merge gate run 31428303934 passed, and CodeQL run 31428304009 passed for Python and JavaScript/TypeScript",
+        "PR 76 squash-merged through the protected path at 2026-08-10T20:29:27Z as immutable main commit 328dc450112be7b597489f9a939a359b5344b0b7",
+        "Pages run 31429282584 and main CodeQL run 31429284634 succeeded for exact commit 328dc450112be7b597489f9a939a359b5344b0b7; the live homepage and exact August 10 morning edition remained byte-identical to main at SHA-256 2d5e148b0391e6c68609aed2890b45184eaadd25e08e42b9d8079062062ec962",
+        "Telegram and X remained kill-switched, the outreach campaign remained inactive, and no Telegram or X message was sent during release"
       ],
       "completionGate": [
         "David's exact DDB-PC-031 authorization is recorded with sequence 27, immediately after DDB-PC-030 and ahead of DDB-PC-028",
@@ -1229,14 +1244,20 @@
         "The clean implementation branch is pushed and a protected-path pull request is open with the exact implementation head and hosted validation status",
         "No merge, deployment, schedule change, credential change, provider mutation, personal-data action, public send, or outreach activation occurs without the authority defined by the released contract"
       ],
-      "completedAt": null,
-      "evidence": null
+      "completedAt": "2026-08-10T20:31:17Z",
+      "evidence": [
+        "PR 76 exact approved head e50298e9195c147153459f2216867b1f12193248 and diff SHA-256 9e4eba2370b0de60f9a3435a34e2fe3c25ac6b67fc4b64eeb577455f5d04d921 passed Merge gate 31428303934 and CodeQL 31428304009 before release",
+        "PR 76 squash-merged through the protected path as main 328dc450112be7b597489f9a939a359b5344b0b7",
+        "Pages 31429282584 and main CodeQL 31429284634 succeeded for exact main 328dc450112be7b597489f9a939a359b5344b0b7",
+        "The public homepage and exact August 10 morning edition matched main at SHA-256 2d5e148b0391e6c68609aed2890b45184eaadd25e08e42b9d8079062062ec962",
+        "Telegram and X remained disabled, outreach remained inactive, and no message was sent"
+      ]
     },
     {
       "id": "DDB-PC-028",
       "sequence": 28,
       "title": "48-hour outreach readiness and campaign reconciliation",
-      "status": "pending",
+      "status": "in_progress",
       "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-025",
@@ -1281,7 +1302,9 @@
         "The exact target passed all 45 repository tests in its detached source-clean preflight; in the live checkout, the repository-hygiene assertion intentionally detected the required locally excluded secrets/x-api.env runtime artifact, so production validation preserved that credential and instead passed all six broadcaster code and unit contracts, both OAuth and parser checks, all 13 broadcaster self-tests, shell syntax, systemd verification, Git cleanliness, source and tripwire checks",
         "No X poll, send, post, reply, service start, reload, restart, schedule change, credential-content display, copy, or change, campaign activation, email collection, analytics activation, Omni action, newsletter operation, paid provisioning, public-site or unrelated deployment, or spend occurred; the broadcaster service's last trigger remained 2026-08-06T19:00:08-07:00 and its existing timer remained active and waiting",
         "PR 78 recorded DDB-PC-030 complete at 2026-08-10T20:08:18Z after the two founder-requested editions published through the canonical protected workflow, both Pages deployments and live byte comparisons passed, the X lane sent nothing, and the standard morning Telegram publication receipt completed",
-        "David's subsequent exception decision accepted that single Telegram receipt, required the Telegram kill switch to be engaged, and deferred DDB-PC-028 again until DDB-PC-031 is merged and complete; no outreach activation occurred during the brief control-record resume"
+        "David's subsequent exception decision accepted that single Telegram receipt, required the Telegram kill switch to be engaged, and deferred DDB-PC-028 again until DDB-PC-031 is merged and complete; no outreach activation occurred during the brief control-record resume",
+        "DDB-PC-031 completed after exact-head release verification, protected squash merge as main 328dc450112be7b597489f9a939a359b5344b0b7, successful Pages run 31429282584, successful main CodeQL run 31429284634, and live byte verification; DDB-PC-028 then activated only in the local-work lane",
+        "Telegram and X remained kill-switched, outreach remained inactive, and no Telegram or X message was sent during activation"
       ],
       "completionGate": [
         "DDB-PC-025 is complete before DDB-PC-028 activates or implementation begins",
@@ -1305,7 +1328,9 @@
         "resumeEvidence": "PR 78 recorded DDB-PC-030 complete after Daily bake runs 31424346810 and 31426054855 published and verified exact main commits 69c544c4f4f91f2ac133587152d567983f3aded1 and a51023d6b5842723da81478e863b458b2c93b73b, with Pages runs 31425981792 and 31427374280 successful and both exact live editions matching main.",
         "deferredAgainAt": "2026-08-10T20:16:04Z",
         "deferredBy": "David Friedhof",
-        "deferDecisionEvidence": "Task message: Do not activate DDB-PC-028 until DDB-PC-031 is merged and complete."
+        "deferDecisionEvidence": "Task message: Do not activate DDB-PC-028 until DDB-PC-031 is merged and complete.",
+        "finalResumedAt": "2026-08-10T20:31:17Z",
+        "finalResumeEvidence": "DDB-PC-031 merged as main 328dc450112be7b597489f9a939a359b5344b0b7 and its Pages and main CodeQL runs succeeded before DDB-PC-028 activated in the local-work lane; campaign activation remains false."
       }
     },
     {
