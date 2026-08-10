@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-10T20:31:17Z",
+  "updatedAt": "2026-08-10T23:06:48Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -12,7 +12,7 @@
     "local_work": [
       "DDB-PC-028"
     ],
-    "production_mutation": null
+    "production_mutation": "DDB-PC-032"
   },
   "executionPolicy": {
     "contract": "operations/minimum-viable-safety.contract.json",
@@ -1427,6 +1427,63 @@
         "Candidate ranking preserves the distinct morning news-response and evening contemplative roles, their BSB and KJV translations, and renderer ownership without authoring or paraphrasing Scripture",
         "Deterministic tests cover both catalog contracts, stable identifiers, usage-history idempotence, cooldown enforcement, motif and freshness ranking, same-date rerenders, and backfill behavior",
         "The exact implementation head is reported for separate review and no merge, publication, bake rerun, service provisioning, or other prohibited external mutation occurs"
+      ]
+    },
+    {
+      "id": "DDB-PC-032",
+      "sequence": 32,
+      "title": "Evening bake authoring failure diagnosis",
+      "status": "in_progress",
+      "executionLane": "production_mutation",
+      "dependencies": [
+        "DDB-PC-031"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-10T23:01:45Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to pause automation verify-ddb-publication-recovery after its current run closes, then add and activate DDB-PC-032, Evening bake authoring failure diagnosis, in the production-mutation lane while DDB-PC-028 continues only in local work. Inspect failed runs 31434896792 and 31437815029, their redacted artifacts, current workflow source, and credential metadata without exposing values; implement and test only the smallest branch-local safe diagnostic hardening needed to classify future Claude authoring failures without revealing raw model output or secrets; report the exact local head for separate release approval. Do not dispatch or rerun a bake, publish or backfill an edition, send Telegram or X, change credentials, schedules, environments, branch protection, provider accounts, activate outreach, push, open a PR, merge, or spend money.",
+        "scope": "Pause the completed publication-recovery heartbeat without changing its prompt or cadence; activate DDB-PC-032 in the sole production-mutation lane while DDB-PC-028 remains active only in local work; inspect the two exact failed runs, redacted artifacts, current workflow, and credential metadata without values; implement and test only minimal branch-local diagnostic hardening that emits a controlled failure classification without raw model output or secrets; and report the exact local head for separate release approval. Do not dispatch or rerun a bake, publish or backfill an edition, send Telegram or X, change credentials, schedules, environments, branch protection, provider accounts, activate outreach, push, open a PR, merge, or spend money."
+      },
+      "externalMutation": true,
+      "startedAt": "2026-08-10T23:01:45Z",
+      "automationPause": {
+        "id": "verify-ddb-publication-recovery",
+        "status": "PAUSED",
+        "verifiedAt": "2026-08-10T23:01:45Z",
+        "preservedFields": [
+          "kind",
+          "name",
+          "prompt",
+          "rrule",
+          "target_thread_id"
+        ]
+      },
+      "progressEvidence": [
+        "David explicitly authorized the completed publication-recovery heartbeat pause and DDB-PC-032 activation in the production-mutation lane while DDB-PC-028 continues only in local work",
+        "Automation verify-ddb-publication-recovery is verified PAUSED with its heartbeat kind, name, prompt, daily 3:30 PM cadence, and target thread preserved",
+        "DDB-PC-028 remains the sole active local-work item; DDB-PC-032 is the sole active production-mutation item",
+        "The clean implementation branch codex/ddb-pc-032-evening-authoring-diagnostics starts from exact main 514c6187819e3d89eab37327fd862ed6a4802aeb",
+        "Run 31434896792 was a workflow_dispatch on exact head 514c6187819e3d89eab37327fd862ed6a4802aeb; its reader-plan, reviewed-evening-handoff, and Claude installation steps passed, the authoring subprocess failed at 2026-08-10T21:41:17Z, and publish, Telegram, and X jobs were skipped",
+        "Run 31437815029 was the ordinary schedule event on the same exact head; its reader-plan, reviewed-evening-handoff, and Claude installation steps passed, the authoring subprocess failed at 2026-08-10T22:19:57Z, and publish, Telegram, and X jobs were skipped",
+        "Artifacts 9080608967 and 9081659569 each contain only a 186-byte content-summary.json with SHA-256 8cea700b66c3df20acf91ddb0e1ed8abcf46766ab6d332976d286104bb9ff83b, recording 2026-08-10 evening daily contentStatus absent with no lead, cards, or reader sections",
+        "The exact current workflow is byte-identical to the workflow used by successful authoring run 31426054855, whose author job completed at 2026-08-10T20:05:51Z; the failed-run wrapper exposed only exit code 1 and deliberately withheld the raw Claude output, so the historical root cause is not recoverable from retained evidence",
+        "Repository-secret metadata was inspected without values: CLAUDE_CODE_OAUTH_TOKEN exists with updated_at 2026-07-29T22:20:21Z, ANTHROPIC_API_KEY is absent, and X_MONITOR_SITES_BYPASS_TOKEN exists with updated_at 2026-08-04T02:33:02Z; the author job does not use a GitHub Environment",
+        "Claude's official status snapshot was last updated at 2026-08-10T20:39:01.988Z and listed no active incident and operational Claude Code and API components; because that snapshot predates both failures, it does not rule out an unreported provider-side fault",
+        "The branch hardening preserves the raw log only in runner temporary storage, pins the classifier bytes before use, emits only an allowlisted category plus numeric exit code, deletes the raw log, and uploads only the controlled classification JSON beside the existing payload-free content summary",
+        "Thirty targeted classifier, workflow-trust-boundary, unified-evening-handoff, and program-control tests passed; workflow YAML, program-control JSON, and both changed Python sources parsed; git diff --check passed",
+        "No bake was dispatched or rerun, no edition was published or backfilled, no Telegram or X message was sent, and no credential, schedule, environment, branch-protection, provider-account, outreach, remote-branch, pull-request, merge, or spend mutation occurred"
+      ],
+      "completionGate": [
+        "The completed verify-ddb-publication-recovery heartbeat is paused without changing its prompt, cadence, or target thread",
+        "DDB-PC-028 remains active only in local work and DDB-PC-032 remains the sole production-mutation item",
+        "Failed runs 31434896792 and 31437815029 and their redacted artifacts are inspected without exposing raw model output",
+        "Current workflow source and credential metadata are inspected without reading or exposing credential values",
+        "The smallest branch-local hardening classifies future Claude authoring failures using controlled output and never publishes raw model output or secrets",
+        "Targeted program-control, workflow, and diagnostic regression checks pass",
+        "The exact local branch head is reported for separate release approval",
+        "No bake is dispatched or rerun; no edition is published or backfilled; no Telegram or X message is sent; and no credential, schedule, environment, branch-protection, provider-account, outreach, remote-branch, pull-request, merge, or spend mutation occurs"
       ]
     }
   ]

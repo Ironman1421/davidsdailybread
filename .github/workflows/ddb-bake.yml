@@ -222,13 +222,35 @@ jobs:
           7. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
           Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, whether a reviewed house letter ran (morning only), and the render result.
           PROMPT
-          if ! claude -p "$(cat "$RUNNER_TEMP/bake-prompt.txt")" \
+          set +e
+          claude -p "$(cat "$RUNNER_TEMP/bake-prompt.txt")" \
             --model "${BAKE_MODEL}" \
             --dangerously-skip-permissions \
-            > "$RUNNER_TEMP/bake-log.txt" 2>&1; then
-            echo "::error::The bake session failed; raw model output is withheld from logs and artifacts."
-            exit 1
+            > "$RUNNER_TEMP/bake-log.txt" 2>&1
+          claude_exit_code=$?
+          set -e
+          if [ "$claude_exit_code" -ne 0 ]; then
+            if echo "aa800a43478e7a2ee42d88558718171e52acae750f2c8b824e3abed63494dc4d  ddb_claude_failure_classifier.py" | sha256sum --check >/dev/null 2>&1; then
+              if classification="$(python3 ddb_claude_failure_classifier.py "$RUNNER_TEMP/bake-log.txt")"; then
+                :
+              else
+                classification="classifier_error"
+              fi
+            else
+              classification="classifier_integrity"
+            fi
+            case "$classification" in
+              authentication|billing_or_quota|rate_limit|authorization_or_model_access|request_rejected|provider_unavailable|network|cli_configuration|unknown|classifier_error|classifier_integrity) ;;
+              *) classification="classifier_error" ;;
+            esac
+            printf '{"classification":"%s","exitCode":%s,"version":1}\n' \
+              "$classification" "$claude_exit_code" \
+              > "$RUNNER_TEMP/bake-failure-classification.json"
+            rm -f "$RUNNER_TEMP/bake-log.txt"
+            echo "::error::The bake session failed (classification=${classification}, exit=${claude_exit_code}); raw model output is withheld from logs and artifacts."
+            exit "$claude_exit_code"
           fi
+          rm -f "$RUNNER_TEMP/bake-log.txt"
           echo "Bake session completed; raw model output remains ephemeral."
 
       - name: Guard the changed files
@@ -373,7 +395,9 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: bake-${{ needs.prepare-reader-plan.outputs.date }}-${{ needs.prepare-reader-plan.outputs.slot }}-${{ github.run_id }}
-          path: ${{ runner.temp }}/bake-artifacts/content-summary.json
+          path: |
+            ${{ runner.temp }}/bake-artifacts/content-summary.json
+            ${{ runner.temp }}/bake-failure-classification.json
           retention-days: 14
           if-no-files-found: error
 
