@@ -7,10 +7,25 @@ work, and production boundaries.
 
 Interactive work must also follow `operations/program-control.json`, the sole
 source of truth for execution order and task state. Only the designated program
-controller may change that file, activate work, or select a successor. A worker
-executes only its assigned item, returns its completion evidence, and stops.
-Workers may report newly discovered work but may not start it or add it to the
-queue. At most one item may be `in_progress` at a time.
+controller may change that file, activate work, or select successors. A worker
+executes only its assigned item, returns proportional completion evidence, and
+stops. Workers may report newly discovered work but may not start it or add it
+to the queue.
+
+Program control uses three lanes. Routine publication operations have standing
+authority and stay outside the project queue. Up to three approved local-work
+items may be `in_progress` on clean branches at once. At most one production
+mutation may be `in_progress` at a time. A local-work item may not use its lane
+to publish, merge to `main`, change a provider or credential, collect live data,
+send a message, or otherwise cross into the production-mutation lane.
+
+Routine morning and evening bakes, cancellation of stale publication runs, one
+Pages rebuild for an exact published commit, the automatic canonical X post for
+an exact live edition, and bounded low-risk releases are standing-authorized
+when they satisfy `operations/minimum-viable-safety.contract.json`. They preempt
+project work when the publication cadence is at risk. Do not create a second
+approval chain for those actions. Record one concise receipt and escalate only
+when the bounded recovery fails or a sensitive boundary is crossed.
 
 ## Deterministic handoff
 

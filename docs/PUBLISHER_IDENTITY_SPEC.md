@@ -53,6 +53,15 @@ push, an `always()` cleanup releases the reservation; lease expiry is the
 second safety net. If the push succeeds but store finalization fails, retry only
 finalization against the verified edition and SHA; never bake or push again.
 
+Routine publication and bounded recovery have standing authority under
+`operations/minimum-viable-safety.contract.json`. Pending or queued publication
+runs may be cancelled after the bounded stale threshold only when no publisher
+credential or ambiguous write is active. If an exact validated `main` commit is
+not publicly current, request at most one Pages rebuild for that exact commit
+and verify the edition, homepage, archive, and RSS. A second attempt or an
+ambiguous write stops for reconciliation. These actions use one concise receipt
+and do not require a new program item.
+
 No unpublished reader payload or generated bundle uses a normal Actions
 artifact. Anyone with read access to a public repository can access its
 artifacts. The current bake therefore withholds raw model output from Actions
@@ -168,9 +177,10 @@ Before active protection:
    and branch deletion rejected.
 
 If the publisher App is unavailable, fail closed and alert. Do not weaken the
-ruleset or fall back to a PAT or writable `GITHUB_TOKEN`. A missed edition is
-safer and recoverable through supervised `workflow_dispatch` using the same
-App identity.
+ruleset or fall back to a PAT or writable `GITHUB_TOKEN`. Publication
+availability is also a safety property: use the standing-authorized bounded
+recovery, then escalate if it cannot restore the exact nominal edition without
+weakening the publisher boundary.
 
 ## Production activation record
 

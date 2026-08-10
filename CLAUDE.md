@@ -16,10 +16,28 @@ order and task state. `FOUNDER_DOCTRINE.md` remains authoritative above it for
 mission, ownership, strategy, authorized local work, and production boundaries.
 
 Only the designated program controller may activate an item, change task state,
-or select the next item. Every other agent is a worker: execute only the assigned
-item, return the required evidence, and stop. Newly discovered work is a
-finding, not authorization to add or start work. At most one item may be
-`in_progress` at a time.
+or select the next items. Every other agent is a worker: execute only the
+assigned item, return proportional evidence, and stop. Newly discovered work is
+a finding, not authorization to add or start work.
+
+The controller operates three lanes under
+`operations/minimum-viable-safety.contract.json`:
+
+- **Routine operations** are outside the project queue and have standing
+  authority. Scheduled bakes, bounded stale-run cancellation, one Pages rebuild
+  for an exact commit, and the exact-edition canonical X broadcast preempt
+  project work when cadence is at risk.
+- **Local work** permits up to three approved `in_progress` items on separate
+  clean branches. It permits research, implementation, tests, branch pushes,
+  and pull requests, but no merge to `main` or live/provider mutation.
+- **Production mutation** permits one `in_progress` item. It owns merges or
+  other changes to live state that are not already standing-authorized routine
+  operations.
+
+Do not turn a routine recovery into a new approval project. Execute the bounded
+recovery, retain one concise receipt, and escalate only after its retry or
+health-check boundary fails. Do not use the faster lanes to cross any sensitive
+approval boundary.
 
 Every completed action or task, pause, blocked state, approval boundary, or
 end-of-turn handoff must end with a `Recommended next step` section. Choose one
@@ -40,10 +58,13 @@ Treat every change accordingly.
 1. **Branches only.** Never commit or push to `main`. Work on a branch, open a
    PR, let the gate run, then merge. The bake workflow is the one exception: it
    owns its own commits to `main` and always has.
-2. **The merge gate is CI, and it is the only gate.** `.github/workflows/ci.yml`
+2. **The technical merge gate is CI.** `.github/workflows/ci.yml`
    ("Merge gate") runs the full suite plus an explicit render check on every PR.
    Green gate, then merge; red gate means stop and fix, never merge anyway.
    This is `AUTONOMY.md` gate 1 in executable form.
+   A bounded low-risk release that clears the machine contract does not require
+   a second exact-SHA approval. Sensitive releases still require David's scoped
+   approval under the founder doctrine.
 3. **Do not run the test suite on the Spark** (per David, 2026-07-30). The Spark
    is ARM64 and CI is x86_64, so a local result proves nothing. For reference,
    what CI runs is `python -m pytest tests/ -q` followed by

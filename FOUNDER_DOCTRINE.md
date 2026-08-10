@@ -6,6 +6,8 @@ Founder and final decision-maker: David Friedhof
 
 Effective: 2026-08-04
 
+Minimum-viable-safety amendment: 2026-08-10
+
 Supersedes: the 2026-07-31 limits on strategy and local work for community,
 accounts, participation, private messaging, and newsletter planning. The
 production safety gates below remain in force.
@@ -96,6 +98,44 @@ locally. It does not itself publish a page, send a message or email, provision a
 service, install a credential, accept provider terms, spend money, import data,
 or open a production community surface.
 
+## Minimum viable safety and delivery authority
+
+David's 2026-08-10 decision replaces maximum-ceremony execution with
+risk-proportional control. Safety protects readers, credentials, privacy,
+mission integrity, and recoverability. It also protects the promised morning
+and evening cadence. A control that repeatedly blocks valid publication without
+reducing a material risk must be simplified or removed.
+
+The program controller may run up to three approved local-work items in
+parallel on separate clean branches while serializing production mutations to
+one at a time. Routine publication operations are not program-queue items and
+preempt project work when cadence is at risk.
+
+The following are standing-authorized when they satisfy the machine-readable
+minimum-viable-safety contract, existing content rules, CI, exact-target health
+checks, idempotency, and rollback requirements:
+
+- normal scheduled morning and evening bakes;
+- cancellation of stale or superseded publication runs within the bounded
+  recovery rule;
+- one GitHub Pages rebuild for an exact commit whose validated public surface
+  is missing or stale;
+- one automatic canonical X broadcast for each exact live edition; and
+- bounded low-risk releases within the existing architecture and public
+  contracts.
+
+These actions need one concise receipt, not a chain of new approval records.
+If the bounded retry fails, the target is ambiguous, or the proposed change no
+longer meets the low-risk definition, stop and escalate.
+
+Explicit David approval remains required for spending, credentials or account
+security, new providers or acceptance of provider terms, personal or spiritual
+data, email or list operations, community activation, context-sensitive public
+replies, generated-media input or publication, theology, public brand changes,
+and any destructive or difficult-to-reverse action. The outreach campaign
+remains inactive until its separate activation decision; this amendment does
+not authorize it.
+
 ## Current production boundaries
 
 Until David explicitly records a different decision in the repository:
@@ -161,7 +201,8 @@ Until David explicitly records a different decision in the repository:
 
 Contributors and AI agents may now research, design, draft specifications,
 prototype, implement, and test locally across the roadmap within an assigned
-task. They may not infer permission to publish, send, spend money, provision
+task. Multiple approved local tasks may proceed in the local-work lane. They
+may not infer permission to publish, send, spend money, provision
 services, install credentials, accept provider terms, enter partnerships,
 change theology, collect live personal data, open an external surface, or
 expand governance. Silence, an old plan, a completed phase, a live signup form,
@@ -172,6 +213,9 @@ Passing a gate makes the next phase eligible for a scoped founder decision. It
 does not automatically authorize external action. Production activation must
 name the exact surface, reviewed commit or package, operator, data boundary,
 moderation coverage, cost ceiling, rollback, and measurement window.
+Bounded low-risk releases and standing-authorized routine operations are not
+new surface activations and follow
+`operations/minimum-viable-safety.contract.json` instead.
 
 ## Authority and continuity
 
