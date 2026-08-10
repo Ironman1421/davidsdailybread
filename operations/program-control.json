@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-10T17:48:00Z",
+  "updatedAt": "2026-08-10T17:52:29Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1068,7 +1068,15 @@
       "progressEvidence": [
         "David authorized DDB-PC-030 as the sole active item and temporarily interrupted DDB-PC-028 without authorizing campaign activation or any unrelated mutation",
         "The immutable production target is main commit 07d6c72e9120e91ba6537586ba9fa77ed305d4f4; the approved queue targets are run 31312284374 and its seven pending successors",
-        "The approved recovery order is to reverify all exact targets, cancel the seven pending successors first and run 31312284374 last, request at most one Pages rebuild for the exact target commit, and verify the August 9 morning edition publicly"
+        "The approved recovery order is to reverify all exact targets, cancel the seven pending successors first and run 31312284374 last, request at most one Pages rebuild for the exact target commit, and verify the August 9 morning edition publicly",
+        "Immediately before mutation, main remained exact commit 07d6c72e9120e91ba6537586ba9fa77ed305d4f4, Pages build 1141076276 remained building since 2026-08-09T11:54:46Z, the August 9 morning URL returned HTTP 404, run 31312284374 remained queued, and runs 31316227334, 31337428444, 31338431945, 31341083375, 31384517557, 31388409294, and 31396231717 remained pending",
+        "The seven approved successor runs reached completed/cancelled in order before run 31312284374 was touched; their terminal timestamps were 2026-08-10T17:49:23Z through 2026-08-10T17:49:27Z",
+        "GitHub accepted an ordinary cancellation for run 31312284374 but left it queued; the exact run then required GitHub's force-cancel endpoint and reached completed/cancelled at 2026-08-10T17:50:38Z",
+        "After cancellation, the Daily bake lane contained zero pending, queued, or in-progress runs",
+        "With main reverified at the exact approved commit, one and only one Pages rebuild was requested; build 1143542046 started at 2026-08-10T17:50:58Z and completed built in 17380 milliseconds at 2026-08-10T17:51:15Z",
+        "The public August 9 morning edition returned HTTP 200 and matched exact commit SHA-256 ce48a67e771ee0ff21384f8f74b49c3b4a6ed37e1a86bbbc95176da070ab3273",
+        "Public index.html, archive.json, and feed.xml matched the exact main bytes with SHA-256 ce48a67e771ee0ff21384f8f74b49c3b4a6ed37e1a86bbbc95176da070ab3273, 084470cd155a303199a05eb63525568bcd37873be7cac12ad56061309174c33f, and d8c640113bb86bf6710d014935eb9f1c4f864721149546c04070b4de43986bdc; homepage, archive, feed, and subscribe returned HTTP 200 while counter.csv remained HTTP 404",
+        "No missed edition was backfilled or published, no Telegram or X message was sent, and no code, merge, credential, schedule, environment, branch-protection, provider-account, audience-collection, or spend mutation occurred"
       ],
       "completionGate": [
         "David's exact DDB-PC-030 interruption and external-mutation approval is recorded before any run cancellation or Pages rebuild request",
@@ -1078,7 +1086,17 @@
         "The public August 9 morning edition returns HTTP 200 and matches the exact edition committed on main",
         "Immutable recovery evidence and a proposed disposition for the missed publication slots are returned before DDB-PC-028 resumes",
         "No missed edition is backfilled or published, no Telegram or X message is sent, and no code, merge, credential, schedule, environment, branch-protection, provider-account, audience-collection, or spend mutation occurs"
-      ]
+      ],
+      "proposedMissedSlotDisposition": {
+        "status": "awaiting_report_delivery",
+        "recoveredEdition": "2026-08-09-morning",
+        "missedEditions": [
+          "2026-08-09-evening",
+          "2026-08-10-morning"
+        ],
+        "proposal": "Do not backfill either missed edition. Preserve the archive gap and incident evidence, allow the next nominal edition to use the unchanged normal schedule, and verify that edition plus its Pages deployment before DDB-PC-028 resumes.",
+        "rationale": "Late news and Field Guide backfills would create stale reader-facing material and are outside the approved recovery scope; the durable trust promise is better served by an honest documented gap and a clean return to the current cadence."
+      }
     },
     {
       "id": "DDB-PC-028",
