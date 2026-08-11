@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-11",
+      "edition": "evening",
+      "dateHuman": "Tuesday, August 11, 2026",
+      "file": "editions/2026-08-11-evening.html",
+      "lead": "Gmail filters can sort, label, and archive your mail before you ever open the inbox",
+      "pubDate": "Tue, 11 Aug 2026 18:35:44 -0400"
+    },
+    {
+      "date": "2026-08-11",
       "edition": "morning",
       "dateHuman": "Tuesday, August 11, 2026",
       "file": "editions/2026-08-11-morning.html",

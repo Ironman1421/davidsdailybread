@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-11",
+      "name": "Rowboat",
+      "url": "https://github.com/rowboatlabs/rowboat",
+      "trend_url": "https://www.makeuseof.com/open-source-ai-app-what-wanted-claude-cowork-to-be/",
+      "cost": "Free, Apache-2.0",
+      "kind": "Mac, Windows, Linux desktop",
+      "seen": "MakeUseOf, August 10",
+      "blurb": "An AI workspace that keeps its memory on your own disk, indexing email, meetings, and notes into a linked knowledge graph written as plain Markdown files and sitting beside a built-in mail client, notes, browser, and meeting transcription, with downloadable builds for Mac, Windows, and Linux and no Docker to set up, and the honest catch is that it brings no brain of its own: you point it at a local model through Ollama or LM Studio or supply your own paid provider key, and the parts that make it useful, Gmail and Calendar through Google sign-in, voice, and web search, each want their own connection before they work, which MakeUseOf's Mahnoor Faisal also found took setup past the install."
+    },
+    {
+      "date": "2026-08-11",
+      "name": "Hyperspace",
+      "url": "https://apps.apple.com/us/app/hyperspace/id6739505345",
+      "trend_url": "https://news.ycombinator.com/item?id=49252493",
+      "cost": "Free scan; unlock from $9.99",
+      "kind": "macOS 15 or later, APFS",
+      "seen": "Hacker News, 85 points",
+      "blurb": "It finds files whose contents are identical and hands back the space the copies waste without removing any of them, using a standard macOS file system feature to replace them with space-saving clones, and both the catch and the argument are about money: the scan is free and shows you the savings first, but reclaiming them is the paid part, at $9.99 for a month, $19.99 for a year, or $49.99 for a lifetime unlock from Hypercritical LLC, which is precisely what the Hacker News thread of 85 points and 62 comments spent the night disputing, some calling the unpriced scan a dark pattern and others calling it ordinary shareware."
+    },
+    {
+      "date": "2026-08-11",
+      "name": "Write.md",
+      "url": "https://writemd.app/",
+      "trend_url": "https://news.ycombinator.com/item?id=49258011",
+      "cost": "Free, Apache 2.0",
+      "kind": "Apple silicon Macs only",
+      "seen": "Hacker News, 59 points",
+      "blurb": "A writing app that leaves your work as ordinary Markdown files on your own disk with no account and no telemetry, installed from a .dmg on its releases page, and it spends its effort on how the page feels, with appearance profiles covering typography, color, opacity, glass effects, backgrounds, and window borders, optional Vim keys, and spelling and style help that runs on the machine instead of in a cloud service, though the maker is equally plain about the limits: it runs on Apple silicon Macs only, ships no bundled themes so each profile starts from nothing, corrects basic US English and no other language, and syncs to nothing at all, which is the point until the day you want the same draft on a second device."
+    },
+    {
       "date": "2026-08-08",
       "name": "Craft",
       "url": "https://www.craft.do/",
@@ -345,6 +375,34 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-11",
+      "title": "Turn a course syllabus into a working study plan before the term starts",
+      "url": "https://www.xda-developers.com/set-up-gistr-before-every-new-term-turns-syllabus-into-study-plan/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Aug 11",
+      "dek": "<b>One Collection per course</b> Nolen Jonker sets up a Collection for each course before classes begin, adds the syllabus, readings, and lecture videos as separate threads that keep the source on one side and a chat panel on the other, has the syllabus thread pull out every deadline and graded component, writes his own weekly priorities next to that breakdown, and keeps one reference Collection for material that crosses courses, and he names the limits plainly: Gistr's free tier gives a full workspace with 300 AI credits a day before the paid plans he reports starting at $8 a month with a 50 percent student discount, video support covers YouTube rather than files you upload, and answers stay grounded in the sources you added unless you turn on web search.",
+      "needs": [
+        "A free Gistr account in the browser",
+        "Your syllabus and readings as files",
+        "The Chrome extension, optional"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-08-11",
+      "title": "Keep one USB drive that can boot, repair, and scan any Windows PC in the house",
+      "url": "https://www.howtogeek.com/i-turned-this-tiny-usb-drive-into-the-ultimate-pc-rescue-tool/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 11",
+      "dek": "<b>Ventoy, then drag and drop</b> Ismar Hrnjicevic installs the free Ventoy2Disk utility onto a 64GB EAGET dual connector drive he bought for $16, then simply copies in the files he wants to boot from, a Windows 11 ISO, Hiren's BootCD PE for a live desktop, Malwarebytes for cleanup, and HWiNFO for hardware readings, and uses Ventoy's Preserve space option so a second FAT32 partition made in Disk Management can still carry ordinary files, and he does not oversell the hardware: the drive runs hot enough under sustained use to slow itself down, its small connectors and exposed ports want caps and care, and he keeps an electric duster nearby for cooling.",
+      "needs": [
+        "A USB drive, 64GB is plenty",
+        "Ventoy, free to download",
+        "The ISOs and tools you want aboard"
+      ],
+      "time": "An hour, mostly copying"
+    },
     {
       "date": "2026-08-08",
       "title": "Replace six separate apps with one browser's built-in mail, calendar, notes, and screenshot tools",
