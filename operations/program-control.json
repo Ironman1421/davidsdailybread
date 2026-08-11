@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-10T23:06:48Z",
+  "updatedAt": "2026-08-11T15:42:01Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -12,7 +12,7 @@
     "local_work": [
       "DDB-PC-028"
     ],
-    "production_mutation": "DDB-PC-032"
+    "production_mutation": null
   },
   "executionPolicy": {
     "contract": "operations/minimum-viable-safety.contract.json",
@@ -1433,7 +1433,7 @@
       "id": "DDB-PC-032",
       "sequence": 32,
       "title": "Evening bake authoring failure diagnosis",
-      "status": "in_progress",
+      "status": "complete",
       "executionLane": "production_mutation",
       "dependencies": [
         "DDB-PC-031"
@@ -1445,6 +1445,17 @@
         "grantedBy": "David Friedhof",
         "decisionEvidence": "Task message: Approve the program controller to pause automation verify-ddb-publication-recovery after its current run closes, then add and activate DDB-PC-032, Evening bake authoring failure diagnosis, in the production-mutation lane while DDB-PC-028 continues only in local work. Inspect failed runs 31434896792 and 31437815029, their redacted artifacts, current workflow source, and credential metadata without exposing values; implement and test only the smallest branch-local safe diagnostic hardening needed to classify future Claude authoring failures without revealing raw model output or secrets; report the exact local head for separate release approval. Do not dispatch or rerun a bake, publish or backfill an edition, send Telegram or X, change credentials, schedules, environments, branch protection, provider accounts, activate outreach, push, open a PR, merge, or spend money.",
         "scope": "Pause the completed publication-recovery heartbeat without changing its prompt or cadence; activate DDB-PC-032 in the sole production-mutation lane while DDB-PC-028 remains active only in local work; inspect the two exact failed runs, redacted artifacts, current workflow, and credential metadata without values; implement and test only minimal branch-local diagnostic hardening that emits a controlled failure classification without raw model output or secrets; and report the exact local head for separate release approval. Do not dispatch or rerun a bake, publish or backfill an edition, send Telegram or X, change credentials, schedules, environments, branch protection, provider accounts, activate outreach, push, open a PR, merge, or spend money."
+      },
+      "completionAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-11T15:42:01Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: close DDB-PC-032 now using PR 80 head a3f821a512cd210174440b88943be6a4df708fc2, merge commit a4b5ba39f348983e2de74c2d7bf3c50d93ccb27c, and successful bake run 31487646686",
+        "approvedPullRequest": 80,
+        "approvedHead": "a3f821a512cd210174440b88943be6a4df708fc2",
+        "approvedMergeCommit": "a4b5ba39f348983e2de74c2d7bf3c50d93ccb27c",
+        "approvedBakeRun": 31487646686,
+        "scope": "Close DDB-PC-032 using the exact protected PR head, immutable merge commit, and successful Daily bake run named by David. Leave DDB-PC-028 active only in local work and activate no production-mutation successor."
       },
       "externalMutation": true,
       "startedAt": "2026-08-10T23:01:45Z",
@@ -1484,6 +1495,17 @@
         "Targeted program-control, workflow, and diagnostic regression checks pass",
         "The exact local branch head is reported for separate release approval",
         "No bake is dispatched or rerun; no edition is published or backfilled; no Telegram or X message is sent; and no credential, schedule, environment, branch-protection, provider-account, outreach, remote-branch, pull-request, merge, or spend mutation occurs"
+      ],
+      "completedAt": "2026-08-11T15:42:01Z",
+      "evidence": [
+        "Automation verify-ddb-publication-recovery remains recorded PAUSED with its heartbeat kind, name, prompt, daily 3:30 PM cadence, and target thread preserved",
+        "DDB-PC-028 remains the sole active local-work item and the production-mutation lane is idle after DDB-PC-032 closure",
+        "Failed runs 31434896792 and 31437815029, redacted artifacts 9080608967 and 9081659569, current workflow source, and credential metadata were inspected without exposing raw model output or credential values",
+        "PR 80 exact head a3f821a512cd210174440b88943be6a4df708fc2 passed Merge gate run 31441364605 and CodeQL run 31441364592 before protected merge",
+        "PR 80 merged through the protected path as immutable main commit a4b5ba39f348983e2de74c2d7bf3c50d93ccb27c",
+        "Daily bake run 31487646686 completed successfully on exact merge commit a4b5ba39f348983e2de74c2d7bf3c50d93ccb27c; authoring, guarded envelope creation, fresh-runner validation, atomic publish, and publish verification succeeded, while failure-diagnostic collection correctly skipped on the successful path",
+        "The released hardening retains raw authoring output only in runner temporary storage, emits only an allowlisted classification plus numeric exit code, deletes the raw log, and uploads only controlled redacted diagnostics on failure",
+        "The implementation's thirty targeted classifier, workflow-trust-boundary, unified-evening-handoff, and program-control checks passed, and no production-mutation successor was activated"
       ]
     }
   ]
