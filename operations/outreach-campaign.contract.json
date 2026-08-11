@@ -82,7 +82,7 @@
     "readinessReceipt": "operations/x-outreach-readiness-receipt.json",
     "readinessStatus": "blocked",
     "blockers": [
-      "x-readiness-receipt-requires-current-immutable-broadcast-readback"
+      "latest-due-evening-canonical-broadcast-not-found"
     ],
     "canonicalBroadcaster": "Spark daicc-ddb-autopost",
     "broadcasterChangeAuthorized": false,
