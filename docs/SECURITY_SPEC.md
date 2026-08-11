@@ -153,16 +153,12 @@ applicable controls below:
 - Content generation and provider posting are separate authorities. A source
   page, model response, or repository issue must never be able to request a
   credentialed post directly.
-- Gemini Omni campaign generation accepts only already-public canonical DDB
-  inputs and rights-cleared assets. Master prompts, watchlists, unpublished
-  strategy, credentials, private analytics, reader material, and unpublished
-  editions never enter the consumer provider. Verify the exact approved Google
-  account and plan, use a temporary chat or Keep Activity off, submit no
-  feedback containing campaign material, preserve provider watermarking,
-  disclose material AI generation, and keep the full provenance record outside
-  the public repository. Provider upload and generation require separate exact
-  input-package approval; publication requires separate exact final-package
-  approval.
+- Gemini Omni, YouTube, and all generated-media lanes are deferred from the
+  lean core-proof outreach campaign. The campaign performs no provider-account
+  verification, terms acceptance, upload, generation, or media publication.
+  Existing provider, restricted-input, provenance, disclosure, and rights
+  controls remain dormant defense-in-depth for any separately approved future
+  generated-media work.
 
 ## Current exceptions requiring closure
 

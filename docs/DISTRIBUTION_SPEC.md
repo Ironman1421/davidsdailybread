@@ -24,10 +24,9 @@ Last reconciled: 2026-08-07
 - X reply operations start with two manual approval/posting windows and a hard
   cap of four published replies per day. A third window and six/day are disabled
   unless David separately approves and staffs them.
-- The approved campaign direction seeks three to five qualified replies on
-  staffed operating days, but four remains the machine-enforced ceiling. A
-  fifth is not authorized until a staffed third window, contract, ledger,
-  schema, and tests are separately reconciled and approved.
+- The lean campaign permits zero through four qualified manual replies on
+  staffed operating days. Four remains the machine-enforced ceiling and is not
+  a quota. A fifth requires a new founder amendment.
 
 This repository owns the canonical edition and channel-neutral distribution
 contract. A separate private adapter repository is allowed only when its owner,
@@ -128,12 +127,13 @@ the website count and is never added to it.
   impossible. The active Spark observation is recorded in
   `docs/OPERATIONS_EVIDENCE_2026-08-01.md`.
 
-The zero-dollar outreach campaign adds no more than one original,
-edition-derived X item per calendar day after exact activation. It must point
-to the exact dated edition and receive exact text and asset approval. Two
-weekly Gemini Omni releases consume this same slot. They are not extra posts.
-`docs/OUTREACH_CAMPAIGN.md` owns the campaign-specific readiness, diagnostics,
-provider, disclosure, and stop boundaries.
+The lean core-proof outreach campaign adds no more than one individually
+approved evening Field Guide source card per calendar day after exact
+activation. It must point to the exact immutable evening edition and receive
+exact text and asset approval. Gemini Omni, YouTube, and generated media are
+deferred and cannot satisfy campaign readiness. `docs/OUTREACH_CAMPAIGN.md`
+owns the campaign-specific return gate, diagnostics, approval, and stop
+boundaries.
 
 ### X reply approval contract
 
@@ -151,12 +151,12 @@ profile-conversion readiness, Premium and analytics availability, exact scope,
 and operator/security checks. Any failed hard check rejects the candidate even
 when its numeric scores pass.
 
-The default is two staffed manual windows and no more than four published
-replies per day, measured in Pacific time. Six/day requires a separately
-approved and staffed third window plus an updated machine-readable baseline; it
-is currently disabled. Never fill a quota with a weaker candidate. A proactive
-target needs at least 72 hours between DDB replies and may receive no more than
-two in a rolling 14 days.
+The lean campaign uses two staffed manual windows and permits zero through four
+published replies per day, measured in Pacific time. It allows no more than
+four published replies per day. Four is an absolute ceiling, not a quota. A
+fifth reply requires a new founder amendment. Never fill a quota with a weaker
+candidate. A proactive target needs at least 72 hours between DDB replies and
+may receive no more than two in a rolling 14 days.
 
 The first 30 operating days prohibit DDB links in proactive replies unless the
 parent author requests the source or the claim would otherwise be
@@ -187,14 +187,18 @@ approval of one reply is not permission to automate another.
 
 ### YouTube
 
+YouTube is deferred from the lean core-proof outreach campaign. The following
+pilot design remains a dormant future-planning contract and conveys no current
+account, upload, publication, or campaign-clock authority.
+
 - Role: initial discovery engine and later long-form trust engine.
 - Publish one morning and one evening vertical when the source package is ready;
   never delay or weaken the canonical edition to fill a video quota.
 - Initial format lab: the specific `docs/YOUTUBE_PILOT_SPEC.md` four-cell design
   governs. It requires five eligible public Shorts in each franchise-by-voice-
   mode cell and releases no more than one public variant from a source package.
-  Gemini Omni pieces on X are outside that experiment and cannot satisfy its
-  cells or start its clock.
+  Generated-media items from any other lane cannot satisfy its cells or start
+  its clock.
 - Select on engaged views, retention, subscribers per 1,000 engaged views,
   shares, and returning viewers. Raw Shorts starts are diagnostic, not the win
   condition.
