@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-11T16:22:04Z",
+  "updatedAt": "2026-08-11T19:38:01Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1279,6 +1279,15 @@
         "decisionEvidence": "Task message: Approve the program controller to amend DDB-PC-028 before campaign activation into a lean core-proof campaign: prioritize the evening Field Guide as the acquisition franchise, retain individually approved X source cards and up to four qualified manual replies on staffed days, defer Gemini Omni and YouTube, and require one privacy-safe observable return path before the campaign clock starts. Do not activate email, analytics, community features, generated media, provisioning, deployment, spending, or public outreach under this approval.",
         "scope": "Before any campaign activation, reconcile DDB-PC-028 into a lean core-proof campaign centered on the evening Field Guide as the acquisition franchise. Retain only individually approved X source cards and no more than four qualified manual replies on staffed days. Defer Gemini Omni and YouTube. Require one privacy-safe observable return path to be implemented, validated, and recorded before the campaign clock may start. This amendment authorizes local reconciliation only and does not authorize email, analytics, community features, generated media, provisioning, deployment, spending, public outreach, campaign activation, or the campaign clock start."
       },
+      "observableReturnImplementationAuthorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-11T19:30:38Z",
+        "grantedBy": "David Friedhof",
+        "proposalCommit": "5910737fe10c3a2452c0ba77a9e25660c20ae4f3",
+        "decisionEvidence": "Task message: Approve DDB-PC-028 observable-return implementation from proposal commit 5910737fe10c3a2452c0ba77a9e25660c20ae4f3: implement the exact-post X URL-link-click aggregate receipt described in docs/OUTREACH_OBSERVABLE_RETURN_PROPOSAL.md, and perform one read-only validation against an existing @DavidDailyBread post with an exact immutable edition URL. Use only the already available official X analytics surface; store only the closed aggregate receipt and restricted evidence hash; do not post, reply, change an account or credential, register for ads, accept terms, export row-level data, activate site analytics, email, or a community feature, provision or deploy anything, merge, spend money, or start the campaign clock. Report the exact local commit and validation result for separate release approval.",
+        "scope": "Implement the proposal's closed exact-post X URL-link-click aggregate receipt and perform one read-only validation through the already available official X analytics surface. Store no row-level or personal data and make no public, provider, account, credential, analytics-activation, email, community, provisioning, deployment, merge, spend, or campaign-clock mutation. Report the exact local implementation commit for a separate release decision."
+      },
       "externalMutation": true,
       "startedAt": "2026-08-07T00:06:03Z",
       "progressEvidence": [
@@ -1315,7 +1324,13 @@
         "Telegram and X remained kill-switched, outreach remained inactive, and no Telegram or X message was sent during activation",
         "David's 2026-08-11T16:10:33Z decision authorizes a clean-branch amendment of DDB-PC-028 into a lean core-proof campaign centered on the evening Field Guide, with individually approved X source cards, zero through four qualified manual replies on staffed days, Gemini Omni and YouTube deferred, and one privacy-safe observable return path required before the campaign clock starts; this decision activates no campaign surface or external action",
         "Clean branch codex/ddb-pc-028-lean-core-proof is based on origin/main cba744302e3a8950b64a4834ffd48dae927008ca and reconciles the governing campaign documents, machine-readable contract, schema, and tests while leaving the observable return gate blocked pending a separate implementation and activation decision",
-        "Local validation passed 247 repository tests, the explicit two-slot render check, JSON parsing, and git diff checks on arm64; hosted x86_64 Merge gate validation remains required for any release"
+        "Local validation passed 247 repository tests, the explicit two-slot render check, JSON parsing, and git diff checks on arm64; hosted x86_64 Merge gate validation remains required for any release",
+        "Proposal commit 5910737fe10c3a2452c0ba77a9e25660c20ae4f3 selects an exact-post X URL-link-click aggregate receipt with a closed privacy boundary, fail-closed validation, no site instrumentation, and no claim that a click is a person, page load, returning reader, or first-1,000 participant",
+        "David's 2026-08-11T19:30:38Z decision authorizes only local implementation of proposal commit 5910737fe10c3a2452c0ba77a9e25660c20ae4f3 and one read-only official-X-UI validation; it does not authorize posting, replying, account or credential mutation, ads registration, terms acceptance, row-level export, analytics activation, email, community features, provisioning, deployment, merge, spending, campaign activation, or campaign clock start",
+        "The 2026-08-11T19:35:55Z read-only validation used the official X UI on the correct @DavidDailyBread account and existing exact-edition post https://x.com/DavidDailyBread/status/2084678677217067269; Post Analytics displayed Link clicks = 0, proving the metric is observable while proving no click event occurred",
+        "The validation committed only the closed aggregate receipt and restricted evidence SHA-256 be489f8da9b2b64ff2774cc5136865c5a392459fd898044203e191179d0c2550; the 97,845-byte screenshot remains outside the repository in restricted local storage, and no identity, row-level export, credential, or screenshot bytes entered the repository",
+        "No post, reply, account or credential change, ads registration, terms acceptance, settings change, export, analytics activation, email or community action, personal-data collection, provisioning, deployment, merge, spend, campaign activation, or campaign-clock start occurred during implementation or validation",
+        "The observable-return implementation passed 264 repository tests, the explicit two-slot render check, its closed-receipt validator, JSON parsing, and git diff checks on Darwin arm64; hosted x86_64 Merge gate validation remains required for any release"
       ],
       "completionGate": [
         "DDB-PC-025 is complete before DDB-PC-028 activates or implementation begins",

@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "status": "inactive-campaign-not-started",
+  "programItem": "DDB-PC-028",
+  "receiptSchema": "operations/schemas/outreach-observable-return-receipt-v1.schema.json",
+  "campaignActivationReceipt": null,
+  "entries": []
+}

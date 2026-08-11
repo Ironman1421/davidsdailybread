@@ -87,7 +87,7 @@
       "required": ["status", "selectedPath", "observable", "implementationReceipt", "validationReceipt", "requiredBeforeCampaignClockStarts", "disallowedSubstitutes", "privacyBoundary"],
       "properties": {
         "status": {"enum": ["blocked-pending-privacy-safe-observable-path", "ready"]},
-        "selectedPath": {"type": ["string", "null"]},
+        "selectedPath": {"enum": ["x_exact_edition_url_link_click", null]},
         "observable": {"type": "boolean"},
         "implementationReceipt": {"type": ["string", "null"]},
         "validationReceipt": {"type": ["string", "null"]},
@@ -100,10 +100,10 @@
           "if": {"properties": {"status": {"const": "ready"}}, "required": ["status"]},
           "then": {
             "properties": {
-              "selectedPath": {"type": "string", "minLength": 1},
+              "selectedPath": {"const": "x_exact_edition_url_link_click"},
               "observable": {"const": true},
-              "implementationReceipt": {"type": "string", "minLength": 1},
-              "validationReceipt": {"type": "string", "minLength": 1}
+              "implementationReceipt": {"const": "operations/outreach-observable-return-implementation-receipt.json"},
+              "validationReceipt": {"const": "operations/outreach-observable-return-validation-receipt.json"}
             }
           }
         }

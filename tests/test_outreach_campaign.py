@@ -37,6 +37,13 @@ def semantic_errors(contract, receipt, reply_ledger):
             errors.append("not-started campaign has an end")
         if window["activationReceipt"] is not None:
             errors.append("not-started campaign has an activation receipt")
+    else:
+        if not window["activationReceipt"]:
+            errors.append("campaign clock starts without exact activation receipt")
+        if not window["startsAt"] or not window["endsAt"]:
+            errors.append("campaign clock starts without exact window")
+        if contract["status"] != "active":
+            errors.append("campaign clock starts while campaign is blocked")
 
     return_gate = contract["returnPathGate"]
     if window["status"] != "not_started" and return_gate["status"] != "ready":
@@ -164,16 +171,27 @@ class OutreachCampaignContractTest(unittest.TestCase):
         self.assertFalse(franchise["morningSourceCardsAuthorized"])
         self.assertEqual(1, self.contract["x"]["sourceCardsPerCalendarDay"])
 
-    def test_observable_return_is_a_blocking_privacy_safe_gate(self):
+    def test_observable_return_path_is_ready_but_campaign_stays_blocked(self):
         gate = self.contract["returnPathGate"]
-        self.assertEqual("blocked-pending-privacy-safe-observable-path", gate["status"])
-        self.assertFalse(gate["observable"])
-        self.assertIsNone(gate["selectedPath"])
+        self.assertEqual("ready", gate["status"])
+        self.assertTrue(gate["observable"])
+        self.assertEqual("x_exact_edition_url_link_click", gate["selectedPath"])
+        self.assertEqual(
+            "operations/outreach-observable-return-implementation-receipt.json",
+            gate["implementationReceipt"],
+        )
+        self.assertEqual(
+            "operations/outreach-observable-return-validation-receipt.json",
+            gate["validationReceipt"],
+        )
         self.assertTrue(gate["requiredBeforeCampaignClockStarts"])
         self.assertIn("rss-follow-intent", gate["disallowedSubstitutes"])
         self.assertIn("unknown-site-return", gate["disallowedSubstitutes"])
         self.assertTrue(all(value is False for value in gate["privacyBoundary"].values()))
         self.assertEqual("unknown", self.contract["diagnostics"]["siteReturnStatus"])
+        self.assertEqual(
+            "readiness-active-public-campaign-blocked", self.contract["status"]
+        )
 
     def test_manual_reply_range_is_zero_through_four(self):
         x = self.contract["x"]
@@ -219,10 +237,10 @@ class OutreachCampaignContractTest(unittest.TestCase):
         premature_clock["campaignWindow"]["status"] = "active"
         premature_clock["campaignWindow"]["startsAt"] = "2026-08-12T00:00:00Z"
         self.contract_validator.validate(premature_clock)
-        self.assertIn(
-            "campaign clock starts without a ready observable return path",
-            semantic_errors(premature_clock, self.receipt, self.reply_ledger),
-        )
+        errors = semantic_errors(premature_clock, self.receipt, self.reply_ledger)
+        self.assertIn("campaign clock starts without exact activation receipt", errors)
+        self.assertIn("campaign clock starts without exact window", errors)
+        self.assertIn("campaign clock starts while campaign is blocked", errors)
 
     def test_governing_prose_names_the_machine_law(self):
         paths = (

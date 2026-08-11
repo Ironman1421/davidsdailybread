@@ -19,9 +19,11 @@ X source cards derived from an exact evening edition and up to four qualified
 manual replies on staffed days. Gemini Omni, YouTube, and every generated-media
 lane are deferred.
 
-The campaign clock has not started. It cannot start until one privacy-safe
-observable return path is implemented, validated, recorded, and included in an
-exact activation receipt approved by David. This reconciliation does not
+The campaign clock has not started. The locally implemented
+`x_exact_edition_url_link_click` path has a read-only preflight receipt, but it
+cannot satisfy the production gate until its exact implementation is released
+through the protected merge gate and included in an exact activation receipt
+approved by David. This implementation does not
 activate email, analytics, community features, generated media, provisioning,
 deployment, spending, or public outreach.
 
@@ -57,15 +59,23 @@ Morning source cards are outside this lean campaign. The normal automatic
 morning and evening canonical broadcasts remain publication operations, not
 campaign source cards.
 
-## Privacy-safe observable return gate
+## Privacy-safe observable return path
 
 RSS remains a canonical delivery surface, but the current `rss_follow_intent`
 fallback is unobservable and cannot satisfy the return gate. X impressions,
 profile visits, follower changes, public page availability, and an unknown site
 return are also invalid substitutes.
 
-Before the campaign clock can start, a separate reviewed change must name and
-implement one return path that:
+The selected path records X's provider-reported `Link clicks` aggregate for one
+public post containing one exact immutable DDB edition URL. The closed receipt,
+schema, validator, inactive ledger, and read-only preflight are recorded in:
+
+- `operations/outreach-observable-return-validation-receipt.json`;
+- `operations/schemas/outreach-observable-return-receipt-v1.schema.json`;
+- `operations/validate_outreach_observable_return.py`; and
+- `operations/outreach-observable-return-ledger.json`.
+
+The implementation:
 
 1. exposes a defined return event that can actually be observed;
 2. records an implementation receipt and a validation receipt;
@@ -76,8 +86,15 @@ implement one return path that:
 5. remains separate from the official first-1,000 collector; and
 6. has an explicit stop and rollback path.
 
-No return path has been selected or activated by this reconciliation. The
-contract therefore remains blocked and preserves site return as unknown.
+The receipt records click events, not people. A Link click is not a verified
+page load, unique visitor, repeat reader, RSS follow, subscriber, or first-1,000
+participant. The implementation therefore preserves site return and the
+official first-1,000 value as unknown.
+
+The path is locally implemented and validated only. No campaign source card,
+reply, tracker, reader request, or new provider action occurred. The campaign
+remains blocked pending exact-head release, a current X readiness receipt, and
+the later exact activation decision.
 
 ## X reply law
 
@@ -113,11 +130,12 @@ remain dormant future-planning artifacts. They convey no campaign authority.
 
 ## Diagnostics
 
-Until a separately approved observable return path is implemented, campaign
-preparation may preserve only X-native aggregates and manual repository-owned
+Campaign preparation may preserve the aggregate-only observable-return
+preflight receipt plus X-native aggregates and manual repository-owned
 snapshots: source-card and reply aggregates, dated follower counts, qualified
 relationship observations, operator time, approvals, corrections, policy
-signals, hidden replies, and probable-spam placement.
+signals, hidden replies, and probable-spam placement. The inactive campaign
+ledger remains empty until a later activation.
 
 The official first-1,000 collector remains disabled and separate. Missing or
 unobservable return values are `unknown`, never zero and never inferred.
@@ -143,8 +161,8 @@ after review. Never rewrite the canonical archive to hide an error.
 1. Reconcile the governing documents, contract, schema, and tests on a clean
    branch and pass the required gates.
 2. Obtain exact-head release approval and merge only through protected main.
-3. Select, implement, validate, and record one privacy-safe observable return
-   path under its own scoped authority.
+3. Release the separately approved, locally implemented, and read-only
+   validated privacy-safe observable return path through protected main.
 4. Record a current X readiness receipt confirming the correct account,
    security posture, and immutable canonical broadcast destinations.
 5. Record exact 30-day start and end dates and obtain David's approval of the

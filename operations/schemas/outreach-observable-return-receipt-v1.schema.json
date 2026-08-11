@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/contracts/outreach-observable-return-receipt-v1.schema.json",
+  "title": "DDB exact-post X URL-link-click aggregate receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "publicXPostUrl",
+    "publicXPostId",
+    "exactEditionUrl",
+    "editionId",
+    "editionPublishedAt",
+    "providerMetricLabel",
+    "aggregateValue",
+    "unit",
+    "periodStart",
+    "periodEnd",
+    "capturedAt",
+    "humanOperator",
+    "restrictedEvidenceRef",
+    "restrictedEvidenceSha256",
+    "validationStatus",
+    "limitations",
+    "correctionRef"
+  ],
+  "properties": {
+    "publicXPostUrl": {
+      "type": "string",
+      "pattern": "^https://x\\.com/DavidDailyBread/status/[0-9]+$"
+    },
+    "publicXPostId": {"type": "string", "pattern": "^[0-9]+$"},
+    "exactEditionUrl": {
+      "type": "string",
+      "pattern": "^https://davidsdailybread\\.com/editions/[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)\\.html$"
+    },
+    "editionId": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"
+    },
+    "editionPublishedAt": {"type": "string", "format": "date-time"},
+    "providerMetricLabel": {"const": "Link clicks"},
+    "aggregateValue": {"type": "integer", "minimum": 0},
+    "unit": {"const": "click_events"},
+    "periodStart": {"type": "string", "format": "date-time"},
+    "periodEnd": {"type": "string", "format": "date-time"},
+    "capturedAt": {"type": "string", "format": "date-time"},
+    "humanOperator": {"const": "David Friedhof"},
+    "restrictedEvidenceRef": {
+      "type": "string",
+      "pattern": "^restricted://ddb-pc-028/x-link-click/[a-zA-Z0-9._/-]+$"
+    },
+    "restrictedEvidenceSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "validationStatus": {"const": "validated-read-only-existing-post"},
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "correctionRef": {"type": ["string", "null"]}
+  }
+}

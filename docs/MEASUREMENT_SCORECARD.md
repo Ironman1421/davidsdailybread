@@ -65,6 +65,21 @@ aggregate source explicitly says zero. Missing values remain null. Weekly rates
 and latency summaries are marked `partial` when any due outcome or observation
 day is missing.
 
+### Campaign exact-edition URL-link-click receipt
+
+The DDB-PC-028 lean campaign uses a narrower preflight and campaign receipt for
+X's provider-reported `Link clicks` metric. It binds one public DDB post to one
+bare immutable edition URL and stores only the nonnegative aggregate count,
+capture window, public references, limitations, and a restricted evidence
+hash. Its schema is
+`operations/schemas/outreach-observable-return-receipt-v1.schema.json`.
+
+This receipt observes click events from X toward the canonical publication. It
+does not prove a page load and does not count unique or returning readers. It
+does not authorize or populate the official first-1,000 collector. Site return,
+first-party returning readers, and genuinely engaged returning people remain
+unknown while `measurement/authority.json` remains false.
+
 ## Offline commands
 
 The scorecard has no network client and writes nothing by default. It reads a

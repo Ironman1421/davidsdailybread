@@ -28,17 +28,18 @@
     "morningSourceCardsAuthorized": false
   },
   "returnPathGate": {
-    "status": "blocked-pending-privacy-safe-observable-path",
-    "selectedPath": null,
-    "observable": false,
-    "implementationReceipt": null,
-    "validationReceipt": null,
+    "status": "ready",
+    "selectedPath": "x_exact_edition_url_link_click",
+    "observable": true,
+    "implementationReceipt": "operations/outreach-observable-return-implementation-receipt.json",
+    "validationReceipt": "operations/outreach-observable-return-validation-receipt.json",
     "requiredBeforeCampaignClockStarts": true,
     "disallowedSubstitutes": [
       "rss-follow-intent",
       "x-impression",
       "x-profile-visit",
       "x-follower-change",
+      "x-permalink-click",
       "public-page-availability",
       "unknown-site-return"
     ],
@@ -60,6 +61,7 @@
     "officialFirst1000CollectorActivated": false,
     "personalDataCollected": false,
     "availableSignals": [
+      "x-exact-edition-url-link-click-aggregate",
       "x-source-card-native-aggregates",
       "x-reply-native-aggregates",
       "x-account-follower-snapshots",
@@ -67,7 +69,6 @@
       "manual-workload-and-guardrail-observations"
     ],
     "unavailableSignals": [
-      "privacy-safe-observable-return",
       "qualified-returning-reader",
       "first-1000-milestone-progress"
     ],
@@ -81,8 +82,7 @@
     "readinessReceipt": "operations/x-outreach-readiness-receipt.json",
     "readinessStatus": "blocked",
     "blockers": [
-      "x-readiness-receipt-requires-current-immutable-broadcast-readback",
-      "privacy-safe-observable-return-path-not-ready"
+      "x-readiness-receipt-requires-current-immutable-broadcast-readback"
     ],
     "canonicalBroadcaster": "Spark daicc-ddb-autopost",
     "broadcasterChangeAuthorized": false,
