@@ -58,8 +58,8 @@ atomic App-authored commit per successful bake; Pages then redeploys.
   `docs/PHASE_0_READINESS_2026-08-04.md` — satisfied Phase 0 prerequisites and
   material remaining gaps;
   `docs/X_REPLY_PLAYBOOK.md` — manually approved, reply-led X growth law;
-  `docs/OUTREACH_CAMPAIGN.md` — zero-dollar 48-hour readiness and separately
-  activated 30-day outreach learning law;
+  `docs/OUTREACH_CAMPAIGN.md` — lean core-proof Field Guide campaign readiness
+  and separately activated 30-day outreach learning law;
   `docs/READER_STORE_SPEC.md` — approved private reader-store and cutover design;
   `docs/PUBLISHER_IDENTITY_SPEC.md` — approved scheduled identity and `main`
   ruleset design;

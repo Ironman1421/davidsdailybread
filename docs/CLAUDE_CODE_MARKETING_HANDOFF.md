@@ -8,8 +8,9 @@ Assigned role: campaign preparation operator (tool-neutral)
 
 Effective: 2026-08-07
 
-The 2026-08-02 seven-day, YouTube-first sprint is superseded. The active work is
-the 48-hour readiness reconciliation and separately activated 30-day outreach
+The 2026-08-02 seven-day, YouTube-first sprint and the 2026-08-06 Gemini Omni
+lane are superseded for current execution. The active work is the lean
+core-proof readiness reconciliation and separately activated 30-day outreach
 campaign in `docs/OUTREACH_CAMPAIGN.md` and
 `operations/outreach-campaign.contract.json`.
 
@@ -140,9 +141,8 @@ Do not launch everywhere at once.
 ### 1. X: gated discovery channel
 
 The automated canonical edition post belongs to the pipeline. After exact
-campaign activation, the marketing lane adds at most one approved original post
-per day plus qualified manually approved replies. Two weekly Gemini Omni pieces
-consume the one-original-post slot.
+campaign activation, the marketing lane adds at most one approved evening Field
+Guide source card per day plus qualified manually approved replies.
 
 - Do not scrape, script, automate, or use headless browsing against X.
 - A human may supply an exact public parent-post URL or scout through the
@@ -151,10 +151,9 @@ consume the one-original-post slot.
 - Each reply requires David's approval of the exact parent URL and exact text.
 - Approval expires after 60 minutes and becomes void if context changes.
 - Silence is rejection.
-- Default and enforceable maximum: four published replies per day across two
-  staffed windows. The campaign may seek three to five on staffed days, but a
-  fifth remains unauthorized until the machine baseline and third staffed
-  window are separately reconciled and approved.
+- Allowed range: zero through four published replies per staffed day across two
+  staffed windows. Four is absolute for this campaign. A fifth requires a new
+  founder amendment.
 - The cap is a ceiling, not a quota.
 - For the first 30 operating days, proactive replies carry no DDB link unless
   the parent author asks for the source or a factual claim requires it.
@@ -164,18 +163,16 @@ consume the one-original-post slot.
 The preparation role may research supporting sources and prepare private approval cards. Do
 not commit unpublished reply drafts to the public repository.
 
-### 2. Gemini Omni: gated X media lane
+### 2. Gemini Omni: deferred
 
-Gemini Omni is a video-generation feature in Gemini Apps. It is not the
-YouTube experiment and does not authorize a Google account, plan upgrade,
-provider upload, generation, or publication. After its exact account and
-privacy boundary is verified and David approves the exact input package, it may
-produce two weekly pieces from already-published editions. Each consumes the
-day's one-original-X-post slot, validates a private provenance record, discloses
-material AI generation, preserves watermarks, and receives exact final-package
-approval before publication.
+Gemini Omni is outside the lean core-proof campaign. Do not verify a campaign
+account or plan, accept provider terms, upload inputs, generate media, or
+publish an Omni item. It is not a readiness gate or campaign deliverable.
 
 ### 3. YouTube: separate disabled short-video laboratory
+
+YouTube is deferred from the lean core-proof campaign. The material below is
+dormant planning context only and must not be executed as campaign work.
 
 The official known channel is David's Daily Bread at `@DavidDailyBreadTV`.
 The channel is currently disabled for pilot operation. Subscriber and historical
@@ -315,26 +312,22 @@ Unknown measurements are `null`, never zero. Do not infer causation from an
 account-level follower change. Do not declare a winning format before its
 predeclared sample and snapshots are complete.
 
-## Active 48-hour and 30-day sequence
+## Active lean core-proof sequence
 
-1. Select RSS as the zero-cost return path and preserve email closure.
-2. Select X-native and manual aggregate diagnostics; leave RSS follows, site
-   return, and first-1,000 progress unknown.
-3. Record the read-only X account, operator, security, profile, pinned post,
-   broadcast permalink, Premium, and analytics receipt.
-4. Treat the verified passwordless X passkey as the account-security control;
-   do not create a password solely to enable password-dependent reset
-   protection. Stop readiness when the passkey or immutable-link check fails.
-   Repairing the account or Spark broadcaster requires its own scoped approval.
-5. Verify the exact Gemini Omni account and plan without accepting terms,
-   upgrading, uploading, or generating. Record provider, privacy, rights,
-   disclosure, provenance, correction, and removal law.
-6. Reconcile governing documents, contract, ledgers, schema, and tests on a
-   clean branch. Report the exact head for separate release approval.
-7. After merge and exact activation, run 30 calendar days with one additional
-   original X post daily, up to four qualified replies on staffed days, and two
-   weekly Omni releases inside the original-post slot.
-8. Review on days 7, 14, and 21; decide continue, extend, modify, or stop on day
+1. Reconcile governing documents, the campaign contract, schema, and tests on
+   a clean branch. Report the exact head for separate release approval.
+2. Preserve X-native and manual aggregate diagnostics while site return remains
+   unknown. Do not activate analytics.
+3. Under a separate reviewed change, select, implement, validate, and record
+   one privacy-safe observable return path. Unobservable RSS intent, a profile
+   visit, impressions, and follower change do not satisfy the gate.
+4. Record a current read-only X receipt for the account, operator, security,
+   profile, pinned post, and immutable broadcast destinations.
+5. Defer Gemini Omni, YouTube, and all generated media.
+6. After merge and exact activation, run 30 calendar days with no more than one
+   individually approved evening Field Guide source card daily and zero through
+   four qualified manual replies on staffed days.
+7. Review on days 7, 14, and 21; decide continue, extend, modify, or stop on day
    30. Change at most one declared variable at a time.
 
 ## Superseded historical seven-day sprint (do not execute)
