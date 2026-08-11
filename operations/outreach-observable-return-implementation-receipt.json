@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "status": "implemented-and-read-only-validated-locally-awaiting-separate-release",
+  "programItem": "DDB-PC-028",
+  "owner": "David Friedhof",
+  "proposalCommit": "5910737fe10c3a2452c0ba77a9e25660c20ae4f3",
+  "proposalDiffSha256": "89d1c2a04bec462fe8160f8b78d391c061e508fbbe85b4c00ba7a872a6242fcd",
+  "approvedAt": "2026-08-11T19:30:38Z",
+  "decisionEvidence": "Task message: Approve DDB-PC-028 observable-return implementation from proposal commit 5910737fe10c3a2452c0ba77a9e25660c20ae4f3: implement the exact-post X URL-link-click aggregate receipt described in docs/OUTREACH_OBSERVABLE_RETURN_PROPOSAL.md, and perform one read-only validation against an existing @DavidDailyBread post with an exact immutable edition URL. Use only the already available official X analytics surface; store only the closed aggregate receipt and restricted evidence hash; do not post, reply, change an account or credential, register for ads, accept terms, export row-level data, activate site analytics, email, or a community feature, provision or deploy anything, merge, spend money, or start the campaign clock. Report the exact local commit and validation result for separate release approval.",
+  "selectedPath": "x_exact_edition_url_link_click",
+  "receiptSchema": "operations/schemas/outreach-observable-return-receipt-v1.schema.json",
+  "validationReceipt": "operations/outreach-observable-return-validation-receipt.json",
+  "campaignLedger": "operations/outreach-observable-return-ledger.json",
+  "validator": "operations/validate_outreach_observable_return.py",
+  "readOnlyValidation": {
+    "status": "passed",
+    "observedAt": "2026-08-11T19:35:55Z",
+    "account": "@DavidDailyBread",
+    "publicPostUrl": "https://x.com/DavidDailyBread/status/2084678677217067269",
+    "exactEditionUrl": "https://davidsdailybread.com/editions/2026-08-04-morning.html",
+    "providerMetricLabel": "Link clicks",
+    "aggregateValue": 0,
+    "restrictedEvidenceSha256": "be489f8da9b2b64ff2774cc5136865c5a392459fd898044203e191179d0c2550",
+    "accountOrProviderMutationOccurred": false
+  },
+  "localValidation": {
+    "host": "Darwin arm64",
+    "repositoryTestsPassed": 264,
+    "twoSlotRenderCheckPassed": true,
+    "observableReturnValidatorPassed": true,
+    "jsonParsingPassed": true,
+    "gitDiffCheckPassed": true,
+    "hostedX8664MergeGateRequiredForRelease": true
+  },
+  "firstPartyReturnMeasurementAuthorized": false,
+  "campaignActivated": false,
+  "campaignClockStarted": false,
+  "externalActionsPerformed": []
+}

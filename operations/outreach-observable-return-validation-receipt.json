@@ -1,0 +1,25 @@
+{
+  "publicXPostUrl": "https://x.com/DavidDailyBread/status/2084678677217067269",
+  "publicXPostId": "2084678677217067269",
+  "exactEditionUrl": "https://davidsdailybread.com/editions/2026-08-04-morning.html",
+  "editionId": "2026-08-04-morning",
+  "editionPublishedAt": "2026-08-04T11:49:08Z",
+  "providerMetricLabel": "Link clicks",
+  "aggregateValue": 0,
+  "unit": "click_events",
+  "periodStart": "2026-08-04T16:31:00Z",
+  "periodEnd": "2026-08-11T19:35:55Z",
+  "capturedAt": "2026-08-11T19:35:55Z",
+  "humanOperator": "David Friedhof",
+  "restrictedEvidenceRef": "restricted://ddb-pc-028/x-link-click/2026-08-11-post-2084678677217067269.png",
+  "restrictedEvidenceSha256": "be489f8da9b2b64ff2774cc5136865c5a392459fd898044203e191179d0c2550",
+  "validationStatus": "validated-read-only-existing-post",
+  "limitations": [
+    "This aggregate counts click events and is not a unique visitor.",
+    "A Link click is not a verified page load.",
+    "A Link click is not a returning reader or first-1,000 participant.",
+    "The provider metric may include repeat clicks and exposes no clicker identity to this receipt.",
+    "The exact edition binding uses the public post and the existing immutable-destination readiness evidence."
+  ],
+  "correctionRef": null
+}
