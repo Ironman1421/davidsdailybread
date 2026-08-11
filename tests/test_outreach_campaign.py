@@ -97,15 +97,27 @@ def semantic_errors(contract, receipt, reply_ledger):
     )
     security_ready = password_mfa_ready or passwordless_passkey_ready
     links_ready = all(
-        receipt["canonicalBroadcasts"][slot]["immutableEditionDestination"]
+        receipt["canonicalBroadcasts"][slot]["postFound"]
+        and receipt["canonicalBroadcasts"][slot]["editionClaim"]
+        == receipt["canonicalBroadcasts"][slot]["requiredEdition"]
+        and receipt["canonicalBroadcasts"][slot]["resolvedDestinationUrl"]
+        == (
+            "https://davidsdailybread.com/editions/"
+            f'{receipt["canonicalBroadcasts"][slot]["requiredEdition"]}.html'
+        )
+        and receipt["canonicalBroadcasts"][slot]["immutableEditionDestination"]
         for slot in ("latestMorning", "latestEvening")
     )
     if receipt["security"]["status"] == "ready" and not security_ready:
         errors.append("X security claims ready without a valid credential posture")
     if receipt["status"] == "ready" and not (security_ready and links_ready):
         errors.append("X receipt claims ready without security and immutable links")
-    if x["readinessStatus"] == "ready" and receipt["status"] != "ready":
-        errors.append("campaign claims X ready while receipt is blocked")
+    if receipt["status"] == "blocked" and not receipt["blockers"]:
+        errors.append("blocked X receipt has no blocker")
+    if receipt["status"] == "ready" and receipt["blockers"]:
+        errors.append("ready X receipt retains blockers")
+    if x["readinessStatus"] != receipt["status"]:
+        errors.append("campaign and X readiness receipt status disagree")
 
     deferred = contract["deferredChannels"]
     if deferred["generatedMediaAuthorized"]:
@@ -137,6 +149,7 @@ class OutreachCampaignContractTest(unittest.TestCase):
             ROOT / "operations" / "schemas" / "x-outreach-readiness-v1.schema.json"
         )
         cls.reply_ledger = load_json(ROOT / "distribution" / "x-replies.json")
+        cls.archive = load_json(ROOT / "archive.json")
         cls.contract_validator = Draft202012Validator(
             cls.contract_schema, format_checker=FormatChecker()
         )
@@ -151,6 +164,21 @@ class OutreachCampaignContractTest(unittest.TestCase):
         self.assertEqual(
             [], semantic_errors(self.contract, self.receipt, self.reply_ledger)
         )
+
+    def test_readiness_receipt_targets_latest_canonical_editions(self):
+        for edition_type, slot in (
+            ("morning", "latestMorning"),
+            ("evening", "latestEvening"),
+        ):
+            latest = next(
+                edition
+                for edition in self.archive["editions"]
+                if edition["edition"] == edition_type
+            )
+            self.assertEqual(
+                f'{latest["date"]}-{edition_type}',
+                self.receipt["canonicalBroadcasts"][slot]["requiredEdition"],
+            )
 
     def test_public_campaign_and_clock_are_fail_closed(self):
         self.assertEqual(

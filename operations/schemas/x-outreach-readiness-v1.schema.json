@@ -123,13 +123,38 @@
     "broadcast": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["postUrl", "editionClaim", "resolvedDestinationUrl", "immutableEditionDestination"],
+      "required": ["requiredEdition", "postFound", "postUrl", "editionClaim", "resolvedDestinationUrl", "immutableEditionDestination"],
       "properties": {
-        "postUrl": {"type": "string", "format": "uri"},
-        "editionClaim": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"},
-        "resolvedDestinationUrl": {"type": "string", "format": "uri"},
+        "requiredEdition": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"},
+        "postFound": {"type": "boolean"},
+        "postUrl": {"type": ["string", "null"], "format": "uri"},
+        "editionClaim": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"},
+        "resolvedDestinationUrl": {"type": ["string", "null"], "format": "uri"},
         "immutableEditionDestination": {"type": "boolean"}
-      }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"postFound": {"const": false}}},
+          "then": {
+            "properties": {
+              "postUrl": {"const": null},
+              "editionClaim": {"const": null},
+              "resolvedDestinationUrl": {"const": null},
+              "immutableEditionDestination": {"const": false}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"postFound": {"const": true}}},
+          "then": {
+            "properties": {
+              "postUrl": {"type": "string", "format": "uri"},
+              "editionClaim": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-(morning|evening)$"},
+              "resolvedDestinationUrl": {"type": "string", "format": "uri"}
+            }
+          }
+        }
+      ]
     }
   }
 }
