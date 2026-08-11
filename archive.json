@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-11",
+      "edition": "morning",
+      "dateHuman": "Tuesday, August 11, 2026",
+      "file": "editions/2026-08-11-morning.html",
+      "lead": "Nvidia enlists six investment firms to mobilize more than $500 billion for AI compute",
+      "pubDate": "Tue, 11 Aug 2026 07:50:11 -0400"
+    },
+    {
       "date": "2026-08-10",
       "edition": "morning",
       "dateHuman": "Monday, August 10, 2026",
