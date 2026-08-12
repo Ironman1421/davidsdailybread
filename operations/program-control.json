@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-12T20:35:57Z",
+  "updatedAt": "2026-08-12T20:46:45Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1521,7 +1521,10 @@
         "DDB PR 90 passed the hosted x86_64 Merge gate and both CodeQL analyses, then squash-merged through the protected path as main b77496a7c642ea655c39e93baf32f7b634ba0858; Pages run 31635525309 and main CodeQL run 31635525796 succeeded and live control, contract, and schema bytes matched main",
         "X Manager exact head 4b577906186600cd828b160e780d37dcb2df3d42 was pushed to its protected Sites source branch, saved as version 17, and deployed owner-only at https://signal-ai-radar.fluxcognition.chatgpt.site with the existing environment revision unchanged",
         "One private producer/read canary stored non-operational packet 2099-01-01-morning with publicationApproved false, read it back through the released private endpoint, revalidated it, and matched canonical JSON SHA-256 540e93c91ad6f4a97fad5562c550b482e99d385911fc2f9f655d03d2c89fb2f8 exactly",
-        "No live schedule was activated or changed; no paid X read, edition publication or rerun, post, send, credential or provider change, provisioning, or spend occurred. DDB-PC-027 remains in progress pending separate activation approval"
+        "No live schedule was activated or changed during paired release and canary; no paid X read, edition publication or rerun, post, send, credential or provider change, provisioning, or spend occurred",
+        "David's 2026-08-12 production-scheduling decision authorized one 2:45 AM Pacific X Manager candidate-ledger automation and one 3:40 AM Pacific DDB independent-review automation, targeting packet readiness by 4:25 AM before the existing 4:40 AM bake, with no paid reads or manual edition dispatch",
+        "Active automation prepare-ddb-morning-candidate-ledger targets the X Manager project daily at 2:45 AM Pacific and uses only bounded stored or operator-supplied observations plus the versioned manifest; active automation review-ddb-morning-candidates targets DDB daily at 3:40 AM Pacific and performs the independent review, private upload, and exact read-back",
+        "No duplicate schedules were found. Monitoring heartbeat monitor-first-ddb-morning-handoff is armed for 4:55 AM Pacific to verify the first ordinary chain without manual dispatch; DDB-PC-027 remains in progress and DDB-PC-026 remains dependency-blocked until that chain passes"
       ]
     },
     {
