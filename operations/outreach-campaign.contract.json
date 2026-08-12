@@ -80,10 +80,8 @@
     "account": "@DavidDailyBread",
     "humanOperator": "David Friedhof",
     "readinessReceipt": "operations/x-outreach-readiness-receipt.json",
-    "readinessStatus": "blocked",
-    "blockers": [
-      "latest-due-evening-canonical-broadcast-not-found"
-    ],
+    "readinessStatus": "ready",
+    "blockers": [],
     "canonicalBroadcaster": "Spark daicc-ddb-autopost",
     "broadcasterChangeAuthorized": false,
     "sourceCardsPerCalendarDay": 1,

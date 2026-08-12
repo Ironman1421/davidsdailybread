@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-11T20:14:14Z",
+  "updatedAt": "2026-08-12T17:40:51Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1304,6 +1304,16 @@
         "decisionEvidence": "Task message: Approve a separately scoped, read-only audit of the existing Spark daicc-ddb-autopost, GitHub workflow evidence, and official X evidence to determine why 2026-08-09-evening was not broadcast. Produce a local diagnosis and proposed recovery boundary only. Do not post or replay anything, change provider/account/broadcaster state, deploy, spend money, activate the campaign, or start the campaign clock.",
         "scope": "Read only the existing Spark broadcaster source and reachable operational evidence, immutable GitHub workflow and run evidence, and official X evidence for 2026-08-09-evening. Produce only a local diagnosis and proposed recovery boundary. Do not post, reply, replay, dispatch a workflow, change provider, account, credential, broadcaster, timer, service, environment, or network state, deploy, spend, activate the campaign, or start its clock."
       },
+      "sameDayEveningVerificationAuthorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-12T17:40:51Z",
+        "grantedBy": "David Friedhof",
+        "auditHead": "e62c1b7454c30d6e8a74727728d3b76b2a8e347d",
+        "auditMergeCommit": "4f187758f84d727f88f9156c7c9260060bf4ae0a",
+        "decisionEvidence": "Task message: Approve DDB-PC-028 read-only same-day evening verification following PR #85, audited head e62c1b7454c30d6e8a74727728d3b76b2a8e347d and merged commit 4f187758f84d727f88f9156c7c9260060bf4ae0a: inspect official X for an @DavidDailyBread post whose expanded URL exactly equals https://davidsdailybread.com/editions/2026-08-11-evening.html. If found, update the closed X readiness receipt and report it for separate release approval. If absent, stop and report the blocker. Do not post, reply, replay, change any account, credential, broadcaster, timer, service, network state, or kill switch, deploy, spend, activate outreach, or start the campaign clock.",
+        "scope": "Perform one read-only official-X verification for the ordinary 2026-08-11 evening broadcast and its exact immutable destination, then update the closed local readiness receipt if found. Make no public, account, credential, broadcaster, timer, service, network, kill-switch, deployment, spend, outreach, or campaign-clock mutation."
+      },
       "externalMutation": true,
       "startedAt": "2026-08-07T00:06:03Z",
       "progressEvidence": [
@@ -1358,7 +1368,12 @@
         "Private command-center main remains exact reviewed Spark source 1335841e9bda3c38e67c2c7b53ba996935942a83; its live path uses the host's current date, makes --date dry-run-only, and cannot select a prior-day backfill",
         "Official X read-back found no myNoise August 9 evening post and showed the adjacent exact August 10 morning post 2086935643888996644 at precisely 3:00 PM Pacific with Spark's deterministic opener, consistent with the first evening timer poll selecting August 10 rather than August 9",
         "A fresh Spark journal read was unavailable because the Mac's existing Tailscale backend was stopped; the audit did not start it or change network state. The local diagnosis proposes no replay: keep readiness blocked and verify the next ordinary same-day evening broadcast read-only before considering any separate repair",
-        "The read-only evening-broadcast audit passed 265 repository tests, the explicit two-slot render check, JSON parsing, and git diff checks on Darwin arm64; it changed no runtime, provider, account, broadcaster, network, deployment, campaign, or clock state"
+        "The read-only evening-broadcast audit passed 265 repository tests, the explicit two-slot render check, JSON parsing, and git diff checks on Darwin arm64; it changed no runtime, provider, account, broadcaster, network, deployment, campaign, or clock state",
+        "David's 2026-08-12T17:40:51Z decision authorizes only a read-only official-X verification of the ordinary 2026-08-11 evening broadcast and its exact immutable destination, plus a closed local readiness-receipt update; it authorizes no public or production mutation and no campaign activation or clock start",
+        "Official X showed @DavidDailyBread post 2087313139465695324 for the 2026-08-11 evening Field Guide, and its https://t.co/6FKfBPFBve link resolved exactly to https://davidsdailybread.com/editions/2026-08-11-evening.html",
+        "The same closed inspection observed the current 2026-08-12 morning post 2087509432188260537 and verified its link resolves exactly to https://davidsdailybread.com/editions/2026-08-12-morning.html; the readiness receipt and campaign contract now record X readiness as ready while the public campaign remains blocked and its clock remains not started",
+        "No post, reply, replay, account or credential change, broadcaster, timer, service, network, or kill-switch change, deployment, spend, public outreach, campaign activation, or campaign-clock start occurred during the verification",
+        "The closed readiness update passed 17 targeted outreach-campaign and program-control tests, parsed all 79 repository JSON files, and passed git diff checks on Darwin arm64; hosted x86_64 Merge gate validation remains required for release"
       ],
       "completionGate": [
         "DDB-PC-025 is complete before DDB-PC-028 activates or implementation begins",

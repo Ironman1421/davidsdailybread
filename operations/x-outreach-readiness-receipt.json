@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "observedAt": "2026-08-11T19:55:10Z",
-  "status": "blocked",
-  "method": "read-only official X UI inspection, exact-edition X search, and public HTTP HEAD redirect resolution",
+  "observedAt": "2026-08-12T17:40:51Z",
+  "status": "ready",
+  "method": "read-only official X profile inspection and exact t.co redirect resolution",
   "account": {
     "displayName": "David's Daily Bread",
     "handle": "@DavidDailyBread",
@@ -47,7 +47,7 @@
     "analyticsEvidenceLinkClicks": 0
   },
   "visibleBaseline": {
-    "posts": 26,
+    "posts": 28,
     "followers": 6,
     "following": 169
   },
@@ -55,24 +55,22 @@
     "owner": "Spark daicc-ddb-autopost",
     "broadcasterChanged": false,
     "latestMorning": {
-      "requiredEdition": "2026-08-11-morning",
+      "requiredEdition": "2026-08-12-morning",
       "postFound": true,
-      "postUrl": "https://x.com/DavidDailyBread/status/2087147044012184012",
-      "editionClaim": "2026-08-11-morning",
-      "resolvedDestinationUrl": "https://davidsdailybread.com/editions/2026-08-11-morning.html",
+      "postUrl": "https://x.com/DavidDailyBread/status/2087509432188260537",
+      "editionClaim": "2026-08-12-morning",
+      "resolvedDestinationUrl": "https://davidsdailybread.com/editions/2026-08-12-morning.html",
       "immutableEditionDestination": true
     },
     "latestEvening": {
-      "requiredEdition": "2026-08-09-evening",
-      "postFound": false,
-      "postUrl": null,
-      "editionClaim": null,
-      "resolvedDestinationUrl": null,
-      "immutableEditionDestination": false
+      "requiredEdition": "2026-08-11-evening",
+      "postFound": true,
+      "postUrl": "https://x.com/DavidDailyBread/status/2087313139465695324",
+      "editionClaim": "2026-08-11-evening",
+      "resolvedDestinationUrl": "https://davidsdailybread.com/editions/2026-08-11-evening.html",
+      "immutableEditionDestination": true
     }
   },
-  "blockers": [
-    "The latest due evening edition, 2026-08-09-evening, has no matching @DavidDailyBread X post; exact-edition and title searches returned no result."
-  ],
+  "blockers": [],
   "externalActionsPerformed": []
 }
