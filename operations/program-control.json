@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-12T17:40:51Z",
+  "updatedAt": "2026-08-12T17:56:07Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -10,7 +10,7 @@
   "mode": "single-controller-laned-execution",
   "activeItemIds": {
     "local_work": [
-      "DDB-PC-028"
+      "DDB-PC-029"
     ],
     "production_mutation": null
   },
@@ -1257,7 +1257,7 @@
       "id": "DDB-PC-028",
       "sequence": 28,
       "title": "48-hour outreach readiness and campaign reconciliation",
-      "status": "in_progress",
+      "status": "complete",
       "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-025",
@@ -1400,13 +1400,26 @@
         "deferDecisionEvidence": "Task message: Do not activate DDB-PC-028 until DDB-PC-031 is merged and complete.",
         "finalResumedAt": "2026-08-10T20:31:17Z",
         "finalResumeEvidence": "DDB-PC-031 merged as main 328dc450112be7b597489f9a939a359b5344b0b7 and its Pages and main CodeQL runs succeeded before DDB-PC-028 activated in the local-work lane; campaign activation remains false."
-      }
+      },
+      "completedAt": "2026-08-12T17:56:07Z",
+      "evidence": [
+        "DDB-PC-025 and DDB-PC-031 are complete and DDB-PC-028 began only after its dependencies cleared",
+        "PR 65 and the lean-core-proof amendment define the evening Field Guide acquisition franchise, zero-dollar ceiling, exact source-card approvals, zero through four staffed-day replies, stop rules, and rollback",
+        "The campaign contract defers Gemini Omni, YouTube, and all generated-media actions outside readiness and activation gates",
+        "PR 83 merged the closed exact-post X URL-link-click aggregate return path, validated it through official X, and kept the campaign clock stopped",
+        "The observable-return receipt stores only closed aggregate evidence, activates no site analytics or personal-data collector, and remains separate from the official first-1,000 collector",
+        "PR 86 exact head 97d155749b29452881c354d018e9291df2736de5 passed Merge gate and both CodeQL analyses, squash-merged as main 29af0c79c3308fce03ad25c93942dfb3dbb47d80, and records current immutable morning and evening broadcasts with X readiness ready",
+        "The campaign contract and reply ledger enforce an absolute four-reply ceiling and leave fifth-reply authorization false",
+        "Campaign governance reconciles PWA, protected publishing, one-atomic-commit bake, repository map, unified evening handoff, X Manager separation, and marketing handoff without unapproved runtime changes",
+        "PR 86 Pages run 31624951147 and main CodeQL run 31624952343 succeeded for exact main 29af0c79c3308fce03ad25c93942dfb3dbb47d80; live readiness and campaign records are byte-identical to main",
+        "The released contract remains readiness-active-public-campaign-blocked, the campaign window remains not_started, every external action remains false or zero, and no outreach, clock start, email, analytics, community, generated media, broadcaster change, newsletter operation, provisioning, deployment, or spend occurred"
+      ]
     },
     {
       "id": "DDB-PC-029",
       "sequence": 29,
       "title": "Repair the Chronicles masthead and notes metadata boundary",
-      "status": "pending",
+      "status": "in_progress",
       "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-028"
@@ -1429,13 +1442,18 @@
         "All four hardwired Chronicles export controls remain present and functional",
         "Deterministic regression tests cover masthead parity, metadata exclusion or migration, genuine-note preservation, and export preservation",
         "The exact implementation head and validation evidence are reported for separate release approval, and no merge, deploy, real-note deletion, newsletter or intake change, or generated-edition change occurs"
+      ],
+      "startedAt": "2026-08-12T17:56:07Z",
+      "progressEvidence": [
+        "DDB-PC-028 completed every gate after PR 86 merged as main 29af0c79c3308fce03ad25c93942dfb3dbb47d80 and its Pages, main CodeQL, and live byte verification passed",
+        "The controller activated only DDB-PC-029 as the lowest-sequence eligible successor in the local-work lane; David's exact release decision holds DDB-PC-027 blocked from concurrent activation, and DDB-PC-026 remains dependency-blocked behind it"
       ]
     },
     {
       "id": "DDB-PC-027",
       "sequence": 30,
       "title": "Morning Reviewed Research Handoff v1",
-      "status": "pending",
+      "status": "blocked",
       "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-028"
@@ -1459,7 +1477,9 @@
         "Deterministic regression coverage proves the August 5 Muse Code signal becomes a must-review candidate and receives an explicit morning disposition",
         "Exact local X Manager and DDB implementation heads and validation evidence are reported for separate release and activation approval",
         "No live automation schedule, deployment, credential, paid X read, edition, publication, post, send, merge, provisioning, or spend changes occur"
-      ]
+      ],
+      "blockedAt": "2026-08-12T17:56:07Z",
+      "blockedReason": "David's exact DDB-PC-028 release decision authorized activation of only DDB-PC-029 in the local-work lane. DDB-PC-027 remains in deterministic queue order but may not activate concurrently without a subsequent controller decision consistent with that boundary."
     },
     {
       "id": "DDB-PC-026",
