@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-12",
+      "edition": "evening",
+      "dateHuman": "Wednesday, August 12, 2026",
+      "file": "editions/2026-08-12-evening.html",
+      "lead": "LocalSend moves files between your phone and your laptop over your own Wi-Fi, with no cloud account and no cable",
+      "pubDate": "Wed, 12 Aug 2026 17:50:22 -0400"
+    },
+    {
+      "date": "2026-08-12",
       "edition": "morning",
       "dateHuman": "Wednesday, August 12, 2026",
       "file": "editions/2026-08-12-morning.html",

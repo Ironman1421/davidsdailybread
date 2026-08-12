@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-12",
+      "name": "Arena.ai",
+      "url": "https://arena.ai/",
+      "trend_url": "https://www.makeuseof.com/this-site-lets-you-compare-ai-models-with-your-own-prompt-and-for-free/",
+      "cost": "Free, limits vary by model",
+      "kind": "Browser, any device",
+      "seen": "MakeUseOf, August 12",
+      "blurb": "One browser page that gathers a range of proprietary and open AI models and runs two of them side by side on the same prompt, so you can see which one actually answers your question before paying for any of them, and the catch is printed on the site itself: your conversations are disclosed to the AI providers and may be shared publicly to support AI research, which is why it warns you not to submit personal or sensitive information, while Oluwaseun Bamisile found the free allowance differs sharply by model, roughly five messages on one newer model against about twenty on another before a limit that resets in about an hour, with image and video generation capped at two a day."
+    },
+    {
+      "date": "2026-08-12",
+      "name": "Quetta",
+      "url": "https://www.quetta.net/products/android",
+      "trend_url": "https://www.makeuseof.com/this-private-android-browser-feels-like-chrome-without-the-bloat/",
+      "cost": "Free, no paid tier listed",
+      "kind": "Android, iOS, Windows, macOS",
+      "seen": "MakeUseOf, August 12",
+      "blurb": "A Chromium based browser that blocks ads and trackers by default, installs extensions from the Chrome Web Store and Edge Add-ons on a phone rather than only on a desktop, and saves supported MP4, WebM, and HLS video for offline playback, with reader mode, page translation, and fingerprint protection sitting alongside, and Oluwademilade Afolabi names the two costs plainly: the code is proprietary, so nobody outside the company can audit it the way Firefox can be audited, and the Android build runs on Chromium 148.0.7778.217, a version the company's own release notes date to August 4, which means security patches can reach you later than they reach Chrome."
+    },
+    {
+      "date": "2026-08-12",
+      "name": "KidScreen",
+      "url": "https://kidscreen.app",
+      "trend_url": "https://news.ycombinator.com/item?id=49270881",
+      "cost": "Free, family account needed",
+      "kind": "Web app, approved YouTube",
+      "seen": "Hacker News, 33 points",
+      "blurb": "It gives a child a fixed shelf of YouTube videos a parent has added by hand, with no search box, no recommendations, and no endless scroll, and the makers say plainly that it is free because they are building it so families stay in control, which is also where its limits live: it needs a family account before anyone watches anything, every video on the shelf is one you put there yourself, so the shelf stays interesting only while you keep feeding it, and the site names no supported devices, so treat it as a browser page rather than a television app until it says otherwise. It drew 33 points and 28 comments on Hacker News today."
+    },
+    {
       "date": "2026-08-11",
       "name": "Rowboat",
       "url": "https://github.com/rowboatlabs/rowboat",
@@ -375,6 +405,49 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-12",
+      "title": "Replace six utility downloads with tools Windows 11 already installed for you",
+      "url": "https://www.makeuseof.com/stopped-installing-utility-apps-after-finding-what-windows-11-already-had/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 12",
+      "dek": "<b>Six shortcuts, no installs</b> Afam Onyimadu stopped downloading utilities once he worked through what ships in the box: Storage Sense under Settings, System, Storage in place of CCleaner, clipboard history on Win plus V in place of Ditto, Win plus Shift plus S for a screenshot and Win plus Shift plus R for a screen recording in place of ShareX, virtual desktops on Windows plus Ctrl plus an arrow key in place of VirtuaWin, Phone Link for notifications, messages, and file transfers in place of Pushbullet, and Quick Assist with its annotation, laser pointer, and chat for helping someone you already trust in place of TeamViewer, and he is candid about the edges: Storage Sense leans on OneDrive to make old files online only and clears only what Windows counts as safe, clipboard entries disappear at reboot unless you pin them, Phone Link features vary by Android model, and Quick Assist suits known contacts rather than a service left running in the background.",
+      "needs": [
+        "A Windows 11 PC",
+        "Ten minutes to learn the shortcuts",
+        "An Android phone, for Phone Link"
+      ],
+      "time": "Ten minutes, then daily"
+    },
+    {
+      "date": "2026-08-12",
+      "title": "Format every spreadsheet the same way with five Excel tools you set up once",
+      "url": "https://www.howtogeek.com/microsoft-excel-formatting-tools-every-spreadsheet/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 12",
+      "dek": "<b>Define it once, reuse it</b> Tony Phillips builds named cell styles for input, calculation, and output cells under Home, Cell Styles, New Cell Style, then carries the whole set into the next workbook with Merge Styles, lets Conditional Formatting react to the data through data bars, icon sets, color scales, or a formula rule, sets figures with the Accounting, Percent, and Comma buttons in the Number group, writes custom formats under Ctrl plus 1, Number, Custom so a value can read as millions or show a dash instead of a zero without the number underneath changing, and switches off banded rows in Table Design when the stripes fight the color rules already on the sheet, and he attaches his own warnings: the original cell still has to be formatted by hand before a style can be built from it, and conditional formatting treated as decoration makes a sheet harder to read rather than clearer.",
+      "needs": [
+        "Microsoft Excel on desktop",
+        "One spreadsheet you rebuild often",
+        "Ctrl plus 1 for the format dialog"
+      ],
+      "time": "An hour, once"
+    },
+    {
+      "date": "2026-08-12",
+      "title": "Turn a spare computer into a private photo library your phone backs itself up to",
+      "url": "https://www.makeuseof.com/i-built-the-google-photos-alternative-i-actually-control/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 12",
+      "dek": "<b>Docker, then six commands</b> Jack Mitchell installs Docker Desktop on a spare Mac, PC, or Linux machine, makes an immich-app folder, pulls the project's docker-compose.yml and example environment file with curl, edits that file to point at the disk where the photos and the database should live, brings the whole stack up with docker compose up in detached mode, then opens the library in a browser at localhost port 2283, registers, and installs the Immich phone app so the camera roll backs itself up to hardware he owns, with timeline views, albums, sharing, face recognition, and map data waiting there, and he does not oversell it: he calls Immich familiar and simple to use but not as automated or as feature rich as Google Photos, and the sharper limit comes from a reader underneath the piece, that sharing an album with someone outside the house means exposing the server beyond the home network, a security problem the average household is not equipped to handle.",
+      "needs": [
+        "A spare Mac, PC, or Linux machine",
+        "Docker Desktop, free",
+        "Disk space for the photos",
+        "The Immich phone app"
+      ],
+      "time": "An evening to set up"
+    },
     {
       "date": "2026-08-11",
       "title": "Turn a course syllabus into a working study plan before the term starts",
