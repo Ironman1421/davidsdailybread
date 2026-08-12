@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "timeZone": "America/Los_Angeles",
+  "target": {
+    "slot": "morning",
+    "packetReadyBefore": "04:40",
+    "bakeStart": "04:40"
+  },
+  "xManager": {
+    "outputSchema": "operations/schemas/x-manager-morning-candidate-ledger-v1.schema.json",
+    "authority": "advisory-only",
+    "discovery": {
+      "xInput": "bounded stored or operator-supplied observations only",
+      "sourceManifest": "versioned and digest-bound",
+      "paidReadsAllowed": false,
+      "deterministicOrder": [
+        "mustReview descending",
+        "morning-news-v1 total descending",
+        "publishedAt descending",
+        "candidateId ascending"
+      ],
+      "categoryCapApplication": "Apply the per-category cap while preserving the global deterministic order."
+    }
+  },
+  "ddbReview": {
+    "outputSchema": "operations/schemas/ddb-reviewed-morning-handoff-v1.schema.json",
+    "independentVerificationRequired": true,
+    "gapSweepBeats": ["technology", "markets", "science"],
+    "allowedDecisions": ["selected", "hold", "reject"],
+    "completeDispositionRequired": true,
+    "scoringRule": "morning-editorial-v1",
+    "publicationApproved": false,
+    "privateWriteEndpoint": "POST /api/ddb-handoff"
+  },
+  "bake": {
+    "dailyMorningInput": "runner-local reviewed morning packet",
+    "privateReadEndpoint": "GET /api/ddb-handoff?date=YYYY-MM-DD&slot=morning",
+    "permittedWork": ["writing", "Scripture pairing", "rendering", "accuracy review"],
+    "openEndedDiscoveryAllowed": false,
+    "missingInvalidOrStalePacket": "fail closed without publishing"
+  },
+  "eveningCompatibility": {
+    "schema": "ddb-reviewed-evening-handoff-v1",
+    "scoringRule": "editorial-fit-v1",
+    "unchanged": true
+  },
+  "stageScoring": {
+    "xManagerAdvisory": "morning-news-v1",
+    "ddbFinalEditorial": "morning-editorial-v1",
+    "eveningFieldGuide": "editorial-fit-v1"
+  }
+}

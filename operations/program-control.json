@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-12T19:15:32Z",
+  "updatedAt": "2026-08-12T19:24:58Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1487,6 +1487,19 @@
         "scope": "On clean local branches, implement and test a two-stage morning pipeline: X Manager deterministic X and source-manifest discovery into an advisory candidate ledger, followed by DDB independent verification, a controlled technology, markets, and science gap sweep, complete selected/hold/reject decisions, and a reviewed morning packet before the 4:40 AM bake. Make the bake consume the reviewed packet for writing, Scripture pairing, rendering, and accuracy review without open-ended discovery. Preserve separate morning-news and evening-Field-Guide scoring and add deterministic Muse Code regression coverage. Do not change live schedules, deploy, change credentials, trigger paid X reads, alter or rerun an edition, publish, post, send, merge, provision, or spend money. Report both exact implementation heads for separate release and activation approval."
       },
       "externalMutation": false,
+      "worker": {
+        "type": "codex-subagent",
+        "taskName": "/root/ddb_pc_027_worker",
+        "assignedBy": "Codex program controller under David Friedhof's active DDB-PC-027 authorization",
+        "assignedAt": "2026-08-12T19:24:58Z",
+        "decisionEvidence": "David directed the controller to continue autonomously and report when DDB-PC-027 finishes after activating only DDB-PC-027 in the local-work lane.",
+        "ddbBranch": "codex/ddb-pc-027-morning-handoff-final",
+        "ddbBaseCommit": "2a9d1121517d1459a9fea15d45e0c50d64e11787",
+        "ddbWorktree": "/private/tmp/ddb-pc-027-ddb-final.yCZQPe",
+        "xManagerBranch": "codex/ddb-pc-027-morning-handoff",
+        "xManagerBaseCommit": "ac1581aceb7bcef5aefa357b6ac8275d287612c2",
+        "xManagerWorktree": "/private/tmp/ddb-pc-027-x-manager.RntD0M"
+      },
       "completionGate": [
         "DDB-PC-028 is complete before DDB-PC-027 activates or implementation begins",
         "The X Manager implementation branch is clean and produces a deterministic, advisory-only morning candidate ledger from bounded X and versioned source-manifest discovery without triggering paid reads",
@@ -1502,7 +1515,8 @@
       "progressEvidence": [
         "DDB-PC-029 completed every release gate after PR 88 merged as main c7e16e507c613d15c91e0569089ea90cc684ce1e and its Pages, main CodeQL, and live byte verification passed",
         "David's exact DDB-PC-029 release decision authorized activation of only DDB-PC-027 in the local-work lane; DDB-PC-026 remains dependency-blocked until DDB-PC-027 completes",
-        "DDB-PC-027 activation changes controller state only and does not assign a worker, begin implementation, trigger a paid X read, or cross any production boundary"
+        "DDB-PC-027 activation changed controller state only and did not assign a worker, begin implementation, trigger a paid X read, or cross any production boundary",
+        "Before implementation began, the controller assigned /root/ddb_pc_027_worker to clean DDB and X Manager branches based exactly on DDB main 2a9d1121517d1459a9fea15d45e0c50d64e11787 and the current X Manager production integration ac1581aceb7bcef5aefa357b6ac8275d287612c2; deployment remains prohibited"
       ]
     },
     {

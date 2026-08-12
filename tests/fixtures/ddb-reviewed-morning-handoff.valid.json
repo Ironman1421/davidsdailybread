@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "ddb-reviewed-morning-handoff-v1",
+  "packetId": "2026-08-05-morning",
+  "targetEdition": {"date": "2026-08-05", "slot": "morning", "timeZone": "America/Los_Angeles"},
+  "reviewedAt": "2026-08-05T11:25:00Z",
+  "expiresAt": "2026-08-05T13:00:00Z",
+  "xManagerLedger": {"schemaVersion": "x-manager-morning-candidate-ledger-v1", "artifactSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "generatedAt": "2026-08-05T10:30:00Z"},
+  "sourceCandidateIds": ["xmc-e148edfe52ba969259f2", "xmc-a1be6f0c8a5428e25d74", "xmc-8eeaa086630b923a3244"],
+  "mustReviewCandidateIds": ["xmc-e148edfe52ba969259f2"],
+  "gapCandidateIds": ["technology-selected-1", "technology-selected-2", "markets-selected-2", "science-selected-2"],
+  "verification": {
+    "independentFromXManager": true,
+    "gapSweep": {
+      "technology": {"completed": true, "maximumSources": 8, "sourcesChecked": 6},
+      "markets": {"completed": true, "maximumSources": 8, "sourcesChecked": 6},
+      "science": {"completed": true, "maximumSources": 8, "sourcesChecked": 5}
+    }
+  },
+  "editorialRule": {
+    "version": "morning-editorial-v1",
+    "weights": {"substance": 0.3, "sourceAuthority": 0.25, "verificationDepth": 0.2, "freshness": 0.15, "readerRelevance": 0.1},
+    "gates": {"substance": 60, "sourceAuthority": 60, "verificationDepth": 55, "freshness": 45, "readerRelevance": 50, "total": 58}
+  },
+  "decisions": {
+    "selected": [
+      {"id": "technology-selected-1", "beat": "technology", "title": "Verified technology story one", "summary": "Verified summary.", "reason": "Strong morning value.", "decision": "selected", "mustReview": false, "scores": {"substance": 80, "sourceAuthority": 85, "verificationDepth": 80, "freshness": 75, "readerRelevance": 80, "total": 81, "eligible": true, "ruleVersion": "morning-editorial-v1"}, "verifiedSourceUrls": ["https://example.com/technology-one"]},
+      {"id": "technology-selected-2", "beat": "technology", "title": "Verified technology story two", "summary": "Verified summary.", "reason": "Strong morning value.", "decision": "selected", "mustReview": false, "scores": {"substance": 75, "sourceAuthority": 80, "verificationDepth": 75, "freshness": 70, "readerRelevance": 75, "total": 76, "eligible": true, "ruleVersion": "morning-editorial-v1"}, "verifiedSourceUrls": ["https://example.com/technology-two"]},
+      {"id": "xmc-a1be6f0c8a5428e25d74", "beat": "markets", "title": "Verified markets story one", "summary": "Verified summary.", "reason": "Strong morning value.", "decision": "selected", "mustReview": false, "scores": {"substance": 80, "sourceAuthority": 85, "verificationDepth": 80, "freshness": 75, "readerRelevance": 80, "total": 81, "eligible": true, "ruleVersion": "morning-editorial-v1"}, "verifiedSourceUrls": ["https://example.com/markets-one"]},
+      {"id": "markets-selected-2", "beat": "markets", "title": "Verified markets story two", "summary": "Verified summary.", "reason": "Strong morning value.", "decision": "selected", "mustReview": false, "scores": {"substance": 75, "sourceAuthority": 80, "verificationDepth": 75, "freshness": 70, "readerRelevance": 75, "total": 76, "eligible": true, "ruleVersion": "morning-editorial-v1"}, "verifiedSourceUrls": ["https://example.com/markets-two"]},
+      {"id": "xmc-8eeaa086630b923a3244", "beat": "science", "title": "Verified science story one", "summary": "Verified summary.", "reason": "Strong morning value.", "decision": "selected", "mustReview": false, "scores": {"substance": 80, "sourceAuthority": 85, "verificationDepth": 80, "freshness": 75, "readerRelevance": 80, "total": 81, "eligible": true, "ruleVersion": "morning-editorial-v1"}, "verifiedSourceUrls": ["https://example.com/science-one"]},
+      {"id": "science-selected-2", "beat": "science", "title": "Verified science story two", "summary": "Verified summary.", "reason": "Strong morning value.", "decision": "selected", "mustReview": false, "scores": {"substance": 75, "sourceAuthority": 80, "verificationDepth": 75, "freshness": 70, "readerRelevance": 75, "total": 76, "eligible": true, "ruleVersion": "morning-editorial-v1"}, "verifiedSourceUrls": ["https://example.com/science-two"]}
+    ],
+    "hold": [
+      {"id": "xmc-e148edfe52ba969259f2", "beat": "technology", "title": "Muse Code signal", "summary": "The August 5 signal requires review.", "reason": "Must-review signal lacks enough freshness for selection.", "decision": "hold", "mustReview": true, "scores": {"substance": 75, "sourceAuthority": 70, "verificationDepth": 65, "freshness": 40, "readerRelevance": 60, "total": 65, "eligible": false, "ruleVersion": "morning-editorial-v1"}, "verifiedSourceUrls": ["https://example.com/muse-code"]}
+    ],
+    "reject": []
+  },
+  "authority": {"editorialSelectionFinal": true, "publicationApproved": false, "selectionOwner": "David's Daily Bread", "publicationOwner": "existing-bake-workflow"}
+}

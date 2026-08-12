@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davidsdailybread.com/schemas/x-manager-morning-candidate-ledger-v1.schema.json",
+  "title": "X Manager morning candidate ledger v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "ledgerId",
+    "generatedAt",
+    "targetEdition",
+    "sourceManifest",
+    "boundedInputs",
+    "scoringRule",
+    "candidates",
+    "authority"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "x-manager-morning-candidate-ledger-v1"
+    },
+    "ledgerId": {
+      "type": "string",
+      "pattern": "^x-manager-morning-[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-f0-9]{16}$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "targetEdition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "slot", "timeZone"],
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "slot": { "const": "morning" },
+        "timeZone": { "const": "America/Los_Angeles" }
+      }
+    },
+    "sourceManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "sha256"],
+      "properties": {
+        "version": { "const": "x-manager-morning-source-manifest-v1" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "boundedInputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "newPaidRunTriggered",
+        "paidPostReads",
+        "sourceArtifacts",
+        "recordsReceived",
+        "recordsConsidered",
+        "caps"
+      ],
+      "properties": {
+        "newPaidRunTriggered": { "const": false },
+        "paidPostReads": { "const": 0 },
+        "sourceArtifacts": { "type": "integer", "minimum": 0 },
+        "recordsReceived": { "type": "integer", "minimum": 0 },
+        "recordsConsidered": { "type": "integer", "minimum": 0 },
+        "caps": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "maxPaidRuns",
+            "maxPaidPostReads",
+            "maxSourceArtifacts",
+            "maxInputRecords",
+            "maxCandidatesPerCategory",
+            "maxLookbackHours"
+          ],
+          "properties": {
+            "maxPaidRuns": { "const": 0 },
+            "maxPaidPostReads": { "const": 0 },
+            "maxSourceArtifacts": { "type": "integer", "minimum": 1 },
+            "maxInputRecords": { "type": "integer", "minimum": 1 },
+            "maxCandidatesPerCategory": { "type": "integer", "minimum": 1 },
+            "maxLookbackHours": { "type": "integer", "minimum": 1 }
+          }
+        }
+      }
+    },
+    "scoringRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "statement", "weights", "mustReviewGate"],
+      "properties": {
+        "version": { "const": "morning-news-v1" },
+        "statement": { "type": "string", "minLength": 1 },
+        "weights": {
+          "const": {
+            "morningRelevance": 0.3,
+            "publicSignificance": 0.35,
+            "freshness": 0.2,
+            "corroboration": 0.15
+          }
+        },
+        "mustReviewGate": { "const": 70 }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidate" }
+    },
+    "authority": {
+      "const": {
+        "advisoryOnly": true,
+        "editorialSelectionFinal": false,
+        "publicationApproved": false,
+        "mayPublish": false,
+        "publicationOwner": "existing-morning-bake-workflow"
+      }
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rank",
+        "candidateId",
+        "category",
+        "title",
+        "summary",
+        "xPostUrl",
+        "authorUsername",
+        "publishedAt",
+        "observedAt",
+        "sourceIds",
+        "officialAnnouncement",
+        "majorLaunch",
+        "scores",
+        "mustReview",
+        "mustReviewReason",
+        "verificationRequired",
+        "advisoryOnly"
+      ],
+      "properties": {
+        "rank": { "type": "integer", "minimum": 1 },
+        "candidateId": { "type": "string", "pattern": "^xmc-[a-f0-9]{20}$" },
+        "category": { "enum": ["technology", "markets", "science"] },
+        "title": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string", "minLength": 1 },
+        "xPostUrl": { "type": "string", "pattern": "^https://(?:www\\.)?x\\.com/" },
+        "authorUsername": { "type": "string", "minLength": 1 },
+        "publishedAt": { "type": "string", "format": "date-time" },
+        "observedAt": { "type": "string", "format": "date-time" },
+        "sourceIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "officialAnnouncement": { "type": "boolean" },
+        "majorLaunch": { "type": "boolean" },
+        "scores": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "morningRelevance",
+            "publicSignificance",
+            "freshness",
+            "corroboration",
+            "total",
+            "ruleVersion"
+          ],
+          "properties": {
+            "morningRelevance": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "publicSignificance": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "freshness": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "corroboration": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "total": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "ruleVersion": { "const": "morning-news-v1" }
+          }
+        },
+        "mustReview": { "type": "boolean" },
+        "mustReviewReason": { "type": ["string", "null"] },
+        "verificationRequired": { "const": true },
+        "advisoryOnly": { "const": true }
+      }
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "x-manager-morning-candidate-ledger-v1",
+  "ledgerId": "x-manager-morning-2026-08-05-2521000bbb7059e1",
+  "generatedAt": "2026-08-05T14:20:00Z",
+  "targetEdition": {
+    "date": "2026-08-05",
+    "slot": "morning",
+    "timeZone": "America/Los_Angeles"
+  },
+  "sourceManifest": {
+    "version": "x-manager-morning-source-manifest-v1",
+    "sha256": "bcd889f324982f339fceb00fbada778060daf95e6cf781950ec48cf5cc4e1c0e"
+  },
+  "boundedInputs": {
+    "newPaidRunTriggered": false,
+    "paidPostReads": 0,
+    "sourceArtifacts": 3,
+    "recordsReceived": 3,
+    "recordsConsidered": 3,
+    "caps": {
+      "maxPaidRuns": 0,
+      "maxPaidPostReads": 0,
+      "maxSourceArtifacts": 3,
+      "maxInputRecords": 12,
+      "maxCandidatesPerCategory": 3,
+      "maxLookbackHours": 24
+    }
+  },
+  "scoringRule": {
+    "version": "morning-news-v1",
+    "statement": "Morning relevance first, public significance second, freshness third, corroboration fourth.",
+    "weights": {
+      "morningRelevance": 0.3,
+      "publicSignificance": 0.35,
+      "freshness": 0.2,
+      "corroboration": 0.15
+    },
+    "mustReviewGate": 70
+  },
+  "candidates": [
+    {
+      "rank": 1,
+      "candidateId": "xmc-e148edfe52ba969259f2",
+      "category": "technology",
+      "title": "Muse launches Muse Code",
+      "summary": "Muse announces a coding tool for building software with AI agents.",
+      "xPostUrl": "https://x.com/museapphq/status/1952999999999999999",
+      "authorUsername": "museapphq",
+      "publishedAt": "2026-08-05T13:40:00Z",
+      "observedAt": "2026-08-05T13:58:00Z",
+      "sourceIds": [
+        "x-pro-manual-export",
+        "x-radar-manual-export"
+      ],
+      "officialAnnouncement": true,
+      "majorLaunch": true,
+      "scores": {
+        "morningRelevance": 65,
+        "publicSignificance": 90,
+        "freshness": 97,
+        "corroboration": 60,
+        "total": 79,
+        "ruleVersion": "morning-news-v1"
+      },
+      "mustReview": true,
+      "mustReviewReason": "Official major launch exceeds the morning-news-v1 must-review gate.",
+      "verificationRequired": true,
+      "advisoryOnly": true
+    },
+    {
+      "rank": 2,
+      "candidateId": "xmc-a1be6f0c8a5428e25d74",
+      "category": "markets",
+      "title": "Pre-market shares edge higher",
+      "summary": "Investors weigh earnings before the opening bell.",
+      "xPostUrl": "https://x.com/marketdesk/status/1953000000000000001",
+      "authorUsername": "marketdesk",
+      "publishedAt": "2026-08-05T13:55:00Z",
+      "observedAt": "2026-08-05T14:03:00Z",
+      "sourceIds": [
+        "x-radar-manual-export"
+      ],
+      "officialAnnouncement": false,
+      "majorLaunch": false,
+      "scores": {
+        "morningRelevance": 65,
+        "publicSignificance": 30,
+        "freshness": 98,
+        "corroboration": 35,
+        "total": 55,
+        "ruleVersion": "morning-news-v1"
+      },
+      "mustReview": false,
+      "mustReviewReason": null,
+      "verificationRequired": true,
+      "advisoryOnly": true
+    },
+    {
+      "rank": 3,
+      "candidateId": "xmc-8eeaa086630b923a3244",
+      "category": "science",
+      "title": "New climate study posts preliminary findings",
+      "summary": "Researchers share an early study that still requires independent verification.",
+      "xPostUrl": "https://x.com/sciencenotes/status/1952999999999999998",
+      "authorUsername": "sciencenotes",
+      "publishedAt": "2026-08-05T12:30:00Z",
+      "observedAt": "2026-08-05T13:50:00Z",
+      "sourceIds": [
+        "x-monitor-cached-ledger"
+      ],
+      "officialAnnouncement": false,
+      "majorLaunch": false,
+      "scores": {
+        "morningRelevance": 65,
+        "publicSignificance": 30,
+        "freshness": 92,
+        "corroboration": 35,
+        "total": 54,
+        "ruleVersion": "morning-news-v1"
+      },
+      "mustReview": false,
+      "mustReviewReason": null,
+      "verificationRequired": true,
+      "advisoryOnly": true
+    }
+  ],
+  "authority": {
+    "advisoryOnly": true,
+    "editorialSelectionFinal": false,
+    "publicationApproved": false,
+    "mayPublish": false,
+    "publicationOwner": "existing-morning-bake-workflow"
+  }
+}
