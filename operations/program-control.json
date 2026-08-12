@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-12T18:48:16Z",
+  "updatedAt": "2026-08-12T19:15:32Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -10,7 +10,7 @@
   "mode": "single-controller-laned-execution",
   "activeItemIds": {
     "local_work": [
-      "DDB-PC-029"
+      "DDB-PC-027"
     ],
     "production_mutation": null
   },
@@ -1419,7 +1419,7 @@
       "id": "DDB-PC-029",
       "sequence": 29,
       "title": "Repair the Chronicles masthead and notes metadata boundary",
-      "status": "in_progress",
+      "status": "complete",
       "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-028"
@@ -1457,14 +1457,23 @@
       "progressEvidence": [
         "DDB-PC-028 completed every gate after PR 86 merged as main 29af0c79c3308fce03ad25c93942dfb3dbb47d80 and its Pages, main CodeQL, and live byte verification passed",
         "The controller activated only DDB-PC-029 as the lowest-sequence eligible successor in the local-work lane; David's exact release decision holds DDB-PC-027 blocked from concurrent activation, and DDB-PC-026 remains dependency-blocked behind it",
-        "David assigned Codex worker /root/ddb_pc_029_worker at 2026-08-12T18:48:16Z to clean branch codex/ddb-pc-029-implementation based exactly on current main dfa0f82ed509f940c0d234bfc81a72c5fb3dd675; the assignment is recorded before implementation begins"
+        "David assigned Codex worker /root/ddb_pc_029_worker at 2026-08-12T18:48:16Z to clean branch codex/ddb-pc-029-implementation based exactly on current main dfa0f82ed509f940c0d234bfc81a72c5fb3dd675; the assignment is recorded before implementation begins",
+        "Implementation head 9aa850636c3f424a66708fe3e0f313de9563e4a4 and full branch diff SHA-256 43b2e79eb00bc3f0377ff675ce9c095e3a36781fe03482841eededa508dbc368 passed independent controller review, 61 relevant standing-page tests, 8 program-control tests, inline JavaScript syntax checks, all 79 JSON parses, and git diff checks",
+        "PR 88 passed the hosted x86_64 Merge gate and both CodeQL analyses at the unchanged exact head before David approved release"
+      ],
+      "completedAt": "2026-08-12T19:15:32Z",
+      "evidence": [
+        "PR 88 exact approved head 9aa850636c3f424a66708fe3e0f313de9563e4a4 and diff SHA-256 43b2e79eb00bc3f0377ff675ce9c095e3a36781fe03482841eededa508dbc368 squash-merged through the protected path as main c7e16e507c613d15c91e0569089ea90cc684ce1e",
+        "Main CodeQL run 31631612531 and Pages run 31631611878 succeeded for exact main c7e16e507c613d15c91e0569089ea90cc684ce1e",
+        "Live Chronicles, Archive, and Subscribe bytes matched exact main with SHA-256 values 309f5714ef335630b3d4c1d91387e097af395ed9d047f65ad6c0bfa89b69dbd5, 6df7108b60604e422ed31e1444ce55152efc088363a40e464f06dcae758e551f, and f6d88a28d163d42c4b56767cd4aeedfb2b6f6fc292a965dae3343509f5ad395a",
+        "No edition was published or rerun; no message or post was sent; no schedule, credential, provider, service, network state, paid read, new surface, provisioning, or spend action occurred"
       ]
     },
     {
       "id": "DDB-PC-027",
       "sequence": 30,
       "title": "Morning Reviewed Research Handoff v1",
-      "status": "blocked",
+      "status": "in_progress",
       "executionLane": "local_work",
       "dependencies": [
         "DDB-PC-028"
@@ -1489,8 +1498,12 @@
         "Exact local X Manager and DDB implementation heads and validation evidence are reported for separate release and activation approval",
         "No live automation schedule, deployment, credential, paid X read, edition, publication, post, send, merge, provisioning, or spend changes occur"
       ],
-      "blockedAt": "2026-08-12T17:56:07Z",
-      "blockedReason": "David's exact DDB-PC-028 release decision authorized activation of only DDB-PC-029 in the local-work lane. DDB-PC-027 remains in deterministic queue order but may not activate concurrently without a subsequent controller decision consistent with that boundary."
+      "startedAt": "2026-08-12T19:15:32Z",
+      "progressEvidence": [
+        "DDB-PC-029 completed every release gate after PR 88 merged as main c7e16e507c613d15c91e0569089ea90cc684ce1e and its Pages, main CodeQL, and live byte verification passed",
+        "David's exact DDB-PC-029 release decision authorized activation of only DDB-PC-027 in the local-work lane; DDB-PC-026 remains dependency-blocked until DDB-PC-027 completes",
+        "DDB-PC-027 activation changes controller state only and does not assign a worker, begin implementation, trigger a paid X read, or cross any production boundary"
+      ]
     },
     {
       "id": "DDB-PC-026",
