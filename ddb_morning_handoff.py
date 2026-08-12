@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
+import unicodedata
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -43,6 +45,41 @@ AUTHORITY = {
 }
 BEATS = ("technology", "markets", "science")
 DECISIONS = ("selected", "hold", "reject")
+LEDGER_SCORE_RULE = {
+    "version": "morning-news-v1",
+    "statement": "Morning relevance first, public significance second, freshness third, corroboration fourth.",
+    "weights": {
+        "morningRelevance": 0.3,
+        "publicSignificance": 0.35,
+        "freshness": 0.2,
+        "corroboration": 0.15,
+    },
+    "mustReviewGate": 70,
+}
+LEDGER_AUTHORITY = {
+    "advisoryOnly": True,
+    "editorialSelectionFinal": False,
+    "publicationApproved": False,
+    "mayPublish": False,
+    "publicationOwner": "existing-morning-bake-workflow",
+}
+MUST_REVIEW_REASON = (
+    "Official major launch exceeds the morning-news-v1 must-review gate."
+)
+_CATEGORY_PATTERNS = {
+    "technology": (
+        re.compile(r"\b(?:ai|artificial intelligence|code|coding|developer|software|model|agent|tool|app|chip|cloud)\b", re.I),
+        re.compile(r"\b(?:launch|release|ship|announce|introduce|available)\b", re.I),
+    ),
+    "markets": (
+        re.compile(r"\b(?:market|stock|shares?|index|bond|yield|funding|acquisition|merger|earnings|ipo)\b", re.I),
+        re.compile(r"\b(?:economy|economic|inflation|jobs|revenue|valuation|investor)\b", re.I),
+    ),
+    "science": (
+        re.compile(r"\b(?:science|scientist|research|study|discovery|space|climate|physics|biology|medicine)\b", re.I),
+        re.compile(r"\b(?:trial|peer-reviewed|journal|nasa|experiment|evidence)\b", re.I),
+    ),
+}
 
 
 class MorningHandoffValidationError(ValueError):
@@ -82,7 +119,85 @@ def _https_url(value: Any, *, allow_x: bool = True) -> bool:
     if parsed.scheme != "https" or not parsed.netloc:
         return False
     host = (parsed.hostname or "").lower().removeprefix("www.")
-    return allow_x or host not in {"x.com", "twitter.com"}
+    is_x = host in {"x.com", "twitter.com"} or host.endswith(
+        (".x.com", ".twitter.com")
+    )
+    return allow_x or not is_x
+
+
+def _x_url(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    try:
+        parsed = parse.urlparse(value)
+    except ValueError:
+        return False
+    return (
+        parsed.scheme == "https"
+        and parsed.netloc.lower() in {"x.com", "www.x.com"}
+        and parsed.path.startswith("/")
+    )
+
+
+def _exact_keys(value: dict[str, Any], expected: set[str], path: str, errors: list[str]) -> None:
+    missing = expected - set(value)
+    extra = set(value) - expected
+    if missing:
+        errors.append(f"{path} is missing: {', '.join(sorted(missing))}")
+    if extra:
+        errors.append(f"{path} has unknown fields: {', '.join(sorted(extra))}")
+
+
+def _integer(value: Any, *, minimum: int = 0, maximum: int | None = None) -> bool:
+    return (
+        isinstance(value, int)
+        and not isinstance(value, bool)
+        and value >= minimum
+        and (maximum is None or value <= maximum)
+    )
+
+
+def _js_round(value: float) -> int:
+    return int(value + 0.5)
+
+
+def _normalized(value: Any) -> str:
+    return " ".join(unicodedata.normalize("NFKC", str(value or "")).strip().split())
+
+
+def _expected_ledger_scores(item: dict[str, Any], generated_at: datetime, lookback: int) -> dict[str, Any]:
+    text = f"{_normalized(item.get('title'))} {_normalized(item.get('summary'))}"
+    patterns = _CATEGORY_PATTERNS[item["category"]]
+    morning_relevance = min(100, max(0, _js_round(45 + sum(bool(pattern.search(text)) for pattern in patterns) * 20)))
+    public_significance = min(
+        100,
+        max(
+            0,
+            _js_round(
+                30
+                + int(item.get("officialAnnouncement") is True) * 25
+                + int(item.get("majorLaunch") is True) * 35
+            ),
+        ),
+    )
+    published_at = _timestamp(item.get("publishedAt"))
+    age_hours = max(0.0, (generated_at - published_at).total_seconds() / 3600) if published_at else lookback
+    freshness = min(100, max(0, _js_round(100 * (1 - age_hours / lookback))))
+    corroboration = min(100, max(0, _js_round(35 + min(2, len(set(item.get("sourceIds", []))) - 1) * 25)))
+    total = _js_round(
+        morning_relevance * 0.3
+        + public_significance * 0.35
+        + freshness * 0.2
+        + corroboration * 0.15
+    )
+    return {
+        "morningRelevance": morning_relevance,
+        "publicSignificance": public_significance,
+        "freshness": freshness,
+        "corroboration": corroboration,
+        "total": total,
+        "ruleVersion": "morning-news-v1",
+    }
 
 
 def _require_string(value: Any, path: str, errors: list[str]) -> None:
@@ -136,9 +251,17 @@ def validate_candidate_ledger(ledger: Any, *, expected_date: str | None = None) 
     errors: list[str] = []
     if not isinstance(ledger, dict):
         raise MorningHandoffValidationError(["ledger must be a JSON object"])
+    _exact_keys(
+        ledger,
+        {"schemaVersion", "ledgerId", "generatedAt", "targetEdition", "sourceManifest", "boundedInputs", "scoringRule", "candidates", "authority"},
+        "ledger",
+        errors,
+    )
     if ledger.get("schemaVersion") != LEDGER_SCHEMA_VERSION:
         errors.append(f"schemaVersion must be {LEDGER_SCHEMA_VERSION}")
     target_date = _validate_target(ledger.get("targetEdition"), expected_date, errors)
+    if isinstance(ledger.get("targetEdition"), dict):
+        _exact_keys(ledger["targetEdition"], {"date", "slot", "timeZone"}, "targetEdition", errors)
     generated_at = _timestamp(ledger.get("generatedAt"))
     if generated_at is None:
         errors.append("generatedAt must be an ISO UTC timestamp")
@@ -148,20 +271,42 @@ def validate_candidate_ledger(ledger: Any, *, expected_date: str | None = None) 
     if not isinstance(manifest, dict):
         errors.append("sourceManifest is required")
     else:
-        _require_string(manifest.get("version"), "sourceManifest.version", errors)
+        _exact_keys(manifest, {"version", "sha256"}, "sourceManifest", errors)
+        if manifest.get("version") != "x-manager-morning-source-manifest-v1":
+            errors.append("sourceManifest.version must be x-manager-morning-source-manifest-v1")
         if not re.fullmatch(r"[a-f0-9]{64}", str(manifest.get("sha256", ""))):
             errors.append("sourceManifest.sha256 must be a lowercase SHA-256")
     bounds = ledger.get("boundedInputs")
     if not isinstance(bounds, dict):
         errors.append("boundedInputs is required")
     else:
+        _exact_keys(bounds, {"newPaidRunTriggered", "paidPostReads", "sourceArtifacts", "recordsReceived", "recordsConsidered", "caps"}, "boundedInputs", errors)
         if bounds.get("newPaidRunTriggered") is not False:
             errors.append("boundedInputs.newPaidRunTriggered must be false")
         if bounds.get("paidPostReads") != 0:
             errors.append("boundedInputs.paidPostReads must be zero")
+        for field in ("sourceArtifacts", "recordsReceived", "recordsConsidered"):
+            if not _integer(bounds.get(field)):
+                errors.append(f"boundedInputs.{field} must be a non-negative integer")
         caps = bounds.get("caps")
-        if not isinstance(caps, dict) or caps.get("maxPaidRuns") != 0 or caps.get("maxPaidPostReads") != 0:
+        if not isinstance(caps, dict):
+            errors.append("boundedInputs.caps is required")
+            caps = {}
+        else:
+            _exact_keys(caps, {"maxPaidRuns", "maxPaidPostReads", "maxSourceArtifacts", "maxInputRecords", "maxCandidatesPerCategory", "maxLookbackHours"}, "boundedInputs.caps", errors)
+        if caps.get("maxPaidRuns") != 0 or caps.get("maxPaidPostReads") != 0:
             errors.append("boundedInputs paid-run and paid-read caps must be zero")
+        for field in ("maxSourceArtifacts", "maxInputRecords", "maxCandidatesPerCategory", "maxLookbackHours"):
+            if not _integer(caps.get(field), minimum=1):
+                errors.append(f"boundedInputs.caps.{field} must be a positive integer")
+        if _integer(bounds.get("recordsReceived")) and _integer(bounds.get("recordsConsidered")) and bounds["recordsConsidered"] > bounds["recordsReceived"]:
+            errors.append("recordsConsidered cannot exceed recordsReceived")
+        if _integer(bounds.get("recordsReceived")) and _integer(caps.get("maxInputRecords"), minimum=1) and bounds["recordsReceived"] > caps["maxInputRecords"]:
+            errors.append("recordsReceived exceeds maxInputRecords")
+        if _integer(bounds.get("sourceArtifacts")) and _integer(caps.get("maxSourceArtifacts"), minimum=1) and bounds["sourceArtifacts"] > caps["maxSourceArtifacts"]:
+            errors.append("sourceArtifacts exceeds maxSourceArtifacts")
+    if ledger.get("scoringRule") != LEDGER_SCORE_RULE:
+        errors.append("scoringRule must preserve the exact morning-news-v1 contract")
     candidates = ledger.get("candidates")
     ids: list[str] = []
     if not isinstance(candidates, list):
@@ -175,22 +320,83 @@ def validate_candidate_ledger(ledger: Any, *, expected_date: str | None = None) 
             if not isinstance(item, dict):
                 errors.append(f"{path} must be an object")
                 continue
-            for field in ("candidateId", "title", "summary"):
+            _exact_keys(item, {"rank", "candidateId", "category", "title", "summary", "xPostUrl", "authorUsername", "publishedAt", "observedAt", "sourceIds", "officialAnnouncement", "majorLaunch", "scores", "mustReview", "mustReviewReason", "verificationRequired", "advisoryOnly"}, path, errors)
+            if not _integer(item.get("rank"), minimum=1):
+                errors.append(f"{path}.rank must be a positive integer")
+            for field in ("candidateId", "title", "summary", "authorUsername"):
                 _require_string(item.get(field), f"{path}.{field}", errors)
             ids.append(item.get("candidateId"))
+            if not re.fullmatch(r"xmc-[a-f0-9]{20}", str(item.get("candidateId", ""))):
+                errors.append(f"{path}.candidateId is invalid")
             if item.get("category") not in BEATS:
                 errors.append(f"{path}.category must be technology, markets, or science")
-            if not _https_url(item.get("xPostUrl")):
-                errors.append(f"{path}.xPostUrl must be an HTTPS URL")
+            if not _x_url(item.get("xPostUrl")):
+                errors.append(f"{path}.xPostUrl must be an exact x.com HTTPS URL")
+            published_at = _timestamp(item.get("publishedAt"))
+            observed_at = _timestamp(item.get("observedAt"))
+            if published_at is None or observed_at is None:
+                errors.append(f"{path}.publishedAt and observedAt must be ISO UTC timestamps")
+            elif generated_at is not None and _integer(caps.get("maxLookbackHours"), minimum=1):
+                age = (generated_at - published_at).total_seconds()
+                if age < 0 or age > caps["maxLookbackHours"] * 3600:
+                    errors.append(f"{path}.publishedAt must be within the bounded lookback")
+            for field in ("officialAnnouncement", "majorLaunch", "mustReview"):
+                if not isinstance(item.get(field), bool):
+                    errors.append(f"{path}.{field} must be boolean")
+            source_ids = item.get("sourceIds")
+            if not isinstance(source_ids, list) or not source_ids or any(not isinstance(value, str) or not value for value in source_ids) or len(source_ids) != len(set(source_ids)):
+                errors.append(f"{path}.sourceIds must be a non-empty unique string array")
             if item.get("verificationRequired") is not True or item.get("advisoryOnly") is not True:
                 errors.append(f"{path} must require verification and remain advisory")
-            if item.get("mustReview") is True:
-                _require_string(item.get("mustReviewReason"), f"{path}.mustReviewReason", errors)
+            if item.get("category") in BEATS and generated_at is not None and _integer(caps.get("maxLookbackHours"), minimum=1):
+                expected_scores = _expected_ledger_scores(item, generated_at, caps["maxLookbackHours"])
+                if item.get("scores") != expected_scores:
+                    errors.append(f"{path}.scores must equal the derived morning-news-v1 scores")
+                expected_must_review = item.get("officialAnnouncement") is True and item.get("majorLaunch") is True and expected_scores["total"] >= LEDGER_SCORE_RULE["mustReviewGate"]
+                if item.get("mustReview") is not expected_must_review:
+                    errors.append(f"{path}.mustReview must reflect official major-launch semantics")
+                expected_reason = MUST_REVIEW_REASON if expected_must_review else None
+                if item.get("mustReviewReason") != expected_reason:
+                    errors.append(f"{path}.mustReviewReason is inconsistent")
+            identity = "\n".join((str(item.get("category", "")), _normalized(item.get("title")).lower(), str(item.get("xPostUrl", "")).lower()))
+            expected_id = f"xmc-{hashlib.sha256(identity.encode()).hexdigest()[:20]}"
+            if item.get("candidateId") != expected_id:
+                errors.append(f"{path}.candidateId must be derived deterministically")
     if len(ids) != len(set(ids)):
         errors.append("candidate IDs must be unique")
-    if ledger.get("scoringRule", {}).get("version") != "morning-news-v1":
-        errors.append("scoringRule.version must be morning-news-v1")
-    if ledger.get("authority") != {"advisoryOnly": True, "editorialSelectionFinal": False, "publicationApproved": False, "mayPublish": False, "publicationOwner": "existing-morning-bake-workflow"}:
+    if isinstance(candidates, list):
+        expected_order = sorted(
+            candidates,
+            key=lambda item: (
+                -int(item.get("mustReview") is True),
+                -int(item.get("scores", {}).get("total", -1)) if isinstance(item.get("scores"), dict) else 1,
+                -(_timestamp(item.get("publishedAt")).timestamp() if _timestamp(item.get("publishedAt")) else float("-inf")),
+                str(item.get("candidateId", "")),
+            ),
+        )
+        if candidates != expected_order:
+            errors.append("candidates must follow mustReview desc, total desc, publishedAt desc, candidateId asc")
+        if isinstance(bounds, dict) and isinstance(caps, dict) and _integer(caps.get("maxCandidatesPerCategory"), minimum=1):
+            for beat in BEATS:
+                if sum(item.get("category") == beat for item in candidates if isinstance(item, dict)) > caps["maxCandidatesPerCategory"]:
+                    errors.append(f"candidate count exceeds the {beat} category cap")
+            unique_sources = {
+                source
+                for item in candidates
+                if isinstance(item, dict)
+                for source in item.get("sourceIds", [])
+                if isinstance(source, str)
+            }
+            if _integer(bounds.get("sourceArtifacts")) and bounds["sourceArtifacts"] < len(unique_sources):
+                errors.append("sourceArtifacts cannot be smaller than candidate source lineage")
+            if _integer(bounds.get("recordsConsidered")) and bounds["recordsConsidered"] < len(candidates):
+                errors.append("recordsConsidered cannot be smaller than the candidate count")
+        expected_ledger_id = f"x-manager-morning-{target_date}-{hashlib.sha256(chr(10).join(str(item.get('candidateId', '')) for item in candidates).encode()).hexdigest()[:16]}"
+        if ledger.get("ledgerId") != expected_ledger_id:
+            errors.append("ledgerId must be derived from the ordered candidate IDs")
+    if not re.fullmatch(r"x-manager-morning-\d{4}-\d{2}-\d{2}-[a-f0-9]{16}", str(ledger.get("ledgerId", ""))):
+        errors.append("ledgerId has an invalid shape")
+    if ledger.get("authority") != LEDGER_AUTHORITY:
         errors.append("ledger authority must remain advisory and non-publishing")
     if errors:
         raise MorningHandoffValidationError(errors)

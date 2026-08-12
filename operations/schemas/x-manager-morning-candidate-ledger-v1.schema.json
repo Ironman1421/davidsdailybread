@@ -132,6 +132,8 @@
         "publishedAt",
         "observedAt",
         "sourceIds",
+        "officialAnnouncement",
+        "majorLaunch",
         "scores",
         "mustReview",
         "mustReviewReason",
@@ -154,6 +156,8 @@
           "uniqueItems": true,
           "items": { "type": "string", "minLength": 1 }
         },
+        "officialAnnouncement": { "type": "boolean" },
+        "majorLaunch": { "type": "boolean" },
         "scores": {
           "type": "object",
           "additionalProperties": false,

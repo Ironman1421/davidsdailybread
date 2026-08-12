@@ -135,6 +135,43 @@ def test_candidate_ledger_requires_no_paid_read_and_deterministic_order():
         validate_candidate_ledger(ledger)
 
 
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        (lambda ledger: ledger["sourceManifest"].update(version="wrong-v1"), "sourceManifest.version"),
+        (lambda ledger: ledger["boundedInputs"]["caps"].update(maxPaidRuns=1), "paid-run and paid-read caps"),
+        (lambda ledger: ledger["scoringRule"]["weights"].update(freshness=0.25), "exact morning-news-v1 contract"),
+        (lambda ledger: ledger["candidates"][0]["scores"].update(total=78), "derived morning-news-v1 scores"),
+        (lambda ledger: ledger["candidates"][0].update(xPostUrl="https://api.x.com/muse/status/1"), "exact x.com HTTPS URL"),
+        (lambda ledger: ledger["candidates"].reverse(), "mustReview desc"),
+        (lambda ledger: ledger["candidates"][0].update(officialAnnouncement=False), "mustReview must reflect"),
+        (lambda ledger: ledger.update(unexpected=True), "unknown fields"),
+    ],
+)
+def test_candidate_ledger_fails_closed_for_reproduced_contract_mutations(mutation, message):
+    ledger = json.loads(
+        (ROOT / "tests/fixtures/x-manager-morning-candidate-ledger.muse-code-2026-08-05.json").read_text()
+    )
+    mutation(ledger)
+    with pytest.raises(MorningHandoffValidationError, match=message):
+        validate_candidate_ledger(ledger, expected_date="2026-08-05")
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://api.x.com/story",
+        "https://News.Twitter.Com:443/story",
+        "https://deep.api.x.com:8443/story",
+    ],
+)
+def test_reviewed_packet_rejects_x_and_twitter_subdomains_as_independent_sources(url):
+    packet = load_packet()
+    packet["decisions"]["selected"][0]["verifiedSourceUrls"] = [url]
+    with pytest.raises(MorningHandoffValidationError, match="non-X HTTPS URLs"):
+        validate_packet(packet, now=datetime(2026, 8, 5, 11, 30, tzinfo=timezone.utc))
+
+
 def test_evening_editorial_fit_contract_remains_unchanged():
     contract = json.loads((ROOT / "operations/tools-workflows-research-handoff.contract.json").read_text())
     assert contract["ddbCombinedReview"]["editorialFit"]["version"] == "editorial-fit-v1"
@@ -170,3 +207,9 @@ def test_morning_contract_and_schema_are_json_and_distinct_from_evening():
     assert contract["ddbReview"]["scoringRule"] == "morning-editorial-v1"
     assert contract["bake"]["openEndedDiscoveryAllowed"] is False
     assert schema["properties"]["schemaVersion"]["const"] == "ddb-reviewed-morning-handoff-v1"
+    assert contract["xManager"]["discovery"]["deterministicOrder"] == [
+        "mustReview descending",
+        "morning-news-v1 total descending",
+        "publishedAt descending",
+        "candidateId ascending",
+    ]

@@ -240,6 +240,15 @@ class UnifiedEveningHandoffTest(unittest.TestCase):
         with self.assertRaisesRegex(HandoffValidationError, "non-X HTTPS"):
             validate_packet(x_source, now=NOW)
 
+        for source_url in (
+            "https://api.x.com/example/status/1",
+            "https://News.Twitter.Com:443/example/status/1",
+        ):
+            x_subdomain = deepcopy(self.packet)
+            x_subdomain["selection"]["tools"][0]["officialUrl"] = source_url
+            with self.assertRaisesRegex(HandoffValidationError, "non-X HTTPS"):
+                validate_packet(x_subdomain, now=NOW)
+
         failed_gate = deepcopy(self.packet)
         failed_gate["selection"]["tools"][0]["editorialScores"]["leverage"] = 20
         with self.assertRaisesRegex(HandoffValidationError, "editorial gate"):

@@ -52,6 +52,8 @@
         "x-pro-manual-export",
         "x-radar-manual-export"
       ],
+      "officialAnnouncement": true,
+      "majorLaunch": true,
       "scores": {
         "morningRelevance": 65,
         "publicSignificance": 90,
@@ -78,6 +80,8 @@
       "sourceIds": [
         "x-radar-manual-export"
       ],
+      "officialAnnouncement": false,
+      "majorLaunch": false,
       "scores": {
         "morningRelevance": 65,
         "publicSignificance": 30,
@@ -104,6 +108,8 @@
       "sourceIds": [
         "x-monitor-cached-ledger"
       ],
+      "officialAnnouncement": false,
+      "majorLaunch": false,
       "scores": {
         "morningRelevance": 65,
         "publicSignificance": 30,

@@ -13,7 +13,13 @@
       "xInput": "bounded stored or operator-supplied observations only",
       "sourceManifest": "versioned and digest-bound",
       "paidReadsAllowed": false,
-      "deterministicOrder": ["beat", "id"]
+      "deterministicOrder": [
+        "mustReview descending",
+        "morning-news-v1 total descending",
+        "publishedAt descending",
+        "candidateId ascending"
+      ],
+      "categoryCapApplication": "Apply the per-category cap while preserving the global deterministic order."
     }
   },
   "ddbReview": {
