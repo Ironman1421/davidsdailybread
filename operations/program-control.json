@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-12T17:56:07Z",
+  "updatedAt": "2026-08-12T18:48:16Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1433,6 +1433,16 @@
         "scope": "After DDB-PC-028 completes, use a clean branch to align Chronicles with the current official cropped masthead and exact subtitle, move Archive and Subscribe font preferences outside the ddb-note: namespace, safely ignore or migrate legacy :font metadata without altering genuine notes, preserve all four Chronicles export controls, add deterministic regression tests, and report the exact implementation head. Do not interrupt DDB-PC-028, merge, deploy, delete real notes, change newsletter or intake state, or alter generated editions without separate exact-head approval."
       },
       "externalMutation": false,
+      "worker": {
+        "type": "codex-subagent",
+        "taskName": "/root/ddb_pc_029_worker",
+        "assignedBy": "David Friedhof",
+        "assignedAt": "2026-08-12T18:48:16Z",
+        "decisionEvidence": "Task message: assign a worker and create a clean DDB-PC-029 implementation branch from current main, then record that assignment before implementation begins.",
+        "branch": "codex/ddb-pc-029-implementation",
+        "baseCommit": "dfa0f82ed509f940c0d234bfc81a72c5fb3dd675",
+        "worktree": "/private/tmp/ddb-pc-029-implementation.B7ZIN5"
+      },
       "completionGate": [
         "DDB-PC-028 is complete before DDB-PC-029 activates or implementation begins",
         "The implementation branch is clean and based on then-current main",
@@ -1446,7 +1456,8 @@
       "startedAt": "2026-08-12T17:56:07Z",
       "progressEvidence": [
         "DDB-PC-028 completed every gate after PR 86 merged as main 29af0c79c3308fce03ad25c93942dfb3dbb47d80 and its Pages, main CodeQL, and live byte verification passed",
-        "The controller activated only DDB-PC-029 as the lowest-sequence eligible successor in the local-work lane; David's exact release decision holds DDB-PC-027 blocked from concurrent activation, and DDB-PC-026 remains dependency-blocked behind it"
+        "The controller activated only DDB-PC-029 as the lowest-sequence eligible successor in the local-work lane; David's exact release decision holds DDB-PC-027 blocked from concurrent activation, and DDB-PC-026 remains dependency-blocked behind it",
+        "David assigned Codex worker /root/ddb_pc_029_worker at 2026-08-12T18:48:16Z to clean branch codex/ddb-pc-029-implementation based exactly on current main dfa0f82ed509f940c0d234bfc81a72c5fb3dd675; the assignment is recorded before implementation begins"
       ]
     },
     {

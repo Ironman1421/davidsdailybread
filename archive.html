@@ -151,7 +151,8 @@ ol.editions .lede { flex-basis: 100%; }
 <script>
 (function () {
   var key = 'ddb-note:page:archive';
-  var fontKey = key + ':font';
+  var fontKey = 'ddb-note-style:page:archive';
+  var legacyFontKey = key + ':font';
   var box = document.querySelector('[data-note-key="page:archive"]');
   var note = document.getElementById('page-note');
   var styleButton = document.getElementById('notes-style');
@@ -167,7 +168,13 @@ ol.editions .lede { flex-basis: 100%; }
     localStorage.setItem(fontKey, chosen);
   }
   note.value = localStorage.getItem(key) || '';
-  setFont(localStorage.getItem(fontKey) || 'hand');
+  var storedFont = localStorage.getItem(fontKey);
+  var legacyFont = localStorage.getItem(legacyFontKey);
+  if (!storedFont && fonts[legacyFont]) {
+    storedFont = legacyFont;
+    localStorage.setItem(fontKey, legacyFont);
+  }
+  setFont(storedFont || 'hand');
   note.addEventListener('input', function () { localStorage.setItem(key, note.value); });
   styleButton.addEventListener('click', function () {
     var open = box.classList.toggle('tools-open');
