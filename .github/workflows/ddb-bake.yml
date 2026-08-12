@@ -182,6 +182,19 @@ jobs:
             --date "$EDITION_DATE" \
             --output "$RUNNER_TEMP/ddb-reviewed-evening-handoff.json"
 
+      - name: Prepare DDB-reviewed morning handoff
+        if: needs.prepare-reader-plan.outputs.slot == 'morning' && needs.prepare-reader-plan.outputs.mode == 'daily'
+        env:
+          X_MONITOR_BASE_URL: https://signal-ai-radar.fluxcognition.chatgpt.site
+          X_MONITOR_SITES_BYPASS_TOKEN: ${{ secrets.X_MONITOR_SITES_BYPASS_TOKEN }}
+          EDITION_DATE: ${{ needs.prepare-reader-plan.outputs.date }}
+        run: |
+          set -euo pipefail
+          python3 ddb_morning_handoff.py fetch \
+            --base-url "$X_MONITOR_BASE_URL" \
+            --date "$EDITION_DATE" \
+            --output "$RUNNER_TEMP/ddb-reviewed-morning-handoff.json"
+
       - name: Install Claude Code
         run: |
           set -euo pipefail
@@ -201,6 +214,7 @@ jobs:
           DDB_MODE: ${{ needs.prepare-reader-plan.outputs.mode }}
           BAKE_MODEL: ${{ needs.prepare-reader-plan.outputs.model }}
           DDB_REVIEWED_HANDOFF_PATH: ${{ runner.temp }}/ddb-reviewed-evening-handoff.json
+          DDB_REVIEWED_MORNING_HANDOFF_PATH: ${{ runner.temp }}/ddb-reviewed-morning-handoff.json
         run: |
           set -euo pipefail
           if [ -z "${CLAUDE_CODE_OAUTH_TOKEN}" ] && [ -z "${ANTHROPIC_API_KEY}" ]; then
@@ -216,10 +230,11 @@ jobs:
           1. Setup is already done. The repo is checked out right here, so BAKE.md step 0 needs nothing from you: there is nothing to clone and no git identity to configure.
           2. Edition date: use exactly $DDB_DATE, verbatim, as --date. The runner already resolved it; no need to work it out yourself.
           3. Publishing belongs to the workflow, which commits, pushes, and verifies after you finish; BAKE.md steps 6 and 7 are its job, and git is its tool rather than yours. Your job ends when the render is clean and you have reviewed it like an editor.
-          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. New reader intake and newsletter activation are paused. The daily morning bake is BAKE.md steps 1-8 as written; --plan may select only reviewed house-satchel material and must return no Ask the Baker question, reader Letter, or Crumb Board pin. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and content.json keys, rendered with --slot evening --mode $DDB_MODE, with no reader key. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
+          4. Slot and mode: this run bakes the $DDB_SLOT edition in $DDB_MODE mode. New reader intake and newsletter activation are paused. The daily morning bake is BAKE.md steps 1-8 as written and reads its final selected set from $DDB_REVIEWED_MORNING_HANDOFF_PATH; --plan may select only reviewed house-satchel material and must return no Ask the Baker question, reader Letter, or Crumb Board pin. The daily evening bake follows BAKE.md's section "The evening bake": its own research beat and content.json keys, rendered with --slot evening --mode $DDB_MODE, with no reader key. A backfill reconstructs an edition for the past date $DDB_DATE: use only material actually published on or before that date (dated search terms help), verify each item's publication date before using it, leave the reader sections out entirely, and render with --slot $DDB_SLOT --mode $DDB_MODE.
           5. Honesty: every fact traces to a source link you actually fetched. Work through BAKE.md step 5A, the accuracy pass, before you hand off, and say in your report what it changed. If a section cannot reach the 2-story minimum with verified stories, stop and report that plainly rather than padding; a failed bake that says so is a good outcome. In the evening edition, an item counts as trending only when a cited source shows where it is trending.
           6. Unified evening handoff: for a daily evening bake, the workflow writes DDB's reviewed packet to $DDB_REVIEWED_HANDOFF_PATH. Read it before taking any evening research action. When it has schemaVersion ddb-reviewed-evening-handoff-v1 and status ready, its selected tools and workflows are the final editorial set from the 1:40 PM combined X Manager plus DDB review. Do not discover, add, substitute, rerank, or ask X Manager for candidates. Fetch only each selected item's officialUrl and trendUrl for the final accuracy pass, then map that selected set into content.json and render it. If the file explicitly says available=false because the packet was missing, stale, invalid, or unreachable, use BAKE.md's normal source ladder as the fail-open exception; do not call X Manager or its APIs from the editorial session.
-          7. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
+          7. Reviewed morning handoff: for a daily morning bake, read $DDB_REVIEWED_MORNING_HANDOFF_PATH before any editorial action. Its selected stories are final. Do not discover, add, substitute, rerank, or ask X Manager for candidates. Use that set for writing and Scripture pairing, and fetch only its verifiedSourceUrls for the final accuracy pass. A missing, unavailable, invalid, stale, late, or incomplete daily morning packet fails closed without rendering. Backfills retain BAKE.md's bounded historical research procedure.
+          8. If anything goes wrong, stop and explain what happened and what state the working tree is in. Fix content.json and re-render rather than adjusting rendered output by hand.
           Finish with BAKE.md step 9's report: date, slot, lead headline, story count per section, whether a reviewed house letter ran (morning only), and the render result.
           PROMPT
           set +e
