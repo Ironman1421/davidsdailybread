@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-13T16:58:59Z",
+  "updatedAt": "2026-08-13T20:52:28Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1733,6 +1733,49 @@
         "Daily bake run 31487646686 completed successfully on exact merge commit a4b5ba39f348983e2de74c2d7bf3c50d93ccb27c; authoring, guarded envelope creation, fresh-runner validation, atomic publish, and publish verification succeeded, while failure-diagnostic collection correctly skipped on the successful path",
         "The released hardening retains raw authoring output only in runner temporary storage, emits only an allowlisted classification plus numeric exit code, deletes the raw log, and uploads only controlled redacted diagnostics on failure",
         "The implementation's thirty targeted classifier, workflow-trust-boundary, unified-evening-handoff, and program-control checks passed, and no production-mutation successor was activated"
+      ]
+    },
+    {
+      "id": "DDB-PC-033",
+      "sequence": 33,
+      "title": "Repair the X Manager X Pro deck manifest",
+      "status": "complete",
+      "executionLane": "local_work",
+      "dependencies": [
+        "DDB-PC-023"
+      ],
+      "authorization": {
+        "type": "explicit_david",
+        "granted": true,
+        "grantedAt": "2026-08-13T20:50:34Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve the program controller to add and activate an X Manager X Pro deck-manifest repair in the local-work lane. Selectively port the manifest, runbook, workspace wiring, and targeted tests from the dirty checkout to a clean branch, validate them, and report the exact commit for separate release approval. Do not include unrelated dirty changes, deploy, mutate X, change credentials, publish, or spend money.",
+        "scope": "On a clean X Manager branch, selectively port only the X Pro deck identity manifest, runbook, pinned-deck workspace wiring, and targeted tests from the existing dirty checkout; validate the exact branch-local implementation and report its immutable commit for separate release approval. Do not include unrelated dirty changes, deploy, mutate X, change credentials, publish, or spend money."
+      },
+      "externalMutation": false,
+      "startedAt": "2026-08-13T20:50:34Z",
+      "progressEvidence": [
+        "David explicitly authorized DDB-PC-033 in the local-work lane while DDB-PC-027 remains active in a separate local-work slot.",
+        "The clean DDB control branch starts from origin/main 04e0b57dd055f55402502550fcdbf7fde93fcfac, and the clean X Manager implementation branch starts from deployed Sites source 4b577906186600cd828b160e780d37dcb2df3d42.",
+        "The approved scope is limited to the versioned deck identity, runbook, pinned workspace link and context, and targeted regression coverage; all unrelated dirty-checkout changes and every production mutation remain excluded."
+      ],
+      "completedAt": "2026-08-13T20:52:28Z",
+      "evidence": [
+        "Clean X Manager branch codex/x-pro-deck-manifest-repair starts from exact deployed Sites source 4b577906186600cd828b160e780d37dcb2df3d42 and contains local implementation commit 2610470d2ddde364c47ab7ad7e1e1c49f36c0f2d.",
+        "The exact implementation diff SHA-256 is 6deb0d359c8908ee3dd8c61d346ba4e37182a9739a4e3c89f92ec598101983e3 and changes only app/x-product-config.ts, app/x-workspace/page.tsx, docs/X_PRO_DECK_RUNBOOK.md, package.json, and tests/x-pro-deck-config.test.mjs.",
+        "All five approved implementation files matched the corresponding dirty-checkout source bytes before commit; unrelated dirty API, ranking, rendered-test, coordination, and documentation changes were excluded.",
+        "The exact implementation records @DavidDailyBread deck 2085506534801604819, Tools + workflows watch, its pinned Pro URL, Search column type, Latest sort, and X_MONITOR_LANES as the authoritative five-lane rebuild manifest.",
+        "npm run test:x-pro-deck passed 3 of 3 tests on the exact commit; focused ESLint passed; the complete production build passed and classified all expected app and API routes.",
+        "No branch was pushed, no pull request or deployment was created, no X or credential state changed, no content was published, and no money was spent."
+      ],
+      "completionGate": [
+        "The X Manager implementation uses a clean branch based on exact deployed Sites source 4b577906186600cd828b160e780d37dcb2df3d42",
+        "The repository versions the exact @DavidDailyBread X Pro deck ID, name, URL, Search column type, and Latest sort",
+        "The runbook identifies X_MONITOR_LANES as the authoritative five-lane rebuild manifest and defines read-only preflight and bounded manual recovery",
+        "The X workspace opens the pinned deck and displays the versioned deck identity rather than relying on an unversioned generic X Pro link",
+        "Targeted tests cover the deck identity, five-lane manifest, and pinned workspace link and pass on the exact implementation head",
+        "The exact local implementation commit and validation evidence are reported for separate release approval",
+        "No unrelated dirty change, deployment, X mutation, credential change, publication, push, merge, provisioning, or spend occurs"
       ]
     }
   ]
