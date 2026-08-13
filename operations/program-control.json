@@ -1526,6 +1526,39 @@
         "decisionEvidence": "Task message: I approve restoring SSH access to the DGX Spark, installing or authenticating Codex on it if required, registering the canonical Spark projects, retargeting the 2:45 AM candidate-ledger, 3:40 AM morning-review, and 4:55 AM monitor automations to the Spark, validating them without publishing or triggering paid X reads, and disabling the Mac-hosted copies only after the Spark canary passes. Do not change publication schedules, editorial rules, providers, other credentials, or spend money.",
         "scope": "Restore the existing approved SSH route to the DGX Spark; install or authenticate Codex there only if required; register the canonical Spark projects; retarget only prepare-ddb-morning-candidate-ledger, review-ddb-morning-candidates, and monitor-first-ddb-morning-handoff to the Spark without changing schedules or editorial rules; validate without publication or paid X reads; and disable the Mac-hosted copies only after the Spark canary passes. Provider changes, unrelated credentials, publication, posts, sends, provisioning, schedule changes, editorial changes, and spend remain prohibited."
       },
+      "sparkMorningCutoverReceipt": {
+        "recordedAt": "2026-08-13T17:18:00Z",
+        "externalMutation": true,
+        "status": "blocked_before_automation_retarget",
+        "sparkHost": "spark-e1d1",
+        "sparkEnvironmentId": "env_e_6a7dfa8d96748328b86e7523d93e10a4",
+        "codexVersion": "0.147.0",
+        "ddbCheckout": {
+          "path": "/home/david/hq/daily-bread",
+          "head": "ea7f479c19ae2ac739eec92d77b96e2ae9f98667"
+        },
+        "xManagerCheckout": {
+          "path": "/home/david/hq/x-manager-tools-and-workflows",
+          "head": "4b577906186600cd828b160e780d37dcb2df3d42"
+        },
+        "completed": [
+          "Restored the existing Tailscale and NVIDIA Sync SSH path to the online Spark",
+          "Installed the official managed Codex standalone package and verified the existing ChatGPT authentication",
+          "Started the Spark remote-control daemon and confirmed Codex doctor overallStatus ok",
+          "Refreshed the clean DDB checkout and created a clean credential-free X Manager mirror at the exact released Sites source head"
+        ],
+        "blockers": [
+          "The Spark AppArmor policy blocks Codex bubblewrap user namespaces, so the read-only and workspace-write execution canaries fail before git can run",
+          "The controlling desktop app has not yet paired with the newly enrolled Spark environment, so no Spark project IDs are available for automation retargeting",
+          "The reviewer-required DDB_HANDOFF_WRITE_TOKEN and X_MONITOR_SITES_BYPASS_TOKEN are intentionally absent from the Spark and were not copied because unrelated credential changes remain prohibited"
+        ],
+        "unchanged": [
+          "All three Mac-hosted automations remain active on their original project IDs",
+          "The 2:45 AM, 3:40 AM, and 4:55 AM schedules and prompts are unchanged",
+          "No automation was retargeted or disabled",
+          "No publication, paid X read, post, send, provider change, unrelated credential change, or spend occurred"
+        ]
+      },
       "externalMutation": false,
       "worker": {
         "type": "codex-subagent",
