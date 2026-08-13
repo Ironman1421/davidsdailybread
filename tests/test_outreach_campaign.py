@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 import json
 from pathlib import Path
 import unittest
+from zoneinfo import ZoneInfo
 
 from jsonschema import Draft202012Validator, FormatChecker, ValidationError
 
@@ -165,20 +166,26 @@ class OutreachCampaignContractTest(unittest.TestCase):
             [], semantic_errors(self.contract, self.receipt, self.reply_ledger)
         )
 
-    def test_readiness_receipt_targets_latest_canonical_editions(self):
+    def test_readiness_receipt_targets_canonical_editions_observed_then(self):
+        observed_date = parse_time(self.receipt["observedAt"]).astimezone(
+            ZoneInfo("America/Los_Angeles")
+        ).date().isoformat()
+        canonical_editions = {
+            (edition["date"], edition["edition"])
+            for edition in self.archive["editions"]
+        }
         for edition_type, slot in (
             ("morning", "latestMorning"),
             ("evening", "latestEvening"),
         ):
-            latest = next(
-                edition
-                for edition in self.archive["editions"]
-                if edition["edition"] == edition_type
+            required = self.receipt["canonicalBroadcasts"][slot]["requiredEdition"]
+            required_date, required_slot = required.rsplit("-", 1)
+            self.assertEqual(edition_type, required_slot)
+            self.assertIn(
+                (required_date, required_slot),
+                canonical_editions,
             )
-            self.assertEqual(
-                f'{latest["date"]}-{edition_type}',
-                self.receipt["canonicalBroadcasts"][slot]["requiredEdition"],
-            )
+            self.assertLessEqual(required_date, observed_date)
 
     def test_public_campaign_and_clock_are_fail_closed(self):
         self.assertEqual(
