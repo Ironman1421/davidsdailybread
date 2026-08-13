@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-13T16:48:48Z",
+  "updatedAt": "2026-08-13T16:58:59Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1519,6 +1519,13 @@
         "editionSha256": "a9d01f7947478df3b1b60c84481017fd4b46822408c4016bca61e83e11729b43",
         "result": "The exact 2026-08-13 morning edition published as a safeguarded backfill; the live edition matched main byte-for-byte, archive and RSS verification passed, the homepage was preserved, and X and Telegram skipped."
       },
+      "sparkMorningCutoverAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-13T16:58:59Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: I approve restoring SSH access to the DGX Spark, installing or authenticating Codex on it if required, registering the canonical Spark projects, retargeting the 2:45 AM candidate-ledger, 3:40 AM morning-review, and 4:55 AM monitor automations to the Spark, validating them without publishing or triggering paid X reads, and disabling the Mac-hosted copies only after the Spark canary passes. Do not change publication schedules, editorial rules, providers, other credentials, or spend money.",
+        "scope": "Restore the existing approved SSH route to the DGX Spark; install or authenticate Codex there only if required; register the canonical Spark projects; retarget only prepare-ddb-morning-candidate-ledger, review-ddb-morning-candidates, and monitor-first-ddb-morning-handoff to the Spark without changing schedules or editorial rules; validate without publication or paid X reads; and disable the Mac-hosted copies only after the Spark canary passes. Provider changes, unrelated credentials, publication, posts, sends, provisioning, schedule changes, editorial changes, and spend remain prohibited."
+      },
       "externalMutation": false,
       "worker": {
         "type": "codex-subagent",
@@ -1568,7 +1575,8 @@
         "David's 2026-08-13 recovery instruction supersedes only the prior no-backfill boundary for the missing August 13 morning edition and authorizes its exact protected-path recovery while preserving the ordinary reviewed-packet gate, tomorrow's monitor, downstream backfill exclusions, credentials, providers, schedules, outreach state, audience collection, and zero-spend boundary",
         "PR 94 exact head a19de39b5d00bd23856c2bbfd9b1407b767f0bd1 passed Merge gate and CodeQL, then squash-merged as 01a020830b890799c8176a9b0ca1710d242d0091 with the manual-only same-day backfill control and unchanged ordinary reviewed-packet requirement",
         "Daily bake run 31721639819 resolved exactly 2026-08-13 morning as backfill, skipped both handoff fetches, passed authoring, accuracy, render, file-allowlist, sealed-envelope, fresh-runner trust-boundary, authoritative-base, atomic-push, and exact-public-edition verification, and published main 1b9424855c6eeb1c48fc86bbab3da06d1ccddd61",
-        "Pages run 31722446462 succeeded; the live 2026-08-13 morning edition matched main byte-for-byte at SHA-256 a9d01f7947478df3b1b60c84481017fd4b46822408c4016bca61e83e11729b43, archive and RSS carried the exact edition, the homepage was preserved, and X and Telegram skipped"
+        "Pages run 31722446462 succeeded; the live 2026-08-13 morning edition matched main byte-for-byte at SHA-256 a9d01f7947478df3b1b60c84481017fd4b46822408c4016bca61e83e11729b43, archive and RSS carried the exact edition, the homepage was preserved, and X and Telegram skipped",
+        "David's 2026-08-13 Spark cutover decision authorizes restoration of the existing SSH route, required Codex installation or authentication, canonical Spark project registration, retargeting only the three unchanged morning automation schedules, a no-publication and no-paid-read canary, and disabling Mac copies only after the Spark canary passes"
       ]
     },
     {
