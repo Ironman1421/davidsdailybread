@@ -1559,6 +1559,13 @@
           "No publication, paid X read, post, send, provider change, unrelated credential change, or spend occurred"
         ]
       },
+      "sparkMorningCutoverUnblockAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-13T17:22:06Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: I approve installing a narrow AppArmor profile for /usr/bin/bwrap on spark-e1d1, leaving the global user-namespace restriction enabled, and copying the existing DDB_HANDOFF_WRITE_TOKEN and X_MONITOR_SITES_BYPASS_TOKEN values unchanged to a Spark secret file used only by these morning automations. Do not rotate credentials, change providers, schedules, editorial rules, publish, trigger paid X reads, or spend money.",
+        "scope": "Install only a narrow AppArmor attachment for /usr/bin/bwrap on spark-e1d1 while keeping kernel.apparmor_restrict_unprivileged_userns enabled; copy only the existing DDB_HANDOFF_WRITE_TOKEN and X_MONITOR_SITES_BYPASS_TOKEN values unchanged into a Spark secret file restricted to these morning automations; do not rotate credentials or change providers, schedules, editorial rules, publication, paid X reads, posts, sends, or spend."
+      },
       "externalMutation": false,
       "worker": {
         "type": "codex-subagent",
