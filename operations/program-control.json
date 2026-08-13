@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-13T16:33:49Z",
+  "updatedAt": "2026-08-13T16:48:48Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1507,6 +1507,18 @@
         "decisionEvidence": "Task message: Was this failure due to the MacBook Pro being closed? I thought this was independent of that. And also, I want my Morning Edition, August 13 Morning Edition.",
         "scope": "Supersede only the prior no-backfill boundary for the missing 2026-08-13 morning edition. Add the narrow manual-dispatch control needed to apply backfill safeguards on the current Pacific date, release it through the protected path, dispatch exactly the 2026-08-13 morning edition once, and verify the authoritative commit, Pages deployment, exact edition URL, archive, and feed. Preserve the ordinary reviewed-packet requirement, tomorrow's monitoring gate, X and Telegram backfill exclusions, credentials, providers, schedules, outreach state, audience collection, and zero-spend boundary."
       },
+      "august13RecoveryReceipt": {
+        "completedAt": "2026-08-13T16:48:48Z",
+        "externalMutation": true,
+        "releasePullRequest": 94,
+        "releaseHead": "a19de39b5d00bd23856c2bbfd9b1407b767f0bd1",
+        "releaseMainCommit": "01a020830b890799c8176a9b0ca1710d242d0091",
+        "bakeRun": 31721639819,
+        "publishedCommit": "1b9424855c6eeb1c48fc86bbab3da06d1ccddd61",
+        "pagesRun": 31722446462,
+        "editionSha256": "a9d01f7947478df3b1b60c84481017fd4b46822408c4016bca61e83e11729b43",
+        "result": "The exact 2026-08-13 morning edition published as a safeguarded backfill; the live edition matched main byte-for-byte, archive and RSS verification passed, the homepage was preserved, and X and Telegram skipped."
+      },
       "externalMutation": false,
       "worker": {
         "type": "codex-subagent",
@@ -1553,7 +1565,10 @@
         "The August 13 4:55 AM heartbeat monitor also timed out waiting for Codex thread/resume, so the approved August 14 monitor was converted in place to a standalone DDB-project cron at the same 4:55 AM Pacific cadence with a concise fail-closed prompt; it may inspect and record the ordinary chain but may not dispatch or rerun any stage, and DDB-PC-026 remains blocked unless every gate passes",
         "David's 2026-08-13 PR 93 CI-unblock decision authorizes only the stale readiness-receipt assertion repair while preserving the campaign as readiness-active-public-campaign-blocked with a not_started window and all external actions false or zero",
         "The focused test repair treats the dated X readiness receipt as historical evidence: each recorded morning and evening edition must match its slot, exist canonically in archive.json, and not postdate the receipt's Pacific observation date; later ordinary bakes no longer invalidate an otherwise immutable receipt",
-        "David's 2026-08-13 recovery instruction supersedes only the prior no-backfill boundary for the missing August 13 morning edition and authorizes its exact protected-path recovery while preserving the ordinary reviewed-packet gate, tomorrow's monitor, downstream backfill exclusions, credentials, providers, schedules, outreach state, audience collection, and zero-spend boundary"
+        "David's 2026-08-13 recovery instruction supersedes only the prior no-backfill boundary for the missing August 13 morning edition and authorizes its exact protected-path recovery while preserving the ordinary reviewed-packet gate, tomorrow's monitor, downstream backfill exclusions, credentials, providers, schedules, outreach state, audience collection, and zero-spend boundary",
+        "PR 94 exact head a19de39b5d00bd23856c2bbfd9b1407b767f0bd1 passed Merge gate and CodeQL, then squash-merged as 01a020830b890799c8176a9b0ca1710d242d0091 with the manual-only same-day backfill control and unchanged ordinary reviewed-packet requirement",
+        "Daily bake run 31721639819 resolved exactly 2026-08-13 morning as backfill, skipped both handoff fetches, passed authoring, accuracy, render, file-allowlist, sealed-envelope, fresh-runner trust-boundary, authoritative-base, atomic-push, and exact-public-edition verification, and published main 1b9424855c6eeb1c48fc86bbab3da06d1ccddd61",
+        "Pages run 31722446462 succeeded; the live 2026-08-13 morning edition matched main byte-for-byte at SHA-256 a9d01f7947478df3b1b60c84481017fd4b46822408c4016bca61e83e11729b43, archive and RSS carried the exact edition, the homepage was preserved, and X and Telegram skipped"
       ]
     },
     {
