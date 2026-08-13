@@ -29,6 +29,12 @@ on:
         options: [morning, evening]
         required: false
         default: morning
+      recovery_mode:
+        description: 'manual recovery only; force backfill safeguards even when date is today'
+        type: choice
+        options: [auto, backfill]
+        required: false
+        default: auto
       model:
         description: 'Claude model to bake with'
         required: false
@@ -71,6 +77,7 @@ jobs:
         env:
           IN_DATE: ${{ github.event.inputs.date }}
           IN_SLOT: ${{ github.event.inputs.slot }}
+          IN_RECOVERY_MODE: ${{ github.event.inputs.recovery_mode }}
           IN_MODEL: ${{ github.event.inputs.model }}
           EVENT_NAME: ${{ github.event_name }}
           EVENT_SCHEDULE: ${{ github.event.schedule }}
@@ -106,6 +113,17 @@ jobs:
             exit 1
           fi
           if [ "$D" = "$TODAY" ]; then MODE=daily; else MODE=backfill; fi
+          RECOVERY_MODE="${IN_RECOVERY_MODE:-auto}"
+          if [ "$RECOVERY_MODE" = "backfill" ]; then
+            if [ "$EVENT_NAME" != "workflow_dispatch" ]; then
+              echo "::error::Backfill recovery mode is available only to an explicit manual dispatch"
+              exit 1
+            fi
+            MODE=backfill
+          elif [ "$RECOVERY_MODE" != "auto" ]; then
+            echo "::error::Invalid recovery mode '$RECOVERY_MODE'"
+            exit 1
+          fi
           if [ "$SLOT" = "morning" ]; then LABEL="Morning edition"; else LABEL="Evening edition"; fi
           HUMAN="$(TZ=UTC date -d "$D" '+%A, %B %-d, %Y')"
           MODEL="${IN_MODEL:-claude-opus-5}"

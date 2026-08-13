@@ -98,6 +98,19 @@ class WorkflowGuardTest(unittest.TestCase):
         self.assertIn('npm install -g "${package_path}"', workflow)
         self.assertNotIn('npm install -g "./${package}"', workflow)
 
+    def test_manual_recovery_can_force_same_day_backfill_safeguards(self):
+        workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("recovery_mode:", workflow)
+        self.assertIn("options: [auto, backfill]", workflow)
+        self.assertIn("IN_RECOVERY_MODE: ${{ github.event.inputs.recovery_mode }}", workflow)
+        self.assertIn('RECOVERY_MODE="${IN_RECOVERY_MODE:-auto}"', workflow)
+        self.assertIn('if [ "$EVENT_NAME" != "workflow_dispatch" ]', workflow)
+        self.assertIn('MODE=backfill', workflow)
+        self.assertIn("mode == 'daily'", workflow)
+        self.assertIn('if [ "${MODE}" = "backfill" ]; then', workflow)
+
     def test_publish_verification_uses_git_ref_and_exact_public_edition(self):
         workflow = (ROOT / ".github" / "workflows" / "ddb-bake.yml").read_text(
             encoding="utf-8"
