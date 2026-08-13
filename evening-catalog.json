@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-13",
+      "name": "QuickLook",
+      "url": "https://github.com/QL-Win/QuickLook",
+      "trend_url": "https://www.xda-developers.com/free-apps-that-made-my-aging-laptop-feel-brand-new-again/",
+      "cost": "Free, GPL-3.0",
+      "kind": "Windows, needs .NET",
+      "seen": "XDA, August 13",
+      "blurb": "It brings the macOS Quick Look habit to Windows, so tapping the space bar on a selected file shows a preview of images, videos, PDFs, text, code, archives, and more than a hundred formats in all, without opening the program that owns the file, and the project states both its terms and its edges plainly: free software, free forever, no ads, no tracking, no premium tiers under GPL-3.0, but the Microsoft Store build has limited Open and Save dialog support, so the installer from its GitHub releases page is the fuller one."
+    },
+    {
+      "date": "2026-08-13",
+      "name": "ShareX",
+      "url": "https://getsharex.com/",
+      "trend_url": "https://www.xda-developers.com/free-apps-that-made-my-aging-laptop-feel-brand-new-again/",
+      "cost": "Free forever, open source",
+      "kind": "Windows desktop",
+      "seen": "XDA, August 13",
+      "blurb": "One free utility that covers screenshots, annotation, screen recording, OCR, and quick editing under keyboard shortcuts you assign yourself, capturing the whole screen, a single window, or a custom region without opening a bulky interface first, and its own site keeps the terms to four claims, free forever, open source, no account required, no advertisements, after more than eighteen years of development, while the limit sits in that same description: it is a screenshot tool for Windows, so a Mac or a phone gets nothing from it."
+    },
+    {
+      "date": "2026-08-13",
+      "name": "FluidVoice",
+      "url": "https://github.com/altic-dev/FluidVoice",
+      "trend_url": "https://github.com/trending",
+      "cost": "Free, GPLv3",
+      "kind": "macOS 15 or later",
+      "seen": "GitHub Trending, +187 today",
+      "blurb": "Dictation that runs on the machine itself, with a live transcription preview while you speak, a command mode for driving the Mac by voice, and an optional local model the project calls Fluid Intelligence for formatting and capitalization, free under GPLv3 and installed by Homebrew or a release download, and the requirements are the honest catch: macOS 15 Sequoia or later, Apple silicon for most models with Intel Macs falling back to Whisper, microphone and accessibility permissions, about 1 GB of disk for the voice model and roughly 3.5 GB more if you add the enhancement one, and no Windows or iOS build exists yet."
+    },
+    {
+      "date": "2026-08-13",
+      "name": "SpotAngels",
+      "url": "https://www.spotangels.com/",
+      "trend_url": "https://www.makeuseof.com/i-havent-found-a-parking-ticket-on-my-windshield-since-i-added-this-app-to-android-phone/",
+      "cost": "Free; paid Plus tier",
+      "kind": "Android and iOS",
+      "seen": "MakeUseOf, August 13",
+      "blurb": "A parking app that maps free against paid street parking, sends a reminder before street cleaning or another rule turns your space into a ticket, and collects garage deals, which is the kind of thing that pays for itself the first time it works, and its limit is geography rather than price: the free tier is real with a paid SpotAngels Plus sitting on top of it, but the map is built city by city, and the company's own site names ten, New York, San Francisco, Chicago, Los Angeles, Philadelphia, Boston, Washington DC, San Diego, Toronto, and Montreal, before pointing to more."
+    },
+    {
       "date": "2026-08-12",
       "name": "Arena.ai",
       "url": "https://arena.ai/",
@@ -405,6 +445,35 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-13",
+      "title": "Turn off four Android Auto defaults so the car stops blasting music and reading your texts to the passenger seat",
+      "url": "https://www.howtogeek.com/android-auto-became-more-useful-after-i-stopped-using-these-google-defaults/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 13",
+      "dek": "<b>Four toggles, one drive</b> Jorge A. Aguilar switches off Start music automatically under Settings, Android Auto, General, so plugging in stops greeting him with whatever was playing last at full volume, turns off Show first line of messages and Play AI message summaries under Connected devices, Android Auto, Messaging, because nobody wants a personal or embarrassing text suddenly splashed across the dashboard, moves Day and Night mode for maps from Automatic to Day in the Android Auto app after the system got stuck in night mode so dark the navigation map was basically unreadable, and raises the Speech rate slider under Settings, Accessibility, Text to speech output, since Google's engine ships at a pretty slow speaking rate, and he is careful to add that these defaults are not wrong for everyone.",
+      "needs": [
+        "An Android phone with Android Auto",
+        "The phone's Settings app",
+        "Five minutes before you drive"
+      ],
+      "time": "Five minutes, once"
+    },
+    {
+      "date": "2026-08-13",
+      "title": "Sort a backlog of saved articles into act now, reference, archive, and delete in a single pass",
+      "url": "https://www.makeuseof.com/declutter-obsidian-bookmarks-claude-ai/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 13",
+      "dek": "<b>Four buckets, one pass</b> Saikat Basu points Claude Desktop at his Obsidian folder through its filesystem connector, has it read all 500 clips at once instead of one at a time, sorts them into Act now, Reference, Archive, and Delete by weighing each clip against his current project notes, asks what themes run across the whole collection, and finds 50 worth keeping, then spends about fifteen minutes reading the result himself before anything moves, which is where he plants the warnings: the sort was a first pass, not a final answer, outdated or loosely defined project notes will make Claude hallucinate current relevance, code snippets, quick recipes, and single paragraph quotes can look like low value to an AI sorter, and his own review caught a clip wrongly marked a duplicate.",
+      "needs": [
+        "An Obsidian vault of saved clips",
+        "Claude Desktop, filesystem enabled",
+        "Your current project notes",
+        "Your own read before deleting"
+      ],
+      "time": "About fifteen minutes"
+    },
     {
       "date": "2026-08-12",
       "title": "Replace six utility downloads with tools Windows 11 already installed for you",
