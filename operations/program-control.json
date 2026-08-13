@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-13T16:11:17Z",
+  "updatedAt": "2026-08-13T16:16:18Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1535,7 +1535,8 @@
         "The first ordinary August 13 chain failed before repository logic: prepare-ddb-morning-candidate-ledger timed out waiting for the Codex thread/start MCP response, review-ddb-morning-candidates then encountered a Codex response-stream disconnect after 32 seconds, and both the 4:40 AM bake and first backup failed closed because no reviewed packet was available",
         "David's 2026-08-13 automation-recovery decision authorizes only repair of the existing 2:45 AM and 3:40 AM execution paths plus monitoring of the August 14 ordinary chain; it explicitly prohibits an August 13 backfill, publication, paid X reads, posts, sends, credential or provider changes, provisioning, and spend",
         "The two active automation definitions retain their exact schedules and project targets while using leaner fail-fast prompts, idempotent completed-output checks, and one bounded retry for transient in-task reads; the deterministic producer uses medium reasoning and the independent editorial review remains high reasoning",
-        "Offline validation at released X Manager commit 4b577906186600cd828b160e780d37dcb2df3d42 passed 5 targeted no-paid-read ledger and handoff tests, and released DDB commit b77496a7c642ea655c39e93baf32f7b634ba0858 passed all 24 reviewed-morning-handoff tests; no automation was dispatched, no X read or upload occurred, and no edition, post, send, credential, provider, service, network, provisioning, or spend state changed"
+        "Offline validation at released X Manager commit 4b577906186600cd828b160e780d37dcb2df3d42 passed 5 targeted no-paid-read ledger and handoff tests, and released DDB commit b77496a7c642ea655c39e93baf32f7b634ba0858 passed all 24 reviewed-morning-handoff tests; no automation was dispatched, no X read or upload occurred, and no edition, post, send, credential, provider, service, network, provisioning, or spend state changed",
+        "The August 13 4:55 AM heartbeat monitor also timed out waiting for Codex thread/resume, so the approved August 14 monitor was converted in place to a standalone DDB-project cron at the same 4:55 AM Pacific cadence with a concise fail-closed prompt; it may inspect and record the ordinary chain but may not dispatch or rerun any stage, and DDB-PC-026 remains blocked unless every gate passes"
       ]
     },
     {
