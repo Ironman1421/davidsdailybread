@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-14T22:15:35Z",
+  "updatedAt": "2026-08-14T22:36:23Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1532,6 +1532,20 @@
           "result": "The protected evening bake and Pages deployment succeeded; the live homepage, archive.json, feed.xml, and exact 2026-08-14 evening edition matched the published commit byte-for-byte, and no production run remained active or queued."
         },
         "scope": "Dispatch exactly one protected Daily bake for 2026-08-14 morning with recovery_mode=backfill after the verified evening publication. Preserve the evening homepage, skip X and Telegram, make no schedule, provider, credential, outreach, or reader-state change, and stop without retry after one bounded attempt if validation fails."
+      },
+      "august14RecoveryReceipt": {
+        "completedAt": "2026-08-14T22:36:23Z",
+        "externalMutation": true,
+        "authorizationPullRequest": 100,
+        "authorizationHead": "386329c70ac3128e397341f18be56f613cb120b1",
+        "authorizationMainCommit": "8fbecca3b30b64163ff7de74b5d22ba8841ae18c",
+        "bakeRun": 31846280391,
+        "publishedCommit": "1683c97086b59828ddfc487e511ce0cd3e3ed923",
+        "pagesRun": 31847152163,
+        "codeqlRun": 31847152503,
+        "editionSha256": "86256e375d7e107f0c1ff93b27bbc16d22a03dc534982d4f7bb3a39babd78d84",
+        "preservedEveningHomepageSha256": "5a8ca20026bf63d9c1e75c71292c0e8dd64c43e42253efe7ab0d7a0d3876419d",
+        "result": "The single approved 2026-08-14 morning recovery published successfully as a safeguarded backfill. The live morning edition, archive page, archive.json, and feed.xml matched the published commit byte-for-byte; the evening homepage, category pages, reader state, satchel, and evening catalog were preserved; X and Telegram skipped; no retry occurred."
       },
       "sparkMorningCutoverAuthorization": {
         "granted": true,
