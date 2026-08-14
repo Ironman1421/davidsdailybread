@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-13T20:52:28Z",
+  "updatedAt": "2026-08-14T22:15:35Z",
   "authority": {
     "founderDoctrine": "FOUNDER_DOCTRINE.md",
     "humanOwner": "David Friedhof",
@@ -1518,6 +1518,20 @@
         "pagesRun": 31722446462,
         "editionSha256": "a9d01f7947478df3b1b60c84481017fd4b46822408c4016bca61e83e11729b43",
         "result": "The exact 2026-08-13 morning edition published as a safeguarded backfill; the live edition matched main byte-for-byte, archive and RSS verification passed, the homepage was preserved, and X and Telegram skipped."
+      },
+      "august14RecoveryAuthorization": {
+        "granted": true,
+        "grantedAt": "2026-08-14T22:15:35Z",
+        "grantedBy": "David Friedhof",
+        "decisionEvidence": "Task message: Approve one protected manual Daily bake dispatch for 2026-08-14 morning using recovery_mode=backfill, after the August 14 evening edition has published and passed exact live verification. Preserve the evening homepage, skip X and Telegram, make no schedule, provider, credential, outreach, or reader-state change, and stop after one bounded attempt if validation fails.",
+        "preconditionEvidence": {
+          "eveningBakeRun": 31843411509,
+          "eveningPublishedCommit": "e7ac29300449f00904acbc58d4eb8ee9cf6b228a",
+          "pagesRun": 31844139935,
+          "verifiedAt": "2026-08-14T22:15:35Z",
+          "result": "The protected evening bake and Pages deployment succeeded; the live homepage, archive.json, feed.xml, and exact 2026-08-14 evening edition matched the published commit byte-for-byte, and no production run remained active or queued."
+        },
+        "scope": "Dispatch exactly one protected Daily bake for 2026-08-14 morning with recovery_mode=backfill after the verified evening publication. Preserve the evening homepage, skip X and Telegram, make no schedule, provider, credential, outreach, or reader-state change, and stop without retry after one bounded attempt if validation fails."
       },
       "sparkMorningCutoverAuthorization": {
         "granted": true,
