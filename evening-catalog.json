@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-14",
+      "name": "Anki",
+      "url": "https://apps.ankiweb.net/",
+      "trend_url": "https://www.howtogeek.com/3-brilliant-free-open-source-foss-apps-students-should-try-this-weekend-aug-1416/",
+      "cost": "Free; paid official iOS app",
+      "kind": "Windows, macOS, Linux, mobile",
+      "seen": "How-To Geek, August 14",
+      "blurb": "A flashcard program built on spaced repetition, which its makers describe as helping you spend more time on challenging material and less on what you already know, with the free computer version available for all major platforms and AnkiDroid free on Android, and the catch stated plainly on its own page: AnkiMobile, the official iOS app, is a purchase that funds development."
+    },
+    {
+      "date": "2026-08-14",
+      "name": "EarTrumpet",
+      "url": "https://eartrumpet.app/",
+      "trend_url": "https://www.howtogeek.com/eartrumpet-fixed-my-windows-volume-controls-by-bringing-every-setting-to-the-surface/",
+      "cost": "Free",
+      "kind": "Windows, Microsoft Store",
+      "seen": "How-To Geek, August 14",
+      "blurb": "It trades the single Windows volume slider for one flyout carrying a slider per running application, switches your output device from a right click, and keeps the older sound dialogs a step away, installed from the Microsoft Store or Chocolatey, and How-To Geek's Sydney Butler is straight about the limit: it adds nothing Windows cannot already do, it simply stops burying it."
+    },
+    {
       "date": "2026-08-13",
       "name": "QuickLook",
       "url": "https://github.com/QL-Win/QuickLook",
@@ -445,6 +465,49 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-14",
+      "title": "Write the rules once and let the Downloads folder file itself by type, year, and month",
+      "url": "https://www.makeuseof.com/file-juggler-automatically-organize-files-windows/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 14",
+      "dek": "<b>If this, then filed</b> Tashreef Shareef points File Juggler at his Downloads folder and writes each rule as a plain condition and action, if the extension is .pdf, then move the file, then uses date variables so the destination builds its own year and month subfolders, ending with more than five rules covering PDFs, images, installers, archives, and Markdown files; the program can also match on filename patterns, file size, modification date, and keywords inside a document, and MakeUseOf puts the cost at a $40 perpetual license after a 30 day trial that keeps working with upgrade popups.",
+      "needs": [
+        "File Juggler, $40 after a 30 day trial",
+        "A Windows PC",
+        "One folder worth watching",
+        "Destination folders to sort into"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-08-14",
+      "title": "Move the router off the floor and away from the fridge before you buy a new one",
+      "url": "https://www.xda-developers.com/the-best-wi-fi-upgrade-wasnt-a-new-router-it-was-moving-some-furniture/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Aug 14",
+      "dek": "<b>Height beats hardware</b> Samarveer Singh had already split the 2.4GHz and 5GHz bands and let his provider's app pick channels, yet a laptop pulling the full 300 Mbps over a cable managed only about 50 Mbps over Wi-Fi, so he took the router off a three foot chest standing beside the refrigerator and put it on a wall shelf up near the ceiling, which left every room a single wall's thickness from the signal and steadied televisions that had been struggling, and he is careful to say placement is one of three factors alongside the hardware itself and its settings.",
+      "needs": [
+        "The router you already own",
+        "A higher spot away from metal",
+        "A speed test before and after"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-08-14",
+      "title": "Turn off three Samsung settings and the keyboard stops feeling a half step behind you",
+      "url": "https://www.makeuseof.com/samsungs-keyboard-tweaks-for-faster-typing/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 14",
+      "dek": "<b>Three toggles, one keyboard</b> Brandon Miniman opens the keyboard's settings cog and switches off Character preview and Vibration under Swipe, touch and feedback, Touch feedback, then unlocks Developer Options by tapping Build number seven times under Settings, About phone, Software information and drops Window animation scale, Transition animation scale, and Animator duration scale to 0.5x, and he is candid that typing still does not match Gboard on a Pixel or the iOS keyboard.",
+      "needs": [
+        "A Samsung Galaxy phone",
+        "The Samsung Keyboard settings cog",
+        "Developer Options, for the third step"
+      ],
+      "time": "About five minutes"
+    },
     {
       "date": "2026-08-13",
       "title": "Turn off four Android Auto defaults so the car stops blasting music and reading your texts to the passenger seat",
