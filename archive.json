@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-15",
+      "edition": "morning",
+      "dateHuman": "Saturday, August 15, 2026",
+      "file": "editions/2026-08-15-morning.html",
+      "lead": "Anthropic details how future Claude models will watermark generated text",
+      "pubDate": "Sat, 15 Aug 2026 07:45:21 -0400"
+    },
+    {
       "date": "2026-08-14",
       "edition": "evening",
       "dateHuman": "Friday, August 14, 2026",
