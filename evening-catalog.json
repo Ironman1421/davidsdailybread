@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-15",
+      "name": "OCRmyPDF",
+      "url": "https://github.com/ocrmypdf/OCRmyPDF",
+      "trend_url": "https://www.makeuseof.com/make-scanned-pdfs-searchable-ocrmypdf/",
+      "cost": "Free, open source, MPL-2.0",
+      "kind": "Command line; Linux, macOS, WSL",
+      "seen": "MakeUseOf, August 15",
+      "blurb": "It slides an invisible text layer underneath the images in a scanned PDF so the file can finally be searched and its words copied, works on your own machine with nothing uploaded, reads more than 100 languages through Tesseract, and can straighten crooked pages with a deskew option and strip image noise with a clean option on the way through; the catch is stated plainly by both the project and MakeUseOf's Tashreef Shareef, that this is a command line tool with a steeper learning curve than a graphical app, that it expects Ghostscript and Tesseract installed alongside it, and that Windows users reach it through WSL, Docker, or pip rather than an installer."
+    },
+    {
+      "date": "2026-08-15",
+      "name": "Microsoft Autoruns",
+      "url": "https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns",
+      "trend_url": "https://www.howtogeek.com/microsoft-autoruns-startup-programs-windows/",
+      "cost": "Free, 3 MB download",
+      "kind": "Windows, Microsoft Sysinternals",
+      "seen": "How-To Geek, August 15",
+      "blurb": "Microsoft's own Sysinternals utility lists every place Windows can start something automatically, well past the short list in Settings and Task Manager, taking in startup folder items, Run and RunOnce registry keys, services and drivers, scheduled tasks, and Explorer shell extensions, with a Hide Signed Microsoft Entries option to isolate what other software added and a checkbox that disables an entry rather than deleting it, and How-To Geek's Tony Phillips, who found seven Slack background processes holding 380MB of memory after startup and switched them off, is direct about the risk: not everything you find is worth disabling, so investigate an unfamiliar entry before you touch it."
+    },
+    {
       "date": "2026-08-14",
       "name": "Anki",
       "url": "https://apps.ankiweb.net/",
@@ -465,6 +485,34 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-15",
+      "title": "Plan the trip on a laptop, then hand the finished route to the phone you will navigate with",
+      "url": "https://www.howtogeek.com/i-stopped-planning-trips-on-my-phone-and-started-using-google-maps-on-desktopits-way-faster/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 15",
+      "dek": "<b>Big screen first</b> Andy Betts drags points on a desktop route to build his own detours, drops a pin and uses the travel time tool to see everywhere within a set walking or driving distance, saves restaurants and stops into lists while he researches, and keeps several tabs open to compare alternate routes and times together, then sends the finished route to his phone with a button or a shareable link, and he notes the whole handoff rests on the account syncing between the two devices.",
+      "needs": [
+        "A laptop or desktop browser",
+        "One Google account on both devices",
+        "Google Maps on the phone"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-08-15",
+      "title": "Six settings changes that make an aging Windows PC feel quicker without buying any hardware",
+      "url": "https://www.howtogeek.com/guaranteed-ways-to-make-windows-faster-without-upgrading-hardware-or-overclocking/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 15",
+      "dek": "<b>Six free toggles</b> Goran Damnjanovic switches off animation effects under Settings, Accessibility, Visual effects, clears programs out of Settings, Apps, Startup, debloats with a utility such as Chris Titus' WinUtil or simply removes Copilot, which he says can use around 500MB of RAM in the background, disables services an underpowered machine does not need, sets the power mode to best performance, and turns off online Bing results in Windows Search; he is candid that older and weaker PCs gain far more from all of this than new ones, and that best performance runs hotter and shortens battery life.",
+      "needs": [
+        "A Windows 11 PC",
+        "An administrator account",
+        "The Settings app"
+      ],
+      "time": "About 45 minutes"
+    },
     {
       "date": "2026-08-14",
       "title": "Write the rules once and let the Downloads folder file itself by type, year, and month",
