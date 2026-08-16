@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-16",
+      "edition": "evening",
+      "dateHuman": "Sunday, August 16, 2026",
+      "file": "editions/2026-08-16-evening.html",
+      "lead": "Cap records your screen, edits the take, and hands back a shareable link, free for recordings up to five minutes",
+      "pubDate": "Sun, 16 Aug 2026 17:47:55 -0400"
+    },
+    {
       "date": "2026-08-15",
       "edition": "evening",
       "dateHuman": "Saturday, August 15, 2026",

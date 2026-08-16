@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-16",
+      "name": "Explainpaper",
+      "url": "https://www.explainpaper.com/",
+      "trend_url": "https://www.howtogeek.com/ai-learning-tools-id-use-if-i-went-back-to-college-today/",
+      "cost": "Free tier; Pro $16/mo",
+      "kind": "Web app; free account needed",
+      "seen": "How-To Geek, Aug 16",
+      "blurb": "You upload the PDF, highlight the sentence, chart, or equation that lost you, and it hands back a plain explanation in more than 50 languages, with a chat that takes follow-up questions and links its answers back to the paper, plus automatic outlines and key points for the document as a whole; the caveat is that the free account runs on what the site calls basic AI models and leaves out full-paper summaries and saved highlights, both reserved for the $16 a month Pro tier, and How-To Geek's Jorge A. Aguilar lists it among four AI learning tools for students, pointed at complex papers and research documents."
+    },
+    {
+      "date": "2026-08-16",
+      "name": "Chronock",
+      "url": "https://chronock.ai/",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/15",
+      "cost": "Free plan, no card at signup",
+      "kind": "Web app; Google and Outlook",
+      "seen": "Product Hunt, Aug 15",
+      "blurb": "It reads your real availability across Google Calendar and Microsoft Outlook, turns it into a booking page other people can pick a time on, and syncs events between separate work, personal, and project calendars so an hour taken in one shows as busy in the others; the free plan is thin on purpose, with one active booking slot, one one-way sync rule carrying busy status only, and one team member, and the site is candid that the integrated calendar view is still beta, that Microsoft Teams support and round-robin booking are planned rather than shipped, and that holiday blocking coverage varies by region."
+    },
+    {
       "date": "2026-08-15",
       "name": "OCRmyPDF",
       "url": "https://github.com/ocrmypdf/OCRmyPDF",
@@ -485,6 +505,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-16",
+      "title": "Five habits that turn a Gemini Notebook study guide from a generic summary into something you can study from",
+      "url": "https://www.makeuseof.com/gemini-notebook-study-guide-mistakes/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 16",
+      "dek": "<b>Sources first</b> Saikat Basu keeps one notebook per topic rather than one pile, unchecks the sources that do not belong before generating anything, states who is asking (student, researcher, casual learner) so the guide aims at the right depth, then refuses the first draft and chains follow-ups such as identify the top three most complex concepts; he previews the raw extracted text to catch OCR damage before it reaches the model and clicks through citations to check them, warning that subtle nuance in legal, medical, or technical material gets lost in paraphrase.",
+      "needs": [
+        "A Gemini Notebook account",
+        "Clean PDFs or Markdown sources",
+        "One topic per notebook"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-08-16",
+      "title": "Five prompts that reshape a finished research report into a website, a chart set, a slide deck, or a designed PDF",
+      "url": "https://www.makeuseof.com/claude-prompts-turned-plain-text-research-into-something-people-read/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 16",
+      "dek": "<b>One report, five shapes</b> Abhijith N Arjunan hands a finished text report back to Claude with one prompt per format: a single HTML page with fixed navigation and tabbed themes, a set of bar and line charts built with Recharts plus dashboard tiles for standalone numbers, a draggable force-directed concept graph in the Obsidian style, a full-screen slide deck you move through with arrow keys, and a PDF with a cover page, section dividers, and pull-quote callouts; he is upfront that each format still asks for time on what its design demands.",
+      "needs": [
+        "A finished text research report",
+        "Claude with Deep Research mode",
+        "Some HTML comfort to adjust output"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-08-16",
+      "title": "Stop the ISP box and your own router from fighting by putting one of them in bridge mode",
+      "url": "https://www.makeuseof.com/your-isps-router-fighting-your-new-one-how-to-make-them-stop/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 16",
+      "dek": "<b>One router in charge</b> Oliver Haslam explains that leaving both boxes routing gives you two DHCP servers handing out duplicate addresses, two firewalls, competing Wi-Fi networks, and double NAT, which he says can make it impossible for devices to connect to online services; his preferred fix is bridge mode, sometimes labeled modem mode, which switches off the ISP box's routing, Wi-Fi, and firewall and leaves the modem doing modem work, with a DMZ plus a static IP or access point mode as fallbacks, and he notes that not every ISP router offers bridge mode because some providers disable it to keep support simple.",
+      "needs": [
+        "The ISP router's admin password",
+        "An Ethernet cable",
+        "Your own router"
+      ],
+      "time": "About 30 minutes"
+    },
     {
       "date": "2026-08-15",
       "title": "Plan the trip on a laptop, then hand the finished route to the phone you will navigate with",
