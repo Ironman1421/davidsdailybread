@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-17",
+      "edition": "evening",
+      "dateHuman": "Monday, August 17, 2026",
+      "file": "editions/2026-08-17-evening.html",
+      "lead": "Organic Maps downloads whole regions for offline navigation, free, with no ads, tracking, or data collection",
+      "pubDate": "Mon, 17 Aug 2026 17:47:17 -0400"
+    },
+    {
+      "date": "2026-08-17",
       "edition": "morning",
       "dateHuman": "Monday, August 17, 2026",
       "file": "editions/2026-08-17-morning.html",

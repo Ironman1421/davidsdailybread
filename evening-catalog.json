@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-17",
+      "name": "BentoPDF",
+      "url": "https://github.com/alam00000/bentopdf",
+      "trend_url": "https://www.xda-developers.com/stop-paying-for-adobe-acrobat-to-edit-pdf/",
+      "cost": "Free, AGPL-3.0; $79 commercial",
+      "kind": "Runs in the browser; self-host",
+      "seen": "XDA, Aug 17",
+      "blurb": "It is a PDF toolkit of more than 50 tools covering merging, splitting and reordering pages, annotations, forms and watermarks, conversion to and from images and Office files, plus encryption, digital signatures, and OCR, and the project's own claim is that every file is processed in your browser and never uploaded to a server; you can use the public instance the project runs at bentopdf.com or self-host it with Docker or static hosting, and XDA's Abhishek Kumar Mishra points out on August 17 that it can even be installed as a progressive web app, while the repository is honest that Office file conversion needs SharedArrayBuffer and therefore HTTPS, that digital signatures need a CORS proxy, and that some modules load from a CDN with local files as the fallback."
+    },
+    {
+      "date": "2026-08-17",
+      "name": "Joplin",
+      "url": "https://joplinapp.org/",
+      "trend_url": "https://www.xda-developers.com/4-tiny-open-source-tools-that-save-me-hours-every-week/",
+      "cost": "Free app; cloud from 2.99 euro",
+      "kind": "Windows, macOS, Linux, mobile",
+      "seen": "XDA, Aug 17",
+      "blurb": "Joplin is an open-source notebook that holds images, PDFs, audio, math, and diagrams alongside text, clips web pages through a Chrome and Firefox extension, edits in either markdown or rich text, takes plugins and custom themes, and offers end-to-end encryption so the sync provider cannot read what you wrote; XDA's Victor Awogbemila lists it on August 17 among four small open-source tools that save hours every week, and the honest caveat is that syncing across devices means bringing your own Dropbox or OneDrive, or paying for Joplin Cloud, whose plans start at 2.99 euro a month for 2 GB and rise to 5.99 euro for 30 GB."
+    },
+    {
+      "date": "2026-08-17",
+      "name": "Search Fixer for YouTube",
+      "url": "https://chromewebstore.google.com/detail/search-fixer-for-youtube/bojdknokkpgboeonegndfcgkaommhleo",
+      "trend_url": "https://www.howtogeek.com/youtubes-search-is-broken-but-these-extensions-fix-it/",
+      "cost": "Free",
+      "kind": "Chrome and Firefox extension",
+      "seen": "How-To Geek, Aug 17",
+      "blurb": "The extension strips the padding out of a YouTube search, hiding the For you and People also search for blocks, Shorts, playlists and mixes, and videos you have already watched, and it adds display options such as a grid view and lowercased titles; its Chrome listing reports roughly 20,000 users, a 4.5 rating from 86 reviews, and a version 10.1.2 update on August 11, 2026, and the caveat comes from How-To Geek's Ismar Hrnjicevic on August 17, who calls it barebones next to heavier alternatives, trading breadth of options for a light footprint."
+    },
+    {
       "date": "2026-08-16",
       "name": "Explainpaper",
       "url": "https://www.explainpaper.com/",
@@ -505,6 +535,49 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-17",
+      "title": "Find out what is actually slowing a Windows PC before you buy anything to fix it",
+      "url": "https://www.makeuseof.com/free-windows-tools-find-whats-slowing-pc/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 17",
+      "dek": "<b>Measure, then fix</b> Tashreef Shareef starts with AppControl, which keeps seven days of CPU, GPU, memory, disk, and temperature history so yesterday's slowdown can still be traced to its cause, then uses Wintoys to review apps, background services, system tweaks, and storage cleanup from one window, CrystalDiskMark to settle whether the drive is the bottleneck with sequential and random 4K tests, and Microsoft PC Manager for the plain work of clearing temporary files and uninstalling leftovers; all four are free, and the piece flags that Wintoys is closed source and that its developer has mentioned future paid premium features, none of which have appeared yet.",
+      "needs": [
+        "A Windows PC",
+        "AppControl and Wintoys",
+        "CrystalDiskMark",
+        "Microsoft PC Manager"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-08-17",
+      "title": "Cut a 300-a-day notification pile down to the alerts you actually want",
+      "url": "https://www.howtogeek.com/i-get-300-notifications-a-day-on-android-heres-my-system-for-taming-them/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 17",
+      "dek": "<b>Five passes, one system</b> Vishwamoorthy Ramakrishnan turns notifications off outright for rarely opened apps by long-pressing the icon and going through App Info to Notifications, then splits the apps worth keeping into their own categories so an order update arrives and the promotion behind it does not, gives the categories that matter distinct sounds so the phone can be read without looking at it, switches on the snooze button to push an alert up to two hours out, and enables notification history to recover anything swiped away in the last 24 hours; the warning attached is that snoozing and history are off by default and sit behind differently named menus on Pixel and Samsung phones.",
+      "needs": [
+        "An Android phone",
+        "The Notifications settings menu",
+        "Per-app notification categories"
+      ],
+      "time": "20 to 30 minutes"
+    },
+    {
+      "date": "2026-08-17",
+      "title": "Build a one-tap travel mode on a Samsung Galaxy so the phone changes its own rules",
+      "url": "https://www.howtogeek.com/how-i-built-a-vacation-mode-on-my-galaxy-phone-that-changes-everything-in-one-tap/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 17",
+      "dek": "<b>Set once, reuse always</b> T.M. Amrita opens Settings, then Modes and Routines, adds a custom mode, and decides inside it which apps and notifications get through, what the display does, and how do not disturb behaves, optionally attaching if-then routines so the mode switches itself on, then puts it on the home screen or in the notification panel so one tap flips the whole phone into it; the setup happens once and is reused every trip, and Amrita notes newer Galaxy models label the feature differently and that phones without it need a third-party automation app such as IFTTT.",
+      "needs": [
+        "A Samsung Galaxy phone",
+        "Settings, Modes and Routines",
+        "A home screen or panel slot"
+      ],
+      "time": "15 minutes, once"
+    },
     {
       "date": "2026-08-16",
       "title": "Five habits that turn a Gemini Notebook study guide from a generic summary into something you can study from",
