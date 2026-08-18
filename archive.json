@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-18",
+      "edition": "evening",
+      "dateHuman": "Tuesday, August 18, 2026",
+      "file": "editions/2026-08-18-evening.html",
+      "lead": "Google Drive on Android already replaces the scanner, PDF annotator, and signing apps you are paying for",
+      "pubDate": "Tue, 18 Aug 2026 17:46:42 -0400"
+    },
+    {
+      "date": "2026-08-18",
       "edition": "morning",
       "dateHuman": "Tuesday, August 18, 2026",
       "file": "editions/2026-08-18-morning.html",

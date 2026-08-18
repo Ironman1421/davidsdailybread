@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-18",
+      "name": "GIMP",
+      "url": "https://www.gimp.org/",
+      "trend_url": "https://www.xda-developers.com/self-hosted-alternatives-to-apps-youre-still-paying-for-every-month/",
+      "cost": "Free, GPLv3",
+      "kind": "Linux, macOS, Windows desktop",
+      "seen": "XDA, Aug 18",
+      "blurb": "GIMP is a free, open-source image editor for GNU/Linux, macOS, and Windows, currently at version 3.2.4, covering photo retouching and manipulation, original artwork, graphic design and interface elements, and scripted image work through Python and Scheme; XDA's Patrick Hearn names it on August 18 as the way out of Adobe Creative Cloud and puts the saving at $120 a year, and his honest caveat is that the interface takes real adjustment if you have been working in Photoshop, with minor feature differences remaining."
+    },
+    {
+      "date": "2026-08-18",
+      "name": "Reckon: Decision Journal",
+      "url": "https://apps.apple.com/us/app/reckon-decision-journal/id6762766246",
+      "trend_url": "https://www.producthunt.com/products/reckon",
+      "cost": "$1.99 one time",
+      "kind": "iPhone and iPad, iOS 26+",
+      "seen": "Product Hunt, Aug 18",
+      "blurb": "You log a decision with the confidence you actually hold and the reasoning behind it, check in as new information arrives, then record what happened and how satisfied you were, and the app reads back the gap between the confidence you claimed and the outcomes you got, broken out by domains such as career, finances, health, and personal; it is a $1.99 one-time purchase from developer Roland Leth that keeps everything on the device and syncs only through your own iCloud with no account, and the caveats are that the listing requires iOS 26 or later, is not verified for macOS, and the calibration view does not appear until fifty decisions are logged."
+    },
+    {
+      "date": "2026-08-18",
+      "name": "Deepmark",
+      "url": "https://usedeepmark.com/",
+      "trend_url": "https://www.producthunt.com/products/deepmark",
+      "cost": "$10/mo, $84/yr, no free tier",
+      "kind": "Web plus Chrome extension",
+      "seen": "Product Hunt, Aug 18",
+      "blurb": "Deepmark indexes what is inside the things you saved rather than their titles, transcribing audio in about 99 languages, describing and reading text off video frames, and summarizing pages, so a plain-language search such as the reel with the one-pan pasta trick finds the item even when those words never appear in the title, across browser bookmarks, X bookmarks, Instagram saves, and YouTube Watch Later and Liked; the caveats are real, because there is a single paid plan at $10 a month or $84 billed yearly with no free tier or trial, and adopting it means handing a third-party service your saved reading and viewing history."
+    },
+    {
       "date": "2026-08-17",
       "name": "BentoPDF",
       "url": "https://github.com/alam00000/bentopdf",
@@ -535,6 +565,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-18",
+      "title": "Four prompts that turn Claude from an explainer into flashcards, diagrams, and simulations you study with",
+      "url": "https://www.makeuseof.com/i-found-the-best-way-to-study-with-claude/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 18",
+      "dek": "<b>Build it, do not read it</b> Abhijith N Arjunan asks for an interactive flashcard deck that self-grades and resurfaces every card you miss before the session ends, a step-through diagram that moves one stage at a time rather than arriving as a single static image, and a slider-driven simulation you can drag to watch one variable change the outcome in real time, then leans on Claude's /learn skill to shape the language for learning; he warns that the step-through diagrams cost more tokens and time than the flashcards, and that concern over source fidelity sends him elsewhere for video and audio material.",
+      "needs": [
+        "A Claude account",
+        "A subject you are trying to learn",
+        "The four prompts from the piece"
+      ],
+      "time": "20 minutes to try"
+    },
+    {
+      "date": "2026-08-18",
+      "title": "Collapse a scattered task system into one Google Keep note with dated and themed sections",
+      "url": "https://www.androidauthority.com/single-google-keep-note-productivity-hack-3698093/",
+      "trend_url": "https://www.androidauthority.com/",
+      "seen": "Android Authority, Aug 18",
+      "dek": "<b>One note, many sections</b> Andy Walker dumps practically everything that crosses his mind into a single Keep note, then splits the task half into recurring work, what is due this month, what is due this week, and a line for each weekday kept a week ahead, moves anything unfinished into the section where it now belongs instead of reshuffling the whole list, and keeps a block for undated jobs plus themed dumps for car maintenance, meal planning, research ideas, and finances; he concedes the note has no alarms or integrations, needs daily discipline, and sends anything heavier to Notion, Samsung Food, or Raindrop.io.",
+      "needs": [
+        "Google Keep on phone or web",
+        "Ten minutes to lay out sections",
+        "A daily habit of updating it"
+      ],
+      "time": "10 minutes to set up"
+    },
+    {
+      "date": "2026-08-18",
+      "title": "Export a spreadsheet to CSV and have an AI assistant hand back a single-file app that works offline",
+      "url": "https://www.howtogeek.com/microsoft-excel-turned-worksheet-into-offline-app-without-writing-any-code/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 18",
+      "dek": "<b>CSV first, then prompt</b> Tony Phillips exports the workbook as CSV so the formatting and formulas fall away and only the fields remain, here 5,000 personal finance transactions carrying id, date, amount, description, category, budget group, account name, and account type, then hands the identical request to Gemini, Claude, and Copilot: one HTML file with search, filtering, sorting, pagination, add, edit and delete, summary dashboards, and data that persists locally; Gemini and Claude both returned working apps and Copilot did not, and neither working app handled filters that depend on one another.",
+      "needs": [
+        "A spreadsheet exported to CSV",
+        "An AI assistant, Gemini or Claude",
+        "A web browser to open the file"
+      ],
+      "time": "About an hour"
+    },
     {
       "date": "2026-08-17",
       "title": "Find out what is actually slowing a Windows PC before you buy anything to fix it",
