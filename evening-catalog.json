@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-19",
+      "name": "Grist",
+      "url": "https://www.getgrist.com/pricing/",
+      "trend_url": "https://www.makeuseof.com/stopped-forcing-excel-database-open-source-middle-ground/",
+      "cost": "Free tier; Pro $10/user/mo",
+      "kind": "Web app; self-host with Docker",
+      "seen": "MakeUseOf, Aug 19",
+      "blurb": "Grist is a relational spreadsheet: columns are named and typed, records link across tables without a VLOOKUP, and charts, calendar views, and summary tables come off that same data, with forms, Python formulas, and real-time collaboration included on the free plan; the honest limit is that free hosting stops at 5,000 records per document and 10 members, so a tracker that keeps growing means either $10 per user per month or running the free open-source Community Edition on your own machine."
+    },
+    {
+      "date": "2026-08-19",
+      "name": "LocalSend",
+      "url": "https://localsend.org/",
+      "trend_url": "https://www.makeuseof.com/replace-windows-bloatware-open-source-apps/",
+      "cost": "Free, Apache 2.0, no ads",
+      "kind": "Desktop and phone, local Wi-Fi",
+      "seen": "MakeUseOf, Aug 19",
+      "blurb": "Install it on the phone and the computer, pick the files, tap the other device, and the transfer runs over your own Wi-Fi with end-to-end encryption and an optional PIN, and the project states plainly that it works completely offline, that your data never leaves the local network, and that there are no ads, tracking, or hidden costs; the catch follows from that design, since both devices have to be on the same network at the same time, so it does nothing for a file you need to send across town."
+    },
+    {
+      "date": "2026-08-19",
+      "name": "NextDNS",
+      "url": "https://nextdns.io/pricing",
+      "trend_url": "https://www.makeuseof.com/keep-browsing-log-of-every-device-with-nextdns/",
+      "cost": "Free tier; Pro $1.99/mo",
+      "kind": "Set on the router or per device",
+      "seen": "MakeUseOf, Aug 19",
+      "blurb": "Point a router or one device at NextDNS instead of the resolver your provider hands you and the logs become a live feed of every domain each device in the house tried to reach, with the device name and the timestamp, a block control beside them, and settings for where the logs live and how long they are kept, from an hour out to two years; MakeUseOf's Pankil Shah names the tradeoff without softening it, that seeing all of that traffic means trusting NextDNS with it, and the free plan covers 300,000 queries a month before it goes back to answering like ordinary non-blocking DNS."
+    },
+    {
+      "date": "2026-08-19",
+      "name": "Flow Launcher",
+      "url": "https://www.flowlauncher.com/",
+      "trend_url": "https://www.makeuseof.com/replace-windows-bloatware-open-source-apps/",
+      "cost": "Free, open source",
+      "kind": "Windows 10 and later",
+      "seen": "MakeUseOf, Aug 19",
+      "blurb": "One hotkey, Alt+Space by default, opens a single box that searches apps, files, browser bookmarks, and Windows settings, runs a calculation, fires a shell or system command, or sends the query to the web, with a plugin store to add more; the caveat is that it is Windows 10 and later only, and its file search leans on Everything or Windows Search being in place underneath it."
+    },
+    {
       "date": "2026-08-18",
       "name": "GIMP",
       "url": "https://www.gimp.org/",
@@ -565,6 +605,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-19",
+      "title": "Let Windows empty its own temp files, Recycle Bin, and stale downloads on a schedule you choose",
+      "url": "https://www.makeuseof.com/windows-best-storage-feature-isnt-even-turned-on-by-default/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 19",
+      "dek": "<b>Storage Sense, switched on</b> Settings, then System, then Storage turns on automatic user content cleanup, which clears the Recycle Bin after 30 days by default and can put the Downloads folder, which otherwise never deletes anything, on a 1, 14, 30, or 60 day timer.",
+      "needs": [
+        "A Windows PC",
+        "Settings, System, Storage",
+        "10 minutes signed in and online"
+      ],
+      "time": "10 minutes to set up"
+    },
+    {
+      "date": "2026-08-19",
+      "title": "Trade a slice of your top speed for video calls that stop freezing for everyone in the house",
+      "url": "https://www.xda-developers.com/i-deliberately-gave-up-some-of-my-internet-speed-and-every-video-call-in-the-house-got-better/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Aug 19",
+      "dek": "<b>Quality of Service, deliberately</b> XDA's Ty Sherback turned on QoS in a TP-Link Archer router, entered the real upload and download figures from the ISP, set priority percentages, and flagged the devices that matter, accepting a lower ceiling because QoS drops the router into software forwarding that consumer silicon cannot push gigabit traffic through.",
+      "needs": [
+        "A router with a QoS setting",
+        "Your ISP's real up and down speeds",
+        "A bufferbloat test, before and after"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-08-19",
+      "title": "Turn on the taskbar right-click that force-quits a frozen app without opening Task Manager",
+      "url": "https://www.howtogeek.com/windows-11-hidden-end-task-shortcut/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 19",
+      "dek": "<b>One toggle, then every taskbar</b> Windows 11 hides an End Task switch under Settings, System, Advanced (For developers on some builds), and How-To Geek's Tony Phillips is clear about the cost: it kills the process outright rather than asking it to close, it takes every window of that app at once, and unsaved work goes with it.",
+      "needs": [
+        "Windows 11",
+        "Settings, System, Advanced",
+        "Two minutes"
+      ],
+      "time": "2 minutes, once"
+    },
     {
       "date": "2026-08-18",
       "title": "Four prompts that turn Claude from an explainer into flashcards, diagrams, and simulations you study with",

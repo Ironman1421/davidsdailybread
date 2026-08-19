@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-19",
+      "edition": "evening",
+      "dateHuman": "Wednesday, August 19, 2026",
+      "file": "editions/2026-08-19-evening.html",
+      "lead": "Make a free Claude account last: pick the lighter model, lower the effort setting, and hand off before the limit",
+      "pubDate": "Wed, 19 Aug 2026 17:49:04 -0400"
+    },
+    {
+      "date": "2026-08-19",
       "edition": "morning",
       "dateHuman": "Wednesday, August 19, 2026",
       "file": "editions/2026-08-19-morning.html",
