@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-19",
+      "edition": "morning",
+      "dateHuman": "Wednesday, August 19, 2026",
+      "file": "editions/2026-08-19-morning.html",
+      "lead": "U.S. import prices fell 0.4 percent in July as fuel costs dropped 7.2 percent",
+      "pubDate": "Wed, 19 Aug 2026 07:50:44 -0400"
+    },
+    {
       "date": "2026-08-18",
       "edition": "evening",
       "dateHuman": "Tuesday, August 18, 2026",
