@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-20",
+      "edition": "evening",
+      "dateHuman": "Thursday, August 20, 2026",
+      "file": "editions/2026-08-20-evening.html",
+      "lead": "Swipe actions, labels, and Add to Tasks turn Gmail on Android into an inbox you can work through",
+      "pubDate": "Thu, 20 Aug 2026 17:46:21 -0400"
+    },
+    {
       "date": "2026-08-19",
       "edition": "evening",
       "dateHuman": "Wednesday, August 19, 2026",

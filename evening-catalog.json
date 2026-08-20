@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-20",
+      "name": "HyNote for Mac",
+      "url": "https://hynote.ai/downloads/mac",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/20",
+      "cost": "Free tier, Pro $6.66/mo",
+      "kind": "Mac app, macOS 13 or later",
+      "seen": "Product Hunt No. 1, Aug 20",
+      "blurb": "HyNote records system and meeting audio on the Mac itself, so no meeting bot joins your Zoom, Teams, Meet, or Webex call, and it hands back a live transcript plus a summary with key points and action items, though its own setup steps have you sign in before recording and the free plan stops a session at 120 minutes, with paid tiers starting at $6.66 a month."
+    },
+    {
+      "date": "2026-08-20",
+      "name": "career-ops",
+      "url": "https://github.com/santifer/career-ops",
+      "trend_url": "https://github.com/trending",
+      "cost": "Free, MIT licensed",
+      "kind": "Node.js CLI, any desktop OS",
+      "seen": "GitHub Trending, +855 today",
+      "blurb": "career-ops turns an AI coding CLI into a job search desk that scores a listing against your CV on a one to five rubric, tailors an ATS-ready PDF, researches the company, and tracks every application in one place, but it needs Node.js plus a separate AI CLI to run, it never submits an application for you, and its own README warns that models may hallucinate skills you do not have."
+    },
+    {
+      "date": "2026-08-20",
+      "name": "OpenLogi",
+      "url": "https://github.com/AprilNEA/OpenLogi",
+      "trend_url": "https://github.com/trending",
+      "cost": "Free, Apache 2.0 or MIT",
+      "kind": "macOS 13+, Windows 11, Linux",
+      "seen": "GitHub Trending, +1,540 today",
+      "blurb": "OpenLogi remaps Logitech buttons, DPI, SmartShift, gestures, and lighting from your own machine with no cloud account and no telemetry, over Bolt, Unifying, Bluetooth, or a cable, though the project states plainly that it is under active development and not yet stable, and you have to quit Logitech Options+ first because only one program can own a receiver at a time."
+    },
+    {
       "date": "2026-08-19",
       "name": "Grist",
       "url": "https://www.getgrist.com/pricing/",
@@ -605,6 +635,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-20",
+      "title": "Find the hidden bloat that makes an Excel workbook take forever to open",
+      "url": "https://www.howtogeek.com/microsoft-excel-isnt-slow-built-workbook-takes-forever-to-load/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 20",
+      "dek": "<b>Ctrl+End tells the truth</b> Tony Phillips presses Ctrl+End to see where Excel thinks the data ends and deletes the empty rows and columns beyond it, clears obsolete defined names and broken external links out of Formulas, Name Manager, hunts down volatile functions such as NOW, TODAY, RAND, OFFSET, and INDIRECT, checks Data, Queries and Connections for links nobody uses, and renames a copy of the .xlsx to .zip to look inside xl/media for oversized embedded images; he warns you to back up first, to confirm nothing you delete is referenced by a formula, chart, or macro, and that the zip inspection does not work on binary .xlsb files.",
+      "needs": [
+        "Microsoft Excel",
+        "A backup copy of the workbook",
+        "20 to 30 minutes"
+      ],
+      "time": "20 to 30 minutes"
+    },
+    {
+      "date": "2026-08-20",
+      "title": "Three Chrome privacy switches, and a plain account of what they still cannot do for you",
+      "url": "https://www.makeuseof.com/turned-on-browsers-privacy-features-vpn-became-almost-redundant/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 20",
+      "dek": "<b>Cookies, location, then HTTPS</b> Oluwaseun Bamisile blocks third-party cookies under Settings, Privacy and security, sets Site settings, Location to the option that stops sites seeing where you are, and turns on Always use secure connections under Security, then says outright what none of it accomplishes: it cannot hide an IP address, cannot match what a VPN gives you on an untrusted network, and cannot stop tracking that follows your accounts, your device habits, or the location inferred from your IP alone.",
+      "needs": [
+        "Google Chrome",
+        "Settings, Privacy and security",
+        "About five minutes"
+      ],
+      "time": "5 minutes, once"
+    },
+    {
+      "date": "2026-08-20",
+      "title": "Nine commands that tell you where a Windows internet problem actually is before you call anyone",
+      "url": "https://www.makeuseof.com/use-these-windows-commands-to-solve-internet-problems/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 20",
+      "dek": "<b>Ping outward, one step at a time</b> Pankil Shah works from the router out: ping 192.168.0.1 or 192.168.1.1 to prove the router answers, ping 8.8.8.8 to skip DNS entirely, ping google.com to test name resolution, then nslookup google.com and nslookup google.com 8.8.8.8 to see whether your own DNS server is the fault, ipconfig /flushdns to clear a bad cache, and tracert google.com to find where the delay begins; netsh winsock reset and netsh int ip reset come last and want a restart afterward, and none of it repairs failed hardware or an ISP outage.",
+      "needs": [
+        "A Windows PC",
+        "Command Prompt",
+        "About 10 minutes"
+      ],
+      "time": "10 minutes"
+    },
     {
       "date": "2026-08-19",
       "title": "Let Windows empty its own temp files, Recycle Bin, and stale downloads on a schedule you choose",
