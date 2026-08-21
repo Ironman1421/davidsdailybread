@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-21",
+      "name": "Scribus",
+      "url": "https://sourceforge.net/projects/scribus/",
+      "trend_url": "https://www.xda-developers.com/microsoft-publisher-dying-october-open-source-app-im-replacing-it-with/",
+      "cost": "Free, GPL v2 or v3",
+      "kind": "Desktop app, Windows/Mac/Linux",
+      "seen": "XDA Developers, Aug 21",
+      "blurb": "Scribus is a page layout program for the jobs Microsoft Publisher used to do, brochures, books, and business cards, with color separations, CMYK and spot colors, ICC color management, and commercial grade PDF and PostScript output, free under the GNU GPL on Windows, macOS, Linux, BSD, and ChromeOS; the caveat is the move itself, because XDA's Patrick Hearn found an interface that looks like a product of 2001 and no Microsoft Office integration, and Microsoft's own support page says 365 subscribers lose access to Publisher after October 1, 2026 and tells you to convert your files to another format first, so expect a learning curve rather than a clean import."
+    },
+    {
+      "date": "2026-08-21",
+      "name": "Kagi Search paywall filter",
+      "url": "https://kagi.com/pricing",
+      "trend_url": "https://news.ycombinator.com/item?id=49388154",
+      "cost": "Trial free; $5 to $25 a month",
+      "kind": "Web search, any browser",
+      "seen": "Hacker News, 909 points",
+      "blurb": "Kagi's changelog entry dated August 21, 2026 says the search engine added a setting for removing paywalled links from search results automatically, which spares you the click into an article you cannot finish reading; the caveat is the price, because Kagi is a subscription search engine, its free trial stops at 100 searches and 100 Assistant interactions, and the paid tiers run from Starter at $5 a month for 300 searches to Professional at $10 a month for unlimited searches and Ultimate at $25 a month."
+    },
+    {
       "date": "2026-08-20",
       "name": "HyNote for Mac",
       "url": "https://hynote.ai/downloads/mac",
@@ -635,6 +655,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-21",
+      "title": "Six router changes that fix slow Wi-Fi before you spend anything on new hardware",
+      "url": "https://www.howtogeek.com/dont-replace-your-slow-wi-fi-yettry-these-5-minute-tricks-first/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 21",
+      "dek": "<b>Placement first, then bands</b> Monica J. White moves the router to a central, elevated spot outside a closed cabinet and tests the weak rooms before and after, assigns undemanding devices to 2.4GHz and speed-sensitive ones to 5GHz instead of trusting automatic band steering, narrows the 2.4GHz channel width to 20MHz for stability, splits the two bands into separate network names rather than one Smart Connect SSID, and turns off DFS channels or pins 5GHz to channels 36 to 48 or 149 to 165 for homes near an airport, coastline, or weather radar; the piece warns never to disable 2.4GHz entirely, since some devices need its longer range, and notes that some ISP-supplied routers will not allow a firmware update at all.",
+      "needs": [
+        "Your router's admin page",
+        "The 2.4GHz and 5GHz settings",
+        "One room that drops the signal"
+      ],
+      "time": "5 minutes per change"
+    },
+    {
+      "date": "2026-08-21",
+      "title": "Turn off the two background scanners that quietly drain an Android phone overnight",
+      "url": "https://www.makeuseof.com/i-turned-off-one-hidden-scanning-process-and-gained-an-hour-of-battery/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 21",
+      "dek": "<b>Two switches under Location</b> Robin John turns off Wi-Fi scanning and Bluetooth scanning under Settings, Location, Location services on a Pixel, where Samsung's One UI keeps them in the same place, and reports overnight drain falling from around five or six percent to closer to three over two weeks; the cost is real, because Find Hub depends on those scanners to track devices and indoor accuracy suffers enough that Google Maps landed on the wrong side of a building and ride-hailing apps took longer to pin down a pickup, so the piece suggests turning off Wi-Fi scanning alone if you pair new accessories often.",
+      "needs": [
+        "An Android phone",
+        "Settings, Location, Location services",
+        "Two weeks to judge the result"
+      ],
+      "time": "2 minutes"
+    },
+    {
+      "date": "2026-08-21",
+      "title": "Seven built-in camera tools that copy text off paper and build multipage PDFs",
+      "url": "https://www.androidpolice.com/7-built-in-android-tools-that-turn-your-camera-into-office-suite/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front page",
+      "dek": "<b>Point, then copy the text</b> Jade Bryan Jardinico stays inside tools the phone already has: the Samsung camera's text button lifts words straight off a page to paste elsewhere, the Scan toggle turns detected paper borders into a multipage PDF with Add Scan, Google Drive does the scanning job on a Pixel, and Bixby Vision reads printed text aloud or names a color at a stated 85 to 90 percent accuracy; the write-up is candid that multi-column layouts and irregular typography make the text capture miss lines, so reframe and work in smaller batches, that low light throws the color reading off, and that several of the seven are Samsung One UI features with a Google Drive or Gemini workaround elsewhere.",
+      "needs": [
+        "An Android phone camera",
+        "Google Drive or Samsung One UI",
+        "A document you keep retyping"
+      ],
+      "time": "5 minutes to try one"
+    },
     {
       "date": "2026-08-20",
       "title": "Find the hidden bloat that makes an Excel workbook take forever to open",
