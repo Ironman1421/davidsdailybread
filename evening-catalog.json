@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-22",
+      "name": "Image Toolbox",
+      "url": "https://github.com/T8RIN/ImageToolbox",
+      "trend_url": "https://www.androidauthority.com/image-toolbox-android-app-hands-on-3699127/",
+      "cost": "Free, Apache 2.0",
+      "kind": "Android 7.0 or newer",
+      "seen": "Android Authority, Aug 22",
+      "blurb": "Image Toolbox is one Android app for the jobs most people keep eight apps for, resizing and converting pictures, stripping EXIF data, removing backgrounds, editing PDFs, stitching images, making GIFs, generating QR codes, and building collages, free under Apache 2.0 from the Play Store, F-Droid, or GitHub with no advertisements; the honest limits are that it is Android only, wants Android 7.0 or newer, and Android Authority's Yash Wate found it needs a pass through its settings, including Launcher Mode and the output folder, before it feels productive."
+    },
+    {
+      "date": "2026-08-22",
+      "name": "FUTO Voice Input",
+      "url": "https://voiceinput.futo.tech/",
+      "trend_url": "https://www.howtogeek.com/i-replaced-androids-voice-typing-with-an-offline-option-that-respects-my-privacy/",
+      "cost": "Free; optional paid license",
+      "kind": "Android, runs on device",
+      "seen": "How-To Geek, Aug 22",
+      "blurb": "FUTO Voice Input takes over the microphone key on an Android keyboard and does the speech recognition on the phone itself with nothing stored, free from the Play Store, F-Droid, or a roughly 70 MB download, with an optional one-time license that also covers FUTO Keyboard; How-To Geek's Bertel King is candid about the tradeoff, because you cannot speak punctuation or delete by voice, it can stop listening during a pause unless you turn on auto-stop on silence, and it garbled a product name, hearing Wispr Flow as whisper flow."
+    },
+    {
+      "date": "2026-08-22",
+      "name": "Plane",
+      "url": "https://plane.so/pricing",
+      "trend_url": "https://github.com/trending",
+      "cost": "Free up to 12 users",
+      "kind": "Web app; self-host with Docker",
+      "seen": "GitHub Trending, +263 today",
+      "blurb": "Plane is an open-source tracker for projects, work items, cycles, and roadmaps, licensed AGPL v3 with about 57,200 stars on GitHub, and its free plan costs nothing per seat for as many as 12 people, each with 500 AI credits; the caveats are the ceiling and the setup, since a thirteenth teammate moves you to the $6 per seat Pro plan, and hosting it yourself means Docker or Kubernetes rather than an installer you double-click."
+    },
+    {
       "date": "2026-08-21",
       "name": "Scribus",
       "url": "https://sourceforge.net/projects/scribus/",
@@ -655,6 +685,49 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-22",
+      "title": "Four free DNS services, each better at one job than Google's or Cloudflare's",
+      "url": "https://www.makeuseof.com/free-dns-servers-better-than-google-cloudflare/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 22",
+      "dek": "<b>Pick by the problem</b> Pankil Shah lines up AdGuard DNS for stopping ads and trackers at the lookup itself, Quad9 for malware and phishing, screened against threat intelligence from more than 20 cybersecurity organizations by a Swiss nonprofit that promises to collect no user data, CleanBrowsing for households that want adult content blocked and SafeSearch forced on, and Mullvad's dns.mullvad.net, a strict no-logs resolver offered in adblock, base, extended, family, and all-in-one variants; he is straight about the tradeoffs, since AdGuard cannot touch ads served from the same domain as the page and needs its paid app for ads inside other apps, and CleanBrowsing's filtering is blunt enough to catch legitimate sites while whitelisting stays on the paid plans.",
+      "needs": [
+        "Your router or device DNS settings",
+        "The provider's DNS addresses",
+        "One device to test on first"
+      ],
+      "time": "20 minutes"
+    },
+    {
+      "date": "2026-08-22",
+      "title": "Five Android safety settings that ask for help when you cannot",
+      "url": "https://www.androidauthority.com/best-android-safety-features-2026-3699788/",
+      "trend_url": "https://www.androidauthority.com/",
+      "seen": "Android Authority front page",
+      "dek": "<b>Set up the check-in first</b> Roydon Cerejo starts in Google's Personal Safety app, where Safety Check asks you to confirm you are fine after a set time and, if you never answer, tells your emergency contacts your last known location, and can also alert them when the battery falls below 15 percent; from there he turns on Emergency SOS, which triggers on five or more rapid presses of the power button on Android 13 and later and can record a clip to the cloud, Car Crash Detection on a Pixel 4a or newer, Digital Wellbeing's Heads Up nudge for people who scroll while walking, and screen time reminders that appear after 15 to 20 minutes in one app; he does not oversell any of it, calling Heads Up wildly inconsistent across several phones and noting that Safety Check has no home screen widget.",
+      "needs": [
+        "An Android phone",
+        "Google's Personal Safety app",
+        "Digital Wellbeing settings"
+      ],
+      "time": "20 minutes"
+    },
+    {
+      "date": "2026-08-22",
+      "title": "Turn a webcam and two desk lamps into a document scanner that makes real PDFs",
+      "url": "https://www.howtogeek.com/this-open-source-app-turned-my-webcam-into-a-free-document-scanner/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 22",
+      "dek": "<b>Square the camera first</b> Jorge A. Aguilar mounts a webcam, 4K if you have one and 1080p if you do not, on a copy stand, a heavy desk clamp, or a rigid mini tripod, sets the lens at 90 degrees and parallel to the page, locks manual focus where the camera allows it, and lights the paper with two lamps so one side is not brighter than the other, then lets Camscan, a free MIT-licensed app with Windows and Linux builds, find the page edges in the live video, reorder, rotate, or drop pages, and export the batch as one PDF; he says plainly that a webcam scanner is not going to match a flatbed on every job, and that the more complicated scans, photographs and fine print, are not going to look amazing.",
+      "needs": [
+        "A webcam, 4K preferred",
+        "A copy stand, clamp, or tripod",
+        "Two desk lamps",
+        "Camscan for Windows or Linux"
+      ],
+      "time": "30 minutes to set up"
+    },
     {
       "date": "2026-08-21",
       "title": "Six router changes that fix slow Wi-Fi before you spend anything on new hardware",

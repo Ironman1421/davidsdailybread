@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-22",
+      "edition": "evening",
+      "dateHuman": "Saturday, August 22, 2026",
+      "file": "editions/2026-08-22-evening.html",
+      "lead": "Stirling PDF edits, signs, and converts documents on your own machine instead of uploading them to a website",
+      "pubDate": "Sat, 22 Aug 2026 17:47:36 -0400"
+    },
+    {
       "date": "2026-08-21",
       "edition": "evening",
       "dateHuman": "Friday, August 21, 2026",
