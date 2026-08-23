@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-23",
+      "edition": "morning",
+      "dateHuman": "Sunday, August 23, 2026",
+      "file": "editions/2026-08-23-morning.html",
+      "lead": "A 40-year satellite study finds Amazon carbon uptake and water loss decoupling across 64 percent of the basin",
+      "pubDate": "Sun, 23 Aug 2026 07:45:06 -0400"
+    },
+    {
       "date": "2026-08-22",
       "edition": "evening",
       "dateHuman": "Saturday, August 22, 2026",
