@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-23",
+      "edition": "evening",
+      "dateHuman": "Sunday, August 23, 2026",
+      "file": "editions/2026-08-23-evening.html",
+      "lead": "Actual Budget keeps envelope budgeting on your own computer, free and open source, with no monthly subscription",
+      "pubDate": "Sun, 23 Aug 2026 17:49:14 -0400"
+    },
+    {
+      "date": "2026-08-23",
       "edition": "morning",
       "dateHuman": "Sunday, August 23, 2026",
       "file": "editions/2026-08-23-morning.html",

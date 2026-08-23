@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-23",
+      "name": "UniGetUI",
+      "url": "https://github.com/marticliment/UniGetUI",
+      "trend_url": "https://www.howtogeek.com/free-open-source-apps-fix-everything-windows-11-got-wrong/",
+      "cost": "Free, MIT licensed",
+      "kind": "Windows 10 and 11 desktop app",
+      "seen": "How-To Geek, Aug 23",
+      "blurb": "UniGetUI is one window over WinGet, Scoop, Chocolatey, and the other package managers already on a Windows PC, so a single screen shows everything with an update waiting and installs or removes it without hunting for download pages; the project is candid that the packages come from third-party publishers, so install only from names you trust, and that some WinGet packages still fail and have to be chased down in PowerShell."
+    },
+    {
+      "date": "2026-08-23",
+      "name": "SubtitleGenerator",
+      "url": "https://subtitlegenerator.app/",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/22",
+      "cost": "Free tier, Pro $9 / month",
+      "kind": "Runs in a browser tab",
+      "seen": "Product Hunt No. 3, Aug 22",
+      "blurb": "Drop in a video and it transcribes, flags the words it is unsure about, lets you fix text and timing, styles the captions, and exports, all in one browser tab, with your video file staying on your device and only the audio sent off for transcription; the free tier is capped at 60 minutes of subtitle time a month and 10 minutes per video, and free exports top out at 720p with a small watermark."
+    },
+    {
+      "date": "2026-08-23",
+      "name": "debloat.dev",
+      "url": "https://debloat.dev/",
+      "trend_url": "https://news.ycombinator.com/item?id=49410362",
+      "cost": "Free",
+      "kind": "Web directory, 200+ projects",
+      "seen": "Hacker News, 202 points",
+      "blurb": "A community directory of open-source replacements for the software that ships with hardware, sorted into ten categories including printers and scanners, peripherals, smart home, NAS and storage, and phone sync, and it keeps no tracking and no cookies unless you sign in; the listings are submitted and rated by users rather than tested by an editor, so check a project's own repository for recent activity before you install it."
+    },
+    {
       "date": "2026-08-22",
       "name": "Image Toolbox",
       "url": "https://github.com/T8RIN/ImageToolbox",
@@ -685,6 +715,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-23",
+      "title": "Clean four things in the raw data before you build the PivotTable that has to read it",
+      "url": "https://www.howtogeek.com/microsoft-excel-pivottables-functions-preparation/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 23",
+      "dek": "<b>Enrich, classify, split, trim</b> Tony Phillips runs a sales table through four functions before any PivotTable exists: XLOOKUP pulls product names and categories in from a second table, IF turns transaction amounts into High Value and Standard labels, TEXTSPLIT breaks a combined Chicago | IL | Midwest field into city, state, and region columns, and TRIM strips the stray spaces that would otherwise scatter one customer across several rows.",
+      "needs": [
+        "Excel with XLOOKUP and TEXTSPLIT",
+        "A raw data sheet to tidy",
+        "A lookup table of product details"
+      ],
+      "time": "An hour, then reusable"
+    },
+    {
+      "date": "2026-08-23",
+      "title": "Set up Chrome's own remote desktop for the five-minute job you left on the other computer",
+      "url": "https://www.makeuseof.com/free-remote-desktop-tool-inside-chrome-nobody-uses-for-one-job-built-for/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 23",
+      "dek": "<b>One code, or a PIN</b> Afam Onyimadu sets up Chrome Remote Desktop two ways, a one-time access code for a quick share and a registered host with a PIN for passwordless return visits, and he is straight about the cost: the host has to stay powered on, online, and out of sleep, which drains a laptop battery and raises CPU temperatures, so he keeps it for grabbing a forgotten file rather than a full day of remote work.",
+      "needs": [
+        "Chrome and a Google account",
+        "Hands-on setup at the host PC",
+        "The host left awake and online"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-08-23",
+      "title": "Reclaim Android storage with the four tools already on the phone instead of a cleaner app",
+      "url": "https://www.howtogeek.com/i-stopped-installing-cleaner-apps-and-used-these-android-tools-to-reclaim-storage-instead/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 23",
+      "dek": "<b>Clean, trash, photos, cache</b> Goran Damnjanovic drops the third-party cleaner apps for four things already installed: the Clean tab in Files by Google or Samsung's My Files, the trash folder most people never empty, Free Up Space On This Device in Google Photos, and clearing individual app caches under Settings, Storage, Apps, which together freed about 23GB in his own testing.",
+      "needs": [
+        "An Android phone",
+        "Files by Google or Samsung My Files",
+        "Google Photos signed in"
+      ],
+      "time": "About 20 minutes"
+    },
     {
       "date": "2026-08-22",
       "title": "Four free DNS services, each better at one job than Google's or Cloudflare's",
