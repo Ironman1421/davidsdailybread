@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-24",
+      "edition": "evening",
+      "dateHuman": "Monday, August 24, 2026",
+      "file": "editions/2026-08-24-evening.html",
+      "lead": "Noema runs an AI assistant on your iPhone that reads your own PDFs without sending them to the cloud",
+      "pubDate": "Mon, 24 Aug 2026 17:53:13 -0400"
+    },
+    {
       "date": "2026-08-23",
       "edition": "evening",
       "dateHuman": "Sunday, August 23, 2026",

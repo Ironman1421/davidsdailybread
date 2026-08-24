@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-24",
+      "name": "uBlock Origin Lite",
+      "url": "https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh",
+      "trend_url": "https://www.androidauthority.com/chrome-ad-blockers-ruined-what-still-works-3700493/",
+      "cost": "Free",
+      "kind": "Chrome extension, Manifest V3",
+      "seen": "Android Authority, Aug 24",
+      "blurb": "The Manifest V3 rewrite of the best known content blocker now has 17,000,000 users and a 4.5 rating from 3,400 reviews, and it blocks ads, trackers, and miners declaratively using uBlock Origin's own filters plus EasyList, EasyPrivacy, and Peter Lowe's server list, with more rulesets available in its options; Android Authority's Andrew Grush is blunt that the lite build gives up custom filters, dynamic filtering, the element picker, and malware protection, so it suits a casual user rather than someone who tuned the original by hand."
+    },
+    {
+      "date": "2026-08-24",
+      "name": "RustDesk",
+      "url": "https://github.com/rustdesk/rustdesk",
+      "trend_url": "https://www.makeuseof.com/rustdesk-free-features-replace-teamviewer/",
+      "cost": "Free, AGPL 3.0",
+      "kind": "Windows, Mac, Linux, and mobile",
+      "seen": "MakeUseOf, Aug 22",
+      "blurb": "RustDesk is an open-source remote desktop app with about 121,700 GitHub stars that connects out of the box through the project's relay servers, or through a server you run yourself, so you can fix a relative's computer or reach your own without a subscription; MakeUseOf's Tashreef Shareef points out that it carries no commercial-use nag screens, no session time limits, and a built-in file transfer mode, then adds the fair warning that it is not built for latency-sensitive work like gaming or video, and that the advanced server features sit behind the paid Server Pro tier."
+    },
+    {
+      "date": "2026-08-24",
+      "name": "Breezy Weather",
+      "url": "https://github.com/breezy-weather/breezy-weather",
+      "trend_url": "https://www.androidauthority.com/breezy-weather-android-app-how-to-download-3700950/",
+      "cost": "Free, LGPL v3",
+      "kind": "Android 5.0 or newer",
+      "seen": "Android Authority, Aug 24",
+      "blurb": "Breezy Weather pulls forecasts, observations, nowcasting, air quality, pollen, and alerts from more than 50 weather sources into a home screen you arrange yourself, with 13 widget options, no advertisements, and no news feed, and it has gathered 11,100 stars on GitHub; the catch is distribution, because the developer keeps it off the Play Store on purpose, so you install it from GitHub, F-Droid, IzzyOnDroid, or Obtainium, updates are manual unless you let Obtainium check every six hours, and Android Authority notes some phones need a setting like Samsung's Auto Blocker turned off first."
+    },
+    {
+      "date": "2026-08-24",
+      "name": "Tab Notes",
+      "url": "https://chromewebstore.google.com/detail/tab-notes/fiinodkfgdoljchgmojlnfijgmkmaiel",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/23",
+      "cost": "Free",
+      "kind": "Chrome new tab extension",
+      "seen": "Product Hunt No. 9, Aug 23",
+      "blurb": "Tab Notes replaces the new tab page with a plain writing surface that handles rich text and markdown, keeps a small drawing canvas for a diagram, and exports to .txt or .md, storing everything on the machine unless you connect your own Google Drive, with no third-party servers, tracking, or ads; it is also young and small, version 2.0.2 shipped on August 16 with 491 users and a 3.8 rating from 18 reviews, so treat it as a scratchpad rather than the only copy of anything you cannot lose."
+    },
+    {
       "date": "2026-08-23",
       "name": "UniGetUI",
       "url": "https://github.com/marticliment/UniGetUI",
@@ -715,6 +755,35 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-24",
+      "title": "Stop swiping apps closed, and restrict only the few that actually misbehave in the background",
+      "url": "https://www.makeuseof.com/youve-been-closing-apps-wrong-your-whole-life/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 24",
+      "dek": "<b>Restrict, do not swipe</b> Brandon Miniman makes the case that clearing the recents list forces a cold start that spikes the processor to nearly 100 percent, where waking an app from hibernation spikes it to about 50 percent, so on a modern phone, which he says should carry at least 8GB of RAM, he leaves apps alone and instead opens Settings, then Apps, then the offender, then Battery (Restricted on Samsung Galaxy phones), and turns off background usage for that one app; he warns plainly that a restricted app may misbehave or drop notifications, and he still swipes away anything frozen or glitching.",
+      "needs": [
+        "An Android phone",
+        "Settings, Apps, then Battery",
+        "A short list of suspect apps"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-08-24",
+      "title": "Move your notes into a plain Markdown folder and let Syncthing carry it between your devices",
+      "url": "https://www.xda-developers.com/switched-notion-plain-markdown-folder-syncthing-faster/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Aug 24",
+      "dek": "<b>One folder, no database</b> Anurag Singh left Notion for ordinary .md files in a regular folder, with subfolders only where he wants them, edited in VSCode or an alternative like Cursor, Antigravity, Zed, or Neovim, then installed Syncthing on each device, paired them by device ID, and shared that one folder so a change on one machine lands on the others; he is candid about the limits, since Syncthing synchronizes rather than backs up, a deletion travels to every device, and editing the same file on two devices that are out of contact leaves you with a conflict copy.",
+      "needs": [
+        "A text editor you already like",
+        "Syncthing on every device",
+        "One folder to hold the .md files",
+        "A separate backup of that folder"
+      ],
+      "time": "About 30 minutes"
+    },
     {
       "date": "2026-08-23",
       "title": "Clean four things in the raw data before you build the PivotTable that has to read it",
