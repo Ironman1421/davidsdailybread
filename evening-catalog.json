@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-25",
+      "name": "Todoist",
+      "url": "https://www.todoist.com/pricing",
+      "trend_url": "https://www.xda-developers.com/i-couldnt-stand-google-keep-anymore-but-i-found-the-ultimate-replacement/",
+      "cost": "Free tier",
+      "kind": "Web, Windows, Android, iOS",
+      "seen": "XDA Developers, Aug 25",
+      "blurb": "XDA's Chandraveer Mathur left Google Keep for Todoist because its open API and integrations let him build automations around his tasks instead of retyping them, working from projects, nested subtasks, P1 to P4 priorities, natural-language dates, and saved filters; the honest catch is the move itself, since he reports Todoist does not readily accept imports and he copied across what he needed by hand, and Todoist's own pricing page caps the free Beginner plan at 5 personal projects, 3 filter views, and one week of activity history."
+    },
+    {
+      "date": "2026-08-25",
+      "name": "HeliBoard",
+      "url": "https://f-droid.org/packages/helium314.keyboard/",
+      "trend_url": "https://www.androidpolice.com/switched-default-keyboard-to-open-source-alternative-and-eliminated-typos/",
+      "cost": "Free, GPL 3.0",
+      "kind": "Android 5.0 or newer, F-Droid",
+      "seen": "Android Police, Aug 25",
+      "blurb": "HeliBoard is a keyboard built on the AOSP and OpenBoard code that ships with no internet permission at all, sitting at version 4.0 on F-Droid since July 12, 2026 with about 5,900 GitHub stars, and it brings local dictionaries, themes, clipboard history, and multilingual typing; Android Police's Oluwaniyi Raji is direct that its autocorrect is less accurate than Gboard's because it does not do contextual correction, which is why he found himself reading his own sentences again, and the project itself notes that glide typing works only if you supply a closed-source library it cannot ship."
+    },
+    {
+      "date": "2026-08-25",
+      "name": "SD Maid 2/SE",
+      "url": "https://github.com/d4rken-org/sdmaid-se",
+      "trend_url": "https://www.androidpolice.com/storage-cleaner-invisible-app-junk/",
+      "cost": "Free, paid Pro upgrade",
+      "kind": "Android, Play Store or F-Droid",
+      "seen": "Android Police, Aug 24",
+      "blurb": "SD Maid 2/SE is a GPL 3.0 Android maintenance app with roughly 7,400 GitHub stars, distributed through the Play Store, F-Droid, IzzyOnDroid, and GitHub releases, whose CorpseFinder, AppCleaner, Deduplicator, Swiper, and Media Squeeze tools go after the residual folders, caches, expansion files, and logs an ordinary file manager never shows you; Android Police's Akshay Bhalla recovered about 6GB with the paid AppCleaner, which he prices at $3 a year or $6 for a lifetime license, and he warns you to audit the list before you confirm, because a file the scanner calls junk can be a document you still want."
+    },
+    {
       "date": "2026-08-24",
       "name": "uBlock Origin Lite",
       "url": "https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh",
@@ -755,6 +785,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-25",
+      "title": "Five tiny AutoHotkey scripts that take the repeated clicks out of a Windows day",
+      "url": "https://www.howtogeek.com/autohotkey-saved-hundreds-of-clicks-and-keystrokes/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 25",
+      "dek": "<b>Five short scripts</b> Tony Phillips uses AutoHotkey v2.0, free and open source for Windows, to bind Ctrl+Alt+W to open a set of sites at once, Ctrl+Alt+D to create and open a folder named for today's date, Ctrl+Shift+G to search whatever text is highlighted, a short code such as eaddr to expand into a full address, and Ctrl+Alt+T to keep a window on top of the others; he warns that the search script replaces whatever is already on the Windows clipboard, so do not fire it while you are holding something you need.",
+      "needs": [
+        "A Windows PC",
+        "AutoHotkey v2.0, free",
+        "Notepad to edit the scripts"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-08-25",
+      "title": "Put related Excel tables into the Data Model and stop maintaining lookup formulas",
+      "url": "https://www.makeuseof.com/excels-data-model-is-fantastic-database-tool-most-people-dont-know-about/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 25",
+      "dek": "<b>One workbook, real relationships</b> Yasir Mahmood describes Excel's Data Model as a compressed relational store held inside the workbook itself: tick Add this data to the Data Model when you build a PivotTable, drag matching keys onto each other in Power Pivot's Diagram View, and a single PivotTable can then reach every related table through the Field List, with DAX measures for the harder calculations; he is candid that these relationships are not database-enforced, that the join fields have to share a data type, and that past a certain size a spreadsheet buckles as a system of record.",
+      "needs": [
+        "Excel with Power Pivot",
+        "Two or more related tables",
+        "A shared key column in each"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-08-25",
+      "title": "Put the forgotten USB port on your router to work as shared storage, a print server, or a backup line",
+      "url": "https://www.makeuseof.com/that-forgotten-usb-port-on-your-router-can-solve-5-home-network-problems/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 25",
+      "dek": "<b>Five jobs, one port</b> Afam Onyimadu walks through turning a router's USB port into network storage every device in the house can reach, a print server for a single USB printer, a cellular failover line using a tethered phone or USB modem, remote file access over FTP with optional DDNS, and a DLNA media server for the TV; he is straight about the limits, since support varies by manufacturer and printer compatibility is especially patchy, permissions and redundancy fall well short of a real NAS, and remote FTP needs secure sharing turned on rather than anonymous access.",
+      "needs": [
+        "A router with a USB port",
+        "A USB drive, printer, or modem",
+        "Router admin access"
+      ],
+      "time": "20 to 40 minutes"
+    },
+    {
+      "date": "2026-08-25",
+      "title": "Four Android Auto settings that keep your hands off the phone for the whole drive",
+      "url": "https://www.xda-developers.com/android-auto-settings-i-always-change-keep-my-hands-off-my-phone-while-driving/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Aug 25",
+      "dek": "<b>Set once, every drive</b> Patrick O'Rourke sets Android Auto to start Always rather than only if it was used on the last drive, turns on automatic music playback so nothing needs tapping on the way out of the driveway, enables Silence Notifications While Driving under Safety and Emergency so Bluetooth and motion detection trigger it, and moves the media controls nearer the driver under Change Layout; the tradeoff he names is real, because bringing media within reach pushes Google Maps and Waze to the far side of the screen, and he calls Gemini's voice responses frustratingly unreliable.",
+      "needs": [
+        "An Android phone",
+        "A car with Android Auto",
+        "Settings, Connected Devices"
+      ],
+      "time": "About 10 minutes"
+    },
     {
       "date": "2026-08-24",
       "title": "Stop swiping apps closed, and restrict only the few that actually misbehave in the background",
