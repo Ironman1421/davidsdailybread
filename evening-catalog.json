@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-26",
+      "name": "Simplenote",
+      "url": "https://apps.apple.com/us/app/simplenote/id289429962",
+      "trend_url": "https://www.xda-developers.com/simplenote-minimalist-note-taking-tool/",
+      "cost": "Free",
+      "kind": "iOS app, also Mac, Windows, web",
+      "seen": "XDA Developers, Aug 26",
+      "blurb": "Simplenote is Automattic's free note app, and its App Store listing shows version 4.55 holding a 4.7 average from more than 4,300 ratings while it handles notes, to-do lists, and memos in markdown with tags, pins, instant search, version history, passcode or biometric lock, widgets, and shared notes; XDA's Yash Patel counts Windows, macOS, Linux, Android, iOS, and a web app in the same free tier and is straight that Simplenote carries no databases, backlinks, plugins, or knowledge-management scaffolding, and the listing itself puts the last iPhone update on November 4, 2024, so take it as a stable plain place to write rather than a system that will keep growing new features."
+    },
+    {
+      "date": "2026-08-26",
+      "name": "Obsidian",
+      "url": "https://obsidian.md/pricing",
+      "trend_url": "https://www.xda-developers.com/obsidian-less-like-note-taking-app-more-like-personal-operating-system/",
+      "cost": "Free, Sync $4/mo annual",
+      "kind": "Windows, Mac, Linux, mobile",
+      "seen": "XDA Developers, Aug 26",
+      "blurb": "Obsidian sits at the opposite end of the shelf from Simplenote: the app itself is free with no sign-up, and XDA's Patrick Hearn stacks the MediaDB, StoryLine, Visual Notes, and Web Clipper plugins on top of it to keep an offline books-and-films log, draft a novel where Scrivener used to sit, storyboard projects on a canvas, and search fifteen years of published articles by keyword; the honest accounting is that the official pricing page charges $4 a month billed annually (or $5 monthly) for Sync across devices and $8 a month per site for Publish, an optional commercial license runs $50 a year per user, and Hearn concedes these setups do not really solve a hard problem so much as gather everything into one window."
+    },
+    {
+      "date": "2026-08-26",
+      "name": "EasySwitch",
+      "url": "https://easyswitch.realbrain.cc/",
+      "trend_url": "https://www.producthunt.com/products/easyswitch",
+      "cost": "Free for 2, Pro $49 once",
+      "kind": "Mac, Windows, Linux desktop",
+      "seen": "Product Hunt No. 17, Aug 26",
+      "blurb": "EasySwitch joins the computers on one desk so a single keyboard and mouse slide between them, the clipboard carries text, images, and files up to 10MB across, and a second machine can act as an extra display, working in any combination of macOS 13 or later, Windows 10 and 11, and Linux, with end-to-end encryption included on the free tier rather than sold as an upgrade; the limits are stated plainly on the product page, since it runs over your local network only, the free tier stops at two computers while Pro is $49 once for up to five, Linux on X11 can receive a virtual display but cannot create one, and Windows 11 wants a driver installed the first time you use the display feature."
+    },
+    {
       "date": "2026-08-25",
       "name": "Todoist",
       "url": "https://www.todoist.com/pricing",
@@ -785,6 +815,60 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-26",
+      "title": "The five Android settings worth changing in the first ten minutes with a new phone",
+      "url": "https://www.howtogeek.com/the-settings-i-turn-off-on-every-new-android-phone/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 26",
+      "dek": "<b>Five switches, once</b> How-To Geek's Sanya Shah hides notification contents on the lock screen under Settings, Notifications, Hide content while locked, narrows app location access to Ask every time or While using the app under Settings, Location, App permissions, turns off adaptive brightness under Display, switches off Ad topics and App-suggested ads under Security and Privacy, More privacy settings, Ads, and stops the Wi-Fi and Bluetooth scanning that continues even with both radios off under Location services; the piece is honest about what each one costs, since manual brightness means adjusting the screen yourself room by room, the ad change makes advertising more generic rather than making it disappear, and turning off scanning trims little battery while it does cost some location accuracy.",
+      "needs": [
+        "An Android phone",
+        "The Settings app",
+        "About ten quiet minutes"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-08-26",
+      "title": "Empty the Windows 11 Start menu of everything Microsoft put there for you",
+      "url": "https://www.makeuseof.com/disabled-every-suggestion-in-the-windows-11-start-menu-its-finally-clean/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 26",
+      "dek": "<b>One clean launcher</b> MakeUseOf's Oluwaseun Bamisile opens Settings, then Personalization, then Start, and turns off recently installed apps, most used apps, recommended files, the mobile device panel, and the recommendations for tips, shortcuts, and new apps, controls that recent Windows updates finally expose as switches where earlier versions offered none; the counterpoint comes from the author, who left the suggestions running for a couple of days first and found them genuinely helpful in rare cases, so anyone who reopens recent documents all day may want to keep that single one on.",
+      "needs": [
+        "A Windows 11 PC",
+        "Settings, Personalization, Start"
+      ],
+      "time": "About 5 minutes"
+    },
+    {
+      "date": "2026-08-26",
+      "title": "Put the dates back in the Google Photos grid that the summer redesign took away",
+      "url": "https://www.androidauthority.com/google-photos-dates-home-screen-grid-how-get-back-3702931/",
+      "trend_url": "https://www.androidauthority.com/",
+      "seen": "Android Authority, Aug 26",
+      "dek": "<b>Dates back in the grid</b> Android Authority's Joe Maring restores the date markers that Google's July 2026 redesign removed from the Photos home screen: tap the profile icon, then Photos settings, then Preferences, then Photos view, then switch on Show dates in grid, an option that ships turned off and sits several menus down; the fix is partial by the author's own account, since a floating date pill still rides at the top of the screen as you scroll, and the redesign is described as form over function that made the app more cumbersome to use.",
+      "needs": [
+        "The Google Photos app",
+        "Photos settings, Preferences"
+      ],
+      "time": "Under 2 minutes"
+    },
+    {
+      "date": "2026-08-26",
+      "title": "Four Waze settings that stop the app from routing you down an alley to save a minute",
+      "url": "https://www.androidpolice.com/i-stopped-waze-from-getting-me-lost-by-turning-off-worst-feature/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Aug 25",
+      "dek": "<b>Four settings, calmer routes</b> Android Police's Jade Bryan Jardinico sets Avoid difficult intersections to Always under Settings, Navigation, matches the active vehicle profile to the car actually being driven, adjusts the unpaved road preference in the same Navigation settings, and anchors a route by tapping the ETA bar to add a waypoint so crowdsourced traffic data cannot pull the trip through a narrow alley mid-drive; the article does not oversell the result, granting that some of Waze's rerouting suggestions really are helpful and that the algorithm is far from perfect, with the approach working best for city driving and long road trips.",
+      "needs": [
+        "The Waze app",
+        "Settings, Navigation",
+        "Your real vehicle type"
+      ],
+      "time": "About 10 minutes"
+    },
     {
       "date": "2026-08-25",
       "title": "Five tiny AutoHotkey scripts that take the repeated clicks out of a Windows day",

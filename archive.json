@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-26",
+      "edition": "evening",
+      "dateHuman": "Wednesday, August 26, 2026",
+      "file": "editions/2026-08-26-evening.html",
+      "lead": "Turn on five email settings tonight, starting with an authenticator app and blocked remote images",
+      "pubDate": "Wed, 26 Aug 2026 17:48:58 -0400"
+    },
+    {
       "date": "2026-08-25",
       "edition": "evening",
       "dateHuman": "Tuesday, August 25, 2026",
