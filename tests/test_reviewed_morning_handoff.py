@@ -8,6 +8,7 @@ import pytest
 from ddb_morning_handoff import (
     MorningHandoffValidationError,
     fetch_packet,
+    main,
     upload_packet,
     validate_candidate_ledger,
     validate_packet,
@@ -73,7 +74,7 @@ def test_gap_sweep_must_cover_all_three_beats():
         validate_packet(packet, now=datetime(2026, 8, 5, 11, 30, tzinfo=timezone.utc))
 
 
-def test_fetch_fails_closed_to_unavailable_record(tmp_path):
+def test_fetch_writes_unavailable_record_when_packet_missing(tmp_path):
     output = tmp_path / "morning.json"
     with mock.patch.dict("os.environ", {"TOKEN": "test"}), mock.patch(
         "ddb_morning_handoff.request.urlopen", side_effect=OSError("offline")
@@ -88,6 +89,146 @@ def test_fetch_fails_closed_to_unavailable_record(tmp_path):
     fallback = json.loads(output.read_text())
     assert fallback["available"] is False
     assert fallback["targetEdition"]["slot"] == "morning"
+
+
+class _JsonResponse:
+    def __init__(self, payload):
+        self._body = (
+            payload if isinstance(payload, bytes) else json.dumps(payload).encode()
+        )
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_args):
+        return False
+
+    def read(self, _limit):
+        return self._body
+
+
+def test_fetch_consumes_valid_unexpired_packet(tmp_path):
+    output = tmp_path / "morning.json"
+    packet = load_packet()
+    with mock.patch.dict("os.environ", {"TOKEN": "test"}), mock.patch(
+        "ddb_morning_handoff.request.urlopen", return_value=_JsonResponse(packet)
+    ):
+        assert fetch_packet(
+            "https://example.com",
+            "2026-08-05",
+            output,
+            "TOKEN",
+            now=datetime(2026, 8, 5, 11, 30, tzinfo=timezone.utc),
+        ) is True
+    stored = json.loads(output.read_text())
+    assert stored["schemaVersion"] == "ddb-reviewed-morning-handoff-v1"
+    assert stored["packetId"] == "2026-08-05-morning"
+    assert stored.get("available") is not False
+    assert stored["decisions"]["selected"]
+
+
+def test_fetch_command_consumes_valid_packet_and_exits_zero(tmp_path, capsys):
+    output = tmp_path / "morning.json"
+
+    def write_valid_packet(_base_url, _date, path, _token_env, *, now=None):
+        path.write_text(json.dumps(load_packet()), encoding="utf-8")
+        return True
+
+    with mock.patch("ddb_morning_handoff.fetch_packet", side_effect=write_valid_packet):
+        assert (
+            main(
+                [
+                    "fetch",
+                    "--base-url",
+                    "https://example.com",
+                    "--date",
+                    "2026-08-05",
+                    "--output",
+                    str(output),
+                    "--sites-token-env",
+                    "TOKEN",
+                ]
+            )
+            == 0
+        )
+    captured = capsys.readouterr()
+    assert "Reviewed morning packet ready" in captured.out
+    assert "::error::" not in captured.out
+    stored = json.loads(output.read_text())
+    assert stored["packetId"] == "2026-08-05-morning"
+    assert stored.get("available") is not False
+
+
+def test_fetch_command_fails_open_when_packet_missing(tmp_path, capsys):
+    output = tmp_path / "morning.json"
+    with mock.patch.dict("os.environ", {"TOKEN": "test"}), mock.patch(
+        "ddb_morning_handoff.request.urlopen", side_effect=OSError("offline")
+    ):
+        assert (
+            main(
+                [
+                    "fetch",
+                    "--base-url",
+                    "https://example.com",
+                    "--date",
+                    "2026-08-05",
+                    "--output",
+                    str(output),
+                    "--sites-token-env",
+                    "TOKEN",
+                ]
+            )
+            == 0
+        )
+    captured = capsys.readouterr()
+    assert "::warning::Reviewed morning packet unavailable" in captured.out
+    assert "normal source ladder" in captured.out
+    assert "::error::" not in captured.out
+    fallback = json.loads(output.read_text())
+    assert fallback["available"] is False
+
+
+def test_stale_or_invalid_packet_fails_open_without_skipping_authoring(tmp_path, capsys):
+    output = tmp_path / "morning.json"
+    stale = load_packet()
+    with mock.patch.dict("os.environ", {"TOKEN": "test"}), mock.patch(
+        "ddb_morning_handoff.request.urlopen", return_value=_JsonResponse(stale)
+    ):
+        assert fetch_packet(
+            "https://example.com",
+            "2026-08-05",
+            output,
+            "TOKEN",
+            now=datetime(2026, 8, 6, 12, 0, tzinfo=timezone.utc),
+        ) is False
+    stale_fallback = json.loads(output.read_text())
+    assert stale_fallback["available"] is False
+
+    with mock.patch.dict("os.environ", {"TOKEN": "test"}), mock.patch(
+        "ddb_morning_handoff.request.urlopen",
+        return_value=_JsonResponse({"schemaVersion": "not-a-morning-packet"}),
+    ):
+        assert (
+            main(
+                [
+                    "fetch",
+                    "--base-url",
+                    "https://example.com",
+                    "--date",
+                    "2026-08-05",
+                    "--output",
+                    str(output),
+                    "--sites-token-env",
+                    "TOKEN",
+                ]
+            )
+            == 0
+        )
+    captured = capsys.readouterr()
+    assert "::warning::Reviewed morning packet unavailable" in captured.out
+    assert "::error::" not in captured.out
+    invalid_fallback = json.loads(output.read_text())
+    assert invalid_fallback["available"] is False
 
 
 def test_upload_validates_and_uses_existing_private_store(tmp_path):
@@ -177,27 +318,41 @@ def test_evening_editorial_fit_contract_remains_unchanged():
     assert contract["ddbCombinedReview"]["editorialFit"]["version"] == "editorial-fit-v1"
 
 
-def test_daily_workflow_fetches_morning_packet_and_prompt_forbids_discovery():
+def test_daily_workflow_fetches_morning_packet_and_fails_open_without_skipping_authoring():
     workflow = (ROOT / ".github/workflows/ddb-bake.yml").read_text()
     step = workflow.split("- name: Prepare DDB-reviewed morning handoff", 1)[1].split(
         "- name: Install Claude Code", 1
+    )[0]
+    bake_step = workflow.split("- name: Bake (research, write, render)", 1)[1].split(
+        "- name: Guard the changed files", 1
     )[0]
     assert "slot == 'morning'" in step
     assert "mode == 'daily'" in step
     assert "ddb_morning_handoff.py fetch" in step
     assert "ddb-reviewed-morning-handoff.json" in step
-    assert "A missing, unavailable, invalid, stale, late, or incomplete daily morning packet fails closed" in workflow
+    assert "fails closed without rendering" not in workflow
+    assert "normal independent source ladder as the fail-open exception" in bake_step
+    assert "Never skip authoring merely because the reviewed packet was unavailable" in bake_step
     assert "Do not discover, add, substitute, rerank" in workflow
+    evening_step = workflow.split("- name: Prepare DDB-reviewed evening handoff", 1)[1].split(
+        "- name: Prepare DDB-reviewed morning handoff", 1
+    )[0]
+    assert "ddb_evening_handoff.py fetch" in evening_step
+    assert "normal source ladder as the fail-open exception" in bake_step
 
 
-def test_bake_contract_has_no_open_ended_daily_morning_discovery():
+def test_bake_contract_prefers_valid_packet_and_fails_open_to_independent_ladder():
     bake = (ROOT / "BAKE.md").read_text()
     morning = bake.split("**2. Consume reviewed research (daily morning).**", 1)[1].split(
         "**3. Select Scripture pairings", 1
     )[0]
     normalized = " ".join(morning.split())
+    assert "When the packet is present, valid, and unexpired" in normalized
     assert "Do not search for more candidates, refresh X Manager" in normalized
-    assert "Daily morning has no open-ended research fallback" in normalized
+    assert "normal independent source ladder as a fail-open exception" in normalized
+    assert "Never fail or pad an edition merely because the reviewed packet was unavailable" in normalized
+    assert "Daily morning has no open-ended research fallback" not in normalized
+    assert "stop without rendering or publishing" not in normalized
     assert "authority.publicationApproved: false" in normalized
 
 
@@ -206,6 +361,8 @@ def test_morning_contract_and_schema_are_json_and_distinct_from_evening():
     schema = json.loads((ROOT / "operations/schemas/ddb-reviewed-morning-handoff-v1.schema.json").read_text())
     assert contract["ddbReview"]["scoringRule"] == "morning-editorial-v1"
     assert contract["bake"]["openEndedDiscoveryAllowed"] is False
+    assert "fail open" in contract["bake"]["missingInvalidOrStalePacket"]
+    assert "independent source ladder" in contract["bake"]["fallback"]
     assert schema["properties"]["schemaVersion"]["const"] == "ddb-reviewed-morning-handoff-v1"
     assert contract["xManager"]["discovery"]["deterministicOrder"] == [
         "mustReview descending",

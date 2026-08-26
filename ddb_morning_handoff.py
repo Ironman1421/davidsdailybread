@@ -619,8 +619,13 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Validated reviewed morning packet for {args.date or 'packet date'}")
         elif args.command == "fetch":
             available = fetch_packet(args.base_url, args.date, args.output, args.sites_token_env)
-            print("Reviewed morning packet ready" if available else "::error::Reviewed morning packet unavailable")
-            return 0 if available else 1
+            if available:
+                print("Reviewed morning packet ready")
+            else:
+                print(
+                    "::warning::Reviewed morning packet unavailable; "
+                    "continuing with BAKE.md's normal source ladder."
+                )
         else:
             receipt = upload_packet(
                 args.base_url, args.input, args.write_token_env, args.sites_token_env

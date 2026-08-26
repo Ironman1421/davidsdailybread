@@ -1644,7 +1644,8 @@
         "PR 94 exact head a19de39b5d00bd23856c2bbfd9b1407b767f0bd1 passed Merge gate and CodeQL, then squash-merged as 01a020830b890799c8176a9b0ca1710d242d0091 with the manual-only same-day backfill control and unchanged ordinary reviewed-packet requirement",
         "Daily bake run 31721639819 resolved exactly 2026-08-13 morning as backfill, skipped both handoff fetches, passed authoring, accuracy, render, file-allowlist, sealed-envelope, fresh-runner trust-boundary, authoritative-base, atomic-push, and exact-public-edition verification, and published main 1b9424855c6eeb1c48fc86bbab3da06d1ccddd61",
         "Pages run 31722446462 succeeded; the live 2026-08-13 morning edition matched main byte-for-byte at SHA-256 a9d01f7947478df3b1b60c84481017fd4b46822408c4016bca61e83e11729b43, archive and RSS carried the exact edition, the homepage was preserved, and X and Telegram skipped",
-        "David's 2026-08-13 Spark cutover decision authorizes restoration of the existing SSH route, required Codex installation or authentication, canonical Spark project registration, retargeting only the three unchanged morning automation schedules, a no-publication and no-paid-read canary, and disabling Mac copies only after the Spark canary passes"
+        "David's 2026-08-13 Spark cutover decision authorizes restoration of the existing SSH route, required Codex installation or authentication, canonical Spark project registration, retargeting only the three unchanged morning automation schedules, a no-publication and no-paid-read canary, and disabling Mac copies only after the Spark canary passes",
+        "David approved fail-open morning packet consumption on 2026-08-26: a missing, stale, or invalid reviewed morning packet must not skip authoring; the bake uses BAKE.md's independent source ladder. August 24, 25, and 26 morning editions are not backfilled."
       ]
     },
     {
