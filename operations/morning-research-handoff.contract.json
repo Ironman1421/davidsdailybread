@@ -37,7 +37,8 @@
     "privateReadEndpoint": "GET /api/ddb-handoff?date=YYYY-MM-DD&slot=morning",
     "permittedWork": ["writing", "Scripture pairing", "rendering", "accuracy review"],
     "openEndedDiscoveryAllowed": false,
-    "missingInvalidOrStalePacket": "fail closed without publishing"
+    "missingInvalidOrStalePacket": "fail open to BAKE.md's normal independent source ladder",
+    "fallback": "If the reviewed packet is missing, stale, invalid, or unreachable, use BAKE.md's normal independent source ladder. A present, valid, unexpired packet remains the preferred path."
   },
   "eveningCompatibility": {
     "schema": "ddb-reviewed-evening-handoff-v1",

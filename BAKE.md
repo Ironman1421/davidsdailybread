@@ -104,7 +104,8 @@ This run has a **slot** (morning or evening) and one of two **modes**, and the
 workflow tells you both:
 
 - **morning + daily** — the normal morning news bake for today: consume the
-  runner-local reviewed morning packet and run `--plan` only for reviewed
+  runner-local reviewed morning packet when it is present and valid, otherwise
+  use the independent source ladder below, and run `--plan` only for reviewed
   house-satchel material. Public Ask the Baker, reader Letter, and Crumb Board
   intake is paused (steps 1-8 below).
 - **evening + daily** — the trends bake for today: follow "The evening bake"
@@ -138,20 +139,35 @@ It uses the distinct `morning-editorial-v1` rule: 30% substance, 25% source
 authority, 20% verification depth, 15% freshness, and 10% reader relevance.
 The evening `editorial-fit-v1` rule is unrelated and unchanged.
 
-The packet's selected set is final for this morning. Do not search for more
-candidates, refresh X Manager, call a discovery API, substitute an item, or
-rerank the set. Fetch only each selected item's `verifiedSourceUrls` for the
-accuracy pass, correct unsupported copy without changing the selection, and
-map its technology, markets, and science stories into `content.json`. Then use
-step 3 to choose each selected story's renderer-owned Scripture identifier and
-write its reader-directed connection. The packet explicitly has
-`authority.publicationApproved: false`; it supplies editorial selection, never
-publication authority.
+When the packet is present, valid, and unexpired, its selected set is final
+for this morning. Do not search for more candidates, refresh X Manager, call a
+discovery API, substitute an item, or rerank the set. Fetch only each selected
+item's `verifiedSourceUrls` for the accuracy pass, correct unsupported copy
+without changing the selection, and map its technology, markets, and science
+stories into `content.json`. Then use step 3 to choose each selected story's
+renderer-owned Scripture identifier and write its reader-directed connection.
+The packet explicitly has `authority.publicationApproved: false`; it supplies
+editorial selection, never publication authority.
 
-If the daily morning packet is missing, stale, invalid, unavailable, completed
-at or after 4:40 AM Pacific, has fewer than two selected stories in any beat,
-or omits a candidate disposition, stop without rendering or publishing. Daily
-morning has no open-ended research fallback.
+If the local handoff explicitly reports `available: false` because the packet
+was missing, stale, invalid, or unreachable, use the following normal
+independent source ladder as a fail-open exception. Gather TODAY'S real,
+politics-free news (last ~24 hours preferred; ~48 is acceptable when something
+is clearly still rising) for the three sections: **tech** (AI, chips, software,
+the industry), **markets** (stocks, deals, earnings, macro), **science** (space,
+physics, medicine, discovery). Use this source order: the original primary
+source or first-party announcement first; original reporting with named evidence
+second; reputable secondary coverage only when it adds necessary verification or
+context. An aggregator may help discovery but is not the preferred final source
+when the underlying report is available. You need up to 6 stories per section,
+ranked by substance, source authority, verification depth, freshness, and reader
+relevance, in that order. For each story capture the real article URL and fetch
+the article text to ground your writing. Drop stories you cannot verify. Fewer
+than 6 solid stories in a section is fine (minimum 2); never pad with weak or
+stale items. Apply hard rule 9 before ranking. A political or geopolitical story
+remains excluded even when it moves markets. Do not call X Manager or its APIs
+from the editorial session. Never fail or pad an edition merely because the
+reviewed packet was unavailable.
 
 For a morning **backfill only**, no same-day reviewed packet can be recreated
 honestly. Use the historical, date-bounded source procedure described in mode
@@ -160,8 +176,9 @@ science stories published on or before the target date, with 2 to 6 stories
 per section, and rank by substance, source authority, verification depth,
 freshness, and reader relevance.
 
-**3. Select Scripture pairings and write the edition** from the reviewed
-selected set into `content.json`.
+**3. Select Scripture pairings and write the edition** from the selected set
+(the reviewed packet when present and valid, otherwise the independent source
+ladder) into `content.json`.
 The lead and every card receive a pairing. For each story, search the verified
 catalog with a few themes from the reader's appropriate response, for example:
 
