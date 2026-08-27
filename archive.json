@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-27",
+      "edition": "morning",
+      "dateHuman": "Thursday, August 27, 2026",
+      "file": "editions/2026-08-27-morning.html",
+      "lead": "Nvidia posts a $96.2 billion quarter, up 106 percent, and guides to $108 billion",
+      "pubDate": "Thu, 27 Aug 2026 07:53:07 -0400"
+    },
+    {
       "date": "2026-08-26",
       "edition": "evening",
       "dateHuman": "Wednesday, August 26, 2026",
