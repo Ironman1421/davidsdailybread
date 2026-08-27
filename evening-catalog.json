@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-27",
+      "name": "CoMaps",
+      "url": "https://www.comaps.app/",
+      "trend_url": "https://news.ycombinator.com/item?id=49452671",
+      "cost": "Free",
+      "kind": "Android, iOS, Mac, Linux",
+      "seen": "Hacker News, 327 points",
+      "blurb": "CoMaps is a community-run fork of Organic Maps and Maps.me that searches, routes, and speaks turn-by-turn directions with no mobile data, keeps hiking trails and offline Wikipedia articles on the phone, states plainly that it does not identify you, track you, or collect information, and is free for everyone through Google Play, F-Droid, the iOS App Store, the Mac App Store, and Flathub; the caveat is coverage, since its public transit layer reaches only a growing list of cities, so check your own before you rely on it."
+    },
+    {
+      "date": "2026-08-27",
+      "name": "Lightworks",
+      "url": "https://lwks.com/pricing",
+      "trend_url": "https://www.xda-developers.com/replaced-premiere-pro-with-free-video-editor-havent-missed-the-subscription/",
+      "cost": "Free tier, paid tiers above",
+      "kind": "Windows, Mac, Linux desktop",
+      "seen": "XDA Developers, Aug 27",
+      "blurb": "Lightworks is a long-running video editor whose free tier, listed at zero on the company's own pricing page, includes timeline editing, automatic saving, advanced transitions, and simple visual effects on Windows, macOS, and Linux, and XDA's Nolen Jonker says it replaced his Premiere Pro subscription outright, with no watermark, an installer under 100MB, proxy files for modest hardware, and background rendering while you work; the catch is stated on that same pricing page, since free exports stop at 720p and some Linux functionality is restricted."
+    },
+    {
       "date": "2026-08-26",
       "name": "Simplenote",
       "url": "https://apps.apple.com/us/app/simplenote/id289429962",
@@ -815,6 +835,47 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-27",
+      "title": "Set your 2.4GHz Wi-Fi to channel 1, 6, or 11 by hand and stop it overlapping the neighbors",
+      "url": "https://www.makeuseof.com/your-2-4ghz-wi-fi-has-11-channels-but-you-should-only-use-3-of-them/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 27",
+      "dek": "<b>Three channels, no overlap</b> Gavin Phillips explains that the 2.4GHz band holds 83.5MHz of usable spectrum cut into 11 channels spaced 5MHz apart while each channel is about 22MHz wide, so only 1, 6, and 11 avoid stepping on each other: run a Wi-Fi analyzer in the evening when the building is busiest, pick the quietest of the three in your router's settings instead of leaving it on automatic, move whatever devices you can to 5GHz or 6GHz, and rescan now and then, because in a dense area you can still end up sharing a channel.",
+      "needs": [
+        "Router admin page access",
+        "A Wi-Fi analyzer app",
+        "An evening scan, not a morning one"
+      ],
+      "time": "15 minutes"
+    },
+    {
+      "date": "2026-08-27",
+      "title": "Six Windows 11 habits that give back a few minutes a day, starting with one update command",
+      "url": "https://www.makeuseof.com/try-these-windows-11-quality-of-life-features/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 27",
+      "dek": "<b>Six switches and shortcuts</b> Pankil Shah updates every Winget-installed program at once by running winget upgrade -all in Command Prompt, turns on Settings, System, Advanced, End task so a frozen window can be closed straight from the taskbar, opens unknown software inside Windows Sandbox where everything is deleted on exit, mirrors an Android screen through Phone Link, remaps three and four finger touchpad gestures, and keeps Win+V clipboard history and Win+. emoji within reach; two limits are worth knowing, since Sandbox needs Windows 11 Pro and the Winget command leaves Microsoft Store apps alone.",
+      "needs": [
+        "Windows 11, Pro for Sandbox",
+        "Command Prompt",
+        "Ten minutes of setup"
+      ],
+      "time": "20 minutes"
+    },
+    {
+      "date": "2026-08-27",
+      "title": "Read the Google Maps traffic layer before you pull out of the driveway, not just the ETA",
+      "url": "https://www.xda-developers.com/tried-hidden-time-saving-google-maps-feature-i-never-start-drive-without-it/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Aug 27",
+      "dek": "<b>Look before you drive</b> Parth Shah taps the map icon on the Google Maps home screen, chooses Traffic under Map details, and reads the color-coded roads around the trip, spotting the red and dark red stretches before navigation begins rather than trusting a single estimated arrival time, then taps the three dot menu after entering directions to set a departure or arrival time and see how the drive should look later; he is honest that the habit pays best on routes you already know, because seeing the jam only helps if you know the way around it.",
+      "needs": [
+        "Google Maps on a phone",
+        "Two taps before you leave"
+      ],
+      "time": "1 minute"
+    },
     {
       "date": "2026-08-26",
       "title": "The five Android settings worth changing in the first ten minutes with a new phone",
