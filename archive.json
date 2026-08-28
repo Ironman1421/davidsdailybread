@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-28",
+      "edition": "evening",
+      "dateHuman": "Friday, August 28, 2026",
+      "file": "editions/2026-08-28-evening.html",
+      "lead": "Wispr Flow turns spoken rambling into clean written text, and its free tier is uncapped on Android",
+      "pubDate": "Fri, 28 Aug 2026 17:48:05 -0400"
+    },
+    {
+      "date": "2026-08-28",
       "edition": "morning",
       "dateHuman": "Friday, August 28, 2026",
       "file": "editions/2026-08-28-morning.html",

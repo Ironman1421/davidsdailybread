@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-28",
+      "name": "SpacebarX",
+      "url": "https://spacebarx.app/",
+      "trend_url": "https://www.producthunt.com/products/spacebarx",
+      "cost": "Free tier, 14-day Pro trial",
+      "kind": "Web app, installable PWA",
+      "seen": "Product Hunt No. 9, Aug 27",
+      "blurb": "SpacebarX is a keyboard-first outliner that keeps notes, tasks, writing, and projects inside one nested document, and its free tier carries infinite nesting, markdown, scheduling with recurring dates, cross-links, a Today view that rolls unfinished tasks forward, OPML import from other outliners, search, and templates, while the outline itself stays on your device and syncs only if you point it at your own Google Drive or Dropbox; the honest caveat is that the web app, installable as a progressive web app, is the only version available today, with the macOS, Windows, Linux, iPhone, iPad, and Android builds still listed as coming soon."
+    },
+    {
+      "date": "2026-08-28",
+      "name": "SubSmith",
+      "url": "https://subsmith.app/",
+      "trend_url": "https://news.ycombinator.com/item?id=49476894",
+      "cost": "7-day trial, $15/yr or $40",
+      "kind": "Desktop app, local transcript",
+      "seen": "Hacker News, 62 points",
+      "blurb": "SubSmith is an offline-first desktop app that turns video and audio you already own into language-learning material, generating the transcript on your own machine rather than sending the media out to a transcription service, then layering on a hover dictionary, replayable lines, saved sentences that keep their audio, and one-click export to Anki flashcards across more than 99 languages; the honest caveat is that it asks you to create an account before the seven-day free trial starts, and after the trial it costs $15 a year or $40 once for a lifetime license."
+    },
+    {
       "date": "2026-08-27",
       "name": "CoMaps",
       "url": "https://www.comaps.app/",
@@ -835,6 +855,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-28",
+      "title": "Set Google Meet's audio and framing once so the first five minutes of a call stop being a sound check",
+      "url": "https://www.androidpolice.com/turn-on-these-google-meet-settings-for-a-better-video-call-experience/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Aug 28",
+      "dek": "<b>Audio first, camera second</b> Android Police's Kabir Jain switches on Settings, Audio, Studio sound so the microphone drops everything that is not speech, adds Settings, Audio, Push to talk to hold the spacebar to unmute, turns on Backgrounds and effects, Appearance, Framing to stay centered in the shot, raises or lowers Settings, Video, Send resolution and Receive resolution to match the connection he actually has, and sets Settings, General, Leave empty calls so a meeting nobody joins does not sit open behind him.",
+      "needs": [
+        "A Google Meet account",
+        "Chrome or the Meet app",
+        "Five minutes before a real call"
+      ],
+      "time": "About 5 minutes"
+    },
+    {
+      "date": "2026-08-28",
+      "title": "Hand Gemini's extensions and scheduled actions the recurring jobs thirteen separate apps were doing",
+      "url": "https://www.androidpolice.com/i-replaced-13-apps-with-gemini-feature-now-my-android-is-ten-times-better/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Aug 28",
+      "dek": "<b>One assistant, thirteen apps</b> Android Police's Jade Bryan Jardinico enables the Calendar, Keep, and Tasks extensions, sets up Gemini Spark as an email agent with written instructions, builds scheduled actions for recurring work such as a news briefing, keeps separate chat sessions for fitness tracking and meal planning, and connects his smart home through Google Home, retiring roughly thirteen apps including Microsoft To Do, Todoist, and MyFitnessPal; standard scheduled actions run without a paid plan, though Spark's advanced abilities need Pro or Ultra, and the work is mostly a couple of minutes spent sharpening the prompts.",
+      "needs": [
+        "An Android phone with Gemini",
+        "A Google account and internet",
+        "A few minutes to refine prompts"
+      ],
+      "time": "A few minutes to start"
+    },
+    {
+      "date": "2026-08-28",
+      "title": "Open one Obsidian daily note each morning and let the built-in plugin build the page for you",
+      "url": "https://www.androidpolice.com/obsidian-daily-notes-widgets-features/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Aug 27",
+      "dek": "<b>One note, every morning</b> Android Police's Marvin Velasco turns on the built-in Daily Notes core plugin, points it at a template file, puts the code {{date:dddd, MMMM D}} at the top so each day names itself, adds an Ongoing Projects section that links out to the notes that matter, and drops the Daily Notes widget on his Android home screen so one tap opens an editable page for today; he deliberately stripped the other plugins back out, writing that doing less with Obsidian made him more productive.",
+      "needs": [
+        "Obsidian on Android",
+        "The Daily Notes core plugin",
+        "A short daily template"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-08-28",
+      "title": "Seven Kindle tweaks that turn a cluttered library into a shelf you can actually read from",
+      "url": "https://www.androidpolice.com/kindle-organization-tweaks-turn-cluttered-library-into-clean-digital-shelf/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Aug 27",
+      "dek": "<b>Group, sort, filter, prune</b> Android Police's Jesse Hollington collapses long series under Settings, Home and Library, Group Series in Library, moves the Sort button's View Options to List and then to Collections, sets the Filter button to Downloaded and Unread so the choice survives a restart, builds collections around what he is doing rather than genre (In Progress, Up Next, Reference) and marks them Favorites, bulk-deletes sample books from the web dashboard at amazon.com/myk, and fills in title, author, and cover art on sideloaded files with the free Calibre before sending them across.",
+      "needs": [
+        "A Kindle or the Kindle app",
+        "An Amazon account",
+        "Calibre, for sideloaded books"
+      ],
+      "time": "About 20 minutes"
+    },
     {
       "date": "2026-08-27",
       "title": "Set your 2.4GHz Wi-Fi to channel 1, 6, or 11 by hand and stop it overlapping the neighbors",
