@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-29",
+      "edition": "morning",
+      "dateHuman": "Saturday, August 29, 2026",
+      "file": "editions/2026-08-29-morning.html",
+      "lead": "NASA clears its Nancy Grace Roman Space Telescope for a Sunday launch on a Falcon Heavy",
+      "pubDate": "Sat, 29 Aug 2026 07:49:53 -0400"
+    },
+    {
       "date": "2026-08-28",
       "edition": "evening",
       "dateHuman": "Friday, August 28, 2026",
