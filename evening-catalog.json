@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-29",
+      "name": "NEO",
+      "url": "https://github.com/hughhowey/neo",
+      "trend_url": "https://www.producthunt.com/products/neo",
+      "cost": "Free, MIT license",
+      "kind": "Mac and Windows desktop app",
+      "seen": "Product Hunt No. 5, Aug 29",
+      "blurb": "NEO is the distraction-free word processor the novelist Hugh Howey built for his own drafting, and it asks for no account and no subscription: manuscripts save as plain files in a NEO Library folder on your own disk, chapters number and renumber themselves, one press of Enter starts a paragraph and three starts a chapter, spellcheck appears only when you call for it, and finished work exports to EPUB 3, Word, PDF, HTML, markdown, and plain text, with continuous autosave and daily zip backups kept for two weeks; the honest caveat is that it is built for writing books and nothing else, and Howey says importing existing Word, text, and markdown manuscripts is still a bit rough and might need tweaking afterward."
+    },
+    {
+      "date": "2026-08-29",
+      "name": "Glisio",
+      "url": "https://glisio.com/",
+      "trend_url": "https://www.producthunt.com/products/glisio",
+      "cost": "Free with watermark, Pro $79",
+      "kind": "Mac app, macOS 13 or later",
+      "seen": "Product Hunt No. 10, Aug 28",
+      "blurb": "Glisio records a display, a window, or a region of a Mac with system audio, microphone, and an optional webcam, then follows your cursor and clicks to generate the zoom and pan moves itself, which is how it lets you skip the heavy timeline edit, opens a built-in editor for cropping and annotating screenshots, and exports MP4 at up to 60 frames per second in widescreen, vertical, or square, all processed on the machine itself; the caveats sit on its own site, since the free tier is unlimited but stamps a watermark on every export, removing it costs $79 once for up to three Macs (listed at $47.40 through September 1) or $9.99 a month with a one-time internet check to activate, and it needs macOS 13 Ventura or later."
+    },
+    {
       "date": "2026-08-28",
       "name": "SpacebarX",
       "url": "https://spacebarx.app/",
@@ -855,6 +875,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-29",
+      "title": "Turn the Windows PC that is already online into the Wi-Fi hotspot the room needs",
+      "url": "https://www.xda-developers.com/windows-turn-pc-into-wifi-hotspot-but-buries-the-setting/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Aug 29",
+      "dek": "<b>One buried toggle</b> XDA's Hamlin Rozario finds Mobile hotspot on the second page of the Windows 11 Quick Settings panel, or under Settings, Network and internet, Mobile hotspot, then right-clicks the tile and picks Go to settings to name the network, set a password, and choose the 2.4GHz or 5GHz band, which matters because leaving it on any available can hide the hotspot from older devices that only speak 2.4GHz; he is straight that a motherboard adapter will not match a real router for range, and that everything connected drops when the PC restarts.",
+      "needs": [
+        "A Windows 11 PC with a Wi-Fi adapter",
+        "An internet connection worth sharing",
+        "A network name and password"
+      ],
+      "time": "About 5 minutes"
+    },
+    {
+      "date": "2026-08-29",
+      "title": "Write the whole card before you trust it, and a counterfeit SD card gives itself away",
+      "url": "https://www.howtogeek.com/fake-sd-cards-are-everywhereheres-how-to-test-them/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 29",
+      "dek": "<b>Fill it, then read it back</b> How-To Geek's Nick Lewis backs up anything already on a new card, reformats it as exFAT, points the H2testw utility at the drive, selects all available space, and lets it write test files across the whole card and read every one of them back, which is how a card claiming capacity it does not have finally admits it; he warns that a large slow card can take hours and must not be interrupted, that sustained speeds below the advertised peak are normal, and that buying from an authorized retailer is no guarantee, since counterfeits turn up in returned stock.",
+      "needs": [
+        "A Windows PC to run H2testw",
+        "A new card with nothing left on it",
+        "Hours you can leave it running"
+      ],
+      "time": "Hours, mostly unattended"
+    },
+    {
+      "date": "2026-08-29",
+      "title": "Practice the Excel functions you actually need on data you enjoy arguing about",
+      "url": "https://www.howtogeek.com/dont-practice-excel-with-boring-datasets-real-pokmon-projects-that-stick/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 29",
+      "dek": "<b>Four projects, real functions</b> How-To Geek's Jorge A. Aguilar learns Excel on Pokemon data pulled free from Bulbapedia, building a dashboard from named Excel Tables and PivotTables, an odds simulator that runs thousands of random trials through Data Tables and RAND, a calculator that leans on INT, ROUNDDOWN, MAX, and MIN against a lookup table of parameters, and a synergy grid assembled from XLOOKUP, SUMPRODUCT, and conditional formatting; the functions are the same ones a budget or a sales report needs, and he flags the two traps, since RAND recalculates the entire workbook on any edit and scattered formatting rules bloat the file until you consolidate them in Rules Manager.",
+      "needs": [
+        "Excel with PivotTables and XLOOKUP",
+        "Free reference data from Bulbapedia",
+        "An evening for the first project"
+      ],
+      "time": "An evening per project"
+    },
     {
       "date": "2026-08-28",
       "title": "Set Google Meet's audio and framing once so the first five minutes of a call stop being a sound check",
