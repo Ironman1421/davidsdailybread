@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-30",
+      "edition": "morning",
+      "dateHuman": "Sunday, August 30, 2026",
+      "file": "editions/2026-08-30-morning.html",
+      "lead": "NASA's Roman Space Telescope lifts off on a Falcon Heavy for a five-year survey of the sky",
+      "pubDate": "Sun, 30 Aug 2026 07:47:52 -0400"
+    },
+    {
       "date": "2026-08-29",
       "edition": "evening",
       "dateHuman": "Saturday, August 29, 2026",
