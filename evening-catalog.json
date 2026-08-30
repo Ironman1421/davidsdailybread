@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-30",
+      "name": "TeraCopy",
+      "url": "https://www.codesector.com/teracopy",
+      "trend_url": "https://www.howtogeek.com/teracopy-is-still-the-first-app-i-install-on-every-new-windows-pc-for-important-reasons/",
+      "cost": "Free; Pro license $49.95",
+      "kind": "Windows, with a Mac version",
+      "seen": "How-To Geek, Aug 30",
+      "blurb": "TeraCopy takes over the copy and move jobs Windows Explorer normally handles, and How-To Geek's Jorge A. Aguilar keeps it on every new PC for four reasons: a file that will not copy gets logged and skipped instead of freezing the whole queue, a second verification pass hashes what landed on disk and flags a mismatch rather than failing quietly, a transfer can be paused and later resumed from the exact byte offset where it stopped, and it hooks into drag and drop, Ctrl+C, and Ctrl+V so nothing about your habits changes; Code Sector's own page is where the limits are, since the free license covers verification, timestamps, locked files, checksum files, secure delete, and up to two copy threads, while multiple destinations, more threads, editable file lists, favorite folders, HTML and CSV reports, and commercial use belong to the $49.95 Pro license, and Aguilar is honest that if you only ever move a few small documents you do not need any of this."
+    },
+    {
+      "date": "2026-08-30",
+      "name": "Google AI Edge Gallery",
+      "url": "https://github.com/google-ai-edge/gallery",
+      "trend_url": "https://www.xda-developers.com/this-google-app-turned-my-phone-into-fully-local-ai-lab/",
+      "cost": "Free, Apache 2.0",
+      "kind": "Android 12+, iOS 17+, macOS",
+      "seen": "XDA Developers, Aug 30",
+      "blurb": "Google AI Edge Gallery downloads open models onto the phone itself and runs them there with no internet connection, offering chat with a Thinking Mode that shows the reasoning steps, image analysis, audio transcription and translation, a Prompt Lab for testing, and Agent Skills that reach the calendar, reminders, maps, and phone controls such as the flashlight and volume, and it installs from Google Play, the App Store, or a direct APK in the GitHub releases for anyone without a store; the caveats are real, since XDA's Nolen Jonker found no wake word and no smart home control, the Agent Skills need the Gemma 4 models specifically, and the context window is held near 32K tokens by the RAM a phone actually has."
+    },
+    {
+      "date": "2026-08-30",
+      "name": "Hyperfocus",
+      "url": "https://hyperfocus.in/",
+      "trend_url": "https://www.producthunt.com/products/hyperfocus-2",
+      "cost": "Free forever, no paid plan",
+      "kind": "macOS app, local-first",
+      "seen": "Product Hunt No. 2, Aug 30",
+      "blurb": "Hyperfocus is a planner that starts from goals rather than an inbox, walking you through flagging the few outcomes that matter, planning a weekly cycle around them, organizing the day, and then working in time-boxed focus blocks, and its own site states plainly that it is free forever with no Pro subscription, no paid plan, and no pack of AI credits to buy; the honest caveat is reach, because it is currently available only for macOS with no Windows, iPhone, or Android version, and while the planner itself is local-first and works offline, the optional AI feedback on your goals runs through third-party providers such as OpenRouter, Google, and OpenAI, free for a 14-day trial and paid directly to those providers after that."
+    },
+    {
       "date": "2026-08-29",
       "name": "NEO",
       "url": "https://github.com/hughhowey/neo",
@@ -875,6 +905,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-30",
+      "title": "Five Google Maps features for a busy day, from a nine stop route to a parking pin that saves itself",
+      "url": "https://www.howtogeek.com/google-maps-features-that-will-save-you-time-on-your-busiest-days/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Aug 30",
+      "dek": "<b>Plan the whole errand run</b> How-To Geek's T.M. Amrita searches the first destination, taps Directions, then uses Add stop to chain on up to nine more and drags them into a sensible order with the two-line handle, which works for driving, walking, and cycling but not public transit; she saves places into custom lists from the bookmark icon under You, turns on Automatically save parking under Settings, Navigation, Parking options so a crowded lot stops being a memory test, checks Street View from the layers icon before visiting somewhere unfamiliar since blue-highlighted roads are the ones with coverage, and taps the trip panel mid-drive to Share trip progress so whoever is waiting at the airport can see the arrival time instead of texting for it.",
+      "needs": [
+        "Google Maps on a phone",
+        "A Google account for saved lists",
+        "About ten minutes of setup"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-08-30",
+      "title": "One standing instruction that tells Claude to assume and keep moving instead of stalling on questions",
+      "url": "https://www.makeuseof.com/claude-prompt-instruction-quick-answers/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 30",
+      "dek": "<b>Assume, then say so</b> MakeUseOf's Saikat Basu adds one behavioral rule rather than a longer prompt, telling the assistant to answer directly and move the work forward, to make a reasonable assumption and briefly state it when something is missing, and to ask a follow-up only when the missing piece is genuinely necessary; he shows the three places it can live, in Claude's Settings under Profile Preferences for every chat, in Project Instructions for one kind of work, or pasted at the top of a single prompt, and he is careful to say this is not a blanket ban on questions, recommending the conditional version and steady refinement based on which assumptions it gets wrong.",
+      "needs": [
+        "A Claude account",
+        "Settings, Profile Preferences",
+        "One sentence you keep refining"
+      ],
+      "time": "Under 5 minutes"
+    },
+    {
+      "date": "2026-08-30",
+      "title": "Trust your phone as a level and a compass, and keep real hardware for everything you have to measure",
+      "url": "https://www.androidpolice.com/android-digital-measuring-tools-phone-sensors-replace-physical-hardware/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Aug 30",
+      "dek": "<b>Two sensors worth trusting</b> Android Police's Marvin Velasco tested four to five free apps in each category on a single ARCore-compatible Android phone and found the honest split: a bubble level running off the gyroscope and accelerometer worked perfectly fine and could be calibrated, and a magnetometer-based digital compass pointed true without any calibration at all, while AR measuring apps came in off by an inch or two with inconsistent repeats, a light meter was awkward to position, and a guitar tuner lagged and missed; the thermometer and elevation apps were the clear failures, since a phone has no temperature sensor to read and the altitude figure simply came back wrong.",
+      "needs": [
+        "An Android phone with a gyroscope",
+        "Free level and compass apps",
+        "A real ruler to check against"
+      ],
+      "time": "About 15 minutes"
+    },
     {
       "date": "2026-08-29",
       "title": "Turn the Windows PC that is already online into the Wi-Fi hotspot the room needs",

@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-08-30",
+      "edition": "evening",
+      "dateHuman": "Sunday, August 30, 2026",
+      "file": "editions/2026-08-30-evening.html",
+      "lead": "Two shortcuts you already own: Win plus period for symbols, and Win plus V for your clipboard history",
+      "pubDate": "Sun, 30 Aug 2026 17:49:03 -0400"
+    },
+    {
+      "date": "2026-08-30",
       "edition": "morning",
       "dateHuman": "Sunday, August 30, 2026",
       "file": "editions/2026-08-30-morning.html",
