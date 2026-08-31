@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-08-31",
+      "name": "Textify",
+      "url": "https://ramensoftware.com/textify",
+      "trend_url": "https://www.makeuseof.com/i-can-finally-copy-text-from-almost-anywhere-in-windows-with-this-tiny-tool/",
+      "cost": "Free",
+      "kind": "Windows desktop utility",
+      "seen": "MakeUseOf, Aug 31",
+      "blurb": "Textify makes the text you can see but cannot select copyable, so a cryptic error code stops being something you retype by hand: point at a Windows dialog, a system error message, a taskbar tooltip, or an old application menu, press the shortcut, which defaults to Shift plus the middle mouse button and can be reassigned to Ctrl or Alt with the left, right, or middle button, and the text opens in a selectable view with optional translation, dictionary, and web search lookups; Ramen Software's own page offers version 1.10.4 at roughly 593KB for nothing, and MakeUseOf's Sagar Naresh names the honest limit, because a window packed with a huge amount of structured text can make it choke and briefly slow whatever application you are using while it works through everything on screen."
+    },
+    {
+      "date": "2026-08-31",
+      "name": "Orato",
+      "url": "https://orato.tepoyan.com/",
+      "trend_url": "https://www.producthunt.com/products/orato-speech-coach",
+      "cost": "Free tier; paid Pro plan",
+      "kind": "iPhone app, App Store",
+      "seen": "Product Hunt No. 10, Aug 31",
+      "blurb": "Orato is a speaking coach that runs on an iPhone: you choose a drill such as impromptu speaking, defending a position, storytelling, or an interview, talk for a short stretch, and get back a transcript with the filler words and pauses marked, plus scores for pacing, fluency, vocabulary, and coherence, which is exactly the feedback an interview, a class, or a few minutes at a lectern rewards. Its own site says newer iPhones run the coaching on the device so the recording never leaves the phone, while older iPhones without Apple Intelligence fall back to a cloud coach; the free tier is capped at three coached sessions every seven days, and Pro is sold monthly, yearly, or as a one-time purchase, with no price published on the page to quote you."
+    },
+    {
       "date": "2026-08-30",
       "name": "TeraCopy",
       "url": "https://www.codesector.com/teracopy",
@@ -905,6 +925,50 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-08-31",
+      "title": "Build a shared expense sheet that emails everyone their balance every Monday morning",
+      "url": "https://www.androidpolice.com/google-sheets-bill-reminders/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Aug 31",
+      "dek": "<b>Six columns and one trigger</b> Android Police's Irene Okpanachi keeps a People tab holding name, email, total paid, fair share, balance, and status, where SUMIF adds every expense recorded against a person in the paid-by column, fair share divides the total spending by the number of people, balance subtracts one from the other, and a single IF statement turns that number into who owes and who is owed; she had Gemini write the Apps Script, opened Extensions and then Apps Script from inside the sheet rather than on its own, picked sendBalanceReminders from the function dropdown, authorized it, and set a time-driven weekly trigger for Monday between 8am and 9am so the sheet asks once a week instead of constantly, and she is clear that a popup or ad blocker will quietly stop the trigger form from saving unless script.google.com is allowed through.",
+      "needs": [
+        "A Google account and Gmail",
+        "One Sheet with a People tab",
+        "Apps Script, from the Extensions menu",
+        "script.google.com off the blocklist"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-08-31",
+      "title": "Four free tools that give an aging Windows laptop back its disk space and its idle CPU",
+      "url": "https://www.makeuseof.com/these-free-tools-made-my-old-windows-laptop-useful-again/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Aug 30",
+      "dek": "<b>Telemetry, bloat, temp files, search</b> MakeUseOf's Digvijay Kumar works an old laptop in four passes: O&O ShutUp10++ gathers 319 toggles across its Current User and Local Machine tabs into one window, and applying only the recommended settings, which leave Windows Update and security protection alone, took his idle CPU from around 15% to 2%; Bulk Crap Uninstaller found 197 installed programs totaling over 23GB and drew a disk space map of them, and he skipped anything tied to system drivers before running its deep scan for stranded folders and registry entries; Microsoft PC Manager showed 9GB of temporary files and memory sitting at 80%, cleared it in seconds with the Boost button, and then stayed running quietly; and Everything indexed more than seventy-three thousand files in under a second by reading the NTFS USN Journal directly while holding memory to a few megabytes, after which he switched the Windows Search indexing service off entirely.",
+      "needs": [
+        "An older Windows laptop",
+        "Admin rights to uninstall software",
+        "O&O ShutUp10++ and Bulk Crap Uninstaller",
+        "PC Manager and Everything"
+      ],
+      "time": "An unhurried evening"
+    },
+    {
+      "date": "2026-08-31",
+      "title": "Clear out the memories ChatGPT, Gemini, and Claude have quietly been keeping about you",
+      "url": "https://www.androidauthority.com/chatgpt-gemini-claude-memory-cleanup-how-3701167/",
+      "trend_url": "https://www.androidauthority.com/",
+      "seen": "Android Authority, Aug 29",
+      "dek": "<b>Three settings panels</b> Android Authority's Andrew Grush runs the same cleanup through all three assistants: in ChatGPT you open the profile icon, then Settings and Personalization, click Manage beside Memory Summary, and remove single entries with the trash icon, or use Clear ChatGPT's Memory at the bottom to reset the lot; in Claude you open Settings from the lower left sidebar, choose Memory, delete whole categories or simply ask in conversation for something to be forgotten, and untick Generate memory from chat history if you would rather pause it altogether; Gemini is the awkward one, handled under Settings and Gemini Apps Activity with the Delete dropdown set to All time, which Grush calls far from ideal because it means clearing whole chats rather than single memories, while Instructions for Gemini is where any standing rules you want kept should live.",
+      "needs": [
+        "An account on any of the three",
+        "A few minutes in each app's settings",
+        "A note of any rules worth keeping"
+      ],
+      "time": "About 15 minutes"
+    },
     {
       "date": "2026-08-30",
       "title": "Five Google Maps features for a busy day, from a nine stop route to a parking pin that saves itself",
