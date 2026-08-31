@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-08-31",
+      "edition": "morning",
+      "dateHuman": "Monday, August 31, 2026",
+      "file": "editions/2026-08-31-morning.html",
+      "lead": "John Ternus becomes Apple's chief executive on Tuesday as Tim Cook moves to executive chairman",
+      "pubDate": "Mon, 31 Aug 2026 07:50:22 -0400"
+    },
+    {
       "date": "2026-08-30",
       "edition": "evening",
       "dateHuman": "Sunday, August 30, 2026",
