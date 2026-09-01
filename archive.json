@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-01",
+      "edition": "morning",
+      "dateHuman": "Tuesday, September 1, 2026",
+      "file": "editions/2026-09-01-morning.html",
+      "lead": "ChatGPT's ad business reaches a $1 billion annualized run rate less than 200 days after launch",
+      "pubDate": "Tue, 01 Sep 2026 07:50:34 -0400"
+    },
+    {
       "date": "2026-08-31",
       "edition": "evening",
       "dateHuman": "Monday, August 31, 2026",
