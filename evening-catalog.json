@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-01",
+      "name": "Ad Blocker in Firefox for iOS",
+      "url": "https://blog.mozilla.org/en/firefox/ad-blocker-on-ios/",
+      "trend_url": "https://news.ycombinator.com/item?id=49521973",
+      "cost": "Free",
+      "kind": "Built into Firefox on iPhone",
+      "seen": "Hacker News, 219 points",
+      "blurb": "Mozilla's September 1 post introduces ad blocking built directly into Firefox for iOS, with no separate extension to install: it uses Apple's WebKit Content Blocker technology and the EasyList filter list to stop many third-party ads and ad-related trackers before they load, and you switch it on under Settings, then Browsing, then Ad Blocker. The caveats are worth knowing before you expect too much, because Mozilla says it is off by default, that ads served directly by the site you are visiting and ads on search results pages are not blocked, and that Firefox's own sponsored new-tab shortcuts are a separate thing it leaves alone; readers in the Hacker News thread add that the feature is arriving through a staged rollout, so the setting may not be on your phone the day you go looking for it."
+    },
+    {
+      "date": "2026-09-01",
+      "name": "Vivaldi tab stacks on Android",
+      "url": "https://help.vivaldi.com/android/android-browse/android-tab-stacks/",
+      "trend_url": "https://www.androidpolice.com/chrome-firefox-tabs-vivaldi-open-source-browser-features/",
+      "cost": "Free",
+      "kind": "Android browser",
+      "seen": "Android Police, Sep 1",
+      "blurb": "Vivaldi's own help pages document the feature that turns a wall of phone tabs back into a few named groups: long-press a tab and drag it onto another, or long-press and choose Add tab to new stack, and then pick how stacks appear under the Vivaldi menu, Settings, Tabs, Tab Stacking, where Two-Level Tab Stacks puts the group on a second row that shows only while one of its tabs is active, and Accordion Tabs keeps groups on the same row as ordinary tabs, expanding the one you are reading and collapsing again with a tap on the stack's name. Android Police's Marvin Velasco, who moved to it for exactly this reason on September 1, is honest that the payoff is real only if you keep a lot of tabs open, since the always-on tab bar costs screen space and the first sorting session feels cumbersome."
+    },
+    {
       "date": "2026-08-31",
       "name": "Textify",
       "url": "https://ramensoftware.com/textify",
@@ -925,6 +945,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-01",
+      "title": "Four Excel tools hiding in the menus: Camera, Flash Fill, the Analysis ToolPak, and the Watch Window",
+      "url": "https://www.makeuseof.com/4-useful-excel-tools-microsoft-barely-tells-you-exist/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 1",
+      "dek": "<b>Four short menu dives</b> MakeUseOf's Yadullah Abidi switches on the Camera tool from File, Options, Quick Access Toolbar with the list set to Commands Not in the Ribbon, and it drops a live picture of a cell range onto a sheet that updates itself whenever the source data changes, which is how a dashboard stops being a copy-paste chore; Flash Fill reads the pattern out of one example you type by hand and fills the rest of the column when you press Ctrl+E, or Command+E on a Mac; the Analysis ToolPak, enabled under File, Options, Add-ins with Manage set to Excel Add-ins, brings 19 statistical tools including regression, ANOVA, and histograms, though Abidi notes plainly that this add-in does not work in the web version; and the Watch Window, reached from the Formulas tab under Formula Auditing or with Alt+M+W, floats the few cells you actually need to keep an eye on while you work in another sheet entirely.",
+      "needs": [
+        "Desktop Excel, not the web version",
+        "A workbook with real data in it",
+        "About half an hour, once"
+      ],
+      "time": "30 min, then reuse"
+    },
+    {
+      "date": "2026-09-01",
+      "title": "Five free tools that find the adware and spyware a Windows PC quietly picked up, in the order to run them",
+      "url": "https://www.makeuseof.com/use-these-free-tools-find-spyware-adware-on-your-pc/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 1",
+      "dek": "<b>Look, confirm, then clean</b> MakeUseOf's Yadullah Abidi gives the sweep an order rather than a shopping list: start with Microsoft's Sysinternals pair, using Process Explorer to see what is running now, what each process has open, and which ones hold network connections under the TCP/IP tab of its properties, then Autoruns to read everything that starts itself, across services, scheduled tasks, DLLs, and registry entries; send anything suspicious from either tool to VirusTotal, which tests a file against more than 60 antivirus engines, and only then run a full scan with Malwarebytes, whose free version he finds catches adware that other scanners miss, or Spybot Search and Destroy for tracking software and keyloggers. He is careful about the limits: Process Explorer shows only current connections and not past ones, VirusTotal results are not definitive because engines disagree, most of Spybot's stronger features sit behind a paywall, and you should leave essential system processes and Microsoft-signed entries alone in Autoruns.",
+      "needs": [
+        "A Windows PC",
+        "Process Explorer and Autoruns",
+        "An hour, and a slow hand"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-09-01",
+      "title": "Replace the default apps on your phone one at a time, and keep only the swaps that earn their place",
+      "url": "https://www.xda-developers.com/i-went-through-every-default-app-on-my-phone-found-replacements-that-were-genuinely-better/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 1",
+      "dek": "<b>One category at a time</b> XDA's Abhishek Kumar Mishra worked through the apps that came on his phone and kept four replacements: VLC in place of Samsung's video player, because it handles formats the stock player struggles with, downloads subtitles, swaps audio tracks, and runs to 8x speed where the original stops at 2x; Microsoft's free SMS Organizer instead of Google Messages, which sorts messages into promotions, general, and banking, bolds one-time passcodes, and works offline with no Google account; and Niagara Launcher in place of One UI Home for a faster, vertical, far quieter home screen. Two of his notes matter as much as the picks: Microsoft is winding SMS Organizer down without naming a retirement date, so treat that one as temporary, and his fourth swap, self-hosting Bitwarden on a Raspberry Pi, needs technical setup that most readers should skip in favor of ordinary hosted Bitwarden.",
+      "needs": [
+        "An Android phone",
+        "The Play Store",
+        "One swap per evening"
+      ],
+      "time": "An evening of swaps"
+    },
+    {
+      "date": "2026-09-01",
+      "title": "Three ways to get wireless Android Auto, including in a car that has only ever offered the cable",
+      "url": "https://www.howtogeek.com/how-to-set-up-wireless-android-auto-in-any-car/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 1",
+      "dek": "<b>Pair, adapt, or add a screen</b> How-To Geek's Nate Pangaro sorts the problem by what your car already has: if it supports wireless Android Auto natively, the whole job is opening the car's connection settings, choosing the car from Bluetooth on the phone, matching the six-digit code on both screens, and confirming Android Auto when it asks. If the car has wired Android Auto only, a dongle plugged into that same port does it, and he names the Aluratek AWCGD02F at $60 from Best Buy and the Motorola MA1, with generic units from around $50, warning that an adapter cannot add Android Auto to a car that never had it and that CarPlay-only adapters will not do. If the car has neither, a portable dashboard unit such as the Podofo screen at around $46 on Amazon works in any vehicle, suction-cupped to the dash, powered from the lighter socket, with audio over a 3.5mm cable or Bluetooth, at the cost of wires he admits end up all over the place.",
+      "needs": [
+        "An Android phone",
+        "A car stereo, wired or wireless",
+        "About $50 if you need an adapter"
+      ],
+      "time": "15 min to pair"
+    },
     {
       "date": "2026-08-31",
       "title": "Build a shared expense sheet that emails everyone their balance every Monday morning",

@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-01",
+      "edition": "evening",
+      "dateHuman": "Tuesday, September 1, 2026",
+      "file": "editions/2026-09-01-evening.html",
+      "lead": "Zotero saves a source, its citation, and your notes in one click, free on Mac, Windows, Linux, and phones",
+      "pubDate": "Tue, 01 Sep 2026 17:50:11 -0400"
+    },
+    {
+      "date": "2026-09-01",
       "edition": "morning",
       "dateHuman": "Tuesday, September 1, 2026",
       "file": "editions/2026-09-01-morning.html",
