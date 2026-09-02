@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-02",
+      "name": "Files",
+      "url": "https://github.com/files-community/Files",
+      "trend_url": "https://www.howtogeek.com/these-open-source-apps-do-what-windows-should-have-built-into-the-os-years-ago/",
+      "cost": "Free installer, paid in Store",
+      "kind": "Windows 10 and 11",
+      "seen": "How-To Geek, Sep 2",
+      "blurb": "Files is a Windows file manager built with WinUI that adds what Explorer never did: browser-style tabs, a dual-pane view for dragging between two folders at once, a Mac-style column view, color-coded tags, git integration, and, How-To Geek's Ismar Hrnjicevic notes, the ability to create RAR archives, while staying close enough to Explorer's layout that there is very little to relearn. The repository carries 44.9k stars under dual MIT and MPL-2.0 licensing, and the caveat is the pricing split, because the Microsoft Store copy is a paid purchase that funds development while the classic installer from files.community and the preview build cost nothing."
+    },
+    {
+      "date": "2026-09-02",
+      "name": "System Informer",
+      "url": "https://github.com/winsiderss/systeminformer",
+      "trend_url": "https://www.howtogeek.com/these-open-source-apps-do-what-windows-should-have-built-into-the-os-years-ago/",
+      "cost": "Free, MIT licensed",
+      "kind": "Windows 10 or higher",
+      "seen": "How-To Geek, Sep 2",
+      "blurb": "System Informer, from Winsider Seminars and Solutions, is the Task Manager that Windows 10 and later never shipped: processes are color coded by category, each one exposes its PID, command line, and resource use, real-time graphs track system activity, network connections and disk access are listed alongside, and the Find Handles or DLLs search finally answers which program is holding the file you cannot delete or rename. It is MIT licensed with 15.8k stars, runs portable with no installation, and the honest caveat is that it shows far more detail than Task Manager does, which helps only if you are willing to read it."
+    },
+    {
+      "date": "2026-09-02",
+      "name": "CleanShot 5 with Studio Mode",
+      "url": "https://cleanshot.com/pricing",
+      "trend_url": "https://www.producthunt.com/products/cleanshot",
+      "cost": "$35 one-time, Basic plan",
+      "kind": "macOS 13 or newer",
+      "seen": "Product Hunt No. 4, Sep 2",
+      "blurb": "CleanShot is a Mac screenshot and screen recording app, and version 5 adds Studio Mode, a built-in editor that turns a raw recording into a finished video by adding zooms, trimming the mistakes, and saving the project in an editable form you can reopen later, next to the existing scrolling capture, annotation and redaction markup, on-device text recognition, and shareable cloud links. Its own pricing page puts CleanShot Basic at $35 once, covering the Mac app, a year of updates, and 1GB of cloud storage, with $19 a year afterward to keep updating; the caveats are that it needs macOS 13 or newer and that unlimited storage, a custom domain, and team management sit behind the Pro subscription at $10 per user a month billed annually."
+    },
+    {
+      "date": "2026-09-02",
+      "name": "FUTO Keyboard",
+      "url": "https://docs.keyboard.futo.tech/",
+      "trend_url": "https://www.androidpolice.com/ditched-gboard-for-offline-keyboard-dont-miss-it/",
+      "cost": "$6.99 FUTO Pay, $11.99 Play",
+      "kind": "Android keyboard",
+      "seen": "Android Police, Sep 2",
+      "blurb": "FUTO Keyboard is an Android keyboard built to work with no internet connection at all, keeping swipe typing, smart autocorrect, predictive text, themes, and voice input that is transcribed on the phone instead of in a data center, and Android Police's Anu Joy lists the settings ordinary typing actually rewards: keyboard size, a number row, an arrow key row, long-press timing, whether backspace removes a character or a whole word, spacebar language switching, a personal dictionary, and blocking a word autocorrect keeps forcing on you. FUTO's documentation prices the one-time license at $6.99 through FUTO Pay or $11.99 through Google Play with no subscription, and the honest caveat is Joy's own, that Gboard stayed installed alongside it for GIF search, handwriting input, built-in translation, and the proofread and rephrase writing tools FUTO does not have."
+    },
+    {
       "date": "2026-09-01",
       "name": "Ad Blocker in Firefox for iOS",
       "url": "https://blog.mozilla.org/en/firefox/ad-blocker-on-ios/",
@@ -945,6 +985,49 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-02",
+      "title": "Turn Obsidian into a project tracker with the Tasks plugin and one dashboard note",
+      "url": "https://www.howtogeek.com/transformed-obsidian-into-project-management-system-better-than-notion/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 2",
+      "dek": "<b>One plugin, one dashboard</b> How-To Geek's Dibakar Ghosh installs the Tasks plugin from the obsidian-tasks-group, and every checkbox in the vault becomes a real task that can carry a due date, a start date, a scheduled date, one of six priority levels, an ID, a dependency on another task, a recurrence rule, a status of todo, in progress, done, or cancelled, and inline tags. Tasks then get written wherever the thought arrives, inside a daily note, a web clipping, or a project note, rather than in a dedicated tasks space, and one dashboard note holds code blocks whose filters pull them all back together, sorted by urgency, narrowed to what is blocked, or grouped by folder. Ghosh handed Claude the plugin's documentation so it writes the query syntax rather than memorizing it, syncs across devices with Syncthing instead of paying for Obsidian Sync, and reaches for CollabMD when a note needs real-time collaboration.",
+      "needs": [
+        "Obsidian on your computer",
+        "The Tasks community plugin",
+        "One note to hold the dashboard",
+        "Syncthing if you want free sync"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-09-02",
+      "title": "Stop engineering the perfect prompt and describe the outcome you actually want",
+      "url": "https://www.howtogeek.com/chatgpt-stopped-trying-write-perfect-prompt/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 2",
+      "dek": "<b>Say the goal, not the steps</b> How-To Geek's Tony Phillips drops the long persona preamble and opens with the job itself, Look through this spreadsheet and tell me what looks wrong or needs fixing, then describes the result rather than the method, I need the solution to keep working when I add new transactions, instead of naming the Excel formulas it should use. The rest is conversational: let the model ask for what it still needs instead of front-loading every detail into the first message. Phillips points at OpenAI's own GPT-5.6 guidance, which encourages natural, goal-driven language over meticulously engineered wording, on the reasoning that the newer models infer the underlying goal from context.",
+      "needs": [
+        "A ChatGPT account",
+        "One real task, not a test",
+        "Willingness to answer follow-ups"
+      ],
+      "time": "Five minutes to change"
+    },
+    {
+      "date": "2026-09-02",
+      "title": "Seven jobs for the smart speaker gathering dust, starting with routines that need no voice",
+      "url": "https://www.makeuseof.com/smart-speaker-collecting-dust-can-automate-your-whole-home/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 2",
+      "dek": "<b>Routines, sensors, geofences</b> MakeUseOf's Bryan M. Wolfe starts in the routines section of the speaker's companion app, where a schedule can put the porch lights on at sunset or start the coffee maker at 6:45 AM, then moves to the triggers that need no voice at all: a geofence drawn around the house that locks the doors or turns off the lights when the radius is crossed, and motion or door sensors, priced under $15, that light an entryway for two minutes or announce that the dryer has finished. Many Amazon Echo and Google Nest Hub models carry Zigbee, so the speaker doubles as the hub for devices that cannot reach Wi-Fi by themselves; newer speakers keep critical routines such as unlocking a door or shutting off a heater running locally through an internet outage; and third-party links to weather, calendars, and fitness trackers let outside data start a routine on its own.",
+      "needs": [
+        "An Echo or Nest speaker",
+        "Its companion app",
+        "Optional sensors, under $15"
+      ],
+      "time": "An evening to set up"
+    },
     {
       "date": "2026-09-01",
       "title": "Four Excel tools hiding in the menus: Camera, Flash Fill, the Analysis ToolPak, and the Watch Window",
