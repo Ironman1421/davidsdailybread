@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-02",
+      "edition": "morning",
+      "dateHuman": "Wednesday, September 2, 2026",
+      "file": "editions/2026-09-02-morning.html",
+      "lead": "Dell posts a record $47 billion quarter as its AI server backlog reaches $95 billion",
+      "pubDate": "Wed, 02 Sep 2026 07:51:27 -0400"
+    },
+    {
       "date": "2026-09-01",
       "edition": "evening",
       "dateHuman": "Tuesday, September 1, 2026",
