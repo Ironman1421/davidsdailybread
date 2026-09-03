@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-03",
+      "edition": "morning",
+      "dateHuman": "Thursday, September 3, 2026",
+      "file": "editions/2026-09-03-morning.html",
+      "lead": "Broadcom's AI chip revenue more than triples to $16.7 billion in a record $29.6 billion quarter",
+      "pubDate": "Thu, 03 Sep 2026 07:50:34 -0400"
+    },
+    {
       "date": "2026-09-02",
       "edition": "evening",
       "dateHuman": "Wednesday, September 2, 2026",
