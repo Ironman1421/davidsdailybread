@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-03",
+      "name": "Joplin",
+      "url": "https://joplinapp.org/",
+      "trend_url": "https://www.makeuseof.com/switched-from-obsidian-to-joplin/",
+      "cost": "Free; Joplin Cloud from €2.99",
+      "kind": "Desktop, mobile, and terminal",
+      "seen": "MakeUseOf, Sep 3",
+      "blurb": "Joplin is an open-source notebook that holds notes and to-dos alongside images, video, PDFs, audio, math expressions, and diagrams, runs on Windows, macOS, Linux, Android, iOS, and a terminal app, and syncs end-to-end encrypted through Joplin Cloud, Dropbox, OneDrive, or another service you already use; MakeUseOf's Jayric Maning, writing on September 3 about leaving Obsidian for it, leans on the web clipper that keeps a page's formatting, images, and links, the split markdown editor with live preview, and to-do items that gather from every notebook into one list. The desktop and mobile apps cost nothing, and the honest caveats are Maning's own: notes live in a database rather than as loose markdown files, the plugin ecosystem is far smaller than Obsidian's, and the layout takes some getting used to, while Joplin's own plans page prices the optional Joplin Cloud sync at 2.99 euros a month for Basic with 2GB, 5.99 for Pro with 30GB, and 7.99 per user for Teams, each with a 14-day trial."
+    },
+    {
+      "date": "2026-09-03",
+      "name": "Hermit Lite Apps Browser",
+      "url": "https://hermit.chimbori.com/",
+      "trend_url": "https://www.makeuseof.com/i-deleted-9-apps-and-replaced-them-with-an-android-app-that-takes-15mb/",
+      "cost": "Free, premium is one-time",
+      "kind": "Android, Lite Apps browser",
+      "seen": "MakeUseOf, Sep 3",
+      "blurb": "Hermit turns a website into what Chimbori calls a Lite App, a lightweight app-like shortcut that opens the site on its own with a content blocker on by default, reader mode, dark mode, a custom icon, adjustable text size, and switches to turn images or JavaScript off alongside a data saver mode; MakeUseOf's Abhijith N Arjunan used it on September 3 to delete nine cloned apps he had been running only to hold second accounts on Amazon, Reddit, Instagram, and LinkedIn, and reports battery and RAM noticeably better afterward. The caveats are real and he says so plainly: a Lite App is a web page in a wrapper and does not feel identical to a native app, and the sandboxed profiles that make multiple simultaneous logins work sit behind Hermit's premium unlock, which is a one-time purchase rather than a subscription, alongside user scripts, tags, backup and restore, and printing."
+    },
+    {
+      "date": "2026-09-03",
+      "name": "Tidy",
+      "url": "https://greene-squares.github.io/tidy-releases/",
+      "trend_url": "https://www.producthunt.com/products/tidy-6",
+      "cost": "Free",
+      "kind": "macOS 26, Apple Intelligence",
+      "seen": "Product Hunt No. 8, Sep 3",
+      "blurb": "Tidy, from Eric Greene, is two keyboard shortcuts that work in whatever Mac app you happen to be typing in: select text and press Control Option Command T and the grammar and spelling are corrected in place, or press Control Option Command S and the same text is stripped of verbose corporate padding while the facts, the @mentions, the dates and times, and proper nouns such as brand names are left alone. Every correction runs on the model built into macOS, so nothing you select is uploaded and no API key is needed, and it is free; the caveats are the requirements, since it needs macOS 26 with Apple Intelligence switched on, which rules out older Macs, and it installs from a DMG on the developer's GitHub releases page rather than from the App Store."
+    },
+    {
+      "date": "2026-09-03",
+      "name": "MPC-HC",
+      "url": "https://github.com/clsid2/mpc-hc",
+      "trend_url": "https://www.makeuseof.com/vlc-alternative-lightweight-video-player/",
+      "cost": "Free, GPL v3",
+      "kind": "Windows 7 through 11",
+      "seen": "MakeUseOf, Sep 2",
+      "blurb": "Media Player Classic Home Cinema is a free GPL v3 video and audio player for Windows 7 through 11, carrying 15.6k stars on the clsid2 repository, and it ships the LAV Filters codecs so H.264, HEVC, AV1, VP9, and H.266 play out of MKV, MP4, AVI, WebM, and MOV files without hunting down a codec pack, with DXVA2 and D3D11 hardware acceleration, HDR playback, frame-by-frame stepping in both directions, A-B repeat for looping a passage, adjustable playback speed, and a seekbar that previews the frame under your cursor. MakeUseOf's Tashreef Shareef, who replaced VLC with the 22MB installer on September 2, is straight about the trade: MPC-HC needs a bit of configuring to get going where VLC mostly does not, DRM-protected content will not play, and YouTube streaming works only after you wire up yt-dlp by hand."
+    },
+    {
       "date": "2026-09-02",
       "name": "Files",
       "url": "https://github.com/files-community/Files",
@@ -460,16 +500,6 @@
       "kind": "Runs in the browser; self-host",
       "seen": "XDA, Aug 17",
       "blurb": "It is a PDF toolkit of more than 50 tools covering merging, splitting and reordering pages, annotations, forms and watermarks, conversion to and from images and Office files, plus encryption, digital signatures, and OCR, and the project's own claim is that every file is processed in your browser and never uploaded to a server; you can use the public instance the project runs at bentopdf.com or self-host it with Docker or static hosting, and XDA's Abhishek Kumar Mishra points out on August 17 that it can even be installed as a progressive web app, while the repository is honest that Office file conversion needs SharedArrayBuffer and therefore HTTPS, that digital signatures need a CORS proxy, and that some modules load from a CDN with local files as the fallback."
-    },
-    {
-      "date": "2026-08-17",
-      "name": "Joplin",
-      "url": "https://joplinapp.org/",
-      "trend_url": "https://www.xda-developers.com/4-tiny-open-source-tools-that-save-me-hours-every-week/",
-      "cost": "Free app; cloud from 2.99 euro",
-      "kind": "Windows, macOS, Linux, mobile",
-      "seen": "XDA, Aug 17",
-      "blurb": "Joplin is an open-source notebook that holds images, PDFs, audio, math, and diagrams alongside text, clips web pages through a Chrome and Firefox extension, edits in either markdown or rich text, takes plugins and custom themes, and offers end-to-end encryption so the sync provider cannot read what you wrote; XDA's Victor Awogbemila lists it on August 17 among four small open-source tools that save hours every week, and the honest caveat is that syncing across devices means bringing your own Dropbox or OneDrive, or paying for Joplin Cloud, whose plans start at 2.99 euro a month for 2 GB and rise to 5.99 euro for 30 GB."
     },
     {
       "date": "2026-08-17",
@@ -985,6 +1015,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-03",
+      "title": "Try Android's built-in quiet mode for two weeks before you spend $300 on a dumbphone",
+      "url": "https://www.androidpolice.com/android-built-in-dumb-mode-settings/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front page, Sep 3",
+      "dek": "<b>Focus Mode, then bedtime</b> Android Police's Ali Salman Zia was close to buying a Light Phone before working through the Digital Wellbeing settings already on the phone: Focus Mode pauses the apps you name, greys their icons on the home screen so they cannot be opened until the mode is off, and can run on a schedule; Bedtime Mode switches the screen to grayscale at a set hour, mutes notifications, and dims the wallpaper, taking away the color the apps were counting on; App Timers cap daily minutes per app; and Do Not Disturb quiets notifications without blocking the apps themselves. He finishes at the home screen, hiding icons, removing widgets, and dropping to a single column, and his caveat is the honest one: every distracting app is still installed and one setting away, so this is discipline with help rather than hardware, which is exactly why he suggests two weeks of it before any money changes hands.",
+      "needs": [
+        "An Android phone",
+        "The Digital Wellbeing settings",
+        "Two weeks before you decide"
+      ],
+      "time": "20 minutes to set up"
+    },
+    {
+      "date": "2026-09-03",
+      "title": "Turn OneNote into one command center with a dashboard page, custom tags, and a tag summary",
+      "url": "https://www.xda-developers.com/turned-onenote-into-personal-command-center-now-barely-open-separate-apps/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 3",
+      "dek": "<b>One page rules the rest</b> XDA's Parth Shah organizes notebooks, section groups, and sections around what he calls operational pillars rather than by stray thought, then builds a single master dashboard page whose internal page links jump straight to active drafts, weekly priorities, and key resources, so the daily navigation cost mostly disappears. The part worth copying is the tagging: past the default checkbox he adds custom tags such as High Priority and Waiting on Reply plus project-specific ones, and OneNote's Tag Summary then pulls every tagged line from every notebook into one clean sidebar. He also sketches mind maps on an iPad with the Apple Pencil before typing them up on the desktop, and points Copilot Notebooks at chosen pages and OneDrive documents so questions are answered from his own notes; the write-up lists no drawbacks at all, so treat those last two as optional extras rather than requirements.",
+      "needs": [
+        "OneNote and a notebook you use",
+        "One page to act as the dashboard",
+        "A short list of custom tags"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-09-03",
+      "title": "Argue with Claude instead of agreeing with it, and brainstorming stops returning safe answers",
+      "url": "https://www.makeuseof.com/turn-claude-brainstorming-partner-by-fighting-ideas/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 3",
+      "dek": "<b>Pick the worst idea first</b> MakeUseOf's Saikat Basu opens by asking for a whole spectrum of possibilities, explicitly including some that sound impractical, boring, weird, or commercially questionable, then does the opposite of what most people do: he picks the idea he finds least convincing and pushes back on it rather than asking for it to be improved. From there he challenges the assumption underneath, asking what a customer might actually want past the surface product, follows the branches the conversation wanders into instead of steering back, and treats each answer as a trigger for his own reaction rather than a finished result. His caveat should be read before you try it, because this method deliberately trades accuracy for strangeness and he says a little hallucination is acceptable here, which makes it a tool for generating ideas and never for facts you intend to rely on.",
+      "needs": [
+        "A Claude account",
+        "A real problem worth arguing over",
+        "Several turns, not one prompt"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-03",
+      "title": "Five Google Keep features worth switching on: OCR, shared notes, the Gmail sidebar, voice, and labels",
+      "url": "https://www.howtogeek.com/ive-used-google-keep-for-years-and-these-features-still-surprise-me/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 3",
+      "dek": "<b>Five settings, ten minutes</b> How-To Geek's Sanya Shah starts with the Google Lens text recognition built into Keep, which lifts the words out of a photographed recipe, document, or menu and makes them editable and searchable instead of retyped; then shared notes, which let two people edit the same vacation plan, recipe, or shopping list at once rather than trading screenshots, which is how she and her spouse run theirs. A sidebar shortcut inside Gmail saves an important email straight into a Keep note, easier to find later than the same message buried in the inbox; voice capture transcribes what you say while cooking or commuting and lets you delete the audio while keeping the text; and labels such as Work, Recipes, Travel, and Personal filter the pile from the search bar. One caveat comes from her commenters rather than the article: the Gmail-to-Keep shortcut is a desktop sidebar feature and is not in the mobile app.",
+      "needs": [
+        "A Google account",
+        "Google Keep on phone and web",
+        "Gmail for the sidebar shortcut"
+      ],
+      "time": "Ten minutes"
+    },
     {
       "date": "2026-09-02",
       "title": "Turn Obsidian into a project tracker with the Tasks plugin and one dashboard note",

@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-03",
+      "edition": "evening",
+      "dateHuman": "Thursday, September 3, 2026",
+      "file": "editions/2026-09-03-evening.html",
+      "lead": "Audacity 4.0 rebuilds the free audio editor around clips and saved Workspaces, on Windows, macOS, and Linux",
+      "pubDate": "Thu, 03 Sep 2026 17:48:00 -0400"
+    },
+    {
+      "date": "2026-09-03",
       "edition": "morning",
       "dateHuman": "Thursday, September 3, 2026",
       "file": "editions/2026-09-03-morning.html",
