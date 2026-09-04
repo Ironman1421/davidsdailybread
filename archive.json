@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-04",
+      "edition": "evening",
+      "dateHuman": "Friday, September 4, 2026",
+      "file": "editions/2026-09-04-evening.html",
+      "lead": "Chrome for Android reads any article aloud, and the audio keeps playing with the screen off",
+      "pubDate": "Fri, 04 Sep 2026 17:46:38 -0400"
+    },
+    {
+      "date": "2026-09-04",
       "edition": "morning",
       "dateHuman": "Friday, September 4, 2026",
       "file": "editions/2026-09-04-morning.html",

@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-04",
+      "name": "Quad9",
+      "url": "https://www.quad9.net/",
+      "trend_url": "https://news.ycombinator.com/item?id=49568579",
+      "cost": "Free, no account",
+      "kind": "DNS for a device or router",
+      "seen": "Hacker News, 161 points",
+      "blurb": "Quad9 is a free service that replaces the DNS resolver your ISP hands you and blocks lookups of host names known to serve malware, phishing, spyware, and botnets, using 9.9.9.9 and 149.112.112.112 (or 2620:fe::fe and 2620:fe::9 on IPv6); it is run by the not-for-profit Quad9 Foundation in Zurich, requires no sign up or account data, and states that no data containing your IP address is ever logged and that the service is GDPR compliant. Set it once in the router and every connected device behind it is covered, the site notes, including the IoT gear on the network. It reached 161 points on Hacker News on September 4 through Mullvad's September 3 announcement that it is shutting its own public encrypted DNS servers, sponsoring Quad9 instead, and telling manually configured users to migrate before November 2, 2026. The honest caveat: this is blocklist filtering of malicious host names, not antivirus, and the front page does not spell out an unfiltered option, so it is a filtered resolver by design."
+    },
+    {
+      "date": "2026-09-04",
+      "name": "VoiceStudio",
+      "url": "https://github.com/debpalash/VoiceStudio",
+      "trend_url": "https://github.com/trending?since=daily",
+      "cost": "Free, AGPL-3.0",
+      "kind": "Windows, macOS, Linux, Docker",
+      "seen": "GitHub Trending, Sep 4",
+      "blurb": "VoiceStudio is an open-source, locally run alternative to ElevenLabs that the project describes as voice cloning, voice design, video dubbing, dictation, transcription, and audiobook creation across 646 languages, which in ordinary use means turning a document into audio you can listen to, or a recorded meeting into text, without an account or a per-character bill. It carries 17.8k stars, 1,345 of them gained today according to GitHub's daily trending page where it is currently listed, and it ships prebuilt installers rather than a Python checkout: a DMG for macOS 13.3 and later on Apple Silicon, an MSI for Windows 10 and 11 that does not need admin access, a Linux AppImage, and Docker images; the first launch configures its own managed Python environment. Local workflows have no subscription, API key, or usage meter. The caveats are hardware and licensing: 8GB of RAM and 10GB free disk are the stated minimum with 16GB and a 20GB SSD recommended, Intel Macs cannot run the local backend at all and need a remote one, and the default OmniVoice model is CC-BY-NC, so anything commercial means checking the model terms first."
+    },
+    {
+      "date": "2026-09-04",
+      "name": "Breezy Weather",
+      "url": "https://github.com/breezy-weather/breezy-weather",
+      "trend_url": "https://www.howtogeek.com/open-source-android-apps-that-beat-the-popular-play-store-alternatives/",
+      "cost": "Free, LGPL-3.0",
+      "kind": "Android 5.0 and later",
+      "seen": "How-To Geek, Sep 4",
+      "blurb": "Breezy Weather is a free Material 3 weather app for Android 5.0 and later, carrying 11.3k stars, that pulls forecasts, current observations, air quality, pollen, and severe weather alerts from more than 50 sources rather than one, and gives you 16 day forecasts with hourly data, precipitation nowcasting, detailed 24 hour charts, home screen widgets, a live wallpaper, custom icon packs, and no trackers or personal data collection; the project also lists full offline operation when Open-Meteo is the source. How-To Geek's Ismar Hrnjicevic put it first among four open-source Android apps on September 4 for having no ads or bloat while still showing conditions, forecasts, air quality, pollen, and humidity. The caveat is how you get it and how often it refreshes: the project has decided it will not publish to the Google Play Store, so you install from F-Droid, the IzzyOnDroid repository, Obtainium, or GitHub releases, and it will not do background updates more often than every 30 minutes."
+    },
+    {
+      "date": "2026-09-04",
+      "name": "Material Files",
+      "url": "https://github.com/zhanghai/MaterialFiles",
+      "trend_url": "https://www.howtogeek.com/open-source-android-apps-that-beat-the-popular-play-store-alternatives/",
+      "cost": "Free, GPL-3.0",
+      "kind": "Android 5.0 and later",
+      "seen": "How-To Geek, Sep 4",
+      "blurb": "Material Files is a free GPL-3.0 file manager for Android 5.0 and later with 8.9k stars that does the jobs a stock file app usually will not: it opens, extracts, and creates archives, connects directly to FTP, SFTP, SMB, and WebDAV servers so a home NAS or a work share behaves like a local folder, handles root access, and is Linux aware about symbolic links and file permissions, with breadcrumb navigation, themes, and a night mode on top. It is built on the Java NIO2 file API and Linux system calls rather than parsing command output, which is why it is quick and does not choke on oddly named files, and it installs from Google Play, F-Droid, or a GitHub release APK. How-To Geek's Ismar Hrnjicevic, recommending it on September 4 for its Material Design 3 interface and dynamic color, names the one real gap himself: there is no recycle bin, so a delete is a delete."
+    },
+    {
       "date": "2026-09-03",
       "name": "Joplin",
       "url": "https://joplinapp.org/",
@@ -290,16 +330,6 @@
       "kind": "Windows, Mac, Linux, and mobile",
       "seen": "MakeUseOf, Aug 22",
       "blurb": "RustDesk is an open-source remote desktop app with about 121,700 GitHub stars that connects out of the box through the project's relay servers, or through a server you run yourself, so you can fix a relative's computer or reach your own without a subscription; MakeUseOf's Tashreef Shareef points out that it carries no commercial-use nag screens, no session time limits, and a built-in file transfer mode, then adds the fair warning that it is not built for latency-sensitive work like gaming or video, and that the advanced server features sit behind the paid Server Pro tier."
-    },
-    {
-      "date": "2026-08-24",
-      "name": "Breezy Weather",
-      "url": "https://github.com/breezy-weather/breezy-weather",
-      "trend_url": "https://www.androidauthority.com/breezy-weather-android-app-how-to-download-3700950/",
-      "cost": "Free, LGPL v3",
-      "kind": "Android 5.0 or newer",
-      "seen": "Android Authority, Aug 24",
-      "blurb": "Breezy Weather pulls forecasts, observations, nowcasting, air quality, pollen, and alerts from more than 50 weather sources into a home screen you arrange yourself, with 13 widget options, no advertisements, and no news feed, and it has gathered 11,100 stars on GitHub; the catch is distribution, because the developer keeps it off the Play Store on purpose, so you install it from GitHub, F-Droid, IzzyOnDroid, or Obtainium, updates are manual unless you let Obtainium check every six hours, and Android Authority notes some phones need a setting like Samsung's Auto Blocker turned off first."
     },
     {
       "date": "2026-08-24",
@@ -1015,6 +1045,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-04",
+      "title": "Find out which Windows apps are eating the data plan, then cap them in Settings",
+      "url": "https://www.howtogeek.com/background-windows-apps-are-quietly-eating-your-wi-fi/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 4",
+      "dek": "<b>Look first, then cap</b> How-To Geek's Dibakar Ghosh starts at Settings, Network and internet, Advanced network settings, Data usage, which lists what every app pulled over the last 30 days; on his machine that was 204.8GB total, with System and Windows Update at 93GB and the Brave browser at 74.16GB. From there he closes the taps one at a time: Settings, Apps, Installed apps, then Advanced options and Background app permissions set to Never, which he is careful to say works only for Microsoft Store and built-in Windows apps rather than traditionally installed EXE software; marking the connection as metered; pausing updates for up to five weeks; and capping update bandwidth under Settings, Windows Update, Advanced options, Delivery optimization, as either an absolute Mbps figure or a percentage he sets to 30. For anything that ignores all of that, he reaches for Portmaster, a free and open-source application firewall that shows connections per app and can cut one off the internet entirely.",
+      "needs": [
+        "A Windows 11 PC",
+        "The Settings app",
+        "Optional: Portmaster firewall"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-09-04",
+      "title": "Sync one Obsidian vault between a PC and an Android phone without paying for sync",
+      "url": "https://www.makeuseof.com/sync-notes-across-devices-free/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 4",
+      "dek": "<b>Drive on one side, Autosync on the other</b> MakeUseOf's Tashreef Shareef keeps his notes on every device without the 4 to 5 dollars a month Obsidian Sync would cost, and the trick is that an Obsidian vault is just a folder of markdown files. On the computer he installs Google Drive for desktop, turns on Mirror files in its preferences so the folder lives locally as well as in the cloud, moves the vault inside it, and waits for the first sync to finish. On the phone he installs Autosync for Google Drive, connects the same account, creates a folder pair set to two way, switches on hidden file syncing so the .obsidian settings folder travels too, and then opens the synced DriveSyncFiles folder as the vault in the Obsidian app. He is straight about the tradeoffs: edit on one device at a time, let the sync land before switching, and accept that there is no end to end encryption here, so Google can technically read the files.",
+      "needs": [
+        "An Obsidian vault",
+        "Google Drive for desktop",
+        "Autosync for Google Drive"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-09-04",
+      "title": "Connect Gemini to Slides, Sheets, Keep, and YouTube Music, and stop doing the setup work",
+      "url": "https://www.androidpolice.com/apps-you-should-connect-to-gemini-right-now-to-automate-day/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front page, Sep 3",
+      "dek": "<b>Four apps, one assistant</b> Android Police's Parth Shah, writing on September 3, connects Gemini to four Google apps he already had open. In Slides the Gemini icon sits in the upper right corner and builds a deck from a written prompt, with a Help me Visualize panel for on-brand images; he advises doing this in the Slides web app rather than in Canvas, because the result is easier to customize afterward. YouTube Music is reached by typing @YouTubeMusic inside a Gemini chat and describing the playlist you want, down to a request such as low-fi beats with no lyrics, strictly under 80 BPM, though playlist creation is limited to the mobile apps for now. Sheets opens from the sidebar and writes complex formulas, builds pivot tables and charts, summarizes a sheet, and pulls data across files, with the caveat that full Workspace integration needs a premium Gemini plan. Keep builds categorized lists from a prompt and pulls facts back out of notes you already wrote.",
+      "needs": [
+        "A Google account",
+        "The Gemini app or web app",
+        "Premium plan for full Sheets"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-04",
+      "title": "Ask a chatbot for one self-contained HTML file and get a desktop toolbox that needs no install",
+      "url": "https://www.howtogeek.com/built-personalized-desktop-toolbox-gemini-claude/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 4",
+      "dek": "<b>One prompt, one file</b> How-To Geek's Tony Phillips gave Gemini and Claude the same detailed prompt on September 4: build 14 small utilities, sticky notes, a text cleaner, a word counter, date and time calculators, a timezone converter, a stopwatch, a countdown timer, unit and file size converters, percentage and loan calculators, a random generator, and a URL cleaner, all inside a single self-contained HTML file with no external resources. You paste the result into Notepad, save it, and open it in a browser; there is no installation, no coding knowledge, and no internet connection required once the file exists. Gemini finished in about two minutes and Claude in about six. The reason to test before trusting is in his results: Gemini's timezone converter turned 3 p.m. in New York into 3 p.m. in London instead of 8 p.m., which Phillips calls a serious problem for a tool whose whole job is converting times, while Claude's version got it right.",
+      "needs": [
+        "Gemini or Claude",
+        "Notepad or any text editor",
+        "A web browser"
+      ],
+      "time": "About 15 minutes"
+    },
     {
       "date": "2026-09-03",
       "title": "Try Android's built-in quiet mode for two weeks before you spend $300 on a dumbphone",
