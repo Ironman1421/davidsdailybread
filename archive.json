@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-05",
+      "edition": "evening",
+      "dateHuman": "Saturday, September 5, 2026",
+      "file": "editions/2026-09-05-evening.html",
+      "lead": "Teach Windows to reopen an entire project, every app in its saved place, from one PowerToys Workspaces shortcut",
+      "pubDate": "Sat, 05 Sep 2026 17:49:54 -0400"
+    },
+    {
+      "date": "2026-09-05",
       "edition": "morning",
       "dateHuman": "Saturday, September 5, 2026",
       "file": "editions/2026-09-05-morning.html",

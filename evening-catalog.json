@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-05",
+      "name": "Microsoft PowerToys (Workspaces)",
+      "url": "https://learn.microsoft.com/en-us/windows/powertoys/workspaces",
+      "trend_url": "https://www.howtogeek.com/windows-powertoys-workspaces-remember-where-app-window-belongs/",
+      "cost": "Free",
+      "kind": "Windows 11 or Windows 10 2004+",
+      "seen": "How-To Geek, Sep 4",
+      "blurb": "PowerToys is Microsoft's free bundle of Windows utilities, and Workspaces is the one that remembers a set of apps and their window positions and relaunches all of them from a desktop shortcut you can pin to the taskbar; the editor opens with Win, Ctrl, and the backtick key, any app in the layout can carry command line arguments so it starts on the file or the tabs you want, and a status dialog reports each app as launched, launching, or failed while the workspace comes up. Microsoft lists the minimum as Windows 11 or Windows 10 version 2004 on a 64-bit x64 or ARM64 processor, installable from the Microsoft Store, GitHub, WinGet, Chocolatey, or Scoop. The caveat is in Microsoft's own notes: apps set to Launch as Admin currently cannot be moved into position, and because Workspaces uses the FancyZones engine underneath it restores sizes and coordinates rather than true window snapping."
+    },
+    {
+      "date": "2026-09-05",
+      "name": "Notesnook",
+      "url": "https://notesnook.com/pricing",
+      "trend_url": "https://www.androidauthority.com/google-keep-alternatives-android-apps-3705410/",
+      "cost": "Free; Essential $1.99/mo",
+      "kind": "Windows, Mac, Linux, mobile, web",
+      "seen": "Android Authority, Sep 5",
+      "blurb": "Notesnook is a note app with end-to-end encryption switched on by default rather than sold as an upgrade, is 100% open source under GPLv3, offers self-hostable sync, and runs on Windows, macOS, Linux, Android, iOS, and the web. Android Authority's Yash Wate put it on his September 5 list of five apps to use instead of Google Keep, for pairing that encryption with a rich text editor, media attachments, tables, notebooks, and tags. The free plan is a real plan and needs no card, but it is metered, and that is the honest caveat: 50MB of storage a month, a 10MB ceiling on any single file, 50 notebooks, 100 note versions, and 7 colors, with the Essential tier at $1.99 a month, or $19.99 a year, lifting those limits to 1GB a month."
+    },
+    {
+      "date": "2026-09-05",
+      "name": "Simplenote",
+      "url": "https://simplenote.com/",
+      "trend_url": "https://www.androidauthority.com/google-keep-alternatives-android-apps-3705410/",
+      "cost": "Free",
+      "kind": "iOS, Android, Mac, Windows, web",
+      "seen": "Android Authority, Sep 5",
+      "blurb": "Simplenote is the plainest thing on this shelf and its site is blunt about the price: the apps, backups, syncing, and sharing are all completely free, with no paid tier waiting behind them. Notes update across iOS, Android, macOS, Windows, Linux, and the browser in real time, tags make a growing pile searchable, version history walks a note back to an earlier draft, and you can share a list with someone or publish a note to the web, with Markdown available for writing and previewing. Android Authority's Yash Wate, listing it on September 5, names the trade plainly, and it is the caveat to weigh: Simplenote carries no rich media support and no end-to-end encryption, so it suits plain text you would not mind a service provider being able to read."
+    },
+    {
+      "date": "2026-09-05",
+      "name": "Omnisearch for Obsidian",
+      "url": "https://github.com/scambier/obsidian-omnisearch",
+      "trend_url": "https://www.howtogeek.com/free-obsidian-plugins-that-turn-daily-notes-into-low-effort-second-brain/",
+      "cost": "Free, GPL-3.0",
+      "kind": "Obsidian community plugin",
+      "seen": "How-To Geek, Sep 5",
+      "blurb": "Omnisearch replaces Obsidian's built-in search with a quick switcher that ranks results by the BM25 relevance algorithm instead of listing every match, tolerates typos, honors quoted phrases, filters by file type, and can insert a link to a result straight into the note you are writing; it carries 2.1k stars, is GPL-3.0, and installs from the official Obsidian community plugins list. How-To Geek's Dibakar Ghosh named it second among five free plugins on September 5, for making a growing pile of daily notes findable again. The caveats are worth knowing before you rely on it: searching inside images, PDFs, and Office documents works only if you also add the separate Text Extractor plugin, and the project warns that its BRAT beta builds can be unstable, so take the stable release."
+    },
+    {
       "date": "2026-09-04",
       "name": "Quad9",
       "url": "https://www.quad9.net/",
@@ -1045,6 +1085,48 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-05",
+      "title": "Let Google Maps send your live ETA to whoever is waiting, instead of texting from the driver's seat",
+      "url": "https://www.howtogeek.com/stopped-texting-eta-while-driving-after-discovering-google-maps-feature/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 5",
+      "dek": "<b>Swipe up, then share</b> How-To Geek's Jorge A. Aguilar, writing on September 5, starts navigation the usual way, then swipes up on the card at the bottom of the screen that shows the ETA and the distance, and taps Share trip progress. Recipients come from Google contacts, or the link goes out through iMessage, WhatsApp, or Messenger, and what they see is a live map with the route on it, an ETA that recalculates when traffic reroutes the drive, and the phone's battery level and charging status. Aguilar is clear about the one real limit: this exists only while turn-by-turn navigation is running, and it shuts itself off the moment the car reaches the destination, which is why he points anyone who wants continuous location sharing toward Apple's Find My instead.",
+      "needs": [
+        "Google Maps on a phone",
+        "Turn-by-turn navigation running",
+        "One contact to share it with"
+      ],
+      "time": "Under a minute"
+    },
+    {
+      "date": "2026-09-05",
+      "title": "Put four extensions in Firefox for Android and delete the standalone apps they replace",
+      "url": "https://www.makeuseof.com/i-put-these-extensions-on-my-phones-browser-and-deleted-the-apps/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 5",
+      "dek": "<b>Menu, Extensions, Add</b> MakeUseOf's Sagar Naresh, writing on September 5, installs extensions on the phone the way most people only do on a desktop: open Firefox for Android, open the menu, tap Extensions, search for the one you want, and tap Add to Firefox. Sink It for Reddit strips the Open in app banner and most of the ads from Reddit on the web, then adds color-coded comment threads, subreddit and word muting, and gesture-based upvoting. Firefox Relay generates random forwarding addresses inside the browser so a signup form never gets the real inbox. Read Aloud turns whatever is in the open tab into spoken audio in more than 40 languages, and Worldwide Radio streams from a catalog of nearly 50,000 stations. One honest note about the source: the headline promises five extensions and the article names four.",
+      "needs": [
+        "Firefox for Android",
+        "A Mozilla account for Relay masks",
+        "About four extension installs"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-05",
+      "title": "Turn Obsidian daily notes into a second brain that keeps working when you stop maintaining it",
+      "url": "https://www.howtogeek.com/free-obsidian-plugins-that-turn-daily-notes-into-low-effort-second-brain/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 5",
+      "dek": "<b>Capture first, organize later</b> How-To Geek's Dibakar Ghosh, writing on September 5, starts with the Daily Notes core plugin switched on in Settings, writes into whatever page today opens, and drops placeholder links in double brackets around ideas he has not developed yet, which then show up in Graph View as unfilled nodes waiting for him. Omnisearch does the retrieval, ranking results by the BM25 algorithm with typo tolerance rather than listing every match, and it will reach into images and PDFs once the Text Extractor plugin is added. Calendar puts a month view in the right sidebar so any date opens its daily note without scrolling a folder list; Tag Wrangler shows every tag in one place so redundant ones can be renamed, merged, or deleted before tag drift sets in; and Tasks turns checkboxes typed in passing into real tasks with due dates and priorities, rendered across the vault from a code block.",
+      "needs": [
+        "Obsidian on desktop or mobile",
+        "The Daily Notes core plugin on",
+        "Four community plugins installed"
+      ],
+      "time": "About 30 minutes"
+    },
     {
       "date": "2026-09-04",
       "title": "Find out which Windows apps are eating the data plan, then cap them in Settings",
