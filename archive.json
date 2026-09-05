@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-05",
+      "edition": "morning",
+      "dateHuman": "Saturday, September 5, 2026",
+      "file": "editions/2026-09-05-morning.html",
+      "lead": "OpenAI launches GPT-6 Astra, the first model it rates Critical for cybersecurity capability",
+      "pubDate": "Sat, 05 Sep 2026 07:49:46 -0400"
+    },
+    {
       "date": "2026-09-04",
       "edition": "evening",
       "dateHuman": "Friday, September 4, 2026",
