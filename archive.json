@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-06",
+      "edition": "evening",
+      "dateHuman": "Sunday, September 6, 2026",
+      "file": "editions/2026-09-06-evening.html",
+      "lead": "OpenWhispr turns a hotkey into free voice dictation that types at your cursor on Mac, Windows, and Linux",
+      "pubDate": "Sun, 06 Sep 2026 17:47:19 -0400"
+    },
+    {
+      "date": "2026-09-06",
       "edition": "morning",
       "dateHuman": "Sunday, September 6, 2026",
       "file": "editions/2026-09-06-morning.html",

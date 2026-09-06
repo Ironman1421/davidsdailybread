@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-06",
+      "name": "OpenWhispr",
+      "url": "https://github.com/OpenWhispr/openwhispr",
+      "trend_url": "https://github.com/trending?since=daily",
+      "cost": "Free, MIT licensed",
+      "kind": "macOS, Windows, Linux desktop",
+      "seen": "GitHub Trending, Sep 6",
+      "blurb": "OpenWhispr calls itself the open source and free alternative to WisprFlow and Granola, and in ordinary use it means a global hotkey that drops spoken words straight into whatever field the cursor is in, plus transcription of audio files and recorded meetings with speaker labels, notes with semantic search, and dictation translation. The license is MIT and the project describes it as free for personal and commercial use. Two things are worth knowing before you install it: on Intel Macs live speaker identification and voice fingerprinting are unavailable, because ONNX Runtime no longer ships x86_64 binaries, so semantic search there falls back to keyword matching, and while local models cover every core feature, the optional cloud providers the app supports are separate services you would be signing up for yourself. It is listed on GitHub's daily trending page this afternoon with 7,286 stars, 225 of them gained today."
+    },
+    {
+      "date": "2026-09-06",
+      "name": "NoSignups",
+      "url": "https://github.com/BraveOPotato/FckSignups",
+      "trend_url": "https://github.com/trending?since=daily",
+      "cost": "Free, GPL-3.0 directory",
+      "kind": "Web directory, no account",
+      "seen": "GitHub Trending, Sep 6",
+      "blurb": "NoSignups is a directory of more than 200 open source tools that run in a browser tab and do not ask for an account or an email address first, sorted into productivity, design, development, writing, privacy, utilities, data, media, and education. It is live at nosignups.net, the directory code is GPL-3.0, and there is nothing to pay. The honest caveat is that this is a signpost rather than a product: each listed tool keeps its own license and its own quality, the project explicitly does not claim ownership of them, and every entry is described in 140 characters or fewer, so you still have to open a tool to judge it. It is listed on GitHub's daily trending page this afternoon with 3,267 stars, 436 of them gained today."
+    },
+    {
+      "date": "2026-09-06",
+      "name": "Olauncher",
+      "url": "https://github.com/tanujnotes/Olauncher",
+      "trend_url": "https://www.androidpolice.com/olauncher-open-source-android-launcher-distractions-productivity/",
+      "cost": "Free; Pro sold separately",
+      "kind": "Android home screen",
+      "seen": "Android Police, Sep 6",
+      "blurb": "Olauncher replaces the Android home screen with a text list and no app icons, which is the entire point: the project describes itself as a minimal, ad-free launcher meant to cut screen time, it is GPLv3 with 3.8k stars, and it is free on both Google Play and F-Droid. Android Police's Marvin Velasco, writing on September 6, pins up to eight apps on the home screen, opens chosen apps with left and right swipes, and reaches everything else through an upward swipe into a searchable drawer, and he reports a drop in his own social media use, with apps like Reddit becoming less accessible and sometimes forgotten entirely. The caveats are real and he names them: the free version has no widget support, which he calls an unfortunate omission for productivity, the daily wallpapers are not dark-theme friendly, and anything you did not pin takes several deliberate taps. Widgets, weather, and folders live in the separate paid Pro Launcher, and the developer notes that some features are deliberately hidden in settings to keep the launcher simple."
+    },
+    {
+      "date": "2026-09-06",
+      "name": "Kado",
+      "url": "https://github.com/scastiel/kado",
+      "trend_url": "https://news.ycombinator.com/show",
+      "cost": "Free, optional tip jar",
+      "kind": "iPhone and iPad, iOS 18+",
+      "seen": "Show HN, 63 points",
+      "blurb": "Kado is a habit tracker that throws out the streak, scoring each habit with an exponential moving average instead, so that, as the project puts it, one missed day does not wipe your progress and you see a trend rather than a fragile chain. It handles yes-or-no habits, counters, and timers, schedules them daily, a set number of days per week, on chosen weekdays, or every few days, adds home screen and lock screen widgets with Siri and Shortcuts, and exports and imports your history as CSV or JSON so the data stays yours. Version 1.7 is shipping on the App Store, the license is MIT, and the only money involved is a tip jar the developer says unlocks nothing. The limits are deliberate and narrow the audience: it is iOS 18 and later only, with no Android version, and there is no Apple Watch app and no HealthKit integration. It reached 63 points on the Show HN page."
+    },
+    {
       "date": "2026-09-05",
       "name": "Microsoft PowerToys (Workspaces)",
       "url": "https://learn.microsoft.com/en-us/windows/powertoys/workspaces",
@@ -1085,6 +1125,63 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-06",
+      "title": "Set up a new computer with five open source browser extensions before you install anything else",
+      "url": "https://www.xda-developers.com/open-source-browser-extensions-i-install-on-every-new-pc/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 6",
+      "dek": "<b>Five installs, one afternoon</b> XDA's Yash Patel, writing on September 6, treats a fresh browser as the real setup job and fills it with five open source extensions that each carry their own weight. Bitwarden generates a strong password and stores it, so the vault starts clean instead of inheriting years of reused logins. Dark Reader applies dark mode to sites that lack one, with brightness, contrast, and sepia sliders, and he leaves it switched off on the sites whose own dark mode is already decent. Privacy Badger blocks third-party trackers by watching tracking behavior rather than trying to break every site feature. Zotero Connector saves an article and pulls the title, author, and publication details along with it, which is an academic tool he repurposed for ordinary reading. Tabox saves a whole browsing session as a collection in one click, so a research tab pile can be closed and reopened later. Patel describes all five as open source; the article does not give prices, so check each store listing before you commit.",
+      "needs": [
+        "A Chrome, Edge, or Firefox browser",
+        "Your browser's extension store",
+        "A Bitwarden vault for logins"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-06",
+      "title": "Audit which Android apps run in the background, then cut their data and location, and get the standby battery back",
+      "url": "https://www.androidpolice.com/restrict-background-data-android-apps-battery-life/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front page, Sep 6",
+      "dek": "<b>Look first, then restrict</b> Android Police's Ali Salman Zia, writing on September 6, starts in Settings, Battery, Battery usage, sorts the list to find the heaviest apps, and then walks each one through Settings, Apps, the app name, Mobile data and Wi-Fi, switching off background data for anything with no legitimate reason to be awake. He ended up restricting roughly 90 percent of his installed apps, and reports his overnight standby drain falling from about half the battery to about a quarter. Two caveats matter before you copy him. Most messaging and social apps deliver notifications over Firebase Cloud Messaging, a shared connection Google Play Services keeps open regardless of an app's background data setting, so alerts largely survive, but weather widgets stopped refreshing on their own and cloud backups paused until he opened those apps by hand. The bigger win, he says, was not the data restriction at all: cutting background location access for apps that did not need it added more hours than the data change did.",
+      "needs": [
+        "An Android phone",
+        "Settings, Battery, Battery usage",
+        "A list of apps you rarely open"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-09-06",
+      "title": "Build one bootable USB stick that carries ten free repair tools, and stop rebuilding it every time a PC breaks",
+      "url": "https://www.xda-developers.com/bootable-usb-with-10-free-tools-to-fix-pc-problems/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 6",
+      "dek": "<b>Ventoy once, ISOs forever</b> XDA's Abhishek Kumar Mishra, writing on September 6, makes the case for one drive instead of a shoebox of them. Ventoy turns a USB stick into a multi-boot device once, and after that you copy ISO files onto it like ordinary files and pick from a menu at boot, with no reformatting and no rebuilding the stick for each new tool. His ten are Ventoy itself, a Windows 11 installer, MX Linux, Netboot.xyz for pulling an operating system down on demand, Hiren's BootCD PE and System Rescue for Windows and Linux troubleshooting, Clonezilla for cloning a drive, GParted Live for partitions, MemTest86 for suspect RAM, and ShredOS for wiping a disk before it leaves the house, with Kaspersky Rescue Disk as an optional addition. Two limits to plan around: Netboot.xyz needs a working internet connection over Ethernet, and a secure wipe can run for hours or even a day depending on the method you pick. Mishra is also clear that this is his selection, not a canonical list.",
+      "needs": [
+        "A USB drive",
+        "Ventoy, free and open source",
+        "The ISO files you want on it",
+        "Ethernet for Netboot.xyz"
+      ],
+      "time": "An hour, plus downloads"
+    },
+    {
+      "date": "2026-09-06",
+      "title": "Turn off hibernation on a desktop PC and take back several gigabytes of Windows storage in one command",
+      "url": "https://www.xda-developers.com/disabled-windows-11-feature-instantly-reclaimed-almost-10gb-storage/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 6",
+      "dek": "<b>One command, one file</b> XDA's Hamlin Rozario, writing on September 6, points at hiberfil.sys, the hidden file Windows 11 keeps so it can write the contents of RAM to disk before hibernating. Open Command Prompt as an administrator, run powercfg /hibernate off, and the file goes away; fsutil volume diskfree C: before and after shows exactly what you got back. The file runs about 40 percent of installed RAM, which on his 64GB machine meant a little over 25GB, and works out to roughly 12GB on a 32GB system and 6GB on a 16GB one. The trade is stated plainly: Fast Startup uses the same file, so a normal boot will take a few seconds longer, and hibernation is genuinely useful on a laptop, which is why he frames this as a desktop move. If you want most of the space without losing Fast Startup, powercfg /hibernate /type reduced shrinks the file to about 20 percent of RAM instead of deleting it.",
+      "needs": [
+        "Windows 11 on a desktop PC",
+        "An administrator account",
+        "Command Prompt run as admin"
+      ],
+      "time": "Under five minutes"
+    },
     {
       "date": "2026-09-05",
       "title": "Let Google Maps send your live ETA to whoever is waiting, instead of texting from the driver's seat",
