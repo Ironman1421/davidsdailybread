@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-07",
+      "edition": "morning",
+      "dateHuman": "Monday, September 7, 2026",
+      "file": "editions/2026-09-07-morning.html",
+      "lead": "An AI controller ran a live fusion experiment and headed off an instability 200 milliseconds early",
+      "pubDate": "Mon, 07 Sep 2026 07:52:36 -0400"
+    },
+    {
       "date": "2026-09-06",
       "edition": "evening",
       "dateHuman": "Sunday, September 6, 2026",
