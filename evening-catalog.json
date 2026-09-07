@@ -2,6 +2,26 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-07",
+      "name": "AppControl",
+      "url": "https://www.appcontrol.com/",
+      "trend_url": "https://www.xda-developers.com/replaced-the-windows-task-manager-with-a-free-tool/",
+      "cost": "Free",
+      "kind": "Windows desktop",
+      "seen": "XDA, Sep 7",
+      "blurb": "AppControl is a free Windows replacement for Task Manager whose real difference is memory: instead of showing only what a process is doing this second, it keeps days of CPU, GPU, and memory activity, with temperature history alongside, so you can scroll back to the moment something started straining the machine. It describes running processes in plain language, lets you disable an app, block a publisher, or write a custom rule, and raises an alert when an app reaches your webcam, microphone, or location, with the option to block or investigate. The current download is version 1.4.0.415 at 20.2 MB. Two caveats are worth carrying in: the makers say they built it as a tool they wanted for themselves and plan to offer optional premium features someday in the future, so free today is not a promise about every future feature, and XDA's Yash Patel, who wrote it up on September 7, is candid that it \"didn't magically make my PC faster\" and only made the diagnosis clearer, while warning against switching off components you do not understand. The AI tie-in is opt-in and separate: an open-source MCP extension that hands system data to a tool like Claude, Cursor, Gemini, OpenAI, or Windsurf, off by default."
+    },
+    {
+      "date": "2026-09-07",
+      "name": "Firefox Focus",
+      "url": "https://www.firefox.com/en-US/browsers/mobile/focus/",
+      "trend_url": "https://www.androidpolice.com/firefox-focus-minimalist-browser-ad-blocker-history-features/",
+      "cost": "Free",
+      "kind": "Android and iPhone browser",
+      "seen": "Android Police, Sep 5",
+      "blurb": "Firefox Focus is Mozilla's stripped-down mobile browser, free on Android and iOS, and it treats privacy as the default rather than a mode you have to remember: Mozilla says it \"blocks a wide range of common trackers by default including social trackers and those sticky ones that come from things like Facebook ads\", and a single erase button on the search field clears your history, passwords, and cookies. The practical side effect Mozilla claims is speed, since pages stripped of trackers \"require less data and load much faster\". Android Police's Marvin Velasco, writing on September 5, describes a radical simplicity that quietly made it his default browser, with blocking on automatically and the session cleared on exit. The caveats are the design itself, and they are real: no browsing history, no extensions, no syncing between devices, four bookmarks reachable only at startup, and basic tabs with no real multitasking, plus the occasional search engine that answers permanent private mode with a CAPTCHA. Velasco says plainly that this should not be your only browser if you need bookmarks or a session that survives."
+    },
+    {
       "date": "2026-09-06",
       "name": "OpenWhispr",
       "url": "https://github.com/OpenWhispr/openwhispr",
@@ -1125,6 +1145,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-07",
+      "title": "Turn your router's transmit power down to about half, and a crowded home Wi-Fi network gets steadier",
+      "url": "https://www.makeuseof.com/maximum-router-power-is-wrecking-your-wi-fi-heres-the-fix/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 7",
+      "dek": "<b>One setting, then restart</b> MakeUseOf's Oliver Haslam, writing on September 7, sends you to Transmit Power Control, usually filed under Advanced Wireless Settings once you sign in to the router at 192.168.0.1 or 10.0.0.1, and recommends Medium or about the 50% mark instead of maximum. His reasoning is that a router at full power drowns out the small antennas in phones and smart home devices, bounces echoes off hard surfaces indoors, forces neighboring networks into Co-Channel Interference that makes them pause, and keeps devices locked onto the loudest signal rather than roaming to a nearer access point. The article's images show TP-Link, Netgear Orbi, ASUS, and GL.iNet gear, and he says to restart the router afterward and let things settle. One thing the article does not do is weigh the trade: it names no downside to lowering power, so walk to your weakest room after the change and step back up a notch if coverage there suffers.",
+      "needs": [
+        "Your router's admin page and password",
+        "Advanced Wireless Settings",
+        "A minute of household downtime"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-09-07",
+      "title": "Seven Windows shortcuts that replace the mouse trips you make in File Explorer all day",
+      "url": "https://www.xda-developers.com/i-wish-i-knew-these-windows-explorer-shortcuts-sooner/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 7",
+      "dek": "<b>Learn two, then two more</b> XDA's Tanveer Singh, writing on September 7, lists the seven he wishes he had known sooner. Win and E opens a fresh File Explorer window without hunting for the taskbar icon. Backspace moves up one folder, Alt with the left and right arrows retrace and advance along the exact path you took, and Alt with the up arrow jumps to the parent folder. Alt and Enter opens Properties for whatever is selected, which he says changes the game once it replaces the right-click. Holding Shift while clicking a taskbar icon, or clicking it with the scroll wheel, opens a second instance of an app, and holding Ctrl and Shift as you launch one starts it as administrator. Win and comma peeks at the desktop while every window stays exactly where it is, and Win with the up arrow maximizes the active window.",
+      "needs": [
+        "A Windows PC",
+        "File Explorer",
+        "Ten minutes of deliberate practice"
+      ],
+      "time": "Ten minutes to learn"
+    },
+    {
+      "date": "2026-09-07",
+      "title": "Strip the Windows 11 taskbar and Start menu back to the parts you actually use",
+      "url": "https://www.makeuseof.com/windows-11-taskbar-so-much-better-after-turned-off-everything-microsoft-added/",
+      "trend_url": "https://www.makeuseof.com/tag/productivity/",
+      "seen": "MakeUseOf productivity, Sep 6",
+      "dek": "<b>Four toggles, then four more</b> MakeUseOf's Gregory Gibson, writing on September 6, works through Settings in order. Under Personalization and then Taskbar he switches off Search, Task View, Widgets, and Resume. Under Personalization and then Start he turns off recently added apps, recommended files, tips, and suggestions. Under Privacy and security, then Search permissions, he disables Search highlights, and to stop web suggestions inside the Start menu he adds a DisableSearchBoxSuggestions value from Windows Terminal, which is the one step that edits the registry and deserves a careful hand. He reports less visual clutter and better responsiveness on a slow connection, and keeps what he removed on the keyboard instead: Win and S for search, Win and Tab for Task View.",
+      "needs": [
+        "Windows 11",
+        "Settings, Personalization, Taskbar",
+        "Windows Terminal for the last step"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-07",
+      "title": "Open a second window on the same Excel workbook and let Alt and Tab do the sheet switching",
+      "url": "https://www.howtogeek.com/microsoft-excel-alt-tab-habit-switch-worksheets/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 7",
+      "dek": "<b>View, then New Window</b> How-To Geek's Tony Phillips, writing on September 7, stopped fighting his habit of reaching for Alt and Tab and made Excel fit it instead. Click View and then New Window, and Excel opens a second window onto the same workbook rather than a copy: the title bar labels them with the file name followed by a 1 and a 2, and an edit made in either window saves to the one file. That turns Alt and Tab into a worksheet switcher, which he finds far less tedious than pressing Ctrl with Page Up or Page Down when the two sheets sit several tabs apart. He points to Excel's Watch Window as the alternative for the narrower job of keeping an eye on a few selected cells without moving between sheets at all.",
+      "needs": [
+        "Microsoft Excel",
+        "A workbook with several sheets",
+        "The View tab on the ribbon"
+      ],
+      "time": "Under two minutes"
+    },
     {
       "date": "2026-09-06",
       "title": "Set up a new computer with five open source browser extensions before you install anything else",
