@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-08",
+      "edition": "morning",
+      "dateHuman": "Tuesday, September 8, 2026",
+      "file": "editions/2026-09-08-morning.html",
+      "lead": "Stoke Space raises $1 billion more to chase a fully reusable rocket",
+      "pubDate": "Tue, 08 Sep 2026 07:50:08 -0400"
+    },
+    {
       "date": "2026-09-07",
       "edition": "evening",
       "dateHuman": "Monday, September 7, 2026",
