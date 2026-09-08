@@ -2,6 +2,56 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-08",
+      "name": "LibreOffice 26.8",
+      "url": "https://www.libreoffice.org/download/download-libreoffice/",
+      "trend_url": "https://news.ycombinator.com/front?day=2026-09-08",
+      "cost": "Free, MPL v2",
+      "kind": "Windows, macOS, Linux desktop",
+      "seen": "Hacker News, 636 points",
+      "blurb": "LibreOffice bundles Writer, Calc, Impress, Draw, Base, and Math into a single free download, and the 26.8 release adds a Paragraph Composer for justification, OpenType font variation support, calculated fields in Calc pivot tables, preservation of Microsoft Office chart types, multiple page sizes inside one document, and presentation sections in Impress. The honest caveat is fit rather than price. Writing in MakeUseOf on September 7, Tashreef Shareef found Calc without Power Query and newer functions such as LAMBDA, no real-time collaboration or cloud sync, font mismatches when opening PowerPoint files that installing Microsoft fonts mostly resolved, and a styles system in Writer that felt rough. If your work depends on live co-editing in a shared document, keep the subscription; if it does not, this replaces it tonight."
+    },
+    {
+      "date": "2026-09-08",
+      "name": "UniGetUI",
+      "url": "https://github.com/marticliment/UniGetUI",
+      "trend_url": "https://www.makeuseof.com/windows-has-the-app-store-it-deserves-and-microsoft-doesnt-run-it/",
+      "cost": "Free, MIT licensed",
+      "kind": "Windows first; Mac, Linux too",
+      "seen": "MakeUseOf, Sep 8",
+      "blurb": "UniGetUI puts one graphical front end on the command line package managers a Windows machine can already reach, covering WinGet, Scoop, Chocolatey, PowerShell, npm, Bun, pip, Cargo, .NET Tool, and vcpkg, so finding, installing, and updating software stops being ten separate errands; MakeUseOf's Oluwademilade Afolabi, writing on September 8, points to bulk updates with selective control, package pinning and version skipping, and Package Bundles that carry a saved set of apps onto a new machine. Two caveats ride along. The project states plainly that it is not affiliated with the package managers it integrates with and that packages are provided by third parties, so review sources and publishers before installing, and its maintainers warn that the only official site is devolutions.net/unigetui, because lookalike domains are circulating."
+    },
+    {
+      "date": "2026-09-08",
+      "name": "Mailspring",
+      "url": "https://www.getmailspring.com/",
+      "trend_url": "https://www.makeuseof.com/free-microsoft-365-alternatives-word-excel-powerpoint-outlook/",
+      "cost": "Free; Pro $8/mo",
+      "kind": "Mac, Windows, Linux desktop",
+      "seen": "MakeUseOf, Sep 7",
+      "blurb": "Mailspring is a free desktop mail client that gathers Gmail, iCloud, Office 365, FastMail, Outlook.com, Yahoo, and any IMAP or SMTP account into one window on Mac, Windows, and Linux, with native ARM64 and Wayland builds, and a Pro tier at $8 a month adds read receipts, link tracking, send later, follow-up reminders, templates, and unlimited snoozing. Read the caveats before you switch: the free version limits snoozing, reminders, and send later, the project describes a full calendar as coming later this year, and MakeUseOf's Tashreef Shareef, writing on September 7, hit login errors on Google accounts that required a manually created app password and found the app lagging when he moved between larger mailboxes."
+    },
+    {
+      "date": "2026-09-08",
+      "name": "AntennaPod",
+      "url": "https://antennapod.org/",
+      "trend_url": "https://www.androidpolice.com/antennapod-open-source-app-podcast-youtube-music-comparison/",
+      "cost": "Free, no ads",
+      "kind": "Android podcast app",
+      "seen": "Android Police, Sep 8",
+      "blurb": "AntennaPod is an open source Android podcast manager that subscribes to any RSS feed, downloads episodes for offline listening, and keeps your listening under your own control rather than a recommendation engine's. Android Police's Marvin Velasco, writing on September 8, sets the feed refresh interval, which defaults to 12 hours, switches on global automatic downloads across every subscription, lets finished episodes delete themselves, arranges a home page from the queued, new, and downloaded lists, syncs subscriptions through independent providers, and exports an OPML file so leaving is easy. The caveat is who stands behind it: this is Android only, and the project says it is developed by volunteers without commercial backing, so there is no company support desk when something breaks."
+    },
+    {
+      "date": "2026-09-08",
+      "name": "DaVinci Resolve",
+      "url": "https://www.blackmagicdesign.com/products/davinciresolve",
+      "trend_url": "https://news.ycombinator.com/front?day=2026-09-08",
+      "cost": "Free; Studio $295 once",
+      "kind": "Mac, Windows, Linux desktop",
+      "seen": "Hacker News, 315 points",
+      "blurb": "Blackmagic's DaVinci Resolve 21.1 release reached the Hacker News front page on September 8, and the reason the tool belongs on a shelf rather than in a news column is the free edition, which Blackmagic describes as combining editing, color correction, visual effects, motion graphics, audio post production, and now photo editing in one application on Mac, Windows, and Linux. The free version works with 8-bit video up to 60 frames per second at resolutions as high as Ultra HD, 3840 by 2160, and includes multi-user collaboration and HDR grading. The caveat is where that ceiling sits: 10-bit video, frame rates to 120, resolutions beyond 4K, the AI Neural Engine, noise reduction, magic mask, and text-based editing all belong to DaVinci Resolve Studio at $295, which is a one-time purchase rather than a subscription."
+    },
+    {
       "date": "2026-09-07",
       "name": "AppControl",
       "url": "https://www.appcontrol.com/",
@@ -440,16 +490,6 @@
       "kind": "Chrome new tab extension",
       "seen": "Product Hunt No. 9, Aug 23",
       "blurb": "Tab Notes replaces the new tab page with a plain writing surface that handles rich text and markdown, keeps a small drawing canvas for a diagram, and exports to .txt or .md, storing everything on the machine unless you connect your own Google Drive, with no third-party servers, tracking, or ads; it is also young and small, version 2.0.2 shipped on August 16 with 491 users and a 3.8 rating from 18 reviews, so treat it as a scratchpad rather than the only copy of anything you cannot lose."
-    },
-    {
-      "date": "2026-08-23",
-      "name": "UniGetUI",
-      "url": "https://github.com/marticliment/UniGetUI",
-      "trend_url": "https://www.howtogeek.com/free-open-source-apps-fix-everything-windows-11-got-wrong/",
-      "cost": "Free, MIT licensed",
-      "kind": "Windows 10 and 11 desktop app",
-      "seen": "How-To Geek, Aug 23",
-      "blurb": "UniGetUI is one window over WinGet, Scoop, Chocolatey, and the other package managers already on a Windows PC, so a single screen shows everything with an update waiting and installs or removes it without hunting for download pages; the project is candid that the packages come from third-party publishers, so install only from names you trust, and that some WinGet packages still fail and have to be chased down in PowerShell."
     },
     {
       "date": "2026-08-23",
@@ -1145,6 +1185,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-08",
+      "title": "Stop typing your card number into websites, and let a wallet or a virtual card stand in for it",
+      "url": "https://www.makeuseof.com/dont-give-sites-and-stores-your-credit-card-number-do-this-instead/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 8",
+      "dek": "<b>A token, not the digits</b> MakeUseOf's Bertel King, writing on September 8, splits the job in two. In a store, paying from Apple Pay, Google Wallet, or Samsung Wallet hands the terminal a virtual token instead of your actual card number, using cards you already own and costing nothing extra. Online, where he notes many websites still will not take a wallet, he reaches for a virtual card service such as Privacy.com and generates a single-use or merchant-locked number, so a breach at one store cannot travel. PayPal is his fallback for the degree of separation it provides, with the honest limit that it is not accepted everywhere and specifically not at Amazon. He cites Visa figures putting tokenized payments at a 30 percent reduction in online fraud and as much as 90 percent against some point-of-sale fraud.",
+      "needs": [
+        "A phone with a wallet app",
+        "A card you already own",
+        "A virtual card service for online"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-08",
+      "title": "Add a slicer, a timeline, and a PivotChart, and a PivotTable becomes a dashboard you click",
+      "url": "https://www.howtogeek.com/microsoft-excel-upgraded-pivottable-simple-features/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 8",
+      "dek": "<b>Three commands, one dashboard</b> How-To Geek's Tony Phillips, writing on September 8, stays inside a single Excel menu. PivotTable Analyze and then Insert Slicer turns a field such as Salesperson into a row of clickable buttons that replace the filter dropdown, and Report Connections wires one slicer to several PivotTables at once. PivotTable Analyze and then Insert Timeline does the same for a date field, so, as he puts it, instead of opening a filter menu and selecting individual dates, I can simply click a month or drag across several months. PivotTable Analyze and then PivotChart adds the picture, and because all three stay connected, moving one control updates the table and the chart together.",
+      "needs": [
+        "Microsoft Excel on the desktop",
+        "A data table with a date column",
+        "One PivotTable already built"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-09-08",
+      "title": "Seven Android settings worth switching on before a new phone ever joins your Wi-Fi",
+      "url": "https://www.androidpolice.com/i-wont-new-android-phone-connect-wi-fi-without-7-hidden-settings-enabled/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front page, Sep 6",
+      "dek": "<b>Setup night, once</b> Android Police's Jade Bryan Jardinico, writing on September 6, works down a setup checklist. Under Security and privacy, then Lost device protection and Theft protection, he turns on Theft Detection Lock, considers Offline Device Lock, and confirms Remote Lock so a lost phone can be locked from android.com/lock. More security and privacy holds Unknown tracker alerts for stray Bluetooth trackers, and Mobile network security, where he enables network security notifications and checks that Block 2G is on. Settings, System, Keyboard, Keyboard apps, Gboard, then Privacy is where he switches off the data sharing toggles, Privacy controls is where he stops passwords appearing on screen as they are typed, and System, Software updates is the last stop for both system and Google Play updates. One caveat a reader raised in the comments is fair: most of these are phone security settings rather than Wi-Fi settings, whatever the headline says.",
+      "needs": [
+        "An Android phone",
+        "Ten quiet minutes in Settings",
+        "A Google account for remote lock"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-08",
+      "title": "Three Google Maps settings to turn off: Timeline, automatic offline maps, and visual search ads",
+      "url": "https://www.androidpolice.com/google-maps-hidden-settings-turn-off/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front page, Sep 6",
+      "dek": "<b>Three buried toggles</b> Android Police's Akshay Bhalla, writing on September 6, digs out the settings Google does not surface. Your profile icon, then Your Timeline, then Location and privacy settings, then Timeline is where background location history lives, and he notes that switching it off does not cost you personalized recommendations, with a three month auto-delete offered as the middle path. Profile, then Offline maps, then the gear icon is where he turns off auto-update offline maps and auto-download recommended maps or restricts them to Wi-Fi only, because he says they can drain battery, fill storage, and burn through data. The third lives outside Maps entirely, in your Google Account under Data and privacy, then Web and App Activity, where unchecking Include Visual Search History stops those images feeding personalized ads.",
+      "needs": [
+        "Google Maps on your phone",
+        "Your Google account settings",
+        "Five minutes and a search box"
+      ],
+      "time": "About 10 minutes"
+    },
     {
       "date": "2026-09-07",
       "title": "Turn your router's transmit power down to about half, and a crowded home Wi-Fi network gets steadier",

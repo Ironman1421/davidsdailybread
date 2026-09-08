@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-08",
+      "edition": "evening",
+      "dateHuman": "Tuesday, September 8, 2026",
+      "file": "editions/2026-09-08-evening.html",
+      "lead": "LibreOffice 26.8 replaces Word, Excel, and PowerPoint for free, and no part of it needs a network",
+      "pubDate": "Tue, 08 Sep 2026 17:50:07 -0400"
+    },
+    {
+      "date": "2026-09-08",
       "edition": "morning",
       "dateHuman": "Tuesday, September 8, 2026",
       "file": "editions/2026-09-08-morning.html",
