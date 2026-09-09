@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-09",
+      "edition": "morning",
+      "dateHuman": "Wednesday, September 9, 2026",
+      "file": "editions/2026-09-09-morning.html",
+      "lead": "Google DeepMind publishes a predictive map of all 9 billion single-letter DNA changes in the human genome",
+      "pubDate": "Wed, 09 Sep 2026 07:49:32 -0400"
+    },
+    {
       "date": "2026-09-08",
       "edition": "evening",
       "dateHuman": "Tuesday, September 8, 2026",
