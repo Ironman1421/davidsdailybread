@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-09",
+      "name": "Alt-Tab Terminator",
+      "url": "https://www.ntwind.com/software/alttabter.html",
+      "trend_url": "https://www.howtogeek.com/windows-11-alt-tab-terminator/",
+      "cost": "Free; Pro $19.95 lifetime",
+      "kind": "Windows 7 through 11 desktop",
+      "seen": "How-To Geek, Sep 9",
+      "blurb": "Alt-Tab Terminator from NTWind replaces the built in Windows switcher with a vertical list of every open window, each carrying a large live preview, and it supports all versions of Windows from 7 to 11. How-To Geek's Tony Phillips, writing on September 9, types part of a window title to filter the list instantly, clicks an application icon to see only that app's windows, and scrolls the wheel while holding Alt rather than tapping Tab. The honest caveat is what the free edition leaves out: multi monitor support, custom hotkeys, window exclusion rules, and appearance customization all sit behind the Pro license, which the vendor lists at $19.95 or less for a lifetime."
+    },
+    {
+      "date": "2026-09-09",
+      "name": "Pinta",
+      "url": "https://www.pinta-project.com/",
+      "trend_url": "https://www.howtogeek.com/super-minimalist-apps-that-replace-windows-bloated-cluttered-defaults/",
+      "cost": "Free, open source",
+      "kind": "Windows, Mac, Linux, BSD",
+      "seen": "How-To Geek, Sep 9",
+      "blurb": "Pinta describes itself as a free, open source program for drawing and image editing, running on Linux, Mac, Windows, and BSD with select, crop, rotate, and resize alongside clone, recolor, and magic wand, live previews on effects and adjustments, and unlimited undo. How-To Geek's Goran Damnjanovic, writing on September 9, names it the replacement for Microsoft Paint in a set of four minimalist apps that displace cluttered Windows defaults. That framing is also the caveat: Pinta is pitched at Paint's territory, everyday photo work, digital painting, and pixel art, so anyone who needs a professional production suite will still open something larger."
+    },
+    {
+      "date": "2026-09-09",
+      "name": "Jan",
+      "url": "https://jan.ai/",
+      "trend_url": "https://www.xda-developers.com/i-ditched-ollama-for-jan-and-realized-what-i-truly-wanted-from-local-ai/",
+      "cost": "Free, Apache 2.0",
+      "kind": "Windows, macOS, Linux desktop",
+      "seen": "XDA, Sep 9",
+      "blurb": "Jan is an open source alternative to ChatGPT that its repository says runs 100% offline on your computer, downloading models from Hugging Face and, when you want them, reaching out to cloud providers from the same window; it is Apache 2.0 licensed and available for Windows 10 and later, macOS 13.6 and later, and most Linux distributions. XDA's Samarveer Singh, writing on September 9, values the workspace built around the models, the OpenAI compatible endpoint, and the built in web search more than raw speed. The caveats are hardware and candor about that speed: the project asks for 8GB of RAM for a 3B model, 16GB for 7B, and 32GB for 13B, and Singh writes that Jan does not run models dramatically faster than Ollama, which he still recommends for lightweight inference and automation."
+    },
+    {
+      "date": "2026-09-09",
+      "name": "TinyRetroPad",
+      "url": "https://github.com/PlummersSoftwareLLC/TinyRetroPad",
+      "trend_url": "https://www.howtogeek.com/super-minimalist-apps-that-replace-windows-bloated-cluttered-defaults/",
+      "cost": "Free, Apache 2.0",
+      "kind": "Windows x86 desktop",
+      "seen": "How-To Geek, Sep 9",
+      "blurb": "TinyRetroPad is a Notepad style Windows text editor of roughly 2,476 bytes, written in assembly and still carrying a full File, Edit, Format, View, and Help menu with open and save dialogs, find and replace, font selection, and printing. How-To Geek's Goran Damnjanovic, writing on September 9, places it among four minimalist replacements for Windows defaults, noting that it weighs less than 3KB and requires no sign in, installation, or account creation. Two caveats ride along: the repository warns that programs compressed with Crinkler can be flagged as a false positive by antivirus software including Windows Defender, and the project states plainly that it comes with no warranties and no guarantees."
+    },
+    {
       "date": "2026-09-08",
       "name": "LibreOffice 26.8",
       "url": "https://www.libreoffice.org/download/download-libreoffice/",
@@ -1185,6 +1225,75 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-09",
+      "title": "Turn on Chrome's Memory Saver and a 16 tab session drops from about 6GB of RAM to about 2GB",
+      "url": "https://www.makeuseof.com/i-changed-one-chrome-setting-and-got-gigabytes-of-ram-back/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 9",
+      "dek": "<b>Settings, then Performance</b> MakeUseOf's Oluwademilade Afolabi, writing on September 9, chooses Maximum from the three Memory Saver modes, which also offer Moderate and Balanced. Across 16 tabs spanning YouTube, Gmail, Google Docs, Reddit, shopping pages, and articles, he watched memory use fall from roughly 6GB to roughly 2GB with nothing missing from the tab bar. Sleeping tabs reload briefly when you return to them, and he notes that complex web applications holding a session may not restore cleanly, which is what the Always keep these sites active list on the same page is for.",
+      "needs": [
+        "Google Chrome",
+        "Two minutes in Settings",
+        "A list of tabs to keep awake"
+      ],
+      "time": "About 2 minutes"
+    },
+    {
+      "date": "2026-09-09",
+      "title": "Close Gemini's door to your Gmail with one connector switch and one opt-out buried in Gmail",
+      "url": "https://www.howtogeek.com/stop-gemini-from-accessing-your-emails-with-these-two-hidden-settings/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 9",
+      "dek": "<b>Two settings, both hidden</b> How-To Geek's Vishwamoorthy Ramakrishnan, writing on September 9, starts in the Gemini app: Profile, then Personal Intelligence, then Connected Apps, then Google Workspace, where disabling the connector also disconnects Drive, Docs, and Keep, because Google offers no per app control. The second setting lives in the Gmail app under Settings, your Gmail account, then Google Workspace Smart Features, where Smart Features in Google Workspace is opt out rather than opt in; he found it switched on automatically across several accounts. His closing limit is worth keeping: pasting an email into a Gemini chat still shares it, and such chats may be subject to review by human annotators.",
+      "needs": [
+        "The Gemini app",
+        "The Gmail app",
+        "A Google account to check"
+      ],
+      "time": "About 5 minutes"
+    },
+    {
+      "date": "2026-09-09",
+      "title": "Stop Chrome from running in the background after you close it and take back about 500MB on Windows",
+      "url": "https://www.makeuseof.com/chrome-toggle-to-stop-running-when-closed/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 9",
+      "dek": "<b>One switch under System</b> MakeUseOf's Brandon Miniman, writing on September 9, found Chrome still holding more than 1GB of RAM in background processes after he had closed it. The three dot menu, then Settings, then System, holds the toggle for continuing to run background apps when Chrome is closed; it ships on by default in Windows, and switching it off dropped his idle usage to 510MB, a reduction of 51%. Two caveats: the setting is Windows only, so Mac users will not find it, and with background apps off, website notifications may arrive late while Chrome is shut.",
+      "needs": [
+        "Google Chrome on Windows",
+        "One toggle under System"
+      ],
+      "time": "Under a minute"
+    },
+    {
+      "date": "2026-09-09",
+      "title": "Install the Claude add-in inside PowerPoint and let the first draft of a deck build itself",
+      "url": "https://www.xda-developers.com/started-using-claude-with-microsoft-powerpoint-its-been-game-changer/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 9",
+      "dek": "<b>Add-ins, then Ctrl Alt C</b> XDA's Parth Shah, writing on September 9, spends about two minutes on setup: open PowerPoint, go to Home and then Add-ins, search for Claude for Microsoft 365, install it (Microsoft AppSource carries it too), sign in with a Claude account, and call it up with Ctrl, Alt, and C on Windows. From there he builds most of a deck from a single prompt, repairs weak slides, improves layouts, and summarizes a presentation without leaving the app. The caveats are the account and the finish line: full functionality expects a Claude subscription, and Shah reckons the result is about 80% of the way there in minutes, leaving animations, visual polish, and the final details to you.",
+      "needs": [
+        "Microsoft PowerPoint",
+        "A Claude account",
+        "Two minutes to install"
+      ],
+      "time": "2 minutes to set up"
+    },
+    {
+      "date": "2026-09-09",
+      "title": "Six charging habits that left one Android phone at 88% battery health after two and a half years",
+      "url": "https://www.makeuseof.com/my-android-battery-health-is-still-88-after-25-years/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 9",
+      "dek": "<b>One setting, then five habits</b> MakeUseOf's Varun Krishan, writing on September 9, credits a 12% decline over two and a half years to Settings, then Battery, then Battery health, then Charging optimization, where he turns on charging optimization and selects Limit to 80%, since lithium ion cells take more stress toward the top of their range. He leaves adaptive charging on so the phone learns when he unplugs and delays the last stretch of the charge until then. The remaining four are habits rather than switches: keep the phone off heavy work and off heat while charging, slip the case off when it runs warm, do not make a practice of draining to zero, save fast charging for when the clock demands it, and keep Android updated for its power management improvements.",
+      "needs": [
+        "An Android phone",
+        "Settings, Battery, Battery health",
+        "A charger you can unplug"
+      ],
+      "time": "5 minutes, then habits"
+    },
     {
       "date": "2026-09-08",
       "title": "Stop typing your card number into websites, and let a wallet or a virtual card stand in for it",
