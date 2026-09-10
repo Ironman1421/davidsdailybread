@@ -2,6 +2,56 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-10",
+      "name": "Super Productivity",
+      "url": "https://super-productivity.com/",
+      "trend_url": "https://www.howtogeek.com/legendary-free-open-source-apps-better-than-paid-alternatives/",
+      "cost": "Free",
+      "kind": "Desktop, web, and mobile",
+      "seen": "How-To Geek, Sep 10",
+      "blurb": "Open source and free forever, it holds tasks, a time tracker, a Pomodoro timer, and Kanban and Eisenhower boards in one offline app, though keeping devices in step means setting up your own WebDAV server or Dropbox sync."
+    },
+    {
+      "date": "2026-09-10",
+      "name": "Bitwarden",
+      "url": "https://bitwarden.com/pricing/",
+      "trend_url": "https://www.howtogeek.com/legendary-free-open-source-apps-better-than-paid-alternatives/",
+      "cost": "Free; Premium $1.65/mo",
+      "kind": "Desktop and browser extensions",
+      "seen": "How-To Geek, Sep 10",
+      "blurb": "Basic password management stays always free and Premium adds an integrated authenticator, file attachments, and emergency access for $1.65 a month billed annually at $19.80, but as How-To Geek puts it, a cloud vault still lives on someone else's servers."
+    },
+    {
+      "date": "2026-09-10",
+      "name": "Listary",
+      "url": "https://www.listary.com/",
+      "trend_url": "https://www.makeuseof.com/fix-windows-problems-free-apps/",
+      "cost": "Free; paid Pro available",
+      "kind": "Windows search and launcher",
+      "seen": "MakeUseOf, Sep 10",
+      "blurb": "It reads the NTFS Master File Table directly to return file results in milliseconds and adds a folder jump inside Save and Open dialogs, and the free version is described as one hundred percent free, though its homepage never says what the paid Pro version costs."
+    },
+    {
+      "date": "2026-09-10",
+      "name": "Winhance",
+      "url": "https://winhance.net/",
+      "trend_url": "https://www.makeuseof.com/i-thought-my-windows-pc-was-clean-until-winhance-found-hidden-bloatware/",
+      "cost": "Free",
+      "kind": "Windows 10 x64 and Windows 11",
+      "seen": "MakeUseOf, Sep 10",
+      "blurb": "This open source utility strips preinstalled Windows apps and features from an ordinary window instead of a command line and can write tasks that re-remove them when an update puts them back, but some apps and features cannot be reinstalled after removal, so take the restore point it offers first."
+    },
+    {
+      "date": "2026-09-10",
+      "name": "OBS Studio",
+      "url": "https://obsproject.com/",
+      "trend_url": "https://www.howtogeek.com/legendary-free-open-source-apps-better-than-paid-alternatives/",
+      "cost": "Free",
+      "kind": "Windows, Mac, or Linux",
+      "seen": "How-To Geek, Sep 10",
+      "blurb": "Free and open source recording and live streaming, now at version 32.2.2, handles a screen walkthrough for a colleague as readily as a broadcast, though How-To Geek's one fair complaint is that packing that much capability into a streamlined interface is hard."
+    },
+    {
       "date": "2026-09-09",
       "name": "Alt-Tab Terminator",
       "url": "https://www.ntwind.com/software/alttabter.html",
@@ -1225,6 +1275,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-10",
+      "title": "Four Android settings quietly hold your notifications back, and switching each one off brings them on time",
+      "url": "https://www.howtogeek.com/my-android-notifications-kept-arriving-late-these-settings-were-the-problem/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 10",
+      "dek": "<b>Battery saver first</b> Battery Saver, per-app battery optimization, Data Saver, and the pause-unused-apps toggle each throttle background sync, and How-To Geek gives the menu path to reverse all four for the apps that actually matter.",
+      "needs": [
+        "An Android phone",
+        "The Settings app",
+        "Your short list of urgent apps"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-10",
+      "title": "Give Gemini standing instructions and a few saved Gems so you stop re-explaining yourself every session",
+      "url": "https://www.androidpolice.com/changed-gemini-settings-unlocked-completely-different-productivity-tool/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Sep 10",
+      "dek": "<b>Tell it once</b> Standing notes under Settings, then Personal Intelligence, plus connected Google apps and a couple of saved Gems, stop you retyping the same background into every new conversation.",
+      "needs": [
+        "A Google account with Gemini",
+        "Settings, Personal Intelligence",
+        "The context you always retype"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-10",
+      "title": "Android will now move your saved passwords and passkeys into a new manager in a few seconds",
+      "url": "https://www.howtogeek.com/android-just-made-it-much-easier-to-switch-password-managers-heres-how/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 10",
+      "dek": "<b>Import, never retype</b> A new transfer flow carries passwords and passkeys between Google Password Manager, 1Password, Bitwarden, and Dashlane, skipping duplicates as it goes, with more partners said to follow.",
+      "needs": [
+        "A screen lock on the phone",
+        "The new manager installed",
+        "Your old manager's unlock"
+      ],
+      "time": "Under 10 minutes"
+    },
+    {
+      "date": "2026-09-10",
+      "title": "Write in plain Markdown and let one free Pandoc command hand back the Word file people asked for",
+      "url": "https://www.xda-developers.com/i-write-everything-in-markdown-and-let-a-free-converter-produce-word-documents-instead/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 10",
+      "dek": "<b>One command out</b> Draft where you like, then run pandoc article.md -o article.docx to produce the .docx a colleague or client wanted, with templates available when the default styling is not enough.",
+      "needs": [
+        "Pandoc, free and open source",
+        "Any Markdown editor",
+        "One terminal command"
+      ],
+      "time": "About 20 minutes"
+    },
     {
       "date": "2026-09-09",
       "title": "Turn on Chrome's Memory Saver and a 16 tab session drops from about 6GB of RAM to about 2GB",

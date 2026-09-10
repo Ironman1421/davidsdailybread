@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-10",
+      "edition": "evening",
+      "dateHuman": "Thursday, September 10, 2026",
+      "file": "editions/2026-09-10-evening.html",
+      "lead": "Super Productivity is a free, open source task manager that folds time tracking and a Pomodoro timer into one list",
+      "pubDate": "Thu, 10 Sep 2026 17:46:57 -0400"
+    },
+    {
+      "date": "2026-09-10",
       "edition": "morning",
       "dateHuman": "Thursday, September 10, 2026",
       "file": "editions/2026-09-10-morning.html",
