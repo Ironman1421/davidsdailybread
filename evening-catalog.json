@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-11",
+      "name": "Joplin",
+      "url": "https://joplinapp.org/",
+      "trend_url": "https://www.androidpolice.com/stop-paying-monthly-fees-open-source-android-apps-you-need/",
+      "cost": "Free; Cloud from 2.99 EUR/mo",
+      "kind": "Desktop, Android, and iOS",
+      "seen": "Android Police, Sep 11",
+      "blurb": "An open source notebook that holds text, images, PDFs, and web clippings behind end to end encryption and runs on Windows, macOS, Linux, Android, and iOS, though syncing means supplying your own Dropbox, OneDrive, or Nextcloud account or paying for Joplin Cloud, which starts at 2.99 euros a month, and Android Police calls the interface dated next to newer rivals."
+    },
+    {
+      "date": "2026-09-11",
+      "name": "Audacity",
+      "url": "https://www.audacityteam.org/",
+      "trend_url": "https://www.howtogeek.com/open-source-desktop-apps-that-are-easier-to-recommend-than-their-paid-rivals/",
+      "cost": "Free",
+      "kind": "Windows, macOS, and Linux",
+      "seen": "How-To Geek, Sep 11",
+      "blurb": "Free and open source recording and editing that converts between WAV, MP3, FLAC, and Ogg and accepts VST3 and Nyquist plugins, which is enough for recording, trimming, and converting everyday audio, but How-To Geek puts it about ninety percent of the way there for basic tasks rather than a full digital audio workstation."
+    },
+    {
+      "date": "2026-09-11",
+      "name": "Fossify File Manager",
+      "url": "https://www.fossify.org/",
+      "trend_url": "https://www.androidpolice.com/stop-paying-monthly-fees-open-source-android-apps-you-need/",
+      "cost": "Free",
+      "kind": "Android, Google Play or F-Droid",
+      "seen": "Android Police, Sep 11",
+      "blurb": "A file manager from the open source Fossify suite that carries no ads and no tracking libraries and asks only for the permissions its features need, though Android Police notes it stays focused on local storage and does not reach your cloud accounts."
+    },
+    {
+      "date": "2026-09-11",
+      "name": "Ventoy",
+      "url": "https://www.ventoy.net/en/index.html",
+      "trend_url": "https://www.makeuseof.com/ventoy-free-and-open-source-usb-tool/",
+      "cost": "Free",
+      "kind": "Windows and Linux USB tool",
+      "seen": "MakeUseOf, Sep 10",
+      "blurb": "Ventoy turns one USB stick into a boot menu by letting you copy ISO, WIM, IMG, VHDx, and EFI files straight onto the drive instead of reformatting for each one, but setting it up wipes the stick first, and MakeUseOf warns that some older rescue images still refuse to start without turning Secure Boot off."
+    },
+    {
       "date": "2026-09-10",
       "name": "Super Productivity",
       "url": "https://super-productivity.com/",
@@ -280,16 +320,6 @@
       "kind": "Android 5.0 and later",
       "seen": "How-To Geek, Sep 4",
       "blurb": "Material Files is a free GPL-3.0 file manager for Android 5.0 and later with 8.9k stars that does the jobs a stock file app usually will not: it opens, extracts, and creates archives, connects directly to FTP, SFTP, SMB, and WebDAV servers so a home NAS or a work share behaves like a local folder, handles root access, and is Linux aware about symbolic links and file permissions, with breadcrumb navigation, themes, and a night mode on top. It is built on the Java NIO2 file API and Linux system calls rather than parsing command output, which is why it is quick and does not choke on oddly named files, and it installs from Google Play, F-Droid, or a GitHub release APK. How-To Geek's Ismar Hrnjicevic, recommending it on September 4 for its Material Design 3 interface and dynamic color, names the one real gap himself: there is no recycle bin, so a delete is a delete."
-    },
-    {
-      "date": "2026-09-03",
-      "name": "Joplin",
-      "url": "https://joplinapp.org/",
-      "trend_url": "https://www.makeuseof.com/switched-from-obsidian-to-joplin/",
-      "cost": "Free; Joplin Cloud from €2.99",
-      "kind": "Desktop, mobile, and terminal",
-      "seen": "MakeUseOf, Sep 3",
-      "blurb": "Joplin is an open-source notebook that holds notes and to-dos alongside images, video, PDFs, audio, math expressions, and diagrams, runs on Windows, macOS, Linux, Android, iOS, and a terminal app, and syncs end-to-end encrypted through Joplin Cloud, Dropbox, OneDrive, or another service you already use; MakeUseOf's Jayric Maning, writing on September 3 about leaving Obsidian for it, leans on the web clipper that keeps a page's formatting, images, and links, the split markdown editor with live preview, and to-do items that gather from every notebook into one list. The desktop and mobile apps cost nothing, and the honest caveats are Maning's own: notes live in a database rather than as loose markdown files, the plugin ecosystem is far smaller than Obsidian's, and the layout takes some getting used to, while Joplin's own plans page prices the optional Joplin Cloud sync at 2.99 euros a month for Basic with 2GB, 5.99 for Pro with 30GB, and 7.99 per user for Teams, each with a 14-day trial."
     },
     {
       "date": "2026-09-03",
@@ -1275,6 +1305,77 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-11",
+      "title": "Five Excel habits to drop tonight: merged cells, blank rows, hand-applied colors, hard-coded rates, one crowded sheet",
+      "url": "https://www.howtogeek.com/microsoft-excel-stopped-doing-these-things-spreadsheets-more-reliable/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 11",
+      "dek": "<b>Unmerge first</b> Complete records replace merged cells and blank rows, conditional formatting replaces hand-applied color, changeable values move into their own referenced cells, and one file becomes three tabs for source, logic, and report.",
+      "needs": [
+        "A spreadsheet you rely on",
+        "Excel or any spreadsheet app",
+        "Twenty quiet minutes"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-09-11",
+      "title": "Let one formula do the dragging: MAP, BYROW, BYCOL, SCAN, and REDUCE retire your helper columns",
+      "url": "https://www.howtogeek.com/microsoft-excel-1-cell-1-formula-functions-replace-repetitive-calculations/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 11",
+      "dek": "<b>One cell, one formula</b> MAP works across matching arrays, BYROW and BYCOL handle a whole row or column at once, SCAN keeps every running subtotal, and REDUCE returns only the final accumulated answer.",
+      "needs": [
+        "Excel with MAP, SCAN, and REDUCE",
+        "A sheet full of dragged formulas",
+        "One calculation to convert first",
+        "Room outside a table for spills"
+      ],
+      "time": "About 45 minutes"
+    },
+    {
+      "date": "2026-09-11",
+      "title": "Swap four built-in Windows tools for free alternatives and stop waiting on search, Explorer, and Start",
+      "url": "https://www.makeuseof.com/replace-windows-search-file-explorer-task-manager-start-menu/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 11",
+      "dek": "<b>Four swaps, one evening</b> Everything reads the Master File Table for fast file lookup, Files adds dual panes and file tagging, AppControl keeps three days of performance history, and PowerToys Command Palette stands in for the Start menu.",
+      "needs": [
+        "A Windows PC",
+        "Permission to install software",
+        "Files costs $8 on the Store, free direct"
+      ],
+      "time": "About 45 minutes"
+    },
+    {
+      "date": "2026-09-11",
+      "title": "Turn off one Chrome setting on your phone and get back roughly 1.5 to 2 hours of daily battery",
+      "url": "https://www.androidpolice.com/chrome-preload-pages-pre-fetch/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police home, Sep 11",
+      "dek": "<b>Stop the prefetching</b> Preload pages, under Settings then Privacy and security, keeps guessing which links you will tap and holding the radio awake, and Android Police puts switching it off at roughly 1.5 to 2 hours of extra daily battery for heavy browsers, at the cost of slower page loads.",
+      "needs": [
+        "Chrome on your phone",
+        "Settings, Privacy and security",
+        "Two days to judge the difference"
+      ],
+      "time": "Under 5 minutes"
+    },
+    {
+      "date": "2026-09-11",
+      "title": "Put your cameras, speakers, and TVs on the guest network, then test that the wall actually holds",
+      "url": "https://www.makeuseof.com/router-guest-wifi-is-much-more-useful-when-you-stop-giving-it-to-guests/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 11",
+      "dek": "<b>Guests optional</b> Smart devices get internet without a path to your files, but isolation is two separate switches, so try reaching your home server from the guest side before you trust it.",
+      "needs": [
+        "A router with a guest network",
+        "Your smart home devices",
+        "One device to test from"
+      ],
+      "time": "About 30 minutes"
+    },
     {
       "date": "2026-09-10",
       "title": "Four Android settings quietly hold your notifications back, and switching each one off brings them on time",

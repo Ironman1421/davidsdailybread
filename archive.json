@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-11",
+      "edition": "evening",
+      "dateHuman": "Friday, September 11, 2026",
+      "file": "editions/2026-09-11-evening.html",
+      "lead": "Five Excel habits to drop tonight: merged cells, blank rows, hand-applied colors, hard-coded rates, one crowded sheet",
+      "pubDate": "Fri, 11 Sep 2026 17:45:45 -0400"
+    },
+    {
+      "date": "2026-09-11",
       "edition": "morning",
       "dateHuman": "Friday, September 11, 2026",
       "file": "editions/2026-09-11-morning.html",
