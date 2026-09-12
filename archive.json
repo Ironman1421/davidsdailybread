@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-12",
+      "edition": "evening",
+      "dateHuman": "Saturday, September 12, 2026",
+      "file": "editions/2026-09-12-evening.html",
+      "lead": "Raycast 2.0 puts a launcher, clipboard history, snippets, and window management behind one keystroke",
+      "pubDate": "Sat, 12 Sep 2026 17:49:59 -0400"
+    },
+    {
+      "date": "2026-09-12",
       "edition": "morning",
       "dateHuman": "Saturday, September 12, 2026",
       "file": "editions/2026-09-12-morning.html",

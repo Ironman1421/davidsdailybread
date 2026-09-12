@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-12",
+      "name": "Raycast 2.0",
+      "url": "https://www.raycast.com/pricing",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/9/11",
+      "cost": "Free; Pro $10/mo or $96/yr",
+      "kind": "Mac, Windows, and iOS",
+      "seen": "Product Hunt No. 4, Sep 11",
+      "blurb": "A keyboard launcher that folds clipboard history, snippets, quicklinks, a calculator, and window management behind one shortcut with thousands of extensions on top, though the free plan keeps only three months of clipboard history and leaves Raycast AI to the paid Pro tier."
+    },
+    {
+      "date": "2026-09-12",
+      "name": "Adobe Express",
+      "url": "https://www.adobe.com/express/pricing",
+      "trend_url": "https://www.makeuseof.com/free-adobe-app-instead-of-lightroom/",
+      "cost": "Free; Premium $9.99/mo",
+      "kind": "Desktop browsers and phones",
+      "seen": "MakeUseOf, Sep 12",
+      "blurb": "Adobe's free plan costs nothing and needs no credit card, running in a desktop browser or on a phone with 5GB of storage and 10 days of version history, and MakeUseOf reports using it for highlights, shadows, saturation, warmth, sharpness, cropping, and background removal, while warning it is not the place for detailed masking, color grading, lens corrections, or RAW files."
+    },
+    {
+      "date": "2026-09-12",
+      "name": "LocalSend",
+      "url": "https://localsend.org/",
+      "trend_url": "https://www.xda-developers.com/tiny-open-source-app-moves-files-between-my-devices/",
+      "cost": "Free and open source",
+      "kind": "Windows, Mac, Linux, mobile",
+      "seen": "XDA Developers, Sep 12",
+      "blurb": "An open source app that sends photos, videos, and documents straight to a nearby device over encrypted HTTPS with no account, no login, and no cloud upload, which XDA offers as the cure for emailing files to yourself, though every device has to sit on the same Wi-Fi network and it is built for immediate transfers rather than ongoing sync or remote recipients."
+    },
+    {
+      "date": "2026-09-12",
+      "name": "Relic",
+      "url": "https://relic.space/",
+      "trend_url": "https://www.producthunt.com/",
+      "cost": "Free tier; Pro $7/mo",
+      "kind": "Windows, Mac, Linux, mobile",
+      "seen": "Product Hunt front page, Sep 12",
+      "blurb": "A clipboard manager that keeps everything you copy and syncs it under end to end encryption with a key the company says only you hold, capturing automatically on desktop and by share sheet on a phone, but the free tier holds only your last 500 copies plus 25 pinned items across three devices and 250 MB."
+    },
+    {
       "date": "2026-09-11",
       "name": "Joplin",
       "url": "https://joplinapp.org/",
@@ -723,16 +763,6 @@
     },
     {
       "date": "2026-08-19",
-      "name": "LocalSend",
-      "url": "https://localsend.org/",
-      "trend_url": "https://www.makeuseof.com/replace-windows-bloatware-open-source-apps/",
-      "cost": "Free, Apache 2.0, no ads",
-      "kind": "Desktop and phone, local Wi-Fi",
-      "seen": "MakeUseOf, Aug 19",
-      "blurb": "Install it on the phone and the computer, pick the files, tap the other device, and the transfer runs over your own Wi-Fi with end-to-end encryption and an optional PIN, and the project states plainly that it works completely offline, that your data never leaves the local network, and that there are no ads, tracking, or hidden costs; the catch follows from that design, since both devices have to be on the same network at the same time, so it does nothing for a file you need to send across town."
-    },
-    {
-      "date": "2026-08-19",
       "name": "NextDNS",
       "url": "https://nextdns.io/pricing",
       "trend_url": "https://www.makeuseof.com/keep-browsing-log-of-every-device-with-nextdns/",
@@ -1305,6 +1335,63 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-12",
+      "title": "Build an Obsidian knowledge base out of old exports, voice memos, and PDFs instead of typing new notes",
+      "url": "https://www.howtogeek.com/3-ways-to-build-an-obsidian-knowledge-base-without-actually-writing-notes/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 12",
+      "dek": "<b>Import, record, drop in</b> The Importer plugin pulls in Google Keep notes exported through Google Takeout along with Markdown from apps like Joplin or JotterPad, the Audio Recorder core plugin under Settings then Core Plugins captures spoken notes while you read or after a meeting, and PDFs join the vault by dragging them in on desktop or tapping the paperclip on mobile.",
+      "needs": [
+        "Obsidian and a vault",
+        "A Google Takeout export",
+        "PDFs, scans, or diagrams",
+        "Basic Markdown familiarity"
+      ],
+      "time": "About 45 minutes"
+    },
+    {
+      "date": "2026-09-12",
+      "title": "Speak into Google Keep and let Keep Live turn a rambling list into a structured note",
+      "url": "https://www.androidpolice.com/started-automating-google-keep-with-gemini-live-now-can-not-go-back/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Sep 12",
+      "dek": "<b>Say it, then tap Done</b> Keep Live listens while you describe what you need, such as the documents for a passport renewal, structures the result into a note, and accepts follow-ups like splitting an itinerary into two notes or adding to an existing one, though a split leaves the original behind and you cannot ask it to set a reminder.",
+      "needs": [
+        "Google Keep with Keep Live",
+        "A few minutes of talking",
+        "Time to clear duplicate notes"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-12",
+      "title": "Give MacroDroid three standing rules and stop toggling Wi-Fi, opening maps, and silencing your phone by hand",
+      "url": "https://www.androidpolice.com/macrodroid-automate-phone-tasks/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Sep 12",
+      "dek": "<b>Trigger, action, constraint</b> A geofence switches Wi-Fi and mobile data as you arrive home and leave it, an Android Auto connection opens YouTube Music and navigation toward work, and a calendar event mutes the phone and restores the sound when the meeting ends.",
+      "needs": [
+        "An Android phone",
+        "MacroDroid, free tier: 5 macros",
+        "Location and calendar permissions"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-09-12",
+      "title": "Three Excel functions that retire manual filtering: XLOOKUP, SUMIFS with COUNTIFS, and FILTER",
+      "url": "https://www.makeuseof.com/excel-time-saver-function-stop-wasting-time/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 12",
+      "dek": "<b>Stop counting columns</b> XLOOKUP asks only what to find, where to look, and what to return, SUMIFS and COUNTIFS total or count rows against as many as 127 criteria pairs while leaving the source data untouched, and FILTER returns every matching row from one formula and updates itself when the data changes.",
+      "needs": [
+        "Excel with dynamic arrays",
+        "A sheet you filter by hand",
+        "One lookup to convert first"
+      ],
+      "time": "About 30 minutes"
+    },
     {
       "date": "2026-09-11",
       "title": "Five Excel habits to drop tonight: merged cells, blank rows, hand-applied colors, hard-coded rates, one crowded sheet",
