@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-12",
+      "edition": "morning",
+      "dateHuman": "Saturday, September 12, 2026",
+      "file": "editions/2026-09-12-morning.html",
+      "lead": "Oracle's cloud infrastructure revenue more than doubles as its contracted backlog reaches $664 billion",
+      "pubDate": "Sat, 12 Sep 2026 07:48:21 -0400"
+    },
+    {
       "date": "2026-09-11",
       "edition": "evening",
       "dateHuman": "Friday, September 11, 2026",
