@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-13",
+      "name": "Mozilla Thunderbird",
+      "url": "https://www.thunderbird.net/en-US/",
+      "trend_url": "https://www.makeuseof.com/thunderbird-oldest-email-client-still-wins/",
+      "cost": "Free forever",
+      "kind": "Windows, macOS, Linux, Android",
+      "seen": "MakeUseOf, Sep 13",
+      "blurb": "An open source mail client that gathers several accounts into one unified inbox, sorts arriving mail into folders by rule, searches across every account and folder at once, and keeps messages and attachments readable offline, with no ads in the inbox and no training of AI on your conversations, though MakeUseOf found it dated in use: menu placement is unintuitive, filters apply per account rather than globally, and it wants a setup session before it pays off."
+    },
+    {
+      "date": "2026-09-13",
+      "name": "Notion",
+      "url": "https://www.notion.com/pricing",
+      "trend_url": "https://www.howtogeek.com/stopped-using-word-for-simple-notes-after-discovering-capable-text-editor/",
+      "cost": "Free; Plus $10/mo ($8 annual)",
+      "kind": "Desktop, phone, and browser",
+      "seen": "How-To Geek, Sep 13",
+      "blurb": "A note editor built out of blocks instead of pages, where typing a slash command inserts checkboxes, tables, or collapsible toggles and a block that is converted keeps its old state if you switch it back, but the free plan holds file uploads to 5MB each and page history to seven days, and How-To Geek clocks the desktop app at roughly five to ten seconds to open against Word's under a second, plus a real learning curve at the start."
+    },
+    {
+      "date": "2026-09-13",
+      "name": "Dolby On",
+      "url": "https://www.dolby.com/apps/dolby-on/",
+      "trend_url": "https://www.makeuseof.com/replace-phones-recorder-with-dolby-on/",
+      "cost": "Free",
+      "kind": "iOS and Android",
+      "seen": "MakeUseOf, Sep 13",
+      "blurb": "A free recording app that puts noise reduction, dynamic EQ, stereo widening, compression, de-essing, and volume maximization over whatever your phone microphone picks up, with six presets, noise and tone sliders, trimming, and 48kHz 16-bit WAV capture, though MakeUseOf is blunt that it is no substitute for a studio setup and that a noisy room still records as a noisy room."
+    },
+    {
+      "date": "2026-09-13",
+      "name": "Memos",
+      "url": "https://github.com/usememos/memos",
+      "trend_url": "https://www.makeuseof.com/memos-free-open-source-tool-is-new-favorite-way-to-capture-notes/",
+      "cost": "Free, MIT licensed",
+      "kind": "Self-hosted, used in a browser",
+      "seen": "MakeUseOf, Sep 13",
+      "blurb": "A self-hosted timeline for short notes that takes Markdown, hashtags, and cross-references, adds a Chrome and Firefox web clipper, stores everything in SQLite on hardware you control, and sends no telemetry, but the documented quick start is a Docker command and a browser pointed at localhost:5230, about five minutes of work by MakeUseOf's account, rather than an app you simply install."
+    },
+    {
       "date": "2026-09-12",
       "name": "Raycast 2.0",
       "url": "https://www.raycast.com/pricing",
@@ -1335,6 +1375,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-13",
+      "title": "Point Excel's Power Query at a folder once, and next month's report rebuilds itself on one Refresh All",
+      "url": "https://www.makeuseof.com/rebuild-the-same-excel-report-with-power-query/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 13",
+      "dek": "<b>Aim it at the folder</b> Get Data then From Folder reads every file in one pass, Combine and Transform Data stacks them, Unpivot Other Columns turns a wide layout into vertical rows, and Close and Load drops the finished table in, so next month is a matter of adding files and clicking Refresh All.",
+      "needs": [
+        "Excel with Power Query",
+        "One folder holding the files",
+        "A report you rebuild by hand"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-09-13",
+      "title": "Six things worth scanning with Google Lens, from appliance serial numbers to laundry care symbols",
+      "url": "https://www.howtogeek.com/google-lens-can-save-time-scanning-these-things-thinks-about-scanning/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 13",
+      "dek": "<b>Stop retyping fine print</b> How-To Geek lifts model and serial numbers off appliances for parts and warranty lookups, copies the Wi-Fi password from a router label without typos, reads tiny ingredient lists and taps through to nutrition and allergy detail, decodes laundry care symbols, prices unfamiliar thrift finds, and turns handwriting into searchable text, though messy writing and poor light still defeat it.",
+      "needs": [
+        "A phone with Google Lens",
+        "Decent light on the label",
+        "Somewhere to paste the text"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-09-13",
+      "title": "Turn off the three places Windows 11 advertises to you: Start, the lock screen, and notifications",
+      "url": "https://www.makeuseof.com/get-rid-of-ads-in-windows-11/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 13",
+      "dek": "<b>Three settings panes</b> Personalization then Start hides recommendations for tips, shortcuts, and new apps while Privacy and security then Search turns off search highlights, Personalization then Lock screen drops the fun facts once the background is a picture or slideshow, and Privacy and security then Recommendations and offers plus System then Notifications end the OneDrive, Microsoft 365, Edge, and Copilot nudges.",
+      "needs": [
+        "A Windows 11 PC",
+        "The Settings app",
+        "Ten quiet minutes"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-13",
+      "title": "Set Storage Sense to run every month instead of waiting for the disk to fill up",
+      "url": "https://www.xda-developers.com/changed-storage-sense-setting-and-freed-30gb-without-breaking-anything/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA Developers, Sep 13",
+      "dek": "<b>Change the schedule</b> XDA's writer moved Storage Sense off its default of during low free disk space, set it to every month, ran it once by hand, and recovered about 30GB on a 2TB drive that still had more than 700GB free, while leaving the Downloads cleanup switched off so old IDs, resumes, and invoices are not swept away.",
+      "needs": [
+        "A Windows 11 PC",
+        "Storage Sense in Settings",
+        "Downloads cleanup left off"
+      ],
+      "time": "About 5 minutes"
+    },
     {
       "date": "2026-09-12",
       "title": "Build an Obsidian knowledge base out of old exports, voice memos, and PDFs instead of typing new notes",
