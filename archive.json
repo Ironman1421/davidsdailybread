@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-14",
+      "edition": "evening",
+      "dateHuman": "Monday, September 14, 2026",
+      "file": "editions/2026-09-14-evening.html",
+      "lead": "Six Wi-Fi changes that made the biggest difference: band steering, narrower channels, and a wired mesh backhaul",
+      "pubDate": "Mon, 14 Sep 2026 17:49:33 -0400"
+    },
+    {
+      "date": "2026-09-14",
       "edition": "morning",
       "dateHuman": "Monday, September 14, 2026",
       "file": "editions/2026-09-14-morning.html",
