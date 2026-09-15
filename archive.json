@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-15",
+      "edition": "morning",
+      "dateHuman": "Tuesday, September 15, 2026",
+      "file": "editions/2026-09-15-morning.html",
+      "lead": "Anthropic's Dario Amodei calls on AI labs to slow the frontier, and OpenAI's Sam Altman agrees",
+      "pubDate": "Tue, 15 Sep 2026 07:47:49 -0400"
+    },
+    {
       "date": "2026-09-14",
       "edition": "evening",
       "dateHuman": "Monday, September 14, 2026",
