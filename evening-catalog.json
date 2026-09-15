@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-15",
+      "name": "Stirling PDF 2.0",
+      "url": "https://www.stirling.com/download",
+      "trend_url": "https://www.makeuseof.com/free-stirling-pdf-tool-gets-better/",
+      "cost": "Free for individuals",
+      "kind": "Desktop app or your own server",
+      "seen": "MakeUseOf, Sep 15",
+      "blurb": "An open source PDF workbench of more than 50 tools, merge, split, sign, redact, convert, OCR, and compress, installed as a Windows .exe, a macOS app, or a Linux .jar with no account, and version 2.0 adds a workspace that keeps one file open through several operations plus a text editor that MakeUseOf's Tashreef Shareef calls early access, good on plain letters and resumes and unreliable on scanned pages, tables, and multi-column layouts."
+    },
+    {
+      "date": "2026-09-15",
+      "name": "RethinkDNS",
+      "url": "https://rethinkdns.com/",
+      "trend_url": "https://www.androidpolice.com/i-ditched-androids-built-in-ad-blocking-for-this-open-source-alternative/",
+      "cost": "Free and open source",
+      "kind": "Android, covers every app",
+      "seen": "Android Police, Sep 15",
+      "blurb": "A DNS based blocker and firewall that filters ads, trackers, and malware across every app on an Android phone rather than inside one browser, with encrypted DNS over HTTPS or DNS over TLS and a choice of more than 190 blocklists, though Android Police's Rahul Naskar notes it claims the phone's single VPN slot, so an ordinary VPN cannot run beside it, and no blocklist stops every ad on the internet."
+    },
+    {
+      "date": "2026-09-15",
+      "name": "Syncthing",
+      "url": "https://syncthing.net/",
+      "trend_url": "https://www.xda-developers.com/reaplced-cloud-spare-laptop-syncthing-files-sync-free/",
+      "cost": "Free, open source",
+      "kind": "Windows, macOS, Linux, more",
+      "seen": "XDA Developers, Sep 15",
+      "blurb": "Keeps folders continuously in sync between your own computers with no cloud service in the middle and no central server holding your files, every transfer wrapped in TLS with forward secrecy, but XDA's João Carrasqueira points out that two machines only exchange changes while both are awake, which is why he leaves a spare laptop running as an always on relay."
+    },
+    {
       "date": "2026-09-14",
       "name": "Oats",
       "url": "https://oatsnote.com/",
@@ -1395,6 +1425,61 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-15",
+      "title": "Excel's LET function names the pieces inside a monster formula, so next month you can still read it",
+      "url": "https://www.howtogeek.com/microsoft-excel-let-function-turned-giant-formula-into-something-can-understand/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 15",
+      "dek": "<b>Name it once</b> How-To Geek's Tony Phillips rebuilds a sprawling salesperson scoring formula by giving each part a name, revenue from SUMIFS, target from MAXIFS, profit from SUMIFS, and rating from AVERAGEIFS, then stacking targetScore, profitMargin, and ratingScore on top of them, which also stops the same revenue figure from being calculated twice, though LET needs Microsoft 365, Excel 2024, Excel 2021, or Excel for the web, and separate helper cells are still the better answer when a middle value has to feed a chart or a PivotTable.",
+      "needs": [
+        "Excel 365, 2024, 2021, or the web",
+        "One formula you dread editing"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-15",
+      "title": "One renamed desktop folder opens every Windows control in a single scrolling list",
+      "url": "https://www.makeuseof.com/i-found-a-windows-shortcut-that-makes-the-settings-app-feel-embarrassingly-incomplete/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 15",
+      "dek": "<b>Rename a new folder</b> MakeUseOf's Suman Biswas right clicks the desktop, makes a folder, and renames it GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}, which turns it into a Control Panel style icon holding more than 30 grouped sections, Administrative Tools, Backup and Restore, Devices and Printers, Power Options, Windows Defender Firewall and the rest, searchable in one list and free of the Settings app's ads, though it wants an administrator account and reaches nothing that Settings or Control Panel could not already reach the slow way.",
+      "needs": [
+        "A Windows PC",
+        "An administrator account",
+        "Two minutes"
+      ],
+      "time": "About 5 minutes"
+    },
+    {
+      "date": "2026-09-15",
+      "title": "Four ordinary habits are burning through your SSD's write cycles, and each one has a quick fix",
+      "url": "https://www.xda-developers.com/ways-you-are-burning-through-ssd-writes-without-noticing/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 15",
+      "dek": "<b>Four quiet drains</b> XDA's Abhishek Kumar Mishra turns off Fast Startup in Control Panel because every shutdown writes a little data to the drive, keeps 15 to 20 percent of the disk free so it is not endlessly shuffling blocks, sends big repeated writes like downloads and virtual machines to a cheap external scratch SSD instead of the boot drive, and reins in the quiet background writers: search indexing, cloud sync folders, the paging file, and telemetry.",
+      "needs": [
+        "A Windows PC with an SSD",
+        "Control Panel and Settings",
+        "An external drive for big files"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-09-15",
+      "title": "Waze reads every hazard report aloud, and one settings page turns the chatter down without losing the map",
+      "url": "https://www.howtogeek.com/waze-best-feature-is-annoying-change-these-settings/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 15",
+      "dek": "<b>Keep the map, mute the voice</b> How-To Geek's Adam Davidson opens Settings, Driving Preferences, Alerts and Reports, Reports, and for a category such as Vehicle on shoulder leaves Show on Map switched on while turning Alert while Driving off, so the warning still appears on screen without cutting into music or an audiobook, with the limits stated plainly: the change applies to every future trip rather than one drive, related hazards are grouped so a pothole cannot be silenced on its own, and undoing it means the same walk back through the menu.",
+      "needs": [
+        "The Waze app",
+        "Settings, Driving Preferences",
+        "Two minutes"
+      ],
+      "time": "About 5 minutes"
+    },
     {
       "date": "2026-09-14",
       "title": "Six Wi-Fi changes that made the biggest difference: band steering, narrower channels, and a wired mesh backhaul",
