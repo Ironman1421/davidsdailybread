@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-16",
+      "edition": "morning",
+      "dateHuman": "Wednesday, September 16, 2026",
+      "file": "editions/2026-09-16-morning.html",
+      "lead": "Apple begins rolling out Siri AI, its rebuilt assistant built with Apple and Google Gemini models",
+      "pubDate": "Wed, 16 Sep 2026 07:48:36 -0400"
+    },
+    {
       "date": "2026-09-15",
       "edition": "evening",
       "dateHuman": "Tuesday, September 15, 2026",
