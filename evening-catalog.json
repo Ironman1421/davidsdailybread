@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-16",
+      "name": "Duplicati 2.4",
+      "url": "https://duplicati.com/download",
+      "trend_url": "https://www.makeuseof.com/free-backup-app-doesnt-store-data-why-i-trust-it/",
+      "cost": "Free, open source",
+      "kind": "Windows, macOS, Linux, Docker",
+      "seen": "MakeUseOf, Sep 16",
+      "blurb": "It encrypts and compresses each incremental backup on your machine before sending it to S3, Backblaze B2, OneDrive, an SFTP server, or an external drive; the caveat is that you own the passphrase and Duplicati cannot reset it for you, so a lost phrase means a lost backup."
+    },
+    {
+      "date": "2026-09-16",
+      "name": "Voiskey",
+      "url": "https://voiskey.ai/",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/9/15",
+      "cost": "Free to start, paid Pro tier",
+      "kind": "Mac, Windows, iPhone, Android",
+      "seen": "Product Hunt No. 2, Sep 15",
+      "blurb": "It turns dictation into finished text across your apps in more than 100 languages, cleaning up fillers and changes of mind as you speak; the caveat is that the official site publishes no pricing at all, and the paid Pro tier above the free start appears only on the Product Hunt listing."
+    },
+    {
+      "date": "2026-09-16",
+      "name": "Tinycast",
+      "url": "https://github.com/abue-ammar/tinycast",
+      "trend_url": "https://github.com/trending?since=daily",
+      "cost": "Free, AGPL-3.0",
+      "kind": "macOS 26 or newer",
+      "seen": "GitHub Trending, Sep 16",
+      "blurb": "One hotkey opens app launching, clipboard history, file search, a calculator, snippets, and window management from a native Swift app with no third-party dependencies and no telemetry; the caveat is that it wants macOS 26, needs Accessibility permission to paste, and ships snippets turned off."
+    },
+    {
+      "date": "2026-09-16",
+      "name": "Nextcloud",
+      "url": "https://nextcloud.com/athome/",
+      "trend_url": "https://www.howtogeek.com/ditched-subscriptions-one-free-privacy-respecting-alternative/",
+      "cost": "Free, self-hosted",
+      "kind": "Your server, plus device apps",
+      "seen": "How-To Geek, Sep 16",
+      "blurb": "Files, photos, calendar, contacts, mail, and real-time document editing run from a machine you own, with clients for Windows, macOS, Linux, Android, and iOS; the caveat is that nobody else is keeping a spare copy, so plan redundant storage and one separate backup before you cancel anything."
+    },
+    {
       "date": "2026-09-15",
       "name": "Stirling PDF 2.0",
       "url": "https://www.stirling.com/download",
@@ -1425,6 +1465,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-16",
+      "title": "Report phishing, write a strict filter, block a whole domain, and keep a blocklist to thin the scam mail",
+      "url": "https://www.androidpolice.com/simple-gmail-settings-tweaks-block-ai-scams-and-spam/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 16",
+      "dek": "<b>Four settings deep</b> Gmail's phishing report, a custom filter built from sender or subject or keyword, a wildcard block written as the domain rather than one address, and the blocklist each cut a different slice of junk before you ever read it.",
+      "needs": [
+        "A Gmail account",
+        "Gmail settings in a browser",
+        "The senders you want gone"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-16",
+      "title": "Length beats punctuation: four to six random words make a better password than a clever symbol",
+      "url": "https://www.makeuseof.com/i-stopped-obsessing-over-special-characters-and-my-passwords-got-stronger/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 16",
+      "dek": "<b>Twenty characters up</b> NIST's digital identity guidelines no longer recommend mandatory composition rules, so the piece builds passphrases of 20 to 30 characters, or four to six random words, stores them in a manager, and puts multi-factor on top.",
+      "needs": [
+        "A password manager",
+        "Four to six random words each",
+        "Multi-factor on the key accounts"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-09-16",
+      "title": "Clean up a Windows PC with WinGet: list what shipped, uninstall the bloat, then upgrade the rest in one command",
+      "url": "https://www.howtogeek.com/how-i-use-winget-commands-to-keep-windows-bloat-free-from-day-one/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front page, Sep 16",
+      "dek": "<b>Five commands total</b> winget list shows everything installed, winget show explains an unfamiliar entry, winget uninstall removes it in seconds, and winget upgrade --all updates what remains, though protected components such as Microsoft Edge will not go.",
+      "needs": [
+        "Windows with WinGet installed",
+        "PowerShell run as administrator",
+        "The app IDs from winget list"
+      ],
+      "time": "20 to 30 minutes"
+    },
+    {
+      "date": "2026-09-16",
+      "title": "Three formula habits are what make Excel crawl: volatile functions, legacy array formulas, and VLOOKUP",
+      "url": "https://www.makeuseof.com/excel-sheets-keep-lagging-because-of-these-formulas/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 16",
+      "dek": "<b>Swap three things</b> Type the date instead of leaving NOW, TODAY, RAND, or INDIRECT to recalculate on every edit, retire the Ctrl+Shift+Enter array formulas for helper columns or dynamic arrays, and move VLOOKUP and HLOOKUP to XLOOKUP.",
+      "needs": [
+        "Excel, ideally Microsoft 365",
+        "A workbook that has grown slow",
+        "Find and Replace"
+      ],
+      "time": "30 to 45 minutes"
+    },
     {
       "date": "2026-09-15",
       "title": "Excel's LET function names the pieces inside a monster formula, so next month you can still read it",
