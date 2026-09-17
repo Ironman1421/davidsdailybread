@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-17",
+      "name": "LibreWolf",
+      "url": "https://librewolf.net/",
+      "trend_url": "https://www.howtogeek.com/why-i-moved-my-most-sensitive-browsing-from-firefox-to-librewolf/",
+      "cost": "Free, MPL 2.0",
+      "kind": "Windows, macOS, Linux, OpenBSD",
+      "seen": "How-To Geek, Sep 17",
+      "blurb": "An independent build of Firefox, made from the latest stable Firefox source, that ships with harder tracking and fingerprinting protection, telemetry removed, and DRM disabled; How-To Geek's Rich Hein keeps it for banking, shopping, and sensitive documents rather than the TV-connected machine, because by default it clears all cookies and site data, so staying signed in means whitelisting a site, Netflix needs DRM permission granted by hand, and WebGL takes configuration."
+    },
+    {
+      "date": "2026-09-17",
+      "name": "KeePassXC",
+      "url": "https://keepassxc.org/",
+      "trend_url": "https://www.makeuseof.com/security-subscriptions-youre-wasting-money-on-and-what-to-use-instead/",
+      "cost": "Free, GPLv3",
+      "kind": "Windows, macOS, Linux",
+      "seen": "MakeUseOf, Sep 17",
+      "blurb": "An offline password manager that holds usernames, passwords, URLs, attachments, and notes in one encrypted database file on your own machine, with no account, no ads, no trackers, and no cloud service behind it; MakeUseOf names it the free replacement for the $35.88 a year 1Password Individual plan and states the catch in the same breath, that you back up and sync that file yourself and no provider can recover it for you."
+    },
+    {
+      "date": "2026-09-17",
+      "name": "Edge Drop",
+      "url": "https://www.edgedrop.app/",
+      "trend_url": "https://www.xda-developers.com/ditched-broken-clipboard-workflow-for-sidebar-that-keeps-up-with-how-work/",
+      "cost": "Free, Apache-2.0",
+      "kind": "Windows 10 and 11",
+      "seen": "XDA Developers, Sep 17",
+      "blurb": "A clipboard manager that parks a slim bar at the edge of the screen and opens into a shelf holding everything you have copied, text, links, images, screenshots, and files, as cards you can preview, pin, delete, or drag straight into another app, installed from GitHub releases or the Microsoft Store; the caveats are that it is Windows only, a stack holds at most ten items, and there is no account and no cloud sync, so the history stays on that one machine."
+    },
+    {
+      "date": "2026-09-17",
+      "name": "Hister",
+      "url": "https://hister.org/",
+      "trend_url": "https://news.ycombinator.com/",
+      "cost": "Free, AGPLv3",
+      "kind": "Self-hosted, Chrome and Firefox",
+      "seen": "Hacker News front, Sep 17",
+      "blurb": "A private search engine over the pages you have visited and the files you keep, indexing the full contents rather than titles and URLs so the half-remembered article comes back from a web page, a terminal, or an assistant you connect, and it sat on the Hacker News front page today at 348 points; the caveat is that you run and maintain it yourself, as a single local binary, Docker, or Nix, and optional semantic search sends text to whatever embeddings endpoint you configure."
+    },
+    {
       "date": "2026-09-16",
       "name": "Duplicati 2.4",
       "url": "https://duplicati.com/download",
@@ -1465,6 +1505,76 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-17",
+      "title": "MakeUseOf swapped four security subscriptions for free tools, and the three quoted prices came to about $315 a year",
+      "url": "https://www.makeuseof.com/security-subscriptions-youre-wasting-money-on-and-what-to-use-instead/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 17",
+      "dek": "<b>Four renewals audited</b> Microsoft Defender takes the antivirus slot on Windows, KeePassXC takes the password slot at $35.88 a year saved, WireGuard takes the VPN slot for reaching your own network, and Restic takes backup, with the cost of each swap stated plainly: you now own the syncing, the storage, and the restore test.",
+      "needs": [
+        "Your current subscription list",
+        "A Windows PC for Defender",
+        "Somewhere of your own to back up"
+      ],
+      "time": "About two hours"
+    },
+    {
+      "date": "2026-09-17",
+      "title": "Three Raycast features a Windows user can set up free tonight: snippets, quicklinks, and the extension store",
+      "url": "https://www.xda-developers.com/things-raycast-on-windows-does-that-powertoys-run-still-cant/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 17",
+      "dek": "<b>Included in the free plan</b> XDA's Hamlin Rozario saves repeated blocks of text as snippets that expand with dynamic placeholders for the date, the time, and the clipboard, builds quicklinks that jump to a site, file, folder, or a search inside an app, and installs community extensions for Notion, Slack, Spotify, and 1Password from inside the launcher, while the AI pieces (Screen Awareness, Quick AI, and Quick Fix) need Raycast Pro, listed on the official pricing page at $10 a month or $96 a year.",
+      "needs": [
+        "Raycast on Windows",
+        "The text you retype most",
+        "The sites and folders you reopen"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-09-17",
+      "title": "Set Private DNS before your next hotel or cafe Wi-Fi, and the network stops seeing which sites you open",
+      "url": "https://www.howtogeek.com/this-little-known-android-setting-makes-public-wi-fi-less-risky/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 17",
+      "dek": "<b>One Android setting</b> How-To Geek's Arol Wright switches Private DNS to a named provider hostname, dns.google, one.one.one.one, dns.quad9.net, or dns.adguard-dns.com, which wraps every lookup in the same kind of encryption that protects HTTPS websites, though the piece is equally plain that it does not hide your IP address, it is no substitute for a VPN, and some hotel and corporate networks block the port it relies on and drop you back to unencrypted DNS.",
+      "needs": [
+        "An Android phone",
+        "Settings, Network and internet",
+        "One DNS hostname to type"
+      ],
+      "time": "Under 5 minutes"
+    },
+    {
+      "date": "2026-09-17",
+      "title": "Photograph the cards you keep losing, and Google Wallet turns them into passes you can reach from the lock screen",
+      "url": "https://www.androidpolice.com/custom-passes-in-google-wallet-now-i-use-it-for-almost-everything/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 16",
+      "dek": "<b>Everything else, tapped</b> Android Police's Anu Joy opens Google Wallet, taps the plus for Add to Wallet, chooses Everything else, photographs or picks an image of a library card, gym membership, insurance slip, or hotel confirmation, corrects whatever the scan misread, and gives it a name, marking the sensitive ones private so they need biometric unlock, with the limit stated outright: a photographed pass is not an official replacement for the document you still have to carry.",
+      "needs": [
+        "An Android phone with NFC",
+        "Android 6.0 or newer",
+        "The cards and confirmations"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-17",
+      "title": "Six things your Android phone already remembers for you, from dismissed notifications to where you parked",
+      "url": "https://www.makeuseof.com/your-android-phone-can-remember-these-so-you-dont-have-to/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Sep 17",
+      "dek": "<b>Switch on notification history</b> MakeUseOf's Oluwademilade Afolabi turns on Settings, Notifications, Notification history, shares a saved Wi-Fi network by QR code from its own page, keeps Google Maps Timeline as the record of where the phone has been, pulls older copies from the keyboard's clipboard, checks Now Playing history on a Pixel, and saves the parking marker with a note for the garage level, with the catch that notification history holds nothing from before you switch it on.",
+      "needs": [
+        "An Android phone",
+        "Settings and Google Maps",
+        "A keyboard with clipboard history"
+      ],
+      "time": "About 15 minutes"
+    },
     {
       "date": "2026-09-16",
       "title": "Report phishing, write a strict filter, block a whole domain, and keep a blocklist to thin the scam mail",

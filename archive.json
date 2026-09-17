@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-17",
+      "edition": "evening",
+      "dateHuman": "Thursday, September 17, 2026",
+      "file": "editions/2026-09-17-evening.html",
+      "lead": "MakeUseOf swapped four security subscriptions for free tools, and the three quoted prices came to about $315 a year",
+      "pubDate": "Thu, 17 Sep 2026 17:48:02 -0400"
+    },
+    {
+      "date": "2026-09-17",
       "edition": "morning",
       "dateHuman": "Thursday, September 17, 2026",
       "file": "editions/2026-09-17-morning.html",
