@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-17",
+      "edition": "morning",
+      "dateHuman": "Thursday, September 17, 2026",
+      "file": "editions/2026-09-17-morning.html",
+      "lead": "Federal Reserve raises interest rates for the first time in more than three years, lifting the target range to 3.75% to 4%",
+      "pubDate": "Thu, 17 Sep 2026 07:47:12 -0400"
+    },
+    {
       "date": "2026-09-16",
       "edition": "evening",
       "dateHuman": "Wednesday, September 16, 2026",
