@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-18",
+      "edition": "evening",
+      "dateHuman": "Friday, September 18, 2026",
+      "file": "editions/2026-09-18-evening.html",
+      "lead": "Trilium Notes is a free knowledge base that scales past 100,000 notes and never asks for a subscription",
+      "pubDate": "Fri, 18 Sep 2026 17:48:50 -0400"
+    },
+    {
+      "date": "2026-09-18",
       "edition": "morning",
       "dateHuman": "Friday, September 18, 2026",
       "file": "editions/2026-09-18-morning.html",

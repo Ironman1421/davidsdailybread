@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-18",
+      "name": "Trilium Notes",
+      "url": "https://github.com/TriliumNext/Trilium",
+      "trend_url": "https://www.makeuseof.com/ive-tried-every-notion-alternative-this-free-one-actually-made-me-switch/",
+      "cost": "Free, AGPL-3.0",
+      "kind": "Windows, macOS, Linux, server",
+      "seen": "MakeUseOf, Sep 18",
+      "blurb": "A hierarchical note application that files everything into one deep tree, clones a single note into several branches at once, encrypts per note, and syncs to a server you host, with a README claim of scaling upwards of 100,000 notes; MakeUseOf's Jack Mitchell switched to it from Notion and states the catch plainly, that it looks decidedly plain out of the box and getting a workspace you enjoy takes theming and CSS you write yourself."
+    },
+    {
+      "date": "2026-09-18",
+      "name": "Toolkit Tiles",
+      "url": "https://github.com/WSTxda/Toolkit-Tiles",
+      "trend_url": "https://www.androidpolice.com/my-quick-settings-went-from-4-basic-tiles-to-a-productivity-powerhouse-in-minutes/",
+      "cost": "Free, Apache-2.0",
+      "kind": "Android 8.0 and newer",
+      "seen": "Android Police, Sep 16",
+      "blurb": "An open-source Android app that drops more than 30 small tools into the Quick Settings panel, among them a compass, a bubble level, a lux meter, caffeine mode, auto brightness, a screenshot tile, a clipboard cleaner, a DNS switch, and an SOS morse flashlight; the project warns that tile availability and behavior vary by device and Android version, and Android Police's Jon Gilbert found the Temperature tile refused to work and the Level stopped after a few seconds on a Pixel 10 Pro while both ran fine on a Galaxy Tab S9 FE."
+    },
+    {
+      "date": "2026-09-18",
+      "name": "Firefox 156",
+      "url": "https://www.firefox.com/en-US/firefox/156.0/releasenotes/",
+      "trend_url": "https://www.ghacks.net/",
+      "cost": "Free, open source",
+      "kind": "Windows, macOS, Linux",
+      "seen": "gHacks front, Sep 17",
+      "blurb": "The September 15 release states that Firefox's built-in PDF viewer now starts up to 45% faster, adds a macOS option to launch the browser at login from the Startup section of settings, and fixes image dragging in rich-text editors, FLAC playback, Picture-in-Picture subtitles, and DNS over HTTPS connectivity; the honest caveat is that this is an update rather than a new app, so the gain only reaches you after the browser actually updates."
+    },
+    {
       "date": "2026-09-17",
       "name": "LibreWolf",
       "url": "https://librewolf.net/",
@@ -1505,6 +1535,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-18",
+      "title": "Four built-in Windows tools that repair the PC on a schedule: Task Scheduler, DISM, SFC, and Quick Machine Recovery",
+      "url": "https://www.howtogeek.com/these-4-built-in-windows-tools-helped-me-build-a-self-healing-pc/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 18",
+      "dek": "<b>Scheduled, not reactive</b> How-To Geek's Arol Wright repairs the component store with DISM /Online /Cleanup-Image /RestoreHealth, restores protected system files from it with sfc /scannow, and wires the pair into Task Scheduler with highest privileges, the SYSTEM account, and a Conditions rule that keeps the scans on mains power, leaving Quick Machine Recovery under Settings, System, Recovery for the boot failures, with the limits said out loud: SFC needs DISM to have run first, a repair can take from several minutes to much longer, and Quick Machine Recovery is built for widespread outages and needs a network connection to reach its fix.",
+      "needs": [
+        "A Windows 11 PC",
+        "An administrator command prompt",
+        "Task Scheduler, taskschd.msc"
+      ],
+      "time": "About 45 minutes"
+    },
+    {
+      "date": "2026-09-18",
+      "title": "Five Excel annoyances with five-minute fixes, from Ctrl+Z reaching into another workbook to arrow keys inserting cell references",
+      "url": "https://www.howtogeek.com/microsoft-excel-common-annoyances-fix-this-weekend-september-18-20/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 18",
+      "dek": "<b>Five settings, one sitting</b> How-To Geek's Tony Phillips opens unrelated files in separate Excel instances by holding Alt and right-clicking the icon so one undo cannot reach into another workbook, teaches the fill handle the alphabet by adding A to Z under File, Options, Advanced, Edit Custom Lists, unchecks Allow editing directly in cells so a long formula stops covering the cells you are trying to select, opens a second window on the same workbook from View, New Window so Alt+Tab moves between worksheets, and presses F2 when the arrow keys start inserting cell references instead of moving the cursor.",
+      "needs": [
+        "Microsoft Excel on Windows",
+        "File, Options, Advanced",
+        "A workbook to practice on"
+      ],
+      "time": "5 minutes each"
+    },
+    {
+      "date": "2026-09-18",
+      "title": "Rebuild the Quick Settings panel: shrink the tiles for their long-press actions, cut the dead ones, add a free tile pack",
+      "url": "https://www.androidpolice.com/my-quick-settings-went-from-4-basic-tiles-to-a-productivity-powerhouse-in-minutes/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 18",
+      "dek": "<b>Four tiles became a panel</b> Android Police's Jon Gilbert minimizes the tile size so a long press opens each tile's secondary action, removes the ones never tapped (Alarm, Wallet, Device controls, Cast), adds the native TV remote, Focus mode, and VPN tiles, installs the free Toolkit Tiles app for everything Android does not ship, and hands the multi-step routines to MacroDroid or Tasker, with the result reported honestly: the Temperature tile refused to work and the Level stopped after a few seconds on a Pixel 10 Pro, while both behaved on a Galaxy Tab S9 FE.",
+      "needs": [
+        "An Android phone or tablet",
+        "The Quick Settings edit pencil",
+        "Toolkit Tiles from GitHub"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-18",
+      "title": "Ask Gemini to summarize a chat into Google Keep, and the answer you needed months later is findable again",
+      "url": "https://www.androidpolice.com/google-keep-solved-biggest-gemini-problem-finding-chat/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 18",
+      "dek": "<b>Save it where search works</b> Android Police's Anu Joy switches on Google Workspace under Gemini's Personal Intelligence, Connected Apps, closes a useful conversation by typing Summarize this chat and add it to Google Keep, and gets a Keep note of the key points carrying a Gemini tag that links back to the original thread, then searches Keep rather than the chat list later, because asking Gemini to hunt through its own history went in the wrong direction and came back saying it could not find anything.",
+      "needs": [
+        "The Gemini app",
+        "Google Workspace as a connected app",
+        "Google Keep"
+      ],
+      "time": "About 5 minutes"
+    },
     {
       "date": "2026-09-17",
       "title": "MakeUseOf swapped four security subscriptions for free tools, and the three quoted prices came to about $315 a year",
