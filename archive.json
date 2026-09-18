@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-18",
+      "edition": "morning",
+      "dateHuman": "Friday, September 18, 2026",
+      "file": "editions/2026-09-18-morning.html",
+      "lead": "NASA's Moon orbiter confirms a 728-foot crater from 2024, the largest newly formed impact crater in the solar system",
+      "pubDate": "Fri, 18 Sep 2026 07:49:26 -0400"
+    },
+    {
       "date": "2026-09-17",
       "edition": "evening",
       "dateHuman": "Thursday, September 17, 2026",
