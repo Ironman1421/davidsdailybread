@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-19",
+      "name": "Lumiko",
+      "url": "https://lumiko.dev/",
+      "trend_url": "https://www.producthunt.com/products/lumiko",
+      "cost": "Free; Pro $9 one time",
+      "kind": "Chrome extension",
+      "seen": "Product Hunt, 123 upvotes",
+      "blurb": "A Chrome extension that records your screen and then adds the cinematic zoom and pan that normally takes an editor, following the cursor on its own, with a smart blur for anything sensitive on screen, a draggable webcam overlay, and a timeline you can still edit afterward; recording and export both run locally in the browser rather than in the cloud, and the honest catch is that free exports stop at 1440p and carry a Made with Lumiko badge, with clean video and full 4K reserved for the $9 one time Pro."
+    },
+    {
+      "date": "2026-09-19",
+      "name": "VoiceCap",
+      "url": "https://voicecap.ai/",
+      "trend_url": "https://www.producthunt.com/products/voicecap",
+      "cost": "Free 300 min/mo; Pro €29/mo",
+      "kind": "iOS, Android, web; EU servers",
+      "seen": "Product Hunt, 97 upvotes",
+      "blurb": "A notetaker that either joins your Zoom, Google Meet, Microsoft Teams, or Webex call or records the room from the phone in your pocket, then hands back a transcript with the speakers identified, a summary, and an action list you can search later and export as Markdown or plain text, with audio and transcripts held in EU data centers and kept out of model training; two limits are worth saying out loud, that the free tier stops at 300 minutes a month before the 29 euro Pro seat starts, and that whether you may record at all depends on the consent rules where you live, so tell the room first."
+    },
+    {
+      "date": "2026-09-19",
+      "name": "Moda",
+      "url": "https://moda.app/pricing",
+      "trend_url": "https://www.xda-developers.com/ditched-claude-design-powerpoint-canva-for-tool-that-builds-pdfs-in-minutes/",
+      "cost": "Free tier; Pro $30/user/mo",
+      "kind": "Web browser",
+      "seen": "XDA, Sep 19",
+      "blurb": "A browser design tool that turns a written brief into a slide deck, asking clarifying questions before it generates and then handing back real editable objects on a canvas rather than a flat picture, with export to PDF, PowerPoint, Google Slides, PNG, JPG, MP4, or GIF; XDA's Nolen Jonker got a six slide deck in under two minutes, and the ceiling is the thing to check before you rely on it, because the official pricing page puts the free plan at 500 AI credits per seat each month with decks capped at 10 slides."
+    },
+    {
+      "date": "2026-09-19",
+      "name": "Mushotoku",
+      "url": "https://f-droid.org/packages/com.mushotoku.app/",
+      "trend_url": "https://www.makeuseof.com/this-productivity-app-is-for-someone-tired-of-productivity-apps/",
+      "cost": "Free, GPL-3.0-or-later",
+      "kind": "Android 13 and newer",
+      "seen": "MakeUseOf, Sep 19",
+      "blurb": "An Android app that keeps a calendar, tasks, habits, Markdown notes, journaling, mood tracking, and personal finance in one place, with each module switched on only if you actually want it, no account to create, no streaks to protect, and no internet permission built in at all, so the data stays encrypted on the handset; version 1.4 landed on July 26, 2026 and needs Android 13 or newer, and the catch is the same thing that makes it private, since fully offline means no sync between your devices and no cloud copy, leaving the backups to you."
+    },
+    {
       "date": "2026-09-18",
       "name": "Trilium Notes",
       "url": "https://github.com/TriliumNext/Trilium",
@@ -1535,6 +1575,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-19",
+      "title": "Write the draft yourself, let an LLM find the flaws, then fix every one of them in your own words",
+      "url": "https://sockpuppet.org/blog/2026/09/17/how-to-write-with-an-llm/",
+      "trend_url": "https://news.ycombinator.com/item?id=49747070",
+      "seen": "Hacker News, 605 points",
+      "dek": "<b>Editor, not ghostwriter</b> The sockpuppet.org post keeps the first draft entirely human, feeds it to a model only so problems get flagged, then rewrites each flagged passage by hand and asks a fresh session which version reads better, under two rules that do the real work: you may not use a single word an LLM suggests to you, and you ignore its encouragement, because a model praises everything and the rethinking it talks you out of is where your own voice comes from; the piece is honest that the reliable help is mechanical, overused passive voice, repeated phrases, filler words, and paragraphs sitting in the wrong place, and it needs no special software, since an ordinary chat window runs the whole loop.",
+      "needs": [
+        "A draft you wrote yourself",
+        "Any chat LLM you already use",
+        "A second fresh session to compare"
+      ],
+      "time": "An hour per piece"
+    },
+    {
+      "date": "2026-09-19",
+      "title": "Put the phone on the table and let Google Meet write up the meeting everyone is already sitting in",
+      "url": "https://www.androidpolice.com/why-rely-on-google-meet-to-manage-discussions-when-everyone-in-same-room/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 19",
+      "dek": "<b>Take notes for me</b> Android Police opens the Meet app for a meeting where everyone is already in the room, taps Take notes and then Start taking notes, sets the phone face up on the table, and stops it at the end, and Gemini returns a summary, an action item list, and a full transcript as a Google Doc filed in Drive with the link emailed over; the limits are stated up front, since the feature reached Android on August 11, 2026 with iOS and the web following, it wants a meeting of at least fifteen minutes and one language throughout, it can be paused when something sensitive comes up, and it needs an eligible Google AI Pro or Ultra plan or a supported Workspace subscription rather than a free account.",
+      "needs": [
+        "The Google Meet app",
+        "Google AI Pro, Ultra, or Workspace plan",
+        "Everyone in the room told first"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-19",
+      "title": "Resize the Gboard keyboard before blaming autocorrect, because most of the typos are mis-taps",
+      "url": "https://www.androidpolice.com/gboard-layout-fix-solved-my-autocorrect-problem/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 19",
+      "dek": "<b>Millimeters, not machine learning</b> Android Police's Ali Salman Zia traced his typos to thumbs landing a few millimeters off target rather than to autocorrect failing, so he opened the four square toolbar icon in Gboard, used Resize to raise the keyboard height and widen the gap between the rows, then cleared the stale entries under Settings and Dictionary and added the names he keeps mistyping, turned auto-correction down under Corrections and suggestions while leaving the suggestion strip on, and switched the number row on for entering digits; the honest part is the adjustment period, because the thumbs have to learn the new geometry before the error rate falls.",
+      "needs": [
+        "Gboard on Android",
+        "Five minutes in its settings",
+        "Patience while your thumbs adjust"
+      ],
+      "time": "Five minutes to set up"
+    },
+    {
+      "date": "2026-09-19",
+      "title": "Switch off the 1999 compatibility mode on the 2.4GHz band and every device in the house gets airtime back",
+      "url": "https://www.makeuseof.com/setting-from-1999-still-switched-on-your-routers/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Sep 19",
+      "dek": "<b>One shared channel</b> MakeUseOf's Jonathon Jachura explains that 802.11b support, still on by default on most routers, makes the radio send beacons thousands of times an hour at the slowest speed that old standard allows, and since only one radio transmits at a moment on a shared channel, everyone else waits; on UniFi he walks Settings, WiFi, the network's advanced section, 2.4 GHz Data Rate Control, and slides the minimum from 1Mbps to 12Mbps, while on TP-Link, Netgear, and Asus he switches the 2.4GHz Mode from 802.11b/g/n mixed to 802.11g/n or 802.11n/ax only, and the tradeoff is said plainly: it cuts off any true 802.11b device, which in most homes means nothing made after about 2005, though 6Mbps is the softer setting and gear at the fringe of coverage can drop out sooner.",
+      "needs": [
+        "Your router's admin page",
+        "The 2.4GHz wireless settings",
+        "A list of your oldest devices"
+      ],
+      "time": "About 10 minutes"
+    },
     {
       "date": "2026-09-18",
       "title": "Four built-in Windows tools that repair the PC on a schedule: Task Scheduler, DISM, SFC, and Quick Machine Recovery",
