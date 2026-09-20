@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-20",
+      "edition": "morning",
+      "dateHuman": "Sunday, September 20, 2026",
+      "file": "editions/2026-09-20-morning.html",
+      "lead": "Anthropic says Claude now leads 26% of the work building its next AI models",
+      "pubDate": "Sun, 20 Sep 2026 07:47:41 -0400"
+    },
+    {
       "date": "2026-09-19",
       "edition": "evening",
       "dateHuman": "Saturday, September 19, 2026",
