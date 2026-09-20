@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-20",
+      "name": "Harbor",
+      "url": "https://harbor.my/",
+      "trend_url": "https://www.producthunt.com/products/harbor-2",
+      "cost": "Free tier; $9.99/mo or $99/yr",
+      "kind": "Mac, Windows, iOS, Android, web",
+      "seen": "Product Hunt, 129 upvotes",
+      "blurb": "A notes app built to hold the messy half of a filing cabinet, with scans, photos, PDFs, audio recordings, and handwriting all searchable through OCR and transcription, a one step Evernote import that carries notebooks, tags, checklists, and attachments across, optional zero knowledge encryption per note or notebook, offline access, a web clipper, and an API, CLI, and MCP endpoint for connecting your own AI tools; the pricing page makes two promises worth holding it to, that the rate will not rise for three years and is then capped at ten percent a year, and that if you stop paying the account goes read only rather than being deleted, and it is candid about the one number a careful reader wants, since it says the free plan's exact limits are still being finalized for launch and only promises enough room to try an import of a notebook or two."
+    },
+    {
+      "date": "2026-09-20",
+      "name": "Ditto",
+      "url": "https://github.com/sabrogden/Ditto",
+      "trend_url": "https://www.makeuseof.com/replace-windows-clipboard-history-with-free-app-remembers-everything/",
+      "cost": "Free, GPL-3.0",
+      "kind": "Windows desktop",
+      "seen": "MakeUseOf, Sep 20",
+      "blurb": "An extension to the Windows clipboard that keeps everything you copy in a local database rather than the 25 item ceiling the built in history stops at, with search across the whole history, a small editor for fixing text before you paste it, a hotkey on Ctrl and backtick, and survival across restarts; MakeUseOf's Oluwaseun Bamisile set his retention to 200 entries and chose how long older ones live before they expire, and the project is plain that there is no login, no cloud service, and no telemetry, which is also where the limits sit, because Windows is the only platform it runs on, and a clipboard that remembers everything also remembers whatever you copied out of a password manager, until you clear it."
+    },
+    {
+      "date": "2026-09-20",
+      "name": "FUTO Keyboard",
+      "url": "https://keyboard.futo.tech/",
+      "trend_url": "https://www.howtogeek.com/ditched-gboard-for-a-keyboard-with-hexagons-and-it-cut-my-typos-in-half/",
+      "cost": "Free; optional one time license",
+      "kind": "Android; Play, F-Droid, GitHub",
+      "seen": "How-To Geek, Sep 20",
+      "blurb": "An Android keyboard that runs fully offline on the principle that a keyboard has no business connecting to the internet, with its own FUTO Swipe gesture typing, autocorrect and prediction, custom themes, and a companion voice input tool that transcribes without sending or storing anything; How-To Geek's Tyler Dupont counts it among the Gboard alternatives worth trying for its local voice typing, larger clipboard, and downloadable prediction models, and two limits belong on the label, that the project's own site warns it is still under active development and you may hit missing features or languages, and that the offline voice input comes as its own companion tool alongside the keyboard rather than as one download."
+    },
+    {
+      "date": "2026-09-20",
+      "name": "Immich",
+      "url": "https://github.com/immich-app/immich",
+      "trend_url": "https://www.makeuseof.com/i-dont-pay-for-google-photos-icloud-photos-or-dropbox-because-i-host-my-own-instead/",
+      "cost": "Free, AGPL-3.0",
+      "kind": "Self-hosted; iOS, Android, web",
+      "seen": "MakeUseOf, Sep 20",
+      "blurb": "A self hosted photo and video library that behaves like the cloud service you are paying for, with a mobile app that backs the camera roll up in the background, duplicate detection, and search by person, place, date, or what is actually in the picture; MakeUseOf's Afam Onyimadu runs it on a recycled computer and makes the important distinction out loud, that Immich is the organizing layer while the original files stay on storage he controls, so he runs BorgBackup separately for the photos and videos and keeps database dumps for the metadata, and the honest cost is the part nobody advertises, because the project's own readme tells you to follow a 3-2-1 backup plan and self hosting hands you the drives, the electricity, the failures, and the maintenance."
+    },
+    {
       "date": "2026-09-19",
       "name": "Lumiko",
       "url": "https://lumiko.dev/",
@@ -1575,6 +1615,76 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-20",
+      "title": "Stop using the inbox as a to-do list: send each email to Google Tasks or Calendar the moment you read it",
+      "url": "https://www.androidpolice.com/gmail-personal-command-center-by-pairing-it-with-calendar-and-tasks/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 20",
+      "dek": "<b>Two buckets, one rule</b> Android Police's Anu Joy opens an actionable message, uses the three dot menu, and either picks Add to Tasks, which keeps a link back to the email and drops it into the Tasks side panel beside Calendar, or picks Create event, which builds a calendar entry from the subject and body; the rule that makes it hold is a single sentence, if you need to check it off it goes in Tasks and if you need to plan your day around it it goes on the Calendar, and the one snag to watch is that a new event quietly carries the other people on the thread as invitees, so remove them when the reminder is only for you.",
+      "needs": [
+        "A Gmail account",
+        "Google Tasks and Google Calendar",
+        "One sorting rule you will keep"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-09-20",
+      "title": "Give the browser one workspace per part of your life and most desktop apps stop earning their space",
+      "url": "https://www.xda-developers.com/turned-my-browser-into-entire-productivity-workspace-using-fewer-desktop-apps-than-ever/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 20",
+      "dek": "<b>Pin it, do not install it</b> XDA's Mahnoor Faisal built four workspaces in Zen Browser, one each for writing, work, college, and personal, then pinned the tools she opens every day, Spotify, Google Docs, Notion, Slack, ChatGPT, Claude, Gmail, Google Calendar, Todoist, and Adobe Express, so the pinned row behaves like a dock and split view puts two of them side by side; her point is that Spotify, Slack, Adobe Express, Notion, Asana, Outlook, Zoom, and the AI chatbots all have capable web versions, and Chrome users can approximate the same thing with tab groups, but she is careful not to oversell it, keeping real desktop apps for development work in VS Code and for features that do not translate to a browser tab.",
+      "needs": [
+        "A browser with workspaces or tab groups",
+        "The web versions of your apps",
+        "An hour to sort the tabs"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-09-20",
+      "title": "Seven Windows 11 features worth switching off tonight, from OneDrive syncing to Bing results in Start",
+      "url": "https://www.howtogeek.com/windows-features-i-disabled-after-realizing-nobody-needs-to-use-them/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 20",
+      "dek": "<b>Mostly just Settings</b> How-To Geek's Zachary Boddy unlinks OneDrive under File Explorer, OneDrive, Settings, Account, Unlink this PC, uninstalls Copilot from Installed apps and reassigns its keyboard key under Bluetooth and devices, Keyboard, stops the Widgets board opening on hover and switches its news feed off, strips Recent, suggestions, the mobile device row, and account notifications out of Personalization, Start, turns off Phone Link and cross device access, removes Xbox, Xbox Live, and Game Mode, and blocks Bing web results in search; the caveats are stated where they matter, since unlinking OneDrive leaves your local files exactly where they are, while the last steps, removing Phone Link and the Game Bar outright and disabling Bing results, need PowerShell, administrator rights, and a restart.",
+      "needs": [
+        "Windows 11",
+        "The Settings app",
+        "Administrator rights for two steps"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-20",
+      "title": "The Windows 11 tweaks everyone recommends, tested: most of them cost more than they give back",
+      "url": "https://www.xda-developers.com/testing-windows-tweaks-everyone-recommends-and-most-were-useless/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 20",
+      "dek": "<b>Four myths, one rule</b> XDA's Abhishek Kumar Mishra worked through four optimizations people repeat constantly and found most of them are a tax on the experience: switching animations and visual effects off buys nothing on a machine modern enough to run the OS at all, third party cleaners and registry optimizers he describes as adware disguised as the fix, with Microsoft itself discouraging them and the built in Disk Cleanup doing the honest version of the job, disabling services wholesale is the risky one, since Xbox and telemetry are safe to stop but Windows Update and the firewall are not, and turning hibernation off is backwards, because it helps recovery and Fast Startup is the setting actually worth disabling; his verdict is qualitative rather than benchmarked, so read it as a caution against micromanaging Windows rather than as measured numbers.",
+      "needs": [
+        "A Windows 11 PC",
+        "The tweak list someone handed you",
+        "Disk Cleanup, already installed"
+      ],
+      "time": "Ten minutes to undo"
+    },
+    {
+      "date": "2026-09-20",
+      "title": "Your USB stick is not dying yet: back it up, reformat it, and copy the files back in one pass",
+      "url": "https://www.howtogeek.com/usb-flash-drive-gets-slower-every-time-use-it-easy-fix-dont-want-to-hear/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 20",
+      "dek": "<b>Erase before write</b> How-To Geek's Sydney Butler explains why a cheap flash drive loses write speed the longer you own it, since flash cannot overwrite in place and the whole block holding the data has to be erased before anything new lands, and a budget drive has none of the controller sophistication an SSD uses for garbage collection, which is why the slowdown hits smaller drives sooner and shows up in writes while reads stay unaffected; the fix is unglamorous and works, copy everything off, reformat the drive, preferably to exFAT, and copy the files back in a single operation so the controller gets the chance to cut fragmentation and rebuild free blocks, and he is straight about the ceiling, because flash memory does wear out eventually and a replacement drive is the real answer.",
+      "needs": [
+        "The USB drive that got slow",
+        "Somewhere to park the files",
+        "A few minutes to reformat"
+      ],
+      "time": "About 30 minutes"
+    },
     {
       "date": "2026-09-19",
       "title": "Write the draft yourself, let an LLM find the flaws, then fix every one of them in your own words",
