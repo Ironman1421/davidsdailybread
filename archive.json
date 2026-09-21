@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-21",
+      "edition": "evening",
+      "dateHuman": "Monday, September 21, 2026",
+      "file": "editions/2026-09-21-evening.html",
+      "lead": "Five Android automations you can build tonight without code, from a phone that silences itself to a saved parking spot",
+      "pubDate": "Mon, 21 Sep 2026 17:47:48 -0400"
+    },
+    {
+      "date": "2026-09-21",
       "edition": "morning",
       "dateHuman": "Monday, September 21, 2026",
       "file": "editions/2026-09-21-morning.html",

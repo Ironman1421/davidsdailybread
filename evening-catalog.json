@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-21",
+      "name": "Default Launcher",
+      "url": "https://github.com/guru-irl/DefaultLauncher",
+      "trend_url": "https://www.makeuseof.com/this-launcher-copies-pixels-best-feature-and-adds-everything-google-wont/",
+      "cost": "Free, Apache-2.0 and GPL-3.0",
+      "kind": "Android 13 and newer",
+      "seen": "MakeUseOf, Sep 21",
+      "blurb": "An Android home screen built on the AOSP Launcher3 code from Android 16 and restyled in Material 3, with a grid you can set anywhere from four to ten columns, icon shapes including circles, squares, arches, and cookies, folders that take an emoji as their cover instead of a collage of app icons, stacked widgets, and one search bar that finds apps, contacts, calendar entries, and files and doubles as a calculator, unit converter, and timezone converter, with the web and AI search providers left for you to pick rather than locked to Google; the project makes no internet connections and carries no telemetry and no tracking, keeping its data on the handset, and the honest catch is how you get it, since it is not on the Play Store and has to be sideloaded from the GitHub releases page, where Play Protect is likely to object the first time, and MakeUseOf's Oluwademilade Afolabi is clear that it is not trying to clone every Pixel flourish."
+    },
+    {
+      "date": "2026-09-21",
+      "name": "PhotoRec",
+      "url": "https://www.cgsecurity.org/wiki/PhotoRec",
+      "trend_url": "https://www.makeuseof.com/windows-said-my-drive-was-empty-but-a-free-recovery-tool-found-104000-photos-inside-it/",
+      "cost": "Free, GPL-2.0 or later",
+      "kind": "Windows, macOS, Linux, BSD",
+      "seen": "MakeUseOf, Sep 21",
+      "blurb": "A recovery program that ignores the file system entirely and carves data straight off the storage by hunting for known file signatures, which is why it still finds pictures when a card or drive reports itself as empty or unreadable, working across FAT, NTFS, exFAT, ext2 through ext4, and HFS+ on hard disks, CDs, USB sticks, and memory cards, and recognizing more than 480 file extensions across roughly 300 file families; it comes in the same download as TestDisk, and the limits are the price of the method, because MakeUseOf's Afam Onyimadu pulled 104,754 files off one drive and got no folder structure and no original filenames, just generic names like f123456789.jpg with thumbnails, duplicates, and broken fragments mixed in, TRIM on an SSD can put deleted data out of reach entirely, and the first rule the documentation gives is to stop writing anything else to the device."
+    },
+    {
+      "date": "2026-09-21",
+      "name": "Radius",
+      "url": "https://radius.to/",
+      "trend_url": "https://news.ycombinator.com/show",
+      "cost": "Free",
+      "kind": "Web browser",
+      "seen": "Show HN, 156 points",
+      "blurb": "A Meetup alternative for groups, events, and activities, where you browse or start a group across categories like arts, food and drink, science and technology, or gaming, schedule events for the people who join it, and post an activity, a lightweight note that you are doing something soon and would like company, which needs no group behind it at all, with the site offering a group set up in sixty seconds for free; the honest caveat is the one every young network carries, that a local directory is only as useful as the people already near you, and its hyper-local discovery is still marked BETA, so look up your own area before you plan an evening around it."
+    },
+    {
+      "date": "2026-09-21",
+      "name": "OpenStock",
+      "url": "https://github.com/Open-Dev-Society/OpenStock",
+      "trend_url": "https://github.com/trending?since=daily",
+      "cost": "Free, AGPL-3.0",
+      "kind": "Self-host or hosted instance",
+      "seen": "GitHub Trending, +843 today",
+      "blurb": "An open-source market tracker from the Open Dev Society that gives you watchlists, price alerts, company profiles, emailed summaries, and a command-palette search with no subscription anywhere in it, built on Next.js with Finnhub supplying the data and TradingView drawing the charts, and set up either through its Docker Compose file or through the project's own hosted instance; the caveats matter more than usual on this one, because the documentation says outright that market data may be delayed under provider rules, with international quotes running 15 minutes or more behind on free plans and TradingView's free tier restricted on some emerging markets, and the hosted instance is a community deployment that asks you to create an account, so give it a password you use nowhere else and treat it as a watchlist rather than as anything you would trade on."
+    },
+    {
       "date": "2026-09-20",
       "name": "Harbor",
       "url": "https://harbor.my/",
@@ -1615,6 +1655,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-21",
+      "title": "Five Android automations you can build tonight without code, from a phone that silences itself to a saved parking spot",
+      "url": "https://www.howtogeek.com/useful-android-automations-you-can-build-without-learning-to-code/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 21",
+      "dek": "<b>Rules first, app second</b> How-To Geek's Joe Fedewa starts with what the phone already does, an alert mode that changes itself on a Wi-Fi network or at a location, under Settings, System, Rules on a Pixel or in Modes and Routines on a Samsung Galaxy, then NFC tags for study, sleep, and driving modes, and a Galaxy rule under Settings, Connections, Wi-Fi, Intelligent Wi-Fi that drops Wi-Fi when you leave home; the last two run on MacroDroid, a text to one person when you leave work and the one he calls the most involved of the set, a parking note triggered by the car Bluetooth disconnecting that saves the GPS spot and opens it in Google Maps, and the limitation he states plainly is that Samsung leads here, leaving Pixel owners on third-party apps and unable to use NFC tags with the built-in Rules at all.",
+      "needs": [
+        "An Android phone",
+        "MacroDroid for the last two",
+        "NFC tags, optional"
+      ],
+      "time": "20 minutes"
+    },
+    {
+      "date": "2026-09-21",
+      "title": "Rebuild the daily planner, the Trello board, and the whiteboard inside one Obsidian vault",
+      "url": "https://www.xda-developers.com/built-obsidian-setup-that-made-half-my-productivity-apps-unnecessary/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 21",
+      "dek": "<b>Four plugins, one vault</b> XDA's Parth Shah spent a month folding separate apps back into Obsidian's own parts, using Daily Notes with the Calendar plugin in place of a planner, the Kanban plugin for Trello-style boards of columns and cards, Canvas for mapping ideas out visually, and Beautitab for a start page with a search bar that he says almost makes the vault feel like his own private search engine, all dressed in the Encore theme; two limits belong on the label, that he still sends team projects to proper collaboration tools and keeps this setup for personal work, and that he is openly uneasy about Beautitab, a plugin that has not been updated in two years.",
+      "needs": [
+        "Obsidian, free to download",
+        "Calendar, Kanban, Beautitab plugins",
+        "Sync is $4 a month, optional"
+      ],
+      "time": "2 hours, then tweak"
+    },
+    {
+      "date": "2026-09-21",
+      "title": "Work the Google Keep notes screen like an inbox: label it, archive it, and let search do the finding",
+      "url": "https://www.xda-developers.com/overlooked-features-turned-google-keep-into-my-productivity-powerhouse/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 21",
+      "dek": "<b>Label, then archive</b> XDA's Mahnoor Faisal treats the main Notes screen as an inbox, adding the relevant label to each note and archiving it so it leaves the view without leaving the search, and leans on a search that filters by type, label, and color and by categories Keep recognizes on its own, including books, music, travel, places, TV, and food, and that reads text inside images too; the rest is plumbing already sitting there, since Copy to Google Docs turns a note into a document and Keep opens in the Docs sidebar to drag notes from, Keep reminders feed into Google Tasks and surface on Calendar, and a voice note is saved with its transcription; the one piece to wait for is Keep Live, the feature meant to structure messy thoughts, which she says she does not have access to yet.",
+      "needs": [
+        "A Google account",
+        "Google Keep on phone or web",
+        "Ten minutes to name your labels"
+      ],
+      "time": "15 minutes"
+    },
+    {
+      "date": "2026-09-21",
+      "title": "Windows 11 may be throttling your PC on purpose, and two settings put the speed back",
+      "url": "https://www.howtogeek.com/windows-throttling-itself-didnt-know-it-here-is-the-two-second-fix/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 21",
+      "dek": "<b>Two toggles, two minutes</b> How-To Geek's Goran Damnjanovic points at Energy Saver, which Windows 11 can leave switched on permanently, and at the Best power efficiency power mode, a pair that together hold CPU clock speeds down, slow app launches, weaken gaming performance, and can drop the display to 60Hz even with the machine plugged in; the fix is to turn the Energy Saver tile off in Quick Settings, or clear Always use energy saver under System, Power and battery, Energy saver, then set Power mode to Best performance on mains and Balanced on battery; the tradeoff is real and worth keeping in view, because those same settings are what buy you quieter fans, less heat, and a longer afternoon away from the charger.",
+      "needs": [
+        "A Windows 11 PC",
+        "Settings, Power and battery",
+        "Quick Settings in the system tray"
+      ],
+      "time": "2 minutes"
+    },
     {
       "date": "2026-09-20",
       "title": "Stop using the inbox as a to-do list: send each email to Google Tasks or Calendar the moment you read it",
