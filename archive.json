@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-21",
+      "edition": "morning",
+      "dateHuman": "Monday, September 21, 2026",
+      "file": "editions/2026-09-21-morning.html",
+      "lead": "Record $425 billion chip quarter points to higher prices for phones, PCs and consoles",
+      "pubDate": "Mon, 21 Sep 2026 07:49:18 -0400"
+    },
+    {
       "date": "2026-09-20",
       "edition": "evening",
       "dateHuman": "Sunday, September 20, 2026",
