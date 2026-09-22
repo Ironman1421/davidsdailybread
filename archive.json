@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-22",
+      "edition": "morning",
+      "dateHuman": "Tuesday, September 22, 2026",
+      "file": "editions/2026-09-22-morning.html",
+      "lead": "AMD touches a $1 trillion market value for the first time as investors widen the AI chip trade beyond Nvidia",
+      "pubDate": "Tue, 22 Sep 2026 07:47:09 -0400"
+    },
+    {
       "date": "2026-09-21",
       "edition": "evening",
       "dateHuman": "Monday, September 21, 2026",
