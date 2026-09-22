@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-22",
+      "name": "Ente Photos",
+      "url": "https://ente.com/",
+      "trend_url": "https://www.howtogeek.com/google-photos-replacements-give-privacy-without-self-hosting-headache/",
+      "cost": "Free 10GB; $2.49/mo for 50GB",
+      "kind": "Android, iOS, web, desktop",
+      "seen": "How-To Geek, Sep 22",
+      "blurb": "An open-source, end-to-end encrypted place to put photos and videos, with automatic backup, shared albums, public links and on-device AI across Android, iOS, the web, Mac, Windows and Linux, and 10GB free forever; the honest caveat is the size of that free tier, because a camera roll of any age runs past 10GB and lands you on a paid plan that starts at $2.49 a month for 50GB."
+    },
+    {
+      "date": "2026-09-22",
+      "name": "Greenshot",
+      "url": "https://getgreenshot.org/",
+      "trend_url": "https://www.howtogeek.com/open-source-windows-tool-turns-screenshot-chaos-into-3-click-workflow/",
+      "cost": "Free on Windows, $1.99 on Mac",
+      "kind": "Windows desktop",
+      "seen": "How-To Geek, Sep 22",
+      "blurb": "A free, open-source capture tool that takes a region, a window or a full screen, opens it in its own editor for annotating, highlighting or obfuscating the part you would rather not send, then exports in one step to a file, the clipboard, a printer, an email or Word, Excel, Outlook and OneNote, with filename patterns that stamp every capture with its time and title; the caveat is platform, because the free build is Windows only, currently 1.3.315 from March 20, while the Mac edition is a $1.99 App Store purchase."
+    },
+    {
+      "date": "2026-09-22",
+      "name": "OSS Document Scanner",
+      "url": "https://github.com/Akylas/OSS-DocumentScanner",
+      "trend_url": "https://www.xda-developers.com/open-source-android-apps-are-so-good-i-ditched-their-mainstream-rivals/",
+      "cost": "Free, MIT",
+      "kind": "Android and iOS",
+      "seen": "XDA, Sep 21",
+      "blurb": "A phone camera turned into a document scanner, with OpenCV enhancing the captured page, Tesseract reading the text off it, PDF export for sending it on, and barcode reading, free under an MIT license on both Android and iOS, which is why XDA's Mahnoor Faisal named it the open-source answer to Adobe Acrobat; the honest caveat is scale, because this is a volunteer project at roughly 2,500 GitHub stars with 82 issues open, so the polish trails the paid scanners."
+    },
+    {
       "date": "2026-09-21",
       "name": "Default Launcher",
       "url": "https://github.com/guru-irl/DefaultLauncher",
@@ -1655,6 +1685,47 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-22",
+      "title": "Six small automations, each worth two minutes, from meeting notes that file themselves to a shopping list that waits at the store",
+      "url": "https://www.xda-developers.com/tiny-automations-save-me-two-minutes-together-save-weekend/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 22",
+      "dek": "<b>One trigger, one rule</b> XDA's Anurag Singh lets Notion AI Meeting Notes turn the action items it hears into task entries, hands the Downloads folder to Sortly so each file is renamed by date, source and type and moved where it belongs, keeps renewal and expiry dates in a Notion database that raises a reminder 30 days and then 7 days out, maps a short trigger such as ;email onto the full text in the keyboard's own expansion settings, pins the shopping list to the store's location in the iPhone Reminders app, and gives midnight and 7 a.m. appliance switching to a smart plug's companion app, all on his one rule: a task with a clear trigger that always ends the same way is worth a few minutes of setup.",
+      "needs": [
+        "A notes app with automations",
+        "A phone with location reminders",
+        "A smart plug for the last one"
+      ],
+      "time": "A few minutes each"
+    },
+    {
+      "date": "2026-09-22",
+      "title": "Read the three-minute voice message instead of playing it, after one switch in Google Messages",
+      "url": "https://www.androidpolice.com/google-messages-trick-fixed-biggest-annoyance-with-long-audio-messages/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 22",
+      "dek": "<b>One setting, then a button</b> Android Police's Ben Khalesi opens Google Messages, taps the profile picture, goes to Messages settings and Voice message transcription and switches it on, after which every arriving voice note carries a View transcript button above the recording; he pairs it with two honest limits, that a message recorded in a windstorm or a loud bar will defeat the transcription and that plain text strips the tone carrying sarcasm or disappointment, so he keeps his own voice notes under 90 seconds and asks senders to type out the addresses and dates.",
+      "needs": [
+        "Google Messages on Android",
+        "Two minutes in settings"
+      ],
+      "time": "2 minutes"
+    },
+    {
+      "date": "2026-09-22",
+      "title": "Three free settings on a Galaxy phone that stop spam calls before it rings",
+      "url": "https://www.howtogeek.com/3-samsung-galaxy-spam-call-settings-that-beat-any-app-and-cost-nothing/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 22",
+      "dek": "<b>Three toggles, no subscription</b> How-To Geek's Tyler Dupont opens the Phone app, taps the three dot menu and Settings, and switches on Caller ID and Spam Protection, which checks Hiya's database and can block everything flagged as spam or only the high risk numbers, then turns on call screening, where Galaxy AI answers first, asks who is calling and transcribes the reply live for either suspected spam or every unknown number, and holds Block numbers in reserve to refuse anyone not in contacts, the nuclear option that also turns away legitimate calls from businesses; all three are free, though the AI screening needs a newer Galaxy.",
+      "needs": [
+        "A Samsung Galaxy phone",
+        "Newer Galaxy for AI screening",
+        "Five minutes in the Phone app"
+      ],
+      "time": "5 minutes"
+    },
     {
       "date": "2026-09-21",
       "title": "Five Android automations you can build tonight without code, from a phone that silences itself to a saved parking spot",
