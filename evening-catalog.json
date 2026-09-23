@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-23",
+      "name": "PowerToys FancyZones",
+      "url": "https://learn.microsoft.com/en-us/windows/powertoys/fancyzones",
+      "trend_url": "https://www.howtogeek.com/windows-11-powertoys-fancyzones/",
+      "cost": "Free",
+      "kind": "Windows desktop utility",
+      "seen": "How-To Geek, Sep 23",
+      "blurb": "Microsoft's own window manager, part of the free PowerToys set: you draw zones on the screen once, then every window you drag snaps into one at full size, with a grid layout that splits and merges and resizes with the screen or a canvas layout whose zones can overlap, Win+Shift+backtick to open the editor, Win+PgUp and Win+PgDn to cycle the windows stacked in one zone, and Win+Ctrl+Alt plus a number to swap the whole layout; the honest caveat is that it does not take over Windows Snap by default, so you hold Shift while dragging until you turn on Override Windows Snap, and Microsoft's own compatibility list names applications it cannot zone at all, among them Citrix Workspace, VMware Workstation Player, TeamViewer and Parsec, while elevated windows such as Task Manager need PowerToys itself running as administrator."
+    },
+    {
+      "date": "2026-09-23",
+      "name": "Tasks.org",
+      "url": "https://tasks.org/",
+      "trend_url": "https://www.howtogeek.com/this-open-source-app-replaced-two-google-apps-id-used-for-years/",
+      "cost": "Free, GNU GPLv3",
+      "kind": "Android; desktop in alpha",
+      "seen": "How-To Geek, Sep 23",
+      "blurb": "An open-source to-do list and reminders app with no ads, licensed under the GNU GPLv3, that syncs against Tasks.org, Google Tasks, DAVx5, CalDAV, EteSync or DecSync CC and lines up with Outlook, Thunderbird and Apple Reminders, which is how How-To Geek's Joe Fedewa folded both Google Tasks and Google Keep into it, keeping lists or tags, start and due dates, priorities, subtasks, reminders, calendar entries and the location based Places reminders Keep no longer offers, with two way sync carrying new tasks back into Google Tasks for Google Home speakers and Gemini to read; the caveat is reach, because this is an Android app first, the desktop build is still alpha, and a household on iPhones gets nothing out of it."
+    },
+    {
+      "date": "2026-09-23",
+      "name": "Portmaster",
+      "url": "https://safing.io/",
+      "trend_url": "https://www.howtogeek.com/free-open-source-app-sees-apps-secret-online-activity/",
+      "cost": "Free; Plus 40 euro a year",
+      "kind": "Windows and Linux desktop",
+      "seen": "How-To Geek, Sep 23",
+      "blurb": "Safing's free, open-source application firewall, which watches every connection the machine makes and shows you which program made it, then lets you block a single connection, a domain, a connection type, a country or an app's internet access altogether, with the free tier listing the privacy filter, secure DNS, the network monitor, network history, bandwidth visibility and weekly reports, and paid Plus at 40 euro a year or Pro at 8 euro a month and 80 euro a year adding investigation tools, priority support and the SPN across up to five devices; the caveat is the boundary, because it defends only the computer it is installed on, which is why How-To Geek's Dibakar Ghosh calls it a Honda Civic next to Pi-hole's Ford F-250, and turning on the broader filter lists can break sites you actually wanted."
+    },
+    {
+      "date": "2026-09-23",
+      "name": "Candy Browser",
+      "url": "https://github.com/sk2andy/candy-browser",
+      "trend_url": "https://www.androidpolice.com/firefox-safari-and-chrome-have-the-features-i-want-and-this-android-browser-combines-them-all/",
+      "cost": "Free, open source",
+      "kind": "Android 13 or newer",
+      "seen": "Android Police, Sep 23",
+      "blurb": "A gesture-first Android browser that runs Mozilla's GeckoView by default, so Firefox extensions such as uBlock Origin install and run on a phone, with a switch to the Android System WebView engine for sites that render better on Chromium, a Safari-inspired interface built for mobile, link previews, grid, list or Coverflow tab views, and filtering, history, favorites and profiles kept on the device, installable from Google Play, F-Droid, Obtainium or the project's own GitHub releases; the caveats are age and reach, since this is a young project at roughly 450 GitHub stars that needs Android 13 or newer, and Android Police's Dhruv Bhutani stops short of calling it a full Chrome or Firefox replacement."
+    },
+    {
       "date": "2026-09-22",
       "name": "Ente Photos",
       "url": "https://ente.com/",
@@ -1685,6 +1725,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-23",
+      "title": "Four standing orders for ChatGPT: a nightly news brief, a morning calendar read, a price watch, and a refocus nudge",
+      "url": "https://www.makeuseof.com/chatgpt-scheduled-tasks-everyday-uses/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Sep 22",
+      "dek": "<b>Write the prompt once</b> MakeUseOf's Judy Sanhz schedules a 7:30 PM task for the five biggest tech stories of the last 24 hours, naming the topics, the lookback window, the count and what to leave out, an 8 AM task that reads Google Calendar back with the overlaps, the back to back meetings and the free blocks, a daily price check on an Amazon tripod told to stay silent unless it hits $17 or less, and a five minute nudge to end a break on time; tasks can be edited or run by hand at any point, but nothing arrives unless notifications are on in the Tasks section, and the plan sets the ceiling at three tasks on Free and Go, five on Plus, ten on Business and Edu and fifteen on Pro and Enterprise.",
+      "needs": [
+        "A ChatGPT account (3 tasks on free)",
+        "Notifications on in the Tasks section",
+        "Google Calendar linked for the briefing"
+      ],
+      "time": "10 minutes to set up"
+    },
+    {
+      "date": "2026-09-23",
+      "title": "Five Chrome features that end the tab hoard: groups, vertical tabs, reading mode, split view, and Ask Gemini",
+      "url": "https://www.androidpolice.com/chrome-features-turned-my-browser-into-productivity-powerhouse/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 23",
+      "dek": "<b>Group first, then split</b> Android Police's Anu Joy stops treating open tabs as a to-do list by right-clicking a tab and choosing Add tab to new group so related pages travel together, right-clicking the tab strip and picking Show tabs vertically to read full titles down the side, right-clicking a page and opening it in reading mode, which strips the clutter and offers read aloud at an adjustable speed, and right-clicking a tab or a link to open it in a split view so two pages sit side by side during research; the fifth is Ask Gemini, which takes the current tab as context so there is no need to explain what is on the screen, and the standing limit is availability, since not every feature works on every page or platform.",
+      "needs": [
+        "Google Chrome, desktop",
+        "Ten minutes to sort what is open",
+        "A Google account for Ask Gemini"
+      ],
+      "time": "15 minutes"
+    },
+    {
+      "date": "2026-09-23",
+      "title": "Turn a flat task list into a self-updating Excel tracker with checkboxes, three counters and a progress bar",
+      "url": "https://www.howtogeek.com/microsoft-excel-turned-boring-task-list-into-a-mini-app-10-minutes/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 23",
+      "dek": "<b>Table first, formulas second</b> How-To Geek's Tony Phillips types the tasks and a Status column, presses Ctrl+T to make it a table, renames the table T_Tasks in the Table Design tab, and drops a checkbox into every Status cell from the Insert tab, after which the arithmetic writes itself: COUNTIFS on TRUE over ROWS of the table gives the percentage complete, COUNTIFS on FALSE counts what is pending, COUNTIFS on TRUE counts what is done; conditional formatting on the rule that the status cell equals TRUE greys out and strikes through a finished task, a data bar scaled from 0 to 1 turns the percentage into a bar, and switching off gridlines makes the sheet stop looking like a spreadsheet; the requirement to check before starting is the checkbox itself, which needs Excel for Microsoft 365 or Excel for the web.",
+      "needs": [
+        "Excel for Microsoft 365 or the web",
+        "A task list you already keep",
+        "Ten quiet minutes"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-09-23",
+      "title": "Seven Google Maps settings worth fixing before the next long drive, starting with the offline map",
+      "url": "https://www.androidpolice.com/after-driving-400-miles-i-never-start-google-maps-without-enabling-7-hidden-settings/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 23",
+      "dek": "<b>Download the map first</b> Android Police's Jade Bryan Jardinico, writing after a 400 mile drive, starts by downloading the route's area under the profile icon and Offline maps, switches on the traffic layer in Android Auto route options for the green, orange and red read of the road ahead, enters the car and fuel type under Your vehicles so routing accounts for efficiency and charging ports, and turns on driving notifications and Bluetooth beacons under Navigation settings so an ETA appears when the car connects and tunnels stop scrambling the position; voice guidance gets softened under Sound and voice rather than muted, a Gemini shortcut is built from Customize launcher for hands-free requests, and the limit that matters most is stated plainly, that an offline map carries no live traffic, hazards or incident updates.",
+      "needs": [
+        "Google Maps on a phone",
+        "Wi-Fi to download the offline map",
+        "Android Auto for the in-car settings"
+      ],
+      "time": "20 minutes at home"
+    },
     {
       "date": "2026-09-22",
       "title": "Six small automations, each worth two minutes, from meeting notes that file themselves to a shopping list that waits at the store",
@@ -4137,43 +4233,6 @@
         "Lesson 0 for the setup"
       ],
       "time": "12 weeks, self paced"
-    },
-    {
-      "date": "2026-07-29",
-      "title": "Run a 26B AI model offline on a small Mac laptop",
-      "url": "https://github.com/drumih/turbo-fieldfare",
-      "dek": "<b>Big model, small Mac</b> TurboFieldfare keeps only the essential weights in memory and streams the rest from storage, so Gemma 4 26B answers inside about 2 GB of RAM, at 5.1 to 6.3 tokens per second on an 8 GB M2 MacBook Air and 31 to 35 on an M5.",
-      "needs": [
-        "Apple Silicon Mac on macOS 26",
-        "Xcode 26 and Swift 6.2",
-        "About 15 GB free storage",
-        "Text only: no images or tools"
-      ],
-      "time": "About an hour"
-    },
-    {
-      "date": "2026-07-29",
-      "title": "Make a landlord's dumb air conditioner smart for about $15",
-      "url": "https://prilik.com/blog/post/automating-ac-nyc/",
-      "dek": "<b>Renter-safe automation</b> A stepper motor clamped to the existing dial, driven by an ESP32 talking to Home Assistant over MQTT, switches an analog window unit on and off without modifying the unit or risking the security deposit.",
-      "needs": [
-        "ESP32 and a stepper motor, about $15",
-        "Home Assistant and an MQTT broker",
-        "Brackets, a binder clip, cardboard"
-      ],
-      "time": "A few hours"
-    },
-    {
-      "date": "2026-07-29",
-      "title": "Put a jailbroken Kindle on your home network with Tailscale",
-      "url": "https://tailscale.com/blog/jailbroken-kindle-proxy-tun-modes",
-      "dek": "<b>Kindle, meet your server</b> The updated Tailscale KUAL app adds proxy and kernel TUN modes, and a KOReader plugin, so the reader can pull books straight from a machine at home, though Tailscale calls it community code on a very unofficial device state and warns 11th-generation Kindles have plugin trouble.",
-      "needs": [
-        "A jailbroken Kindle with KUAL",
-        "A Tailscale account and auth key",
-        "KOReader, for the plugin route"
-      ],
-      "time": "An evening"
     }
   ]
 }
