@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-24",
+      "edition": "evening",
+      "dateHuman": "Thursday, September 24, 2026",
+      "file": "editions/2026-09-24-evening.html",
+      "lead": "Five Excel tools for cleaning up the spreadsheet somebody else built, starting with Go To Special",
+      "pubDate": "Thu, 24 Sep 2026 17:47:12 -0400"
+    },
+    {
+      "date": "2026-09-24",
       "edition": "morning",
       "dateHuman": "Thursday, September 24, 2026",
       "file": "editions/2026-09-24-morning.html",

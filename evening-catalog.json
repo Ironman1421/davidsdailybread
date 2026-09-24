@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-24",
+      "name": "Zotero",
+      "url": "https://www.zotero.org/",
+      "trend_url": "https://www.xda-developers.com/i-stopped-losing-articles-by-building-one-searchable-library/",
+      "cost": "Free; 300MB sync, $20/yr 2GB",
+      "kind": "Mac, Windows, Linux, phone apps",
+      "seen": "XDA, Sep 24",
+      "blurb": "A free tool from an independent nonprofit for collecting, organizing, annotating, citing and sharing what you read, running on Mac, Windows, Linux, iOS and Android, with a browser connector that senses a source as you browse and files it with its metadata, collections for broad sorting, tags for the threads that cross topics, and a search across keyword, author, publication and partial title that retires folder digging altogether, which is how XDA's Yash Patel stopped losing articles he had already read; the honest caveat is storage, because a free account syncs only 300MB before the paid tiers begin at $20 a year for 2GB and climb to $60 for 6GB and $120 for unlimited."
+    },
+    {
+      "date": "2026-09-24",
+      "name": "Lumo by Proton",
+      "url": "https://proton.me/lumo",
+      "trend_url": "https://www.howtogeek.com/i-used-lumo-ai-for-a-week-instead-of-chatgpt-heres-what-i-learned/",
+      "cost": "Free tier; Plus $9.99/mo",
+      "kind": "Web, iOS and Android",
+      "seen": "How-To Geek, Sep 24",
+      "blurb": "A privacy-first AI assistant from Proton, the people behind Proton Mail and Proton VPN, which answers questions, researches the web with citations you can check, analyzes data, writes and generates images, stores every conversation under zero-access encryption Proton says it cannot read, never trains on your chats, publishes its code open source, leaves memory off by default so one conversation does not carry into the next, and adds a ghost mode for chats you would rather not keep; How-To Geek's Nimrah Chaudhry spent a week on it instead of ChatGPT and kept both tools, because the free tier caps messages, chat history, image generations and projects at one, the image quality trails its rivals, the brainstorming came back average, third-party integrations are thin, and a first answer usually needs a follow-up before it has any depth."
+    },
+    {
+      "date": "2026-09-24",
+      "name": "OpenCut",
+      "url": "https://github.com/OpenCut-app/OpenCut",
+      "trend_url": "https://www.xda-developers.com/started-editing-videos-with-free-open-source-capcut-alternative-workflow-got-faster/",
+      "cost": "Free, MIT licensed",
+      "kind": "Runs in the browser",
+      "seen": "XDA, Sep 24",
+      "blurb": "An open-source video editor that runs in a browser tab and exports MP4 or WebM with no watermark, using the browser's built-in WebCodecs encoding and a Rust compositor compiled to WebAssembly so the rendering leans on your own GPU, with drag-and-drop import, a timeline of one main video track plus organized secondary tracks, keyframe animation with a bezier curve editor, preset-shape masks with feather and stroke, auto-captioning and transcripts that detect multiple languages, more than a thousand fonts, loudness-weighted audio waveforms and single-frame PNG export for thumbnails, which is what sped XDA's Nolen Jonker up after CapCut; the caveats are substantial, because this is an early beta in the middle of a ground-up rewrite, transitions do not exist yet, the effects list stops at blur, projects live in the browser's own IndexedDB store so clearing site data destroys them, and nothing syncs between devices."
+    },
+    {
+      "date": "2026-09-24",
+      "name": "F-Droid 2.0",
+      "url": "https://f-droid.org/2026/09/24/f-droid-2.0-a-new-chapter-for-android-freedom.html",
+      "trend_url": "https://news.ycombinator.com/front?day=2026-09-24",
+      "cost": "Free and open source",
+      "kind": "Android app repository",
+      "seen": "Hacker News, 753 points",
+      "blurb": "The free and open-source Android app repository, rewritten in Kotlin and Jetpack Compose after a year of work and 14 test releases into what the project calls its largest app update in 10 years, now built around Discover, Search and My Apps, with an expanded category system, a search that reaches into app descriptions, categories and translations, better support for Chinese, Japanese and Korean, and a unified installer that uses the new pre-approval APIs opened by the EU Digital Markets Act; the caveats are worth knowing before you go looking for it, because 2.0 arrives in a staged rollout rather than all at once, Android 6 devices and the F-Droid Privileged Extension are no longer supported, pull-to-refresh is gone in favor of automatic background updates, Tor auto-detection has been folded into generic proxy settings, and the Nearby file-sharing feature is still being finished."
+    },
+    {
       "date": "2026-09-23",
       "name": "PowerToys FancyZones",
       "url": "https://learn.microsoft.com/en-us/windows/powertoys/fancyzones",
@@ -1725,6 +1765,62 @@
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-24",
+      "title": "Five Excel tools for cleaning up the spreadsheet somebody else built, starting with Go To Special",
+      "url": "https://www.howtogeek.com/microsoft-excel-tools-fix-other-peoples-messy-spreadsheets/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 24",
+      "dek": "<b>Audit first, then fix</b> How-To Geek's Tony Phillips opens Find and Select and runs Go To Special to catch every blank cell before touching anything, marks duplicates and inconsistencies through Highlight Cells Rules in conditional formatting so the underlying data stays as it was, breaks crammed cells apart with TEXTSPLIT on a comma, a pipe or a space and pastes the result as values before deleting the source, and saves Excel tables and named ranges built through Create from Selection for last, once the sheet is clean enough to deserve them.",
+      "needs": [
+        "Microsoft Excel",
+        "A spreadsheet somebody else built",
+        "The TEXTSPLIT function"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-09-24",
+      "title": "Audit the accounts still tied to your old phone number before a stranger is handed it",
+      "url": "https://www.howtogeek.com/old-phone-number-may-still-unlock-your-accounts-audit-before-recycled/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 24",
+      "dek": "<b>Search, then re-point</b> How-To Geek's Arol Wright notes that a cancelled US number usually re-enters the reuse pool within 45 to 90 days, and that Princeton researchers found 100 of 259 recycled numbers already tied to credentials leaked online, leaving a new holder needing only the texted code; his audit searches your email for phrases like verification code, works down from the carrier, email, Apple or Google account, bank and payment services, swaps the number out for an authenticator app, a passkey or a hardware key, changes it inside messaging apps using their own change-number tools before the line goes dark, checks the secondary services from pharmacies to airlines to delivery apps, and deletes the dormant accounts instead of updating them.",
+      "needs": [
+        "An email account you can search",
+        "A password manager or account list",
+        "An authenticator app or passkey"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-09-24",
+      "title": "Switch off the Windows animations and a four-year-old laptop stops feeling four years old",
+      "url": "https://www.makeuseof.com/make-windows-pc-feel-faster-disable-animations/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Sep 24",
+      "dek": "<b>Three switches, one menu</b> MakeUseOf's Pankil Shah turns off Animation effects and Transparency effects under Settings, Accessibility, Visual effects, then searches for adjust the appearance and performance of Windows and picks Adjust for best performance, or takes the Custom option to keep Smooth edges of screen fonts and Show thumbnails instead of icons, and pairs it with Best performance under Settings, System, Power and battery; he is honest about the trade, that the interface looks a bit weird at first, that the gain lands on older or budget machines rather than new high-end ones, that the power mode costs a laptop battery life, and that the hidden Ultimate Performance plan is not worth its heat.",
+      "needs": [
+        "A Windows 11 PC",
+        "Settings, Accessibility, Visual effects",
+        "Performance Options"
+      ],
+      "time": "Five minutes"
+    },
+    {
+      "date": "2026-09-24",
+      "title": "Three settings worth changing on the Firefox page everybody is warned away from",
+      "url": "https://www.makeuseof.com/i-dug-through-firefox-most-intimidating-settings-page-and-found-three-worth-changing/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Sep 24",
+      "dek": "<b>Three names, three values</b> MakeUseOf's Afam Onyimadu sets browser.urlbar.trimURLs to false so the address bar shows the whole address, which makes a redirect or a local page easy to read and compare, sets browser.tabs.closeWindowWithLastTab to false so closing the final tab leaves the window standing, and sets browser.urlbar.decodeURLsOnCopy to true so a copied link arrives readable rather than percent-encoded; he prints the trade in each case, that the first is purely visual and changes nothing about security, that the second costs you a quick way to quit if you used it deliberately, and that some services still expect the encoded form.",
+      "needs": [
+        "Firefox",
+        "The about:config page",
+        "Three setting names"
+      ],
+      "time": "Under five minutes"
+    },
     {
       "date": "2026-09-23",
       "title": "Four standing orders for ChatGPT: a nightly news brief, a morning calendar read, a price watch, and a refocus nudge",
@@ -4185,54 +4281,6 @@
         "A terminal for rclone config"
       ],
       "time": "About 30 minutes"
-    },
-    {
-      "date": "2026-08-01",
-      "title": "Follow 38 hand-checked blogs at once by importing a single OPML file",
-      "url": "https://iheartrss.com/",
-      "dek": "<b>One file, 38 feeds</b> The directory behind a 140-point post on today's Hacker News front page hands out its whole membership as OPML for any reader to import in one step, and joining it costs a badge on your homepage and a submitted URL, checked for the link back.",
-      "needs": [
-        "Any RSS reader",
-        "The directory's OPML export",
-        "A site of your own, only to join"
-      ],
-      "time": "10 minutes"
-    },
-    {
-      "date": "2026-08-01",
-      "title": "Set three free apps running this weekend and then leave them alone",
-      "url": "https://www.howtogeek.com/free-open-source-set-it-and-forget-it-apps-you-need-to-set-up-this-weekend-july-31aug-2/",
-      "dek": "<b>Watch, sync, encrypt</b> Dibakar Ghosh's weekend list pairs Changedetection.io for price and stock alerts (free self-hosted in Docker, or $9 a month hosted) with Syncthing for device-to-device syncing that skips the cloud, and Cryptomator for encrypting files before they ever reach it.",
-      "needs": [
-        "Docker for Changedetection.io",
-        "Two devices for Syncthing",
-        "A cloud folder for Cryptomator"
-      ],
-      "time": "An evening, all three"
-    },
-    {
-      "date": "2026-07-31",
-      "title": "Record an episode this week and hear it published on a feed running since 2005",
-      "url": "https://hackerpublicradio.org/contribute.html",
-      "dek": "<b>Book the slot first</b> Hacker Public Radio lets a contributor reserve a calendar date up to a year out, then emails a one-time upload link that expires in 15 minutes, and it takes phone recordings as readily as FLAC.",
-      "needs": [
-        "A topic you can talk through",
-        "Audacity or a phone recorder",
-        "A free slot on the calendar"
-      ],
-      "time": "An evening to record"
-    },
-    {
-      "date": "2026-07-31",
-      "title": "Start Microsoft's free AI curriculum, 24 lessons at your own pace",
-      "url": "https://github.com/microsoft/AI-For-Beginners",
-      "dek": "<b>Begin at lesson zero</b> The lessons run from symbolic AI through neural networks, computer vision and language in Jupyter notebooks, and the README is blunt that business applications, classic machine learning and chatbots are out of scope.",
-      "needs": [
-        "Python with Jupyter Notebooks",
-        "A GitHub account to fork it",
-        "Lesson 0 for the setup"
-      ],
-      "time": "12 weeks, self paced"
     }
   ]
 }
