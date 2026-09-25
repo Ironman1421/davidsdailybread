@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-25",
+      "edition": "evening",
+      "dateHuman": "Friday, September 25, 2026",
+      "file": "editions/2026-09-25-evening.html",
+      "lead": "Recordly records your screen and edits the clip while you work, zooming wherever the cursor goes",
+      "pubDate": "Fri, 25 Sep 2026 17:52:56 -0400"
+    },
+    {
+      "date": "2026-09-25",
       "edition": "morning",
       "dateHuman": "Friday, September 25, 2026",
       "file": "editions/2026-09-25-morning.html",

@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-25",
+      "name": "Recordly",
+      "url": "https://github.com/webadderallorg/recordly",
+      "trend_url": "https://www.makeuseof.com/recordly-screen-recorder-edits-clips-automatically/",
+      "cost": "Free, AGPL 3.0",
+      "kind": "Windows, macOS and Linux app",
+      "seen": "MakeUseOf, Sep 25",
+      "blurb": "A free, open-source desktop recorder that watches your cursor and does the polish itself, suggesting zooms on the part that matters, smoothing the pointer and adding click effects, framing the clip with wallpapers, gradients, blur and shadow, dropping in a webcam overlay you can reposition, saving presets so a run of recordings match, editing on a drag-and-drop timeline, writing captions in eight languages, and exporting MP4 or GIF, which is how MakeUseOf's Pankil Shah gets a finished walkthrough without a separate editing pass; the caveats are platform-shaped, because automatic captions need a local language model downloaded first, Linux cannot hide the cursor while capturing, system audio support varies and is strongest on Windows, and a clip imported from the Snipping Tool is not edited automatically."
+    },
+    {
+      "date": "2026-09-25",
+      "name": "Kdenlive",
+      "url": "https://kdenlive.org",
+      "trend_url": "https://www.howtogeek.com/foss-app-of-the-week-kdenlive-unlocks-professional-video-editing-without-a-subscription/",
+      "cost": "Free and open source",
+      "kind": "Linux, Windows, macOS, BSD",
+      "seen": "How-To Geek, Sep 25",
+      "blurb": "The KDE community's free and open-source video editor, which its own site describes as the KDE Non-Linear Video Editor and ships for Linux, Windows, macOS and BSD, ingesting almost any audio or video format, sorting a project with tags and filters, editing multicam and three-point on a multi-track timeline with nested sequences, mixing audio with built-in voiceover recording and a spectrum view, stacking hundreds of keyframed effects, grading with LUTs and analysis tools, transcribing subtitles automatically, and storing projects as plain XML rather than a proprietary format, with proxy clips to keep 4K footage workable and imported Premiere hotkeys for anyone switching; How-To Geek's Nick Lewis is candid about the limits, that heavy effect stacks on 4K run into the CPU, that the color tools trail DaVinci Resolve, that 10 and 12 bit color depth is still on the roadmap, that the AI features need a one-time setup with a Python environment and several gigabytes of models, and that the plugin ecosystem is smaller than Adobe's."
+    },
+    {
+      "date": "2026-09-25",
+      "name": "darktable",
+      "url": "https://www.darktable.org/",
+      "trend_url": "https://www.howtogeek.com/free-open-source-apps-that-are-better-than-expensive-paid-alternatives/",
+      "cost": "Free, GPL 3.0",
+      "kind": "Windows, macOS, Linux",
+      "seen": "How-To Geek, Sep 25",
+      "blurb": "A free photography workflow application and raw developer released under GPL 3.0, which its makers call a virtual lighttable and darkroom: it catalogs your digital negatives in a database, edits every raw file non-destructively so the original is never touched, accelerates the processing on your GPU, and carries professional color management the whole way to print, with installers for 64-bit and ARM Windows, Apple silicon and Intel Macs from macOS 13.5 Ventura onward, though individual bundles ask for a newer release, and x86_64 and aarch64 AppImages plus distribution packages and Flatpak on Linux; How-To Geek's Goran Damnjanovic names the honest trade against Adobe Lightroom, that the learning curve is steeper, and the project notes its Flatpak build leaves the AI features out."
+    },
+    {
       "date": "2026-09-24",
       "name": "Zotero",
       "url": "https://www.zotero.org/",
@@ -1753,18 +1783,51 @@
       "kind": "Web, reads or plays aloud",
       "seen": "Show HN, 71 points",
       "blurb": "One link opens a whole book, keeps your place on the device, and lets you swap between reading and listening; an account is optional and only syncs progress, but the library is public domain material from Project Gutenberg, Standard Ebooks and LibriVox, so nothing modern is on the shelf."
-    },
-    {
-      "date": "2026-07-29",
-      "name": "TokenTown",
-      "url": "https://laurentiugabriel.github.io/token-town/",
-      "cost": "Free",
-      "kind": "Runs in the browser",
-      "seen": "Hacker News, 72 points",
-      "blurb": "Type a prompt and watch a single token travel through an isometric city where each district is one stage of a language model, from tokenizing to attention to sampling; the model is deliberately tiny and its weights are random and untrained, so the words it produces are noise and only the machinery is real."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-25",
+      "title": "Set one Private DNS hostname and every app on the phone stops resolving ad and tracker domains",
+      "url": "https://www.androidpolice.com/i-changed-one-hidden-android-setting-to-block-ads-and-trackers/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 25",
+      "dek": "<b>One field, one hostname</b> Android Police's Anu Joy opens Settings, then Network and internet, then Private DNS, chooses Private DNS provider hostname, and types a filtering resolver: dns.adguard-dns.com for AdGuard, security.cloudflare-dns.com for malware or family.cloudflare-dns.com for malware and adult content, dns.quad9.net for Quad9, or p2.freedns.controld.com for Control D, after which the filtering happens at the domain level for every app and every network the phone joins; the limits are printed as plainly, that domain-level filtering cannot strip every ad or piece of cosmetic clutter from a page, that Private DNS encrypts only your lookups and is no replacement for a VPN, that a custom entry can break connections while a VPN is running, and that the menu sits somewhere slightly different on some phones.",
+      "needs": [
+        "An Android phone",
+        "Settings, Network and internet",
+        "One provider hostname"
+      ],
+      "time": "Under five minutes"
+    },
+    {
+      "date": "2026-09-25",
+      "title": "Turn a messy YouTube watch list into a study guide with citations, a slide deck and a mind map",
+      "url": "https://www.androidpolice.com/gemini-notebook-turned-messy-youtube-watch-list-into-superpowered-study-guide/",
+      "trend_url": "https://www.androidpolice.com/feed/guides-how-tos/",
+      "seen": "Android Police guides, Sep 24",
+      "dek": "<b>Paste the links, then ask</b> Android Police's Rahul Naskar stops hoarding videos by adding their URLs to Gemini Notebook as sources, optionally pushing a whole playlist over with the YouTube to Gemini Notebook Chrome extension, and then working the pile as one body of material: summaries, answers and highlighted key points that carry numbered citations back to the source, an infographic for a fast visual pass, a slide deck, an audio or video overview he sets by length, language and topic focus, a mind map he downloads as a PDF, and table-format answers when he wants two ideas compared side by side; the honest limits are that some of those features are free only for limited use, and that the notebook reads transcripts rather than watching, so anything shown on screen but never spoken aloud never reaches it.",
+      "needs": [
+        "YouTube links or a playlist",
+        "A Gemini Notebook account",
+        "Optional: the Chrome extension"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-25",
+      "title": "Shell scripts that update, monitor and open a Linux desktop before the workday starts",
+      "url": "https://www.howtogeek.com/these-bash-scripts-save-me-time-every-day-on-linux-heres-how-to-use-them/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 25",
+      "dek": "<b>Write once, run daily</b> How-To Geek's David J. Buck opens a work session with scripts instead of chores: the first chains apt update, upgrade, autoremove, autoclean and autopurge together with flatpak updates, lowers the swappiness value from 60 to 10 or 20, and prints the day's weather from wttr.in beside a look at Docker storage and Timeshift snapshots; the second uses tmux to open htop or btop, ncdu and bmon in split panes as a single monitoring board; the third launches, in one command, the seven applications he actually works in, from Firefox and Thunderbird to Obsidian and Konsole. Each file needs the #!/bin/bash line at the top and chmod +x before it will run, and he is straight about the swappiness tweak being temporary unless you make the change permanent yourself.",
+      "needs": [
+        "A Linux desktop",
+        "apt or flatpak, tmux, htop, ncdu",
+        "chmod +x on each script"
+      ],
+      "time": "An hour to set up"
+    },
     {
       "date": "2026-09-24",
       "title": "Five Excel tools for cleaning up the spreadsheet somebody else built, starting with Go To Special",
@@ -4245,42 +4308,6 @@
         "The original file, kept as backup"
       ],
       "time": "About 2.5 hours"
-    },
-    {
-      "date": "2026-08-02",
-      "title": "Put the files you keep remaking into the Windows right-click New menu",
-      "url": "https://www.makeuseof.com/windows-new-menu-was-useless-until-i-added-my-own-files-to-it/",
-      "dek": "<b>No registry editing</b> required: Afam Onyimadu turns on the New+ module under File Management in Microsoft PowerToys, then drops template files into its folder so they appear on right-click, and he advises adding only the kinds of file you genuinely keep recreating.",
-      "needs": [
-        "Windows 11",
-        "Microsoft PowerToys",
-        "Two or three files you keep remaking"
-      ],
-      "time": "One-time setup"
-    },
-    {
-      "date": "2026-08-02",
-      "title": "Print five car accessories tonight instead of ordering them",
-      "url": "https://www.howtogeek.com/these-5-car-accessories-are-cheaper-and-faster-to-print-than-order-from-amazon/",
-      "dek": "<b>Half an hour for the visor clip</b> and an hour or two for the air vent phone mount, from MakerWorld models the guide links, with a warning worth heeding: plain PLA starts to deform at around 50C (122F), so a parked car calls for PETG, ASA, ABS or PET instead.",
-      "needs": [
-        "A 3D printer",
-        "PETG, ASA, ABS or PET filament",
-        "Supports for the hitch cover"
-      ],
-      "time": "30 minutes to 2 hours"
-    },
-    {
-      "date": "2026-08-01",
-      "title": "Back up one folder to every cloud account you own, with a single command",
-      "url": "https://www.howtogeek.com/the-rclone-trick-that-backs-up-my-nas-to-multiple-cloud-services-at-once-for-free/",
-      "dek": "<b>One union remote</b> Faisal Rasool's Saturday walkthrough installs rclone, authenticates each account with rclone config, then merges Google Drive, Dropbox and the rest into one union remote so a single copy command fans a folder out to all of them.",
-      "needs": [
-        "rclone, free on Windows, Mac, Linux",
-        "Two or more cloud accounts",
-        "A terminal for rclone config"
-      ],
-      "time": "About 30 minutes"
     }
   ]
 }
