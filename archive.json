@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-25",
+      "edition": "morning",
+      "dateHuman": "Friday, September 25, 2026",
+      "file": "editions/2026-09-25-morning.html",
+      "lead": "Akamai signs an $11.6 billion, seven-year computing agreement with Anthropic",
+      "pubDate": "Fri, 25 Sep 2026 07:48:48 -0400"
+    },
+    {
       "date": "2026-09-24",
       "edition": "evening",
       "dateHuman": "Thursday, September 24, 2026",
