@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-26",
+      "name": "ScreenZen",
+      "url": "https://screenzen.co/",
+      "trend_url": "https://www.androidpolice.com/app-helped-reclaim-hours-without-deleting-social-media/",
+      "cost": "Free, donation-supported",
+      "kind": "iOS, Android, Windows, macOS",
+      "seen": "Android Police, Sep 26",
+      "blurb": "A donation-supported screen time app with no subscription and no premium tier, which blocks distracting apps and websites by choice rather than by force: you pick the apps and sites to restrict, and it runs a countdown before each one opens, shows a mindfulness prompt you write yourself, holds you to a daily limit and a set number of unlocks, keeps a distraction-free schedule, tracks your streaks, and uses Lock Mode to stop you uninstalling or working around it, which is how Android Police's Anu Joy reclaimed hours without deleting a single social account; the caveats are worth reading first, because the app adds friction instead of removing the apps, a scheduled window still lets the habit through, and the average of three hours of screen time recovered a day is the company's own claim rather than an independent measurement."
+    },
+    {
+      "date": "2026-09-26",
+      "name": "Trilium",
+      "url": "https://triliumnotes.org/",
+      "trend_url": "https://www.xda-developers.com/trilium-handles-the-notes-obsidian-was-never-good-at-and-it-made-it-easier-to-just-pick-one/",
+      "cost": "Free, AGPL 3.0",
+      "kind": "Desktop app, PWA, self-hosted",
+      "seen": "XDA Developers, Sep 26",
+      "blurb": "An open-source notebook and personal knowledge base with, in its own words, no paid tiers, accounts or feature paywalls, which runs locally on the desktop or syncs through a server you host yourself, opens in a browser or as a mobile progressive web app, and files everything in a hierarchy of notes inside notes, so a single note can sit in several places at once and stay synchronized in each, as XDA's Patrick Hearn describes, with text, markdown, code, spreadsheet, diagram and mind map note types, a familiar rich-text toolbar, Mermaid diagrams, canvas and graph views, calendar, table and Kanban collection views, full-text search with OCR, password-protected encrypted notes, and a web clipper extension; the honest limits are that it is built for one person rather than live collaboration, there is no official mobile app (the Android build is unofficial), it is a knowledge base rather than a file store, and sync can fail on files past a gigabyte."
+    },
+    {
+      "date": "2026-09-26",
+      "name": "Fossify",
+      "url": "https://fossify.org/",
+      "trend_url": "https://www.makeuseof.com/free-apps-that-make-old-android-phone-feel-new/",
+      "cost": "Free, no ads",
+      "kind": "Android, Play Store and F-Droid",
+      "seen": "MakeUseOf, Sep 26",
+      "blurb": "A suite of open-source Android apps for the everyday jobs a phone already does, photos, calendar, files, documents, messages, calls, music, notes and camera, published on both Google Play and F-Droid with matching package names, carrying no advertising libraries or tracking in any app, asking only for the permissions a feature needs, and keeping data local rather than in somebody's cloud, which is how MakeUseOf's Pankil Shah made a four-year-old Galaxy S22 feel new again by swapping the stock Gallery, File Manager, Messages, Calendar and Notes for offline, ad-free replacements; the piece is candid that this is not practical for everyone, because the payoff only arrives if you are willing to adopt several new apps at once, and each app keeps its own policy for local data, permissions and any external service it touches."
+    },
+    {
+      "date": "2026-09-26",
+      "name": "SMS Backup & Restore",
+      "url": "https://www.synctech.com.au/sms-backup-restore/",
+      "trend_url": "https://www.howtogeek.com/this-app-gives-google-messages-a-feature-it-desperately-needs/",
+      "cost": "Free with ads; Pro $7.49",
+      "kind": "Android app",
+      "seen": "How-To Geek, Sep 26",
+      "blurb": "An Android app that saves your text history as XML on the phone and uploads it automatically to Google Drive, Dropbox, OneDrive or email, covering SMS and MMS messages and call logs, and also moving them straight to another handset over Wi-Fi Direct, which is the point How-To Geek's Joe Fedewa makes: Android gives you one transfer window when you set up a new phone, and this puts RCS, SMS and MMS threads, group chats, pictures, videos and drafts back on any device at any time instead; the caveats are specific, because the free version carries advertisements while the $7.49 Pro version removes them and adds ZIP compression, AES-256 encryption and WebDAV backup, MMS media and RCS backup work only on selected models, and under Android 17 messages can go missing from a backup unless you make it the default messaging app while it runs."
+    },
+    {
       "date": "2026-09-25",
       "name": "Recordly",
       "url": "https://github.com/webadderallorg/recordly",
@@ -1747,45 +1787,51 @@
       "kind": "Self-host with Docker",
       "seen": "GitHub trending, 188 stars today",
       "blurb": "Runs kanban boards and issue tracking on a machine you own from a Docker Compose file, and its makers state the trade-off plainly: a deliberately minimal design with fewer features than Jira or Linear."
-    },
-    {
-      "date": "2026-07-29",
-      "name": "SoundGate Guitar",
-      "url": "https://apps.apple.com/us/app/soundgate-guitar/id6760704644",
-      "cost": "Free, no in-app purchases",
-      "kind": "iPhone, iPad, Mac app",
-      "seen": "Product Hunt No. 2, Jul 29",
-      "blurb": "It listens through the microphone and draws what you are playing on a live fretboard, with an AI tutor that answers questions and builds practice routines, plus a tuner and metronome; it is an Apple-only app, so Android players are out of luck."
-    },
-    {
-      "date": "2026-07-29",
-      "name": "Yap, on-device dictation for macOS",
-      "url": "https://github.com/frigadehq/yap",
-      "cost": "Free, MIT licensed",
-      "kind": "macOS 26, Apple Silicon",
-      "seen": "Show HN, 104 points",
-      "blurb": "Press a shortcut, talk, press it again, and your words appear in whatever text field you were in, using Apple's built-in speech APIs with no model to download and no network calls; it needs macOS 26 or later on Apple Silicon, and Intel Macs are deliberately not supported."
-    },
-    {
-      "date": "2026-07-29",
-      "name": "CheapFoodMap",
-      "url": "https://cheapfoodmap.com/",
-      "cost": "Free",
-      "kind": "Web map, US cities",
-      "seen": "Show HN, 273 points",
-      "blurb": "A map of meals under $10 across a dozen featured cities including New York, Chicago, Houston and Los Angeles, with a price-verified date shown on each spot; the entries are crowdsourced, so coverage thins out fast once you pan away from the big cities."
-    },
-    {
-      "date": "2026-07-29",
-      "name": "tale.fyi",
-      "url": "https://tale.fyi/@sam/announcing-tale-fyi-read-or-listen-to-an-entire-book-from-a-single-link",
-      "cost": "Free",
-      "kind": "Web, reads or plays aloud",
-      "seen": "Show HN, 71 points",
-      "blurb": "One link opens a whole book, keeps your place on the device, and lets you swap between reading and listening; an account is optional and only syncs progress, but the library is public domain material from Project Gutenberg, Standard Ebooks and LibriVox, so nothing modern is on the shelf."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-26",
+      "title": "Four changes that turn Gboard into a keyboard that stops retyping your own information",
+      "url": "https://www.androidpolice.com/gboard-is-basic-out-of-the-box-these-changes-make-it-productivity-powerhouse/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 26",
+      "dek": "<b>Pin it once, paste it forever</b> Android Police's Parth Shah leaves the stock keyboard behind in four passes: advanced voice typing goes on first, which punctuates dictation on its own and takes spoken commands for emoji and editing on a Pixel 6 or newer; then the clipboard icon, where the text you type constantly gets pinned, an address, a stock email reply, contact details, so forms stop costing the same keystrokes twice; then Gboard settings, then Dictionary, then Languages, where the personal dictionary is fed the local words, names, slang and work terms autocorrect keeps mangling, each with a shortcut so a few letters expand into the whole phrase; and last, saving recent screenshots to the clipboard, so a screenshot goes out from inside the keyboard without a trip to Photos. The write-up is clear that advanced voice typing needs a Pixel 6 or later, and that Rambler, the Gemini-powered voice feature coming to the Pixel 11 series, is untested so far.",
+      "needs": [
+        "An Android phone with Gboard",
+        "Gboard settings, then Dictionary",
+        "A few phrases worth pinning"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-26",
+      "title": "One keystroke shows every formula in the spreadsheet somebody else built, and three more finish the audit",
+      "url": "https://www.howtogeek.com/stop-clicking-every-cell-check-formulas-excel-shortcut-shows-instantly/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 26",
+      "dek": "<b>Press the backtick, read the logic</b> How-To Geek's Steve Larner stops clicking cell by cell to work out what a workbook is doing: Ctrl and the backtick key toggles the whole sheet from results to formulas, so the arithmetic, the functions, the cell references and the lookups reaching into other tabs and other workbooks are all visible at once, and the same keystroke puts the results back; from there Ctrl and Backspace returns you to the formula cell you wandered away from, Alt then W then N opens a duplicate window so two parts of the same sheet sit side by side, and Ctrl and G jumps to a cell a formula depends on. The limit named in the piece is the long formula that gets cut off at the column edge: Alt then H then O then I widens the columns to show it, but nothing can be edited until you undo that with Ctrl and Z first.",
+      "needs": [
+        "Microsoft Excel",
+        "A workbook you did not build",
+        "The backtick key, left of the 1"
+      ],
+      "time": "Under a minute"
+    },
+    {
+      "date": "2026-09-26",
+      "title": "Five standing Gemini Spark prompts: a morning brief, a learning log, a subscription watch, a watchlist and a trip itinerary",
+      "url": "https://www.howtogeek.com/5-gemini-spark-prompts-that-save-me-hours-every-week/",
+      "trend_url": "https://www.howtogeek.com/feed/",
+      "seen": "How-To Geek feed, Sep 26",
+      "dek": "<b>Write the standing order once</b> How-To Geek's Vishwamoorthy Ramakrishnan uses Gemini Spark, Google's personal-agent feature, to run five recurring jobs against Gmail, Calendar, Drive, Docs, Keep and Tasks instead of doing them by hand: a weekday morning brief that puts the day's schedule, the local weather and the genuinely urgent email in one place; a daily learning and habit log that takes a voice note and appends it, dated and bulleted, to a Google Doc you create first and call Daily Learnings Tracker; a weekly Gmail sweep for renewals, expiring trials and price increases that lands in a Sheet called Sub Tracker and flags anything billing within 48 hours; a Thursday 6:00 PM watchlist of new releases across Netflix, Prime Video, Disney+, Max and Apple TV+ with ratings and summaries; and a travel consolidator that pulls flight and hotel confirmations out of the inbox into a Trip Master Itinerary doc. Read the cost before you plan on it, because Spark is still in beta and limited to Google AI Pro at $19.99 a month or AI Ultra at $99.99 a month (free to college students for 12 months), and the write-up notes the execution can be a little slow at times.",
+      "needs": [
+        "Google AI Pro or AI Ultra",
+        "Gmail, Calendar and Drive linked",
+        "One blank Doc and one blank Sheet"
+      ],
+      "time": "About 30 minutes"
+    },
     {
       "date": "2026-09-25",
       "title": "Set one Private DNS hostname and every app on the phone stops resolving ad and tracker domains",
@@ -4271,43 +4317,6 @@
         "The free APK, or $3.99 on Play"
       ],
       "time": "One-time setup"
-    },
-    {
-      "date": "2026-08-03",
-      "title": "Type every line of AI-written code yourself, and keep what you learn",
-      "url": "https://ankursethi.com/blog/prevent-cognitive-debt-by-manually-retyping-llm-generated-code/",
-      "trend_url": "https://news.ycombinator.com/item?id=49153374",
-      "seen": "Hacker News, 343 points",
-      "dek": "<b>Chat, then type</b> Ankur Sethi tells his assistant to show every proposed edit in the chat instead of touching project files, retypes each line into the editor himself, and runs commands by hand; he calls the habit grossly inefficient and reckons it leaves him about 2x faster rather than the 10x that freer use of agents promises.",
-      "needs": [
-        "A chat window, not a file agent",
-        "Your own editor",
-        "Patience for a slower pace"
-      ],
-      "time": "A habit, not a session"
-    },
-    {
-      "date": "2026-08-02",
-      "title": "Print, cut, and fold a paper globe from 30 free templates",
-      "url": "https://foldingglobes.com/globes",
-      "dek": "<b>Thirty curated globes</b> print at A4 or A3 with no signup and no watermark, covering planets, moons, Earth from space and data globes, while custom globes with pinned locations and highlighted countries are a separate one-time purchase starting at $6.95.",
-      "needs": [
-        "A home printer, A4 or A3 paper",
-        "Scissors and glue"
-      ],
-      "time": "An evening"
-    },
-    {
-      "date": "2026-08-02",
-      "title": "Shrink an hour of video from 6.46GB to 2.29GB on Windows, for free",
-      "url": "https://www.makeuseof.com/free-windows-app-compressed-6gb-video-to-2gb-without-handbrake/",
-      "dek": "<b>Constant quality H.264</b> in an MP4 container took Oluwademilade Afolabi's 1080p file from 6.46GB to 2.29GB in roughly two and a half hours with VidCoder, and he notes fine detail looked slightly softer in fast-moving scenes, so he previews the result and keeps the original.",
-      "needs": [
-        "Windows 10 or 11, 64-bit",
-        "VidCoder, free and open source",
-        "The original file, kept as backup"
-      ],
-      "time": "About 2.5 hours"
     }
   ]
 }

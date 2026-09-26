@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-26",
+      "edition": "evening",
+      "dateHuman": "Saturday, September 26, 2026",
+      "file": "editions/2026-09-26-evening.html",
+      "lead": "ScreenZen puts a countdown between the impulse and the app, and it is free on iPhone, Android, Windows and Mac",
+      "pubDate": "Sat, 26 Sep 2026 17:50:29 -0400"
+    },
+    {
+      "date": "2026-09-26",
       "edition": "morning",
       "dateHuman": "Saturday, September 26, 2026",
       "file": "editions/2026-09-26-morning.html",
