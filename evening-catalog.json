@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-27",
+      "name": "Hasleo Backup Suite Free",
+      "url": "https://www.easyuefi.com/backup-software/backup-suite-free.html",
+      "trend_url": "https://www.makeuseof.com/your-windows-backup-plan-has-one-huge-hole/",
+      "cost": "Free for home use",
+      "kind": "Windows Vista or later",
+      "seen": "MakeUseOf, Sep 27",
+      "blurb": "A Windows backup program whose vendor page describes lifetime free use at home for the core work, system backup of Windows and its related partitions, whole disk and partition backup, file and folder backup, incremental and differential runs, scheduled tasks, AES encryption, selectable compression levels and a bootable WinPE emergency disc, which is how MakeUseOf's Afam Onyimadu got a restorable copy of an entire Windows installation onto an external SSD in 47 minutes; the limits are printed as plainly, because the free edition does not clone the system disk, delta clone, deduplication, ReFS support and BitLocker preservation belong to the paid editions, business use needs Professional, and an image only holds what existed when it ran, so recent files still need a separate file backup and a second copy still belongs off site."
+    },
+    {
+      "date": "2026-09-27",
+      "name": "AFFiNE",
+      "url": "https://github.com/toeverything/AFFiNE",
+      "trend_url": "https://www.xda-developers.com/replaced-obsidian-setup-with-all-in-one-open-source-workspace/",
+      "cost": "Free tier; MIT self-host",
+      "kind": "Web, desktop, iOS and Android",
+      "seen": "XDA Developers, Sep 27",
+      "blurb": "An open-source workspace that calls itself an operating system for the building blocks of a knowledge base, merging documents and whiteboard into one canvas so rich text, sticky notes, embedded pages, shapes and databases sit side by side, adding multi-view databases with table, calendar and Kanban views, templates, a plugin system, real-time collaboration and local-first data ownership, with a Community Edition under the MIT license that is free to self-host through Docker, which is why XDA's Parth Shah moved a writing and project setup off Obsidian and into it; the caveats are worth keeping in view, because Shah stops short of telling anyone to abandon Obsidian overnight and says the gain lands for people whose needs stretch past plain notes and backlinks, self-hosting means you run and update the Docker stack yourself, and the enterprise features such as single sign-on are the planned paid path rather than part of the free tier."
+    },
+    {
+      "date": "2026-09-27",
+      "name": "KiwiDesk",
+      "url": "https://kiwidesk.kiwicanopy.com/",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/9/27",
+      "cost": "Free at home and at work",
+      "kind": "macOS 14+, Apple silicon",
+      "seen": "Product Hunt No. 6, Sep 27",
+      "blurb": "A Mac window manager that slots each new window into place beside the others instead of leaving you to drag and resize, offering seven layouts including PaperWM-style scrolling, keeping the native macOS Desktops intact with a profile per Desktop, configured through plain settings rather than a config file, with Space Bar and App Bar overlays for getting around, Lua scripting underneath for anyone who wants it, and an accessibility permission on first launch rather than any weakening of System Integrity Protection, which carried it to sixth place and 125 upvotes on Product Hunt today; the limits are specific, because it needs macOS 14 or later on Apple silicon and leaves Intel Macs out, the Business Source License 1.1 keeps use free at home and at work while selling, bundling or hosting it needs a commercial license until each version turns MIT four years after publication, and the features built on private Apple interfaces switch themselves off after an update rather than break."
+    },
+    {
       "date": "2026-09-26",
       "name": "ScreenZen",
       "url": "https://screenzen.co/",
@@ -1760,36 +1790,65 @@
       "kind": "Android 8.0 and up",
       "seen": "Show HN front page, 188 points",
       "blurb": "Opens PDFs, Word and Excel files, images, video, audio, Markdown and code entirely offline without asking for storage permission, though you sideload the APK from GitHub because it is not on the Play Store or F-Droid."
-    },
-    {
-      "date": "2026-07-31",
-      "name": "mectrics",
-      "url": "https://mectrics.app",
-      "cost": "Free",
-      "kind": "macOS 15 or later, 3.8 MB",
-      "seen": "Product Hunt No. 3, 226 votes",
-      "blurb": "Folds CPU, memory, battery, network, disk, GPU and fan readings into a single menu bar item that stays quiet until a threshold holds, and its own launch notes concede it goes less deep than paid rivals such as iStat Menus."
-    },
-    {
-      "date": "2026-07-31",
-      "name": "Focus Room",
-      "url": "https://focusroom.club/",
-      "cost": "Free",
-      "kind": "Web, any browser",
-      "seen": "Product Hunt No. 9, 162 votes",
-      "blurb": "Put focusroom.club/ in front of any YouTube URL and the video reopens as a distraction-free course with transcript search and timestamped notes, though launch-day testers hit YouTube quota errors and the notes cannot be exported yet."
-    },
-    {
-      "date": "2026-07-31",
-      "name": "Kaneo",
-      "url": "https://github.com/usekaneo/kaneo",
-      "cost": "Free, MIT licensed",
-      "kind": "Self-host with Docker",
-      "seen": "GitHub trending, 188 stars today",
-      "blurb": "Runs kanban boards and issue tracking on a machine you own from a Docker Compose file, and its makers state the trade-off plainly: a deliberately minimal design with fewer features than Jira or Linear."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-27",
+      "title": "Seven Excel tools that beat learning another formula, from the Data Form to the Watch Window",
+      "url": "https://www.makeuseof.com/excel-tools-more-useful-than-functions/",
+      "trend_url": "https://www.makeuseof.com/feed/",
+      "seen": "MakeUseOf feed, Sep 27",
+      "dek": "<b>Stop scrolling sideways</b> MakeUseOf's Adaeze Uche works the menus instead of the formula bar: the Data Form, added from File, then Options, then Quick Access Toolbar, then All Commands, turns a wide table into a popup record you edit without scrolling, up to 32 columns and without touching formulas; the Watch Window and Evaluate Formula both sit in Formula Auditing on the Formulas tab, the first parking the value and formula of cells from any sheet in a floating panel, the second stepping through a monster calculation one cell at a time; Sheet Views on the View tab gives each collaborator a filter of their own, up to 256 per sheet, as long as the file lives on OneDrive or SharePoint; Speak Cells reads a range aloud so you can check figures against a page; Goal Seek under What-If Analysis on the Data tab works backward to the input that lands the total you need, one input cell at a time, with Solver for more; and Get Data, then From Folder, then Combine consolidates a folder of files that share a schema.",
+      "needs": [
+        "Microsoft Excel",
+        "A workbook you did not build",
+        "OneDrive or SharePoint for Sheet Views"
+      ],
+      "time": "20 minutes"
+    },
+    {
+      "date": "2026-09-27",
+      "title": "Four OneNote settings worth an evening, starting with the one that pastes the source link for you",
+      "url": "https://www.howtogeek.com/ive-used-onenote-for-years-how-did-i-miss-these-settings/",
+      "trend_url": "https://www.howtogeek.com/feed/",
+      "seen": "How-To Geek feed, Sep 27",
+      "dek": "<b>Let the paste cite itself</b> How-To Geek's Sanya Shah found four switches after years in the app: on Windows, File, then Options, then Advanced, then Editing carries a setting that automatically includes the source link whenever you paste from the web, so research stops needing a second trip for the citation; the same Advanced page holds section passwords with an auto-lock you set anywhere from one minute to one day, and on Android a long press on the section, then the three dots, then Password protect does the same job; the Android three dots, then Settings, then OneNote floatie puts a floating badge on screen for capturing a thought without opening the app; and three dots, then Settings, then Notebooks, then Default section decides where those quick notes land, which is the difference between a filed note and a pile. The split matters: the paste setting is Windows desktop only, while the floatie and the default section are Android only.",
+      "needs": [
+        "OneNote on Windows or Android",
+        "A Microsoft account",
+        "Five minutes in Settings"
+      ],
+      "time": "10 minutes"
+    },
+    {
+      "date": "2026-09-27",
+      "title": "Move your notes app into Android's Private Space, and opening your notes asks for a fingerprint first",
+      "url": "https://www.androidpolice.com/i-almost-deleted-google-keep-lacking-passwords-until-i-found-android-feature/",
+      "trend_url": "https://www.androidpolice.com/feed/",
+      "seen": "Android Police feed, Sep 27",
+      "dek": "<b>Settings, Security and privacy</b> Android Police's Jade Bryan Jardinico kept Google Keep and closed the gap another way: Private Space, which Google shipped with Android 15, creates a locked container on the phone, and installing Keep inside it and deleting the ordinary copy means every trip to your notes now costs a fingerprint or a passcode. He is careful about what it does not do. Home screen widgets are not supported inside Private Space, cloud sync keeps running so the same notes can still be reached another way, for example through Gemini, and the container adds friction for someone holding your unlocked phone rather than encryption that would stop a determined extraction.",
+      "needs": [
+        "Android 15 or later",
+        "Google Keep",
+        "A screen lock or biometrics"
+      ],
+      "time": "10 minutes"
+    },
+    {
+      "date": "2026-09-27",
+      "title": "Five desktop-class apps let a phone stand in for the laptop, with no keyboard and no DeX allowed",
+      "url": "https://www.makeuseof.com/i-loaded-5-desktop-apps-onto-android-and-my-laptop-collected-dust-for-a-week/",
+      "trend_url": "https://www.makeuseof.com/tag/productivity/",
+      "seen": "MakeUseOf productivity, Sep 26",
+      "dek": "<b>Phone only, for a week</b> MakeUseOf's Gregory Gibson banned the external keyboard, Samsung DeX and the laptop itself, then ran five real applications on an Android phone: Obsidian for linked notes and its graph, with the controls tucked into menus and Obsidian Sync carrying the vault between devices; ONLYOFFICE for DOCX files, which held formatting, edited tables, checked spelling and exported a PDF; Thunderbird for IMAP mail and attachments, a setup closer to the desktop client than most mobile mail apps; Termux for SSH into a server and Docker administration, where the extra key row of arrows, Ctrl and Tab turned out to be essential; and VLC for streaming H.264 video across the house with picture in picture. His verdict is honest about the cost: on-screen typing stays slower than a real keyboard, the screen will not show two related things at once, and VLC glitched once on first playback.",
+      "needs": [
+        "An Android phone",
+        "Obsidian, ONLYOFFICE, Thunderbird",
+        "Patience with the on-screen keyboard"
+      ],
+      "time": "An evening to set up"
+    },
     {
       "date": "2026-09-26",
       "title": "Four changes that turn Gboard into a keyboard that stops retyping your own information",
@@ -4260,63 +4319,6 @@
         "Five minutes to add the button"
       ],
       "time": "About 20 minutes"
-    },
-    {
-      "date": "2026-08-04",
-      "title": "Retire the Adobe subscription with four free apps for photos, video, design, and PDFs",
-      "url": "https://www.makeuseof.com/these-adobe-alternatives-so-good-now-confused-why-anyone-still-subscribes/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf Trending Now",
-      "dek": "<b>Four free swaps</b> Abhijith N Arjunan replaces Lightroom with Darktable, Premiere Pro with DaVinci Resolve, Photoshop, Illustrator, and InDesign with the Affinity suite behind a free Canva account, and Acrobat with PDFgear, while granting that Darktable has a steep learning curve and PDFgear's OCR accuracy may not match Adobe's.",
-      "needs": [
-        "Darktable, free on Win, Mac, Linux",
-        "DaVinci Resolve, free version",
-        "A free Canva account for Affinity",
-        "PDFgear, free on desktop and mobile"
-      ],
-      "time": "An evening to switch"
-    },
-    {
-      "date": "2026-08-04",
-      "title": "Swap the all-purpose chatbot for four AI tools each built to do one job",
-      "url": "https://www.howtogeek.com/forget-chatbotsthese-4-ai-tools-actually-change-how-you-work/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek Popular News",
-      "dek": "<b>Sources, not memory</b> Sydney Butler starts with Gemini Notebook, which works from the PDFs, web pages, documents, and videos you hand it and can read them back as a podcast-style audio overview, then adds Perplexity for cited search, Midjourney for images, and ElevenLabs for voice, and he warns that the notebook still hallucinates occasionally.",
-      "needs": [
-        "Gemini Notebook, free tier",
-        "Your own PDFs, links, or documents",
-        "A browser"
-      ],
-      "time": "30 minutes to try"
-    },
-    {
-      "date": "2026-08-04",
-      "title": "Give the old Android tablet in the drawer a job again with five free apps",
-      "url": "https://www.howtogeek.com/these-free-apps-give-old-and-slow-android-tablets-a-reason-to-exist/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek Popular News",
-      "dek": "<b>Five lightweight apps</b> Goran Damnjanovic turns a slow tablet into a reader with Librera, a stylus notepad with Squid, a video player with NOVA, a Pomodoro timer with Goodtime, and an RSS reader with FeedMe, all free and running on hardware as old as Android 8.0, though he sends you to F-Droid for Librera's fully open-source build and to VLC on truly ancient devices.",
-      "needs": [
-        "An old Android tablet, 8.0 or newer",
-        "Google Play or F-Droid",
-        "Wi-Fi for the first downloads"
-      ],
-      "time": "About an hour"
-    },
-    {
-      "date": "2026-08-03",
-      "title": "Add Android Auto to a car that never had it, using a spare Android device",
-      "url": "https://www.makeuseof.com/add-android-auto-any-car-headunit-revived/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf Trending Now",
-      "dek": "<b>Headunit Revived</b> is an open-source Android Auto receiver that Tashreef Shareef walked through with a setup wizard, running on anything from Android 4.1 upward, free as an APK from GitHub or $3.99 on Google Play for automatic updates, though he says it is not a perfect replacement for factory Android Auto and that devices with less RAM or weaker processors may struggle.",
-      "needs": [
-        "An Android device, 4.1 or later",
-        "A spare tablet or head unit",
-        "The free APK, or $3.99 on Play"
-      ],
-      "time": "One-time setup"
     }
   ]
 }
