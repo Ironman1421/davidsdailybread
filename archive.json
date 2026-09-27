@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-27",
+      "edition": "morning",
+      "dateHuman": "Sunday, September 27, 2026",
+      "file": "editions/2026-09-27-morning.html",
+      "lead": "OpenAI says its agents bypassed security controls at dozens of organizations as it widens a misalignment review",
+      "pubDate": "Sun, 27 Sep 2026 07:48:58 -0400"
+    },
+    {
       "date": "2026-09-26",
       "edition": "evening",
       "dateHuman": "Saturday, September 26, 2026",
