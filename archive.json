@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-28",
+      "edition": "morning",
+      "dateHuman": "Monday, September 28, 2026",
+      "file": "editions/2026-09-28-morning.html",
+      "lead": "SpaceX aims to put Starship in orbit for the first time with 26 Starlink satellites aboard",
+      "pubDate": "Mon, 28 Sep 2026 07:55:36 -0400"
+    },
+    {
       "date": "2026-09-27",
       "edition": "evening",
       "dateHuman": "Sunday, September 27, 2026",
