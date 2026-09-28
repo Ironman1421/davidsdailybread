@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-28",
+      "name": "ONLYOFFICE DocSpace",
+      "url": "https://www.onlyoffice.com/docspace-prices.aspx",
+      "trend_url": "https://www.xda-developers.com/found-free-browser-based-microsoft-office-alternative-made-me-forget-original/",
+      "cost": "Free Startup; $20/admin/mo",
+      "kind": "Office suite in the browser",
+      "seen": "XDA Developers, Sep 28",
+      "blurb": "A browser office suite for documents, spreadsheets and presentations whose own pricing page puts the free Startup plan at 2 GB of file storage, up to 12 rooms and up to 3 admins with unlimited users and guests, which is what XDA's João Carrasqueira used in place of the original; the caveat is that the 2 GB is shared across everyone you invite, so a household or team that moves large files runs into the ceiling and the next step up is the Business plan at $20 per admin per month, listed as a discount from $30, with 250 GB per admin."
+    },
+    {
+      "date": "2026-09-28",
+      "name": "Google AI Studio",
+      "url": "https://ai.google.dev/gemini-api/docs/ai-studio-quickstart",
+      "trend_url": "https://www.xda-developers.com/favorite-claude-design-alternative-isnt-lovable-or-replit-its-free-google-tool/",
+      "cost": "Free tier; paid Pro and Ultra",
+      "kind": "Browser workspace for Gemini",
+      "seen": "XDA Developers, Sep 28",
+      "blurb": "A browser workspace where Google's documentation says you can try out models, write system instructions, experiment with prompts and parameters, turn on structured output, function calling, code execution and grounding, then export the working prototype as code, which XDA's Nolen Jonker recommends to anyone with or without a coding background; Google's plans page lists only a free tier with a modest quota and paid AI Pro and Ultra tiers with higher quotas, and names no prices, and Jonker's caveat is the one to weigh before you paste anything sensitive: free-tier content goes toward improving Google's products."
+    },
+    {
+      "date": "2026-09-28",
+      "name": "Shotcandy",
+      "url": "https://shotcandy.app/",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/9/28",
+      "cost": "Free and open source",
+      "kind": "Runs in the browser",
+      "seen": "Product Hunt No. 9, Sep 28",
+      "blurb": "A free, open-source page that frames a screenshot, a code snippet or a social card on a styled background, with controls for padding, corners, shadows, captions and device frames for a Mac, a browser, a phone, a tablet or a laptop, ranked ninth on Product Hunt's September 28 leaderboard with 119 upvotes; its privacy model is also its limit, because the site states your image never leaves the browser and there is no account and no upload, so there is no server-side copy to pick up later on another machine."
+    },
+    {
       "date": "2026-09-27",
       "name": "Hasleo Backup Suite Free",
       "url": "https://www.easyuefi.com/backup-software/backup-suite-free.html",
@@ -1763,36 +1793,80 @@
       "kind": "Web, any browser",
       "seen": "Hacker News, 1,558 points",
       "blurb": "Lets you set building height, car count and passenger flow, then watch LOOK, destination dispatch and other algorithms rearrange the wait-time histogram, which is the whole of it: this is a browser essay with simulators inside, not an app you keep."
-    },
-    {
-      "date": "2026-08-01",
-      "name": "Yamanote 3D",
-      "url": "https://yamanote-3d.com/",
-      "cost": "Free",
-      "kind": "Web, any browser",
-      "seen": "Product Hunt No. 5, 132 votes",
-      "blurb": "Puts you inside an E235 carriage on Tokyo's Yamanote loop, where you walk the car, sit down, listen to the station announcements and step off at a stop, with nothing to win or finish: its maker pitches it as calm background for studying or working."
-    },
-    {
-      "date": "2026-08-01",
-      "name": "EssayKraft",
-      "url": "https://apps.apple.com/us/app/essaykraft/id6789774290",
-      "cost": "$14.99, one time",
-      "kind": "Mac and iPad, 3.4 MB",
-      "seen": "Product Hunt No. 9, 95 votes",
-      "blurb": "A paginated writing app with automatic citations, built-in reference lookup and DOCX export, bought once with no subscription and no account, though the App Store listing asks for macOS 26 or iPadOS 26, which rules out older machines."
-    },
-    {
-      "date": "2026-07-31",
-      "name": "Gander",
-      "url": "https://github.com/mokshablr/gander",
-      "cost": "Free",
-      "kind": "Android 8.0 and up",
-      "seen": "Show HN front page, 188 points",
-      "blurb": "Opens PDFs, Word and Excel files, images, video, audio, Markdown and code entirely offline without asking for storage permission, though you sideload the APK from GitHub because it is not on the Play Store or F-Droid."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-28",
+      "title": "Turn an Android phone into the webcam for Windows 11 video calls, wirelessly and for nothing",
+      "url": "https://www.xda-developers.com/windows-11-uses-my-old-phone-as-a-webcam/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 28",
+      "dek": "<b>Three settings, no hardware</b> XDA's Abhishek Kumar Mishra installs Link to Windows on the phone, signs into the same Microsoft account on both devices, and flips \"Use as a connected camera\" in the mobile devices section of Windows 11 settings, after which the phone shows up as a camera in Google Meet and the Windows Camera app, with front and rear lens switching plus Blur, Soft Focus and Auto Framing, over the same Wi-Fi network; the standing catch is that the phone screen must stay on, since it does not work while the handset is locked, and that costs battery.",
+      "needs": [
+        "A Windows 11 PC",
+        "An Android phone on the same Wi-Fi",
+        "The Link to Windows app",
+        "One Microsoft account on both"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-09-28",
+      "title": "Audit the photo storage on your phone with Files by Google, and delete the device copy without losing the backup",
+      "url": "https://www.androidpolice.com/audited-my-google-photos-storage-rescued-5gb-wasted-space/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 28",
+      "dek": "<b>Clean first, then delete carefully</b> Android Police's Anu Joy opens Files by Google, taps the menu, chooses the Clean tab and works down the categories it offers, large files, duplicates, blurry images, old screenshots and junk, recovering nearly 5GB in under 10 minutes and finding that videos were the real space hog, since a single minute of 4K runs to hundreds of megabytes; the trap is Google Photos itself, where deleting a picture with backup switched on removes the cloud copy too, so the three-dot \"Delete from device\" option is the one that frees the handset and leaves the backup intact.",
+      "needs": [
+        "An Android phone",
+        "The Files by Google app",
+        "Google Photos backup switched on"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-09-28",
+      "title": "Scan the 2.4GHz band before you blame the router, then choose channel 1, 6 or 11 by hand",
+      "url": "https://www.makeuseof.com/your-wifi-slow-because-everyone-on-your-street-picked-same-channel-one-free-scan-proves-it/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Sep 28",
+      "dek": "<b>Look before you switch</b> MakeUseOf's Gavin Phillips treats a crowded channel as something you measure rather than guess at: run a free Wi-Fi Analyzer app, or the Auto Channel Scan some routers build into their admin panel, see which channels the neighbors are sitting on, then set yours by hand instead of leaving it on Auto, remembering that on 2.4GHz in the USA only channels 1, 6 and 11 avoid overlapping each other; his own caveat keeps expectations honest, since Wi-Fi features such as CSMA/CA stop the radios constantly talking over each other, most folks do not notice the difference, and a neighbor's router cannot read your data either way.",
+      "needs": [
+        "A Wi-Fi Analyzer app or router admin",
+        "The router admin password",
+        "Ten quiet minutes"
+      ],
+      "time": "Under 15 minutes"
+    },
+    {
+      "date": "2026-09-28",
+      "title": "Write one standing instruction that tells an AI assistant to flag a concern once, then do the work",
+      "url": "https://www.xda-developers.com/finally-got-claude-to-stop-arguing-with-me-one-instruction/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 28",
+      "dek": "<b>Flag it once, then build</b> XDA's Nolen Jonker stopped relitigating decisions with Claude by writing the rule down where the assistant always reads it, in Settings, then Account, then Instructions for everything, or inside a single Claude Project when it should apply to one piece of work: the instruction separates real blockers, factual errors and things that will not function, from matters of preference, and adds the two lines that do the work, \"Don't repeat the concern unless something new comes up\" and \"Once I've stated a direction or decision, treat it as settled\"; Jonker's caveat is that Anthropic keeps adjusting default behavior as models change, so the wording is worth revisiting.",
+      "needs": [
+        "A Claude account",
+        "Five minutes in Settings",
+        "A clear sense of your own decisions"
+      ],
+      "time": "About 5 minutes"
+    },
+    {
+      "date": "2026-09-28",
+      "title": "Set three Samsung routines and the phone starts changing its own settings by battery, place and hour",
+      "url": "https://www.makeuseof.com/samsung-galaxy-modes-routines-automatic-settings/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Sep 28",
+      "dek": "<b>Let the phone do the fiddling</b> MakeUseOf's Judy Sanhz builds three automations in Samsung's Modes and Routines and then reaches them from Quick Settings: a Work mode that drops the phone to vibrate during focus hours, a battery rule that switches on Power saving whenever the charge falls below 54 percent, and a location rule that changes the wallpaper once she moves more than 100 meters from a place, the same trigger that can mute notifications at work or school; her caveats are worth reading first, since the features vary by Galaxy model and software version and the time options cover a single block, so 9 a.m. to noon plus 1 p.m. to 5 p.m. is not something you can build.",
+      "needs": [
+        "A Samsung Galaxy phone",
+        "Modes and Routines in Settings",
+        "The places you visit often"
+      ],
+      "time": "About 15 minutes"
+    },
     {
       "date": "2026-09-27",
       "title": "Seven Excel tools that beat learning another formula, from the Data Form to the Watch Window",
@@ -4249,76 +4323,6 @@
         "Comfort with PowerShell"
       ],
       "time": "An evening to set up"
-    },
-    {
-      "date": "2026-08-07",
-      "title": "Turn off what your Android keyboard remembers, or swap it for one that keeps everything on the phone",
-      "url": "https://www.makeuseof.com/android-keyboard-data-privacy/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf Trending Now",
-      "dek": "<b>Settings, then Privacy</b> Tashreef Shareef switches off usage-statistics sharing in Gboard's Privacy settings and in the Smart typing section of Samsung Keyboard, clears the stored data with the reset option, and revokes the contacts, camera, and microphone permissions, then offers LeanType, HeliBoard, FUTO Keyboard, and AnySoftKeyboard as on-device alternatives, while granting that they can mean sideloading an APK and predictions that are less sharp than the mainstream option.",
-      "needs": [
-        "An Android phone",
-        "Its keyboard settings screen",
-        "Optional: an alternative keyboard APK"
-      ],
-      "time": "About 15 minutes"
-    },
-    {
-      "date": "2026-08-06",
-      "title": "Turn the file copies you have been calling backups into snapshots you can actually restore",
-      "url": "https://www.makeuseof.com/called-file-copies-backups-for-years-restic-proved-me-wrong-in-a-weekend/",
-      "trend_url": "https://github.com/restic/restic",
-      "seen": "35.4k stars on GitHub",
-      "dek": "<b>Snapshots, not copies</b> Afam Onyimadu realized that his external drive, his cloud sync folder, and his internal drive all held the same current version of every file, so deleting or overwriting one wiped all three at once, and he replaced the habit with restic, a free and open-source backup program he installed on Windows with scoop install restic, which stores timestamped snapshots you can restore from a chosen date and can verify its own integrity, and he is candid that it is a command-line tool with a real learning curve and that you have to test a restore on another device before you trust it.",
-      "needs": [
-        "restic, free on Win, Mac, Linux",
-        "A storage destination, local or cloud",
-        "A terminal and a weekend"
-      ],
-      "time": "A weekend to learn"
-    },
-    {
-      "date": "2026-08-06",
-      "title": "Feed a year of Kindle highlights into Gemini Notebook and get a searchable reading archive",
-      "url": "https://www.makeuseof.com/gemini-notebook-kindle-highlights/",
-      "trend_url": "https://www.howtogeek.com/forget-chatbotsthese-4-ai-tools-actually-change-how-you-work/",
-      "seen": "How-To Geek, August 4",
-      "dek": "<b>Start with My Clippings</b> Saikat Basu pulls the My Clippings.txt file off the Kindle, optionally strips the metadata in a text editor, uploads it to Gemini Notebook as a source, and then asks it for the themes running across books, a commonplace book for a writing project, and citations back to the original titles, and he names the catches: the notebook will sometimes force a connection between unrelated highlights, attributions need checking by hand, there is no Readwise-style daily reminder email, and adopting a generated summary verbatim is plagiarism waiting to happen.",
-      "needs": [
-        "A Kindle and its My Clippings.txt",
-        "Gemini Notebook",
-        "A text editor for cleanup"
-      ],
-      "time": "About an hour"
-    },
-    {
-      "date": "2026-08-05",
-      "title": "Make an aging Android phone feel new again without a factory reset",
-      "url": "https://www.howtogeek.com/stop-factory-resetting-your-android-heres-what-actually-works/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek Popular News",
-      "dek": "<b>Four fixes, no reset</b> Ismar Hrnjicevic frees up storage, keeps Android and its apps updated, strips away widgets and the background activity of apps that abuse it, and replaces a tired battery, while warning that memory cleaner apps do more harm than good and that a phone can feel slower for a while after an update as it rebuilds app caches.",
-      "needs": [
-        "An Android phone",
-        "Its Storage and Battery settings",
-        "A replacement battery if it is old"
-      ],
-      "time": "About an hour"
-    },
-    {
-      "date": "2026-08-05",
-      "title": "Build a live Excel dashboard with the Camera button hidden in the toolbar",
-      "url": "https://www.makeuseof.com/excel-camera-tool-for-live-dashboards/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf Trending Now",
-      "dek": "<b>File, then Options</b> Adaeze Uche adds the Camera command to the Quick Access Toolbar from the Commands Not in the Ribbon list, then snaps ranges off any sheet into one dashboard where every snapshot redraws itself as its source data changes, and she names the catches: it will not capture a chart object directly, the image degrades below about half size, and the live link does not survive a paste into another program.",
-      "needs": [
-        "Excel on the desktop",
-        "A workbook with a few sheets",
-        "Five minutes to add the button"
-      ],
-      "time": "About 20 minutes"
     }
   ]
 }

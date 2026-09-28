@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-28",
+      "edition": "evening",
+      "dateHuman": "Monday, September 28, 2026",
+      "file": "editions/2026-09-28-evening.html",
+      "lead": "Your Android phone can stand in for the webcam on your Windows 11 video calls, and the setup is free and wireless",
+      "pubDate": "Mon, 28 Sep 2026 17:48:43 -0400"
+    },
+    {
+      "date": "2026-09-28",
       "edition": "morning",
       "dateHuman": "Monday, September 28, 2026",
       "file": "editions/2026-09-28-morning.html",
