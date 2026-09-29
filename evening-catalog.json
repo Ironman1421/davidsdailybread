@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-29",
+      "name": "VoiceStudio",
+      "url": "https://github.com/debpalash/VoiceStudio",
+      "trend_url": "https://github.com/trending?since=daily",
+      "cost": "Free, AGPL-3.0",
+      "kind": "Windows, Mac, Linux desktop",
+      "seen": "GitHub Trending, Sep 29",
+      "blurb": "Local dictation, transcription, dubbing and audiobook building in 646 languages, with double-click installers for all three desktops; the caveat is that GPU and memory needs change with the speech engine you choose, and the models carry separate licenses to read before any commercial use."
+    },
+    {
+      "date": "2026-09-29",
+      "name": "Paste 7",
+      "url": "https://pasteapp.io/pricing",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/9/29",
+      "cost": "$2.49/mo, 7-day free trial",
+      "kind": "Mac, iPhone and iPad",
+      "seen": "Product Hunt No. 6, Sep 29",
+      "blurb": "A clipboard manager that keeps an unlimited searchable history of everything you copy, lets you pin the snippets you reuse and syncs across your devices; the caveat is that it is Apple-only and costs $2.49 a month, or $29.99 a year, once the seven-day trial ends."
+    },
+    {
+      "date": "2026-09-29",
+      "name": "Material Files",
+      "url": "https://github.com/zhanghai/MaterialFiles",
+      "trend_url": "https://www.androidpolice.com/material-files-manager-no-tracking-subscription/",
+      "cost": "Free, GPL-3.0",
+      "kind": "Android 5.0 and later",
+      "seen": "Android Police, Sep 28",
+      "blurb": "An open-source Android file manager with breadcrumb navigation, archive viewing, extraction and creation, and network access over FTP, SFTP, SMB and WebDAV; the caveat is the developer's own note that it is not designed to replace Android's DocumentsUI and still relies on it for tasks such as granting external SD card access."
+    },
+    {
       "date": "2026-09-28",
       "name": "ONLYOFFICE DocSpace",
       "url": "https://www.onlyoffice.com/docspace-prices.aspx",
@@ -893,16 +923,6 @@
     },
     {
       "date": "2026-09-04",
-      "name": "VoiceStudio",
-      "url": "https://github.com/debpalash/VoiceStudio",
-      "trend_url": "https://github.com/trending?since=daily",
-      "cost": "Free, AGPL-3.0",
-      "kind": "Windows, macOS, Linux, Docker",
-      "seen": "GitHub Trending, Sep 4",
-      "blurb": "VoiceStudio is an open-source, locally run alternative to ElevenLabs that the project describes as voice cloning, voice design, video dubbing, dictation, transcription, and audiobook creation across 646 languages, which in ordinary use means turning a document into audio you can listen to, or a recorded meeting into text, without an account or a per-character bill. It carries 17.8k stars, 1,345 of them gained today according to GitHub's daily trending page where it is currently listed, and it ships prebuilt installers rather than a Python checkout: a DMG for macOS 13.3 and later on Apple Silicon, an MSI for Windows 10 and 11 that does not need admin access, a Linux AppImage, and Docker images; the first launch configures its own managed Python environment. Local workflows have no subscription, API key, or usage meter. The caveats are hardware and licensing: 8GB of RAM and 10GB free disk are the stated minimum with 16GB and a 20GB SSD recommended, Intel Macs cannot run the local backend at all and need a remote one, and the default OmniVoice model is CC-BY-NC, so anything commercial means checking the model terms first."
-    },
-    {
-      "date": "2026-09-04",
       "name": "Breezy Weather",
       "url": "https://github.com/breezy-weather/breezy-weather",
       "trend_url": "https://www.howtogeek.com/open-source-android-apps-that-beat-the-popular-play-store-alternatives/",
@@ -910,16 +930,6 @@
       "kind": "Android 5.0 and later",
       "seen": "How-To Geek, Sep 4",
       "blurb": "Breezy Weather is a free Material 3 weather app for Android 5.0 and later, carrying 11.3k stars, that pulls forecasts, current observations, air quality, pollen, and severe weather alerts from more than 50 sources rather than one, and gives you 16 day forecasts with hourly data, precipitation nowcasting, detailed 24 hour charts, home screen widgets, a live wallpaper, custom icon packs, and no trackers or personal data collection; the project also lists full offline operation when Open-Meteo is the source. How-To Geek's Ismar Hrnjicevic put it first among four open-source Android apps on September 4 for having no ads or bloat while still showing conditions, forecasts, air quality, pollen, and humidity. The caveat is how you get it and how often it refreshes: the project has decided it will not publish to the Google Play Store, so you install from F-Droid, the IzzyOnDroid repository, Obtainium, or GitHub releases, and it will not do background updates more often than every 30 minutes."
-    },
-    {
-      "date": "2026-09-04",
-      "name": "Material Files",
-      "url": "https://github.com/zhanghai/MaterialFiles",
-      "trend_url": "https://www.howtogeek.com/open-source-android-apps-that-beat-the-popular-play-store-alternatives/",
-      "cost": "Free, GPL-3.0",
-      "kind": "Android 5.0 and later",
-      "seen": "How-To Geek, Sep 4",
-      "blurb": "Material Files is a free GPL-3.0 file manager for Android 5.0 and later with 8.9k stars that does the jobs a stock file app usually will not: it opens, extracts, and creates archives, connects directly to FTP, SFTP, SMB, and WebDAV servers so a home NAS or a work share behaves like a local folder, handles root access, and is Linux aware about symbolic links and file permissions, with breadcrumb navigation, themes, and a night mode on top. It is built on the Java NIO2 file API and Linux system calls rather than parsing command output, which is why it is quick and does not choke on oddly named files, and it installs from Google Play, F-Droid, or a GitHub release APK. How-To Geek's Ismar Hrnjicevic, recommending it on September 4 for its Material Design 3 interface and dynamic color, names the one real gap himself: there is no recycle bin, so a delete is a delete."
     },
     {
       "date": "2026-09-03",
@@ -1784,18 +1794,51 @@
       "kind": "GIMP, Krita, Photoshop",
       "seen": "Hacker News, 77 points",
       "blurb": "Brings the filter count to 644 with six new ones in this release, among them Pixel Stretch and Heightfield Warp, but it is a plugin rather than an app: you run it inside GIMP, Krita, Photoshop or Affinity Photo, from the command line, or in a browser at G'MIC Online."
-    },
-    {
-      "date": "2026-08-01",
-      "name": "Elevators, an interactive explainer",
-      "url": "https://john.fun/elevators",
-      "cost": "Free",
-      "kind": "Web, any browser",
-      "seen": "Hacker News, 1,558 points",
-      "blurb": "Lets you set building height, car count and passenger flow, then watch LOOK, destination dispatch and other algorithms rearrange the wait-time histogram, which is the whole of it: this is a browser essay with simulators inside, not an app you keep."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-29",
+      "title": "Turn a spare Windows laptop into a second monitor over Wi-Fi, with one free app on each machine",
+      "url": "https://www.howtogeek.com/free-app-turned-my-old-laptop-into-a-super-capable-second-monitor/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 29",
+      "dek": "<b>Server here, viewer there</b> How-To Geek's Nate Pangaro installs the free Spacedesk server on the main Windows machine and the client on the old laptop, puts both on the same network, and the second screen appears with no cable involved, because a laptop's HDMI port is a video output and never an input; Wi-Fi carries the picture, an Ethernet cable is the fallback when the wireless link turns unstable, and his Windows 10 laptop connected to a Windows 11 machine without trouble.",
+      "needs": [
+        "A spare Windows 10 or 11 laptop",
+        "Spacedesk server and client, free",
+        "Both devices on one network"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-29",
+      "title": "Keep using Google Drive, but put the sensitive files inside a free Cryptomator vault first",
+      "url": "https://www.makeuseof.com/made-google-drive-private-without-giving-up-google-drive/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Sep 29",
+      "dek": "<b>Vault inside the sync folder</b> MakeUseOf's Afam Onyimadu creates a Cryptomator vault, drops it into his Google Drive sync folder and unlocks it as a virtual drive when he needs the files, so Drive keeps syncing, versioning and recovering the data while seeing only scrambled names and contents; he is straight about the price of that, since file sizes, timestamps and the existence of the vault stay visible, and inside an unlocked vault you lose previews and search.",
+      "needs": [
+        "Cryptomator, free and open source",
+        "A Google Drive sync folder",
+        "A vault password you will remember"
+      ],
+      "time": "About 20 minutes"
+    },
+    {
+      "date": "2026-09-29",
+      "title": "Blur the bank details out of a screenshot inside Google Photos before you send it to anyone",
+      "url": "https://www.androidpolice.com/google-photos-redact-blur-pixelate-tool-markup/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 29",
+      "dek": "<b>Edit, Markup, redact pen</b> Android Police's Akshay Bhalla walks the new redact pen that now sits beside the scribble pen in Google Photos Markup: choose Mosaic, Mosaic Light or Blur, set the thickness, slide a finger across the account number or the address, then tap Save as copy so the untouched original stays in your library; it is rolling out on Android only, with no iOS date confirmed, so it may not have reached your app yet.",
+      "needs": [
+        "Google Photos on Android, updated",
+        "The Markup editor's redact pen",
+        "Save as copy, to keep the original"
+      ],
+      "time": "Under 2 minutes"
+    },
     {
       "date": "2026-09-28",
       "title": "Turn an Android phone into the webcam for Windows 11 video calls, wirelessly and for nothing",
@@ -4280,49 +4323,6 @@
         "Your router's region set correctly"
       ],
       "time": "About 20 minutes"
-    },
-    {
-      "date": "2026-08-08",
-      "title": "Let a Samsung phone quiet itself, stretch its battery, and call out the time you lose to YouTube",
-      "url": "https://www.howtogeek.com/these-custom-android-automations-save-me-more-time/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page",
-      "dek": "<b>Settings, Modes and Routines</b> Zunaid Ali builds routines that switch on Do Not Disturb, power saving, and grayscale between midnight and 5 AM, run a thirty-minute nap timer that reads a message aloud, and tighten battery saving in two steps, first at 50 percent and again at 30 percent with data saver and dimmed brightness, then adds a Gmail filter on the desktop site that keeps chosen senders out of Spam and in Primary, and one loop in the free Automate app that tells him how long he has actually been sitting on YouTube; he estimates the set saves him about thirty minutes a day, and he grants that the schedules need adjusting every few months and that a nap timer cannot ring a real alarm sound.",
-      "needs": [
-        "A Samsung Galaxy phone",
-        "Modes and Routines, built in",
-        "The free Automate app, optional"
-      ],
-      "time": "About 30 minutes"
-    },
-    {
-      "date": "2026-08-07",
-      "title": "Name every range in a spreadsheet at once with Ctrl+Shift+F3 instead of typing them one by one",
-      "url": "https://www.howtogeek.com/microsoft-excel-stopped-manually-naming-ranges-shortcut/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek Trending Now",
-      "dek": "<b>Create Names from Selection</b> Tony Phillips selects the labels along with the data they describe, presses Ctrl+Shift+F3, and Excel writes a named range for every label in a few seconds, and he names the catches: a blank row between the labels and the data stops it, duplicate labels fail, spaces in a label become underscores, and formulas you already wrote keep their cell references until you run Apply Names.",
-      "needs": [
-        "Excel with labels next to the data",
-        "One selection covering both",
-        "Apply Names for existing formulas"
-      ],
-      "time": "A few minutes"
-    },
-    {
-      "date": "2026-08-07",
-      "title": "Replace a paid remote-desktop subscription with self-hosted RustDesk and Tailscale",
-      "url": "https://www.makeuseof.com/teamviewer-alternative-remote-pc-access/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf Trending Now",
-      "dek": "<b>Docker, then Tailscale</b> Tashreef Shareef deploys the open-source RustDesk server in Docker containers, installs the free clients on Windows, Linux, macOS, and Android, then layers Tailscale on top so he can reach his home PC from a coffee shop, a hotel, or a phone hotspot without opening a single port on his router, and he is straight about the catches: self-hosted RustDesk on its own only works inside your local network, and the setup is fairly quick only if you are already comfortable with Docker.",
-      "needs": [
-        "Docker Desktop on the host PC",
-        "RustDesk clients on your devices",
-        "Tailscale, free for personal use",
-        "Comfort with PowerShell"
-      ],
-      "time": "An evening to set up"
     }
   ]
 }

@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-29",
+      "edition": "evening",
+      "dateHuman": "Tuesday, September 29, 2026",
+      "file": "editions/2026-09-29-evening.html",
+      "lead": "VoiceStudio runs free, fully local dictation and transcription on your own computer, with no subscription behind it",
+      "pubDate": "Tue, 29 Sep 2026 17:48:02 -0400"
+    },
+    {
+      "date": "2026-09-29",
       "edition": "morning",
       "dateHuman": "Tuesday, September 29, 2026",
       "file": "editions/2026-09-29-morning.html",
