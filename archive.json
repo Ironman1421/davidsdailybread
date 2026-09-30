@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-09-30",
+      "edition": "morning",
+      "dateHuman": "Wednesday, September 30, 2026",
+      "file": "editions/2026-09-30-morning.html",
+      "lead": "OpenAI ships GPT-6.1 Sol at one-fifth the token price of GPT-6 Astra, with more than 20 DevDay announcements",
+      "pubDate": "Wed, 30 Sep 2026 07:51:32 -0400"
+    },
+    {
       "date": "2026-09-29",
       "edition": "evening",
       "dateHuman": "Tuesday, September 29, 2026",
