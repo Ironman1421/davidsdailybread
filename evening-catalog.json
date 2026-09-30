@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-09-30",
+      "name": "Securo",
+      "url": "https://github.com/securo-finance/securo",
+      "trend_url": "https://www.xda-developers.com/self-hosted-financial-app-securo/",
+      "cost": "Free, AGPL-3.0",
+      "kind": "Self-hosted, Docker or script",
+      "seen": "XDA Developers, Sep 30",
+      "blurb": "A self-hosted personal finance manager covering multiple accounts, transactions, recurring bills, budgets, assets and reports behind a TOTP two-factor login, installed by a bash script on Linux or macOS or by Docker on Windows and then opened at localhost:3000; the caveats are that you run the server yourself, that bank linking is not self-hosted and depends on registering separately with Pluggy, Enable Banking or SimpleFIN, and that XDA's Megan Ellis found the currency list incomplete, with no South African Rand."
+    },
+    {
+      "date": "2026-09-30",
+      "name": "Proton VPN Free",
+      "url": "https://protonvpn.com/free-vpn",
+      "trend_url": "https://www.makeuseof.com/free-security-privacy-apps/",
+      "cost": "Free, no data limit",
+      "kind": "Windows, Mac, Linux, phones, TV",
+      "seen": "MakeUseOf, Sep 30",
+      "blurb": "Proton's free tier states no data limit, no ads and a no-logs policy, with a Kill Switch and the Stealth protocol, across Windows, macOS, Linux, Android, iPhone, iPad, Chromebook, Android TV and Fire TV; the limits are plain, since the free plan covers one device, a free account is required, MakeUseOf's Tashreef Shareef notes you cannot choose a specific server, and P2P, Secure Core, streaming support, the NetShield blocker, the 10 Gbit servers and the 140-plus country list all stay behind the paid plans."
+    },
+    {
+      "date": "2026-09-30",
+      "name": "Parrot",
+      "url": "https://openparrot.app/",
+      "trend_url": "https://news.ycombinator.com/show",
+      "cost": "Free, GPL-3.0",
+      "kind": "Mac, Apple Silicon only",
+      "seen": "Show HN, Sep 30",
+      "blurb": "An open-source meeting recorder that notices when a call starts, transcribes it with speaker detection, suggests answers from your own documents while you are still talking, writes a summary afterwards and keeps past meetings searchable, at version 0.24.2 released September 30, and it can run entirely on the machine with Whisper and Ollama or use your own cloud API key instead; the hard limit is the platform, because it needs macOS 14 or later on Apple Silicon and no Windows or Linux build exists."
+    },
+    {
+      "date": "2026-09-30",
+      "name": "Aktar",
+      "url": "https://getaktar.com/",
+      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/9/30",
+      "cost": "Free, MIT license",
+      "kind": "Mac, Windows, iPhone and iPad",
+      "seen": "Product Hunt No. 8, Sep 30",
+      "blurb": "A menu bar app that uploads a dragged file straight into storage you already own and copies the share link as a URL, Markdown, HTML or your own template, keeping access keys in the macOS Keychain with no Aktar account and no upload limit on Aktar's side, ranked eighth on Product Hunt's September 30 leaderboard with 99 upvotes; the catch is the prerequisite, since you need storage that speaks the Amazon S3 API, such as S3, Cloudflare R2, Backblaze B2, DigitalOcean Spaces or MinIO, and the Android app is still listed as coming soon."
+    },
+    {
       "date": "2026-09-29",
       "name": "VoiceStudio",
       "url": "https://github.com/debpalash/VoiceStudio",
@@ -1758,45 +1798,68 @@
       "kind": "iOS and Android apps",
       "seen": "GitHub trending, +5,737/week",
       "blurb": "Carries messages phone to phone over a Bluetooth mesh with no accounts, phone numbers or central servers, and uses the Nostr protocol when there is internet, though the project warns that only App Store builds or source you verified yourself can be trusted, and its whitepaper notes the mesh carries a persistent per-device identifier that a nearby radio can observe."
-    },
-    {
-      "date": "2026-08-02",
-      "name": "Zen Whisper",
-      "url": "https://zenproducts.ai/apps/zen-whisper",
-      "cost": "Free tier, paid seat packs",
-      "kind": "Apple Silicon Mac, macOS 14+",
-      "seen": "Product Hunt No. 5, 123 votes",
-      "blurb": "Types dictation into any Mac app from a keyboard shortcut with recognition running on the machine instead of in the cloud, free for 3,000 words a week once the 14-day trial ends, and its makers concede that on-device models handle technical jargon poorly, which they answer with a custom dictionary and snippets rather than a larger model."
-    },
-    {
-      "date": "2026-08-02",
-      "name": "Meshdiff",
-      "url": "https://meshdiff.com/",
-      "cost": "No price listed",
-      "kind": "Web, runs client-side",
-      "seen": "Hacker News, 162 points",
-      "blurb": "Takes two STL, 3MF or OBJ files and renders a voxel diff in the browser, green for added material and red for removed, with tolerance adjustable from 0.05 to 1mm and volume delta metrics; its author says nothing is uploaded to any server, and one commenter reported that multi-group OBJ files show only the first group."
-    },
-    {
-      "date": "2026-08-01",
-      "name": "Invidious",
-      "url": "https://github.com/iv-org/invidious",
-      "cost": "Free, AGPL-3.0",
-      "kind": "Web, public instances",
-      "seen": "GitHub trending, +361 today",
-      "blurb": "Opens YouTube through a public instance with no ads, no tracking and no JavaScript required, though the project says plainly that it does not use YouTube's official APIs and takes no responsibility for the third-party instances it lists."
-    },
-    {
-      "date": "2026-08-01",
-      "name": "G'MIC 4.0",
-      "url": "https://gmic.eu/gmic40/",
-      "cost": "Free, open source",
-      "kind": "GIMP, Krita, Photoshop",
-      "seen": "Hacker News, 77 points",
-      "blurb": "Brings the filter count to 644 with six new ones in this release, among them Pixel Stretch and Heightfield Warp, but it is a plugin rather than an app: you run it inside GIMP, Krita, Photoshop or Affinity Photo, from the command line, or in a browser at G'MIC Online."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-09-30",
+      "title": "Six LibreOffice Calc features that cover the Excel jobs, from Goal Seek to regex in Find and Replace",
+      "url": "https://www.howtogeek.com/libreoffice-calc-features-handle-jobs-normally-use-excel/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 30",
+      "dek": "<b>Goal Seek to regex</b> How-To Geek's Tony Phillips shows Goal Seek solving backward from a profit target to the price per cup, pivot tables summarizing a long list by region or product, Data, Statistics, Regression returning R-squared, ANOVA, coefficients and p-values, the XLOOKUP, FILTER, UNIQUE and SORT formulas working with spill, recorded macros, and regular expressions inside Find and Replace at Ctrl+H; his own stated limits are that Excel gives more options for customizing and interacting with pivot tables and that Excel's VBA ecosystem is much deeper.",
+      "needs": [
+        "LibreOffice Calc, free and open source",
+        "A spreadsheet you already keep",
+        "Ctrl+H for Find and Replace",
+        "The Data, Statistics menu"
+      ],
+      "time": "An hour to explore"
+    },
+    {
+      "date": "2026-09-30",
+      "title": "Run a small language model on the phone itself, and most everyday prompts stop needing the internet",
+      "url": "https://www.xda-developers.com/ran-local-llm-on-phone-it-handled-90-percent-of-prompts-i-send-to-claude-chatgpt/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Sep 30",
+      "dek": "<b>Two apps, one small model</b> XDA's Nolen Jonker spent a month running Qwen 3.5 2B, Gemma 4 E2B and Qwen 3.5 4B on a base iPhone 16 with 8GB of unified memory, through Google AI Edge Gallery and Noema, and reports the local models handled 90% of the prompts he used to send to Claude and ChatGPT, with Qwen 3.5 2B reaching 32 tokens per second on short prompts and staying above 20 on longer ones; he is straight about the costs, since a phone realistically holds a 4k to 8k token context, 20 inference runs drain about 10% of an iPhone 16 Pro battery, research needing the live web still goes to the cloud, local chats stay on the device instead of following you to a desktop, and Noema is iOS only.",
+      "needs": [
+        "A phone with about 8GB of memory",
+        "Google AI Edge Gallery, free",
+        "Noema, iOS only",
+        "A small model such as Qwen 3.5 2B"
+      ],
+      "time": "An evening to set up"
+    },
+    {
+      "date": "2026-09-30",
+      "title": "Four Google Wallet settings worth one evening, starting with requiring a device unlock for every tap",
+      "url": "https://www.androidpolice.com/google-wallet-security-settings-i-wouldnt-ignore/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Sep 30",
+      "dek": "<b>Unlock before you tap</b> Android Police's Anu Joy turns on Require device unlock for NFC under Settings, Connected devices, Connection preferences, NFC so a contactless payment cannot clear on a locked phone, clears the lock screen Wallet shortcut under Settings, Display, Lock screen, Show wallet, limits where passes surface with Use passes across Google under Your data in Wallet, and removes cards no longer in use; her caveats are that the exact steps vary by device and Android version, and that deleting a card in the app on one device does not necessarily remove it from your Google Account, which is what payments.google.com is for.",
+      "needs": [
+        "Google Wallet on Android",
+        "The Android Settings app",
+        "payments.google.com for the rest"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-09-30",
+      "title": "Five self-hosted services a household will actually use, from Jellyfin and Pi-hole to Paperless-ngx",
+      "url": "https://www.howtogeek.com/the-self-hosted-services-that-turned-my-family-from-skeptics-into-daily-users/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Sep 30",
+      "dek": "<b>Five services, one server</b> How-To Geek's Nick Lewis lists what his family adopted without being asked twice: Jellyfin for movies, shows, music and photos on smart TVs, PCs, phones and browsers with no ads or subscription; Navidrome, a light music server speaking the Subsonic API so ordinary player apps can reach a ripped CD collection; Pi-hole on a Raspberry Pi Zero 2 W, roughly $20, blocking ads and trackers for every device on the network; Nextcloud in place of OneDrive or Google Drive; and Paperless-ngx, which OCRs receipts, tax records and medical documents into a searchable archive; his caveats are the honest ones, since Jellyfin transcoding wants Intel Quick Sync or a GPU and some clients still cannot play every format, a lone Pi-hole is a single point of failure, and the first pass of scanning an existing paper pile can take hours.",
+      "needs": [
+        "A home server or spare mini PC",
+        "Docker or a package install",
+        "A Raspberry Pi Zero 2 W, about $20",
+        "Hours for the first document scan"
+      ],
+      "time": "A weekend to start"
+    },
     {
       "date": "2026-09-29",
       "title": "Turn a spare Windows laptop into a second monitor over Wi-Fi, with one free app on each machine",
@@ -4267,62 +4330,6 @@
         "The Immich phone app"
       ],
       "time": "An evening to set up"
-    },
-    {
-      "date": "2026-08-11",
-      "title": "Turn a course syllabus into a working study plan before the term starts",
-      "url": "https://www.xda-developers.com/set-up-gistr-before-every-new-term-turns-syllabus-into-study-plan/",
-      "trend_url": "https://www.xda-developers.com/",
-      "seen": "XDA front page, Aug 11",
-      "dek": "<b>One Collection per course</b> Nolen Jonker sets up a Collection for each course before classes begin, adds the syllabus, readings, and lecture videos as separate threads that keep the source on one side and a chat panel on the other, has the syllabus thread pull out every deadline and graded component, writes his own weekly priorities next to that breakdown, and keeps one reference Collection for material that crosses courses, and he names the limits plainly: Gistr's free tier gives a full workspace with 300 AI credits a day before the paid plans he reports starting at $8 a month with a 50 percent student discount, video support covers YouTube rather than files you upload, and answers stay grounded in the sources you added unless you turn on web search.",
-      "needs": [
-        "A free Gistr account in the browser",
-        "Your syllabus and readings as files",
-        "The Chrome extension, optional"
-      ],
-      "time": "About an hour"
-    },
-    {
-      "date": "2026-08-11",
-      "title": "Keep one USB drive that can boot, repair, and scan any Windows PC in the house",
-      "url": "https://www.howtogeek.com/i-turned-this-tiny-usb-drive-into-the-ultimate-pc-rescue-tool/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 11",
-      "dek": "<b>Ventoy, then drag and drop</b> Ismar Hrnjicevic installs the free Ventoy2Disk utility onto a 64GB EAGET dual connector drive he bought for $16, then simply copies in the files he wants to boot from, a Windows 11 ISO, Hiren's BootCD PE for a live desktop, Malwarebytes for cleanup, and HWiNFO for hardware readings, and uses Ventoy's Preserve space option so a second FAT32 partition made in Disk Management can still carry ordinary files, and he does not oversell the hardware: the drive runs hot enough under sustained use to slow itself down, its small connectors and exposed ports want caps and care, and he keeps an electric duster nearby for cooling.",
-      "needs": [
-        "A USB drive, 64GB is plenty",
-        "Ventoy, free to download",
-        "The ISOs and tools you want aboard"
-      ],
-      "time": "An hour, mostly copying"
-    },
-    {
-      "date": "2026-08-08",
-      "title": "Replace six separate apps with one browser's built-in mail, calendar, notes, and screenshot tools",
-      "url": "https://www.makeuseof.com/stopped-switching-6-apps-with-this-browser/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 8",
-      "dek": "<b>One window, six jobs</b> Shaheer Khan moved his browsing, note-taking, screenshots, email, calendar, and YouTube into Vivaldi, stacking and tiling tabs to keep related pages together, separating contexts with workspaces, writing in the markdown notepad, and running the built-in mail and calendar clients, and he is candid about the cost of it: Vivaldi will give a machine with less memory a run for its money, and the browser felt overwhelming to him at first even though it can import your Chrome or Edge data.",
-      "needs": [
-        "Vivaldi on desktop",
-        "An email account to add",
-        "Your Chrome or Edge data to import"
-      ],
-      "time": "An evening to set up"
-    },
-    {
-      "date": "2026-08-08",
-      "title": "Pick one clear Wi-Fi channel by hand instead of letting the router choose it for you",
-      "url": "https://www.makeuseof.com/locked-router-to-one-clear-wi-fi-channel-stopped-fighting-interference/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf Trending Now",
-      "dek": "<b>Analyzer first, then lock</b> Oluwaseun Bamisile checked the networks around him with a Wi-Fi analyzer app, then replaced his router's automatic channel selection with a fixed one, settling on channel 6 because 1, 6, and 11 are the only non-overlapping channels on 2.4GHz, and naming 36, 40, 44, and 48 as the best starting points on 5GHz, and he says his connection became more stable without claiming a number for it, adding that the picks are not set in stone: the right channel depends on your region and the congestion nearby, and which channels a router may legally use depends on your country, so its region setting has to be correct.",
-      "needs": [
-        "Router admin access",
-        "A Wi-Fi analyzer app",
-        "Your router's region set correctly"
-      ],
-      "time": "About 20 minutes"
     }
   ]
 }

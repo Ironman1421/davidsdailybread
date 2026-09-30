@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-09-30",
+      "edition": "evening",
+      "dateHuman": "Wednesday, September 30, 2026",
+      "file": "editions/2026-09-30-evening.html",
+      "lead": "Six LibreOffice Calc features handle the spreadsheet work most people think they need Excel for, and it is free",
+      "pubDate": "Wed, 30 Sep 2026 17:50:44 -0400"
+    },
+    {
+      "date": "2026-09-30",
       "edition": "morning",
       "dateHuman": "Wednesday, September 30, 2026",
       "file": "editions/2026-09-30-morning.html",
