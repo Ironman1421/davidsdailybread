@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-10-01",
+      "edition": "evening",
+      "dateHuman": "Thursday, October 1, 2026",
+      "file": "editions/2026-10-01-evening.html",
+      "lead": "Point Excel at the folder your weekly files land in, and the master report rebuilds itself on open",
+      "pubDate": "Thu, 01 Oct 2026 17:48:44 -0400"
+    },
+    {
+      "date": "2026-10-01",
       "edition": "morning",
       "dateHuman": "Thursday, October 1, 2026",
       "file": "editions/2026-10-01-morning.html",
