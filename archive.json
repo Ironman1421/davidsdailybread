@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-10-01",
+      "edition": "morning",
+      "dateHuman": "Thursday, October 1, 2026",
+      "file": "editions/2026-10-01-morning.html",
+      "lead": "Micron ends fiscal 2026 with $133.19 billion in revenue, up 256 percent, and guides to $61.5 billion next quarter",
+      "pubDate": "Thu, 01 Oct 2026 07:50:06 -0400"
+    },
+    {
       "date": "2026-09-30",
       "edition": "evening",
       "dateHuman": "Wednesday, September 30, 2026",
