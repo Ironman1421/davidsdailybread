@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-10-02",
+      "name": "WizTree",
+      "url": "https://diskanalyzer.com/",
+      "trend_url": "https://www.xda-developers.com/this-tiny-free-app-exposed-200gb-forgotten-files-windows-never-told-about/",
+      "cost": "Free for personal use",
+      "kind": "Windows and macOS 12 or later",
+      "seen": "XDA Developers, Oct 2",
+      "blurb": "A disk space analyzer that draws every file as a rectangle sized to the space it uses, locates the largest files, finds duplicates and exports the results to CSV, at version 4.33 from September 16, 2026, offered as a 4.9MB Windows installer, a 7.4MB portable build or a 4.4MB macOS disk image that covers both Apple Silicon and Intel; the limits are the license and the variation, because it is free for personal use only, with Supporter licenses from $25 to $500 and an Enterprise license at $750 for commercial use, and XDA's João Carrasqueira cautions that every drive fills up differently, so your map will not resemble his."
+    },
+    {
+      "date": "2026-10-02",
+      "name": "Audionaut",
+      "url": "https://github.com/kvoltmer/Audionaut",
+      "trend_url": "https://news.ycombinator.com/item?id=49931031",
+      "cost": "Free, GPLv3",
+      "kind": "Windows, Linux, Apple Silicon",
+      "seen": "Show HN, 131 points, Oct 2",
+      "blurb": "A free multitrack audio editor for recording, cutting and arranging, with time stretching from 0.25x to 4x, stem separation into drums, bass, vocals and other performed on your own machine, import and export across WAV, AIFF, MP3, FLAC and Ogg, and a plain readable JSON project format, open source under GPLv3 since August 15, 2026 with a separate commercial license offered alongside it, with version 1.6.4 posted October 1 as a Windows installer, a Linux AppImage or deb, and a macOS disk image; the caveat is reach, because that macOS build is arm64 only, so Intel Macs are not covered, and the project is still small at 142 stars on GitHub."
+    },
+    {
+      "date": "2026-10-02",
+      "name": "CryptPad",
+      "url": "https://cryptpad.org/",
+      "trend_url": "https://www.howtogeek.com/microsoft-10-usd-month-free-and-open-source-apps-alternatives/",
+      "cost": "Free, or €5 to €100 a month",
+      "kind": "Browser, nothing to install",
+      "seen": "How-To Geek, Oct 2",
+      "blurb": "An open-source, end-to-end encrypted office suite that runs in a browser, covering rich text documents, spreadsheets, presentations, Markdown and code, kanban boards, whiteboards, forms, diagrams, a calendar and CryptDrive storage, with decryption happening only on your own device so the people running the server cannot read what you wrote, and a shared link lets someone collaborate without registering at all; the honest limit comes from How-To Geek's Tony Phillips, who finds the office tools less feature-rich than Microsoft's and compatibility with Microsoft file formats weaker, and the flagship cryptpad.fr instance charges €5 to €100 a month once the free storage is not enough."
+    },
+    {
       "date": "2026-10-01",
       "name": "PhotoSwooper",
       "url": "https://codeberg.org/Loowiz/PhotoSwooper",
@@ -1770,39 +1800,65 @@
       "kind": "Web app, plus an API",
       "seen": "Product Hunt No. 12, 98 votes",
       "blurb": "Reads photographed receipts, statements, and forms into a table where every value shows where on the page it came from, and marks the readings it is unsure of as needs_review instead of guessing quietly, with the limits stated plainly on its pricing page: the free tier is 100 pages a month across three sheets, and exporting a CSV spends one of those pages."
-    },
-    {
-      "date": "2026-08-03",
-      "name": "Voicebox",
-      "url": "https://github.com/jamiepine/voicebox",
-      "trend_url": "https://github.com/trending",
-      "cost": "Free, MIT licensed",
-      "kind": "Mac and Windows installers",
-      "seen": "GitHub trending, +443 today",
-      "blurb": "Keeps speech work on your own machine, with push-to-talk dictation into any app, speech generation across 23 languages and seven engines, and voice cloning from samples you supply, and the project states its own limits plainly: there are no prebuilt Linux binaries yet, and automatic pasting after dictation is still not implemented on Windows or Linux."
-    },
-    {
-      "date": "2026-08-03",
-      "name": "Finamie",
-      "url": "https://finamie.com/",
-      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/2",
-      "cost": "Free tier, $39.99 a year",
-      "kind": "iPhone, from the App Store",
-      "seen": "Product Hunt No. 6, 129 votes",
-      "blurb": "Logs a purchase when you hold a button and say it out loud, pulling the amount, currency, category and details out of your own voice in English or Spanish, with the caveat that the free plan stops at 30 voice transactions a month and one default analytics widget, and everything past that is $39.99 a year."
-    },
-    {
-      "date": "2026-08-03",
-      "name": "ssh.place",
-      "url": "https://ssh.place",
-      "trend_url": "https://news.ycombinator.com/item?id=49149805",
-      "cost": "Free, no account",
-      "kind": "Any terminal with ssh",
-      "seen": "Hacker News, 168 points",
-      "blurb": "Type ssh ssh.place and you are standing on a shared canvas of 200 by 60 cells where anyone can place a colored block, which is the charm and also the caveat: the wait is 15 seconds per block and survives a reconnect, text is rejected outright, and the canvas is wider than most terminal windows, so you scroll to see all of it."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-10-02",
+      "title": "Tell Gmail to ask before it loads images, and the tracking pixels in your inbox stop reporting back",
+      "url": "https://www.makeuseof.com/gmail-stopped-loading-hidden-trackers-when-i-changed-one-setting/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 2",
+      "dek": "<b>One setting, both apps</b> MakeUseOf's Digvijay Kumar opens the gear icon, See all settings, the General tab and the Images section on the Gmail website, chooses Ask before displaying external images instead of loading them automatically, saves the change, then repeats it in the mobile app under the menu, Settings and the account; the reason is that a hidden tracking pixel only fires when the image loads, which is how a sender logs the exact time a message was opened, and his cautions are that mail from banks and ticketing services can look incomplete until you tap the banner to show images, and that choosing to show them still lets that message report back.",
+      "needs": [
+        "A Gmail account",
+        "The Gmail website, then the app",
+        "Two minutes"
+      ],
+      "time": "About two minutes"
+    },
+    {
+      "date": "2026-10-02",
+      "title": "One built-in Windows command compresses the system files, and a crowded C drive gives space back",
+      "url": "https://www.xda-developers.com/windows-has-a-compression-mode-built-in-that-microsoft-never-mentions-and-it-gave-me-x-gb-back-on-my-c-drive/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Oct 2",
+      "dek": "<b>compact /compactos:always</b> XDA's Abhinav Raj checks the current state with compact /compactos:query in an administrator prompt, switches Compact OS on with compact /compactos:always for about 7GB back on his laptop and 5GB on his desktop, then compresses one chosen folder with compact /c /s:\"C:\\Users\" /exe:lzx /i, which took roughly 30 minutes and squeezed 460,000 files from 190GB down to 158GB, for 38GB freed in total on a Legion 5 Pro; he is clear about the trade, since every later read spends processor cycles decompressing, already-compressed material such as game assets barely shrinks, and compact /compactos:never reverses the whole thing.",
+      "needs": [
+        "An administrator Command Prompt",
+        "Windows 10 or 11",
+        "Half an hour of patience"
+      ],
+      "time": "5 to 35 minutes"
+    },
+    {
+      "date": "2026-10-02",
+      "title": "Seven Windows 11 features ship switched off, and three of them are worth keeping on for good",
+      "url": "https://www.makeuseof.com/windows-11-features-worth-turning-on/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 2",
+      "dek": "<b>Clipboard history first</b> MakeUseOf's Oluwademilade Afolabi switches on Clipboard History with Win and V, End Task on the taskbar under Settings, System, Advanced, and Dynamic Refresh Rate under Settings, System, Display, Advanced display, and keeps those three after trying and dropping title bar window shake, seconds on the clock, Nearby Sharing and Dynamic Lock; the limits he names are that clipboard history holds up to 25 entries with images capped at 4MB each, that Dynamic Refresh Rate needs a variable refresh display capable of at least 120Hz, that Dynamic Lock can take roughly a minute to lock after you walk away, and that End Task can take unsaved work down with it.",
+      "needs": [
+        "A Windows 11 PC",
+        "The Settings app",
+        "Fifteen minutes"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-10-02",
+      "title": "Four Google Keep habits give a plain notes app folders, a kanban board and a clipboard across devices",
+      "url": "https://www.androidpolice.com/google-keep-productivity-hacks/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Oct 1",
+      "dek": "<b>Number your labels</b> Android Police's Irene Okpanachi works around Keep's missing folders by renaming labels with a leading number so they sort in the order she wants, deletes the raw link text once a preview card has loaded, color-codes notes red for urgent, yellow for in progress and green for finished so that searching by color turns into a kanban board, and pins one note called Clipboard to carry text between devices on the same Google account; her cautions are that a preview card can take anywhere from a few seconds to a minute, that she would not count on the clipboard note for anything immediate, and that Keep still cannot password-protect an individual note.",
+      "needs": [
+        "Google Keep on phone or web",
+        "A Google account",
+        "Twenty minutes to set up"
+      ],
+      "time": "About 20 minutes"
+    },
     {
       "date": "2026-10-01",
       "title": "Connect a master workbook to the folder your weekly files land in, and let Excel rebuild the report",
@@ -4275,63 +4331,6 @@
         "Destination folders to sort into"
       ],
       "time": "About 30 minutes"
-    },
-    {
-      "date": "2026-08-14",
-      "title": "Move the router off the floor and away from the fridge before you buy a new one",
-      "url": "https://www.xda-developers.com/the-best-wi-fi-upgrade-wasnt-a-new-router-it-was-moving-some-furniture/",
-      "trend_url": "https://www.xda-developers.com/",
-      "seen": "XDA front page, Aug 14",
-      "dek": "<b>Height beats hardware</b> Samarveer Singh had already split the 2.4GHz and 5GHz bands and let his provider's app pick channels, yet a laptop pulling the full 300 Mbps over a cable managed only about 50 Mbps over Wi-Fi, so he took the router off a three foot chest standing beside the refrigerator and put it on a wall shelf up near the ceiling, which left every room a single wall's thickness from the signal and steadied televisions that had been struggling, and he is careful to say placement is one of three factors alongside the hardware itself and its settings.",
-      "needs": [
-        "The router you already own",
-        "A higher spot away from metal",
-        "A speed test before and after"
-      ],
-      "time": "About an hour"
-    },
-    {
-      "date": "2026-08-14",
-      "title": "Turn off three Samsung settings and the keyboard stops feeling a half step behind you",
-      "url": "https://www.makeuseof.com/samsungs-keyboard-tweaks-for-faster-typing/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 14",
-      "dek": "<b>Three toggles, one keyboard</b> Brandon Miniman opens the keyboard's settings cog and switches off Character preview and Vibration under Swipe, touch and feedback, Touch feedback, then unlocks Developer Options by tapping Build number seven times under Settings, About phone, Software information and drops Window animation scale, Transition animation scale, and Animator duration scale to 0.5x, and he is candid that typing still does not match Gboard on a Pixel or the iOS keyboard.",
-      "needs": [
-        "A Samsung Galaxy phone",
-        "The Samsung Keyboard settings cog",
-        "Developer Options, for the third step"
-      ],
-      "time": "About five minutes"
-    },
-    {
-      "date": "2026-08-13",
-      "title": "Turn off four Android Auto defaults so the car stops blasting music and reading your texts to the passenger seat",
-      "url": "https://www.howtogeek.com/android-auto-became-more-useful-after-i-stopped-using-these-google-defaults/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 13",
-      "dek": "<b>Four toggles, one drive</b> Jorge A. Aguilar switches off Start music automatically under Settings, Android Auto, General, so plugging in stops greeting him with whatever was playing last at full volume, turns off Show first line of messages and Play AI message summaries under Connected devices, Android Auto, Messaging, because nobody wants a personal or embarrassing text suddenly splashed across the dashboard, moves Day and Night mode for maps from Automatic to Day in the Android Auto app after the system got stuck in night mode so dark the navigation map was basically unreadable, and raises the Speech rate slider under Settings, Accessibility, Text to speech output, since Google's engine ships at a pretty slow speaking rate, and he is careful to add that these defaults are not wrong for everyone.",
-      "needs": [
-        "An Android phone with Android Auto",
-        "The phone's Settings app",
-        "Five minutes before you drive"
-      ],
-      "time": "Five minutes, once"
-    },
-    {
-      "date": "2026-08-13",
-      "title": "Sort a backlog of saved articles into act now, reference, archive, and delete in a single pass",
-      "url": "https://www.makeuseof.com/declutter-obsidian-bookmarks-claude-ai/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 13",
-      "dek": "<b>Four buckets, one pass</b> Saikat Basu points Claude Desktop at his Obsidian folder through its filesystem connector, has it read all 500 clips at once instead of one at a time, sorts them into Act now, Reference, Archive, and Delete by weighing each clip against his current project notes, asks what themes run across the whole collection, and finds 50 worth keeping, then spends about fifteen minutes reading the result himself before anything moves, which is where he plants the warnings: the sort was a first pass, not a final answer, outdated or loosely defined project notes will make Claude hallucinate current relevance, code snippets, quick recipes, and single paragraph quotes can look like low value to an AI sorter, and his own review caught a clip wrongly marked a duplicate.",
-      "needs": [
-        "An Obsidian vault of saved clips",
-        "Claude Desktop, filesystem enabled",
-        "Your current project notes",
-        "Your own read before deleting"
-      ],
-      "time": "About fifteen minutes"
     }
   ]
 }

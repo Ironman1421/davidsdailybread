@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-10-02",
+      "edition": "evening",
+      "dateHuman": "Friday, October 2, 2026",
+      "file": "editions/2026-10-02-evening.html",
+      "lead": "WizTree maps every file on your drive by size, and it found 200GB of forgotten data on one 512GB laptop",
+      "pubDate": "Fri, 02 Oct 2026 17:48:19 -0400"
+    },
+    {
+      "date": "2026-10-02",
       "edition": "morning",
       "dateHuman": "Friday, October 2, 2026",
       "file": "editions/2026-10-02-morning.html",
