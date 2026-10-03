@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-10-03",
+      "name": "FreeFileSync",
+      "url": "https://freefilesync.org/",
+      "trend_url": "https://www.makeuseof.com/3-2-1-backup-rule-missing-step/",
+      "cost": "Free; Donation Edition extra",
+      "kind": "Windows, macOS, Linux",
+      "seen": "MakeUseOf, Oct 3",
+      "blurb": "A folder comparison and synchronization tool that creates and manages backup copies, working out the differences between a source and a target and copying only what changed, with mirror, two-way and custom modes, batch jobs that can be scheduled, move detection so a renamed file is not copied again, Volume Shadow Copy support for files that are locked, binary comparison, paths longer than 260 characters, Google Drive, FTP, FTPS and SFTP targets, and a RealTimeSync companion, at version 14.12 from September 9, 2026; the limits are the license and the false comfort, since it is free for personal use while email notifications sit in the donor-only Donation Edition and commercial use needs a Business Edition license, and MakeUseOf's point stands that a sync run reporting success is still not evidence that the copy will restore."
+    },
+    {
+      "date": "2026-10-03",
+      "name": "draw.io",
+      "url": "https://www.drawio.com/",
+      "trend_url": "https://www.xda-developers.com/free-alternative-to-microsoft-visio-that-doesnt-compromise-on-features/",
+      "cost": "Free, Apache 2.0",
+      "kind": "Browser, desktop, Docker",
+      "seen": "XDA Developers, Oct 3",
+      "blurb": "A diagramming editor that runs in a browser at app.diagrams.net, as a desktop download or from the project's own Docker image, with no sign-up and no paywall, covering flowcharts, network and UML diagrams, entity relationship charts, mind maps, org charts and floor plans from stocked shape libraries and templates, exporting to SVG, PNG and PDF, and plugging into Google Drive and Docs, SharePoint, OneDrive and Teams, Confluence and Jira, GitHub, VS Code and Notion, with files from 2005 still opening in the current version; the honest limits come from the project's own repository, which states it is a diagramming application and not an SVG editor, that real-time collaborative editing is not currently supported there, that outside pull requests are not accepted, and that its icon and stencil libraries may not be used inside Atlassian products without permission, and the editor expects a recent browser (Chrome 123, Firefox 120 or Safari 17.5 and later)."
+    },
+    {
+      "date": "2026-10-03",
+      "name": "Vivaldi",
+      "url": "https://vivaldi.com/",
+      "trend_url": "https://www.androidpolice.com/switched-to-vivaldi-realized-chrome-made-me-work-for-basic-features/",
+      "cost": "Free, donations invited",
+      "kind": "Desktop, Android, iOS",
+      "seen": "Android Police, Oct 3",
+      "blurb": "A browser that ships the parts most people bolt on, with tracker and ad blocking under Settings, Privacy and Security that also hides cookie banners and can be tuned per site, full-page Capture screenshots, Periodic Reload on intervals from one to 90 minutes, mouse gestures, Quick Commands on F2 and Command Chains that fire several actions at once, plus tab stacks, workspaces and tab tiling, built-in mail, calendar, feed reader and notes, end-to-end encrypted sync, and extension support on Android from version 8.2, which Chrome on phones still does not offer; the caveats are that it is a great deal of browser to take on and Android Police's Anu Joy stops short of saying anyone needs to switch, that the bundled VPN is an integration with Proton rather than a Vivaldi service, and that the download is free with donations invited rather than charged."
+    },
+    {
+      "date": "2026-10-03",
+      "name": "F-Droid 2.0",
+      "url": "https://f-droid.org/",
+      "trend_url": "https://www.androidpolice.com/f-droid-20-fixed-all-my-issues-with-finding-installing-and-updating-open-source-apps/",
+      "cost": "Free, donation funded",
+      "kind": "Android, APK from the site",
+      "seen": "Android Police, Oct 3",
+      "blurb": "The free and open source Android app store, rebuilt on September 24, 2026 in what the project calls its largest app update in ten years, with Kotlin Compose and Material styling, navigation reduced to Discover, Search and My Apps, search that finally reads descriptions, categories and translated text rather than exact app names, expanded categories including 17 game genres, and installs and updates that use Android's new pre-approval interface so background update checks are on by default; the caveats are a long list the project publishes itself, since support for Android 6 had to be dropped, the Privileged Extension is not currently supported, the app-wiping feature is gone, the redesigned nearby sharing missed the first release, Tor auto-detection was removed, the rollout runs over several weeks after 14 test releases, and the app still arrives as an APK downloaded from f-droid.org, which the project warns is the very path Google's installation changes put under threat; Android Police's Dhruv Bhutani calls it a massive step forward while saying plainly it is not night-and-day for existing users and may not replace Droidify for him yet."
+    },
+    {
       "date": "2026-10-02",
       "name": "WizTree",
       "url": "https://diskanalyzer.com/",
@@ -1760,49 +1800,79 @@
       "kind": "iPhone, iPad, M1 Mac or later",
       "seen": "Product Hunt No. 2, 368 votes",
       "blurb": "Turns a subject you have been meaning to learn into a course of short lessons, podcasts, and exercises pitched at what you already know, with the App Store listing naming the limits: it is English only, it wants iOS 14 or later or a Mac with an M1 chip, and unlimited daily lessons plus up to 15 new courses a month sit behind Pro at $14.99 a month or $107.99 a year."
-    },
-    {
-      "date": "2026-08-05",
-      "name": "Screen Awesome",
-      "url": "https://screenawesome.com/",
-      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/4",
-      "cost": "Free, no account",
-      "kind": "Chrome 116 or later",
-      "seen": "Product Hunt No. 7, 143 votes",
-      "blurb": "Records a tab, a screen, or your camera to MP4 from inside Chrome, glides a zoom to every click, and leaves the arrows, blur, redaction, and step numbers unlocked with no watermark and no sign-in, and the honest catch is where the files live: recordings stay in the browser's own storage on the machine that made them, and removing the extension deletes them with it."
-    },
-    {
-      "date": "2026-08-05",
-      "name": "Wispr Flow Notetaker",
-      "url": "https://wisprflow.ai/pricing",
-      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/5",
-      "cost": "Free tier, Pro $15 a month",
-      "kind": "Notetaker on Mac only for now",
-      "seen": "Product Hunt No. 1, 431 votes",
-      "blurb": "Listens to a meeting through your Mac's own audio instead of joining the call, then hands back a cleaned transcript, a summary, and action items you can search later, and the plan page is plain about the limits: the notetaker runs on Mac only for now with other platforms listed as coming soon, and unlimited dictation plus more meetings kept for longer costs $15 a user each month, or $12 billed yearly."
-    },
-    {
-      "date": "2026-08-04",
-      "name": "Pandoc",
-      "url": "https://pandoc.org/",
-      "trend_url": "https://news.ycombinator.com/item?id=49156750",
-      "cost": "Free, GPL licensed",
-      "kind": "Windows, macOS, Linux",
-      "seen": "Hacker News, 388 points",
-      "blurb": "Turns one document into another from a single command, and John MacFarlane's twentieth anniversary post counts 51 input formats and 76 output formats, so a Markdown draft can leave as a Word file, an EPUB, or a slide deck; the honest catch is that PDF output still leans on a LaTeX engine you install separately, MiKTeX on Windows, BasicTeX or TinyTeX on macOS, TeX Live on Linux."
-    },
-    {
-      "date": "2026-08-04",
-      "name": "space ocr",
-      "url": "https://space-ocr.com/",
-      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/4/all",
-      "cost": "Free tier, then paid plans",
-      "kind": "Web app, plus an API",
-      "seen": "Product Hunt No. 12, 98 votes",
-      "blurb": "Reads photographed receipts, statements, and forms into a table where every value shows where on the page it came from, and marks the readings it is unsure of as needs_review instead of guessing quietly, with the limits stated plainly on its pricing page: the free tier is 100 pages a month across three sheets, and exporting a CSV spends one of those pages."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-10-03",
+      "title": "Test a restore, then add the two steps the 3-2-1 backup rule never mentions",
+      "url": "https://www.makeuseof.com/3-2-1-backup-rule-missing-step/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 3",
+      "dek": "<b>Three, two, one, one, zero</b> MakeUseOf's Tashreef Shareef keeps the old rule of three copies on two kinds of media with one offsite, then adds one immutable or air-gapped copy that ransomware cannot reach and zero verified errors, pointing to FreeFileSync for mirroring files to a drive you can disconnect and to Duplicati for the backup set, and booking a real restore test every quarter; his warning is that the gaps stay invisible until the worst moment, because files corrupt in transfer, media degrades in storage, and an incremental chain can break without a word, and he cites a 2024 Backblaze survey in which 84 percent of computer owners said they back up while only 15 percent were absolutely certain their important files were safe.",
+      "needs": [
+        "A drive you can unplug",
+        "FreeFileSync or Duplicati",
+        "An hour now, then quarterly"
+      ],
+      "time": "An hour, then quarterly"
+    },
+    {
+      "date": "2026-10-03",
+      "title": "Fill in two personalization fields once, and ChatGPT stops answering you like a stranger",
+      "url": "https://www.howtogeek.com/i-changed-one-chatgpt-setting-and-it-stopped-giving-me-generic-advice/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Oct 3",
+      "dek": "<b>Settings, then Personalization</b> How-To Geek's Vishwamoorthy Ramakrishnan opens the profile icon, Settings and Personalization, then fills the Custom Instructions field with standing rules for every new chat and the More About You field with his role, experience level and constraints, and shows the difference on one question about buying a mid-range phone now or waiting six months: the default answer padded both sides, while the configured one told him to wait for holiday price cuts on existing hardware rather than gamble on next-generation promises, then named handsets chosen for longevity and update commitments; his cautions are that the change reaches only new conversations and leaves open threads as they were, and that the sample templates are a starting point you still have to make specific with your own budget, tools and time.",
+      "needs": [
+        "A ChatGPT account",
+        "Settings, then Personalization",
+        "Ten minutes of honest detail"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-10-03",
+      "title": "Connect Gemini to Gmail, Keep and Drive, and the assistant starts working on your own files",
+      "url": "https://www.androidpolice.com/gemini-app-integrations-speed-up-workflow/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Oct 3",
+      "dek": "<b>Connected Apps first</b> Android Police's Akshay Bhalla opens Gemini settings, Connected Apps and the Google Workspace toggle, then works from the Ask Gemini button in the top right of Gmail, where summarizing long threads and hunting for buried details saves him 20 to 25 minutes a day and drafts come back in his own tone; he aims the same connection at notes, asking Gemini to check whether a restaurant is already on a Keep list and add it if not, which also works with Samsung, Xiaomi, OnePlus, Honor, OPPO, vivo, TECNO and Lenovo note apps, and at Docs, Sheets and Drive, where scanning 400 video games into a spreadsheet took him about an hour against three hours of typing, and where he has used it to read a lease for unfavorable terms; Google lists further connections including Otter.ai, WhatsApp, calendar apps, Spotify and SeatGeek, and the time savings quoted here are his own measurements rather than a promise.",
+      "needs": [
+        "The Gemini app",
+        "A Google account with Workspace on",
+        "Fifteen minutes to connect"
+      ],
+      "time": "About 15 minutes"
+    },
+    {
+      "date": "2026-10-03",
+      "title": "Four Google Maps habits beyond navigation, from a shared trip list to remembering where you parked",
+      "url": "https://www.howtogeek.com/4-brilliant-things-you-can-do-with-google-maps-aside-from-navigation/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Oct 3",
+      "dek": "<b>Save Parking, then the rest</b> How-To Geek's Vishwamoorthy Ramakrishnan taps the blue location dot and Save Parking when he leaves the car, adds a note such as Pillar 101 and sets a countdown for a metered bay so the app warns him before the time runs out, builds a shared itinerary under the You tab, Your Saves and New List so a group can add and vote on places instead of arguing in a chat thread, uses Ask Maps in the top left corner for hyper-specific requests such as a cozy, relaxing and budget-friendly evening, which reads across hundreds of reviews, and opens the Street View layer to walk an unfamiliar street in advance, with older imagery such as 2022 available for comparison; the limit he names is reach, since Ask Maps is on Android and iOS with desktop still to come.",
+      "needs": [
+        "Google Maps on your phone",
+        "A Google account to save lists",
+        "Ten minutes"
+      ],
+      "time": "About 10 minutes"
+    },
+    {
+      "date": "2026-10-03",
+      "title": "One SCAN formula replaces a whole column of running totals in a spreadsheet",
+      "url": "https://www.makeuseof.com/once-you-understand-scan-excel-youll-never-build-formulas-same-way/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 3",
+      "dek": "<b>=SCAN(0, range, LAMBDA)</b> MakeUseOf's Adaeze Uche explains that SCAN walks a range one value at a time and returns every step along the way, so =SCAN(0, A2:A8, LAMBDA(a, v, a + v)) spills a running total down the column from a single cell, =SCAN(0, B2:B9, LAMBDA(a, v, MAX(a, v))) tracks a running best, and =SCAN(0, C2:C9, LAMBDA(a, v, IF(v=\"Active\", a + 1, a))) counts only the rows that qualify, with the accumulator holding what came before and the current value arriving as v; her caveats are that the function needs Excel in Microsoft 365 or Excel 2024 and later, and that the starting value has to suit the operation, which means 1 rather than 0 when the calculation multiplies.",
+      "needs": [
+        "Excel in Microsoft 365",
+        "A column of numbers to total",
+        "Twenty minutes to practice"
+      ],
+      "time": "About 20 minutes"
+    },
     {
       "date": "2026-10-02",
       "title": "Tell Gmail to ask before it loads images, and the tracking pixels in your inbox stop reporting back",
@@ -4258,77 +4328,6 @@
         "A Gemini Notebook account",
         "Clean PDFs or Markdown sources",
         "One topic per notebook"
-      ],
-      "time": "About 30 minutes"
-    },
-    {
-      "date": "2026-08-16",
-      "title": "Five prompts that reshape a finished research report into a website, a chart set, a slide deck, or a designed PDF",
-      "url": "https://www.makeuseof.com/claude-prompts-turned-plain-text-research-into-something-people-read/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 16",
-      "dek": "<b>One report, five shapes</b> Abhijith N Arjunan hands a finished text report back to Claude with one prompt per format: a single HTML page with fixed navigation and tabbed themes, a set of bar and line charts built with Recharts plus dashboard tiles for standalone numbers, a draggable force-directed concept graph in the Obsidian style, a full-screen slide deck you move through with arrow keys, and a PDF with a cover page, section dividers, and pull-quote callouts; he is upfront that each format still asks for time on what its design demands.",
-      "needs": [
-        "A finished text research report",
-        "Claude with Deep Research mode",
-        "Some HTML comfort to adjust output"
-      ],
-      "time": "About an hour"
-    },
-    {
-      "date": "2026-08-16",
-      "title": "Stop the ISP box and your own router from fighting by putting one of them in bridge mode",
-      "url": "https://www.makeuseof.com/your-isps-router-fighting-your-new-one-how-to-make-them-stop/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 16",
-      "dek": "<b>One router in charge</b> Oliver Haslam explains that leaving both boxes routing gives you two DHCP servers handing out duplicate addresses, two firewalls, competing Wi-Fi networks, and double NAT, which he says can make it impossible for devices to connect to online services; his preferred fix is bridge mode, sometimes labeled modem mode, which switches off the ISP box's routing, Wi-Fi, and firewall and leaves the modem doing modem work, with a DMZ plus a static IP or access point mode as fallbacks, and he notes that not every ISP router offers bridge mode because some providers disable it to keep support simple.",
-      "needs": [
-        "The ISP router's admin password",
-        "An Ethernet cable",
-        "Your own router"
-      ],
-      "time": "About 30 minutes"
-    },
-    {
-      "date": "2026-08-15",
-      "title": "Plan the trip on a laptop, then hand the finished route to the phone you will navigate with",
-      "url": "https://www.howtogeek.com/i-stopped-planning-trips-on-my-phone-and-started-using-google-maps-on-desktopits-way-faster/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 15",
-      "dek": "<b>Big screen first</b> Andy Betts drags points on a desktop route to build his own detours, drops a pin and uses the travel time tool to see everywhere within a set walking or driving distance, saves restaurants and stops into lists while he researches, and keeps several tabs open to compare alternate routes and times together, then sends the finished route to his phone with a button or a shareable link, and he notes the whole handoff rests on the account syncing between the two devices.",
-      "needs": [
-        "A laptop or desktop browser",
-        "One Google account on both devices",
-        "Google Maps on the phone"
-      ],
-      "time": "About 20 minutes"
-    },
-    {
-      "date": "2026-08-15",
-      "title": "Six settings changes that make an aging Windows PC feel quicker without buying any hardware",
-      "url": "https://www.howtogeek.com/guaranteed-ways-to-make-windows-faster-without-upgrading-hardware-or-overclocking/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 15",
-      "dek": "<b>Six free toggles</b> Goran Damnjanovic switches off animation effects under Settings, Accessibility, Visual effects, clears programs out of Settings, Apps, Startup, debloats with a utility such as Chris Titus' WinUtil or simply removes Copilot, which he says can use around 500MB of RAM in the background, disables services an underpowered machine does not need, sets the power mode to best performance, and turns off online Bing results in Windows Search; he is candid that older and weaker PCs gain far more from all of this than new ones, and that best performance runs hotter and shortens battery life.",
-      "needs": [
-        "A Windows 11 PC",
-        "An administrator account",
-        "The Settings app"
-      ],
-      "time": "About 45 minutes"
-    },
-    {
-      "date": "2026-08-14",
-      "title": "Write the rules once and let the Downloads folder file itself by type, year, and month",
-      "url": "https://www.makeuseof.com/file-juggler-automatically-organize-files-windows/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 14",
-      "dek": "<b>If this, then filed</b> Tashreef Shareef points File Juggler at his Downloads folder and writes each rule as a plain condition and action, if the extension is .pdf, then move the file, then uses date variables so the destination builds its own year and month subfolders, ending with more than five rules covering PDFs, images, installers, archives, and Markdown files; the program can also match on filename patterns, file size, modification date, and keywords inside a document, and MakeUseOf puts the cost at a $40 perpetual license after a 30 day trial that keeps working with upgrade popups.",
-      "needs": [
-        "File Juggler, $40 after a 30 day trial",
-        "A Windows PC",
-        "One folder worth watching",
-        "Destination folders to sort into"
       ],
       "time": "About 30 minutes"
     }

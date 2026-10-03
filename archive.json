@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-10-03",
+      "edition": "evening",
+      "dateHuman": "Saturday, October 3, 2026",
+      "file": "editions/2026-10-03-evening.html",
+      "lead": "The 3-2-1 backup rule leaves out the step that proves it: restore a file, and keep one copy ransomware cannot reach",
+      "pubDate": "Sat, 03 Oct 2026 17:49:57 -0400"
+    },
+    {
+      "date": "2026-10-03",
       "edition": "morning",
       "dateHuman": "Saturday, October 3, 2026",
       "file": "editions/2026-10-03-morning.html",
