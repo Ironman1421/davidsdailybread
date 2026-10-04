@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-10-04",
+      "edition": "morning",
+      "dateHuman": "Sunday, October 4, 2026",
+      "file": "editions/2026-10-04-morning.html",
+      "lead": "Google's AI chips reach orbit as Falcon 9 launches the first Project Suncatcher test satellite",
+      "pubDate": "Sun, 04 Oct 2026 07:50:51 -0400"
+    },
+    {
       "date": "2026-10-03",
       "edition": "evening",
       "dateHuman": "Saturday, October 3, 2026",
