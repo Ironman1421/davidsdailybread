@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-10-04",
+      "edition": "evening",
+      "dateHuman": "Sunday, October 4, 2026",
+      "file": "editions/2026-10-04-evening.html",
+      "lead": "A free office suite that edits Word, Excel and PowerPoint files on Windows, Mac and Linux",
+      "pubDate": "Sun, 04 Oct 2026 17:46:23 -0400"
+    },
+    {
+      "date": "2026-10-04",
       "edition": "morning",
       "dateHuman": "Sunday, October 4, 2026",
       "file": "editions/2026-10-04-morning.html",

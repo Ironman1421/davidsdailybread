@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-10-04",
+      "name": "ONLYOFFICE Desktop Editors",
+      "url": "https://www.onlyoffice.com/en/desktop",
+      "trend_url": "https://www.xda-developers.com/found-free-microsoft-word-alternative-that-does-not-compromise-on-features/",
+      "cost": "Free for personal use",
+      "kind": "Windows, macOS, Linux desktop",
+      "seen": "XDA Developers, Oct 4",
+      "blurb": "Documents, spreadsheets, presentations, PDFs and forms in one tabbed app that reads DOCX, XLSX and PPTX, though XDA's reviewer still sends heavy PDF editing to a dedicated tool."
+    },
+    {
+      "date": "2026-10-04",
+      "name": "Clonezilla",
+      "url": "https://clonezilla.org/",
+      "trend_url": "https://www.xda-developers.com/clonezilla-is-the-best-free-way-to-clone-a-drive/",
+      "cost": "Free, GPL v2",
+      "kind": "Bootable USB, x86 machines",
+      "seen": "XDA Developers, Oct 4",
+      "blurb": "Images or clones a whole disk so a failed drive can be restored without reinstalling the system, but the project lists real limits: no differential or incremental backup, partitions must be unmounted, and you cannot open an image to pull out a single file."
+    },
+    {
+      "date": "2026-10-04",
+      "name": "LatencyMon",
+      "url": "https://www.resplendence.com/latencymon",
+      "trend_url": "https://www.makeuseof.com/this-free-tool-tells-you-exactly-whats-slowing-down-your-pc/",
+      "cost": "Free Home Edition",
+      "kind": "Windows diagnostic utility",
+      "seen": "MakeUseOf, Oct 3",
+      "blurb": "Measures kernel timer latencies and DPC and ISR execution times to name the driver behind the stutter, with the caveat that it was written for real-time audio work and that a paid Professional Edition sits alongside the free Home one."
+    },
+    {
+      "date": "2026-10-04",
+      "name": "gping",
+      "url": "https://github.com/orf/gping",
+      "trend_url": "https://www.howtogeek.com/tfree-networking-tool-turns-ping-into-graph-i-understand/",
+      "cost": "Free, MIT",
+      "kind": "Terminal app, every desktop OS",
+      "seen": "How-To Geek, Oct 4",
+      "blurb": "Plots ping replies as a live graph so a flaky connection shows up as a visible spike, installed from winget, Homebrew or apt, though How-To Geek calls it a diagnostic rather than long-term monitoring and warns against aliasing ping to it."
+    },
+    {
       "date": "2026-10-03",
       "name": "FreeFileSync",
       "url": "https://freefilesync.org/",
@@ -1760,49 +1800,66 @@
       "kind": "iPhone, Mac M1, Apple Vision",
       "seen": "Product Hunt No. 16, 88 votes",
       "blurb": "Flashes an imported book, PDF, article, or web page one word at a time so your eyes stay still, keeps your place across Apple devices through iCloud, and builds its summaries on the device itself, and the App Store listing is plain about the limits: the free tier stops at five saved readings, 550 words a minute, and the Endurance training mode, unlimited imports and speeds up to 1,200 words a minute cost $4.99 a month or $39.99 a year, and the listing warns that AI generated results may occasionally contain errors."
-    },
-    {
-      "date": "2026-08-06",
-      "name": "Legacy Notepad",
-      "url": "https://github.com/ForLoopCodes/legacy-notepad",
-      "trend_url": "https://www.makeuseof.com/developer-rebuilt-notepad-without-ai-now-its-exactly-what-original-was/",
-      "cost": "Free, MIT license",
-      "kind": "Windows 7 SP1 or newer",
-      "seen": "MakeUseOf, August 6",
-      "blurb": "Rebuilds the plain Windows Notepad in C++17 and the Win32 API with word wrap, font choice, zoom, find and replace, printing, an always-on-top window, and UTF-8, UTF-16, and ANSI encodings, and no AI anywhere, which is the whole point of it, and the project names its own trade-offs: it is a young, maintainer-led effort rather than an application tested at Microsoft's scale, its background image modes shift with DPI scaling, and Windows Defender has flagged an x86 build."
-    },
-    {
-      "date": "2026-08-06",
-      "name": "Zen Browser",
-      "url": "https://github.com/zen-browser/desktop",
-      "trend_url": "https://www.xda-developers.com/replaced-firefox-with-zen-browser/",
-      "cost": "Open source, MPL-2.0",
-      "kind": "Firefox-based desktop browser",
-      "seen": "XDA Developers, August 6",
-      "blurb": "A Firefox-based browser built on Firefox 153.0.3 that aims squarely at productivity, moving tabs into a vertical sidebar where long titles are actually readable and adding split view for two pages side by side, Glance previews for links, pinned tabs, and customizable layouts, and the XDA write-up that put it back in front of readers supplies the honest caveat: no single feature here is revolutionary, and Firefox has offered vertical tabs for a while now."
-    },
-    {
-      "date": "2026-08-05",
-      "name": "Wispr Flow Notetaker",
-      "url": "https://wisprflow.ai/notetaker",
-      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/5",
-      "cost": "Free tier, Pro $15 a month",
-      "kind": "Mac now, Windows coming soon",
-      "seen": "Product Hunt No. 1, 431 votes",
-      "blurb": "Captures a meeting locally through your Mac rather than joining the call as a visible bot, then names the speakers and returns a summary organized around decisions and next steps that you can search later, and its own page states the limits: Mac only with Windows listed as coming soon, English only for now, and free-plan use that becomes unlimited on Flow Pro, which the same site's plans page prices at $15 a user each month, or $12 billed yearly."
-    },
-    {
-      "date": "2026-08-05",
-      "name": "Wondering, learn anything",
-      "url": "https://apps.apple.com/us/app/wondering-learn-anything/id6754904253",
-      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/4",
-      "cost": "Free, Pro $14.99 a month",
-      "kind": "iPhone, iPad, M1 Mac or later",
-      "seen": "Product Hunt No. 2, 368 votes",
-      "blurb": "Turns a subject you have been meaning to learn into a course of short lessons, podcasts, and exercises pitched at what you already know, with the App Store listing naming the limits: it is English only, it wants iOS 14 or later or a Mac with an M1 chip, and unlimited daily lessons plus up to 15 new courses a month sit behind Pro at $14.99 a month or $107.99 a year."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-10-04",
+      "title": "Five linked Notion databases turn a notes app into a place where every idea has a destination",
+      "url": "https://www.makeuseof.com/building-a-knowledge-system-in-notion/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Oct 4",
+      "dek": "<b>Relations do the work</b> A homepage dashboard over Projects, Inbox, Library and Learning, with Projects related to one master Tasks database so each project filters its own tasks automatically.",
+      "needs": [
+        "A Notion account",
+        "One master Tasks database",
+        "Relational database views",
+        "An inbox you agree to sort"
+      ],
+      "time": "An evening, start small"
+    },
+    {
+      "date": "2026-10-04",
+      "title": "Clear the preinstalled apps off Windows using only Settings, winget and PowerShell",
+      "url": "https://www.howtogeek.com/how-to-de-bloat-windows-without-installing-suspicious-tools-or-isos/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Oct 4",
+      "dek": "<b>Built-in tools only</b> Uninstall what you can from Settings, Apps, Installed apps, clear the stragglers with winget uninstall or Remove-AppxPackage, and leave the Store, Start menu and runtime libraries alone.",
+      "needs": [
+        "Windows 10 or 11",
+        "An administrator account",
+        "A restore point first"
+      ],
+      "time": "An hour, unhurried"
+    },
+    {
+      "date": "2026-10-04",
+      "title": "Switch off the animations and startup extras, and an aging Windows 11 laptop stops stuttering",
+      "url": "https://www.makeuseof.com/windows-11-running-buttery-smooth-on-a-nine-year-old-laptop-with-just-these-settings/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front page, Oct 4",
+      "dek": "<b>Animations off first</b> Turning off animation and transparency effects, hiding Search, Task View and Widgets, and disabling the Edge startup entry took memory use from 4.7 GB to 3.4 GB on the author's Core i3 machine.",
+      "needs": [
+        "Windows 11",
+        "Settings, Accessibility, Visual effects",
+        "Task Manager startup apps tab"
+      ],
+      "time": "About 30 minutes"
+    },
+    {
+      "date": "2026-10-04",
+      "title": "Six Google Messages settings that fix the texting annoyances, from HD+ photos to muting a group",
+      "url": "https://www.androidpolice.com/google-messages-tricks-that-fixed-worst-rcs-texting-annoyances/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police, Oct 4",
+      "dek": "<b>Swipe for timestamps</b> Swiping left in a thread reveals the time and RCS encryption status, the photo picker can be switched to HD+, and a muted group still alerts you on an @ mention.",
+      "needs": [
+        "Google Messages on Android",
+        "A recent app update",
+        "RCS chats on for some tips"
+      ],
+      "time": "Ten minutes"
+    },
     {
       "date": "2026-10-03",
       "title": "Test a restore, then add the two steps the 3-2-1 backup rule never mentions",
@@ -4273,63 +4330,6 @@
         "A web browser to open the file"
       ],
       "time": "About an hour"
-    },
-    {
-      "date": "2026-08-17",
-      "title": "Find out what is actually slowing a Windows PC before you buy anything to fix it",
-      "url": "https://www.makeuseof.com/free-windows-tools-find-whats-slowing-pc/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 17",
-      "dek": "<b>Measure, then fix</b> Tashreef Shareef starts with AppControl, which keeps seven days of CPU, GPU, memory, disk, and temperature history so yesterday's slowdown can still be traced to its cause, then uses Wintoys to review apps, background services, system tweaks, and storage cleanup from one window, CrystalDiskMark to settle whether the drive is the bottleneck with sequential and random 4K tests, and Microsoft PC Manager for the plain work of clearing temporary files and uninstalling leftovers; all four are free, and the piece flags that Wintoys is closed source and that its developer has mentioned future paid premium features, none of which have appeared yet.",
-      "needs": [
-        "A Windows PC",
-        "AppControl and Wintoys",
-        "CrystalDiskMark",
-        "Microsoft PC Manager"
-      ],
-      "time": "About an hour"
-    },
-    {
-      "date": "2026-08-17",
-      "title": "Cut a 300-a-day notification pile down to the alerts you actually want",
-      "url": "https://www.howtogeek.com/i-get-300-notifications-a-day-on-android-heres-my-system-for-taming-them/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 17",
-      "dek": "<b>Five passes, one system</b> Vishwamoorthy Ramakrishnan turns notifications off outright for rarely opened apps by long-pressing the icon and going through App Info to Notifications, then splits the apps worth keeping into their own categories so an order update arrives and the promotion behind it does not, gives the categories that matter distinct sounds so the phone can be read without looking at it, switches on the snooze button to push an alert up to two hours out, and enables notification history to recover anything swiped away in the last 24 hours; the warning attached is that snoozing and history are off by default and sit behind differently named menus on Pixel and Samsung phones.",
-      "needs": [
-        "An Android phone",
-        "The Notifications settings menu",
-        "Per-app notification categories"
-      ],
-      "time": "20 to 30 minutes"
-    },
-    {
-      "date": "2026-08-17",
-      "title": "Build a one-tap travel mode on a Samsung Galaxy so the phone changes its own rules",
-      "url": "https://www.howtogeek.com/how-i-built-a-vacation-mode-on-my-galaxy-phone-that-changes-everything-in-one-tap/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 17",
-      "dek": "<b>Set once, reuse always</b> T.M. Amrita opens Settings, then Modes and Routines, adds a custom mode, and decides inside it which apps and notifications get through, what the display does, and how do not disturb behaves, optionally attaching if-then routines so the mode switches itself on, then puts it on the home screen or in the notification panel so one tap flips the whole phone into it; the setup happens once and is reused every trip, and Amrita notes newer Galaxy models label the feature differently and that phones without it need a third-party automation app such as IFTTT.",
-      "needs": [
-        "A Samsung Galaxy phone",
-        "Settings, Modes and Routines",
-        "A home screen or panel slot"
-      ],
-      "time": "15 minutes, once"
-    },
-    {
-      "date": "2026-08-16",
-      "title": "Five habits that turn a Gemini Notebook study guide from a generic summary into something you can study from",
-      "url": "https://www.makeuseof.com/gemini-notebook-study-guide-mistakes/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 16",
-      "dek": "<b>Sources first</b> Saikat Basu keeps one notebook per topic rather than one pile, unchecks the sources that do not belong before generating anything, states who is asking (student, researcher, casual learner) so the guide aims at the right depth, then refuses the first draft and chains follow-ups such as identify the top three most complex concepts; he previews the raw extracted text to catch OCR damage before it reaches the model and clicks through citations to check them, warning that subtle nuance in legal, medical, or technical material gets lost in paraphrase.",
-      "needs": [
-        "A Gemini Notebook account",
-        "Clean PDFs or Markdown sources",
-        "One topic per notebook"
-      ],
-      "time": "About 30 minutes"
     }
   ]
 }
