@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-10-05",
+      "edition": "morning",
+      "dateHuman": "Monday, October 5, 2026",
+      "file": "editions/2026-10-05-morning.html",
+      "lead": "Schneider Electric to buy PTC for $22.6 billion in all-cash industrial software deal",
+      "pubDate": "Mon, 05 Oct 2026 07:49:25 -0400"
+    },
+    {
       "date": "2026-10-04",
       "edition": "evening",
       "dateHuman": "Sunday, October 4, 2026",
