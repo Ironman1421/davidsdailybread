@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-10-05",
+      "name": "Espanso",
+      "url": "https://espanso.org/",
+      "trend_url": "https://www.xda-developers.com/espanso-has-saved-me-more-time-than-any-ai-tool-ive-tried-this-year/",
+      "cost": "Free, GPL-3",
+      "kind": "Windows, macOS, Linux",
+      "seen": "XDA Developers, Oct 4",
+      "blurb": "Watches for a keyword as you type it and replaces it system-wide with a saved block of text, with templates for the date, the clipboard, emoji and shell output, a search window on Alt+Space and community packages, though XDA's Patrick Hearn warns that the time saved comes only after the time spent writing and maintaining the snippets, and that a casual texter will see little return."
+    },
+    {
+      "date": "2026-10-05",
+      "name": "UniGetUI",
+      "url": "https://github.com/marticliment/UniGetUI",
+      "trend_url": "https://www.makeuseof.com/reinstall-windows-apps-new-pc/",
+      "cost": "Free, MIT",
+      "kind": "Windows, macOS, Linux desktop",
+      "seen": "MakeUseOf, Oct 4",
+      "blurb": "One window over WinGet, Scoop, Chocolatey, npm, pip and a dozen other package managers, so finding, installing, updating and removing software stops meaning a dozen separate downloads, and it can save a selection of installed apps as a small bundle file you reopen on the next machine, with the project's own disclaimer that it is not affiliated with those package managers and that packages come from third parties whose sources and publishers you should review first."
+    },
+    {
+      "date": "2026-10-05",
+      "name": "Aegis Authenticator",
+      "url": "https://getaegis.app/",
+      "trend_url": "https://www.androidpolice.com/aegis-google-authenticator-open-source/",
+      "cost": "Free, no ads",
+      "kind": "Android, Play Store or F-Droid",
+      "seen": "Android Police, Oct 5",
+      "blurb": "Keeps your two-step verification tokens in an encrypted vault with optional biometric unlock, imports from Google Authenticator and a wide range of other 2FA apps, and supports automatic backups, with the two limits Android Police's Akshay Bhalla names: there is no iOS version, and the backups are yours to look after, because syncing is left to a separate tool."
+    },
+    {
+      "date": "2026-10-05",
+      "name": "Reactive Resume",
+      "url": "https://rxresu.me/",
+      "trend_url": "https://www.producthunt.com/products/reactive-resume",
+      "cost": "Free, no paid tier",
+      "kind": "Browser, or self-host in Docker",
+      "seen": "Product Hunt, 98 upvotes",
+      "blurb": "Writes and formats a resume across 17 templates with PDF, Word, Markdown and JSON exports, imports from PDF, LinkedIn or Word, and adds a readability checker for applicant tracking systems, a cover letter generator and a job tracker, all free under the MIT license with no ads and no paid tier, with the one gap being the optional AI writing assistant, which works only if you supply your own API key."
+    },
+    {
       "date": "2026-10-04",
       "name": "ONLYOFFICE Desktop Editors",
       "url": "https://www.onlyoffice.com/en/desktop",
@@ -953,16 +993,6 @@
     },
     {
       "date": "2026-09-08",
-      "name": "UniGetUI",
-      "url": "https://github.com/marticliment/UniGetUI",
-      "trend_url": "https://www.makeuseof.com/windows-has-the-app-store-it-deserves-and-microsoft-doesnt-run-it/",
-      "cost": "Free, MIT licensed",
-      "kind": "Windows first; Mac, Linux too",
-      "seen": "MakeUseOf, Sep 8",
-      "blurb": "UniGetUI puts one graphical front end on the command line package managers a Windows machine can already reach, covering WinGet, Scoop, Chocolatey, PowerShell, npm, Bun, pip, Cargo, .NET Tool, and vcpkg, so finding, installing, and updating software stops being ten separate errands; MakeUseOf's Oluwademilade Afolabi, writing on September 8, points to bulk updates with selective control, package pinning and version skipping, and Package Bundles that carry a saved set of apps onto a new machine. Two caveats ride along. The project states plainly that it is not affiliated with the package managers it integrates with and that packages are provided by third parties, so review sources and publishers before installing, and its maintainers warn that the only official site is devolutions.net/unigetui, because lookalike domains are circulating."
-    },
-    {
-      "date": "2026-09-08",
       "name": "Mailspring",
       "url": "https://www.getmailspring.com/",
       "trend_url": "https://www.makeuseof.com/free-microsoft-365-alternatives-word-excel-powerpoint-outlook/",
@@ -1770,39 +1800,66 @@
       "kind": "Web and app workspace",
       "seen": "XDA Developers, August 8",
       "blurb": "A Notion-style workspace that treats a mind map as a native page type beside its pages and folders, and XDA's Nolen Jonker reports it also carries a timeline view and lets you choose GPT, Gemini, or DeepSeek as the model behind its writing and its questions about your own notes, with the free plan capped hard at 2 GB of storage, 5 MB per file, 300 mind-map nodes, and ten AI chat requests a month before the $10 add-on that raises it to 3,000."
-    },
-    {
-      "date": "2026-08-07",
-      "name": "AndroMeld",
-      "url": "https://andromeld.catchingnow.com/",
-      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/7",
-      "cost": "Free tier; $10.99/yr or $21.99",
-      "kind": "Mac app for an Android phone",
-      "seen": "Product Hunt, 95 upvotes",
-      "blurb": "It runs your Android apps in their own resizable Mac windows and handles phone files in Finder while syncing notifications and the clipboard over USB or Wi-Fi, with the honest catch that it needs macOS 15 or later and the free tier is capped by a weekly allowance that resets on its own."
-    },
-    {
-      "date": "2026-08-07",
-      "name": "Kaneo",
-      "url": "https://kaneo.app/",
-      "trend_url": "https://github.com/trending?since=weekly",
-      "cost": "Free self-hosted; $40/yr cloud",
-      "kind": "Web app, self-host or hosted",
-      "seen": "GitHub Trending this week",
-      "blurb": "Kaneo is an open-source project tracker with board and list views, owners, due dates, priorities, and GitHub issue sync, free forever under the MIT license when you self-host it, though the free path means running it yourself with Docker because the hosted Cloud Personal plan is $40 a year after a 14-day trial."
-    },
-    {
-      "date": "2026-08-06",
-      "name": "Glyphi: Speed Reader",
-      "url": "https://apps.apple.com/us/app/glyphi-speed-reader/id6790872173",
-      "trend_url": "https://www.producthunt.com/leaderboard/daily/2026/8/6",
-      "cost": "Free, Pro $4.99 a month",
-      "kind": "iPhone, Mac M1, Apple Vision",
-      "seen": "Product Hunt No. 16, 88 votes",
-      "blurb": "Flashes an imported book, PDF, article, or web page one word at a time so your eyes stay still, keeps your place across Apple devices through iCloud, and builds its summaries on the device itself, and the App Store listing is plain about the limits: the free tier stops at five saved readings, 550 words a minute, and the Endurance training mode, unlimited imports and speeds up to 1,200 words a minute cost $4.99 a month or $39.99 a year, and the listing warns that AI generated results may occasionally contain errors."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-10-05",
+      "title": "One key, three jobs: F4 locks a cell reference, repeats your last action, and walks the search results",
+      "url": "https://www.howtogeek.com/microsoft-excel-f4-saves-more-work-than-almost-any-other-shortcut/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Oct 5",
+      "dek": "<b>Press F4 inside the formula</b> How-To Geek's Tony Phillips puts the cursor on a reference and cycles E2 to $E$2, then E$2, then $E2 instead of typing dollar signs by hand, presses F4 on a fresh selection to repeat the last action, including a whole dialog box such as setting a column width, and after closing the Find box with Escape uses Shift+F4 to jump to the next match and Ctrl+Shift+F4 to walk back, noting that F4 repeats only the exact action performed, unlike Format Painter, and that named ranges remain the better answer for constants.",
+      "needs": [
+        "Microsoft Excel on the desktop",
+        "A formula with cell references",
+        "Ctrl+F for the search trick"
+      ],
+      "time": "Five minutes to learn"
+    },
+    {
+      "date": "2026-10-05",
+      "title": "Ten gigabytes of Google storage came back from four cleanups, starting with one Gmail search",
+      "url": "https://www.makeuseof.com/clean-google-one-storage-tips/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 5",
+      "dek": "<b>has:attachment larger:10MB</b> MakeUseOf's Pankil Shah runs that search in Gmail and clears old mail out of Promotions, Social, Updates and Drafts for about 2GB, trims WhatsApp from 5GB to 3GB under Settings, Storage and data, Manage storage before switching video out of its backup, deletes outdated device backups from previous phones in Drive, then lets Google One's Clean up space suggestions in Drive and Photos find roughly 6GB more; his two warnings are that anything removed through those suggestions is deleted permanently right away, while files you delete by hand only free space once you also empty the Bin.",
+      "needs": [
+        "A Google account",
+        "Gmail on the web",
+        "WhatsApp, if you back it up",
+        "The Bin emptied at the end"
+      ],
+      "time": "About an hour"
+    },
+    {
+      "date": "2026-10-05",
+      "title": "Your browser has its own task manager, and it names the tab that is eating the memory",
+      "url": "https://www.xda-developers.com/your-browser-has-its-own-task-manager-exposed-memory-hungry-tabs/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Oct 5",
+      "dek": "<b>More tools, task manager</b> XDA's Mahnoor Faisal opens it from the three-dot menu in Edge under More tools and Browser task manager, from Menu and More tools in Brave and Firefox, Tools in Vivaldi, Developer in Opera, the Window menu in Chrome on macOS, or by typing about:processes into Firefox, and on an 8GB MacBook Air found LinkedIn holding 1.2GB while Google Meet ran at 39 to 49 percent of the CPU on roughly 490MB; Safari has no equivalent, the heaviest tab changed with the day's work rather than staying fixed, and the reading is only useful next to Chrome's Memory Saver, Edge's Sleeping Tabs or Vivaldi's hibernation, since it adds no RAM by itself.",
+      "needs": [
+        "Chrome, Edge, Brave, Firefox or Vivaldi",
+        "Several tabs open",
+        "A memory saver setting to follow up"
+      ],
+      "time": "Two minutes"
+    },
+    {
+      "date": "2026-10-05",
+      "title": "Three layers inside Google Keep: labels for the category, search for the detail, pins for what is live",
+      "url": "https://www.androidpolice.com/built-three-layer-productivity-system-inside-google-keep/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Oct 5",
+      "dek": "<b>Labels, search, then pins</b> Android Police's Dhruv Bhutani keeps a long list of hyper-specific labels for work, ideas, personal tasks and videos, then searches inside a label for the one note he needs, including text the app has read out of a photograph, and pins only what is active so a finished note drops back into the pile, with checklists, reminders, color coding and shared notes filling in around the three layers; his own condition is the catch, because the system holds up only when every thought is captured in Keep first.",
+      "needs": [
+        "Google Keep on phone or web",
+        "A short list of labels",
+        "The habit of capturing everything"
+      ],
+      "time": "20 minutes to set up"
+    },
     {
       "date": "2026-10-04",
       "title": "Five linked Notion databases turn a notes app into a place where every idea has a destination",
@@ -4274,62 +4331,6 @@
         "A bufferbloat test, before and after"
       ],
       "time": "About 30 minutes"
-    },
-    {
-      "date": "2026-08-19",
-      "title": "Turn on the taskbar right-click that force-quits a frozen app without opening Task Manager",
-      "url": "https://www.howtogeek.com/windows-11-hidden-end-task-shortcut/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 19",
-      "dek": "<b>One toggle, then every taskbar</b> Windows 11 hides an End Task switch under Settings, System, Advanced (For developers on some builds), and How-To Geek's Tony Phillips is clear about the cost: it kills the process outright rather than asking it to close, it takes every window of that app at once, and unsaved work goes with it.",
-      "needs": [
-        "Windows 11",
-        "Settings, System, Advanced",
-        "Two minutes"
-      ],
-      "time": "2 minutes, once"
-    },
-    {
-      "date": "2026-08-18",
-      "title": "Four prompts that turn Claude from an explainer into flashcards, diagrams, and simulations you study with",
-      "url": "https://www.makeuseof.com/i-found-the-best-way-to-study-with-claude/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 18",
-      "dek": "<b>Build it, do not read it</b> Abhijith N Arjunan asks for an interactive flashcard deck that self-grades and resurfaces every card you miss before the session ends, a step-through diagram that moves one stage at a time rather than arriving as a single static image, and a slider-driven simulation you can drag to watch one variable change the outcome in real time, then leans on Claude's /learn skill to shape the language for learning; he warns that the step-through diagrams cost more tokens and time than the flashcards, and that concern over source fidelity sends him elsewhere for video and audio material.",
-      "needs": [
-        "A Claude account",
-        "A subject you are trying to learn",
-        "The four prompts from the piece"
-      ],
-      "time": "20 minutes to try"
-    },
-    {
-      "date": "2026-08-18",
-      "title": "Collapse a scattered task system into one Google Keep note with dated and themed sections",
-      "url": "https://www.androidauthority.com/single-google-keep-note-productivity-hack-3698093/",
-      "trend_url": "https://www.androidauthority.com/",
-      "seen": "Android Authority, Aug 18",
-      "dek": "<b>One note, many sections</b> Andy Walker dumps practically everything that crosses his mind into a single Keep note, then splits the task half into recurring work, what is due this month, what is due this week, and a line for each weekday kept a week ahead, moves anything unfinished into the section where it now belongs instead of reshuffling the whole list, and keeps a block for undated jobs plus themed dumps for car maintenance, meal planning, research ideas, and finances; he concedes the note has no alarms or integrations, needs daily discipline, and sends anything heavier to Notion, Samsung Food, or Raindrop.io.",
-      "needs": [
-        "Google Keep on phone or web",
-        "Ten minutes to lay out sections",
-        "A daily habit of updating it"
-      ],
-      "time": "10 minutes to set up"
-    },
-    {
-      "date": "2026-08-18",
-      "title": "Export a spreadsheet to CSV and have an AI assistant hand back a single-file app that works offline",
-      "url": "https://www.howtogeek.com/microsoft-excel-turned-worksheet-into-offline-app-without-writing-any-code/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 18",
-      "dek": "<b>CSV first, then prompt</b> Tony Phillips exports the workbook as CSV so the formatting and formulas fall away and only the fields remain, here 5,000 personal finance transactions carrying id, date, amount, description, category, budget group, account name, and account type, then hands the identical request to Gemini, Claude, and Copilot: one HTML file with search, filtering, sorting, pagination, add, edit and delete, summary dashboards, and data that persists locally; Gemini and Claude both returned working apps and Copilot did not, and neither working app handled filters that depend on one another.",
-      "needs": [
-        "A spreadsheet exported to CSV",
-        "An AI assistant, Gemini or Claude",
-        "A web browser to open the file"
-      ],
-      "time": "About an hour"
     }
   ]
 }

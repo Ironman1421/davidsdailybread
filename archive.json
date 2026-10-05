@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-10-05",
+      "edition": "evening",
+      "dateHuman": "Monday, October 5, 2026",
+      "file": "editions/2026-10-05-evening.html",
+      "lead": "Type a short trigger and Espanso writes the whole paragraph, free on Windows, macOS and Linux",
+      "pubDate": "Mon, 05 Oct 2026 17:48:02 -0400"
+    },
+    {
+      "date": "2026-10-05",
       "edition": "morning",
       "dateHuman": "Monday, October 5, 2026",
       "file": "editions/2026-10-05-morning.html",
