@@ -2,6 +2,46 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-10-06",
+      "name": "Krokiet (Czkawka)",
+      "url": "https://github.com/qarmin/czkawka",
+      "trend_url": "https://www.xda-developers.com/dropped-900gb-duplicate-files-home-server-tool-found-free/",
+      "cost": "Free, GPL-3 with MIT core",
+      "kind": "Windows, macOS, Linux, FreeBSD",
+      "seen": "XDA Developers, Oct 6",
+      "blurb": "Scans a drive or a network share for exact duplicates by hash, then adds empty folders, big files, temporary files, similar images and similar videos, and lets you mark reference folders so a backup you want kept is never offered up for deletion, though XDA's Anurag Singh reviewed every result by hand before removing anything, the Similar Videos check needs FFmpeg installed, and files read over a network take noticeably longer to scan."
+    },
+    {
+      "date": "2026-10-06",
+      "name": "PDFgear",
+      "url": "https://www.pdfgear.com/",
+      "trend_url": "https://www.xda-developers.com/used-only-free-software-for-a-month-and-found-5-apps-worth-keeping/",
+      "cost": "Free, no sign-up",
+      "kind": "Windows, Mac, iOS, Android, web",
+      "seen": "XDA Developers, Oct 6",
+      "blurb": "Edits PDF text and images, merges, splits and reorders pages, converts to and from Word, Excel, PowerPoint and JPG, reads scans with OCR in more than 30 languages and signs documents, free across desktop, mobile and the browser with no account required, with the one caveat that its AI summarizing is a ChatGPT integration rather than an offline feature, so that part of the work runs through an outside service."
+    },
+    {
+      "date": "2026-10-06",
+      "name": "Flow Launcher",
+      "url": "https://www.flowlauncher.com/",
+      "trend_url": "https://www.xda-developers.com/used-only-free-software-for-a-month-and-found-5-apps-worth-keeping/",
+      "cost": "Free and open source",
+      "kind": "Windows 10 and later",
+      "seen": "XDA Developers, Oct 6",
+      "blurb": "Press Alt+Space and one box searches your apps, files and file contents, browser bookmarks and Windows settings, runs a calculator, a web search or a shell command, and accepts plugins written in C#, F#, Python, JavaScript or TypeScript, with the plain limit that the project supports Windows 10 and later only, so a Mac or Linux machine needs a different launcher."
+    },
+    {
+      "date": "2026-10-06",
+      "name": "System Informer",
+      "url": "https://github.com/winsiderss/systeminformer",
+      "trend_url": "https://www.makeuseof.com/why-i-choose-system-informer-over-task-manager/",
+      "cost": "Free, MIT licensed",
+      "kind": "Windows 10 or later, portable",
+      "seen": "MakeUseOf, Oct 6",
+      "blurb": "A portable Task Manager replacement that needs no installation and shows processes as a parent and child tree with color coding, live network and disk activity named process by process, and a handle search on Ctrl+F that finally tells you which program is holding the file you cannot delete, though MakeUseOf's Kanika Gogia found the interface unpolished and crowded with columns and tabs next to Task Manager, and warns that changing a priority or ending the wrong tree can break something."
+    },
+    {
       "date": "2026-10-05",
       "name": "Espanso",
       "url": "https://espanso.org/",
@@ -1183,16 +1223,6 @@
     },
     {
       "date": "2026-09-02",
-      "name": "System Informer",
-      "url": "https://github.com/winsiderss/systeminformer",
-      "trend_url": "https://www.howtogeek.com/these-open-source-apps-do-what-windows-should-have-built-into-the-os-years-ago/",
-      "cost": "Free, MIT licensed",
-      "kind": "Windows 10 or higher",
-      "seen": "How-To Geek, Sep 2",
-      "blurb": "System Informer, from Winsider Seminars and Solutions, is the Task Manager that Windows 10 and later never shipped: processes are color coded by category, each one exposes its PID, command line, and resource use, real-time graphs track system activity, network connections and disk access are listed alongside, and the Find Handles or DLLs search finally answers which program is holding the file you cannot delete or rename. It is MIT licensed with 15.8k stars, runs portable with no installation, and the honest caveat is that it shows far more detail than Task Manager does, which helps only if you are willing to read it."
-    },
-    {
-      "date": "2026-09-02",
       "name": "CleanShot 5 with Studio Mode",
       "url": "https://cleanshot.com/pricing",
       "trend_url": "https://www.producthunt.com/products/cleanshot",
@@ -1552,16 +1582,6 @@
       "blurb": "Point a router or one device at NextDNS instead of the resolver your provider hands you and the logs become a live feed of every domain each device in the house tried to reach, with the device name and the timestamp, a block control beside them, and settings for where the logs live and how long they are kept, from an hour out to two years; MakeUseOf's Pankil Shah names the tradeoff without softening it, that seeing all of that traffic means trusting NextDNS with it, and the free plan covers 300,000 queries a month before it goes back to answering like ordinary non-blocking DNS."
     },
     {
-      "date": "2026-08-19",
-      "name": "Flow Launcher",
-      "url": "https://www.flowlauncher.com/",
-      "trend_url": "https://www.makeuseof.com/replace-windows-bloatware-open-source-apps/",
-      "cost": "Free, open source",
-      "kind": "Windows 10 and later",
-      "seen": "MakeUseOf, Aug 19",
-      "blurb": "One hotkey, Alt+Space by default, opens a single box that searches apps, files, browser bookmarks, and Windows settings, runs a calculation, fires a shell or system command, or sends the query to the web, with a plugin store to add more; the caveat is that it is Windows 10 and later only, and its file search leans on Everything or Windows Search being in place underneath it."
-    },
-    {
       "date": "2026-08-18",
       "name": "GIMP",
       "url": "https://www.gimp.org/",
@@ -1780,29 +1800,66 @@
       "kind": "Mac, Windows, iOS, Android, web",
       "seen": "XDA Trending Now",
       "blurb": "A block-based editor for notes, tasks, and documents that lets you drag whole sections into a new order, nest subpages under a project, and keep daily notes, tasks, and a calendar in one place, and the free plan draws its lines clearly: 1,500 blocks, 1 GB of storage, 25 MB per upload, seven days of version history, and 15 AI credits, while XDA's Parth Shah grants it is not a complete replacement for Word on complex formatting, academic references, or heavily structured corporate documents."
-    },
-    {
-      "date": "2026-08-08",
-      "name": "Rembg",
-      "url": "https://github.com/danielgatis/rembg",
-      "trend_url": "https://www.howtogeek.com/i-replaced-photoshops-ai-background-remover-with-this-lightweight-foss-alternative/",
-      "cost": "Free, MIT license",
-      "kind": "Windows, macOS, Linux; Python",
-      "seen": "How-To Geek, August 8",
-      "blurb": "Cuts the background out of a photo and writes a transparent PNG, working on a single file, a whole folder, or a folder it watches, with more than fifteen models to choose from and a local server mode if you want one, and the catches are real: it installs through pip and wants Python 3.11 to 3.13, and How-To Geek's Nick Lewis warns that the lighter models struggle with fine detail like hair, that repairing a bad edge means opening GIMP or Krita, and that some downloadable model weights carry non-commercial licenses even though the software itself is free."
-    },
-    {
-      "date": "2026-08-08",
-      "name": "Buildin.AI",
-      "url": "https://buildin.ai/pricing",
-      "trend_url": "https://www.xda-developers.com/ai-note-taking-app-does-something-notion-and-onenote-cant-ditched-my-subscriptions/",
-      "cost": "Free plan; Plus $10 per member",
-      "kind": "Web and app workspace",
-      "seen": "XDA Developers, August 8",
-      "blurb": "A Notion-style workspace that treats a mind map as a native page type beside its pages and folders, and XDA's Nolen Jonker reports it also carries a timeline view and lets you choose GPT, Gemini, or DeepSeek as the model behind its writing and its questions about your own notes, with the free plan capped hard at 2 GB of storage, 5 MB per file, 300 mind-map nodes, and ten AI chat requests a month before the $10 add-on that raises it to 3,000."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-10-06",
+      "title": "One drop-down and a FILTER formula replace the worksheet you were keeping for every region",
+      "url": "https://www.howtogeek.com/microsoft-excel-ditched-multiple-worksheets-for-one-dynamic-report/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Oct 6",
+      "dek": "<b>Format the data as a table</b> How-To Geek's Tony Phillips presses Ctrl+T so the range answers to a name like tblSales, names the Region column in Name Manager so data validation can reach it from another sheet, drops a validation list into cell B3, then writes =FILTER(tblSales,tblSales[Region]=B3) to pull back only the matching rows, multiplying two conditions with an asterisk when both must be true and adding them with a plus sign when either will do; he notes the formula needs Excel for Microsoft 365, that anything parked where the results spill returns a #SPILL! error, and that totals and counts are still better served by a PivotTable with slicers.",
+      "needs": [
+        "Excel for Microsoft 365",
+        "Your data formatted as a table",
+        "A named range for the filter column",
+        "Clear space for results to spill"
+      ],
+      "time": "An hour, start small"
+    },
+    {
+      "date": "2026-10-06",
+      "title": "Six Bitwarden settings that tighten autofill before it offers a password to the wrong page",
+      "url": "https://www.makeuseof.com/ive-used-bitwarden-for-years-didnt-know-about-these-hidden-settings-boost-your-security/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 6",
+      "dek": "<b>Start inside autofill</b> MakeUseOf's Afam Onyimadu switches on master password re-prompt for individual items from the three-dot Edit screen, turns off automatic TOTP copying under Settings and Autofill, leaves Autofill on page load unchecked because an untrusted site can exploit it, changes default URI match detection to Host so one login stops appearing across every subdomain, adds the sites he never wants touched to Blocked domains, and moves key derivation from PBKDF2 to Argon2id in the web vault, noting that the re-prompt is an interface guardrail rather than encryption and that PBKDF2 is still the better answer where FIPS 140-2 compliance matters.",
+      "needs": [
+        "A Bitwarden account",
+        "The browser extension",
+        "The web vault for the Argon2id change"
+      ],
+      "time": "About twenty minutes"
+    },
+    {
+      "date": "2026-10-06",
+      "title": "Capture in RAW, keep one master, and export JPEG, PNG or WebP only when it is time to send",
+      "url": "https://www.makeuseof.com/probably-using-png-jpeg-wrong/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 6",
+      "dek": "<b>Separate working from delivery</b> MakeUseOf's Yadullah Abidi treats RAW and TIFF as archives rather than things you hand to anyone, edits without overwriting the source so a high-quality master survives, exports JPEG for finished photographs that have to travel by email or upload, saves screenshots, logos and diagrams as PNG because that is where exact pixels matter rather than wherever maximum quality sounds safest, and reaches for WebP or AVIF when the destination is a web page, with the warning that a JPEG already thinned by repeated edits cannot be repaired by converting it to PNG.",
+      "needs": [
+        "A camera or phone that shoots RAW",
+        "An editor that exports copies",
+        "Somewhere to keep the masters"
+      ],
+      "time": "Half an hour to set up"
+    },
+    {
+      "date": "2026-10-06",
+      "title": "Six things Google Drive already does, from scanning a receipt to restoring last week's draft",
+      "url": "https://www.androidpolice.com/google-drive-tools-that-saved-me-hours-of-frustrating-file-clutter/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Oct 6",
+      "dek": "<b>Scan, then search the text</b> Android Police's Anu Joy taps the plus button and picks Scan so a receipt or form becomes a cropped PDF, leans on Drive's text recognition to find words inside images and scanned PDFs instead of guessing at filenames, opens a PDF in Google Docs from the desktop right-click menu to pull out editable text, restores an earlier draft from File and Version history with its timestamp and editor name, writes a short note under File information and Details so a shared folder explains itself, marks what she needs available offline, and narrows the search by type, owner, location, date and collaborator; her one caution is that the text recognition is not flawless, though it is often surprisingly accurate on typed documents.",
+      "needs": [
+        "A Google Drive account",
+        "The mobile app for scanning",
+        "A desktop browser for version history"
+      ],
+      "time": "Half an hour"
+    },
     {
       "date": "2026-10-05",
       "title": "One key, three jobs: F4 locks a cell reference, repeats your last action, and walks the search results",
@@ -4275,62 +4332,6 @@
         "20 to 30 minutes"
       ],
       "time": "20 to 30 minutes"
-    },
-    {
-      "date": "2026-08-20",
-      "title": "Three Chrome privacy switches, and a plain account of what they still cannot do for you",
-      "url": "https://www.makeuseof.com/turned-on-browsers-privacy-features-vpn-became-almost-redundant/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 20",
-      "dek": "<b>Cookies, location, then HTTPS</b> Oluwaseun Bamisile blocks third-party cookies under Settings, Privacy and security, sets Site settings, Location to the option that stops sites seeing where you are, and turns on Always use secure connections under Security, then says outright what none of it accomplishes: it cannot hide an IP address, cannot match what a VPN gives you on an untrusted network, and cannot stop tracking that follows your accounts, your device habits, or the location inferred from your IP alone.",
-      "needs": [
-        "Google Chrome",
-        "Settings, Privacy and security",
-        "About five minutes"
-      ],
-      "time": "5 minutes, once"
-    },
-    {
-      "date": "2026-08-20",
-      "title": "Nine commands that tell you where a Windows internet problem actually is before you call anyone",
-      "url": "https://www.makeuseof.com/use-these-windows-commands-to-solve-internet-problems/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 20",
-      "dek": "<b>Ping outward, one step at a time</b> Pankil Shah works from the router out: ping 192.168.0.1 or 192.168.1.1 to prove the router answers, ping 8.8.8.8 to skip DNS entirely, ping google.com to test name resolution, then nslookup google.com and nslookup google.com 8.8.8.8 to see whether your own DNS server is the fault, ipconfig /flushdns to clear a bad cache, and tracert google.com to find where the delay begins; netsh winsock reset and netsh int ip reset come last and want a restart afterward, and none of it repairs failed hardware or an ISP outage.",
-      "needs": [
-        "A Windows PC",
-        "Command Prompt",
-        "About 10 minutes"
-      ],
-      "time": "10 minutes"
-    },
-    {
-      "date": "2026-08-19",
-      "title": "Let Windows empty its own temp files, Recycle Bin, and stale downloads on a schedule you choose",
-      "url": "https://www.makeuseof.com/windows-best-storage-feature-isnt-even-turned-on-by-default/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 19",
-      "dek": "<b>Storage Sense, switched on</b> Settings, then System, then Storage turns on automatic user content cleanup, which clears the Recycle Bin after 30 days by default and can put the Downloads folder, which otherwise never deletes anything, on a 1, 14, 30, or 60 day timer.",
-      "needs": [
-        "A Windows PC",
-        "Settings, System, Storage",
-        "10 minutes signed in and online"
-      ],
-      "time": "10 minutes to set up"
-    },
-    {
-      "date": "2026-08-19",
-      "title": "Trade a slice of your top speed for video calls that stop freezing for everyone in the house",
-      "url": "https://www.xda-developers.com/i-deliberately-gave-up-some-of-my-internet-speed-and-every-video-call-in-the-house-got-better/",
-      "trend_url": "https://www.xda-developers.com/",
-      "seen": "XDA front page, Aug 19",
-      "dek": "<b>Quality of Service, deliberately</b> XDA's Ty Sherback turned on QoS in a TP-Link Archer router, entered the real upload and download figures from the ISP, set priority percentages, and flagged the devices that matter, accepting a lower ceiling because QoS drops the router into software forwarding that consumer silicon cannot push gigabit traffic through.",
-      "needs": [
-        "A router with a QoS setting",
-        "Your ISP's real up and down speeds",
-        "A bufferbloat test, before and after"
-      ],
-      "time": "About 30 minutes"
     }
   ]
 }
