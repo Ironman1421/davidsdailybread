@@ -79,11 +79,12 @@
     "KS-067",
     "KS-070",
     "KS-073",
-    "KS-061"
+    "KS-061",
+    "KS-062"
   ],
   "lastMorningRender": {
     "version": 1,
-    "date": "2026-10-06",
-    "readerClaimSha256": "6dca437b0785366c316fb8ebe7796aed858d325b0541643172a5b80576c31fc8"
+    "date": "2026-10-07",
+    "readerClaimSha256": "0c9ca2fd710e29a443520763c00ad8c8881303936aa9ef443c88c5838cdea3ec"
   }
 }
