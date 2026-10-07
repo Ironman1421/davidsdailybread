@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-10-07",
+      "name": "Vert",
+      "url": "https://vert.sh/",
+      "trend_url": "https://www.xda-developers.com/i-started-converting-all-my-files-with-this-open-source-tool-and-im-not-going-back/",
+      "cost": "Free, no file size limit",
+      "kind": "Browser, or self-host in Docker",
+      "seen": "XDA Developers, Oct 7",
+      "blurb": "Converts more than 250 formats across images, audio, documents and video in a browser tab, open source under AGPL-3 with no ads and no premium tier, and the one exception to its on-device promise is video, which XDA's Parth Shah notes is passed to Vert's server and held there for an hour unless you self-host the vertd daemon yourself."
+    },
+    {
+      "date": "2026-10-07",
+      "name": "NanaZip",
+      "url": "https://github.com/M2Team/NanaZip",
+      "trend_url": "https://www.makeuseof.com/nanazip-modern-7zip-alternative-for-windows-11/",
+      "cost": "Free and open source",
+      "kind": "Windows 10 2004 or later",
+      "seen": "MakeUseOf, Oct 7",
+      "blurb": "A fork of 7-Zip that keeps the archiving engine and adds dark mode, Mica and a Windows 11 context menu, plus Brotli, LZ4 and Zstandard, installed from the Microsoft Store or as an MSIX package from GitHub Releases, with the packaging limits MakeUseOf's Oluwademilade Afolabi names: it will not run in Windows Safe Mode, and the portable build gives up file associations and context menu commands."
+    },
+    {
+      "date": "2026-10-07",
+      "name": "RustDesk",
+      "url": "https://rustdesk.com/",
+      "trend_url": "https://www.howtogeek.com/3-free-tools-i-use-to-fix-my-familys-windows-pcs-without-leaving-home/",
+      "cost": "Free plan, paid self-hosting",
+      "kind": "Windows, macOS, Linux, Android",
+      "seen": "How-To Geek, Oct 7",
+      "blurb": "Open-source remote access that views and controls another computer and adds file transfer, a shared clipboard and chat, which is what How-To Geek's Rich Hein reaches for when a relative's Windows PC needs fixing, though he calls it the most complex of his three picks because it has to be installed on both machines, and RustDesk's own pricing page gives the free plan online status and community support while the managed self-hosting features are paid."
+    },
+    {
       "date": "2026-10-06",
       "name": "Krokiet (Czkawka)",
       "url": "https://github.com/qarmin/czkawka",
@@ -1770,39 +1800,51 @@
       "kind": "Mac, Windows, Linux desktop",
       "seen": "MakeUseOf, August 10",
       "blurb": "An AI workspace that keeps its memory on your own disk, indexing email, meetings, and notes into a linked knowledge graph written as plain Markdown files and sitting beside a built-in mail client, notes, browser, and meeting transcription, with downloadable builds for Mac, Windows, and Linux and no Docker to set up, and the honest catch is that it brings no brain of its own: you point it at a local model through Ollama or LM Studio or supply your own paid provider key, and the parts that make it useful, Gmail and Calendar through Google sign-in, voice, and web search, each want their own connection before they work, which MakeUseOf's Mahnoor Faisal also found took setup past the install."
-    },
-    {
-      "date": "2026-08-11",
-      "name": "Hyperspace",
-      "url": "https://apps.apple.com/us/app/hyperspace/id6739505345",
-      "trend_url": "https://news.ycombinator.com/item?id=49252493",
-      "cost": "Free scan; unlock from $9.99",
-      "kind": "macOS 15 or later, APFS",
-      "seen": "Hacker News, 85 points",
-      "blurb": "It finds files whose contents are identical and hands back the space the copies waste without removing any of them, using a standard macOS file system feature to replace them with space-saving clones, and both the catch and the argument are about money: the scan is free and shows you the savings first, but reclaiming them is the paid part, at $9.99 for a month, $19.99 for a year, or $49.99 for a lifetime unlock from Hypercritical LLC, which is precisely what the Hacker News thread of 85 points and 62 comments spent the night disputing, some calling the unpriced scan a dark pattern and others calling it ordinary shareware."
-    },
-    {
-      "date": "2026-08-11",
-      "name": "Write.md",
-      "url": "https://writemd.app/",
-      "trend_url": "https://news.ycombinator.com/item?id=49258011",
-      "cost": "Free, Apache 2.0",
-      "kind": "Apple silicon Macs only",
-      "seen": "Hacker News, 59 points",
-      "blurb": "A writing app that leaves your work as ordinary Markdown files on your own disk with no account and no telemetry, installed from a .dmg on its releases page, and it spends its effort on how the page feels, with appearance profiles covering typography, color, opacity, glass effects, backgrounds, and window borders, optional Vim keys, and spelling and style help that runs on the machine instead of in a cloud service, though the maker is equally plain about the limits: it runs on Apple silicon Macs only, ships no bundled themes so each profile starts from nothing, corrects basic US English and no other language, and syncs to nothing at all, which is the point until the day you want the same draft on a second device."
-    },
-    {
-      "date": "2026-08-08",
-      "name": "Craft",
-      "url": "https://www.craft.do/",
-      "trend_url": "https://www.xda-developers.com/",
-      "cost": "Free plan; Plus $8 a month",
-      "kind": "Mac, Windows, iOS, Android, web",
-      "seen": "XDA Trending Now",
-      "blurb": "A block-based editor for notes, tasks, and documents that lets you drag whole sections into a new order, nest subpages under a project, and keep daily notes, tasks, and a calendar in one place, and the free plan draws its lines clearly: 1,500 blocks, 1 GB of storage, 25 MB per upload, seven days of version history, and 15 AI credits, while XDA's Parth Shah grants it is not a complete replacement for Word on complex formatting, academic references, or heavily structured corporate documents."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-10-07",
+      "title": "Obsidian keystrokes retire the mouse, and Ctrl+O alone will find any note you have written",
+      "url": "https://www.howtogeek.com/ive-tested-every-obsidian-shortcut-these-ones-changed-how-i-take-notes/",
+      "trend_url": "https://www.howtogeek.com/",
+      "seen": "How-To Geek front, Oct 7",
+      "dek": "<b>Start with the quick switcher</b> How-To Geek's David J. Buck presses Ctrl+O for a search bar with his most recent notes listed beneath it, Ctrl+N for a new note, Ctrl+T for a new tab and Ctrl+W to close one, moves between open tabs with Ctrl+1 through Ctrl+4 or Ctrl+PgUp and Ctrl+PgDn, inserts a link with Ctrl+K and opens the graph with Ctrl+G, then assigns three of his own: Ctrl+R to fold headers, Ctrl+Alt+E to export a PDF and Ctrl+[ to drop in a table, leaving the command palette as the way to reach anything he has not yet bound to a key.",
+      "needs": [
+        "Obsidian on your computer",
+        "A vault with a few notes in it",
+        "Settings for the custom keys"
+      ],
+      "time": "Five minutes to learn"
+    },
+    {
+      "date": "2026-10-07",
+      "title": "Put Windows Storage Sense on a schedule, and the drive stops filling up behind your back",
+      "url": "https://www.xda-developers.com/windows-install-stopped-bloating-storage-set-up-properly/",
+      "trend_url": "https://www.xda-developers.com/",
+      "seen": "XDA front page, Oct 7",
+      "dek": "<b>Stop waiting for the low-disk warning</b> XDA's Chandraveer Mathur opens Settings, System, Storage, Storage Sense and switches on cleanup of temporary files and automatic user content cleanup, changes the trigger from the default low-disk-space reaction to every day, week or month, sets the Recycle Bin and Downloads folders to clear on a timer, points the cloud setting at OneDrive or Nextcloud so local copies of synced files are released, clears the DirectX shader cache and Windows diagnostics by hand under Temporary files, and runs Disk Cleanup for superseded Windows Update files; he keeps his drive around a healthy sixty percent and cautions that the automation is a half-measure that will not reach every kind of bloat on its own.",
+      "needs": [
+        "Windows 11",
+        "Settings, System, Storage",
+        "Disk Cleanup for update files"
+      ],
+      "time": "About fifteen minutes"
+    },
+    {
+      "date": "2026-10-07",
+      "title": "Point Excel at a folder on your PC, and Power Query hands back an inventory of every file in it",
+      "url": "https://www.howtogeek.com/microsoft-excel-portal-for-everything-on-pc/",
+      "trend_url": "https://www.howtogeek.com/tag/microsoft-excel/",
+      "seen": "How-To Geek Excel, Oct 7",
+      "dek": "<b>Connect the workbook to a folder</b> How-To Geek's Tony Phillips uses Excel's From Folder connection to point a workbook at a directory on his own PC, drops the columns he does not need inside Power Query, pulls out attributes such as file size, and replaces blank extensions with a readable No Extension label so nothing goes missing in the count; over that table he builds a dashboard of file counts, the most common extensions, how old the files are, the largest ones and the folders holding them, then filters and sorts the underlying rows when something looks wrong. He recommends the Microsoft 365 version of Excel and leans on Copilot for the chart building, which is the step a reader without Copilot has to lay out by hand.",
+      "needs": [
+        "Excel for Microsoft 365",
+        "A folder you want inventoried",
+        "Copilot in Excel is optional"
+      ],
+      "time": "About half an hour"
+    },
     {
       "date": "2026-10-06",
       "title": "One drop-down and a FILTER formula replace the worksheet you were keeping for every region",
@@ -4290,48 +4332,6 @@
         "One room that drops the signal"
       ],
       "time": "5 minutes per change"
-    },
-    {
-      "date": "2026-08-21",
-      "title": "Turn off the two background scanners that quietly drain an Android phone overnight",
-      "url": "https://www.makeuseof.com/i-turned-off-one-hidden-scanning-process-and-gained-an-hour-of-battery/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 21",
-      "dek": "<b>Two switches under Location</b> Robin John turns off Wi-Fi scanning and Bluetooth scanning under Settings, Location, Location services on a Pixel, where Samsung's One UI keeps them in the same place, and reports overnight drain falling from around five or six percent to closer to three over two weeks; the cost is real, because Find Hub depends on those scanners to track devices and indoor accuracy suffers enough that Google Maps landed on the wrong side of a building and ride-hailing apps took longer to pin down a pickup, so the piece suggests turning off Wi-Fi scanning alone if you pair new accessories often.",
-      "needs": [
-        "An Android phone",
-        "Settings, Location, Location services",
-        "Two weeks to judge the result"
-      ],
-      "time": "2 minutes"
-    },
-    {
-      "date": "2026-08-21",
-      "title": "Seven built-in camera tools that copy text off paper and build multipage PDFs",
-      "url": "https://www.androidpolice.com/7-built-in-android-tools-that-turn-your-camera-into-office-suite/",
-      "trend_url": "https://www.androidpolice.com/",
-      "seen": "Android Police front page",
-      "dek": "<b>Point, then copy the text</b> Jade Bryan Jardinico stays inside tools the phone already has: the Samsung camera's text button lifts words straight off a page to paste elsewhere, the Scan toggle turns detected paper borders into a multipage PDF with Add Scan, Google Drive does the scanning job on a Pixel, and Bixby Vision reads printed text aloud or names a color at a stated 85 to 90 percent accuracy; the write-up is candid that multi-column layouts and irregular typography make the text capture miss lines, so reframe and work in smaller batches, that low light throws the color reading off, and that several of the seven are Samsung One UI features with a Google Drive or Gemini workaround elsewhere.",
-      "needs": [
-        "An Android phone camera",
-        "Google Drive or Samsung One UI",
-        "A document you keep retyping"
-      ],
-      "time": "5 minutes to try one"
-    },
-    {
-      "date": "2026-08-20",
-      "title": "Find the hidden bloat that makes an Excel workbook take forever to open",
-      "url": "https://www.howtogeek.com/microsoft-excel-isnt-slow-built-workbook-takes-forever-to-load/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 20",
-      "dek": "<b>Ctrl+End tells the truth</b> Tony Phillips presses Ctrl+End to see where Excel thinks the data ends and deletes the empty rows and columns beyond it, clears obsolete defined names and broken external links out of Formulas, Name Manager, hunts down volatile functions such as NOW, TODAY, RAND, OFFSET, and INDIRECT, checks Data, Queries and Connections for links nobody uses, and renames a copy of the .xlsx to .zip to look inside xl/media for oversized embedded images; he warns you to back up first, to confirm nothing you delete is referenced by a formula, chart, or macro, and that the zip inspection does not work on binary .xlsb files.",
-      "needs": [
-        "Microsoft Excel",
-        "A backup copy of the workbook",
-        "20 to 30 minutes"
-      ],
-      "time": "20 to 30 minutes"
     }
   ]
 }

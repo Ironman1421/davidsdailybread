@@ -3,6 +3,14 @@
   "editions": [
     {
       "date": "2026-10-07",
+      "edition": "evening",
+      "dateHuman": "Wednesday, October 7, 2026",
+      "file": "editions/2026-10-07-evening.html",
+      "lead": "Vert converts more than 250 file formats in your own browser, free and with no file size limit",
+      "pubDate": "Wed, 07 Oct 2026 17:46:28 -0400"
+    },
+    {
+      "date": "2026-10-07",
       "edition": "morning",
       "dateHuman": "Wednesday, October 7, 2026",
       "file": "editions/2026-10-07-morning.html",
