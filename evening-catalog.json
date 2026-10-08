@@ -2,6 +2,36 @@
   "version": 1,
   "tools": [
     {
+      "date": "2026-10-08",
+      "name": "KDE Connect",
+      "url": "https://kdeconnect.kde.org/",
+      "trend_url": "https://www.androidpolice.com/open-source-apps-so-good-i-gladly-pay-for-them/",
+      "cost": "Free and open source",
+      "kind": "Android, iOS and every desktop",
+      "seen": "Android Police, Oct 8",
+      "blurb": "Moves files, links, clipboard text, notifications and media controls between a phone and a computer, with builds in Google Play, F-Droid, the Microsoft Store, Homebrew and the App Store, and the honest limit is the network: both devices are expected to be on the same one, with OpenVPN offered for public Wi-Fi that blocks them from seeing each other, and the iOS version carries its own README of data disclosures and known limitations."
+    },
+    {
+      "date": "2026-10-08",
+      "name": "Nilesoft Shell",
+      "url": "https://nilesoft.org/",
+      "trend_url": "https://www.makeuseof.com/i-made-the-windows-11-right-click-menu-make-sense-with-one-free-app/",
+      "cost": "Free and open source",
+      "kind": "Windows 7 to 11, portable",
+      "seen": "MakeUseOf, Oct 8",
+      "blurb": "Rebuilds the File Explorer right-click menu so you can hide the entries software has added over the years and put your own commands, sub-menus and icons there instead, running portable with no installation on Windows 7 through 11, and the catch is the configuration: every setting lives in a plain text file called shell.nss, which MakeUseOf's Amir Bohlooli describes as editing code with no graphical interface and no drag-and-drop."
+    },
+    {
+      "date": "2026-10-08",
+      "name": "X-plore File Manager",
+      "url": "https://www.lonelycatgames.com/apps/xplore",
+      "trend_url": "https://www.makeuseof.com/files-by-google-alternative-android/",
+      "cost": "Free, donate for extras",
+      "kind": "Android, dual-pane file manager",
+      "seen": "MakeUseOf, Oct 8",
+      "blurb": "Shows two folder trees side by side on an Android phone so a copy has a visible source and destination, and reaches Google Drive, OneDrive, Dropbox, Box and WebDAV alongside LAN, FTP, SSH and DLNA shares, but the useful extras are gated: the developer puts Wi-Fi sharing, SSH, the disk map and the encrypted Vault behind an in-app donation, and MakeUseOf's Tashreef Shareef reports full-page ads in the free version, on opening the app and while moving between folders, and calls the interface not the prettiest."
+    },
+    {
       "date": "2026-10-07",
       "name": "Vert",
       "url": "https://vert.sh/",
@@ -1770,39 +1800,65 @@
       "kind": "Browser, any device",
       "seen": "MakeUseOf, August 12",
       "blurb": "One browser page that gathers a range of proprietary and open AI models and runs two of them side by side on the same prompt, so you can see which one actually answers your question before paying for any of them, and the catch is printed on the site itself: your conversations are disclosed to the AI providers and may be shared publicly to support AI research, which is why it warns you not to submit personal or sensitive information, while Oluwaseun Bamisile found the free allowance differs sharply by model, roughly five messages on one newer model against about twenty on another before a limit that resets in about an hour, with image and video generation capped at two a day."
-    },
-    {
-      "date": "2026-08-12",
-      "name": "Quetta",
-      "url": "https://www.quetta.net/products/android",
-      "trend_url": "https://www.makeuseof.com/this-private-android-browser-feels-like-chrome-without-the-bloat/",
-      "cost": "Free, no paid tier listed",
-      "kind": "Android, iOS, Windows, macOS",
-      "seen": "MakeUseOf, August 12",
-      "blurb": "A Chromium based browser that blocks ads and trackers by default, installs extensions from the Chrome Web Store and Edge Add-ons on a phone rather than only on a desktop, and saves supported MP4, WebM, and HLS video for offline playback, with reader mode, page translation, and fingerprint protection sitting alongside, and Oluwademilade Afolabi names the two costs plainly: the code is proprietary, so nobody outside the company can audit it the way Firefox can be audited, and the Android build runs on Chromium 148.0.7778.217, a version the company's own release notes date to August 4, which means security patches can reach you later than they reach Chrome."
-    },
-    {
-      "date": "2026-08-12",
-      "name": "KidScreen",
-      "url": "https://kidscreen.app",
-      "trend_url": "https://news.ycombinator.com/item?id=49270881",
-      "cost": "Free, family account needed",
-      "kind": "Web app, approved YouTube",
-      "seen": "Hacker News, 33 points",
-      "blurb": "It gives a child a fixed shelf of YouTube videos a parent has added by hand, with no search box, no recommendations, and no endless scroll, and the makers say plainly that it is free because they are building it so families stay in control, which is also where its limits live: it needs a family account before anyone watches anything, every video on the shelf is one you put there yourself, so the shelf stays interesting only while you keep feeding it, and the site names no supported devices, so treat it as a browser page rather than a television app until it says otherwise. It drew 33 points and 28 comments on Hacker News today."
-    },
-    {
-      "date": "2026-08-11",
-      "name": "Rowboat",
-      "url": "https://github.com/rowboatlabs/rowboat",
-      "trend_url": "https://www.makeuseof.com/open-source-ai-app-what-wanted-claude-cowork-to-be/",
-      "cost": "Free, Apache-2.0",
-      "kind": "Mac, Windows, Linux desktop",
-      "seen": "MakeUseOf, August 10",
-      "blurb": "An AI workspace that keeps its memory on your own disk, indexing email, meetings, and notes into a linked knowledge graph written as plain Markdown files and sitting beside a built-in mail client, notes, browser, and meeting transcription, with downloadable builds for Mac, Windows, and Linux and no Docker to set up, and the honest catch is that it brings no brain of its own: you point it at a local model through Ollama or LM Studio or supply your own paid provider key, and the parts that make it useful, Gmail and Calendar through Google sign-in, voice, and web search, each want their own connection before they work, which MakeUseOf's Mahnoor Faisal also found took setup past the install."
     }
   ],
   "workflows": [
+    {
+      "date": "2026-10-08",
+      "title": "Your router may still be set to a security mode from 2003, and it caps the whole house at 54Mbps",
+      "url": "https://www.makeuseof.com/tkip-router-slow-wifi-speed/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 8",
+      "dek": "<b>Open the router admin page</b> MakeUseOf's Tashreef Shareef signs in at 192.168.0.1 or 192.168.1.1, opens the wireless security settings and moves the mode off WPA with TKIP, a protocol introduced in 2003 that caps a connection at 54Mbps and leaves roughly 20 to 25Mbps once overhead is paid, onto WPA2-AES or WPA3; after saving, reconnecting the devices and running a speed test, a 100Mbps line at their parents' house went from about 22Mbps to roughly 85Mbps, and the write-up names the WMM setting as the other switch worth checking when the numbers still look wrong.",
+      "needs": [
+        "Your router's admin page",
+        "The router login you set up",
+        "A speed test to check the result"
+      ],
+      "time": "About fifteen minutes"
+    },
+    {
+      "date": "2026-10-08",
+      "title": "Three free storage tiers and a cleanup habit replace the cloud subscription you keep renewing",
+      "url": "https://www.androidpolice.com/i-havent-paid-a-cent-for-cloud-storage-in-years-heres-my-setup/",
+      "trend_url": "https://www.androidpolice.com/",
+      "seen": "Android Police front, Oct 8",
+      "dek": "<b>Spread the files, not the money</b> Android Police's Anu Joy keeps documents and mail inside Google's shared 15GB, parks the PC files in OneDrive's 5GB and sends photos to Amazon Photos, which holds photos without a limit for Prime members alongside 5GB for video and other files, then names MEGA's encrypted 20GB, Proton Drive's 5GB and pCloud's up-to-10GB as the next pools to add; the honest part is that it only holds together with maintenance, emptying trash, sorting by file size and watching each service's usage, so the subscription is paid off in habit rather than cash.",
+      "needs": [
+        "Free accounts on two or three services",
+        "An hour to sort what goes where",
+        "A monthly cleanup reminder"
+      ],
+      "time": "An hour, then monthly"
+    },
+    {
+      "date": "2026-10-08",
+      "title": "Quick Share sends a file from Android to a Windows PC or a supported iPhone with no internet",
+      "url": "https://www.makeuseof.com/i-use-this-android-feature-every-day/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 8",
+      "dek": "<b>Share, then pick the device</b> MakeUseOf's Varun Krishan long-presses a file, taps Share, chooses Quick Share and waits for the other device to accept, with Bluetooth handling the discovery before a direct Wi-Fi link carries the transfer and mobile data waiting as a fallback if that link drops; the receiving device needs Bluetooth on and its screen unlocked, a QR code covers anyone who is not in your contacts, two devices on the same Google Account can accept automatically, and the feature now reaches Windows PCs through a downloadable app and AirDrop-compatible iPhones and iPads as well as other Android phones.",
+      "needs": [
+        "Bluetooth on both devices",
+        "The Quick Share app on Windows",
+        "Both screens unlocked to accept"
+      ],
+      "time": "Under five minutes"
+    },
+    {
+      "date": "2026-10-08",
+      "title": "Six Android shortcuts put the hotspot, flashlight, camera and a screenshot one gesture away",
+      "url": "https://www.makeuseof.com/6-android-shortcuts-to-avoid-opening-apps/",
+      "trend_url": "https://www.makeuseof.com/",
+      "seen": "MakeUseOf front, Oct 8",
+      "dek": "<b>Edit the quick tiles first</b> MakeUseOf's Brandon Miniman adds a Hotspot tile from the notification shade's edit screen under Connectivity, puts the flashlight on the lock screen through Settings, Display and Touch, Lock screen, Shortcuts, sets a double press of the power button to open the camera or Google Wallet under Settings, System, Gestures, swipes down with two fingers to land straight on the quick tiles, switches on Quick Tap so a tap on the back of the phone takes a screenshot one-handed, and maps a long press of the power button to the digital assistant; the one thing to expect is that the menu names move around, since a Samsung phone hides the lock screen shortcut under Wallpaper and style instead.",
+      "needs": [
+        "An Android phone",
+        "The Settings app",
+        "Samsung menu names differ"
+      ],
+      "time": "About ten minutes"
+    },
     {
       "date": "2026-10-07",
       "title": "Obsidian keystrokes retire the mouse, and Ctrl+O alone will find any note you have written",
@@ -4275,63 +4331,6 @@
         "Google Photos signed in"
       ],
       "time": "About 20 minutes"
-    },
-    {
-      "date": "2026-08-22",
-      "title": "Four free DNS services, each better at one job than Google's or Cloudflare's",
-      "url": "https://www.makeuseof.com/free-dns-servers-better-than-google-cloudflare/",
-      "trend_url": "https://www.makeuseof.com/",
-      "seen": "MakeUseOf front page, Aug 22",
-      "dek": "<b>Pick by the problem</b> Pankil Shah lines up AdGuard DNS for stopping ads and trackers at the lookup itself, Quad9 for malware and phishing, screened against threat intelligence from more than 20 cybersecurity organizations by a Swiss nonprofit that promises to collect no user data, CleanBrowsing for households that want adult content blocked and SafeSearch forced on, and Mullvad's dns.mullvad.net, a strict no-logs resolver offered in adblock, base, extended, family, and all-in-one variants; he is straight about the tradeoffs, since AdGuard cannot touch ads served from the same domain as the page and needs its paid app for ads inside other apps, and CleanBrowsing's filtering is blunt enough to catch legitimate sites while whitelisting stays on the paid plans.",
-      "needs": [
-        "Your router or device DNS settings",
-        "The provider's DNS addresses",
-        "One device to test on first"
-      ],
-      "time": "20 minutes"
-    },
-    {
-      "date": "2026-08-22",
-      "title": "Five Android safety settings that ask for help when you cannot",
-      "url": "https://www.androidauthority.com/best-android-safety-features-2026-3699788/",
-      "trend_url": "https://www.androidauthority.com/",
-      "seen": "Android Authority front page",
-      "dek": "<b>Set up the check-in first</b> Roydon Cerejo starts in Google's Personal Safety app, where Safety Check asks you to confirm you are fine after a set time and, if you never answer, tells your emergency contacts your last known location, and can also alert them when the battery falls below 15 percent; from there he turns on Emergency SOS, which triggers on five or more rapid presses of the power button on Android 13 and later and can record a clip to the cloud, Car Crash Detection on a Pixel 4a or newer, Digital Wellbeing's Heads Up nudge for people who scroll while walking, and screen time reminders that appear after 15 to 20 minutes in one app; he does not oversell any of it, calling Heads Up wildly inconsistent across several phones and noting that Safety Check has no home screen widget.",
-      "needs": [
-        "An Android phone",
-        "Google's Personal Safety app",
-        "Digital Wellbeing settings"
-      ],
-      "time": "20 minutes"
-    },
-    {
-      "date": "2026-08-22",
-      "title": "Turn a webcam and two desk lamps into a document scanner that makes real PDFs",
-      "url": "https://www.howtogeek.com/this-open-source-app-turned-my-webcam-into-a-free-document-scanner/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 22",
-      "dek": "<b>Square the camera first</b> Jorge A. Aguilar mounts a webcam, 4K if you have one and 1080p if you do not, on a copy stand, a heavy desk clamp, or a rigid mini tripod, sets the lens at 90 degrees and parallel to the page, locks manual focus where the camera allows it, and lights the paper with two lamps so one side is not brighter than the other, then lets Camscan, a free MIT-licensed app with Windows and Linux builds, find the page edges in the live video, reorder, rotate, or drop pages, and export the batch as one PDF; he says plainly that a webcam scanner is not going to match a flatbed on every job, and that the more complicated scans, photographs and fine print, are not going to look amazing.",
-      "needs": [
-        "A webcam, 4K preferred",
-        "A copy stand, clamp, or tripod",
-        "Two desk lamps",
-        "Camscan for Windows or Linux"
-      ],
-      "time": "30 minutes to set up"
-    },
-    {
-      "date": "2026-08-21",
-      "title": "Six router changes that fix slow Wi-Fi before you spend anything on new hardware",
-      "url": "https://www.howtogeek.com/dont-replace-your-slow-wi-fi-yettry-these-5-minute-tricks-first/",
-      "trend_url": "https://www.howtogeek.com/",
-      "seen": "How-To Geek front page, Aug 21",
-      "dek": "<b>Placement first, then bands</b> Monica J. White moves the router to a central, elevated spot outside a closed cabinet and tests the weak rooms before and after, assigns undemanding devices to 2.4GHz and speed-sensitive ones to 5GHz instead of trusting automatic band steering, narrows the 2.4GHz channel width to 20MHz for stability, splits the two bands into separate network names rather than one Smart Connect SSID, and turns off DFS channels or pins 5GHz to channels 36 to 48 or 149 to 165 for homes near an airport, coastline, or weather radar; the piece warns never to disable 2.4GHz entirely, since some devices need its longer range, and notes that some ISP-supplied routers will not allow a firmware update at all.",
-      "needs": [
-        "Your router's admin page",
-        "The 2.4GHz and 5GHz settings",
-        "One room that drops the signal"
-      ],
-      "time": "5 minutes per change"
     }
   ]
 }
