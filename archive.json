@@ -2,6 +2,14 @@
   "site": "https://davidsdailybread.com",
   "editions": [
     {
+      "date": "2026-10-08",
+      "edition": "morning",
+      "dateHuman": "Thursday, October 8, 2026",
+      "file": "editions/2026-10-08-morning.html",
+      "lead": "Samsung's quarterly operating profit tops 100 trillion won for the first time on AI memory demand",
+      "pubDate": "Thu, 08 Oct 2026 07:51:24 -0400"
+    },
+    {
       "date": "2026-10-07",
       "edition": "evening",
       "dateHuman": "Wednesday, October 7, 2026",
