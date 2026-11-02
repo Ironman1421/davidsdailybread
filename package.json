@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "deno": "2.9.4",
-    "postgres": "3.4.9",
+    "postgres": "4.0.0",
     "supabase": "2.111.0"
   }
 }
